@@ -2,7 +2,7 @@
 # The resource steward's delete-without-asking sweep, run ON a node as root (`sudo nice -n 19 ionice -c3 node-sweep.sh`).
 # Usage: node-sweep.sh [--dry-run] [--src-age-h H]. Per the policy in lanes/resource-steward/*-report-resource-steward.md:
 #  - /workspace/research/src/<sha> trees whose directory is older than H h (default 24), unless something live names the sha
-#    (REFS_PY: a request not yet finished whose runner is alive or not yet launched, a Kueue workload or pod not finished, a
+#    (REFS_PY: a request not yet finished or refused whose runner is alive or not yet launched, a Kueue workload or pod not finished, a
 #    fill job queued or running, any process's cwd, root, open files, maps, argv or environment), and unless the tree holds
 #    files outside its commit (EXTRA_PY), which may be a run's output. The trees that pass are renamed into src/.trash/ (one
 #    rename each, so the launcher never sees a half-deleted READY tree), scanned once more together, put back if anything
@@ -25,7 +25,7 @@ age_h() { echo $(( (now - $(stat -c %Y "$1")) / 3600 )); }
 REFS_PY='
 import glob, json, os, re, subprocess, sys
 pats = open(sys.argv[1]).read().split(); R = "/workspace/research"; me = {str(os.getpid()), str(os.getppid())}
-TERMINAL = {"done", "failed", "cancelled", "exited", "timeout", "timed_out"}
+TERMINAL = {"done", "failed", "cancelled", "exited", "timeout", "timed_out", "refused"}
 # a path names itself or what is under it (pytest-1 is not pytest-12); a sha names any path that carries it
 rx = {p: re.compile(re.escape(p) + r"(?![^/\s])") for p in pats if p.startswith("/")}
 def hit(text, ref):
@@ -39,7 +39,8 @@ def read(path):
     except Exception: return ""
 for q in sorted(glob.glob(R + "/requests/r2*")):
     rid = os.path.basename(q); run = f"{R}/runs/{rid}"
-    if load(run + "/status.json").get("state", "") in TERMINAL: continue
+    # a refused request never runs: relaunching its id returns the same refusal
+    if load(run + "/status.json").get("state", "") in TERMINAL or os.path.exists(run + "/refused.json"): continue
     if os.path.exists(run + "/launch.json"):
         pid = str(load(run + "/launch.json").get("runner_pid") or "")
         if not pid or not os.path.exists("/proc/" + pid): continue

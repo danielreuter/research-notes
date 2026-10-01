@@ -103,6 +103,9 @@ resource, what was deleted, what waits on an owner, and trends (from each node's
   `lean-audit-scratch-*`), keeps anything something live names, and logs every line to `~/resource-steward/deletions.log`. A
   tree is renamed into `src/.trash/` before it is deleted and put back if a scan after the rename finds a reference, so the
   launcher never sees a half-deleted ready tree. `--dry-run` lists without deleting. Exit 1 means something was deleted.
+  Each node writes every line to its own `~/resource-steward/node-sweep.log` before printing it, and finishes when its ssh
+  drops, so that log is the record of a sweep whose ssh dropped. `sweep.sh` skips a node where a sweep is still running. A
+  refused request (`runs/<id>/refused.json`) doesn't hold its tree: it never runs.
 - It reads statvfs, `/proc/meminfo`, the ramlock dir, Kueue (node 1) or the fill queue (node 2), Prometheus (node 1) or the
   sampler JSONL (node 2), and the run dirs. It takes 0.1–0.8 s at `nice 19`, and never deletes, stops a process or touches NVML.
 - Exit codes: 0 means all clear, 1 a breach (one line each), 2 a failed source (never read as all clear).
@@ -170,6 +173,29 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     | `fd47cdd1b8e2a012a30bd9dcf7ae59642dcdafb1` | 4,425 | 78 | 24 h |
   - node 2, `/tmp/pytest-of-research/pytest-104`, 258 files, 12 MB, 8 h. Kept `pytest-120` and `pytest-165`, both untouched
     for 2 h but held open by a live `python`.
+- 06:25–08:00Z (11:25 PM–1:00 AM PDT), the first 6 h sweep (policy: Daniel's 6 h ruling; source trees over 6 h that nothing
+  live names and that hold nothing outside their commit), in two runs: **481 source trees, 5.73M files, 281 GB** (MB from
+  `du -m`), plus node 1's `/tmp/pytest-of-research/pytest-945` (613 files, 1,557 MB, untouched 4 h). The list of every
+  tree deleted or kept, with its reason, is `art:0e02599e4fcd2a49ee1f4b6bdc2591cbc67be3642c345fd9f4a21054833ee099`.
+
+  | | trees | files | MB |
+  |---|---:|---:|---:|
+  | node 1, run 1 (from 06:25Z), printed | 37 | 866,247 | 49,469 |
+  | node 1, run 1, after its ssh dropped (sizes from the 06:20Z dry run) | 24 | 297,166 | 13,667 |
+  | node 1, run 2 (07:56–08:00Z) | 136 | 2,821,372 | 156,675 |
+  | node 2, run 1 | 283 | 1,738,283 | 60,892 |
+  | node 2, run 2 | 1 | 4,649 | 261 |
+  | **total** | **481** | **5,727,717** | **280,964** |
+
+  - Run 1's ssh to node 1 dropped ("server not responding") during node 1's load spike (§6). The node went on deleting
+    without printing, 24 trees in sha order from `34c1f5ec…` to `51318a6e…`, until a write to the closed pipe stopped it
+    before the check scratch; `src/.trash` was empty. They are found as the dry run's candidates that are neither printed
+    nor still on disk.
+  - After: node 1 has 62 trees (38 GB), `/workspace` at 35% space and 37% inodes (47% before run 2); node 2 has 45 trees,
+    `/workspace` at 38% and 12%.
+  - Kept: the 12 trees of §5 that hold files outside their commit; trees a live process, fill job or open request names
+    (node 2: seven); node 1's `16b6f334`, `3604bf9e` and `6043b4b6`, named only by refused requests, which the scan now
+    ignores (they go at the 12:30Z sweep); node 2's `pytest-120` and `pytest-165` (held open).
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -306,3 +332,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     Commits (n048-2, n049-2, m001-2, cg09; 48 GiB each, 0% GPU, about 100% of one CPU). Like GPU 7 at 07:20Z, they were in
     a CPU phase with their leased GPU loaded. GPUs 0–3 were free and there were no waiters, so nothing was asked; the
     pattern goes in the 8 AM PDT summary.
+- 07:49–08:10Z (12:49–1:10 AM PDT) finished the first 6 h sweep (§4: 481 trees, 281 GB). Run 1's ssh to node 1 had dropped
+  during a load spike on node 1: load5 went from about 92 at 07:36Z to 473 at 07:51Z on 128 cores, with CPU pressure
+  ("some") at 36–43% and I/O pressure low. It came from `lean` (user research) and `python` (user ubuntu) processes
+  outside Kubernetes, not from the sweep, and was down to load1 163 by 07:59Z. `node-sweep.sh` now logs on the node and
+  outlives a dropped ssh, and `sweep.sh` skips a node already sweeping (§2). Slack: one line in #agent-coordination
+  (over 50 GB).

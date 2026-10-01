@@ -42,7 +42,7 @@ fi
 
 - **Direct mode:** `research notes checkpoint <lane> ...` commits your lane directory and pushes it at once (fetch,
   rebase, bounded retries; it refuses a push that contains key material). `research notes sync --path lanes/<lane>`
-  pushes anything else you wrote, such as handoffs to another lane's directory. Check the last line of each command's
+  pushes anything else you wrote in the notes. Check the last line of each command's
   output: `notes sync: committed <sha> (...); pushed`. If you see `FAILED`, the local commit is kept. Fix the cause and
   run `research notes sync` again. `403 ... denied to cursor[bot]` means the remote URL lost its `notes@` and the global
   rewrite took over, so re-run the block. Never paste the token into a URL, argv or file.
@@ -72,9 +72,7 @@ fi
     `research notes checkpoint <lane> open "..."`, which creates or updates your report there. The CLI works on this
     plain directory, with no git needed. Keep the notes format the CLI writes, and don't add or edit frontmatter in these
     files.
-  - Handoffs to another lane or to the coordinator: `$RESEARCH_NOTES/lanes/<target>/<UTC stamp>-handoff-from-<your lane>.md`,
-    with the usual `lane / kind: handoff / from / created` header. That exact filename pattern is what gets mirrored into
-    the notes, so don't use any other.
+  - No handoffs: a message to another lane or the coordinator goes to your coordinator, never as a note (contract §5).
   - Scripts under your own `tools/`. Evidence (logs, JSON, plots, run outputs) goes to the evidence store only
     (`research data put --kind evidence/v1 ... --preserve`, or `research run ... --custody-r2`), cited by `art:` id:
     `research notes sync` leaves `lanes/*/evidence/` out of the notes.
@@ -82,7 +80,7 @@ fi
   `git -C $NOTES_CLONE pull --rebase --autostash`, and checkpoints and `research notes sync` push them. Still never run
   `notes push` or `notes snapshot`.
 - **Fallback mode:** **don't** run `research notes sync`, `notes push` or `notes snapshot`. The coordinator mirrors your
-  directory and your handoffs into the notes and publishes them. Your inbox (`research notes inbox <lane>`) shows the coordinator's handoffs
+  directory into the notes and publishes it. Your inbox (`research notes inbox <lane>`) shows the machines' notices
   once they're mirrored in.
 - **Cadence:** checkpoint at least every 12 minutes while working. The mirror adds up to about 5 minutes before the
   steward sees it.
@@ -95,8 +93,8 @@ fi
 - If your worktree is on another branch (your agent's own, say), bind it once, or `research notes push` and
   `checkpoint final --require-pushed` refuse with "no local branch lane/<l>":
   `research notes bind <lane> --branch <current branch> --worktree <dir> --pod none`.
-- Merges into `main` belong to the research coordinator. Send a merge-ready handoff (tip, tests, negatives, behaviour
-  changes) to `lanes/coordinator/`.
+- Merges into `main` belong to the research coordinator. Send your coordinator a merge-ready message (tip, tests, negatives, behaviour
+  changes).
 - Heavy builds and measurements run on pods, not on your VM, unless the brief says the VM is fine for them.
 
 ## 4. Pods
@@ -115,8 +113,8 @@ fi
 The steward's reaper terminates a FINAL lane's pods, and it only sees your checkpoints after the coordinator mirrors them
 (up to about 7 minutes, longer if the laptop is down). red-team-flock lost four pods this way at 12:30Z.
 1. Your **first** action: `research notes checkpoint <lane> open "reopened for <why>: NOT final"`.
-2. Create **no pod** until the coordinator confirms it has mirrored that checkpoint. Send a handoff to `lanes/coordinator/`
-   titled "REOPENED <lane>: confirm before pods", then check your inbox. If you get no answer within 15 minutes, create
+2. Create **no pod** until the coordinator confirms it has mirrored that checkpoint. Message your coordinator
+   "REOPENED <lane>: confirm before pods". If you get no answer within 15 minutes, create
    the pod, and name it in a checkpoint at once.
 3. If a pod vanishes minutes after you create it, stop creating pods and tell the coordinator.
 
@@ -148,7 +146,7 @@ Don't poll in a loop or sleep in a turn. A job under ~2 minutes may still be awa
   before you sleep. The coordinator's sweep is only the backstop.
 - **Stop a run by process group:** `kill -TERM -<pgid>` (the pgid is in the run's `status.json`), and a queue driver by its
   own pid. Never use `pkill -f`: it matches the runner's argv.
-- **Check that a handoff exists after writing it:** `ls` it and name it in your next checkpoint. The store mount answers
+- **Check that a note exists after writing it:** `ls` it and name it in your next checkpoint. The store mount answers
   EAGAIN, sometimes after the write landed.
 - **No cron timers.** Cursor timers are `delaySeconds` from UTC only. Recurring UTC jobs, such as renders, belong on the
   steward.

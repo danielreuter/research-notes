@@ -7,7 +7,7 @@ dated history, organized by lifetime and owner:
 |---|---|---|
 | `kb/<topic>.md` | living docs: the lane contract, runbooks, measured facts, decisions | anyone; correct in place, cite sources |
 | `lanes/<lane>/` | a lane's report (append-only checkpoints + FINAL), `tools/`, `binding.json`; its evidence is in the evidence store | that lane (the coordinator when it is dead) |
-| `lanes/<lane>/*handoff*.md` | messages to that lane; `research notes inbox` / `checkpoint` show the unread ones | the sender |
+| `lanes/<lane>/*handoff*.md` | the machines' notices to that lane (merge queue, steward) and agents' handoffs from before 2026-10-01; `research notes inbox` / `checkpoint` show the unread ones. Agents message each other on Slack, never here (contract §5) | the sender |
 | `lanes/coordinator/` | briefs (one per campaign or wave), coordinator state, messages to the coordinator | coordinator / senders |
 
 Conventions: one topic per file, kebab-case names (`live-verifier.md`, `pods-4090.md`); a fact carries its source

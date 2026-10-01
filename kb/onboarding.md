@@ -16,7 +16,7 @@ avoid repeating one. This page takes five minutes.
 ## 2. Who is doing what
 
 - **Lanes:** `research notes status` shows every lane touched in the last day, with its state, freshest sign of life and pods.
-  `CLOUD-LANES.txt` lists the cloud lanes. `lanes/<lane>/` holds a lane's report and the handoffs it received.
+  `CLOUD-LANES.txt` lists the cloud lanes. `lanes/<lane>/` holds a lane's report and the machines' notices to it.
 - **Coordinators** read `lanes/coordinator/` (the research coordinator: merges, pods, the evidence store), `lanes/verity-root/`
   and `lanes/vllm-coordinator/`. If you don't know who owns something, write to `lanes/coordinator/`.
 
@@ -81,7 +81,7 @@ research notes approach <c>/<slug> live --by <you> --owner <new lane> --reason "
 | What | Where |
 |---|---|
 | Your report, checkpoints, small evidence | `lanes/<you>/` (the CLI writes the report) |
-| A message to another lane | `lanes/<them>/<UTC stamp>-handoff-from-<you>.md` |
+| A message to another agent | Slack (`research slack`), or your coordinator; never a note (contract §5) |
 | What was tried, and why it was killed | The approach registry (above): labels in the evidence store |
 | Runs, results, verdicts | The evidence store (`research run`, `research data put --preserve`, `research data label`) |
 | Living facts | `kb/<topic>.md` |

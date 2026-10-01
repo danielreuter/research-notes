@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 2.7 (2026-09-30T20:45Z: §5a times people read are Pacific with the zone shown, converted in your head; machine timestamps stay UTC); 2.6 (2026-09-30T18:00Z: §3b Slack: handles, channels, threads; workers subscribe only to their own threads); 2.5 (2026-09-29T04:00Z: §6, §8, §C evidence and renders go to the evidence store, never the notes; `research notes sync` leaves renders/, campaigns/*/assets/ and lanes/*/evidence/ out); 2.4 (2026-09-27T11:10Z: §5b code moves only through verity branches; bundles go in the Project store's artifacts/, never notes or internal/); 2.3 (2026-09-27T10:30Z: §5 a merge handoff that changes a pinned statement or definition names its statement reviewer); 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
+version: 2.8 (2026-10-01T17:00Z: §3, §3a, §5 notes are records, never messages: handoffs, orders and asks go on Slack or as Cursor follow-ups (Daniel, 1 Oct 9:50 AM PDT)); 2.7 (2026-09-30T20:45Z: §5a times people read are Pacific with the zone shown, converted in your head; machine timestamps stay UTC); 2.6 (2026-09-30T18:00Z: §3b Slack: handles, channels, threads; workers subscribe only to their own threads); 2.5 (2026-09-29T04:00Z: §6, §8, §C evidence and renders go to the evidence store, never the notes; `research notes sync` leaves renders/, campaigns/*/assets/ and lanes/*/evidence/ out); 2.4 (2026-09-27T11:10Z: §5b code moves only through verity branches; bundles go in the Project store's artifacts/, never notes or internal/); 2.3 (2026-09-27T10:30Z: §5 a merge handoff that changes a pinned statement or definition names its statement reviewer); 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
 owner: coordinator (edit in place; bump the version line)
 ---
 
@@ -34,8 +34,9 @@ prefix and any per-lane wrapper.
 - Report: `~/.research/notes/lanes/<you>/<YYYYMMDDTHHMMZ>-report-<you>.md`.
 - `research notes checkpoint <you> open "<done, next, art: ids>"` at least every 20 minutes and after every result. The
   coordinator's watcher flags a lane STALE after 30 minutes with no sign of life (checkpoint, commit, worktree edit, pod work).
-- `checkpoint` prints your INBOX: handoffs to you, or to the lane you took over, since you were last shown them. Act on each
-  one, or say in your next checkpoint why not. At startup, run `research notes inbox <you>`.
+- `checkpoint` prints your INBOX: the machines' notices (merge-queue refusals, steward kills) to you, or to the lane you took
+  over, since you were last shown them, and any older agent handoffs. Act on each one, or say in your next checkpoint why
+  not. At startup, run `research notes inbox <you>`.
 - States: `open`, `blocked` (say on what), `final`.
 - End a turn only after writing FINAL (§9), or while a command you started is still running and will notify you when it
   ends (a background shell, or a `research run` you are polling). Nothing else wakes you: a turn ended "to wait for
@@ -54,7 +55,7 @@ them). Keep it to what someone must act on:
   else meanwhile.
 - Checkpoints: one line, at most ~300 characters (done, next, `art:` ids). Every 20 minutes or per result, not more often
   than every 5 minutes.
-- Handoffs to the coordinator only when you are blocked, need a decision, or a result changes another lane's plan.
+- Message your coordinator only when you are blocked, need a decision, or a result changes another lane's plan (§5).
   Everything else goes in checkpoints and the report.
 - Final response: tip and outcome first, at most ~15 lines, plus one table if you measured cells.
 
@@ -83,11 +84,14 @@ Workspace computeverification.slack.com. The procedure is the verity skill `.age
 Your report and `git log lane/<you>` are the source of truth: continue from them. Uncommitted edits in your worktree are
 yours, not another instance's.
 
-## 5. Handoffs
-- To reach another lane, write `~/.research/notes/lanes/<recipient>/<YYYYMMDDTHHMMZ>-handoff-from-<you>.md`. Its first heading
-  is a one-line summary; that is what the recipient's inbox shows. Owner unknown: `lanes/coordinator/`.
-- If the recipient is already final, write to the coordinator instead.
-- The coordinator's instructions to you arrive only as handoffs; brief appendices are broadcasts.
+## 5. Messages (Daniel, 2026-10-01)
+- Notes are records (reports, checkpoints, findings, drafts, friction), never a channel: no handoff, order or ask goes
+  through a note. A message goes on Slack (§3b), or between a coordinator and the workers it launched as a Cursor
+  follow-up (the worker's reply or report back). A worker reaches any other agent through its coordinator until `@<lane>`
+  routing lands (the comms lane announces it).
+- Long content goes in a file, PR or the evidence store, and the message links to it.
+- If the recipient is already final, message its coordinator instead.
+- The coordinator's instructions reach you as follow-ups or on Slack; brief appendices are broadcasts.
 
 ## 5b. The notes repo is public (2026-09-27; corrected 09:15Z)
 - `danielreuter/research-notes` is public. Nothing in notes may carry a secret (token, key, credential, private URL) or a
@@ -104,15 +108,15 @@ yours, not another instance's.
   backstop, not a licence.
 - **Code moves only through verity branches** (2026-09-27). Never put git data of any repository in notes or anywhere under
   the store's `internal/`: no `.bundle`, pack, pack index or `.git` directory, and no copied source trees. When your VM can't push,
-  write the bundle to the Project store's top-level `artifacts/` (not mirrored) and name it in a handoff to the coordinator, who
+  write the bundle to the Project store's top-level `artifacts/` (not mirrored) and name it in a message to the coordinator, who
   pushes it to the verity branch. Why: 14 bundles of the private verity repo reached the public notes repo, enough to rebuild
   154 verity files byte for byte. The notes repo's `.gitignore`, a pre-push hook on the steward's clone and the mirror all refuse
   git data now; those are backstops.
-- If something sensitive is already in notes, tell the coordinator in `lanes/coordinator/` with a pointer, not a copy.
+- If something sensitive is already in notes, tell the coordinator (a message, §5) with a pointer, not a copy.
 
 - **A change to a pinned statement or definition needs a named statement reviewer** (2026-09-27). If your PR changes the
   statement of a pinned theorem, or a definition a pinned statement reads (anything `tools/lean/audit.py`'s pins would flag,
-  or anything in a check file's list), its merge handoff names the reviewer who read the new statement, and their verdict.
+  or anything in a check file's list), its PR description names the reviewer who read the new statement, and their verdict.
   Without one, the coordinator doesn't take it into a train. Why: #118 made `merkle_binding` vacuous for the unsalted schemes
   by redefining `MerkleScheme.Collision`. That is a definitional weakening with no new axiom, so the axiom audit passed it; only
   pins and a statement review catch it.
@@ -165,7 +169,7 @@ Red-team, fetch --all, reverify and tests over ~1 GB run on your pod.
 
 ## 9. FINAL
 - `research notes checkpoint <you> final "<one line>"` writes the line, then runs the finish checks: every `art:` id the
-  report cites is preserved, no pod of yours is still running, the worktree is clean at the branch tip, and every handoff
+  report cites is preserved, no pod of yours is still running, the worktree is clean at the branch tip, and every inbox item
   you received is named in the report. It exits 3 if something is left: fix it or say why not, then rerun.
 - Then a `## FINAL` section in the report that opens with:
 
@@ -191,7 +195,7 @@ file over 1 MB are not committed. Put those in the store (`research data put ...
 
 ## C. Coordinator: relaunching a dead lane
 Merge lanes from origin (`git fetch origin lane/<x>`, merge origin/lane/<x>), never from local branches. Never edit a
-lane's STATE.md; write a handoff file into its lane directory instead.
+lane's STATE.md; message the lane instead (§5).
 
 Save what the dead lane would lose, mark it superseded, and bind the successor to the same worktree, branch and pod:
 

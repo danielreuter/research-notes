@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT none (09:15Z) [open] 2:16 AM PDT: 2:05 check sent. Goal 1 all 16 cells clean of both named flags (fold+lincheck granted, labels on art:90b53162/art:f865ea78, lanes told to drop); goal 2 82.8 s, owner re-pinged; goal 3 #638 waits C6 after train 1. Ruled Q_word v2 (recompute across units reported, not refused); proofs-ir builds, red-team-proofs-554 reviews. Inbox: Q3b GRANT acted on; n2-hill FP4 node-2-only accepted.
 CHECKPOINT cc21a7d94 (08:33Z) [open] 1:32 AM PDT watch: node 2 Commits cleared (GPU 3 only busy), 4 staged points can start; node 1 provers CPU 48/GPU 1; IR + protocols-merge checks running; offset rule (/0.95) out; waiting: owner yes on session preflight, infra 92-123, Q3, main-stage check
 CHECKPOINT cc21a7d94 (08:27Z) [open] 1:28 AM PDT: #554 Q1 GRANT w/ conditions (labels on pr:554@8a0b172), Q2 tile OBJECT (cost, off curve; Daniel's morning list); Q3 (verifier fold + structured lincheck) asked; flags narrowed in both hill lanes; FP step-2 K=4096/2048 moved to node 2; n2-hill holding 6 node-2 copies + running main full-K stage check; steward tree 9b88cb01 ok'd
 CHECKPOINT 6d3d020d (08:04Z) [open] 1:03 AM PDT: session-preflight K=2048 spec posted for owner's yes (expected 44.7 s/point); red-team-flock-3 and red-team-proofs-554 both on #554; FP E4M3 K=4096 step 1 -36% (flagged by a 07:55Z vLLM pod on 176-191, forwarded to infra); IR check running

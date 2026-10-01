@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (07:09Z) [open] Correction: the FP4 restage verdict is note:20261001T0708Z-reply-from-d545bc2a-fp4-restage-go (not 0715Z). GO on 2 conditions: D-24 pair rule per window, and M5's full replay check.
 CHECKPOINT none (07:08Z) [open] 07:15Z FP4 restage (art:b0b06697): GO on 2 conditions, D-24 pair rule per window and M5's full replay check (note:20261001T0715Z-reply-from-d545bc2a-fp4-restage-go). M3b landed at 11:46 PM PDT.
 CHECKPOINT none (06:42Z) [open] 06:43Z M3a landed (663 pins, me as statement reviewer of the 27; bc-dd9ede96 0637Z). M3b lands on r20261001-055859-b6e8 (~11:50 PM PDT). FP4 restage pending. Queued: red-team the pouw-design lane's fresh design (overnight order 0640Z, item 4).
 CHECKPOINT none (06:31Z) [open] 06:31Z poll: nothing new for me; M3b's check and the FP4 restage still pending.

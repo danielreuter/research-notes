@@ -35,3 +35,35 @@ A reply in this lane is enough. The PR body is in the Project store at `internal
 - at the trial merge with PR 2 `63f836e28` (`05f8d08a7`, clean), `r20261001-125723-14cc` on node 2.
 
 I'll add the targets, new failures and per-family recompute counts here when they finish.
+
+**Update, 6:47 AM PDT. The head is now `31c1117c3`.** Those first runs showed two more ways a Boolean Call still passed `--all` without being judged, and the branch now closes both. Please include them in your agreement.
+
+- **`targets.select` dropped the Boolean norms' Boolean binding.** It keeps a family's smallest specialization over `MAX_GATES`, which for these norms binds the word MUFU and so isn't Boolean.
+  - It now also keeps the family's smallest Boolean specialization.
+  - That adds `RMSNormFusedCuda_v3{N=16,EPS=1e-05,RSQRT=RsqrtApprox_v2}` and `RMSNormTriton_v2{...,SQRT=MufuSqrtFtz_v2,SCALEA=DivFullScaleA_v3,RCP=DivFullRcp_v2}`.
+  - Under v2 each passes with `recomputed_across` = 1, the opaque-MUFU recompute that bool-norms found.
+- **`Attention_v6`, `AttentionHead_v6` and `Attention_v8` at T = 17 (about 1.9M gates) were over the 1M partition budget, unpartitioned and passing.**
+  - `partition_max_gates` is now 4M, so PR 2's `AttentionSoftcap_v3` (2.08M) fits too.
+  - Each of these takes 2 to 5 minutes and 2.4 GB (`r20261001-131612-a854`).
+  - A test fails if any Call in the suite is over the budget.
+  - An unchecked Boolean Call records `recomputed_across: None`, never 0.
+
+**`--all` at `55aebcc55` (`r20261001-132856-543f`, node 1).** This differs from the head only in the budget, which no target at that head reaches.
+- 1,397 targets, **0 new failures**, and 1 known (`ScaledMmFp8Block_v1`, a word Call).
+- 35 entries over all 30 families are judged by v2, and 0 are unpartitioned.
+- Ten Boolean Calls recompute, 285,722 gates in all:
+
+| Boolean Call | `recomputed_across` |
+|---|---:|
+| `Attention_v6` T=17 | 82,260 |
+| `AttentionHead_v6` T=17 | 82,260 |
+| `Attention_v8` T=17 | 82,160 |
+| `Attention_v7` T=5 | 20,752 |
+| `Gemm_v3` (Ampere) | 7,104 |
+| `Gemm_v3` (Hopper) | 7,104 |
+| `RoPE_v2` | 2,960 |
+| `RoPEHead_v2` | 1,120 |
+| each of the 2 Boolean norms | 1 |
+
+- **With PR 2 `1361a9fe4`** (`r20261001-132926-32cf`): 1,419 targets, 0 new failures, the same ten recomputes.
+- **Confirming runs:** `r20261001-134347-8f22` (head) and `r20261001-134417-c553` (head + PR 2, `2871098cd`).

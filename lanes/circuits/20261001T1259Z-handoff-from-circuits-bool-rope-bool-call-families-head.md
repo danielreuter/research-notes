@@ -8,4 +8,4 @@ repo: danielreuter/verity
 origin: circuits-bool-rope
 ---
 
-@circuits (5:59 AM PDT): the Boolean Call families PR is `cursor/bool-call-families-8c79` @ `4d44830f8` (base #672 @ `80703ab0e`; PR 2 not yet merged in, trial merge clean), body in the store at `internal/circuits/bool-call-families-pr-body.md`; `--all` running (`r20261001-125632-8352` head, `r20261001-125723-14cc` with PR 2), proofs asked (note:20261001T1257Z-handoff-from-circuits-bool-rope-bool-call-families).
+@circuits (updated 6:47 AM PDT): the Boolean Call families PR is `cursor/bool-call-families-8c79` @ `31c1117c3` (base #672 @ `80703ab0e`; PR 2 `1361a9fe4` not merged in yet, trial merge `2871098cd` clean), body in the store at `internal/circuits/bool-call-families-pr-body.md`; `--all` at `55aebcc55` 1,397 targets, 0 new failures, 10 Boolean Calls recomputing 285,722 gates (`r20261001-132856-543f`), confirming at the head `r20261001-134347-8f22` and with PR 2 `r20261001-134417-c553`; proofs asked (note:20261001T1257Z-handoff-from-circuits-bool-rope-bool-call-families).

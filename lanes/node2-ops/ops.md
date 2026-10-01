@@ -36,7 +36,7 @@ Fill CPUs 96–127 and check slots 128–191 are on NUMA 1; the held Verity CPUs
 | `fill_runner.py` | `5e033072…` | `8ba5fc589` (agent.lock, Verity pool lending, run with `FILL_VERITY_LEND=0`) | 23:17:43Z |
 | `node_ops.py` | `7b8ebe56…` | `6d877a03` (OOM guard prefers `fill-verity-*`) | 20:08Z |
 | `backup.sh` | `e820a1f9…` | `283af0ae7` (retry/skip a changing unit; packs nothing while a window runs or waits) | 00:08Z |
-| `publish_pool.py` + `~/.config/systemd/user/infra-pool-publish.{service,timer}` | `f9ea6fdf…` | `6f778a00d` (infra-pool/v1 to vy-n1 every 5 min; idle-in-lease and unleased monitors; per-kind table) | 21:44Z |
+| `publish_pool.py` + `~/.config/systemd/user/infra-pool-publish.{service,timer}` | `01d22db9…` | `8bbc7be21` (infra-pool/v1 to vy-n1 every 5 min; monitors; per-kind table; node 1 merge; delivered_by_hour) | 02:10Z |
 
 Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-pool`, relayed by infra) approved the guest path and the cutover; nothing is held now.
 
@@ -51,6 +51,15 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-10-01 02:12Z alerts: `pn2g-q-1936-r0` (proofs' gate, approved) idle in lease at 1.2% (staging), FYI.
+  - **My miss:** I found five unread handoffs from 22:07–22:31Z. My skims had filtered by time; from now on I read every new file in `lanes/node2-ops/` by name.
+  - From those notes:
+    - the `pn2g-q` stage job and 3 chunks are approved;
+    - circuits' Commits are main fill, gated on `cov-g217` byte-for-byte;
+    - the 60-min exception for `pn2g-q-1936-r0` is committed (`7b8318a58`) and goes live with the drill's restart, though the header still asks 30;
+    - delivered-output fields are now live (`8bbc7be21`; `note:20261001T0212Z-reply-from-node2-ops-delivered-fields-and-missed-notes`).
+  - A window ran 6:46–6:52 PM PDT; waiting for the attempt-67 verdict before the drill. Watermark 01:45:06Z.
 
 - 2026-10-01 01:12Z alerts: `cov-g217-proof` idle in lease again (GPU 0, 0.2% util), its kind's second catch; appended to the circuits note. Watermark 01:05:06Z.
 

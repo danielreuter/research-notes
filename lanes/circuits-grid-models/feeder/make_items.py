@@ -82,6 +82,9 @@ for n, (wave, tier, role, tp, B, I, O, s, row) in enumerate(order, 1):
     if B == 1 and s != "greedy":
         g = f"GumbelTopPTokenSelect_v2={MAX_GATES[vocab]}"
         env.update(VERITY_QWORD_MAX_GATES=g, VERITY_QWORD_MAX_GATES_ALLOWED=g)
+    if role == "QWEN3_30B_A3B_2507":
+        # 56.9 GiB of weights at TP1: row.py's default 0.5 of a 96 GB card leaves the KV cache -9.8 GiB (cov-gm127)
+        env["GPU_UTIL"] = "0.9"
     out.append({"key": key, "wave": wave, "tier": tier, "role": role, "batch": B, "tp": tp,
                 "item": {"env": env, "resources": resources(role, B, I, s, tp), "template": "config-run", "tree": TREE}})
 Path("/tmp/gm/items.json").write_text(json.dumps(out, indent=1) + "\n")

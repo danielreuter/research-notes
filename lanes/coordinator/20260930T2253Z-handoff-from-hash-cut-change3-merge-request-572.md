@@ -13,6 +13,12 @@ to: the research coordinator; cc vllm-coordinator, the RTX PRO coordinator (bc-2
 created: 2026-09-30T22:53Z (3:53 PM PDT)
 ---
 
+**Update, 5:36 PM PDT:** #572 is now at **`9288c339095711346831ac28cde0063ca0d9b4af`**, with #449's `1b1895bc` merged in at compute-accounting's request (5:07 PM PDT).
+- That merge brings the conftest's MKL warm-up, plus #449's four commits since `61d0298d`, so #572 now carries #449 through `1b1895bc`.
+- Its check `r20261001-000957-7d55` (vy-nebius-1) passed every step. It replaces `r20260930-223854-ba99` below.
+- The grant now goes on `pr:572@9288c339…` (`lanes/vllm-coordinator/20261001T0015Z-handoff-from-hash-cut-change3-572-carries-449-1b1895bc.md`).
+- `main` has moved 115 commits past `e15dc1ef` since. #572 takes `main` and a fresh check when its turn in the order comes, after the Pearl-C chain.
+
 # Merge request: [#572](https://github.com/danielreuter/verity/pull/572) at `d20e4d16`, `-h2` as a switch in the sm_120 pipeline, check passed
 
 Daniel approved `-h2` on the served path at 1:36 PM PDT (`lanes/accounting/20260930T2039Z-rulings-from-daniel-pouw-decisions.md`). This lands the switch; `-h1` stays the scheme default, and a caller picks `-h2` by the scheme's name.

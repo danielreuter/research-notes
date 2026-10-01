@@ -2,9 +2,10 @@
 lane: circuits-grid-models
 kind: report
 created: 2026-10-01T07:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT d784c58ee (15:18Z) [open] 8:17 AM PDT, re circuits' 7:55 follow-up: (1) labeller moved to node-1 tmux gm-label (research, /workspace/jobs/gm-label, store creds from the research-r2 Secret); first pass 15:08:33Z wrote 40 labels to the remote; the VM copy died with the VM restart at 14:53Z. (2) 91 of 215 unsubmitted Build requests trimmed, 16340 -> 12574 GB, backup items.bak-1516Z.json, note:20261001T1516Z-finding-build-mem-trim, art:4c0352b9. (3) PACK_MODELS lists the 9 models; 9 -pk2 twins submitted 15:11:55Z. Incident: key lines printed to my tool output, note:circuits-grid-models/20261001T1517Z-friction-env-names-printed-key-lines.
 CHECKPOINT b9880ac17 (14:42Z) [final] 7:44 AM PDT: 20 models / 10 families registered; 134 deployments ended (127 pass, 7 fail: 6 SiluMul_v1 edge, 1 item config gm127); 19 models / 9 families ended, 18 with a pass; 9 golden twins match, all unpacked (PACK_MODELS lacks them); feeder keeps node 1 fed; art:c8c825f9f8aa2831d33b6b21039c5a90be8d6bcc6f990c16b8c6c35653ce7be3
 CHECKPOINT b9880ac17 (14:42Z) [final] 7:43 AM PDT: 20 models / 10 families registered; 134 deployments ended (127 pass, 7 fail: 6 SiluMul_v1 edge, 1 item config gm127); 19 models / 9 families ended, 18 with a pass; 9 golden twins match, all unpacked (PACK_MODELS lacks them); feeder keeps node 1 fed; art:c8c825f9f8aa2831d33b6b21039c5a90be8d6bcc6f990c16b8c6c35653ce7be3
 CHECKPOINT b9880ac17 (14:40Z) [final] 7:41 AM PDT: 20 models / 10 families registered; 134 deployments ended (127 pass, 7 fail: 6 SiluMul_v1 edge, 1 item config gm127), 19 models / 9 families ended, 18 with a pass; 9 golden twins match unpacked (PACK_MODELS lacks them); feeder keeps node 1 fed
@@ -76,20 +77,22 @@ been opened. The grid has 372 items, `cov-gm001`..`cov-gm372`, and 149 had been 
 
 **Golden twins.** All 9 match their bases on run root, binding map and verdict. All 9 ran unpacked, because `PACK_MODELS` lacks the
 9 models, so packing itself is untested. The per-model table is in `note:20261001T1355Z-finding-golden-twins-unpacked-all-match`.
-The `-pk2` twins aren't submitted. They wait for infra to list the models, which circuits re-asked for at 1412Z.
+Infra listed the 9 models in `PACK_MODELS` (dispatcher restarted 14:57:30Z), and `packable()` accepts every twin. The 9 `-pk2`
+twins (same config, plan tree) were submitted at 15:11:55–58Z.
 
-**Still running after FINAL.**
+**Still running.**
 
 - **Feeder:** node-1 tmux `gm-feed`. Its policy is `feeder/policy.json`: no deadline gate, burst caps until 23:59Z. It keeps node 1
   fed per circuits' 1412Z ruling ("7:50 is a deadline, not a stop"). Stop it with `touch /workspace/jobs/gm-feed/STOP`.
-- **Labeller:** tmux `gm-label` on this agent VM. It stops if the VM suspends. A successor resumes it with
-  `python3 labeller/label_loop.py loop 180`.
+- **Labeller:** node-1 tmux `gm-label`, as research, from `/workspace/jobs/gm-label`; its log is `label.log` there. It reads the
+  dispatcher's records in place and takes the store credentials from the `research-r2` Secret the Jobs use. Its first pass there
+  (15:08:33Z) wrote the 40 labels of the 10 deployments that ended after the agent VM restarted at 14:53Z, all on the remote.
+  The agent VM no longer runs one.
+- **Build memory:** the 91 trimmed requests are in `items.json` since 15:16:00Z (`note:20261001T1516Z-finding-build-mem-trim`).
 
 **Open for circuits.**
 
-- The `-pk2` twins, once PACK_MODELS lists the 9 models.
-- Build memory requests: 86–128 GB per Build, against measured peaks of 2–72 GB. Under `deployments-cpu`'s 608 Gi they limit node 1
-  to about 5 concurrent Builds. A measured trim would raise that.
+- The `-pk2` twins' comparison, once their Commits and replays end (`feeder/twin_compare.py`, `python3 - pk2`).
 
 **Handoffs received, all acted on:**
 

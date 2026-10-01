@@ -1,6 +1,8 @@
-"""On vy-nebius-1 (stdin of ssh python3 -): each packed golden twin cov-gmNNN-pk against cov-gmNNN: run root (verdict.json
-run_roots), binding map digest (commit/binding_map_p0.json), commit_pass, the config line, and whether its Commit packed."""
+"""On vy-nebius-1 (stdin of `ssh python3 - [SUFFIX]`, default pk): each packed golden twin cov-gmNNN-SUFFIX against cov-gmNNN: run
+root (verdict.json run_roots), binding map digest (commit/binding_map_p0.json), commit_pass, the config line, and whether its Commit
+packed."""
 import json
+import sys
 from pathlib import Path
 
 COV = Path("/workspace/jobs/cov")
@@ -29,7 +31,7 @@ def facts(item):
 
 
 for base in BASES:
-    twin = f"{base}-pk"
+    twin = f"{base}-{sys.argv[1] if len(sys.argv) > 1 else 'pk'}"
     evs = [json.loads(ln) for ln in log if f'"vllm-epoch-run/{twin}"' in ln]
     packed = next((e["packed"] for e in evs if e.get("packed")), None)
     spooled = any(e.get("ev") == "spool" and int(e.get("task", 0) or 0) == 1 for e in evs)

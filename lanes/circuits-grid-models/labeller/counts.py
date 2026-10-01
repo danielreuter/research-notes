@@ -9,7 +9,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from label_loop import FAMILY_OF, desired  # noqa: E402
+from label_loop import FAMILY_OF, base_of, desired  # noqa: E402
 
 Q = json.loads((HERE / "questions.json").read_text())
 recs = [json.loads(ln) for ln in Path(sys.argv[1] if len(sys.argv) > 1 else "/tmp/gm-last-gather.jsonl").read_text().splitlines() if ln.strip()]
@@ -19,10 +19,10 @@ twins = []
 for r in recs:
     item = r["key"].split("/", 1)[1]
     want = desired(r)
-    role = Q[item.removesuffix("-pk")]["role"]
+    role = Q[base_of(item)]["role"]
     models.add(role)
     families.add(FAMILY_OF[role])
-    if item.endswith("-pk"):
+    if base_of(item) != item:
         twins.append(f"{item} {want['ov.gate']}{' packed' if r.get('packed') else ' unpacked'}")
     if want["ov.gate"] == "pass":
         passed += 1

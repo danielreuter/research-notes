@@ -7,10 +7,16 @@ ov.note. A failure's cause is CAUSES[key] when a reviewed cause is recorded ther
 
     python3 label_loop.py once [--dry-run]     one pass
     python3 label_loop.py loop [EVERY_S]       a pass every EVERY_S (180) s, forever
+
+On vy-nebius-1 (as research, from /workspace/jobs/gm-label) it reads the dispatcher's records and sweep dirs in place, runs the
+research CLI of NODE_TREE with the store credentials of the `research-r2` Secret the Jobs use (read each pass, never printed), and
+keeps its local store and silu_check's venv beside it; anywhere else it reaches node 1 over `research pods ssh`.
 """
 from __future__ import annotations
 
+import base64
 import json
+import os
 import re
 import subprocess
 import sys
@@ -20,6 +26,9 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BY = "circuits-grid-models"
 RESEARCH = "/workspace/.venv/bin/research"
+ON_NODE = Path("/workspace/jobs/dispatch/log.jsonl").exists()
+NODE_TREE = "/workspace/research/trees/cursor-grid-boundary-gm-827a"
+NODE_ENV: dict[str, str] | None = None
 PREFIX = "cursor/grid-models-8c79 @ b9880ac1 (cursor/coverage-v1-2622 @ 90ebe43d + the 20 grid-model checkpoints and their workloads)"
 #: each job tree an item's Build was submitted from (gather's `tree`), as its note names it
 TREES = {"/workspace/research/trees/cursor-grid-models-8c79": PREFIX,
@@ -47,7 +56,19 @@ SILU_EDGE = ("Definition gap, not a Commit fault: SiluMul_v1's expf-overflow edg
 SSH = None
 
 
+def node_env() -> dict[str, str]:
+    """The research CLI's environment on node 1: NODE_TREE's package, a store beside this script, the Secret's R2 settings."""
+    r = subprocess.run(["kubectl", "get", "secret", "research-r2", "-o", "json"], capture_output=True, text=True, timeout=120,
+                       env={**os.environ, "KUBECONFIG": os.path.expanduser("~/.kube/config")})
+    if r.returncode:
+        raise RuntimeError(f"secret research-r2: kubectl rc {r.returncode}")
+    sec = {k: base64.b64decode(v).decode() for k, v in json.loads(r.stdout)["data"].items()}
+    return {**os.environ, **sec, "PYTHONPATH": f"{NODE_TREE}/tools/research/src", "RESEARCH_STORE": str(HERE / "store")}
+
+
 def research(*args: str) -> subprocess.CompletedProcess:
+    if ON_NODE:
+        return subprocess.run([sys.executable, "-m", "research", *args], capture_output=True, text=True, timeout=300, env=NODE_ENV)
     return subprocess.run([RESEARCH, *args], capture_output=True, text=True, timeout=300)
 
 
@@ -59,7 +80,8 @@ def ssh_cmd() -> list[str]:
 
 
 def gather() -> list[dict]:
-    r = subprocess.run([*ssh_cmd(), "python3 -"], input=(HERE / "gather.py").read_text(), capture_output=True, text=True, timeout=300)
+    cmd = [sys.executable, str(HERE / "gather.py")] if ON_NODE else [*ssh_cmd(), "python3 -"]
+    r = subprocess.run(cmd, input=None if ON_NODE else (HERE / "gather.py").read_text(), capture_output=True, text=True, timeout=300)
     if r.returncode:
         raise RuntimeError(f"gather: {r.stderr.strip()[-300:]}")
     return [json.loads(ln) for ln in r.stdout.splitlines() if ln.strip()]
@@ -78,14 +100,21 @@ def current(run: str) -> dict[str, tuple[str, str]]:
     return out
 
 
+def base_of(item: str) -> str:
+    """cov-gmNNN for an item or either of its packed golden twins (-pk, -pk2)."""
+    return re.sub(r"-pk2?$", "", item)
+
+
 def desired(rec: dict) -> dict[str, str]:
     item = rec["key"].split("/", 1)[1]
-    base = item.removesuffix("-pk")
+    base = base_of(item)
     row = rec["row"] or QUESTIONS[base]["row"]
     passed = rec["state"] == "succeeded" and any(s.startswith("config PASS") and "460/460 equal" in s for s in rec["stages"])
     parts = [TREES.get(rec.get("tree") or "", f"tree {rec.get('tree')}" if rec.get("tree") else PREFIX)]
     if base != item:
-        parts.append(f"packed golden twin of {base} (note:20261001T1158Z-handoff-from-circuits-refill-node2-pack-goldens), "
+        second = (" (the second, submitted once PACK_MODELS listed the model; "
+                  "note:20261001T1412Z-handoff-from-circuits-drop-deadline-gate)") if item.endswith("-pk2") else ""
+        parts.append(f"packed golden twin of {base}{second} (note:20261001T1158Z-handoff-from-circuits-refill-node2-pack-goldens), "
                      + (f"its Commit packed in {rec['packed']}" if rec.get("packed") else "its Commit not packed"))
     if rec.get("on") == "vy-nebius-2":
         parts.append("Commit and replay on vy-nebius-2 (n2_commit.sh offload; the Build on vy-nebius-1)")
@@ -109,8 +138,12 @@ def desired(rec: dict) -> dict[str, str]:
 
 def silu_cause(item: str) -> str:
     """SILU_EDGE plus each mismatched row's elements when silu_check.py finds v2 equal on every SiluMul_v1 mismatch, else ""."""
-    r = subprocess.run(["/workspace/.venv/bin/python", str(HERE / "silu_check.py"), item], cwd="/workspace/integrations/vllm",
-                       capture_output=True, text=True, timeout=900)
+    if ON_NODE:
+        cmd, cwd = [str(HERE / ".venv/bin/python"), str(HERE / "silu_check.py"), item], str(HERE)
+        env = {**os.environ, "PYTHONPATH": f"{NODE_TREE}/packages/verity/src:{NODE_TREE}/integrations/vllm"}
+    else:
+        cmd, cwd, env = ["/workspace/.venv/bin/python", str(HERE / "silu_check.py"), item], "/workspace/integrations/vllm", None
+    r = subprocess.run(cmd, cwd=cwd, env=env, capture_output=True, text=True, timeout=900)
     rows = re.findall(r": (\S+) (r\d+) step (\d+) row (\d+): v1 differs at (\d+) of \d+ elements, v2 at (\d+)", r.stdout)
     if r.returncode or not rows or any(v2 != "0" or n == "0" for *_, n, v2 in rows):
         return ""
@@ -135,6 +168,9 @@ def fill_auto(recs: list[dict]) -> None:
 
 
 def one_pass(dry: bool) -> None:
+    global NODE_ENV
+    if ON_NODE:
+        NODE_ENV = node_env()
     recs = gather()
     Path("/tmp/gm-last-gather.jsonl").write_text("".join(json.dumps(r) + "\n" for r in recs))
     fill_auto(recs)

@@ -4,9 +4,11 @@ model, an already-run TP1 B1 256/32 greedy row resubmitted as `<key>-pk` on the 
 cov-gm001 stands in for qwen3-06b: none of that model's B1 256 rows passed (their Commits did; each replay hit SiluMul_v1's
 expf-overflow edge), so its twin compares the Commit (run root, binding map) and expects the same replay mismatch.
 
-    twins.py [--at HH:MM:SS] [--dry-run]     (on vy-nebius-1, as research, KUBECONFIG=$HOME/.kube/config; tmux `gm-twins`)
+    twins.py [--at HH:MM:SS] [--suffix pk2] [--dry-run]     (on vy-nebius-1, as research, KUBECONFIG=$HOME/.kube/config; tmux `gm-twins`)
 
-Waits until --at (UTC, today), then submits each twin whose key log.jsonl doesn't name yet. Log: twins.log beside it."""
+Waits until --at (UTC, today), then submits each twin `<base>-<suffix>` (default pk) whose key log.jsonl doesn't name yet. `-pk2` is
+the second twin of each base, submitted once PACK_MODELS listed its model (note:20261001T1412Z-handoff-from-circuits-drop-deadline-gate).
+Log: twins.log beside it."""
 import calendar
 import json
 import subprocess
@@ -21,6 +23,7 @@ DISPATCH_PY = "/workspace/jobs/dispatch/infra/nebius/dispatch.py"
 TREE = "/workspace/research/trees/cursor-grid-plan-gm-827a"
 BASES = ["cov-gm002", "cov-gm003", "cov-gm004", "cov-gm005", "cov-gm006", "cov-gm007", "cov-gm008", "cov-gm009", "cov-gm001"]
 DRY = "--dry-run" in sys.argv
+SUFFIX = sys.argv[sys.argv.index("--suffix") + 1] if "--suffix" in sys.argv else "pk"
 
 
 def log(msg):
@@ -41,7 +44,7 @@ def main():
     items = {i["key"]: i for i in json.loads((HERE / "items.json").read_text())}
     named = LOG.read_text()
     for base in BASES:
-        key = f"{base}-pk"
+        key = f"{base}-{SUFFIX}"
         it = items[base]["item"]
         if f'"vllm-epoch-run/{key}"' in named:
             log(f"skip {key}: log.jsonl names it")

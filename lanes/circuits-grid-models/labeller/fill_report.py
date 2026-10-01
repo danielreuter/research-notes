@@ -7,7 +7,7 @@ from pathlib import Path
 
 L = Path.home() / ".research/notes/lanes/circuits-grid-models/labeller"
 sys.path.insert(0, str(L))
-from label_loop import FAMILY_OF, desired, ssh_cmd  # noqa: E402
+from label_loop import FAMILY_OF, base_of, desired, ssh_cmd  # noqa: E402
 
 Q = json.loads((L / "questions.json").read_text())
 G = Path("/tmp/gm-last-gather.jsonl")
@@ -21,7 +21,7 @@ node = collections.Counter()
 per = collections.defaultdict(lambda: [0, 0])
 mid = {}
 for r in recs:
-    role = Q[r["key"].split("/", 1)[1].removesuffix("-pk")]["role"]
+    role = Q[base_of(r["key"].split("/", 1)[1])]["role"]
     mid[role] = r["row"].split("__")[0]
     ok = desired(r)["ov.gate"] == "pass"
     node[(2 if r["key"] in built_n2 else 1, 2 if r.get("on") == "vy-nebius-2" else 1)] += 1

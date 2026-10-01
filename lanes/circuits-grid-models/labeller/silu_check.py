@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Every SiluMul_v1 mismatch of a cov-gm item's replay, element by element, against the registered SiluMulBf16_v1 and the quarantined
-SiluMulBf16_v2 (lane vllm-coverage-defs: vLLM `_C.silu_and_mul` on the red-team's sm_120 edge words). Fetches the row's slim keep and
-sampled replay record from vy-nebius-1 into /tmp/gm/dive/<item>/, reads the committed words through the replay's own CommittedStore.
+SiluMulBf16_v2 (lane vllm-coverage-defs: vLLM `_C.silu_and_mul` on the red-team's sm_120 edge words). Reads the row's slim keep and
+sampled replay record in place on vy-nebius-1, elsewhere fetches them from there into /tmp/gm/dive/<item>/, and reads the committed
+words through the replay's own CommittedStore.
 
     cd /workspace/integrations/vllm && /workspace/.venv/bin/python <this> cov-gm001
 """
@@ -23,6 +24,9 @@ RESEARCH = "/workspace/.venv/bin/research"
 
 
 def fetch(item: str) -> Path:
+    here = sorted(Path(f"/workspace/jobs/cov/{item}").glob("*/commit"))
+    if here and (here[0] / "replay_slim_p0" / "slim.json").exists():
+        return here[0]
     d = Path("/tmp/gm/dive") / item
     if not (d / "replay_slim_p0" / "slim.json").exists():
         d.mkdir(parents=True, exist_ok=True)

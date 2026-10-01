@@ -5,6 +5,7 @@ created: 2026-09-30T20:03Z
 status: open
 ---
 
+CHECKPOINT 1b1895bc6 (00:05Z) [open] WAITING on vy-nebius-2 checks r20260930-235746-36f1 (#449 1b1895bc, MKL first-call race fix) and r20261001-000221-f7ef (#548 7a30515b); note 20261001T0006Z-handoff-from-accounting-449-exp-mkl-race filed
 CHECKPOINT 135a1123d (23:17Z) [open] handoff note:20260930T2316Z-handoff-from-accounting-548-forkserver-fix filed: #548 37e9c944 merge-ready (check r20260930-222746-4aa1 passed, rc 0); grants none. Nothing left running.
 CHECKPOINT 984cd2389 (22:51Z) [open] WAITING r20260930-222746-4aa1 on vy-nebius-2 (#548 37e9c944): pytest passed (18/18, pouw-bench 57); lean-audit re-auditing soundness (main's Lean changes), check after 23:15Z; agent bc-2a5f14cf-d1ec-58c1-a830-04e2dba6bc8e; next: handoff 548-forkserver-fix
 CHECKPOINT 37e9c944b (22:28Z) [open] WAITING r20260930-222746-4aa1 on vy-nebius-2 (#548 37e9c944: forkserver test fix + main 984cd238), check after 22:49Z; agent bc-2a5f14cf-d1ec-58c1-a830-04e2dba6bc8e; next: handoff 548-forkserver-fix. pouw-bench 57, pouw 236, repo 32 pass on py3.12.3 and 3.14.7

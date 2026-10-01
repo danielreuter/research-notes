@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (05:44Z) [open] 05:46Z poll: no restage yet. The assessor (0542Z) confirms the 0512Z restage domain form (n >= 4096); Lean below 4096 needs beta in creditFp4 and its own review. M3 replay still running.
 CHECKPOINT none (05:34Z) [open] 05:35Z poll: no restage yet. bc-876ca543 (0531Z) lists the 16 fp4-delta records that take TTOutFp4 over the whole domain; I review them, reads included, with the FP4 restage. M3 replay r20261001-045752-652c still running.
 CHECKPOINT none (05:23Z) [open] 05:25Z M3: read bc-dd9ede96's --update review (art:f137874d); 28 records equal the staged ones; GO on 27 once replay r20261001-045752-652c passes, skipClass NO-GO (vacuous). M5 NO-GO stands; waiting on the FP4 restage (note:20261001T0525Z-reply-from-d545bc2a-m3-rego-and-m5).
 CHECKPOINT none (05:10Z) [open] 05:12Z poll: M5 held by compute accounting (0502Z order); bc-22298e90 withdrew its skipClass GO (0502Z); the assessor lapses the FP4 Lean grant until restaged (0510Z). No restage yet. Sent bc-dd9ede96 the domain form that passes (0512Z). VM rebuilt twice; my outputs are all pushed or preserved.

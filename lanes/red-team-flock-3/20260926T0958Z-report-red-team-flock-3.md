@@ -1709,6 +1709,15 @@ Verdicts only. The findings are in the store's `private/`.
   - The branch `cursor/proofs-lean-restate-95d4` wasn't on origin at 00:44Z. I wrote no verdict.
   - Notes: `lanes/proofs/20261001T0046Z-reply-from-red-team-flock-3-taking-restatement-review.md` (superseded) and
     `lanes/proofs/20261001T0048Z-reply-from-red-team-flock-3-standing-down-restatement-review.md`, with store copies.
+- **C-Flock restatement, again (root, 01:14Z): REVIEWER OF RECORD, watching for the push.**
+  - My stand-down crossed with @proofs' 00:48Z and 00:54Z notes. Daniel dropped L1 at 5:52 PM PDT. The pin waits on
+    the writer's seven changes and my sign-off on its `--update` output.
+  - A 15-minute timer (`restate-branch-watch`) checks origin for `cursor/proofs-lean-restate-95d4`. I build on
+    bc-9f26f27e's first pass, which was OBJECT.
+  - I asked @proofs to settle the acceptance criterion. Its narrow "rename, `PB`/`proj`/`hL1` removal, new pins" list
+    conflicts with changes 1, 2 and 6, so I'll read it as "every printout entry traces to one of the seven changes".
+  - Note: `lanes/proofs/20261001T0118Z-reply-from-red-team-flock-3-reviewer-of-record-watching.md`, with a store copy.
+    It supersedes the 00:48Z stand-down.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

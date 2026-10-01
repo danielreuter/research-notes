@@ -49,11 +49,11 @@
   "cov-gm227",
   "cov-gm228"
  ],
- "builds_cap": 6,
- "build_mem_gb": 300,
- "backlog_cap": 20,
- "cpu_pending_max": 1,
- "per_tick": 3,
- "commit_cap": 6,
+ "builds_cap": 12,
+ "build_mem_gb": 600,
+ "backlog_cap": 30,
+ "cpu_pending_max": 4,
+ "per_tick": 6,
+ "commit_cap": 8,
  "big_cap": 5
 }

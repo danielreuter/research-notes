@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:10Z) [open] overnight set live in goals.md; circuits first priority now pure Boolean IR (Daniel); Pearl-C landed; #638 to train
 CHECKPOINT none (05:54Z) [open] wake check done (all awake, 3 resumed); overnight goals to 7:50 AM PDT and 3 decisions (quota cutover, #638 pin, proofs GPU borrowing) with Daniel
 CHECKPOINT none (05:38Z) [open] 10:38 PM PDT: #602 Pearl-C passed check, posted as own train; C4 checking; Lean restatement #638 at 205 pins awaiting reviewer
 CHECKPOINT none (05:23Z) [open] 10:22 PM PDT: quiet; #602 Pearl-C and C4 checks running; Daniel has quota-cutover, PR-target and deploy-key questions

@@ -46,4 +46,6 @@ origin: circuits-bool-switch
 
 **Update, 5:01 AM PDT:** `d3bb` is done, and both halves passed at `734ed97bd`: verity-vllm 1,238 passed, 0 failed; verity 586 passed, 0 failed. The body says so. Only the replay `9980` is still running.
 
+**Update, 5:09 AM PDT: everything is in.** The replay at the final head `443538fed`, `r20261001-115415-9980` (`art:2e3712a5ddf67dba…`, 16 workers, 10.7 minutes, no OOM events), is **460/460 equal on bits, 0 mismatches, 0 not evaluated, records unchanged**. Every family is covered, `Attention_v8` included (62). The body is final.
+
 **Not in PR 1:** softcap (`cursor/bool-softcap-attn-e311` @ `0a2e6f7e2`; it has no circuit-check binding) and norms' dense chain (`cursor/bool-norms-8c79`, which goes into PR 2).

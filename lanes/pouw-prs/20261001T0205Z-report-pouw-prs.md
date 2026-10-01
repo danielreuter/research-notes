@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT 22fd1772 (06:54Z) [open] Open: 10. #588 @ 947f1de2c passed check r20261001-063447-4b26; ready note 20261001T0654Z sent to the captain. #590 and #595 go to compute accounting to close as contained in #588, which makes 8.
 CHECKPOINT ef125815 (06:36Z) [open] Open: 10 (#491 #525 #570 #580 #588 #590 #593 #595 #610 #640). #588 at 947f1de2c times the served deferred schedule (tile hashing on the side stream, the screen on the main lane); check r20261001-063447-4b26 running. #590 and #595 are contained in #588 and go to compute accounting to close; that makes 8.
 CHECKPOINT c1e920090 (06:11Z) [open] Landed #577 (C4), #602 (T602); closed #548 #534 #556 #471. Refusal PR (fbce5a2f) not yet opened; asked compute accounting. #588 fold now has main 72aacf9b + #595 (1ebc04ac), waits on DEFERRED ruling. Open: 14.
 CHECKPOINT c1e920090 (06:09Z) [open] #570 ready note sent (efd5739b, r20261001-054235-c715). #580 ready note withdrawn per pouw-fp4 0551Z (tip changes for B-OVF beta table); #602 trains alone. Inbox 0551Z acted on. Open: 20.

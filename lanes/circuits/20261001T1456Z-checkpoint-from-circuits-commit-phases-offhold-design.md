@@ -51,7 +51,8 @@ not their words.
 1. **Bind the served logits.** vLLM's logits processor already holds the `lm_head` output on the GPU. Tap it as a claim (`CLAIMS`, like
    the pre-bias GEMM taps), commit it, and let the deferred replay check the sampled `lm_head` Calls, as it does for any served GEMM.
    - The root binds only words acquired before release.
-   - It stays unchanged only if the served words equal the Program's at every coordinate. With M = 1, cuBLAS may not run the k16 chain.
+   - It stays unchanged only if the served words equal the Program's at every coordinate. In a bi-eager row, `lm_head` runs vLLM's
+     batch-invariant Triton matmul, and whether that is the Program's k16 chain at every coordinate is the open question.
    - Test first with one debug row that compares the served logits to the committed words, before any protocol change.
 2. **Fold the root after release.** The GPU task dumps the store and the captured operands, then releases. A CPU task evaluates the
    words, rehashes the affected chunks and trees (chunk-leaf-v1), folds the same root, and only then runs every post-finalize check and

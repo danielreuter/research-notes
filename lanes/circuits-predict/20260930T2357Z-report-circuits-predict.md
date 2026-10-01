@@ -5,6 +5,7 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT none (07:08Z) [open] 00:09 PDT: main-code score over 326 rows: 3786 units compared, 3089 exact; all 697 differing units on the 6 coverage-v1 trees (qkv-bias GemmBias_v2) or old ce1b86e4 trees. TP2 qwen2.5 steps exact on coverage-v1 code (4/4 smoke). Queued drift re-score r20261001-070751-89e2 (41 rows, cov code) and requeue of SIGTERM'd shard r20261001-070823-a316; wave 3/4 still running
 CHECKPOINT 889306669 (06:53Z) [open] 23:53 PDT: 889306669 pushed: TP2 rank Programs; cov-p000 step/request/workload exact on both ranks; next: score all 43 TP2 rows + drift rows
 CHECKPOINT 5179c7bdd (06:35Z) [open] 23:35 PDT: 5179c7bdd pushed (biased linear follows the target: GemmBias_v1 accepted / GemmBias_v2 where the tree has it); drift units exact on coverage-v1 code so far; next TP2 world-2 step Programs
 CHECKPOINT 02d056c3d (06:03Z) [open] 11:11 PM: label corpus v0 = art:94c14d2b4f26 (preserved): 202 rows passing replay 460/460 of 322 config records on node 1 (193 distinct rows, 190 TP1 + 12 TP2, 13 models incl. Gemma-2 cg01/cg08/cg12/cg13/cg14 and TP2 p000/p004/p012/p016/p047): workload digest (per rank at TP2), request/step digests, config, verdict, run roots, Build/Commit run ids; next: predictor vs main-tree traces, TP2 Programs

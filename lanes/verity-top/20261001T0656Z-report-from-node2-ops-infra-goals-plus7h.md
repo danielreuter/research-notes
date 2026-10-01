@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6), timer infra-goal-plus7h (11:40 PM PDT); read-only counts at 06:53Z
 ---
 
+CHECKPOINT none (07:46Z) [open] 12:44 AM PDT: both nodes 0% busy; node 2 GPUs 0-3 empty with work queued (infra asked to admit); node 1's 5 Gemma-2 Commits idle on GPU 61-72 min (circuits asked phase/ETA, pack two per GPU); PoUS granted node 2 GPU 7
 CHECKPOINT none (07:28Z) [open] 12:28 AM PDT: both nodes ~0% busy; node1 GPUs 0,2,3 given to compute accounting untimed; node2 4 held by Commits in prep, 4 empty pending infra core reservation
 CHECKPOINT none (07:14Z) [open] 12:14 AM PDT: node 2 7/8 empty 40 min after go, infra pushed on core reservation + Commit routing; PR goal now 0 by 7:50
 CHECKPOINT none (06:58Z) [open] 11:57 PM PDT: node 1 5 GPUs held by Gemma-2 Commits in CPU phase, circuits asked to pack; node 2 6 empty, prover cores being reserved

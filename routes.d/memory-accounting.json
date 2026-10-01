@@ -1,0 +1,11 @@
+{
+  "schema": "verity/slack-route/v1",
+  "name": "memory-accounting",
+  "holder": "bc-15ada664-f325-5371-a473-65d408be3cf5",
+  "channel": "C0C5RCXL66N",
+  "inbox_ts": "1790877420.927929",
+  "opened": "2026-10-01T17:57Z",
+  "closed": null,
+  "forward_to": null,
+  "remit": "Proof of useful space: protocols/pous, its Lean package and its runs."
+}

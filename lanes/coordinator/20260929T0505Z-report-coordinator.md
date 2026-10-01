@@ -328,3 +328,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 20:38Z: d403/b0d0/34af FAILED: #705 timeout= (no_wall_clock), #709 store README > 48 KiB. Asked ci rebuild w/o #705 #709 (+#712). Fixed launchv prelint (grep matched "1 failed, 4 passed"); added test_repository.py.
 - 20:46Z: T13A 32396cc4a slot a r20261001-204253-44db (no send); T13B e925be34a slot b r20261001-204345-559a (send). Order 44db, 559a.
 - 20:51Z: T714 53eb34e8d slot c r20261001-204919-8166. Order 44db, 559a, 8166.
+- 21:20Z: MERGED T13A 32396cc4a + T13B e925be34a; main 743c7ce21. 8166 (#714) next; #705 #709 await infra fixes.

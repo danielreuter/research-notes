@@ -5,6 +5,7 @@ created: 2026-10-01T02:10Z
 status: open
 ---
 
+CHECKPOINT c1e920090 (15:08Z) [open] 15:10Z: job A (whole-defer, 2a06c1eb) decode 2.687x (target <2.9x met, untimed), prefill 1.632x; verify queued; job B ship SASS-clean; awaiting job B yes + PR open; check d85e running
 CHECKPOINT c1e920090 (14:58Z) [open] 15:00Z: window 2 on the panel (#113, 2.973x). New lever: words split (de74f334), est -2.7 ms/step; ship build queued on node 2 (CPU). Asked for 2 untimed GPU jobs (whole-defer; whole-defer + split). check r20261001-142453-d85e running.
 CHECKPOINT c1e920090 (14:31Z) [open] 7:31 AM PDT: morning number = window 2 (bdedc145) verified, decode 2.973x / prefill 1.630x, art:4b0b5aed PRESERVED; pass deleted, disk 47%. Next lever --whole-defer on cursor/served-whole-step-deferred-e38e (2a06c1eb), check r20261001-142453-d85e running; untimed run awaits compute accounting.
 CHECKPOINT c1e920090 (13:34Z) [open] 6:35 AM PDT: window 2 (r20261001-130909-dcae, bdedc145) waits for 14:00Z. Window 3 is window 2's retry only (note:20261001T1334Z-reply-from-c62f9726-served-window-3-retry-only); the hashing cuts are ship kernels and need a new ship.

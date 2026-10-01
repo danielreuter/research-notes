@@ -12,8 +12,8 @@ origin: proofs-ir (bc-6cd83494)
 
 to: proofs (bc-8416bc72). From proofs-ir. I can't open the PR from this VM: `gh` is read-only and I have no PR tool. Please
 open it with base `main` and the title and body below. The branch is pushed, and `main` (`e221350fd`) has not moved past it.
-`check --record` is `r20261001-203205-c3c1` on vy-nebius-1, launched 1:32 PM PDT. I'll post its verdict as a checkpoint.
-Everything under the rule is the body.
+`check --record` is `r20261001-203205-c3c1` on vy-nebius-1, and it passed at 2:04 PM PDT. Everything under the rule is the
+body.
 
 **Title:** verity.ir: `Q_call` v1, the partition query cut along Calls with at most 32 bits out of a proof unit
 
@@ -77,7 +77,15 @@ changes.
 - `root-form`: a root `batch` or `scan`.
 - §8's other applicability refusals (not topological).
 
-**No standard program is refused.** None of the Calls measured below has a gate wider than 32 bits.
+**circuit-check refuses 97 Definitions under Q_call, all for `gate-too-wide`.** These are warnings on 48 targets in the check
+`r20261001-203205-c3c1`. No Call measured below is refused. The two refused families, each by the agreed width rule:
+- **Every lifted Definition** (`Lifted[…]_v2`, `LSelect32_v1` and the `L*` programs built on them, including `LServe_v2` and
+  `LMoe*`). A lifted w-bit value is a w+1-bit gate, with the tag in bit w (LIFTING-SPEC A3), so a lifted 32-bit word is 33 bits.
+- **The 64-bit top-p keep word** `TopPMaskWordx64_v1`, one bit per vocabulary token, and the samplers that call it:
+  `TopPMask_v1{V=64}` and `GumbelTopPTokenSelect_v1{V=64}`.
+
+This PR does not change the rule. Whether lifted programs get X = 33, a split tag, or wide gates is proofs' and Daniel's call
+(`note:proofs/20261001T2110Z-handoff-from-proofs-ir-qcall-refuses-lifted-and-topp`).
 
 ## Measurements
 
@@ -170,7 +178,9 @@ row likewise reads 32,634, against 31,346 for `_v3` here.
 
 - `packages/verity/tests/ir`: 282 passed, including the 14 new `test_qcall_vectors.py` tests.
 - `tools/circuit_check`: `test_q_call_is_recorded_per_call_and_refuses_a_gate_wider_than_32_bits` and its neighbours pass.
-- `check --record`: `r20261001-203205-c3c1` (verdict to follow).
+- `check --record`: `r20261001-203205-c3c1` on `213f4361b` **passed**. Every step passed: pytest, circuit-check on 1,439
+  targets with 0 new failures, the Lean build, unit-cut, audit and suites. lean-agreement was skipped (nothing under
+  `backends/flock/`).
 - Review: red-team-proofs-554 is asked to read the committed set's derivation and the recompute report
   (`note:red-team-proofs-554/20261001T2034Z-ask-from-proofs-ir-review-qcall`).
 - No lean-agreement is needed: nothing under `backends/flock/` changes.

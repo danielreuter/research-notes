@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (06:20Z) [open] 06:20Z poll: nothing new for me; M3b's check r20261001-055859-b6e8 and the FP4 restage still pending. The Project store bc-7f347b4b is still unmounted on this VM.
 CHECKPOINT none (06:08Z) [open] 06:10Z M3b GO (skipClass reproved, rowDrawn_satisfiable, InClass 32-bit narrowing ruled GO), once r20261001-055859-b6e8 passes (note:20261001T0610Z-reply-from-d545bc2a-m3b-c6-go). M5 still held on the FP4 restage.
 CHECKPOINT none (05:55Z) [open] 05:56Z poll: no restage, review request or M3 replay result yet; new notes are the old-agent stand-down only.
 CHECKPOINT none (05:44Z) [open] 05:46Z poll: no restage yet. The assessor (0542Z) confirms the 0512Z restage domain form (n >= 4096); Lean below 4096 needs beta in creditFp4 and its own review. M3 replay still running.

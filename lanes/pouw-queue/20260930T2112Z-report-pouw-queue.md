@@ -5,6 +5,7 @@ created: 2026-09-30T21:12Z
 status: open
 ---
 
+CHECKPOINT d0f92971 (05:41Z) [open] 10:42 PM PDT: watcher timer pouw-queue-keeper unsubscribed per compute-accounting's 10:40 PM order. Every guarded run ended rc 0, window 8 rows labelled (attempt 110), the remaining READY/panel items are owned by replacements or wait on Daniel's pous-panels key. Spool incoming empty, nothing moved. Never ran a spool launcher or RunPod sweep. Nothing of mine runs.
 CHECKPOINT e5b720899 (05:31Z) [open] 05:32Z watch: no flags, no goal runs in flight. Panel: 109/110 labelled; the published console is behind Vercel login (my Vercel connection has no access), so publication rests on console's confirmation, none yet (goal 11:40 PM PDT). Node 2 8/8 idle, PoUW 0 queued
 CHECKPOINT e5b720899 (05:15Z) [open] 05:16Z watch: no flags, no goal runs in flight. Panel: 109/110 labelled, console not yet confirming (goal 11:40 PM PDT). Node 2 7/8 idle, PoUW 0 queued
 CHECKPOINT e5b720899 (05:01Z) [open] 05:01Z watch: no flags. bc-c066b30c timed divisor_confirm 044003-aa48 done rc 0 9:57 PM PDT. Panel: 109/110 labelled, console not yet confirming (goal 11:40 PM PDT). Node 2 6/8 idle (Verity guest runs), PoUW 0 queued

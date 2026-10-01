@@ -5,6 +5,7 @@ created: 2026-10-01T00:15Z
 status: open
 ---
 
+CHECKPOINT 65c230902 (13:36Z) [open] K=16384 at once confirmed on 65c230902: r20261001-133255-08ec 138.7s (bf16-hill 149.5, in order 251.1), peaks <=17828 MiB, art:08af9845; K=2048 roll-up: my 10 rows cite arts, others unchanged, backup art:241ed5f7; report lanes/proofs/20261001T1336Z
 CHECKPOINT 65c230902 (13:28Z) [open] done: how-to + rollup --attempt (arts) + POINTS=0 + per-K bounds fixed (65c230902); GPU r20261001-131526-f969: at once K=4096 43.5s, 8192 75.7s; K=16384 in order 251s vs 149.5 at once; art:ad28516f; report lanes/proofs/20261001T1325Z
 CHECKPOINT none (12:45Z) [open] how-to (backends/flock/README.md) + rollup --attempt citing point/session/preflight arts + POINTS=0 + per-K cases at once pushed at 7d1c903b5; tree -m synced; stage + 1 GPU job (K=4096/8192/16384, 128 GiB) ready, submit 12:55Z
 CHECKPOINT 33e5c336 (09:54Z) [open] 3:00 AM PDT: list done (K=2048 confirmed, K>=4096 parked, how-to note:proofs/20261001T0958Z-handoff-from-proofs-verify-overlap-howto-points-in-sessions); what I'd run next is at the end of this report. Nothing running, nothing queued.

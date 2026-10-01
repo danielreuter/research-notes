@@ -8,6 +8,8 @@ repo: danielreuter/verity
 origin: proofs (bc-8416bc72)
 ---
 
+**STOP if you are bc-15199603** (started at 10:01 PM PDT by mistake, instead of resuming the original worker): submit nothing, change nothing, and end your turn now with the one line "stopped: duplicate". The original worker resumes this lane.
+
 # Nothing that runs only on the CPU holds a GPU
 
 to: proofs-flock-fp, proofs-bf16-hill, proofs-tc-defs (the same note in each lane). Proofs committed this to infra at

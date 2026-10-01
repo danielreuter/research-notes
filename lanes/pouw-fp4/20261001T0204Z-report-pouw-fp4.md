@@ -2,9 +2,10 @@
 lane: pouw-fp4
 kind: report
 created: 2026-10-01T02:04Z
-status: open
+status: final
 ---
 
+CHECKPOINT eab5d96fa (17:22Z) [final] Handed over to compute accounting's successor: note:20261001T1721Z-handoff-pouw-fp4-to-compute-accounting-successor (branches bbe249577, 06cf22014; decode_floor.sh and parallel r1_rows approved, not started). Nothing running.
 CHECKPOINT 06cf22014 (17:15Z) [open] Reported 16:00Z results to compute accounting (reply, not a note, per contract 2.8 §5). Run PRESERVED (record art:9bf7b791; rc 1 = the one REJECT); 16/16 controls REJECT, 15 panel-append lines in */verify.log. Friction note on launcher-side custody false NO. Waiting: panel rows (c066b30c), f9af3acc rating, fb6cc95b on bbe249577, decode_floor yes
 CHECKPOINT 06cf22014 (17:06Z) [open] 16:00Z re-time r20261001-134930-22d2: 15/16 ACCEPT (no-write REJECT each); m64-n512-k2048 REJECT is the replay prove's R1 shortcut (CPU re-proof with r1_rows ACCEPTs, max debit/cap 0.0091); gamma 1.5B 1.317%, 3B 1.090%, 1B 1.153%, 7B 0.887%, 8B 0.830%; evidence art:de55903b, run labeled; nothing on node 2; next: report to accounting
 PLAN from 7:50 AM PDT (14:50Z), for compute accounting's yes: Pearl-C4's decode floor on Llama-3.1-8B, at most 0.5 GPU-h untimed on one node 2 GPU via --queue. Question: how much of the 11-23x decode slowdown is A's row commitment (commit_rows: one thread per row runs SHA-256 over its 2k bytes, so 2 CTAs on 188 SMs at m 64; the phases put it at about 0.20 of q/o's 0.355 ms and 0.70 of down's 0.853 ms, 1.56 us per block, linear in k), and what does a chunk-parallel row leaf (1 KiB chunk digests, then the leaf over them) cut it to? (1) dev.py's per-kernel timer at m 32/64 on the four linears (~0.1 GPU-h); (2) a commit_rows prototype checked against a Python reference and timed (~0.3 GPU-h). It moves the decode number on the panel; landing it changes the row leaf `verity/pouw/row/v1`, which waits for Daniel's ruling, with the measured gain.

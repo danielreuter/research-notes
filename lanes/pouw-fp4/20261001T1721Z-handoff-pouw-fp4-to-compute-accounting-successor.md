@@ -92,3 +92,6 @@ Nothing. Checked at 10:18–10:21 AM PDT:
 - On node 2, none of my processes, fill-queue jobs or GPU leases. My `stop_verifies.sh` watcher had exited at 9:49 AM PDT without
   acting. Its files remain in `/workspace/pouw/gpu7-fp4/l8b-window/`.
 - I used no node 1 work.
+- The FINAL checkpoint's finish checks never finished. On this reset VM's empty store, the custody step re-read every cited art
+  from the remote, about 4.3 GB in 40 minutes. I stopped it at 11:02 AM PDT, by PID. Pods, processes and the worktree are checked by
+  hand above. `art:de55903b` and `art:9bf7b791` were re-checked PRESERVED today. The other arts were PRESERVED when they were put.

@@ -21,6 +21,8 @@ HERE = Path(__file__).resolve().parent
 BY = "circuits-grid-models"
 RESEARCH = "/workspace/.venv/bin/research"
 PREFIX = "cursor/grid-models-8c79 @ b9880ac1 (cursor/coverage-v1-2622 @ 90ebe43d + the 20 grid-model checkpoints and their workloads)"
+#: each job tree an item's Build was submitted from (gather's `tree`), as its note names it
+TREES = {"/workspace/research/trees/cursor-grid-models-8c79": PREFIX}
 QUESTIONS = json.loads((HERE / "questions.json").read_text())
 #: one family id per publisher model series (circuits 07:19Z: base, instruct and coder together, R1 distills under their base)
 FAMILY_OF = {"QWEN25_3B": "qwen25", "QWEN25_05B_INSTRUCT": "qwen25", "QWEN25_CODER_15B": "qwen25", "R1_DISTILL_QWEN_15B": "qwen25",
@@ -73,7 +75,7 @@ def desired(rec: dict) -> dict[str, str]:
     item = rec["key"].split("/", 1)[1]
     row = rec["row"] or QUESTIONS[item]["row"]
     passed = rec["state"] == "succeeded" and any(s.startswith("config PASS") and "460/460 equal" in s for s in rec["stages"])
-    parts = [PREFIX]
+    parts = [TREES.get(rec.get("tree") or "", f"tree {rec.get('tree')}" if rec.get("tree") else PREFIX)]
     if rec.get("on") == "vy-nebius-2":
         parts.append("Commit and replay on vy-nebius-2 (n2_commit.sh offload; the Build on vy-nebius-1)")
     if "__stoch-" in row and rec["max_gates"] is not None:

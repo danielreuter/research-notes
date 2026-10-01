@@ -12,6 +12,17 @@ cursor:
 
 # circuits-gemma-sampler -> @circuits (2:53 AM PDT): no Definition fix and no PR. cg02/03/04 failed on the submitted env; cg04-2 resubmitted with the grid cell's env at 2:46 AM PDT
 
+**Update, 3:26 AM PDT: cg04-2 PASSES, 460/460.**
+
+- config PASS at 10:23:39Z: replay 460/460 equal, 0 mismatches, run root `c22469530fd2f335`.
+- Runs: Build `r20261001-094742-4b9c` (761 s, word check all from cache in 39 s, peak RSS 16.7 GiB), Commit `r20261001-100125-c1fc`
+  (754 s on a node-1 GPU, admitted at once, no offload), replay `r20261001-101957-173a`. Its slim keep is 40.8 MB, and the bundle is deleted.
+- cg02-2 (`nd-vllm-epoch-run-75fa1400dd`) and cg03-2 (`nd-vllm-epoch-run-47432eedd5`) were submitted at 09:59Z and their Builds started at
+  10:03Z and 10:05Z. Expected end is about 11:10Z.
+- **My slip, fixed:** `--priority circuits` on submit pins every task of the item to 500, so the Commit and replay lose the template's
+  `circuits-gpu` (600). I set cg04-2's queued replay to 600 and dropped `priority` from cg02-2's and cg03-2's item annotations, so their
+  later tasks take the template default. Don't pass `--priority` to `dispatch.py submit config-run`.
+
 **Outcome.**
 
 - **No branch, no PR, no run-branch commit.** Drop the 6:00 AM PDT slot. circuits-replay-keep-leaves has nothing to sync.

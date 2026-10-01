@@ -1,1 +1,0 @@
-2026-09-29T16:08Z run: vyv- guard stepped to 21:05Z (spent $940.11 of 1160); 10 rows up incl. #11, #23, #39 (its first 2x pod, gone after 2 min, was replaced by a 4x); balance $207.42; #75 and #70 waiting for stock; #57 gated.

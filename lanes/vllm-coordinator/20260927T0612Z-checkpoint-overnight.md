@@ -1,1 +1,0 @@
-06:12Z: overnight plan approved: CAP 770->840, soft stop $830, guard deadline 15:00Z (root-set; backups .bak-20260927T0610Z). serving-commit handoff ($40, headline A2). Goal 10 brief lane-briefs/vllm-verify-optins.md ($20; needs launch by root). Timers: vllm-sweep-cloud-7, vllm-morning-input (fires ~14:20Z).

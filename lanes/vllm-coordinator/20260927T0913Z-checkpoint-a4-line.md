@@ -1,1 +1,0 @@
-09:13Z: root raised serving-commit A4 line to $3 total: two L40S serves (~$0.45 each): P4 non-GEMM 12,341 units, then P6 whole layer with shared GEMM rows, + fix-up. #137 review in progress (jdiff + cargo SP1 test running in tmux gate137). Train B merged (main c309a1f6: #106 #108 #109 ...).

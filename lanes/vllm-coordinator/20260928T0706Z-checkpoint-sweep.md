@@ -1,1 +1,0 @@
-07:06Z sweep: main 6746f408 (#111 already on main via train F; #197/#221/#223 train not merged yet); S4 #246 approved 07:10Z handoff; POUS plans missing, replied GO-on-branches/merge-after-epoch; guard CAP 1005 deadline 18:00Z untripped.

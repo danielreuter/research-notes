@@ -1,1 +1,0 @@
-2026-09-29T17:18Z run: 9 rows live (#74, #60, #67, #4, #68, #11, #39, #75, #70); #101 clean but its record stage was cut by the job end (lane recovering off-pod; PR for #346's flaw requested); #23 no stock, #57 gated; budgets line $72.21 of 260, untripped, no faults; balance $172.20.

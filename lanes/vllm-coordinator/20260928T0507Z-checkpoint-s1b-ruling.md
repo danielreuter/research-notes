@@ -1,1 +1,0 @@
-05:07Z: root ruling: S1b option 1; #57/#74 last in GPU window; if S1b not on main by ~12:30Z defer #57/#74 to a follow-up epoch keeping old records; NEVER re-record a GREEN row as FAIL to meet the window. POUS relay not needed (root replied 05:05Z).

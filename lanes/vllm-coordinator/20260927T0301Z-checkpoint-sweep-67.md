@@ -1,1 +1,0 @@
-03:01Z sweep-67: normtap h3 (H100 FA3 Check_inf, pre-approved) + c1 CPU up ($4.45/h); serving-view opened (CPU first; my 0300Z handoff gives pod timing); spend $734.99, ~$741 by 04:15Z; guard ok; no WAKE.

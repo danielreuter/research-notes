@@ -1,1 +1,0 @@
-2026-09-30T03:59Z: tc-gemm decisions (bias FP32-epilogue Definition yes; the M=1 gemv is a finding plus a time-boxed characterisation; no engine change; keep the pod for 5b pinning); attention: model FA2's partial -inf guard via the Attention_v4 MASKED_FROM form.

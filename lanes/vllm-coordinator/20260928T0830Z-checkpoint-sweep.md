@@ -1,1 +1,0 @@
-2026-09-28T08:30Z sweep: main still 3ba4d8b3 (train P with #231, due ~08:25Z, not merged; S1-S4 not on main); balance $119.13, no top-up; guard untripped; GO held. Nothing new from prep, run or cross-call-check since 07:57Z.

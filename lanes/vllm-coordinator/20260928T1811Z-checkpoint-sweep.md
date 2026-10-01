@@ -1,1 +1,0 @@
-2026-09-28T18:11Z sweep: 6 rows running (#73 $41.06, #74 $14.85, #23 $7.06, #75 $4.49, #67 $3.07, #101 try-4 $0.31 on V); V's merge delayed to ~19:05Z (check rerun); main ac412eb8; balance $172.15; vyv- guard untripped (23:30Z).

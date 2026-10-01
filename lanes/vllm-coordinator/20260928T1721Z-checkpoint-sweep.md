@@ -1,1 +1,0 @@
-2026-09-28T17:21Z sweep: main ac412eb8 (#297; tree 9e41acb1 = edac1cf6, confirmed); 6 rows running (#73 $35.25, #74 $9.04, #23 $5.66, #4 $4.56, #75 $2.67, #67 $1.70); #101 waits on the lowering lane's program-view registry fix; balance $190.82; guard untripped (23:30Z).

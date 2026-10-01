@@ -1,1 +1,0 @@
-2026-09-28T11:00Z sweep: P2 merged (main 64f94732, with #231); balance $297.95 (a top-up of about $200 arrived). Wave-1 need about $232 (caps about $147 + the sweep to 18:00Z about $60 + the $25 floor): covered. Wave 2 (about $83) is not fully covered. GO waits only on the S-stack (~11:45Z).

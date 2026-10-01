@@ -1,1 +1,0 @@
-15:16Z sweep-87: guard TRIPPED at 15:00:54Z on the root-set deadline, 0 pods (expected); left tripped as the dead-man until a lane needs a pod (then backup + clear + re-arm). Final overnight vLLM spend $15.94 ($755.03). No pods, no new handoffs; no WAKE.

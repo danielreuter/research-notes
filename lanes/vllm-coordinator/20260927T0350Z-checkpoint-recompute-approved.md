@@ -1,1 +1,0 @@
-03:50Z: root approved vllm-rf-recompute CPU gate(b) pod cap $2.50 (estimate vllm-coordinator/20260927T0335Z-handoff-from-vllm-rf-recompute.md); L40S #57 rebuild deferred to re-baseline. Review #106 (FP8 shared scale) + #109 (Gemma weight_only_calls=once) on merge-ready handoffs: opt-in, digests fixed when off, 0 recomputes.

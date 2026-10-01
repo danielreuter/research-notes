@@ -1,1 +1,0 @@
-13:26Z: topp_split half-divergence totality fix (detail private/flock-ir-lowering-topp-split-half-divergence.md) routed to cross-call-check for after the morning report; CPU, no pods; pointer-only handoff.

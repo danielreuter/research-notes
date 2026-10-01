@@ -1,1 +1,0 @@
-2026-09-28T11:58Z: #67/#68 need 240 GB (so not the sweep pods); list 3 continues. Sweep pods go only to #4 (first free, by 14:30Z) and #101 (next, by 16:00Z). The other L40S rows launch only on stock. GO waits on the S-stack merge.

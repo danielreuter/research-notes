@@ -1,1 +1,0 @@
-06:41Z sweep-73: serving-commit g1 L40S running (root-approved $3 cap; its 0607Z estimate = runs A/B/C); verify-optins GO (cpu5m ~$8.8 cap $10; handoff 0640Z). NOTE guard CAP file now 830 (I set 840 at 06:09Z; changed by someone, not logged in dm.log) — left as is, hard stop = $830. Spend $739.57 @ $1.09/h.

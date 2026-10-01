@@ -1,1 +1,0 @@
-2026-09-28T10:26Z: #11 deferred to the follow-up epoch, old record kept (the S-stack reaches main ~11:45Z, past its 11:30Z latest start). Wave-1 GO for 9 rows once the S-stack and the top-up are both in.

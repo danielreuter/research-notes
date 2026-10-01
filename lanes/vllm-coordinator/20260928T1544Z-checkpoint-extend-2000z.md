@@ -1,1 +1,0 @@
-2026-09-28T15:44Z: vyv- guard re-armed to 20:00Z (pid 697973, CAP 1005); epoch-run told to extend the timeouts of #4/#73/#23/#101 to <=19:50Z, raise #4's cap to $8, and run #23 through its Commit; asked for finish times.

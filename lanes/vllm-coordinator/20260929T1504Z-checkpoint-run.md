@@ -1,1 +1,0 @@
-2026-09-29T15:04Z run: 6 rows up (#74 $12.82, #60 $3.86, #67 $3.56, #68 $0.45, #4 $0.32, #101 $0.33); #11, #23, #75, #70 and #39 waiting for stock; #57 gated on host eval (prep); guard ok (17:05Z, spent $921.99); balance $228.85.

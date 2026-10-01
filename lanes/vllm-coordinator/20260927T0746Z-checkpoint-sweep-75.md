@@ -1,1 +1,0 @@
-07:46Z: train A merged (#100 #103 #98 #99 #102 #105 #107; main 928790af). serving-commit HEADLINE DONE (~$1.02): scheme on keeps vllm-v1 root 7adcef49, 183,680 heads M0-format byte-match, hook 14.6 s/190 s Commit, roots to e2e; gate(b) ack $1 cap; g2 L40S run since 07:31 (asked to explain). #128 APPROVE -> coordinator (0745Z). Next: review #120, #131 (stacked on #111).

@@ -1,1 +1,0 @@
-2026-09-29T21:14Z run: written #101, #60, #4; deferred #39, #70 (verdict None on a FAIL row); #67/#68 resumes and #23 running with #74, #75, #11; #57 still waits on #415; budgets line $170.10 of 260, untripped; balance $260.30.

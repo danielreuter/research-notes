@@ -1,1 +1,0 @@
-2026-09-28T07:30Z sweep: main 3ba4d8b3; no new lane files; guard untripped (cap 1005, 18:00Z). BLOCKER: RunPod balance $136.16 with the guard's $25 balance floor leaves ~$111 across all lanes, vs the epoch plan's ~$214; asked root for a top-up before wave-1 GO.

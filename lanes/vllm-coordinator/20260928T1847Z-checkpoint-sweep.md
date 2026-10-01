@@ -1,1 +1,0 @@
-2026-09-28T18:47Z sweep: 7 rows running (#73 $45.37, #74 $19.16, #23 $8.09, #75 $5.83, #67 $4.08, #101 $0.99, #68 $0.63, newly launched); main ac412eb8 (V pending ~19:05Z); balance $158.41; guard untripped.

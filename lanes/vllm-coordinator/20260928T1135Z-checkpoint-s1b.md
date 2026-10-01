@@ -1,1 +1,0 @@
-2026-09-28T11:35Z: S1b #253 approved (tests pass with CPU torch; split_name change neutral for wave 1); #57 deferred (16.4 h host); #39 waits on #244, which isn't on main; balance $293.71; GO waits on the S-stack.

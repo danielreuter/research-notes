@@ -1,1 +1,0 @@
-05:06Z: prep S1 finding (#57/#74 Call-level boundaries uncommitted under Q_word) -> option 1 host-evaluated sources as S1b after S1 (handoff vllm-epoch-prep/0505Z); #74 GREEN->FAIL risk / defer question to root. pous registry answered (vllm-coordinator/0505Z-answer-to-pous-registry.md). main unchanged 6746f408; no pods.

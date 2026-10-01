@@ -1,1 +1,0 @@
-06:20Z: coverage support table generated (internal/datasets/coverage-support/{coverage-support.json,gen_coverage_support.py}; 1008 cells: 324 not-run, 628 cant-represent, 56 infeasible; 12 recorded asserted representable); answer note coordinator/20260927T0620Z-answer-docs-site-coverage-support-table.md (AWQ leaves matrix; phi-2 stays as x row).

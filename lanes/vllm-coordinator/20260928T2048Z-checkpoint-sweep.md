@@ -1,1 +1,0 @@
-2026-09-28T20:48Z: #74/#67/#68 run Match then stop (deferred); #70 continues and commits if its manifest is complete; #101 deferred after 5 tries; #75 two-producer and #101 G4 routed to prep/lowering for the follow-up.

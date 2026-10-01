@@ -1,1 +1,0 @@
-08:49Z: root acked serving-commit A4 plan: shared rows (values committed once, GEMM instances reference them), 1 L40S ~$1 cap $2; pod only after e2e layouts arrive + M0 statement accepts references + CPU pass with default path byte-identical.

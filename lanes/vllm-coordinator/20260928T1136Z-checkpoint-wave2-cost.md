@@ -1,1 +1,0 @@
-2026-09-28T11:36Z: wave-2 re-cost: balance $293 − (wave-1 caps $147 + sweep $65 to 18:00Z + POUS $15 + $25 floor = $252) = $41 headroom. #74 (cap $49) is short by about $8, #39 (about $26–35, also blocked on #244) is short. Not funded at caps without more money.

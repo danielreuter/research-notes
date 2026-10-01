@@ -1,1 +1,0 @@
-01:35Z: circuit-checks finding 2 (TopPMaskWord partial on splits) routed to vllm-cross-call-check (sampler owner after vu-export); findings 3/4 + separable checker gap still name the gone PR #92 lane.

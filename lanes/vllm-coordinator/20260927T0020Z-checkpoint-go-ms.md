@@ -1,1 +1,0 @@
-00:20Z: max_scaled MS tap GO to normtap ($10 cap); guard REARM -> 04:15Z (backup guard-vyv-.json.bak-20260927T0020Z; spend $728.97); vu-export tasks re-routed to vllm-cross-call-check bc-f7aadce6 (handoff in its lane dir; follow-up PR on main b1aa9bdb).

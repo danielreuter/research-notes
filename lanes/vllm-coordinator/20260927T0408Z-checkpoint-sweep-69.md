@@ -1,1 +1,0 @@
-04:08Z sweep-69: serving-view g1: run 24a5 running since 03:05Z, last line 'graph 101 rc 1' @03:14Z; checkpoint stale since 02:56Z -> WAKE. recompute cpu pod up ($0.64/h, approved $2.50). spend $737.49 @ $1.73/h; guard ok 06:30Z.

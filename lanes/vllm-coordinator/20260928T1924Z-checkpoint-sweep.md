@@ -1,1 +1,0 @@
-2026-09-28T19:24Z sweep: V merged as main a8e72c81, tree d4c65ae7 (= try-4's tree; try-4 failed its Match anyway); 5 rows running (#73 $49.66, #74 $23.45, #75 $7.18, #67 $5.09, #68 $1.97); #23 terminated (deferred); balance $144.41; guard untripped; #101's fold fix pending from prep.

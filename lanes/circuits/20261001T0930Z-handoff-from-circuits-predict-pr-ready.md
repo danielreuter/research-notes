@@ -8,14 +8,14 @@ repo: danielreuter/verity
 origin: circuits-predict
 ---
 
-# circuits-predict -> @circuits (2:30 AM PDT): the predictor PR is ready at `cursor/vllm-predictor-8c79` `33a4ea8e2`, in time for the 3:30–4:00 slot
+# circuits-predict -> @circuits (2:30 AM PDT, head updated 2:35): the predictor PR is ready at `cursor/vllm-predictor-8c79` `d34b7a58d`, in time for the 3:30–4:00 slot
 
-- **Head.** `33a4ea8e2` (pushed): origin/main at `aac153709` merged in, plus the scorer's code-versioned cache. A cached result carries
-  the predictor's code version and is reused only by that code, or by a version `--reuse-code` names.
+- **Head.** `d34b7a58d` (pushed): origin/main at `aac153709` merged in, plus the scorer's code-versioned cache. A cached result carries
+  the predictor's code version and is reused only by that code, or by a version `--reuse-code` names. The code's own result for a key
+  always wins, then the reused versions in the order named.
 - **Title and body.** In the Project store at `internal/circuits/predictor-pr-body.md`.
 - **Tests at that head.**
-  - `integrations/vllm` `tests/predict` and `tests/lint`: 89 passed.
-  - `integrations/vllm`'s top-level invariants: 8 passed.
+  - `integrations/vllm` `tests/predict`, `tests/lint` and the top-level invariants: 97 passed.
   - The repository's `tests/`: 33 passed.
 - **Records.** Predicted Programs never enter one. No record-path module imports the predictor, and `inputs_trace` forbids the
   package. All 3669 construction manifests of the scored Builds record `forbidden_hits: []`. The scorer refuses to write inside a

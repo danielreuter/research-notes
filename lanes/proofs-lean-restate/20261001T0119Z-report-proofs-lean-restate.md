@@ -5,6 +5,7 @@ created: 2026-10-01T01:19Z
 status: open
 ---
 
+CHECKPOINT 8a27aceb (05:26Z) [open] done: head 22fe745f = 4fc658ce's record + exactly the 13 (r20261001-050837-7078 PASS w/ replay, 205 pins, printout art:9c4cc0d0); execOS_miss_le/RowsCert.sound/GateRows.rows_sound reworded not pinned (016d97bd); addendum note:20261001T0525Z-handoff-from-proofs-lean-restate-addendum-22fe745f; check not recorded
 CHECKPOINT 016d97bd8 (05:09Z) [open] acted on 0506Z (scope = 4fc658ce + exactly 13): dropped execOS_miss_le and RowsCert.sound from the record, reworded their citations and GateRows.rows_sound's instead (016d97bd); stopped r20261001-050526-3390 (16 stubs); --update from 4fc658ce's record with the 13 running as r20261001-050837-7078
 CHECKPOINT 59eedcc05 (05:05Z) [open] pins: 15 at ed74a6af (r20261001-044503-c3d3); GateRows.rows_sound is newly cited by this PR, so pinning it too, and What is pinned fixed (59eedcc0); re-running --update from 4fc658ce's record with 16 stubs (r20261001-050526-3390), addendum to red-team-flock-3 after
 CHECKPOINT 4044cbda (04:40Z) [open] 4fc658ce pushed: Prog.flock_headline pinned, Refine.setup_wf pin retired, audit PASS with replay (r20261001-042646-dfd1); printout art:e0808a65 sent to red-team-flock-3; PR body drafted in lanes/proofs (no PR tool here)

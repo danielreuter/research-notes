@@ -15,7 +15,7 @@ This supersedes `20261001T0700Z-handoff-from-proofs-protocol-packages-fit`, whic
 
 Daniel asked why `protocols/one_stage` isn't part of `protocols/sampled_proofs`, where the sampled-proofs Lean lives, and why
 protocols still have a `PROTOCOL.md`. My answer is
-`/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/internal/proofs/protocols-layout.md`.
+`/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/docs/protocols-layout.md`.
 
 It follows your contract as the coordinator relayed it at 11:51 PM PDT:
 - a trusted part (`Model/`, `Assumptions.lean`, `Properties.lean`);

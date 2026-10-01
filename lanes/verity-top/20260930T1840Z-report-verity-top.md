@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:58Z) [open] evening: memory GPU goals hit, #729 loop fix live, #717 checking
 CHECKPOINT none (23:42Z) [open] tables ruling recorded (values); evening set live; #717 checking
 CHECKPOINT none (23:26Z) [open] afternoon closed 6/8, evening set in; tables card with Daniel
 CHECKPOINT none (23:10Z) [open] #723 registered inputs approved by constant owner; node-1 leases running; vLLM conversion started; PoUS panels card with Daniel

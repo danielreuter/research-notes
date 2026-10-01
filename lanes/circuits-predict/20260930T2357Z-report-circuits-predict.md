@@ -5,6 +5,7 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT f6697c66e (09:01Z) [open] 02:02 PDT: report 20261001T0851Z-report-from-circuits-predict-score-drift-tp2 in lanes/circuits/: 3442/4151 units exact on main code (f6697c66e), all 709 differing = tree drift (700 coverage-v1 GemmBias_v2, 700/700 exact on their code art:aa54edf143d7; 9 old-tree Attention_v2); final score art:344ba958f0e8 (supersedes art:b853cdd8b211); TP2 covers Gemma-2 + fused MoE + OLMoE, 212/212 exact; 10 big units left; PR waits on go-ahead
 CHECKPOINT none (08:44Z) [open] 01:45 PDT: final main-code score (f6697c66e, 326 rows): 4148 units compared, 3439 exact, 709 differ = 700 coverage-v1 drift (700/700 exact on cov code, art:aa54edf143d7) + 9 old ce1b86e4 trees; 13 not run/over budget. Locating divergences on node (r20261001-084105-ed67); report to lanes/circuits/ by 2:05
 CHECKPOINT none (08:00Z) [open] 01:00 PDT: drift re-score so far 41/41 rows, 686/686 compared units exact on the coverage-v1 code they were traced on (14 workloads pending, r20261001-070751-89e2); only 1 drift config has a non-drift trace (qwen25-05b B1 cov-k03-7, exact on main code). Node 1 at load ~260; big workloads still running; final cached-only score + report at ~1:40
 CHECKPOINT none (07:37Z) [open] 00:37 PDT: f6697c66e pushed: TP2 now covers Gemma-2 and the fused MoE (Qwen3-30B, OLMoE incl. its all-heads q/k norm all-gather): 38/38 traced units exact (cov-p058-2, cov-p069, cov-p073-3, cov-p081). Wave 4 done; drift re-score 89e2 at 576 lines; requeue eaf3 on workloads

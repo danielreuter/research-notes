@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (07:41Z) [open] A: 07:42Z poll: GPU 0's verifies 9 done, 4 running, 43 queued, 0 failed. Units take 10.7-18.2 min, so the ETA is about 4:10 AM PDT with the 3:00 pause. die0-mixed peaked at 19.47 GB under the 20 GB cap; asked node2-ops for about 29 GB plus the 12:05Z window line (note:20261001T0741Z-ask-from-pouw-node2-verifies-cap-and-1205-window). Pearl-C4 is READY (e8ffd7f2 0735Z; B's 09:40Z line). Disk 38%.
 CHECKPOINT fbce5a2f4 (07:32Z) [open] A: 07:33Z poll: nothing new for pouw-node2. GPU 0's verifies: 4 running on 0-47, 46 queued, 0 failed. Disk 38%. 5 GPUs in untimed fill leases. 12:05Z isn't in fill/windows yet (asked node2-ops at 07:31Z).
 CHECKPOINT fbce5a2f4 (07:31Z) [open] A: 07:32Z booked pouw-ncp's 15-min timed slot on node 2 at 12:05Z (fallback 13:35Z; note:20261001T0731Z-reply-from-c066b30c-ncp-slot-booked); asked node2-ops to add it to fill/windows; A writes READY/BLOCKED at 11:45Z. From 7:50 AM, A runs no GPU work of its own: it puts Pearl-C4's and the served windows' verified rows on the panel.
 CHECKPOINT fbce5a2f4 (07:29Z) [open] A: 07:30Z correction to the last line: the note is note:20261001T0729Z-reply-from-c066b30c-gpu0-verifies-live-peak-eta (renamed from 0735Z, which was ahead of the clock).

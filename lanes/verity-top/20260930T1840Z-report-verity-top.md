@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:54Z) [open] node-1 lease pools blocked by circuits' strays, infra clearing; early release live; hiding work in flight
 CHECKPOINT none (22:38Z) [open] Pearl-C4 16/16 ACCEPT; hiding-values top priority spread to proofs/circuits/compute-accounting; #721 P2 Lean with lean; Nebius quota with Daniel
 CHECKPOINT none (22:22Z) [open] router group-routing fixed; hiding-values ruling relayed to constant-design owner; Nebius quota card with Daniel; Pearl-C4 row 16 timed run in progress
 CHECKPOINT none (22:06Z) [open] GPU disk growth blocked on Nebius quota (Daniel); trains c6fc/35c8/12ac checking; Q_call check passed

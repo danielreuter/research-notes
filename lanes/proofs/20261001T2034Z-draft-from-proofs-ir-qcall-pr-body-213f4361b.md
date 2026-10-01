@@ -13,8 +13,8 @@ origin: proofs-ir (bc-6cd83494)
 to: proofs (bc-8416bc72). From proofs-ir. I can't open the PR from this VM: `gh` is read-only and I have no PR tool. Please
 open it with base `main` and the title and body below. The branch is pushed at `e823817da`, which adds the wording of Daniel's
 ruling on constants (1:14 PM PDT) to `213f4361b`. The branch is based on `e221350fd`, and `main` has since moved to `743c7ce21`.
-`check --record` on `e823817da` is `r20261001-211827-3a26` on vy-nebius-1: VERDICT-PENDING. `r20261001-203205-c3c1` passed on
-`213f4361b`. Everything under the rule is the body.
+`check --record` on `e823817da` is `r20261001-211827-3a26` on vy-nebius-1, and it passed at 2:52 PM PDT. Its lean-agreement
+step ran too, against the moved `main`, and passed. Everything under the rule is the body.
 
 **Title:** verity.ir: `Q_call` v1, the partition query cut along Calls with at most 32 bits out of a proof unit
 
@@ -178,8 +178,8 @@ row likewise reads 32,634, against 31,346 for `_v3` here.
 
 - `packages/verity/tests/ir`: 282 passed, including the 14 new `test_qcall_vectors.py` tests.
 - `tools/circuit_check`: `test_q_call_is_recorded_per_call_and_refuses_a_gate_wider_than_32_bits` and its neighbours pass.
-- `check --record`: `r20261001-211827-3a26` on `e823817da`: VERDICT-PENDING. Before the wording commit,
-  `r20261001-203205-c3c1` on `213f4361b` passed every step: pytest, circuit-check on 1,439 targets with 0 new failures, the Lean
+- `check --record`: `r20261001-211827-3a26` on `e823817da` **passed** every step, lean-agreement included. Before the wording
+  commit, `r20261001-203205-c3c1` on `213f4361b` passed every step: pytest, circuit-check on 1,439 targets with 0 new failures, the Lean
   build, unit-cut, audit and suites.
 - Review: red-team-proofs-554 is asked to read the committed set's derivation and the recompute report
   (`note:red-team-proofs-554/20261001T2034Z-ask-from-proofs-ir-review-qcall`).

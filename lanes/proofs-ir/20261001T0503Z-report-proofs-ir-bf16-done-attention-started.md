@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: cursor/proofs-ir-95d4
 ---
 
+CHECKPOINT e823817da (21:54Z) [open] Q_call constants wording (Daniel 1:14 PM PDT) at e823817da; check --record r20261001-211827-3a26 PASSED (all steps, lean-agreement included); PR body note updated
 CHECKPOINT 213f4361b (21:07Z) [open] Q_call v1 check --record r20261001-203205-c3c1 PASSED on 213f4361b (all steps; lean-agreement skipped); Q_call refuses 97 Definitions gate-too-wide (lifted 33-bit, TopPMaskWordx64): needs-proofs at note:proofs/20261001T2110Z-handoff-from-proofs-ir-qcall-refuses-lifted-and-topp
 CHECKPOINT 213f4361b (20:38Z) [open] Q_call v1 PR ready at 213f4361b: body for proofs to open at note:proofs/20261001T2034Z-draft-from-proofs-ir-qcall-pr-body-213f4361b; red-team ask at note:red-team-proofs-554/20261001T2034Z-ask-from-proofs-ir-review-qcall; check --record r20261001-203205-c3c1 running
 CHECKPOINT 46c768b2c (19:55Z) [open] Q_call v1 spec + vectors pushed: cursor/proofs-qcall-95d4 @ b307d8320 (cut.evaluate_call, partition_object Q_call v1, PROTOCOL.md §11, tests/ir/qcall_vectors.json; tests/ir 282 pass). Next: circuit-check, Glossary, measurements (running), red-team ask, check --record.

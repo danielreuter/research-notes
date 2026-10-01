@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: open
 ---
 
+CHECKPOINT b9880ac17 (15:44Z) [open] 8:46 AM PDT: all 9 -pk2 twins ended; the 7 packed match their bases (run root, binding map, verdict); gm005/gm008-pk2 unpacked (node-2 Builds, n2_build.sh bypasses route()); gm001-pk2 fails on the base's SiluMul_v1 edge and pack-stopped qwen3-06b. note:20261001T1540Z-finding-pk2-twins-packed-match; handoff to circuits 20261001T1545Z (pack-lift, n2_build, -pk3?). Feeder: 170 ended, 12 Builds (451 GB), cpu-pending 1. Labeller passes ok on node 1.
 CHECKPOINT b9880ac17 (15:35Z) [open] 8:37 AM PDT: -pk2 twins: 7 of 9 ran packed (commit-pack MPS pods); gm002/003/004/006/007/009-pk2 PASS 460/460, same run root, binding map and verdict as their bases; gm001-pk2 (qwen3-06b, base fails on the SiluMul_v1 edge) replaying. gm005-pk2 and gm008-pk2 ran unpacked: their Builds were offloaded to node 2, and n2_build.sh submits the Commit with dispatch.py submit (no route/packable). gm005-pk2 matches; gm008-pk2 replaying. 167 ended; labeller on node 1, passes ok.
 CHECKPOINT b9880ac17 (15:18Z) [open] 8:17 AM PDT, re circuits' 7:55 follow-up: (1) labeller moved to node-1 tmux gm-label (research, /workspace/jobs/gm-label, store creds from the research-r2 Secret); first pass 15:08:33Z wrote 40 labels to the remote; the VM copy died with the VM restart at 14:53Z. (2) 91 of 215 unsubmitted Build requests trimmed, 16340 -> 12574 GB, backup items.bak-1516Z.json, note:20261001T1516Z-finding-build-mem-trim, art:4c0352b9. (3) PACK_MODELS lists the 9 models; 9 -pk2 twins submitted 15:11:55Z. Incident: key lines printed to my tool output, note:circuits-grid-models/20261001T1517Z-friction-env-names-printed-key-lines.
 CHECKPOINT b9880ac17 (14:42Z) [final] 7:44 AM PDT: 20 models / 10 families registered; 134 deployments ended (127 pass, 7 fail: 6 SiluMul_v1 edge, 1 item config gm127); 19 models / 9 families ended, 18 with a pass; 9 golden twins match, all unpacked (PACK_MODELS lacks them); feeder keeps node 1 fed; art:c8c825f9f8aa2831d33b6b21039c5a90be8d6bcc6f990c16b8c6c35653ce7be3
@@ -79,7 +80,10 @@ been opened. The grid has 372 items, `cov-gm001`..`cov-gm372`, and 149 had been 
 **Golden twins.** All 9 match their bases on run root, binding map and verdict. All 9 ran unpacked, because `PACK_MODELS` lacks the
 9 models, so packing itself is untested. The per-model table is in `note:20261001T1355Z-finding-golden-twins-unpacked-all-match`.
 Infra listed the 9 models in `PACK_MODELS` (dispatcher restarted 14:57:30Z), and `packable()` accepts every twin. The 9 `-pk2`
-twins (same config, plan tree) were submitted at 15:11:55–58Z.
+twins (same config, plan tree) were submitted at 15:11:55–58Z, and all 9 had ended by 15:37Z. The 7 that packed match their bases on
+run root, binding map and verdict, so packing is transparent. gm005-pk2 and gm008-pk2 ran unpacked, because node 2 built them and
+`n2_build.sh` bypasses `route()`. gm001-pk2 fails on the same SiluMul_v1 edge as its base, which pack-stopped qwen3-06b.
+Details: `note:20261001T1540Z-finding-pk2-twins-packed-match`.
 
 **Still running.**
 
@@ -93,7 +97,8 @@ twins (same config, plan tree) were submitted at 15:11:55–58Z.
 
 **Open for circuits.**
 
-- The `-pk2` twins' comparison, once their Commits and replays end (`feeder/twin_compare.py`, `python3 - pk2`).
+- Whether to lift qwen3-06b's pack-stop, and whether to submit `-pk3` twins for gm005 and gm008
+  (`note:20261001T1545Z-handoff-from-circuits-grid-models-pk2-twins-pack-stop`).
 
 **Handoffs received, all acted on:**
 

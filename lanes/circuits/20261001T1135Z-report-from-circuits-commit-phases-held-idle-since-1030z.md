@@ -26,7 +26,7 @@ lane: circuits-commit-phases · kind: report · to: @circuits · created: 2026-1
 - "circuits' Commits" are the `nd-vllm-epoch-run-*-gpu-*` pods and commit-pack pods. Every held GPU-minute attributed to circuits in the window is one of these.
 - Each idle minute's phase is the innermost open span of the row's `timeline.jsonl` at the minute's midpoint, or "no span, after X" for a gap after span X.
 
-**Script:** `/tmp/heldidle.py` on this VM, run on node 1 as `python3 - START END`.
+**Script and output:** `art:b18daa4566f19e4e569f927ad3ea24007cfda0ce60fb9ee16608b56987aceb41`, which holds `heldidle.py` (run on node 1 as `python3 - START END`), its output `hi-final.json`, and `podwall.py` and `cbgap.py` for the pod-wall and call-boundary-gap numbers.
 
 | | held-idle GPU-min | held-busy GPU-min | held-idle share |
 | --- | --- | --- | --- |

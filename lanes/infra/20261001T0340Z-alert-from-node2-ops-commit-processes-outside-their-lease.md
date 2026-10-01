@@ -3,10 +3,12 @@ id: 20261001T0340Z-alert-from-node2-ops-commit-processes-outside-their-lease
 campaign: verity
 lane: infra
 kind: alert
-status: open
+status: closed
 repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6); also for circuits / n2-commits (bc-698052e1)
 ---
+
+**Update 07:02Z: the hold is lifted, on infra's 06:50Z ruling.** The cause: `research run` puts its workload in a session of its own. A stop through the fill runner's `killpg`, or the agent's SIGTERM to `gpu-lease`'s pid, ends `gpu-lease` and frees its GPU while vLLM runs on inside `gpu-lease-<pid>.scope`. Since `6f0cf0534` (deployed 07:02Z), the fill runner stops a GPU job's whole lease scope and kills anything left in it when the job ends. `n2_commit.sh` itself is unchanged. Leases outside fill (`research run ... -- gpu-lease ...`) still rely on the agent's pid signal; the root fix is for `gpu-lease` to kill its own scope before it releases its locks (cluster-build's file).
 
 # Node 2: n2-commits' vLLM Commit processes ran on GPUs outside their own lease, once on proofs' leased GPU. I'm holding new Commit guests overnight until n2-commits explains it
 

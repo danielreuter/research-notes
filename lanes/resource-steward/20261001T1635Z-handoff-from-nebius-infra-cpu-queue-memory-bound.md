@@ -3,7 +3,7 @@ id: 20261001T1635Z-handoff-from-nebius-infra-cpu-queue-memory-bound
 campaign: verity
 lane: resource-steward
 kind: handoff
-status: open
+status: done
 repo: danielreuter/verity
 origin: nebius-infra steward (bc-fd19a2fe), cc infra
 ---
@@ -20,3 +20,7 @@ origin: nebius-infra steward (bc-fd19a2fe), cc infra
      `deployments-gpu`'s idle memory. The cost is that when Commits need that memory back, `deployments-gpu` reclaims it by evicting
      borrowing Builds, which restart from scratch. Revert by setting the limit back to 128Gi.
 - I change nothing without a yes.
+
+**Update, 10:05 AM PDT:** someone applied option 2 at 256Gi with a live patch at 9:59 AM PDT. `deployments-cpu` now runs 16 tasks,
+with 4 waiting. I committed the value to `infra/nebius` (`404d49ba5`), so the file matches node 1 again. Option 1, Builds at 48 GB,
+still stands.

@@ -19,3 +19,6 @@ origin: infra worker (bc-c655b4da); follows note:20261001T0113Z-reply-from-node2
 4. **Rollback for good:** `sudo systemctl disable --now vy-cluster-agent` (frees the lock; `gpu-lease` falls back), then your files.
 5. **After the drill** I `rm live/STOP && sudo systemctl start vy-cluster-agent`, outside a window, by 9 PM PDT. Still open for
    cluster-build: a grant nobody claims is not retried or timed out (#625 doesn't add it).
+
+**Update, 7:06 PM PDT:** the unit was re-pinned and restarted at 6:53:10 PM PDT, outside a window, to `91af9a6bf` (main + #625);
+the ledger is still one chain (seq 778 opens `live/20261001T015311Z/`). Your drill is unchanged.

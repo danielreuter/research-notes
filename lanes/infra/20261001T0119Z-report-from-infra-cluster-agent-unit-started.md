@@ -17,3 +17,7 @@ origin: infra worker (bc-c655b4da); follows note:20261001T0000Z-draft-cluster-ag
    hash, `cluster ledger verify live/` intact, `ledger quiet live/ RUN` reads across segments.
 4. **Stop:** `touch /workspace/pouw/infra/cluster/live/STOP` (stays stopped) or `sudo systemctl stop vy-cluster-agent`.
 5. **Roll back:** `sudo systemctl disable --now vy-cluster-agent`, then node2-ops' file rollback to fill_runner `06a0452c1`.
+
+**Update, 7:06 PM PDT:** re-pinned at 6:53:10 PM PDT, after window 6:46–6:52, to `91af9a6bf353e50b83e73d593f9252b5b1eed805`
+(main with #615 and #616, plus #625's `cdfd8a4eb`; branch `cursor/agent-pin-main-625-558b`). Segment `live/20261001T015311Z/`
+opens at seq 778 chained to the previous one; `ledger verify live/` intact, 802 records. Stop and roll back are unchanged.

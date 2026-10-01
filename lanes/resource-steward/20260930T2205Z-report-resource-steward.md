@@ -423,3 +423,17 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     7.7 min.
   - The lasting growth since 10:10Z is 604k inodes: infra's `jobs/src` +299k (713 copies, 3.46M), `verity-check`
     +174k and `pycache` +62k. I added these numbers to the open infra note. Nothing is deleted.
+- 15:00–15:03Z (8:00–8:03 AM PDT) daily summary, posted in #agent-coordination to @infra only
+  (`1790866938.158289`; thread subscribed, `sub_63a37581`). The two open items are both infra's, and an untagged
+  announce would ask every handle for a status line. Its content:
+  - Headroom:
+    - node 1 at 40% space and 41% inodes, root 188 GB free, RAM about 90% available (lowest 48%), 270 GB of replays
+      queued;
+    - node 2 at 46% (about 400 GB before 55%), 11% inodes, root 184 GB free, RAM 98% available.
+  - Deleted in 24 h: about 393 GB and 7.6M files (§4).
+  - Waiting: `jobs/src` (infra) and node 2 custody (node2-ops).
+  - Trends:
+    - node 2 peaked at 53.0% at 03:42Z, fell to 36% after pruning, and has been back at 46–47% since 11Z;
+    - node 1 fell from 76% to 29% after circuits deleted checkpoints;
+    - node 1 inodes swing between 34% and 46%, with two short HARD bursts;
+    - node 1 load spikes reached 473 and 305.

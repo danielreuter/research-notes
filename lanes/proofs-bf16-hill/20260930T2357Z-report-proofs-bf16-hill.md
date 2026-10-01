@@ -5,6 +5,7 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT none (07:37Z) [open] 12:38 AM PDT: step-1 gains vs clean step 0: K=16384 5.82e8->1.83e8 (e54c) 3.2x; paired 2b1a 1.98e8 flagged by kcompactd1 (note to infra). K=8192 2.84e8->1.47e8 (a814) 1.9x, clean. K=4096 s1 6.95e7, s2 overlap 2.62e7 (ca26), clean. Running K=2048 s5, K=4096 s3.
 CHECKPOINT none (07:06Z) [open] 12:07 AM PDT: clean step 0 (foreign cores 0.01/0.04): K=16384 5.82e8 (r20261001-064953-ef42, verify 18.7 s; same binary+slot gave 4.72e8 earlier, so ~±12% spread), K=8192 2.84e8 (r20261001-070020-3cd7). Pairing step 1 back to back at both K now, then the overlap ladder.
 CHECKPOINT none (06:49Z) [open] 11:51 PM PDT: one slot (0626Z). Queue: clean step 0 K=16384 then K=8192 (128-175 clean after infra's slice confinement), then fold+overlap and structured lincheck at K=2048 (steps 5, 6), K=8192 and K=16384 (steps 2, 3). -lc binary built (r20261001-064119-8cdc).
 CHECKPOINT none (06:30Z) [open] K8192 s1 r20261001-062123-6f58: 1.54e8 vs s0 2.77e8 (verify 4.3 vs 8.6s), flagged: every provers slice now 15/16 cores foreign (4 --queue runs on 96-191 + an ssh pytest on 0-191; see 0607Z handoff). Clean points blocked on that; staging -ov/-lc (overlap, proofs-arch lincheck) meanwhile.

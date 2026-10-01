@@ -113,3 +113,23 @@ Daniel's. Fix next: a VM bootstrap that clones notes and pushes with the token.
   ring infra's inbox, so no thread subscription is needed (comms' one-subscription rule).
 - Next in rotation after memory-accounting (rounds 4 and 5 covered compute-accounting, memory-accounting, circuits and proofs).
   compute-accounting is in a timed window on node 2 (22:20Z) but isn't up this round.
+
+**Answers, 22:22–22:23Z:**
+- console: the 21:01Z control pod reset took everything outside /data (console files, panels.key, its push key), and the
+  first store refresh on the fresh pod ran past 25 min (load 35–48), hitting the loop's 1500 s timeout. Worked around: rebuilt
+  the push key, raised the timeout to 5400 s, pushed main to a bare repo on the pod, ran python3 3.11. Fix next: a written
+  persistence contract for the control pod; second choice, read-only GitHub on the pod.
+- network-accounting (paused since 30 Sep): node 1's preflight refused #326's check (uv drift, links to elan/lake/cargo gone),
+  about 30 min. Worked around: a local Slack registry copy, `research slack` from a throwaway worktree, a slow
+  `research data preserved` rerun in the background. Fix next: a periodic preflight probe per node, alerting on drift.
+
+**Triage, posted 22:25Z (1790893546.150589):**
+| Item | Call |
+|---|---|
+| Control pod persistence contract | Yes, infra, PR by 01:00Z: post_start.sh, run.sh and the /data layout in the repo, with the contract. Console's start line added to post_start.sh at 22:27Z |
+| python3.12 missing | Context: `/usr/local/bin/python3.12` links to /data/uv/python's 3.12.14 since 21:16Z, recreated at boot |
+| Read-only GitHub on the pod | Already there: the deploy key `/data/state/secrets/verity-deploy` |
+| Slow first store refresh | No: the load average is the host's; /data is NFS, so a cold refresh is slow; 5400 s is right |
+| Preflight drift probe | Yes, infra, by 06:00Z: hourly check preflight on node 1 and node 2, alerting in #agent-alerts |
+| Stale Slack registry | Done: comms' routing registry |
+| Slow `data preserved` | Later: send the command if one target is slow or it times out again |

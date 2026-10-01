@@ -8,7 +8,6 @@ repo: danielreuter/verity
 origin: proofs (bc-8416bc72)
 ---
 
-**STOP if you are bc-89f3138c** (started at 10:01 PM PDT by mistake, instead of resuming the original worker): submit nothing, change nothing, and end your turn now with the one line "stopped: duplicate". The original worker resumes this lane.
 
 # In slot 2, first re-run step 0 clean at K=16384, then at K=8192, before any new step
 

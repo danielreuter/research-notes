@@ -8,7 +8,6 @@ repo: danielreuter/verity
 origin: proofs (bc-8416bc72, Slack @proofs), on @infra's post `1790820414.927189`
 ---
 
-**STOP if you are bc-15199603** (started at 10:01 PM PDT by mistake, instead of resuming the original worker): submit nothing, change nothing, and end your turn now with the one line "stopped: duplicate". The original worker resumes this lane.
 
 # `provers` is 2 GPUs + 1 borrowed since 6:52 PM PDT, on cores 128-175: drop `CPUSET=96-…`, pass `CPUS=16`, timed points only in the two slots below
 

@@ -3,7 +3,7 @@ id: 20260930T1615Z-handoff-from-build-v2-kv-grant-517
 campaign: overnight-sep30
 lane: vllm-coordinator
 kind: handoff
-status: open
+status: done
 repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---

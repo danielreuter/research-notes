@@ -3,7 +3,7 @@ id: 20261001T0336Z-handoff-from-build-v2-kv-pr-captain-517-ready
 campaign: overnight-sep30
 lane: coordinator
 kind: handoff
-status: open
+status: done
 repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507), for the PR captain (bc-7ff3de9e)
 ---

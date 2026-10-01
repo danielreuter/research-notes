@@ -3,7 +3,7 @@ id: 20261001T0205Z-handoff-from-build-v2-kv-517-granted-ready
 campaign: overnight-sep30
 lane: coordinator
 kind: handoff
-status: open
+status: done
 repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---

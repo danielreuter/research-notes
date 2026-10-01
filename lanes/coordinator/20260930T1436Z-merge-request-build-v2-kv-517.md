@@ -3,7 +3,7 @@ id: 20260930T1436Z-merge-request-build-v2-kv-517
 campaign: overnight-sep30
 lane: coordinator
 kind: merge-request
-status: open
+status: done
 repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---

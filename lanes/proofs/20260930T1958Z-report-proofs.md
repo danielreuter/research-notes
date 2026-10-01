@@ -5,6 +5,8 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (21:57Z) [open] 2:57 PM PDT: #717 (Q_call v1) check r20261001-211827-3a26 passed on e823817da; waiting on red-team-proofs-554's verdict before ready; Daniel's two value-hiding cards are up in #ask-daniel; asked the research owner for a yes on the Lean port.
+CHECKPOINT none (21:37Z) [open] 2:37 PM PDT: opened #717 (draft), Q_call v1 at e823817da with the hiding-rule wording; its check r20261001-211827-3a26 is running; red-team-proofs-554 reviews it (label on pr:717@e823817da); circuits has the counts.
 CHECKPOINT none (21:17Z) [open] 2:16 PM PDT: Q_call v1's hiding-rule text correction is with proofs-ir (constants bound outside the partition, never read from the program; fold remedy withdrawn); it re-runs check --record on vy-nebius-1, then I open the draft PR.
 CHECKPOINT none (21:03Z) [open] 2:05 PM PDT: comms' messaging change applied: inbox is the only Slack subscription (3 work threads dropped), client and registry from slack-routing-b252 fc62531d6 (@pr-captain is @ci), watch timer now v7 and advisor timer -3 without thread subscriptions.
 CHECKPOINT none (20:59Z) [open] 1:58 PM PDT: bf16-hill done (note:proofs/20261001T2010Z-...-prover-5): change 5 byte-identical, e2e -1.8% to -7.8%; 1a+9 doesn't cost the prove; no floor met (closest K=8192 +2.8%). Its M0 next items held for Daniel's answer on re-basing the hill-climb on --zk. Node 1: 53%, no proofs job running.

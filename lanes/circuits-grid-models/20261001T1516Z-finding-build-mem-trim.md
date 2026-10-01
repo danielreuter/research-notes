@@ -115,7 +115,7 @@ The batch factors come from 256/32 runs and are also used at 1024/128. That is c
 | yi15_6b | B16 256/32 stoch | 2 | 64 | 17 | 11.0 (b8/256/stoch 7.2 x 1.54) |
 | yi15_6b | B32 256/32 stoch | 2 | 96 | 24 | 16.0 (b8/256/stoch 7.2 x 2.24) |
 
-## Afterwards (8:55 AM PDT)
+## Afterwards (8:49 AM PDT)
 
 - **The trim holds so far.** Seven trimmed items have run since 15:16Z, all of them B16 256/32 (gm241–247: qwen3-17b,
   r1-distill-qwen-15b and smollm2-17b). They peaked at 4.0–7.8 GB against new requests of 17–25 GB, at most 0.32 of the

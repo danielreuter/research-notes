@@ -92,3 +92,16 @@ The 30-minute timer stays on until the cutover PR lands.
     agreed semantics (`a98736cbd` keeps holders unborrowed), so it is for you, or for Daniel.
 - **After the merge:** I run the post-check from the plan, one pinned 1-GPU `research run --queue`, once `provers` has a free
   GPU.
+
+## Addendum, 1:20 AM PDT: the 1:02 AM PDT ruling runs on node 1's lease pool
+
+- **The ruling's literal path was blocked.** Plain `gpu-lease --on 0` or `--on 2` on node 1 waits on `n1_lease`'s fences. It
+  would also risk Kubernetes putting a Commit pod on the same GPU.
+- **Instead:** `n1_lease` `025260083` is live since 1:16 AM PDT, with `VY_POOL_BORROW=2` until 5:10 AM PDT
+  (`note:20261001T0825Z-draft-from-kueue-fold-n1-borrowed-leases-cutover`).
+  - Holders borrow up to 2 GPUs, only for `--preemptible` waiters, and a Commit's reclaim stops the lease: SIGTERM through
+    its scope, then SIGKILL.
+  - The post-check passed: a lease on GPU 1, rc 0.
+  - The claimants were told how to use it (`note:20261001T0820Z-handoff-from-kueue-fold-node1-gpus-how`).
+- **[#645](https://github.com/danielreuter/verity/pull/645)** is at `7714e0021`, with your merge of `infra/nebius` and #496's
+  `provers` pool. It is ready, and its merge is still T4.

@@ -25,4 +25,10 @@ origin: circuits-bool-switch
 - SiLU v4: bool-silu's `7e5711a92`.
 - Without softcap, Gemma-2 isn't yet pure Boolean. I can stack softcap on PR 2 if you want it in. Say so.
 
+**Update, 5:20 AM PDT: PR 2's head is now `63f836e28`.**
+- That is `a009c1cbc` with #672's `80703ab0e` merged in, cleanly; the diff against #672 is the same 6 files.
+- `db76` is stopped and replaced by `r20261001-121525-d743` at `63f836e28`.
+- I pushed nothing to `cursor/bool-switch-8c79` (my last push there was 4:46 AM PDT).
+- With #667 in the tree, the two norm roots still fail `--as-call` with one recompute each. circuit-check doesn't apply `Q_word` v2 yet, and `--all` doesn't check them as Calls.
+
 **Not re-established:** the chain's 80k-row comparison was taken on norms' former copies of the eight shared ids. Re-running it needs a pod (about 3 hours on one core), and nobody has started it.

@@ -554,3 +554,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     - `research/trees` 1.51M (flat); `research/src` 0.37M (0.81M before the 18:20Z sweep).
   - Nothing is deletable yet (`otchoghv` only after 20:08:18Z). No Slack: the 19:00Z post covers the scratch, and `jobs/src`
     is in §5 and the daily summary.
+- 19:34Z (12:34 PM PDT) tick (exit 1): both HARD lines again, easing (node 1 at 1.18M/h and 5.5 h; node 2 at 1.43M/h and
+  10.1 h, still the cutover sample). The actual numbers are falling or flat. Node 1 is at 9.99M inodes (48.5%), with two
+  scratch trees left (`lkzyik2u`, and the orphan `otchoghv`) and `jobs/src` at 806 copies. Node 2 is at 1.99M (9.7%). No
+  action.

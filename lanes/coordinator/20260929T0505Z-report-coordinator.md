@@ -313,3 +313,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 18:14Z: N2 (8ce87f6fa = CB + #703 #694 #702, send) slot b r20261001-181223-5ae6.
 - 18:23Z: published 7d32 from VM (db locked on node 1), merged 1f2011900 (#684-#690 minus #686), main e221350f.
 - 18:25Z: keep CB+N2; #704 (9cf20f6f3) merge on r20261001-171603-fdcf pass.
+- 18:40Z: T705 (33f2b1d32 = N2 + #705) slot c r20261001-183932-4cf9; order CB, N2, T705, #704.

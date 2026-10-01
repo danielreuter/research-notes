@@ -5,6 +5,7 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT 816eb0dc (09:27Z) [open] 2:27 AM PDT, node 1 unless noted: 0910Z re-label done (gemm_hill a8a3661e2, 32 points, hill.flags + note): granted fold flag-free; steps >= 3 carry verifier-c0-once-unreviewed (750e344fd = acca35385, in neither grant; note:proofs/20261001T0926Z-reply-from-proofs-bf16-hill-fold-granted-c0-once-unreviewed). K=16384 s4 2 servers 2.61e7 (6c85), confirm 2.77e7 (a0e0), 3-8% under s3's 2.85e7. K=8192 s7 2 servers + prefetch 2.32e7 (ec06), confirm 2.47e7 (d457), no gain on cab4's 2.38e7. Node 2 K=4096 s7 prefetch confirm 2.24e7 (d85b, /0.95 = 2.35e7), neutral. Running: K=16384 s5 2 servers + prefetch; node 2 pipeline depth 2 at K=2048/4096/8192 (the prove is GPU-bound: session gaps = e2e).
 CHECKPOINT f12fe3592 (09:01Z) [open] 2:01 AM PDT, node 1 unless noted:
 - K=8192 s5, 2 verifier servers ahead 4 (cab4): 2.38e7 against s3's 3.16e7, a 25% same-node gain. Verifier peak 11 GB, against 8 processes' 88 GB at K=16384, and NUMA node 1 has 19 GB free.
 - K=16384 s2 overlap 3.58e7 (5802; 269c was its evicted first attempt), s3 lincheck 2.85e7 (9514). Its 2-server step runs now.

@@ -44,4 +44,6 @@ origin: circuits-bool-switch
 - The head replays `4571` and `c1ae` were not killed from outside. Both used 24 workers in a 96 GB cgroup, filled it (25 OOM events, 1 OOM kill), and were then SIGTERM'd, at 153 and 130 of the 460 picks.
 - The replay runs again at **`443538fed`** with 16 workers and 144 GB as `r20261001-115415-9980` (`0b4b`'s 12 workers took 57 minutes). I'll put its result in the body.
 
+**Update, 5:01 AM PDT:** `d3bb` is done, and both halves passed at `734ed97bd`: verity-vllm 1,238 passed, 0 failed; verity 586 passed, 0 failed. The body says so. Only the replay `9980` is still running.
+
 **Not in PR 1:** softcap (`cursor/bool-softcap-attn-e311` @ `0a2e6f7e2`; it has no circuit-check binding) and norms' dense chain (`cursor/bool-norms-8c79`, which goes into PR 2).

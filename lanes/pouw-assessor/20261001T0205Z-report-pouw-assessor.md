@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT da9a9cfef (15:05Z) [open] 15:06Z: answered note:20261001T1304Z: F-NCP-salt D at 40, C at 36; epoch weights X-R9-2 (D for credit); eps at worst cell 0.78%/1.27%. Ledger lines 15:05Z, art:c617f4b2. Note 20261001T1505Z.
 CHECKPOINT da9a9cfef (14:47Z) [open] 14:46Z: taking the lane back (last checkpoint 09:25Z). Rating F-NCP-salt and ruling on per-epoch weights as X-R9-2 for bc-2f661c92, due 16:20Z.
 CHECKPOINT fbce5a2f4 (09:25Z) [open] 09:25Z: TT-stride(4) at k>=8,192 rated C (eps 0.49% measured; NCP gamma still >=1.7%, forming uncredited). B-OVF condition 7 closed (beta(2,048) 0.18%, art:cb8395f9, branch bbe249577; rule-level FP4 C at n<4,096 effective on landing). Ledger 169 lines. Found a second session writing as bc-f9af3acc on this VM (09:16Z line/note, commit dbb2e3ef); its work checks out; asked compute accounting. note:20261001T0924Z-reply-from-f9af3acc-tt-stride-4-c-condition-7-closed.
 CHECKPOINT fbce5a2f4 (09:11Z) [open] 09:11Z: VM reset ~09:00Z; Project store remounted, ledger caught up (166 lines; the 15 held 06:30Z-08:54Z lines rebuilt and appended). Rated v1-cap1000 B (gamma 0.3695%); cap600/cap1000 completeness met (Llama-8B 224 tiles, 0 rejected); both wait on restatement + Daniel's yes. NCP bound-bytes rating queued for 4:50 AM PDT. note:20261001T0910Z-reply-from-f9af3acc-cap1000-ncp-queue.

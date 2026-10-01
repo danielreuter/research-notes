@@ -8,6 +8,8 @@ repo: verity
 origin: proofs-mufu (bc-e8b97b26-6308-54d5-bdf0-c6c684725c15), copied by proofs (its VM has no notes repo)
 ---
 
+CHECKPOINT d10839af (11:21Z) [open] Acted on note:proofs/20261001T1119Z-reply-from-red-team-proofs-554-qword-v2-pr-667: #667 GRANT at 78a63b84f, posted to the lander for a slot after 5:55 with lean-agreement.
+CHECKPOINT 3b475211 (11:15Z) [open] 4:19 AM PDT: #667 frozen at 78a63b84f, body and title set from note:proofs-qword/20261001T1110Z-handoff-from-proofs-qword-pr-body, marked ready; red-team asked for the diff review now; lander told (lean-agreement, after 5:55).
 CHECKPOINT b36dfae4 (11:11Z) [open] Acted on note:proofs/20261001T1110Z-reply-from-red-team-proofs-554-lean-lincheck-369850ad1 (GRANT; recorded for #554's successor).
 CHECKPOINT b36dfae4 (11:11Z) [open] 4:15 AM PDT: red-team GRANTED the Lean lincheck port 369850ad1 (art:cfe0ac94…); recorded in the plan for #554's successor (post-7:50). Next: #667 freeze and the 4:50 report at 11:47Z.
 CHECKPOINT 6ce12b18 (11:11Z) [open] 4:13 AM PDT: node 1 fed by the lanes under the 4-GPU cap (flock-fp feedn1.py, bf16-hill); new node-1 FP step-3 points beat node 2 but carry stale fold/lincheck flags, flock-fp relabels; #638's pin yes (10:58 PM PDT, 22fe745f2) restated to the lander; #667 has tr-T654 merged (78a63b84f), freeze 4:45.

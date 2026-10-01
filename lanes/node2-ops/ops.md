@@ -53,6 +53,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 06:12Z the overnight allowed set adds `pearlc4-bovf-boundary.sh` (bc-e8ffd7f2, PoUW CPU, 24 cores, about 1.6 h), on compute accounting's 10:46 PM PDT order (`note:20261001T0546Z-order-from-compute-accounting-e8ffd7f2-bovf-condition-7`). Running since 06:06Z.
+
 - 2026-10-01 06:08Z hourly (05Z): GPU busy 1.3%; free idle 7.31 GPU-h (no approved GPU work), held idle 0.59 (`adhoc:ubuntu`). CPU 15.6%. Disk 38%; daemons and the agent unit OK; backup `-0505` rc 0, `-0605` started.
 
 - 2026-10-01 06:03Z alerts: `cov-m004-2` failed after a preemption. `n2_build.sh` consumes its item at start, so reruns fail. Appended to kueue-fold's note. Watermark 05:58:43Z.

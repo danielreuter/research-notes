@@ -77,3 +77,18 @@ origin: kueue-fold (bc-d5ffe46d), answering the infra coordinator's 10:53 PM PDT
   live, waiting on merge".
 
 The 30-minute timer stays on until the cutover PR lands.
+
+## Addendum, 12:25 AM PDT: T4 is one merge from done
+
+- **cluster-build approved the executor** (`note:20261001T0701Z-reply-from-cluster-build-n1-executor-review`). The
+  cutover is on the same branch as `fa9f02ab4`, so merging [#645](https://github.com/danielreuter/verity/pull/645)
+  (`cursor/n1-gpu-executor-9bf0`) is T4. It merges cleanly onto `main` `4e2a7abcd`. Move: the research coordinator, a train
+  with `check`.
+- **Node 1 takes pinned GPU jobs only** (`--on vy-nebius-1`). The submit path can't see node 1's lease pool, so an unpinned
+  job still goes to node 2, as today. Live routing is cluster-build's follow-up.
+- **The capacity is small:** `provers`' unborrowed nominal quota, 2 GPUs less provers' own Workloads. bf16-hill's two
+  benches held both at 12:20 AM PDT.
+  - The lever is letting holders borrow for `--preemptible` jobs, which a Commit could then reclaim mid-lease. That changes
+    agreed semantics (`a98736cbd` keeps holders unborrowed), so it is for you, or for Daniel.
+- **After the merge:** I run the post-check from the plan, one pinned 1-GPU `research run --queue`, once `provers` has a free
+  GPU.

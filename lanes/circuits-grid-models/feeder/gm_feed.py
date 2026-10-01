@@ -24,9 +24,11 @@ and submits the next items whose wave is allowed and whose role, TP and key aren
 It never submits a key that log.jsonl or done.jsonl names or that it attempted before (attempted.txt, written before the submit:
 a failed submit is not retried; a new key is), and submits nothing from 11:30Z to 12:55Z (node 1's /workspace window and Kueue's
 12:10Z hold) or while a file STOP sits beside it.
-An item on a tree in LEASE_TREES whose Commit dispatch's packable() wouldn't pack goes out leased (`"lease": "self"`, through
-submit_leased.py) on that tree merged with the Commit lease, so its Commit holds a GPU only while the Commit process runs
-(note:20261001T1705Z-handoff-from-circuits-replay-keep-leaves-lease-self); packing items go out as before.
+An item on a tree in LEASE_TREES goes out on that tree merged with the Commit lease, whose Commits keep the CUDA driver's JIT cache
+per tree (vLLM's FA2 has no sm_120 code: ~60 s of PTX JIT in every pod without it), packed or not. One whose Commit dispatch's
+packable() wouldn't pack goes out leased (`"lease": "self"`, through submit_leased.py), so its Commit holds a GPU only while the
+Commit process runs (note:20261001T1705Z-handoff-from-circuits-replay-keep-leaves-lease-self); packing items go out through
+dispatch.py as before.
 """
 import json
 import re
@@ -211,7 +213,7 @@ def tick():
             continue
         base = it["tree"].rsplit("/", 1)[-1]
         leased = base in LEASE_TREES and D.packable({**it, "id": i["key"]}, k, 1) is not None
-        tree = it["tree"].replace(base, LEASE_TREES[base]) if leased else it["tree"]
+        tree = it["tree"].replace(base, LEASE_TREES[base]) if base in LEASE_TREES else it["tree"]
         cmd = [PY, LEASED_PY if leased else DISPATCH_PY, "submit", it["template"], k, "--tree", tree, "--resources", json.dumps(it["resources"])]
         for ek, ev in it["env"].items():
             cmd += ["--env", f"{ek}={ev}"]

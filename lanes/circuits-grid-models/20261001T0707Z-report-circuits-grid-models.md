@@ -2,9 +2,10 @@
 lane: circuits-grid-models
 kind: report
 created: 2026-10-01T07:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT b9880ac17 (19:47Z) [final] 12:50 PM PDT: 449 ended on both nodes (434 at 11:30; floor 450), 36 models / 15 families, every failure named; FINAL written; open for circuits: big_cap 14 (1802Z), pack bundle cap (1920Z)
 CHECKPOINT b9880ac17 (19:44Z) [open] 12:45 PM PDT: grid 242 ended; pack queue draining (4 of 6 B8 1k claimed); feeder sends again as b8+ in flight drops under big_cap 4; big_cap 14 and bundle cap still with circuits
 CHECKPOINT b9880ac17 (19:21Z) [open] 12:23 PM PDT: 6 packed B8 1k Commits blocked by commit_pack's bundle cap (32.9+120>150), handed to circuits (1920Z); big_cap still open; grid 238 ended
 CHECKPOINT b9880ac17 (18:55Z) [open] 11:55 AM PDT: grid 236+ ended, feeder idle on big_cap 4 (all 177 eligible B8+), waiting on circuits' yes for 14 (1802Z handoff); leased Commits 5/5 pass
@@ -53,75 +54,71 @@ CHECKPOINT 3843df1 (07:07Z) [open] 20 models staged (configs, TP1 fixtures, 480 
 
 ~~~text
 tip: cursor/grid-models-8c79 @ b9880ac17 (base cursor/coverage-v1-2622@90ebe43d)        merge-with: none
+     cursor/grid-models-more-be5a @ 704714544 (the 3 new models; base cursor/grid-boundary-gm-827a @ 1fff7995)
 known-failures: none    pod: none of mine (shared vy-nebius-1 and vy-n2; I created no pod); $0 of my own
-artifacts: art:c8c825f9f8aa2831d33b6b21039c5a90be8d6bcc6f990c16b8c6c35653ce7be3 (the labeller's gather at 14:37Z, which the counts come from); per-deployment outcomes are labels on each attempt, by circuits-grid-models
+artifacts: art:c8c825f9f8aa2831d33b6b21039c5a90be8d6bcc6f990c16b8c6c35653ce7be3 (14:37Z gather), art:4c0352b9 (Build trim);
+           per-deployment outcomes are labels on each attempt, by circuits-grid-models
 ~~~
 
-**Models and families added: 20 ungated HF models in 10 families.**
+**Against the 11:30 AM PDT goals of note:20261001T1555Z-handoff-from-circuits-1130-set:**
 
-- qwen25: qwen25-05b-instruct, qwen25-3b, qwen25-coder-15b, r1-distill-qwen-15b
-- qwen3: qwen3-06b, qwen3-17b, qwen3-8b, qwen3-14b, qwen3-30b-a3b-2507
-- llama3: llama32-3b, llama31-8b, r1-distill-llama-8b
-- smollm2: smollm2-17b
-- mistral: mistral-7b-instruct
-- gemma2: gemma2-9b, held by circuits' 07:49Z ruling, so never run by me
-- olmoe: olmoe-1b-7b-0125-instruct
-- phi: phi4-14b
-- yi: yi15-6b
-- falcon3: falcon3-1b, falcon3-7b
+- **Ended deployments, both nodes: 434 at 11:30, below the 450 floor.** The count was 449 at 12:50 PM PDT.
+- **Models: 36, and families: 15.** Both floors are met: 35 models and 14 families have a pass. pythia-160m (the epoch run's) is the
+  one without.
+- **Every failure has a named cause.** The epoch run's are named by circuits-epoch-audit.
+- The counts were reported at 10:30 and 11:20, with the 11:30 line appended to the second report:
+  note:20261001T1731Z-report-from-circuits-grid-models-counts-1030 and note:20261001T1820Z-report-from-circuits-grid-models-counts-1120.
 
-**Where the work lives.** The checkpoints and workloads are on `cursor/grid-models-8c79` @ b9880ac17, which is pushed. No PR has
-been opened. The grid has 372 items, `cov-gm001`..`cov-gm372`, and 149 had been submitted through node 1's dispatcher by 14:37Z:
+**Models: 23 ungated HF models in 13 families.**
 
-- 74 on that branch's tree;
-- from 10:36Z, the plan tree `cursor/grid-plan-gm-827a` @ 05fa9d3e;
-- from 14:15Z, the boundary tree `cursor/grid-boundary-gm-827a` @ 1fff7995. circuits-commit-phases repointed the unsubmitted
-  items to it.
+- 20 are on `cursor/grid-models-8c79`. The list is in note:20261001T1440Z-report-from-circuits-grid-models-counts-0740.
+- 3 are on `cursor/grid-models-more-be5a`: pleias-350m, danube3-500m and salamandra-2b. They make 72 items, cov-gm373 to gm444, in
+  wave 5.
+- All three new models passed their first row by 10:03 AM PDT. By 12:50 they had 4, 6 and 3 passes and no failures.
 
-**Deployments run, as of 14:37Z: 134 ended, 127 passing and 7 failing. Every failure has a named cause.**
+**Grid at 12:50 PM PDT: 244 ended, 234 pass, 10 fail.**
 
-- 19 models have an ended deployment and 18 have a pass, in 9 families, all with a pass.
-- Where they ran, Build / Commit: node 1 / node 1: 104; node 2 / node 1: 26; node 1 / node 2: 3; node 2 / node 2: 1.
-- **6 failures: a Definition gap, SiluMul_v1's expf-overflow edge.** Not a Commit fault.
-  - Items: gm001, 031, 081, 082 and 001-pk (qwen3-06b), and gm149 (qwen3-8b).
-  - The quarantined SiluMul_v2 equals every mismatched committed word.
-- **1 failure: a configuration error in my item.**
-  - gm127 (qwen3-30b-a3b-2507) ran at gpu_memory_utilization 0.5, which is below its 56.9 GiB of weights, so vLLM's KV cache came to -9.81 GiB.
-  - Its other 11 items now set GPU_UTIL=0.9. gm137 is in flight with the fix.
-- 15 deployments were in flight at 14:37Z. Counts by model: `note:20261001T1440Z-report-from-circuits-grid-models-counts-0740`.
+- Where they ran, Build / Commit: node 1 / node 1: 187; node 2 / node 1: 52; node 1 / node 2: 4; node 2 / node 2: 1.
+- **9 failures are the SiluMul_v1 expf-overflow Definition gap.** Seven are qwen3-06b: gm001, 031, 081, 082, 102, 001-pk and
+  001-pk2. Two are qwen3-8b: gm149 and gm214. The quarantined SiluMul_v2 equals every mismatched committed word.
+- **1 failure is a configuration error in my item:** gm127 had no GPU_UTIL.
 
-**Golden twins.** All 9 match their bases on run root, binding map and verdict. All 9 ran unpacked, because `PACK_MODELS` lacks the
-9 models, so packing itself is untested. The per-model table is in `note:20261001T1355Z-finding-golden-twins-unpacked-all-match`.
-Infra listed the 9 models in `PACK_MODELS` (dispatcher restarted 14:57:30Z), and `packable()` accepts every twin. The 9 `-pk2`
-twins (same config, plan tree) were submitted at 15:11:55–58Z, and all 9 had ended by 15:37Z. The 7 that packed match their bases on
-run root, binding map and verdict, so packing is transparent. gm005-pk2 and gm008-pk2 ran unpacked, because node 2 built them and
-`n2_build.sh` bypasses `route()`. gm001-pk2 fails on the same SiluMul_v1 edge as its base, which pack-stopped qwen3-06b.
-Details: `note:20261001T1540Z-finding-pk2-twins-packed-match`.
+**Packing and leases.**
 
-**Still running.**
+- **Packed twins match their bases on run root, binding map and verdict:** the 7 packed -pk2 twins
+  (note:20261001T1540Z-finding-pk2-twins-packed-match) and both -pk3 twins.
+- **Leased Commits pass.** Since 10:11 AM PDT the feeder has sent every non-packing item through `submit_leased.py` on the lease
+  trees. Of the 10 lease-tree items that ended, all passed:
+  - 6 ran leased. Each waited at most 0.75 min for its GPU and held it for 1.2–2.2 min.
+  - 4 ran without the lease, because node 2 built them and `n2_build.sh` submits the Commit plainly
+    (note:20261001T1743Z-reply-from-circuits-grid-models-lease-on-n2-built-items).
 
-- **Feeder:** node-1 tmux `gm-feed`. Its policy is `feeder/policy.json`: no deadline gate, burst caps until 23:59Z. It keeps node 1
-  fed per circuits' 1412Z ruling ("7:50 is a deadline, not a stop"). Stop it with `touch /workspace/jobs/gm-feed/STOP`.
-- **Labeller:** node-1 tmux `gm-label`, as research, from `/workspace/jobs/gm-label`; its log is `label.log` there. It reads the
-  dispatcher's records in place and takes the store credentials from the `research-r2` Secret the Jobs use. Its first pass there
-  (15:08:33Z) wrote the 40 labels of the 10 deployments that ended after the agent VM restarted at 14:53Z, all on the remote.
-  The agent VM no longer runs one.
-- **Build memory:** the 91 trimmed requests are in `items.json` since 15:16:00Z (`note:20261001T1516Z-finding-build-mem-trim`).
+**Still running, unattended, on node 1:**
 
-**Open for circuits.**
+- **Feeder:** tmux `gm-feed`, policy in `/workspace/jobs/gm-feed/policy.json`. To stop it, `touch STOP` there.
+  - It sends little now. `big_cap` is 4 (set at 10:25 AM PDT, not by me), and every one of the 177 eligible items is B8 or larger.
+- **Labeller:** tmux `gm-label`. It labels each ended grid item, its -pk twins and lease details.
 
-- Whether to lift qwen3-06b's pack-stop, and whether to submit `-pk3` twins for gm005 and gm008
-  (`note:20261001T1545Z-handoff-from-circuits-grid-models-pk2-twins-pack-stop`).
+**Open for circuits:**
 
-**Handoffs received, all acted on:**
+- **`big_cap` 14** (note:20261001T1802Z-handoff-from-circuits-grid-models-big-cap-idle). You can set it directly in `policy.json`;
+  back the file up first.
+- **The pack pilot's bundle cap** (note:20261001T1920Z-handoff-from-circuits-grid-models-pack-bundle-cap). A flat 120 GB estimate
+  per B8 1k Commit held 6 small-model Commits for 70–110 min.
+- **Node-2-built items lose packing and the lease.** `n2_build.sh` is infra's.
+- **The new models aren't in `PACK_MODELS`,** and none of them has a packed twin yet.
 
-- 20261001T0719Z-handoff-from-circuits-decisions.md
-- 20261001T0749Z-handoff-from-circuits-no-gemma-node1.md
-- 20261001T0821Z-handoff-from-circuits-go.md
-- 20261001T1006Z-handoff-from-circuits-idle-hold-node2-fill.md
-- 20261001T1011Z-handoff-from-circuits-feeder-opened-up.md (with its 3:16 addendum)
-- 20261001T1038Z-handoff-from-circuits-commit-phases-plan-tree.md
-- 20261001T1158Z-handoff-from-circuits-refill-node2-pack-goldens.md
-- 20261001T1315Z-reply-from-kueue-fold-node1-hold-ends-1330z.md
-- 20261001T1412Z-handoff-from-circuits-drop-deadline-gate.md
-- 20261001T1417Z-handoff-from-circuits-commit-phases-boundary-gm-tree.md
+**Incident:** key lines were printed to my tool output
+(note:circuits-grid-models/20261001T1517Z-friction-env-names-printed-key-lines). Rotate `NEBIUS_SA_PRIVATE_KEY`.
+
+**Documents this lane wrote:**
+
+- in `lanes/circuits/`: 0753Z, 0920Z, 0934Z, 1015Z, 1027Z, 1218Z, 1357Z, 1407Z, 1545Z, 1636Z and 1802Z handoffs; 0901Z, 1149Z,
+  1440Z, 1731Z and 1820Z count reports; the 1517Z one-liner; the 1920Z bundle-cap handoff;
+- in `lanes/circuits-grid-models/`: the findings 1355Z golden twins, 1516Z Build trim and 1540Z pk2/pk3 twins; the frictions
+  1517Z key lines and 1922Z pack bundle estimate; the feeder and labeller code under `feeder/` and `labeller/`
+  (`add_models.py`, `reorder.py --pack` and `counts_all.py` among them);
+- in `lanes/circuits-replay-keep-leaves/`: the 1743Z reply.
+
+**Handoffs received, all acted on:** circuits 0719Z, 0749Z, 0821Z, 1006Z, 1011Z, 1158Z, 1412Z, the 7:55 AM PDT follow-up and
+1555Z; circuits-commit-phases 1038Z and 1417Z; kueue-fold 1315Z; circuits-replay-keep-leaves 1705Z.

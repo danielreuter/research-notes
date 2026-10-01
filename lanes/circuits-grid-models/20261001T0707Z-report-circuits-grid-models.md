@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: open
 ---
 
+CHECKPOINT f171190 (10:26Z) [open] 3:27 AM PDT: kept circuits' 3:16 unskip (none held for a non-length reason); added a deadline gate to gm_feed (Commit est must end by 12:10Z, until 12:55Z) so the 5:10 rule is enforced: note:20261001T1027Z-handoff-from-circuits-grid-models-unskip-ack-deadline-gate. 45 ended (43 pass, 2 SiluMul_v1 edge).
 CHECKPOINT 67f26bc (10:15Z) [open] 3:15 AM PDT: 42 ended (40 pass, 2 SiluMul_v1 edge); 18 in flight; 4 queued on node 2 (max_min 40). Kept circuits' feeder values, added 18 skip_keys gm310-318/gm340-348 (3B-6B B16/B32 1k Commits likely >30 min): note:20261001T1015Z-handoff-from-circuits-grid-models-feeder-skip-long-commits.
 CHECKPOINT dbdfa87 (10:07Z) [open] 3:10 AM PDT, re note:20261001T1006Z-handoff-from-circuits-idle-hold-node2-fill: no Gemma-2 from me (skip_roles). All 20 of my checkpoints are staged on node 2 now; 4 of my Commits (gm027/041/042/044) already wait in node 2's queue for 3:30, and the feeder keeps going smallest-first, so held Commits overflow there. The 24 non-Gemma held rows stay held (their Commits likely pass max_min 40 and would restart). I switch to the planned tree for every new row once it is named.
 CHECKPOINT 2be6e6f (10:00Z) [open] 3:00 AM PDT: 48 submitted, 35 ended (33 pass, 2 fail: both SiluMul_v1 expf-overflow edge, labelled by silu_check); 4 Commits stuck on node 2 (no slot before 9:30 AM PDT); feeder now gates Builds on my node-1 Commits so fewer wait into offload

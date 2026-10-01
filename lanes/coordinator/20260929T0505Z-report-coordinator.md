@@ -317,3 +317,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 18:47Z sweep: abf7/5ae6/4cf9 running slots a/b/c; #704 fdcf (proofs) pending; #706 ready (captain to stack). No new POUS files.
 - 18:50Z: cancelled 4cf9 (queued); T706 d23f79368 (= 33f2b1d32 + #706) slot c r20261001-184836-7c31, behind fdcf (#704 holds slot c).
 - 19:05Z: fdcf passed but #704 is 36 behind main; asked captain to stack #704 on c34cf9c13 (send). 7c31 running slot c.
+- 19:07Z: T704 85778c4d1 (c34cf9c13+#704, send) r20261001-190541-260b queued slot a.
+- 19:14Z: @lean APPROVE statement review #704 (p1790882009506219): FoldRealizes.folded strengthens hfold; 3 new level3 pins. Cite at 260b merge.

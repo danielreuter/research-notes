@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (20:11Z) [open] 2011Z poll: quiet. The cap branch still waits on Daniel. No review is open.
 CHECKPOINT none (19:49Z) [open] 1949Z poll: quiet since 19:16Z. The cap branch still waits on Daniel. No review is open.
 CHECKPOINT none (19:27Z) [open] 1927Z poll: quiet. The cap branch (11 pins) is not on main yet and waits on Daniel. No statement review is open.
 CHECKPOINT none (19:05Z) [open] 1905Z correction: row 6 on R1-H's noiseless codes is unassigned, not the assessor's (it rates, it doesn't build; 1855Z). Assigning it is compute accounting's call, and I'm not waiting on it. Open for me: the cap branch's 11 pins once Daniel says yes, and any new statement review.

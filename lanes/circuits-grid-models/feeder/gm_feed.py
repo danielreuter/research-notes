@@ -6,7 +6,7 @@
 Each tick (60 s) it re-reads policy.json:
   {"mode": "hold" | "run", "waves": [1, 2, ...], "skip_roles": [...], "skip_tp": [2], "skip_keys": [...], "builds_cap": 6,
    "build_mem_gb": 300, "backlog_cap": 20, "commit_cap": 6, "big_cap": 6, "cpu_pending_max": 1, "per_tick": 3,
-   "deadline": "12:10", "deadline_until": "12:55"}
+   "deadlines": [["12:10", "12:55"], ["14:35", "14:35"]]}
 and submits the next items whose wave is allowed and whose role, TP and key aren't skipped while
   - fewer than builds_cap of its Builds are unfinished and their memory requests stay under build_mem_gb,
   - fewer than backlog_cap of its items are past Build and not ended (Commit or replay to come or running),
@@ -15,9 +15,11 @@ and submits the next items whose wave is allowed and whose role, TP and key aren
     tonight's windows let no Commit start (note:20261001T0920Z-handoff-from-circuits-grid-models-node2-no-commit-slot), and comes
     back an hour later,
   - deployments-cpu has at most cpu_pending_max unadmitted workloads (anyone's),
-  - before deadline_until ("HH:MM" UTC), its Commit is estimated to end by deadline ("HH:MM"; circuits: a row whose Commit can't
-    finish by 5:10 AM PDT waits until after 5:55). The estimate is QUEUE_MIN plus the slowest Build and Commit node 1 has logged for
-    the same model, TP, batch and input length (anyone's row), times 1.1, else est_min's table.
+  - its Commit is estimated to end by the deadline that applies: the first [END, UNTIL] pair ("HH:MM" UTC) of `deadlines` whose
+    UNTIL is still ahead, none once all have passed (circuits: a row whose Commit can't finish by 5:10 AM PDT waits until after
+    5:55; then, until 14:35Z, a row whose deployment can't end by the 7:50 AM PDT count waits behind the rows that can). The estimate
+    is QUEUE_MIN plus the slowest Build and Commit node 1 has logged for the same model, TP, batch and input length (anyone's row),
+    times 1.1, else est_min's table.
 It never submits a key that log.jsonl or done.jsonl names or that it attempted before (attempted.txt, written before the submit:
 a failed submit is not retried; a new key is), and submits nothing from 11:30Z to 12:55Z (node 1's /workspace window and Kueue's
 12:10Z hold) or while a file STOP sits beside it.
@@ -147,6 +149,10 @@ def hhmm_today(s, now):
     return now - (g.tm_hour * 3600 + g.tm_min * 60 + g.tm_sec) + h * 3600 + m * 60
 
 
+def deadline(pol, now):
+    return next((hhmm_today(end, now) for end, until in pol.get("deadlines", []) if now < hhmm_today(until, now)), None)
+
+
 def guarded(t=None):
     g = time.gmtime(time.time() if t is None else t)
     return GUARD[0] <= (g.tm_hour, g.tm_min) < GUARD[1]
@@ -170,7 +176,8 @@ def tick():
                f"ended {sum(1 for s, _ in st.values() if s == 'ended')} moved {sum(1 for s, _ in st.values() if s == 'moved')} cpu-pending {pend}")
     sent, late = 0, 0
     now = time.time()
-    gate = (pol.get("deadline") and pol.get("deadline_until") and now < hhmm_today(pol["deadline_until"], now))
+    due = deadline(pol, now)
+    gate = due is not None
     obs = walls() if gate else {}
     for i in items:
         k = f"{WS}/{i['key']}"
@@ -187,7 +194,7 @@ def tick():
             continue
         it = i["item"]
         est = est_min(it["env"]["ROW"], obs) if gate else 0
-        if gate and now + est * 60 > hhmm_today(pol["deadline"], now):
+        if gate and now + est * 60 > due:
             late += 1
             continue
         cmd = [PY, DISPATCH_PY, "submit", it["template"], k, "--tree", it["tree"], "--resources", json.dumps(it["resources"])]

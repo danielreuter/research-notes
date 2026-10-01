@@ -59,3 +59,15 @@ None of my rows ran past 30 min of Commit.
 - 233 eligible rows remain: TP1, non-Gemma, not yet submitted. The deadline gate turns itself off at 12:55Z. From then on, the
   rows it held go in their queue order: qwen3-30b-a3b-2507 at B8 256, and the B8/B16/B32 rows at 1k tokens.
 - Final numbers by 7:50 AM PDT.
+
+**4:51 AM PDT addendum, which replaces the 12:55Z part of Next.** The gate now takes a list,
+`"deadlines": [["12:10", "12:55"], ["14:35", "14:35"]]`. From 12:55 to 14:35Z, a row goes only if its Commit can end by 14:35Z,
+so its replay ends before the 7:50 AM PDT count.
+
+- At 12:56Z that lets 137 rows go, which is more than node 1's 6 Commit slots can take by 14:35. They are the B1/B8 rows at 256
+  and 1k tokens and the small models' B16/B32 rows at 256.
+- It holds 96 rows: qwen3-30b-a3b-2507 at B8 256, the 7–8B and MoE rows at B8 1k, and every B16/B32 row at 1k. They go after
+  14:35Z.
+- So the GPUs stay full, and the rows that can count by 7:50 AM go first.
+- Backups on node 1: `gm_feed.bak-1155Z.py` and `policy.bak-1155Z.json`. To go back to plain queue order after 12:55, delete the
+  second pair.

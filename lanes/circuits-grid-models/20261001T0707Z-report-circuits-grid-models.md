@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: open
 ---
 
+CHECKPOINT 99b1e04 (11:13Z) [open] 4:13 AM PDT: 67 deployments ended (63 pass, 4 fail, all SiluMul_v1 expf-overflow edge); 17 models, 9 families (falcon3, llama3, mistral, olmoe, phi, qwen25, qwen3, smollm2, yi). 14B TP1 B8 256 Commits took 14 min. Deadline gate now holds 11 rows past 12:10Z; feeder stops at 11:30Z.
 CHECKPOINT 2b29cfc (10:49Z) [open] 3:52 AM PDT, re note:20261001T1038Z-handoff-from-circuits-commit-phases-plan-tree: acted. Every row submitted since 10:36Z runs on cursor-grid-plan-gm-827a (05fa9d3ea, 6 so far); the labeller now names that tree in each note (TREES); my branch stays cursor/grid-models-8c79 @ b9880ac17. My inbox watcher missed this note for 10 min (its pull failed on an uncommitted edit; fixed with --autostash).
 CHECKPOINT a65c31d (10:47Z) [open] 3:47 AM PDT: 56 deployments ended (52 pass, 4 fail: all SiluMul_v1 expf-overflow edge, gm001/031/081/082, three of them qwen3-0.6B); 11 models, 7 families; Builds at cap 12; deadline gate holds 0 so far.
 CHECKPOINT f171190 (10:26Z) [open] 3:27 AM PDT: kept circuits' 3:16 unskip (none held for a non-length reason); added a deadline gate to gm_feed (Commit est must end by 12:10Z, until 12:55Z) so the 5:10 rule is enforced: note:20261001T1027Z-handoff-from-circuits-grid-models-unskip-ack-deadline-gate. 45 ended (43 pass, 2 SiluMul_v1 edge).

@@ -33,7 +33,8 @@ Fill CPUs 96–127 and check slots 128–191 are on NUMA 1; the held Verity CPUs
 | File | sha256 | Commit (`infra/nebius`) | Since |
 |---|---|---|---|
 | `gpu-lease` | `49238797…` | `8ba5fc589` (agent mode; usage cap kept) | 23:17:43Z |
-| `fill_runner.py` | `68be2cb5…` | `6f0cf0534` (Commits rank first and reclaim; `fill/windows` admission; window drain under agent.lock; lease-scope stop and sweep; run with `FILL_VERITY_LEND=0`; rollback `fill_runner.py.prev-20261001T0702Z` = `5e033072`) | 2026-10-01 07:02Z |
+| `fill_runner.py` | `11c4fba4…` | `5314b8a34` (`fill/cpu-sets`: an owner's CPU jobs on CPUs of their own at ionice idle, `mem_peak_gb` at exit; on top of `6f0cf0534`: Commits rank first and reclaim, `fill/windows` admission, window drain under agent.lock, lease-scope stop and sweep; run with `FILL_VERITY_LEND=0`; rollback `fill_runner.py.prev-20261001T0712Z` = `68be2cb5`) | 2026-10-01 07:12Z |
+| `/workspace/pouw/fill/cpu-sets` | (data) | `bc-e6a46970-… 0-47 <slots> [mem_gb]`: compute accounting's verifies on 0–47 (verity-top, 12:00 AM PDT); delete the line to put them back on 96–127 | 2026-10-01 07:12Z |
 | `/workspace/pouw/fill/windows` | (data) | booked timed windows, start UTC + minutes; edit when a booking moves | 2026-10-01 07:02Z |
 | `node_ops.py` | `7b8ebe56…` | `6d877a03` (OOM guard prefers `fill-verity-*`) | 20:08Z |
 | `backup.sh` | `e820a1f9…` | `283af0ae7` (retry/skip a changing unit; packs nothing while a window runs or waits) | 00:08Z |
@@ -43,6 +44,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
+- **Verifies on 0–47 (`fill/cpu-sets`), slots 1 → 4:** when `fp8gcver-die0-chain` exits (started 07:12Z, cap 30 min), read its `mem_peak_gb` in `fill/events.jsonl`, set `mem_gb` to about 1.5× the peak (at least 8) and slots to 4. Until 14:50Z, user.slice and system.slice are on 0–127 (infra); if compute accounting's READY line asks for all 192 CPUs, lift both at the window's drain (`sudo systemctl set-property --runtime user.slice AllowedCPUs=`, same for system.slice) and put back `AllowedCPUs=0-127` after. `held-proofs-pn2g/` is empty (released 06:49Z, all withdrew); proofs' new GPU jobs go through `vy-provers` (`note:20261001T0703Z-note-from-infra-node2-prover-cores-live`).
 - **Windows tonight (`fill/windows`):** 10:00Z Pearl-C4, 11:30Z served 1, 13:00Z 70B, 14:00Z served 2, 30 min each. If c066b30c's 09:40Z line says BLOCKED, or bc-e8ffd7f2's 09:05Z checkpoint slips, add the fallback `2026-10-01T11:00Z 30`. Each window: confirm fill is off every GPU once its `gpu-lease --timed` waits (status `window waiting True`, then `timed True`), and that no `scope-residue` was needed.
 - **Overnight, until 8 AM PDT (15:00Z):** each alerts tick sweeps `fill/queue/` for jobs **newly queued after 9 PM** outside the allowed set (see the 03:50Z log line, plus `verity-commit-*` again from 07:02Z) into `held-overnight/`; jobs running at 9 PM keep their chunks (99 → requeue → restart). A lane's yes moves its jobs back. At 8 AM PDT, give the morning readout inputs (per-hour useful, filler and held-idle GPU %, CPU %, who ran dry, rollbacks).
 - **9 PM PDT (04:00Z) overnight gate:** each queued job's lane needs an explicit yes (compute-accounting for PoUW, circuits for Commits), and its header must name a research question. Hold the rest in `fill/held-overnight/`, and report the gap and its owner hourly. Run nothing of PoUS's or network accounting's. The glide path's live-node cutoff is 9 PM PDT.
@@ -54,6 +56,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-10-01 07:12Z **verity-top's core map: compute accounting's verifies on 0–47, live.** `5314b8a34` (cpu-sets, 46 nebius tests pass) deployed as `11c4fba4`, runner respawned, all jobs adopted, `fill.err` empty. `fill/cpu-sets` gives bc-e6a46970 0–47 with 1 slot until the first `fp8gcver` unit's peak is measured (4.9 GB at 30 s; header cap 48 GB). Queue order: I touched the `fp8chainver`/`fp8ver2` files so an `fp8gcver` unit is measured first. Checked: affinity 0–47, nice 19, ionice idle; `research run` jobs pin to 48–95. Told compute accounting (`note:20261001T0715Z-reply-from-node2-ops-verifies-on-0-47-live`). After my VM reset at about 07:03Z, I restored from the store bootstrap.
 
 - 2026-10-01 07:12Z alert: GPU 7 idle (0.2%) in the first 5 minutes of n2-commits' Commit guest `cov-cg09`, the known Commit-bootstrap-in-lease pattern. Logged in the infra monitor log; no action. A second node2-ops thread on this VM is mid-change on the core map (`/tmp/n2-infra`, uncommitted), so the alert thread stays read-only until that change lands (`note:node2-ops/20261001T0712Z-friction-two-node2-ops-threads-at-once`).
 

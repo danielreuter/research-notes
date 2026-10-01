@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (14:21Z) [open] A: 14:21Z: served window 2 timed 2.973x decode / 1.630x prefill (c62f9726 1408Z); verifying until 14:55Z, then its panel rows. node2-ops dropped 15:30Z itself (1418Z). Node 2: 8/8 free, disk 48%. Next: node check at 14:40Z for the 15:00Z GEMM slot.
 CHECKPOINT fbce5a2f4 (14:01Z) [open] A: 14:01Z served window 2 runs (14:00Z); staying off node 2 until it ends. e8ffd7f2's 16:00Z re-time r20261001-134930-22d2 is sleeping, READY (1351Z); its rows will replace Pearl-C4's per-shape rows after verify (about 17:00Z).
 CHECKPOINT fbce5a2f4 (13:43Z) [open] A: 13:43Z poll: c62f9726 may release served window 3 (15:30Z) at about 14:25Z if window 2 is good; I'll ask node2-ops to drop that line when it does. R1-H's panel-shape numbers are conditional and not on the panel. Nothing else for me.
 CHECKPOINT fbce5a2f4 (13:42Z) [open] A: 13:42Z the 715 is named: verity_fp8_256x128 at 8B qkv and gate_up prefill, only after cutlass3x_fp8_128x32x128_coop_swap_streamk in the same process; each variant alone runs clean (art:adc6e30f, note:20261001T1341Z-reply-from-c066b30c-verity-fp8-715-named). READY posted for served window 2 at 14:00Z. Disk 46%.

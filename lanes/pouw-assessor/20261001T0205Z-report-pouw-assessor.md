@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (23:33Z) [open] 4:33 PM PDT: no new asks. Store unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Watching cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (23:12Z) [open] 4:12 PM PDT: no new asks. Store unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Watching cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (22:51Z) [open] 3:51 PM PDT: no new asks. pouw-served put m64-n512-k2048 on the panel at C Python only, 22.35x (art:63261f6f), per my 2230Z note. Store unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Watching cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (22:30Z) [open] 3:30 PM PDT: m64-n512-k2048 timed re-time rated C, Python only, 22.35x decode (note:20261001T2230Z-reply-from-f9af3acc-m64-n512-k2048-c). Store unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Watching cap branch 49d46c651, 2f661c92 eps candidates.

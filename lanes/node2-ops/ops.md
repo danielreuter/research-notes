@@ -72,6 +72,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 18:32Z inbox: pouw-node2's note (`note:20261001T1819Z-reply-from-c066b30c-served-window4-on-panel`) puts window 4 on the panel and keeps GPU 0's verifies parked until the hand-back, as planned. It also gives node 2's disk as 51% (2,532 GiB), with 76 GiB left before compute accounting's 52% hold on new passes. Nothing for me to do. No alerts.
 - 2026-10-01 18:18Z alerts tick: one alert, `gpu-idle-in-lease` at 18:05:06Z. GPU 7 ran at 8.9% mean over 5 min.
     - **Its job:** bc-698052e1's Commit guest `gm170` (17:59:42Z). It finished rc 0 at 18:09:17Z after 9.6 min, so nothing to do. It fits the Commit pattern already in infra's top-3 wasters. Watermark advanced to 18:05:06Z.
     - **The hold, as designed:** c62f9726's `served-verify-de74f334-7` (max_min 300) started at 18:14:07Z in the Verity pool, so the 18:45Z stop will requeue it and it reruns after the hand-back. The pool doesn't weigh `max_min` against `FILL_VERITY_STOP`. That would be a small runner change for after the cutover.

@@ -103,7 +103,9 @@ proofs-bf16-hill carries all of them, and proofs-verify-overlap has them through
 `cursor/proofs-arch-oldfold-e5c2` (`ebcdb95ed`): `8db1cb550` plus the scripts. Evidence, all CPU-only
 `lincheck_modes_agree` selftests on 16 cores of a held slice, all labelled `question`:
 
-- M0 #20's own statements: `r20261001-072031-bf72` (`art:f9f49b46…`).
+- M0 #20's own statements: `r20261001-072031-bf72` (`art:f9f49b46…`), on node 1. On node 2's slice 128–143, clean
+  before each run: `n2h-20261001-073948-c663` (`art:e400b91a…`, current tree `1b61b024c`) and `n2h-20261001-075246-720a`
+  (`art:35f9049f…`, old fold `ebcdb95ed`).
 - bf16-hill's `Gemm_v2` statements: `r20261001-061252-f258` (`art:acdcb4f8…`), and on the old fold
   `r20261001-062432-2a1d` (`art:454285fe…`).
 - GPU serve sessions: `art:552f5f64…`.
@@ -117,8 +119,10 @@ proofs-bf16-hill carries all of them, and proofs-verify-overlap has them through
 
 | statement | flat | partial | both | old flat | old partial |
 |---|---|---|---|---|---|
-| M0 #20 K=2048 (`GemmCoordinate_v1`, 4×4 tile, n=512, m=35) | 5.08 | 0.227 | 5.80 | not run | not run |
-| M0 #20 K=8192 (n=1024, m=35) | 5.42 (2.57–7.83) | 0.525 | 3.73 | not run | not run |
+| M0 #20 K=2048 (`GemmCoordinate_v1`, 4×4 tile, n=512, m=35), node 1 | 5.08 | 0.227 | 5.80 | not run | not run |
+| the same, node 2 | 4.22 | 0.206 | 4.31 | 6.33 | 2.20 |
+| M0 #20 K=8192 (n=1024, m=35), node 1 | 5.42 (2.57–7.83) | 0.525 | 3.73 | not run | not run |
+| the same, node 2 | 2.50 | 0.445 | 2.92 | 7.41 | 5.47 |
 | `Gemm_v2` K=2048, n=2048, m=35 | 1.465 | 0.239 | 2.60 | 3.05 | 2.24 |
 | `Gemm_v2` K=2048, n=16, m=28 | 1.35 | 0.194 | 1.40 | 5.02 | 3.72 |
 | `Gemm_v2` K=8192, n=1024, m=35 | 3.93 | 0.568 | 4.75 | 10.81 | 8.04 |
@@ -128,9 +132,9 @@ proofs-bf16-hill carries all of them, and proofs-verify-overlap has them through
   verifications, so the current columns leave it out. The old tree measured it at 0.08–0.3 s a rep.
 - **What partial still costs.** `partial_types_s`, the fold over the slot's column-major types, takes 0.12 s at M0's
   K=2048 and 0.48 s at K=8192. Δ is under 0.025 s.
-- **A tail I haven't located.** On the larger statements, about one rep in six takes 0.4–0.9 s more in
-  `partial_types_s`. It never happens at n=16. Flat at M0's K=8192 swings 3× across verifications. Both were seen on a
-  node at load 70–400.
+- **The tail was the host.** On node 1 (load 70–400), about one rep in six took 0.4–0.9 s more in `partial_types_s`,
+  and flat at M0's K=8192 swung 3×. On node 2's clean slice neither happens: `partial_types_s` is 0.049–0.057 s a rep at
+  K=2048 and 0.19–0.21 s at K=8192, and flat at K=8192 stays within 2.45–2.57 s a verification.
 - **GPU serve sessions.** These ran on K=2048 `Gemm_v2`, n=2048, at `b9b724e9d` (before the C0 memo), on slices shared
   with other jobs. Verify went from 1.446 to 0.356 s, and C0 = I was 0.17 s of the latter. The session went from 2.106 to
   1.013 s. The prover binary and proof sizes were the same ([963794, 963794]), and every proof was accepted. The pod
@@ -143,16 +147,35 @@ proofs-bf16-hill carries all of them, and proofs-verify-overlap has them through
   - `both`, which refuses any disagreement between flat and partial, accepted every honest proof.
 
   Earlier evidence: arch_proto k=13–25 and the K=64 selftests (41 cases).
-- **The study's unlocated 6.7 s / 21 s.** The timers leave nothing unattributed. What the study couldn't place was the
-  lincheck itself, which it underpriced.
-  - On M0 #20's own statements, the flat lincheck alone takes 4.99 s (K=2048) and 2.5–7.8 s (K=8192), even on today's
-    column-major fold. The study had priced it at 3.1–3.8 s at K=2048.
-  - M0 #20 ran the old verifier (the row-major fold, and C0 = I on every rep). On bf16-hill's four statements it is
-    2.1–4.8× slower than today's flat one, which plausibly covers M0 #20's 10.46 s and 27.42 s. Its host (load 48–125,
-    not exclusive) adds a share I can't measure from here.
-  - The old fold on M0 #20's statements would split the two. I withdrew that job at 07:23Z
-    (`note:20261001T0724Z-handoff-from-proofs-arch-provers-submit-in-error`). It needs one CPU slot for about 20 minutes.
-- **Against M0 #20.** On the same statements the partial verifier takes 0.227 s instead of 10.46 s (K=2048) and
-  0.525 s instead of 27.42 s (K=8192). The conditions differ: a held 16-core slice and a selftest, against serve's
-  loopback on a contended host.
-- **Next:** the Lean `lincheck` and `partial_eq_halve_fold`, as a separate commit.
+- **The study's unlocated 6.7 s / 21 s.** The timers leave nothing unattributed. The old verifier (M0 #20's code, the
+  row-major fold, C0 = I on every rep) on M0 #20's own statements, on node 2's clean slice, splits it:
+
+  | | K=2048 | K=8192 |
+  |---|---|---|
+  | M0 #20's verifier, measured in its serve session | 10.46 | 27.42 |
+  | the old verifier, held 16-core slice | 6.33 | 7.41 |
+  | of which the lincheck | 5.63 | 7.07 |
+  | of which C0 = I (two reps) | 0.63 | 0.31 |
+  | left to M0 #20's conditions (its host at load 48–125, not exclusive; serve's loopback) | 4.1 | 20.0 |
+
+  At K=2048 the study's 6.7 s is the lincheck it underpriced (5.63 s against its 3.1–3.8 s), C0 = I (0.63 s) and
+  M0 #20's conditions (4.1 s). At K=8192 nearly all of the 21 s is M0 #20's conditions.
+- **Against M0 #20.** On M0 #20's statements, on the same clean slice, the verifier goes from 6.33 s to 0.206 s at
+  K=2048 (31×) and from 7.41 s to 0.445 s at K=8192 (17×). Against M0 #20's own 10.46 s and 27.42 s, measured in a
+  contended serve session, those are 51× and 62×; a serve session on today's tree is the like-for-like comparison.
+- **Next:** the Lean `lincheck` and `partial_eq_halve_fold`, as a separate commit (§5).
+
+## 5. The Lean verifier's template-aware lincheck (Oct 1, 1:20 AM PDT, in progress)
+
+The Lean executable's lincheck used to build the 2^k comb, add β at the pin and halve it every round. It now takes
+the comb's 64 surviving entries from the statement once the rounds are done (`CircuitFold.folded`). `Stmt.folded`
+computes them per slot type, as the Rust partial path does, whenever the ranges are aligned, inside the block and
+disjoint (`Stmt.structured`, which `Circuit.checkLayout` already enforces). Otherwise it folds and halves as before.
+
+- **Same verdicts.** Built from the uncommitted tree, against the pre-change binary, `tools/flock_verify/ci.py` with a
+  no-op upstream over vectors.json's set 1 gives the same VERDICT on all 31 sessions, including the `lc-round` and
+  `lc-z-partial` mutants: 177 s instead of 260 s. The remaining replayable and live sets are running.
+- **Proofs.** The level-3 theorem `folded_eq` will say that `Stmt.folded` equals fold, then pin, then halve. The
+  soundness package's `FoldRealizes` gains that as a field, so `lincheck_refines` keeps its statement. Eight pinned
+  soundness records read `Flock.lincheck` or `CircuitFold` and will change (`needs-daniel:` in `lanes/proofs` names a
+  reviewer).

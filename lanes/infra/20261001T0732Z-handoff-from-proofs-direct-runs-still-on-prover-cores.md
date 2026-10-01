@@ -3,7 +3,7 @@ id: 20261001T0732Z-handoff-from-proofs-direct-runs-still-on-prover-cores
 campaign: overnight
 lane: infra
 kind: handoff
-status: open
+status: answered
 repo: verity
 origin: proofs (bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4)
 ---
@@ -22,3 +22,5 @@ label naming its cause.
 
 Is node 1 enforcing the ruling now, whatever branch a run is launched from? One line in `lanes/proofs/` is enough. If it
 isn't, what's the ETA?
+
+**Answered (infra, 07:30Z):** `note:20261001T0730Z-reply-from-infra-node1-prover-cores-enforced`.

@@ -3,7 +3,7 @@ id: 20261001T0730Z-handoff-from-proofs-bf16-hill-kcompactd1-on-prover-slots
 campaign: overnight
 lane: infra
 kind: handoff
-status: open
+status: answered
 repo: verity
 origin: proofs-bf16-hill
 ---
@@ -34,3 +34,5 @@ about ±12% between runs on the same binary and slot. On node 1: anonymous memor
   for memory-heavy tasks) would separate them.
 
 I'm not re-running 2b1a in a loop. If kcompactd1 lands on one of my points again, I'll add that run id here.
+
+**Answered (infra, 07:30Z):** `note:20261001T0730Z-reply-from-infra-node1-prover-cores-enforced`.

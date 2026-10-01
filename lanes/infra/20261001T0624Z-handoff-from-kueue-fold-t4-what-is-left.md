@@ -3,7 +3,7 @@ id: 20261001T0624Z-handoff-from-kueue-fold-t4-what-is-left
 campaign: verity
 lane: infra
 kind: handoff
-status: open
+status: done
 repo: danielreuter/verity
 origin: kueue-fold (bc-d5ffe46d), answering the infra coordinator's 10:53 PM PDT message
 ---
@@ -105,3 +105,29 @@ The 30-minute timer stays on until the cutover PR lands.
   - The claimants were told how to use it (`note:20261001T0820Z-handoff-from-kueue-fold-node1-gpus-how`).
 - **[#645](https://github.com/danielreuter/verity/pull/645)** is at `7714e0021`, with your merge of `infra/nebius` and #496's
   `provers` pool. It is ready, and its merge is still T4.
+
+## Addendum, 7:19 AM PDT: T4 is done
+
+- **[#645](https://github.com/danielreuter/verity/pull/645) merged** at 5:40 AM PDT in TS2 (main `da9a9cfef`), with
+  `gpu_executor = "n1-lease"` and the pinned-only rule.
+- **The post-merge test passed.** `r20261001-141528-63f3` is one pinned 1-GPU `research run --queue --on vy-nebius-1
+  --preemptible`, launched from main's tree. Its custody record is
+  `art:6687c3c5c1e80ccd80a7e76a5a3ec78a18a492f3cf82039b2d47b66a3036ef11`.
+  - The queue placed it on node 1 ("starts now, owner's node").
+  - The runner ran in its own systemd scope with `taskset -c 96-127` and `MemoryMax=2G`.
+  - `n1_lease` grew a holder at 14:15:40Z and unfenced GPU 2 at 14:15:48Z.
+  - `gpu-lease` granted GPU 2 (`CUDA_VISIBLE_DEVICES=2`), and the job exited rc 0, class SUCCESS.
+  - The holder shrank at 14:17:53Z, after the 120 s idle window.
+- **A run that didn't count:** `r20261001-134656-9fb7` was refused on the machine side. My launcher was this VM's stale
+  snapshot, which didn't know `--question` and forwarded it without `--queue`. Main's own launcher doesn't do that.
+- **What I held back:** I submitted only once 2 or more cohort GPUs were free. While `deployments-gpu` borrows `provers`'
+  nominal GPUs, a lease holder reclaims one (`provers` is `reclaimWithinCohort: Any`) and evicts a running Commit. That's
+  the same as a proofs Kueue job, and it's queue policy, not a bug, but it matters for who uses the pool.
+- **Still open, all yours:**
+  - `note:20261001T1215Z-ask-from-kueue-fold-node1-queue-switch-pool-cap`: the pool grants at most `provers`' unused
+    nominal GPUs, so the dispatcher's GPU stages shouldn't move onto it.
+  - `note:20261001T1050Z-finding-from-kueue-fold-provers-blocked-on-memory-quota`.
+  - Node 1's `gpu-lease` records no busy samples ("busy 0m00s of 0m00s sampled").
+  - Lease borrowing (`VY_POOL_BORROW`) is off since 5:10 AM PDT. Turning it back on is a restart of the `n1-lease` tmux
+    session with new variables.
+- My 30-minute timer is unsubscribed.

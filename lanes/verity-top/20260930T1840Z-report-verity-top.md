@@ -4,8 +4,6 @@ kind: report
 created: 2026-09-30T18:40Z
 status: open
 ---
-CHECKPOINT 2026-10-01T17:17Z open: inbox empty; node 2 cutover underway (10:15); GPU lease live on grid Commits; server-side @lane router relayed to console.
-
 CHECKPOINT 2026-10-01T17:00Z open: inbox empty; comms agent bc-3e100045 owns messaging (lane notes records-only, #692); node 1 RAM tight, Kueue raise escalated to infra; Nebius key rotation urged to Daniel.
 
 CHECKPOINT 2026-10-01T16:44Z open: inbox empty; all-13 train 1f2011900 with infra for node 1 check; node 2 cutover 10:15, window 4 at hand-back.

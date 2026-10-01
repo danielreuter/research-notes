@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT c1e920090 (06:11Z) [open] Landed #577 (C4), #602 (T602); closed #548 #534 #556 #471. Refusal PR (fbce5a2f) not yet opened; asked compute accounting. #588 fold now has main 72aacf9b + #595 (1ebc04ac), waits on DEFERRED ruling. Open: 14.
 CHECKPOINT c1e920090 (06:09Z) [open] #570 ready note sent (efd5739b, r20261001-054235-c715). #580 ready note withdrawn per pouw-fp4 0551Z (tip changes for B-OVF beta table); #602 trains alone. Inbox 0551Z acted on. Open: 20.
 CHECKPOINT c1e920090 (05:48Z) [open] #580 ready note sent (37008e8a, r20261001-021907-53ce), train after #602 (b7dd48f0, r20261001-044641-ba55 passed). Open: 20.
 CHECKPOINT c1e920090 (05:47Z) [open] #491 ready note sent (f50b7605, r20261001-052513-3604). #471 -> cursor/pouw-quant-param-refusal-645d fbce5a2f (r20261001-045449-cd17 passed), awaiting open+close by compute accounting. #570 main merged efd5739b, check running. #588 fold 9566c906 blocked on DEFERRED ruling. perdie outputs preserved r20261001-053555-4ee7. Open: 20.

@@ -39,3 +39,6 @@ has sent nothing since 10:11 AM PDT. All 177 eligible unsubmitted items are B8 o
 (set at 10:25 AM PDT, not by me), and 9 of them are already in flight. Node 1 is running 1 CPU Build (48 GB of 730), 2 replays,
 3 commit-pack pods and 2 GPU Commits. The only pending work is the two Gemma-2 B64 Commits, held on purpose. My recommendation from
 note:20261001T1802Z-handoff-from-circuits-grid-models-big-cap-idle still stands: `big_cap` 14. I'll set it when you say yes.
+
+**At 11:30 AM PDT: 434 ended** (grid 232: 223 pass, 9 fail; epoch run 202: 135 succeeded, 67 failed, the one added being Commit not
+run). There are still 36 models and 15 families. Node 1 has had no CPU Build since 11:23 AM PDT.

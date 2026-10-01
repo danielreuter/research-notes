@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:08Z) [open] 6:08 PM PDT: Boolean IR decisions plus restructure levers with Daniel; checkpoint hashing run on node 1; W1 on Grok running
 CHECKPOINT none (00:52Z) [open] 5:52 PM PDT: 5:40 check sent (proofs, infra hit; g217, canary missed); canary running; replay off GPU accepted (Commit GPU hold 2069s to 894s)
 CHECKPOINT none (00:35Z) [open] 5:35 PM PDT: Boolean IR restructure started (proofs-ir); circuits label-corpus order recorded; notes token exposure routed to infra; 5:40 goal check next
 CHECKPOINT none (00:18Z) [open] 5:18 PM PDT: FP8/FP4 defs green (goal hit early); TKQ landed; MKL first-call race routed; Boolean-defs and L1 decisions with Daniel

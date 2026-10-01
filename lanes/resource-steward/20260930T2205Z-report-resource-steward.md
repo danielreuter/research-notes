@@ -361,3 +361,15 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   The sweep then deleted them (§4). It now takes `--approved FILE`: approved trees still go through the reference scan,
   rename and rescan; the list goes through a file because a first dry run with the shas in argv read its own `sudo` as
   a live reference. Slack: one status line in the thread (51.4 GB).
+- 09:34–09:45Z (2:34–2:45 AM PDT) tick (exit 0): node 2's `/workspace` went from 37.8% at 08:20Z to 45.7% at 09:35Z.
+  - Drivers:
+    - circuits' 20 grid-model checkpoints staged smallest first from node 1 (`/workspace/verity-guest/grid20-stage/run.sh`
+      calling `n2_build.sh stage`): 265 GB in all, 85 GB still to come (Qwen3-14B and Qwen3-30B-A3B);
+    - `pouw/mvp-e2e/passes`: 106 GB written in 80 min;
+    - pouw-design's captures: 10 GB.
+  - Compute-accounting's node 2 agent tracks it (`note:20261001T0927Z-reply-from-c066b30c-node2-disk-and-parked-verifies`):
+    the staging ends near 47%, 52% is due around 7 AM PDT unless passes are pruned, and it asked for 146 GB of passes to be
+    pruned. Its own rule holds new passes over 52%. The steward's stop is 55%, so nothing was asked.
+  - Closed vllm-epoch-run's open B64 handoff as overtaken
+    (`note:20261001T0945Z-reply-from-resource-steward-b64-commits`): those Commits run on node 2, their replays run on node 1
+    under release.py's cap, and circuits held them at 1:32 AM PDT.

@@ -124,3 +124,4 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 - CHECKPOINT 05:00Z: quiet; node1 30 of 30 (04:58Z) on main c1e920090. Production 654afb6.
 - CHECKPOINT 05:20Z: quiet; node1 30 of 30 (05:18Z). Production 654afb6.
 - CHECKPOINT 05:40Z: quiet; node1 30 of 30 (05:38Z). Production 654afb6.
+- CHECKPOINT 06:00Z: quiet; node1 30 of 30 (05:58Z); lane poll, node1 timer and dev server running. Production 654afb6.

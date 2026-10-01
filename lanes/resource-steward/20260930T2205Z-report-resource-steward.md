@@ -290,3 +290,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     renames the batch, rescans once (26–38 s per node), deletes, clears what an interrupted sweep left in `src/.trash`, and
     takes a lock. A dry run of it on both nodes made the same decisions. The rest of node 1 goes at the next sweep, and
     §4 gets the totals then.
+- 06:40Z (11:40 PM PDT) tick: node 1 GPU 6 held 64 GiB at 0% for 15 min (`pool_n1` hadn't flagged it). The holder was
+  `nd-vllm-epoch-run-47a14bf90d-gpu-0-28gfh` (48–64 GiB from 06:00Z, last utilization 7%). It freed the GPU at 06:38Z and
+  the pod is gone, so nothing was asked. Node 1's inode growth is under the threshold while the 6 h sweep runs.

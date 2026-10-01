@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (20:20Z) [open] A 20:21Z poll: nothing new for pouw-node2; still off node 2 (no 'back' from infra); window 5 starts 20:30Z, its rows go on the panel after its verify.
 CHECKPOINT fbce5a2f4 (20:09Z) [open] A 20:10Z: window 5 (20:30Z) node readiness unconfirmed by me (off node 2, no 'back' from infra); c62f9726's 20:05Z record: both verifies passed, passes deleted, node 2 2,245 GiB (44.8%), run r20261001-185716-6781 waiting on its line.
 CHECKPOINT fbce5a2f4 (20:01Z) [open] A 20:01Z poll: nothing new in accounting/node2-ops/infra since 19:40Z; still off node 2 (no 'back' from infra); window 5 readiness handled at 20:09Z.
 CHECKPOINT fbce5a2f4 (19:40Z) [open] A 19:41Z poll: nothing new for pouw-node2; infra hasn't posted 'back', so still off node 2; window 5 (20:30Z) READY due 20:10Z, waiting on compute accounting's word on the node read.

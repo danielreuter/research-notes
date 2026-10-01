@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (06:08Z) [open] 06:10Z M3b GO (skipClass reproved, rowDrawn_satisfiable, InClass 32-bit narrowing ruled GO), once r20261001-055859-b6e8 passes (note:20261001T0610Z-reply-from-d545bc2a-m3b-c6-go). M5 still held on the FP4 restage.
 CHECKPOINT none (05:55Z) [open] 05:56Z poll: no restage, review request or M3 replay result yet; new notes are the old-agent stand-down only.
 CHECKPOINT none (05:44Z) [open] 05:46Z poll: no restage yet. The assessor (0542Z) confirms the 0512Z restage domain form (n >= 4096); Lean below 4096 needs beta in creditFp4 and its own review. M3 replay still running.
 CHECKPOINT none (05:34Z) [open] 05:35Z poll: no restage yet. bc-876ca543 (0531Z) lists the 16 fp4-delta records that take TTOutFp4 over the whole domain; I review them, reads included, with the FP4 restage. M3 replay r20261001-045752-652c still running.

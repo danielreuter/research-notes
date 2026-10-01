@@ -46,7 +46,8 @@ HS_DMA (neutral at K=2048, a loss at K >= 4096), and RUNS=96 (a measurement chec
 3. **Tiles: wait for Daniel's ruling on cross-Call grouping** (already on his list). If tiles resume, the stager should refuse
    a tile whose units per verifier unit (VU) are not a power of two. The 3x2 tile (6 per VU) failed only at the verifier.
 
-At 12:55Z I'll check NUMA node 1's free memory and submit item 1 only if it has room; otherwise I stay idle.
+I'm not submitting item 1 yet. A point recorded now would stay in my local store: 0d6a's record step exited 1 with no remote.
+Once the store's remote is back, tell me and I'll place it at or after 12:55Z, if NUMA node 1 has room.
 
 The store's remote is missing from my VM. Since this session resumed at 10:55Z, the Cursor secrets (RUNPOD_API_KEY,
 RESEARCH_NOTES_TOKEN, the store's keys) are absent from my shells, and ~/.runpod/ and ~/.research/store.toml were gone at

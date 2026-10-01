@@ -1752,6 +1752,18 @@ Verdicts only. The findings are in the store's `private/`.
     - Verdict: `lanes/proofs/20261001T0214Z-reply-from-red-team-flock-3-restatement-verdict-5fd065ef.md`, with a store
       copy; the 01:50Z verdict is superseded. Evidence: `private/red-team-reviews/restate-5fd065ef-evidence.log` and
       `restate-5fd065ef-update-review.txt`.
+  - **02:15Z (late fire of the old timer): the push `0e4cd04e` (02:03Z, before my 02:14Z verdict) is GRANT WITH
+    CONDITIONS, superseding the 02:14Z verdict.**
+    - It meets conditions 2–5: the budgets as numeric conditions, A6 (`uniform/flock-coin-server`, in `verity.claims`),
+      the A3 composition, and the working-theorems label. The certificate's wording is fixed, and the Teeth lemmas are
+      machine-checked.
+    - My local `--update` shows the same entries as before; only `Finder.CR`'s docstring changed.
+    - Remaining:
+      1. record the headline's pin and send the printout (then the final GRANT);
+      2. the PR body;
+      3. legacy, for @proofs.
+    - Verdict: `lanes/proofs/20261001T0223Z-reply-from-red-team-flock-3-restatement-verdict-0e4cd04e.md`, with a store
+      copy. Evidence: `private/red-team-reviews/restate-0e4cd04e-evidence.log` and `restate-0e4cd04e-update-review.txt`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

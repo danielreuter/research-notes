@@ -10,6 +10,7 @@ cursor:
   subagentId: "bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4"
 ---
 
+CHECKPOINT cc21a7d94 (08:19Z) [open] 1b61b024c node 2 clean slice: old verifier 6.33s K=2048 / 7.41s K=8192 vs M0 #20's 10.46/27.42 (4.1/20.0s = its host); partial 0.206/0.445s (31x/17x); node-1 tail was host noise; Lean folded path same verdicts on set 1 (31 sessions), proofs in progress
 CHECKPOINT 4644ec6d (07:33Z) [open] 1b61b024c verifier: timers attribute it all (other<=1.1ms); M0 #20's own statements: partial 0.227s K=2048 / 0.525s K=8192 vs flat 5.08/5.42; 6 statements equivalent in all modes; old fold on M0 stmts withdrawn (provers hold), needs 1 CPU slot ~20 min
 CHECKPOINT none (05:50Z) [open] resumed 05:50Z after the billing stop: reading GPU job pa-gpu-b9b724e (rc 0, 02:42Z), then CPU lincheck_modes_agree in a 0-GPU pod (CPUS=16), then report; branch b9b724e9d
 CHECKPOINT none (02:23Z) [open] b9b724e9d staged K=2048+8192 (0-GPU job r20261001-020341-281c, 112-127, both rc=0); GPU job pa-gpu-b9b724e submitted 02:23Z (1 GPU, 112-127): flat/partial/both x K=2048,8192 from the stage cache; CPU lincheck_modes_agree job after it

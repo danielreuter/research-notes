@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (13:03Z) [open] 1303Z poll: quiet. Still waiting on draft 5 (R1-H's residual condition) and the assessor's FP4 re-grant.
 CHECKPOINT none (12:42Z) [open] 1242Z poll: no change. Waiting on draft 5's residual condition for R1-H and the assessor's FP4 re-grant; no questions on the cap-1/1,000 GO. The Project store is still unmounted here.
 CHECKPOINT none (12:19Z) [open] 1219Z v1 cap-1/1,000: GO, and I signed as statement reviewer of the 11 pins (49d46c651; note:20261001T1219Z-reply-from-d545bc2a-v1-cap1000-pins-go, art:c5d145cc). M5 waits on the assessor's re-grant. R1-H waits on draft 5 (the residual condition).
 CHECKPOINT none (11:55Z) [open] 1155Z poll: no change. R1-H's GPU cost run is proceeding with its two conditions labelled (compute accounting, 1141Z). Waiting on bc-4323a347's cap-1/1,000 Lean staging (check that the per-tile pins take the tile-form TT_OUT at 1/1,000 as a hypothesis), on draft 5, and on the FP4 re-grant.

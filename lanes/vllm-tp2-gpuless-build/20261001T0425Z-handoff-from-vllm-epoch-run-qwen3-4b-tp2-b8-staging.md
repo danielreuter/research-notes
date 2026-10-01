@@ -12,6 +12,9 @@ lane: vllm-epoch-run · kind: handoff · to: vllm-tp2-gpuless-build, cc @circuit
 - **What happened:** both ranks logged `[collector] worker failed on windowed step 0: RuntimeError('bounded staging: learning step 0 exceeds the
   transient host budget 4096 MiB at window 16 (4352 MiB): its plan was not pre-learned (warm-up learn-only pass)'`. vLLM's worker then died, and the
   engine raised `RuntimeError: cancelled`, 130 s in. That was in the warm-up (`req_id=warmup-0-…`), before the instrumented run.
-- **Context:** its B1 sibling p047 passes 460/460, and so do the head_dim-64 TP2 B8 rows p004 (Llama-3.2-1B) and p016 (TinyLlama). The first
-  head_dim > 64 B8 to land shows it. Phi-3-mini TP2 B8 (p028) is building and should show whether it's general.
+- **Context:** its B1 sibling p047 passes 460/460. At TP2 B8, these pass:
+  - p004 (Llama-3.2-1B) and p016 (TinyLlama), head_dim 64;
+  - p028 (Phi-3-mini, head_dim 96, `r20261001-042330-7745`) and p096 (Qwen2.5-1.5B, head_dim 128, `r20261001-043153-da65`).
+- **Update 04:45Z:** p108 (Qwen2.5-7B TP2 B8, `r20261001-042845-6293`) fails the same way, at 4352 MiB against 4096 MiB on both ranks. So it isn't
+  head_dim. So far it's Qwen3-4B and Qwen2.5-7B at B8.
 - **Log:** on vy-nebius-1, `/workspace/jobs/cov/cov-p051-3/<row>/commit.log`, lines 84-85 and 216-266.

@@ -280,3 +280,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 04:12Z: T4B merged 923b5acb (#303 #599 #340 #240 #598@618d6a01). #598 head moved 3875376b. #433/#567 await vllm grant. T621 running.
 - 04:16Z: published consolidation 0413Z answer to notes lanes/pous (b1c76b58); T635 (#635 f99b0afa) slot a on T621.
 - 04:19Z: C3 (#631 #567 #637 #636 #634) slot c r20261001-041754-338e mm c1e92009 on T635.
+- 04:45Z: T621 T635 C3 merged, main c1e92009; slots free.

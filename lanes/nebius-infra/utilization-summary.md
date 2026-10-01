@@ -59,6 +59,41 @@ POUS's timed windows by agreement.
 
 **Totals, both servers:** 133.1 GPU-hours available. 51.1 held or busy (38%), 27.3 busy (20%), 81.9 idle.
 
+## Evening, 23:00Z Sep 30 – 04:41Z Oct 1 (4:00–9:40 PM PDT; written at 9:45 PM PDT)
+
+| Server | Hour (UTC) | GPU-h | Kueue-allocated | held or busy | busy | idle | CPU busy |
+|---|---|---:|---:|---:|---:|---:|---:|
+| vy-nebius-1 | 09-30 23:00 | 8.0 | 1.7 | 1.1 | 0.25 | 6.9 | 7% |
+| vy-nebius-1 | 10-01 00:00 | 8.0 | 7.0 | 3.9 | 1.02 | 4.1 | 19% |
+| vy-nebius-1 | 10-01 01:00 | 8.0 | 7.3 | 4.0 | 0.62 | 4.0 | 28% |
+| vy-nebius-1 | 10-01 02:00 | 8.0 | 5.6 | 4.5 | 0.55 | 3.5 | 29% |
+| vy-nebius-1 | 10-01 03:00 | 8.0 | 0.3 | 0.3 | 0.03 | 7.7 | 10% |
+| vy-nebius-1 | 10-01 04:00 | 5.6 | 2.3 | 2.2 | 0.77 | 3.4 | 16% |
+| **vy-nebius-1** | **23:00Z–04:41Z** | **45.6** | **24.2** | **16.1** | **3.23** | **29.5** | **18%** |
+| vy-nebius-2 | 09-30 23:00 | 8.0 | – | 7.8 | 6.58 | 0.2 | 26% |
+| vy-nebius-2 | 10-01 00:00 | 8.0 | – | 7.3 | 4.85 | 0.7 | 27% |
+| vy-nebius-2 | 10-01 01:00 | 8.0 | – | 7.4 | 5.16 | 0.6 | 48% |
+| vy-nebius-2 | 10-01 02:00 | 8.0 | – | 5.3 | 0.18 | 2.7 | 42% |
+| vy-nebius-2 | 10-01 03:00 | 8.0 | – | 1.3 | 0.10 | 6.7 | 18% |
+| vy-nebius-2 | 10-01 04:00 | 5.6 | – | 0.6 | 0.03 | 4.9 | 14% |
+| **vy-nebius-2** | **23:00Z–04:41Z** | **45.6** | **–** | **29.8** | **16.89** | **15.8** | **30%** |
+
+Source: `art:916bf70f2ab32cb41d983d4508bd747059bebd497d8bcf74afc2b0724862db32` (05:16Z–04:41Z).
+
+**What happened:**
+- **4:00–5:30 PM PDT, disk hold.** Node 1's `/workspace` peaked at 81% (3:51 PM PDT, about 1,300 GB/h), from replay bundles and
+  proofs' duplicated `circuit.txt` files. `deployments-gpu` was held, 21 circuits Commits were deactivated, and the GPUs sat idle.
+  - Fixed: `vy-disk-guard`, which holds every queue at 80%; cancelling `cov-g058` and deleting its 98 GB `.partial` (circuits' yes);
+    proofs' dedupe; replays ahead of Builds.
+- **From 4:47 PM PDT, paced release.** `~/commit-release/release.py` on node 1 is the one pacer, on circuits' and infra's word.
+  - Its limits: the projected bundles under the cap (150 GB, then 300 GB from 6:07 PM PDT; someone has since set 1000 GB, with a
+    latch back to 150 GB at 78%), 6 Commits in flight, and 4 of them at batch 8+.
+  - Its per-model estimate stays above every bundle measured on Sep 30.
+- **After 8:07 PM PDT, out of work.** Both nodes ran out of GPU work: the feeders had nothing queued, and node 2 held 56 unapproved
+  CPU jobs for overnight. Alerted at 8:40 PM PDT (`note:20261001T0340Z-alert-from-nebius-infra-both-nodes-out-of-gpu-work`). Work
+  resumed on node 1 by 9:40 PM PDT (13 CPU tasks, 3 Commits).
+- About 2.2 TB of released weights left node 1 tonight, so `/workspace` is at 29%.
+
 ## Top inefficiencies: found, and what was done
 
 | # | Inefficiency | Cost | Done | Status |
@@ -193,6 +228,7 @@ The 21:00 rows cover 21:00–21:33Z. Source: `art:fd2ad8f125943e7f6d4c8e449cd044
 
 ## Evidence
 
+- `art:916bf70f2ab32cb41d983d4508bd747059bebd497d8bcf74afc2b0724862db32`: 05:16Z Sep 30 – 04:41Z Oct 1, both servers, the source of the evening table.
 - `art:fd2ad8f125943e7f6d4c8e449cd0447d6d5a4c2da4559595edd0909fb5ee7f3e`: 05:16–21:33Z, both servers, the source of the daytime table.
 - `art:48b2eed3fea5d405b696819edceb123442fb5b0ada870f3753d3cfdac6b3d9e0`: 05:16–13:59Z, both servers, the source of the table above.
 - `art:b5e8e3e984e8fb34ed2463a40edbebaa21b274a35930307bee455d4db2a27911`: 05:16–12:31Z, the 12:40Z version.

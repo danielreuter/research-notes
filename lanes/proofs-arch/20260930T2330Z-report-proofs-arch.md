@@ -10,6 +10,7 @@ cursor:
   subagentId: "bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4"
 ---
 
+CHECKPOINT 369850ad1 (10:28Z) [open] list done at 369850ad1; next steps and statement-reviewer request in lanes/proofs 1025Z; waiting on a reviewer and a GPU yes
 CHECKPOINT cbba321b (10:21Z) [open] 369850ad1 Lean lincheck from the block's structure: same verdicts on 452 sessions (live k_log 26: new agrees 23/23, old OOM), honest sessions 2-5x faster (k_log 26 247.5->45.8 s), audit PASS; statement reviewer asked in lanes/proofs 1025Z; art:a2376034
 CHECKPOINT 369850ad1 (09:24Z) [open] Lean lincheck from the block's structure (CircuitFold.folded, folded_eq, partial_eq_halve_fold) at 369850ad1: all three packages build, audit PASS; soundness FoldRealizes changed, needs a statement reviewer; Lean old/new verdict sweep running
 CHECKPOINT cc21a7d94 (08:19Z) [open] 1b61b024c node 2 clean slice: old verifier 6.33s K=2048 / 7.41s K=8192 vs M0 #20's 10.46/27.42 (4.1/20.0s = its host); partial 0.206/0.445s (31x/17x); node-1 tail was host noise; Lean folded path same verdicts on set 1 (31 sessions), proofs in progress

@@ -41,3 +41,18 @@ boundary tree. The table compares the base with the twin on the run root, the bi
   item isn't packable). That script is infra's.
 - **Still open:** a packed comparison for r1-distill-qwen-15b and qwen25-3b. It needs `-pk3` twins whose Builds stay on
   node 1, or the `n2_build.sh` fix.
+
+## The `-pk3` twins (9:30 AM PDT): both packed, both match
+
+Circuits approved `-pk3` twins for gm005 and gm008 (note:20261001T1555Z-handoff-from-circuits-1130-set). They were submitted
+at 15:59:12Z with 16 GB Builds (`twins.py --suffix pk3 --bases cov-gm005,cov-gm008 --build-mem 16`), so that they would admit
+before `n2_build.sh`'s 120 s offload window. Both Builds ran on node 1 and ended at 16:07:15Z. `route()` spooled both Commits,
+and both ran in pack pod `ada3883d77`. The two replays ended at 16:19Z and 16:20Z, with 460 of 460 units equal.
+
+| twin | model | packed (pack pod) | run root | binding map | verdict |
+|---|---|---|---|---|---|
+| cov-gm005-pk3 | r1-distill-qwen-15b | yes (`ada3883d77`) | same `82ce5ff0a2c960d4` | same `1c4f631b2ca9b914` | PASS / PASS |
+| cov-gm008-pk3 | qwen25-3b | yes (`ada3883d77`) | same `de4d8ecd42eb22fa` | same `fb53d179cc0e160f` | PASS / PASS |
+
+Packing is now shown transparent on all 9 models with a twin. qwen3-06b's twin (gm001) also matches its base; it fails only
+on the SiluMul_v1 edge. The `n2_build.sh` bypass is still with infra.

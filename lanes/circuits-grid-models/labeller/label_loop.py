@@ -45,7 +45,8 @@ FAMILY_OF = {"QWEN25_3B": "qwen25", "QWEN25_05B_INSTRUCT": "qwen25", "QWEN25_COD
              "QWEN3_06B": "qwen3", "QWEN3_17B": "qwen3", "QWEN3_8B": "qwen3", "QWEN3_14B": "qwen3", "QWEN3_30B_A3B_2507": "qwen3",
              "LLAMA32_3B": "llama3", "LLAMA31_8B": "llama3", "R1_DISTILL_LLAMA_8B": "llama3", "SMOL17B": "smollm2",
              "MISTRAL7B_INSTRUCT": "mistral", "GEMMA2_9B": "gemma2", "OLMOE_0125_INSTRUCT": "olmoe", "PHI4": "phi", "YI15_6B": "yi",
-             "FALCON3_1B": "falcon3", "FALCON3_7B": "falcon3"}
+             "FALCON3_1B": "falcon3", "FALCON3_7B": "falcon3", "PLEIAS_350M": "pleias", "DANUBE3_500M": "danube",
+             "SALAMANDRA_2B": "salamandra"}
 #: reviewed causes, by item key (cov-gmNNN): set when a stage line alone does not name the cause
 CAUSES: dict[str, str] = json.loads((HERE / "causes.json").read_text()) if (HERE / "causes.json").exists() else {}
 #: silu_check.py's verdict on a SiluMul_v1 replay mismatch, by item key ("" = checked, not that edge); filled by one_pass

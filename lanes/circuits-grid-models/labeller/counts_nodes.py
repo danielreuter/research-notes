@@ -10,11 +10,12 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from label_loop import FAMILY_OF, base_of, desired, ssh_cmd  # noqa: E402
+from label_loop import FAMILY_OF, ON_NODE, base_of, desired, ssh_cmd  # noqa: E402
 
 Q = json.loads((HERE / "questions.json").read_text())
 recs = [json.loads(ln) for ln in Path(sys.argv[1] if len(sys.argv) > 1 else "/tmp/gm-last-gather.jsonl").read_text().splitlines() if ln.strip()]
-moved = subprocess.run([*ssh_cmd(), "grep -h '\"ev\": \"moved\"' /workspace/jobs/dispatch/log.jsonl"], capture_output=True, text=True,
+grep = "grep -h '\"ev\": \"moved\"' /workspace/jobs/dispatch/log.jsonl"
+moved = subprocess.run(["bash", "-c", grep] if ON_NODE else [*ssh_cmd(), grep], capture_output=True, text=True,
                        timeout=120).stdout.splitlines()
 built_n2 = {e["key"] for e in map(json.loads, moved) if "-build-" in e.get("job", "")}
 node = collections.Counter()

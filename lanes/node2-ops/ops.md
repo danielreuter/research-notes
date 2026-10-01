@@ -46,13 +46,12 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
-- **Timers:** from 16:14Z `subscribe_timer` returns `invalid_argument` for every new timer. The recurring ticks and the 17:28Z one-shot still stand. Backup `r20261001-163236-041e` must be preserved before 16:55Z; stop it if it would run past then. The cutover moved to 17:15Z (top-level checkpoint, 16:28Z). Removing the cutover line is the hand-back signal for c62f9726's window 4 launcher, and I've asked infra to remove it themselves.
+- **Timers:** from 16:14Z `subscribe_timer` returns `invalid_argument` for every new timer. Only the recurring ticks remain (alerts at :02/:17/:32/:47, hourly at :05), plus the two final-backup one-shots on 7 Oct.
+- **After window 4** (its timed lease, from about 17:22Z):
+    - **Backup:** the one skipped at 17:05Z (`research run --on vy-nebius-2 ... backup.sh`), once `timed False`.
+    - **GPU 0's verifies:** at about 17:55Z, release them back to 0–47 at the lowest priority, yielding to slot d (`note:20261001T1558Z-reply-from-compute-accounting-gpu0-verifies-after-window4`). The mechanism is the `cpu-sets` line's slots; check how a cpuset job's priority is set first.
+    - **Pearl-C4's verify re-run:** 48–91 after window 4's inline verify (about 18:20Z), or 0–47 at nice 19 with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`).
 - **Inbox on every alerts tick** (from 13:05Z): `~/node2-ops/inbox.sh` lists the notes added on origin since the acked commit that are in `lanes/node2-ops/` or name node2-ops, and `inbox.sh --ack` advances it. I missed pouw-node2's 12:41Z ask for 25 min because the alerts tick read only `alerts.jsonl`.
-- **Node 2 quota cutover, 10:00 AM PDT (17:00Z), else 10:15; hand-back by 10:25** (top-level 8:52 AM PDT; infra posts the time by 9:30). Fill has been held since 16:09Z. The runner's env is `FILL_VERITY_LEND=0 FILL_CPU_SLOTS=0 FILL_VERITY_UNTIL=2026-10-01T16:00:00+00:00 FILL_VERITY_STOP=2026-10-01T16:55:00+00:00`, and `fill/windows` has `17:00Z 25` (the cutover) and `17:25Z 30` (served window 4). At the hand-back:
-    - restart the `pouw-infra-fill` loop with `export FILL_VERITY_LEND=0` only, unless infra already did;
-    - move the 17:25Z line to the hand-back time;
-    - drop the cutover line.
-    Skip the 17:05Z hourly backup while `/workspace` is offline and run it after. On an alerts tick where ssh can't read `ops-owner` during the cutover, end silently. Asked infra who stops the `pouw-infra-*` daemons (`note:20261001T1612Z-handoff-from-node2-ops-node2-cutover-fill-drained`). After window 4 (about 17:55Z): release GPU 0's verifies (`note:20261001T1558Z-reply-from-compute-accounting-gpu0-verifies-after-window4`). GPU 7's keep-free ends at 17:00Z.
 - **Rollback drill + infra's re-pin of `vy-cluster-agent` to `ef6a3e748`, in one restart** (cluster-build, `note:20261001T1300Z-handoff-from-cluster-build-canary-verdict-pointer`; the canary verdict is in, inside the spread). Proposed for after 16:30Z, the end of the last window (`note:20261001T1315Z-handoff-from-node2-ops-fill-runner-keep-free-waiters-676`).
 
 - **Overnight allowed set adds `pn2h-*`** (owner proofs-n2-hill bc-f0eeea0e, proofs' yes; `note:20261001T0735Z-handoff-from-proofs-n2-hill-pn2h-yes`, `note:20261001T0802Z-ask-from-proofs-allow-pn2h-in-overnight-gate`), until 17:00Z: GPU points through `vy-provers` on 128–191, each names its question, none placed from 20 min before a window. Never sweep them.
@@ -71,6 +70,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 17:29Z after the quota cutover:
+    - **Infra's restart:** at 17:21:17Z infra recreated the tmux sessions (`pouw-infra-fill`, `-ops`, `-util`, `proofs-n2-hill`, `write-probe`). The fill loop came back with my cutover hold still in its env. `/workspace` is ext4 on `/dev/vdc` (`rw,noatime`).
+    - **Window 4:** the cutover line was already out of `fill/windows` (removed without a backup in `infra/logs`). Served window 4 (`r20261001-172141-15d5`, bc-c62f9726) held all 8 GPUs, `timed True`. The `nvidia-smi` running is that run's own telemetry sampler.
+    - **What I did:** at 17:29:00Z I respawned the fill loop with `export FILL_VERITY_LEND=0` only, and the runner's env shows just that. I lifted GPU 7's `keep-free`, which ended at 17:00Z (backup `infra/logs/keep-free.bak-20261001T1729Z`). Status reads `kept free -`, with 33 CPU jobs queued: 25 of GPU 0's verifies at 0 slots, plus job B's verify, the BF16 ship build and Builds.
+    - The backup waits for `timed False`. No note to infra: nothing is wrong.
 - 2026-10-01 17:06Z hourly (16Z): GPU busy 48.3% (3.86 of 8 GPU-h, all useful).
     - Busy time: Pearl-C4's timed re-time (16:00:01–16:25:58Z, 3.47 GPU-h), job B and PoUS's GPU 7 leases.
     - Below 80% because fill is held for the quota cutover and no GPU work was queued after the window: 4.1 GPU-h free. CPU 0–127 at 3.5%.

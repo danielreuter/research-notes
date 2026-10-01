@@ -5,6 +5,7 @@ created: 2026-10-01T02:04Z
 status: open
 ---
 
+CHECKPOINT 923b5acb8 (05:22Z) [open] Answered 0502Z order (#556 vs grant: lanes/accounting 20261001T0519Z). #580 ready handoff in pouw-prs (check r20261001-021907-53ce). V-EX 7B on VM: 52/196 tiles, down_proj ~860 s/layer, ETA ~07:05Z; rotated fork7b-voi run queued after. Agent bc-e8ffd7f2.
 CHECKPOINT 923b5acb8 (05:05Z) [open] Takeover notes for all six predecessors in lanes/accounting (all 'may be stopped: yes'); B-OVF strong handoff to pouw-assessor. aw partials preserved art:5f893c27 (held overnight by node2-ops). V-EX 7B livelocked on node 2 (down_proj tile > chunk budget): finishing its 172 tiles on this VM (same script/tree/seed, started 05:03Z, ~2-3 h). Next: rotated-weights V-EX on fork7b-voi.npz (item 5); #580 ready handoff once the #602-merged trial suites pass. agent bc-e8ffd7f2
 CHECKPOINT 923b5acb8 (04:48Z) [open] Resumed 04:44Z after the usage stop (VM reset; env rebuilt). #580 check r20261001-021907-53ce PASSED on 37008e8a1; trial merge of #602 784471db into #580 clean, suites running. B-OVF strong search done art:57ae9186 (β covers 1.93%/1.04% vs 2.00%/1.11%; ≤1.020× anneal on cells that admit a saving). 70B GPU census preserved art:c0e93d02. agent bc-e8ffd7f2; next: #580 ready handoff to fb6cc95b, assessor note, takeover notes
 CHECKPOINT e5b720899 (02:21Z) [open] WAITING r20261001-021907-53ce on vy-nebius-2 (#580 37008e8a1: #556 9363e501 merged + γ-fold registration rule), check after ~02:50Z; agent bc-e8ffd7f2; next: merge-ready handoff, takeover notes, preserve 70B census

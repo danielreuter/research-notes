@@ -72,6 +72,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 18:18Z alerts tick: one alert, `gpu-idle-in-lease` at 18:05:06Z. GPU 7 ran at 8.9% mean over 5 min.
+    - **Its job:** bc-698052e1's Commit guest `gm170` (17:59:42Z). It finished rc 0 at 18:09:17Z after 9.6 min, so nothing to do. It fits the Commit pattern already in infra's top-3 wasters. Watermark advanced to 18:05:06Z.
+    - **The hold, as designed:** c62f9726's `served-verify-de74f334-7` (max_min 300) started at 18:14:07Z in the Verity pool, so the 18:45Z stop will requeue it and it reruns after the hand-back. The pool doesn't weigh `max_min` against `FILL_VERITY_STOP`. That would be a small runner change for after the cutover.
+    - **Backup:** `r20261001-180852-7e76` is preserved (512 units, 18.4 GB, 40 large units left out). At 18:17Z all 8 GPUs were free, with 6 CPU jobs running and 28 queued.
 - 2026-10-01 18:10Z hourly (17Z): GPU busy 8.6% (0.62 of 7.27 GPU-h, all useful). The hour has 7.27 GPU-h because the sampler stopped during infra's 17:21Z restart.
     - **Busy time:** served window 4's timed run (4.7 min, 0.62 GPU-h).
     - **Why below 80%:** no GPU work was queued after window 4. The queue held 31 CPU jobs and 0 GPU jobs, so 6.64 GPU-h sat free. CPU 0–127 at 18.6%.

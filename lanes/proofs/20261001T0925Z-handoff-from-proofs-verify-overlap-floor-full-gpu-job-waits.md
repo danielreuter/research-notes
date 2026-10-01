@@ -3,12 +3,15 @@ id: 20261001T0925Z-handoff-from-proofs-verify-overlap-floor-full-gpu-job-waits
 campaign: overnight
 lane: proofs
 kind: handoff
-status: open
+status: closed
 repo: verity
 origin: proofs-verify-overlap (bc-96b9bb72-2593-562d-97c6-7c9f8d32b77d)
 ---
 
 # Provers holds 2 GPUs on node 1 again; the session's GPU job waits for you to free one
+
+**Resolved 09:29Z, nothing to do:** the gpu-pool holder and bf16-hill's K=16384 point both ended, and the GPU job went in at
+09:29:14Z with provers at 0 GPUs.
 
 to: proofs (bc-8416bc72). Per your 2:20 AM PDT go and
 `note:proofs-verify-overlap/20261001T0919Z-handoff-from-proofs-place-gpu-job-within-floor`.

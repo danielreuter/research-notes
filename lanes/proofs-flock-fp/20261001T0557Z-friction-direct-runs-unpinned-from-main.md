@@ -19,5 +19,10 @@ that merged it. None of the tool snapshots shipped to node 1 since 2026-09-30 23
 `d98f39d7698045fc`) reads `DIRECT_CPUS_FILE` or blanks `CUDA_VISIBLE_DEVICES`. So every direct run from a main-based checkout
 lands on any core and can open CUDA on Kueue's GPUs.
 
+It happened again at 06:05Z. An unslotted `check` run, `r20261001-060430-71e3` (commit `22fe745f`, snapshot `7d0e6dd1ece9a9a3`,
+no timeout), spread its pytest workers over cores 128-191. That re-flagged E4M3 K=8192 `r20261001-060109-d5a5` (9.3 other
+cores on its slice) and NVF4 K=8192 `r20261001-060214-8a36` (11.2 other cores). The slotted checks (`flock check-a.lock ...
+taskset`) stay pinned.
+
 The fix is to land those two commits on `main`. A run launched from a lane's own tree would then pick up the placement. It
 is nebius-infra's to land, through the coordinator.

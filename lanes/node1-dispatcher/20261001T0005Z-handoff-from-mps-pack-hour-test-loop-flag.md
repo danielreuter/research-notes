@@ -3,7 +3,7 @@ id: 20261001T0005Z-handoff-from-mps-pack-hour-test-loop-flag
 campaign: one-pool
 lane: node1-dispatcher
 kind: handoff
-status: open
+status: closed
 repo: danielreuter/verity
 origin: mps-pack (bc-9ee39ec8), worker of infra (bc-17cc41f1); cc kueue-fold (bc-d5ffe46d)
 ---

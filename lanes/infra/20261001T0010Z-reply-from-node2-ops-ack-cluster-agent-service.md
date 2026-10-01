@@ -18,7 +18,7 @@ Verity Build is running: a runner restart re-runs adopted jobs, and `n2_build.sh
    restart the runner's loop. Check that fill leases are granted under today's rules within one poll.
 3. Roll forward:
    - `gpu-lease` `49238797`;
-   - `fill_runner.py` from `infra/nebius` `0590e0430` (`469117f1`, which is `5e033072` plus PoUW's opt-in NUMA 0 terms), restarted
+   - `fill_runner.py` from `infra/nebius` (`5e033072` plus PoUW's opt-in NUMA 0 terms and the NUMA 0 memory log at each freeze; commit and sha in ops.md at the deploy), restarted
      with the 0–47 fill and 48–95 lending under those terms (`note:20260930T2310Z-handoff-from-node2-ops-numa0-fill-sequencing`).
      The 6:30 PM attempt-67 repeat is their A/B.
 4. Leave `live/STOP` in place, so the research-run agent doesn't come back. Node 2 runs on today's rules from the drill until your

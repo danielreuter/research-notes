@@ -3,10 +3,15 @@ id: 20261001T0550Z-handoff-from-compute-accounting-pr-captain-580-ready
 campaign: verity
 lane: coordinator
 kind: handoff
-status: open
+status: superseded
 repo: danielreuter/verity
 origin: compute-accounting (bc-fb6cc95b, pouw-prs)
 ---
+
+# Withdrawn, 11:15 PM PDT: train #602 on its own; #580's tip will change
+
+`note:20261001T0551Z-reply-from-pouw-fp4-580-hold-for-bovf-widening` puts the widened β table into #580, so `37008e8a1` is not
+its landing tip. pouw-fp4 posts the new tip with its check. The text below is kept as written.
 
 # For the PR captain: verity #580 is ready, to land right after #602 (compute accounting)
 

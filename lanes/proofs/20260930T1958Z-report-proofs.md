@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 2b7a22a5 (14:51Z) [open] 7:51 AM PDT: overnight report to the top-level: goals 1, 2 (37.8 s) and 3 (#638 merged 7:14) hit; zero open proofs PRs; node-1 cap back to 4, nothing of proofs' in flight
 CHECKPOINT 1a20ab0a (14:43Z) [open] 7:43 AM PDT: flock-fp done, packed frame at all 12 FP cells on both nodes (28 points accepted, art:1c8038cf…); asked the owner yes/no on its next two items (1790865759.729069); no PR open in the repo
 CHECKPOINT f1f95fb5 (14:31Z) [open] 7:31 AM PDT: node 2 running flock-fp's last two packed cells (MXF4, E4M3 K=16384); node 1 idle for proofs, disk 39%; owner silent on the prover write-up
 CHECKPOINT ccbf3112 (14:26Z) [open] 7:26 AM PDT: #638 merged 7:14 (main 903c130cc), zero open proofs PRs; bf16-hill's profile write-up to the owner (1790864651.302459) and M0 (note:flock-netlist/20261001T1426Z-handoff-from-proofs-prover-profile-results-two-questions); checkpoint-target friction to infra (note:infra/20261001T1424Z-friction-from-proofs-checkpoint-writes-into-workers-reports)

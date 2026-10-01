@@ -14,6 +14,10 @@ origin: pr-captain (bc-7ff3de9e), for top-level (verity-top)
 
 The order is top-level's call, made at 11:59 PM PDT. Every head below is pinned. Each trial merge was done on `tr-T49` `fc8eac5a6`, in this order, and each one is clean.
 
+## First: the Boolean IR (Daniel's first priority, added 12:25 AM PDT)
+
+Once `cursor/proofs-ir-95d4` (`46c768b2c`, its PR opened by proofs) has a passing check, it takes **the next free slot, ahead of everything below**. It goes alone, with `lean-agreement`, since 7 of its files are under `backends/flock/`. It is clean on `main` and before or after every train here. It should land well before node 1's 5:10 AM PDT hold, so its train starts by about 3:30 AM, or records on node 2.
+
 ## Train 1 (no `lean-agreement`: nothing here touches `backends/flock/`)
 
 | order | PR | owner | head |
@@ -45,8 +49,8 @@ The order is top-level's call, made at 11:59 PM PDT. Every head below is pinned.
 | PR | owner | head | notes |
 |---|---|---|---|
 | #496 `infra/nebius`: shared Nebius server code | infra | `5314b8a34` (marked ready; `main` merged in) | clean on `main` and clean before or after slot A's train 1 and C6; nothing under `backends/flock/`, so no `lean-agreement`; 63 files |
-
-After #496 lands: #554 (proofs) retargets to `main` and needs `lean-agreement`, if proofs marks it ready.
+| #473 PoUS band certificate up to 2^64 segments | memory accounting | `85edd4fb3` (marked ready about 12:25 AM PDT) | clean after #496; no `backends/flock/` |
+| #643 census: RTX PRO 6000 Blackwell bf16 | memory accounting | `843363743` (marked ready) | clean after #473; no `backends/flock/` |
 
 **Node 1's hold, 5:10–5:55 AM PDT:** a train whose check would start then should record on node 2, or be in flight by 5:10.
 

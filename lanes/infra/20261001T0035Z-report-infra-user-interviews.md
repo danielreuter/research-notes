@@ -74,4 +74,14 @@ something isn't worth its cost. It weighs bandwidth against tonight's goals, and
 | Grant label credential round trip | No code change: VMs started after the store secrets were added have them; check with `compgen -e` |
 | Labels miss remote grants | Yes, infra, PR by 12:00Z: `research data labels TARGET` pulls that target first; now `labels-sync --pull-only` |
 | Send checks don't publish | Yes, infra, by 13:00Z; asked for C1's send-check run id |
-| @console | No answer yet |
+
+**Answers, 08:02Z (console):** getting a fresh VM onto node 1 and research-notes took the most time (`research pods ssh` needed a
+hand-made `~/.research/notes` clone; `RESEARCH_NOTES_TOKEN` pushes got 403 because the global `insteadOf` swaps in
+`cursor[bot]`'s token). Worked around with an explicit-user URL and by reading panels from the outboxes. Vercel and site access are
+Daniel's. Fix next: a VM bootstrap that clones notes and pushes with the token.
+
+**Triage, posted 08:07Z (1790842060.639589):**
+| Item | Call |
+|---|---|
+| Fresh VM: notes clone and 403 | Yes, folded into the 11:00Z notes PR: clone on first use, explicit-user URL plus a per-command credential helper |
+| Vercel, site DB | Not infra's: Daniel's, on infra's morning list |

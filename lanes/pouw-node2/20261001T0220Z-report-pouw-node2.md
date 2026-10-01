@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (21:26Z) [open] A window 5 (r20261001-200934-8dbd) on the panel as pearl-c-sm120 v1-h2 #115: decode 2.324x over graphed FP8, prefill 1.428x (1.477x graphed); panel art:e500294d; GPU 0 totals wait on a node-2 read
 CHECKPOINT fbce5a2f4 (21:00Z) [open] A 21:01Z poll: window 5 timed ~20:32-20:47Z (node2-ops ops.md); fill hold lifted 20:47:59Z; waiting on c62f9726's verify record for r20261001-200934-8dbd, then v1-h2 #115 on the panel; still off node 2.
 CHECKPOINT fbce5a2f4 (20:40Z) [open] A 20:41Z poll: nothing new for pouw-node2; still off node 2 (no 'back' from infra); window 5 = r20261001-200934-8dbd (c62f9726 READY 20:10Z, timed from 20:30Z); its rows go on the panel as v1-h2 #115 after its verify.
 CHECKPOINT fbce5a2f4 (20:20Z) [open] A 20:21Z poll: nothing new for pouw-node2; still off node 2 (no 'back' from infra); window 5 starts 20:30Z, its rows go on the panel after its verify.

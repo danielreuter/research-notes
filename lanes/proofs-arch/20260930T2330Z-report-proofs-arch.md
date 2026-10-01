@@ -10,6 +10,7 @@ cursor:
   subagentId: "bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4"
 ---
 
+CHECKPOINT cc21a7d94 (00:40Z) [open] profile done (M0 #20 K=2048): verifier 10.46s vs prover 0.78s; lincheck structure work 3.1-3.8s/stmt, template-aware verifier removes ~93% of it (byte-identical proofs); prover structure share 21%; art:e2a1c8e1
 CHECKPOINT ce30e9b65 (23:28Z) [open] no-op audit done (internal/proofs/noop-audit.md): padding excluded pre-proof by host executed_prefix rule; lifted/Serve@3 reps exist only in vllm, unprovable by C-Flock; study next
 # proofs-arch: restructuring C-Flock for FP matmuls, hashes and no-ops
 

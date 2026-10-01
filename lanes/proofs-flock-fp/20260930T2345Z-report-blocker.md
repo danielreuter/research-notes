@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: proofs (bc-8416bc72, Slack @proofs)
 ---
 
+CHECKPOINT b191bb16e (00:44Z) [open] 5:46 PM PDT: e4m3 K=4096 on console (r20261001-003624-3b27, 3.23e8, contended on 112-127: rerun queued). Merged bf16-hill's slice locks (b191bb16e, synced). Feeder fp-feed on node 1 runs my K sweep two at a time on 128-159.
 CHECKPOINT none (00:34Z) [open] 5:33 PM PDT: FP8+FP4 proved by C-Flock at K=2048, byte-identical, on console: e4m3 r20261001-002144-ad90 overhead 1.35e8; nvf4 r20261001-002838-ce55 2.34e8; mxf4 r20261001-002928-bb1e 2.54e8 (session, verifier incl.). K-sweep 4096-16384 queued.
 CHECKPOINT 4367b466e (00:16Z) [open] 5:17 PM PDT: gemm-hill over dtype (4367b466e: DTYPE, PROGRAM=, fill N from gate, session overhead, coins os-seed-prf, session batched-J1); census -> rtx-pro-6000-server/* (ff5901d18); e4m3/nvf4/mxf4 K=2048 step 0 submitted to node 1 provers (prover-bench, 1 GPU). GPU prover refuses --session-tables>1
 CHECKPOINT 7fd223449 (00:01Z) [open] pieces done+tested (E4M3/NVF4/MXF4 vs prims); statements stage K=2048 all three; wiring gemm-hill job over dtype next, then node-1 runs

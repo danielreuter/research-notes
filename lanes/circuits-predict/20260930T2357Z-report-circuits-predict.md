@@ -5,6 +5,7 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT 02d056c3d (02:22Z) [open] 7:23 PM: Gemma-2 in the predictor at 02d056c3d (normalizer, GemmaRMSNorm (1+w) chains, attn/final soft-caps, GeluTanhMul): cov-k06-5 step + request digest-exact, step pinned; scoring the 39 Gemma-2 units on node 1 (r20261001-022216-3e71); 4 big-unit shards still running; next: merge caches, final score art
 CHECKPOINT none (02:04Z) [open] 7:20 PM, 7:40 goal HIT: predictor scored on all 251 traced rows (art:f258e465b6cd JSON, art:66cc1078ec9b table): 2403 units compared, 1971 exact digest (all equivalent by digest); every one of the 432 differing units is tree drift (424 Qwen2.5 units traced on lane trees 95aefc40/e8f9f515/cdd0564f with GemmBias_v2 q/k/v; 8 on older head trees with Attention_v2); 39 Gemma2 unexpressible; 384 big requests/workloads still predicting on 4 node-1 shards, final score after
 CHECKPOINT none (01:59Z) [open] 7:04 PM, 11:40 goal HIT early: predicted Program digest == traced for SmolLM2-135M (cov-k01-10), Llama-3.2-1B (cov-k05-7), TinyLlama (cov-k04-7) at rtxpro6000 TP1 B1 256/32 greedy bi-eager, step + request + workload, 9/9 units exact (art:0ed6c4da121a); older-tree traces k01-9/k04-6 differ (Attention_v2 drift). Full score: local pass + 4 node-1 shards running; 7:40 art next
 CHECKPOINT f9290bab6 (01:47Z) [open] 6:48 PM: MoE (OLMoE, Qwen3-MoE) in the predictor at f9290bab6, steps exact for both; full local score pass running (1742 cached units); next: node-1 job for the over-budget units, 7:40 score art

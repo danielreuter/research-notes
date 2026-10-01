@@ -293,3 +293,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 06:40Z (11:40 PM PDT) tick: node 1 GPU 6 held 64 GiB at 0% for 15 min (`pool_n1` hadn't flagged it). The holder was
   `nd-vllm-epoch-run-47a14bf90d-gpu-0-28gfh` (48–64 GiB from 06:00Z, last utilization 7%). It freed the GPU at 06:38Z and
   the pod is gone, so nothing was asked. Node 1's inode growth is under the threshold while the 6 h sweep runs.
+- 07:20Z (12:20 AM PDT) tick: node 2 GPU 7 held 48 GiB at 0% for 15 min. The holder was a running vLLM Commit
+  (`verity-commit-vllm-epoch-run-cov-cg09.sh`, run `r20261001-070053-839a`, gemma2-2b, owner bc-698052e1, from 07:01Z) at
+  100% of one CPU, so it was in a CPU phase with its leased GPU still loaded. There were no lease waiters and 5 of 8 GPUs
+  were free, so nobody was blocked and nothing was asked. Commit lease norms are node2-ops' and kueue-fold's.

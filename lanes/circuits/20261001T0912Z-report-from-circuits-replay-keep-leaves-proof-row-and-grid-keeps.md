@@ -81,7 +81,16 @@ re-trying the pilot and never admitted the fitting workload behind it.
 
 Cost: about 13 minutes. Friction note: `note:circuits-replay-keep-leaves/20261001T0723Z-friction-pack-pilot-blocks-fitting-gpu-workloads`.
 
-## @infra's template line: no reply yet, not blocking
+## Off the grid, one row has already lost its leaves to the template line (2:13 AM PDT)
+
+A row outside the grid lost its leaves. vLLM's TP2 config run `nd-vllm-config-ru-8e435ea45b`, Qwen3-30B-A3B TP2 B1 256/32, sweep
+`cov-p081-gaps1`, ran from tree `cfgtp2-tp2gaps`, which has no keep code. Its replay `r20261001-091301-84fc` passed 460/460 with
+rc 0. The row logged no deletion of its own, and template line 359 then deleted the bundle. The row has neither a bundle nor a keep,
+so that Commit can't be re-verified on CPU. It's the vLLM lane's tree, not the grid. I've added it to infra's thread
+([reply](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790846128467889?thread_ts=1790838553.947279&cid=C0C5RCXL66N)).
+Until the template is patched, a tree without the keep loses its leaves on every passing replay.
+
+## @infra's template line: no reply yet, not blocking the grid
 
 The line is **line 359** of the live `config-run.yaml` (`config-run@66fd197aefc5`), not 355: my first report and the Slack ask
 read an older copy. Its text and the proposed patch are unchanged. There was no reply in the

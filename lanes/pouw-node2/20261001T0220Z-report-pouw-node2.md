@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (21:00Z) [open] A 21:01Z poll: window 5 timed ~20:32-20:47Z (node2-ops ops.md); fill hold lifted 20:47:59Z; waiting on c62f9726's verify record for r20261001-200934-8dbd, then v1-h2 #115 on the panel; still off node 2.
 CHECKPOINT fbce5a2f4 (20:40Z) [open] A 20:41Z poll: nothing new for pouw-node2; still off node 2 (no 'back' from infra); window 5 = r20261001-200934-8dbd (c62f9726 READY 20:10Z, timed from 20:30Z); its rows go on the panel as v1-h2 #115 after its verify.
 CHECKPOINT fbce5a2f4 (20:20Z) [open] A 20:21Z poll: nothing new for pouw-node2; still off node 2 (no 'back' from infra); window 5 starts 20:30Z, its rows go on the panel after its verify.
 CHECKPOINT fbce5a2f4 (20:09Z) [open] A 20:10Z: window 5 (20:30Z) node readiness unconfirmed by me (off node 2, no 'back' from infra); c62f9726's 20:05Z record: both verifies passed, passes deleted, node 2 2,245 GiB (44.8%), run r20261001-185716-6781 waiting on its line.

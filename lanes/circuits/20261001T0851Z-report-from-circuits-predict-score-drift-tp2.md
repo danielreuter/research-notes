@@ -8,12 +8,13 @@ repo: danielreuter/verity
 origin: circuits-predict
 ---
 
-# circuits-predict -> @circuits: predictor vs every traced Build, 3439 of 4148 units exact on main's code; all 709 differing units are tree drift, and the 700 coverage-v1 ones are 700 of 700 exact on their trees' code; TP2 now covers every traced family
+# circuits-predict -> @circuits: predictor vs every traced Build, 3442 of 4151 units exact on main's code; all 709 differing units are tree drift, and the 700 coverage-v1 ones are 700 of 700 exact on their trees' code; TP2 now covers every traced family
 
 **Branch** `cursor/vllm-predictor-8c79`, head `f6697c66e` (pushed). No PR opened; I'll ask first, since Circuits is at 7 open PRs.
 
 **Evidence**
-- art:b853cdd8b211: the final score (`score.json`, `score.md`, the merged cache, `first_divergences.txt`).
+- art:344ba958f0e8: the final score (`score.json`, `score.md`, the merged cache, `first_divergences.txt`). It supersedes
+  art:b853cdd8b211, which predates the last Gemma-2, TinyLlama and Qwen3-30B workloads and the last located divergences.
 - art:aa54edf143d7: the drift re-score.
 - art:94c14d2b4f26: label corpus v0.
 
@@ -44,7 +45,7 @@ origin: circuits-predict
        trees, which have `Attention_v2` where current code has `_v5`. Newer traces of the same configs (cov-k01-10, cov-k04-7
        and cov-k03-7) are exact.
    - **Gemma-2** (soft-caps, normalizer, tied embeddings).
-     - TP1 was already covered: cov-k06-5 is pinned, and all 614 traced Gemma-2 TP1 units are exact across 33 rows.
+     - TP1 was already covered: cov-k06-5 is pinned, and all 615 traced Gemma-2 TP1 units are exact across 33 rows.
      - TP2 is now covered too (`25e6752b9`). cov-p058-2 has 6 of 6 units exact: step, request and workload on both ranks.
      - The normalizer scales the reduced embedding and the soft-cap acts on the gathered logits. Lifting the refusal was
        enough; no new construction was needed.
@@ -53,7 +54,7 @@ origin: circuits-predict
      - Under the fused MoE, each expert's width is sharded, the router and the experts stay whole, and the routed sum is
        all-reduced.
      - OLMoE's q/k norm over all heads all-gathers q and k, norms each row whole, then keeps this rank's slice.
-     - **Every TP2 unit compared is exact**: 238 on main's code, and Qwen2.5's 64 on coverage-v1's code. That includes all 38
+     - **Every TP2 unit compared is exact**: 212 on main's code, and Qwen2.5's 64 on coverage-v1's code. That includes all 38
        Gemma-2 and MoE units (cov-p058-2, cov-p069, cov-p073-3 and cov-p081).
      - `tests/predict` pins the rank steps of Llama-3.2-1B, Gemma-2-2B, Qwen3-30B-A3B and OLMoE. All 43 tests pass.
      - Still refused at TP: stochastic sampling (no TP2 stochastic row was traced), world 4, and uneven head or vocabulary
@@ -63,25 +64,25 @@ origin: circuits-predict
 ## Score: main's code (`f6697c66e`) over all 326 inventoried rows on node 1
 
 **Headline numbers**
-- 4148 units compared; 3439 are exact, and all of those are equivalent by digest.
+- 4151 units compared; 3442 are exact, and all of those are equivalent by digest.
 - 709 differ: 700 are coverage-v1 drift and 9 are old-tree traces.
 - 282 rows have a compared unit, and 238 of them are all exact. Every one of the other 44 rows is drift (41 coverage-v1 rows,
   3 old-tree rows).
-- On the code each unit was traced on, 4139 of 4148 are exact. The 9 that aren't are the superseded old-tree traces.
+- On the code each unit was traced on, 4142 of 4151 are exact. The 9 that aren't are the superseded old-tree traces.
 
-**First divergences.** I located them for 284 of the 659 differing step and request units (r20261001-084105-ed67). Only two
-causes occur:
-- 281 units: the definitions differ. Predicted: `BiasAdd_v1` and `Gemm_v2`. Traced: `GemmBias_v2` and
+**First divergences.** I located them for 301 of the 659 differing step and request units (r20261001-084105-ed67, plus the
+TinyLlama shard r20261001-071553-eaf3). Only two causes occur:
+- 296 units: the definitions differ. Predicted: `BiasAdd_v1` and `Gemm_v2`. Traced: `GemmBias_v2` and
   `GemmBiasCoordinate_v2`. All are on coverage-v1 trees.
-- 3 units: the definitions differ. Predicted: `Attention_v5` and `AttentionHead_v5`. Traced: `Attention_v2` and
+- 5 units: the definitions differ. Predicted: `Attention_v5` and `AttentionHead_v5`. Traced: `Attention_v2` and
   `AttentionHead_v2`. All are on the old trees.
 
-The 375 unlocated units sit on the same trees and are exact on those trees' code. Workloads aren't diverged separately (the 50
+The 358 unlocated units sit on the same trees and are exact on those trees' code. Workloads aren't diverged separately (the 50
 differing workloads are made of differing requests).
 
 | model | rows | rows all exact | units compared | exact | differ: coverage-v1 drift | differ: old tree | not run / over budget | no trace |
 |---|---|---|---|---|---|---|---|---|
-| gemma2-2b | 35 | 33 | 614 | 614 | 0 | 0 | 5 | 4 |
+| gemma2-2b | 35 | 33 | 615 | 615 | 0 | 0 | 4 | 4 |
 | gemma2-2b TP2 | 3 | 1 | 6 | 6 | 0 | 0 | 0 | 22 |
 | llama32-1b | 35 | 32 | 518 | 518 | 0 | 0 | 1 | 8 |
 | llama32-1b TP2 | 6 | 4 | 52 | 52 | 0 | 0 | 0 | 22 |
@@ -97,16 +98,16 @@ differing workloads are made of differing requests).
 | qwen25-15b TP2 | 3 | 0 | 32 | 0 | 32 | 0 | 0 | 0 |
 | qwen25-7b | 8 | 0 | 85 | 0 | 85 | 0 | 0 | 0 |
 | qwen25-7b TP2 | 3 | 0 | 32 | 0 | 32 | 0 | 0 | 0 |
-| qwen3-30b-a3b | 16 | 16 | 114 | 114 | 0 | 0 | 1 | 1 |
+| qwen3-30b-a3b | 16 | 16 | 115 | 115 | 0 | 0 | 0 | 1 |
 | qwen3-30b-a3b TP2 | 3 | 1 | 6 | 6 | 0 | 0 | 0 | 22 |
 | qwen3-4b | 15 | 14 | 172 | 172 | 0 | 0 | 0 | 2 |
 | qwen3-4b TP2 | 5 | 3 | 32 | 32 | 0 | 0 | 0 | 22 |
 | qwen3-4b-fp8 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 4 |
 | smollm2-135m | 32 | 30 | 406 | 403 | 0 | 3 | 2 | 4 |
 | smollm2-360m | 21 | 20 | 365 | 365 | 0 | 0 | 1 | 2 |
-| tinyllama-11b | 28 | 25 | 482 | 479 | 0 | 3 | 3 | 4 |
+| tinyllama-11b | 28 | 25 | 483 | 480 | 0 | 3 | 2 | 4 |
 | tinyllama-11b TP2 | 6 | 2 | 26 | 26 | 0 | 0 | 0 | 30 |
-| **all** | **326** | **238** | **4148** | **3439** | **700** | **9** | **13** | **264** |
+| **all** | **326** | **238** | **4151** | **3442** | **700** | **9** | **10** | **264** |
 
 "Rows all exact" counts rows that have a compared unit, all of them exact. The 264 no-trace units come from Builds that left no
 Program:
@@ -117,16 +118,20 @@ Program:
 
 ## What's left
 
-- **13 units not predicted yet.**
-  - 9 workloads are still running on node 1: 5 Gemma-2 (r20261001-061329-0720), 3 TinyLlama (r20261001-071553-eaf3) and 1
-    Qwen3-30B (r20261001-061352-4f7e).
-  - 1 Llama-3.2-1B request (LP 4096 / T 511, about 74 GB estimated) is unrun: I capped eaf3 at 74 GB to unblock the workloads.
-  - 3 units are over the 100 GB cap: two SmolLM2-135M LP 4096 requests and one SmolLM2-360M workload.
-  - These need one more job with a larger cap.
+- **10 units not predicted yet.** The Gemma-2 (r20261001-061329-0720), TinyLlama (r20261001-071553-eaf3) and
+  locating (r20261001-084105-ed67) shards finished cleanly; every unit they predicted is exact or old-tree.
+  - 4 Gemma-2 workloads (cov-cg09, cov-m001-2, cov-n048-2 and cov-n049-2): their rows reached the inventory after 0720
+    started, so no shard was given them.
+  - 2 TinyLlama B64 workloads (cov-n001 and cov-n002): estimated at about 80 GB, over eaf3's 74 GB cap.
+  - 1 Llama-3.2-1B request (LP 4096 / T 511, about 74 GB estimated): never run, because eaf3's cap left it out.
+  - 3 units over the 100 GB cap: two SmolLM2-135M LP 4096 requests (estimated 139 and 113 GB) and one SmolLM2-360M
+    workload (115 GB).
+  - One more node job settles all 10, given a larger cap and whatever memory node 1 can spare.
 - **36 drift configs have no main-tree trace.** One main-tree Build each settles them on main, or `3dbcc9040` landing on main
   makes main's code predict them (exact per art:aa54edf143d7).
-- **375 differing units have no located first divergence** (over the locating budget). They are on the same trees as the 284
-  located ones and are exact on those trees' code.
+- **358 differing units have no located first divergence** (over the locating budget). They are on the same trees as the 301
+  located ones and are exact on those trees' code. r20261001-061352-4f7e is still running and locating more of the
+  Qwen2.5 ones.
 - **The branch is not in a PR.** Opening one waits on your go-ahead.
 
 ## Incidents and friction
@@ -138,3 +143,7 @@ Program:
 - Friction for the scorer: interleave workloads with requests, or schedule all tasks by estimated cost.
 - Scoring coverage-v1 traces needed main's `tools/cluster` and `tools/research` in the scratch tree. The coverage-v1 tree
   predates `research run --queue`.
+- Friction for the scorer: a cache entry is keyed by φ, not by the predictor's code. When I merged the shard caches, the
+  "unexpressible" entries the 06:13Z shards wrote before the Gemma-2 and MoE TP commits overrode the newer predictions for 30
+  units, until I put the newest cache last. Adding the predictor's tree to the key, or rejecting entries from another tree
+  under `--cached-only`, would make this impossible.

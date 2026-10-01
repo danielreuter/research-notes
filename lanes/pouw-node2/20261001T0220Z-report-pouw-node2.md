@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (19:01Z) [open] 19:01Z poll: cutover line gone 18:54Z, /workspace online 2,595 GiB (51.7%), 8 GPUs free; fill loop restarted with the cutover hold env and cpu-sets 0-47 still 0, asked node2-ops (note:20261001T1901Z-ask-from-pouw-node2-handback-fill-still-held); inbox's 1552Z window-4 order is done; f9af3acc 1842Z asks nothing of me.
 CHECKPOINT fbce5a2f4 (18:40Z) [open] 18:41Z poll: node 2 2,595 GiB (51.7%, df 52%), 13 GiB under the hold, already with compute accounting (4323a347 1830Z, c62f9726 1826Z); 8 GPUs free, fill held for the 18:50Z cutover; window 5 awaits compute accounting's yes, then I book it.
 CHECKPOINT fbce5a2f4 (18:21Z) [open] 18:21Z poll: node 2 2,523 GiB (51%); GPU 7 fill:c62f9726 to 18:38Z, BF16 run queued (+73 GB pass ≈ 51.8%, its note to accounting 1820Z); fill held for the 18:50Z cutover; GPU 0 verifies parked to hand-back; nothing for me.
 CHECKPOINT fbce5a2f4 (18:20Z) [open] 18:20Z: served window 4 on the panel as pearl-c-sm120 v1-h2 #114 (2.690x decode headline; art:9cc08440, ov-synced); node 2 51% flat, 8 GPUs free, GPU 0 verifies parked to the 18:50Z hand-back (node2-ops 1808Z).

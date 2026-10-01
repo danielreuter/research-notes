@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:01Z) [open] 5:01 PM PDT: TTR landed; one-order-giver ruling, old circuits lanes to circuits; no-op design questions with Daniel
 CHECKPOINT none (23:44Z) [open] 4:44 PM PDT: goals set at 1h/3h/7h (docs/goals.md), checks timed 5:40/7:40/11:40; pacing owner = steward per circuits; inbox empty
 CHECKPOINT none (23:27Z) [open] Daniel set direction: infra as standing engineer, circuits tracing+prediction streams, proofs per-subcircuit hill-climb + Flock restructure study; #449 FP-state leak being fixed; TTR (#607/#608/#587) checking
 CHECKPOINT none (23:09Z) [open] node-1 disk back to 72-73%, storage plan with Daniel (3 yes/no); T3 first --queue job passed 4:03 PM PDT; node-2 switch ~4:15 PM PDT; proofs on per-datatype GemmCoordinate hill-climb

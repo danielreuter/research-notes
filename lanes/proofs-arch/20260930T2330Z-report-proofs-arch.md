@@ -58,7 +58,8 @@ Full text: `/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/docs/flock-re
   bits of zerocheck, so it breaks even at about 45 committed bits replaced. Products, alignment and normalization win;
   the max exponent doesn't. It gains 18% on top of idea 3.
 - **Not located:** about 6.7 s (K=2048) and about 21 s (K=8192) of verifier time per statement is neither the lincheck
-  nor the region claims. An instrumented M0 statement is the next profile.
+  nor the region claims. An instrumented M0 statement is the next profile. (§4 places it: the study underpriced the
+  lincheck.)
 - **Decisions for Daniel:** the cross-block wiring format; one 128-bit rep instead of two Fast100 reps (for
   `proofs-security`); weights bound at registration or commitments reused; lookup gates; the instrumented M0 profile.
 
@@ -84,3 +85,73 @@ flock b684b12 examples; build notes are in their headers. Evidence:
   rep).
 - GPU was not run, which deviates from the handoff. The proofs are byte-identical, so a GPU comparison would measure no
   difference.
+
+## 4. The session verifier (Oct 1, 12:30 AM PDT)
+
+Branch head `1b61b024c`. The commits:
+
+- `eb51d8bce`: phase timers.
+- `8db1cb550`: the template-aware lincheck, `FC_LINCHECK=partial|flat|both`, partial by default.
+- `b9b724e9d`: slot types built column-major (`CscCircuit`).
+- `afb2f6718`: the selftest keeps three honest verifications per mode.
+- `76a8ccd75`: `arch_proto/lincheck_modes.sh` and `70-class-sweep.sh BUILD_ONLY=1`.
+- `acca35385`: C0 = I checked once per statement (`Stmt::c0_identity`).
+- `1b61b024c`: the CUDA 13.3 runtime on `LD_LIBRARY_PATH`.
+
+proofs-bf16-hill carries all of them, and proofs-verify-overlap has them through bf16-hill. The old fold is on
+`cursor/proofs-arch-oldfold-e5c2` (`ebcdb95ed`): `8db1cb550` plus the scripts. Evidence, all CPU-only
+`lincheck_modes_agree` selftests on 16 cores of a held slice, all labelled `question`:
+
+- M0 #20's own statements: `r20261001-072031-bf72` (`art:f9f49b46…`).
+- bf16-hill's `Gemm_v2` statements: `r20261001-061252-f258` (`art:acdcb4f8…`), and on the old fold
+  `r20261001-062432-2a1d` (`art:454285fe…`).
+- GPU serve sessions: `art:552f5f64…`.
+
+- **The timers account for the whole verifier.** In every verification, `other_s` is at most 1.1 ms and `verify_s −
+  total_s` at most 0.4 ms. In flat mode the lincheck is 92–98% of the verifier. The opening (setup, ring switch, Merkle,
+  residual) takes 0.02–0.05 s, and decode, regions, bind and zerocheck less than 0.02 s together.
+- **Verifier seconds per statement.** Each is the median of three honest verifications, 2 reps each. "Old" is
+  `8db1cb550`: M0 #20's verifier restated with timers, on the row-major `SparseMatrixCircuit` structures, checking
+  C0 = I on every rep.
+
+| statement | flat | partial | both | old flat | old partial |
+|---|---|---|---|---|---|
+| M0 #20 K=2048 (`GemmCoordinate_v1`, 4×4 tile, n=512, m=35) | 5.08 | 0.227 | 5.80 | not run | not run |
+| M0 #20 K=8192 (n=1024, m=35) | 5.42 (2.57–7.83) | 0.525 | 3.73 | not run | not run |
+| `Gemm_v2` K=2048, n=2048, m=35 | 1.465 | 0.239 | 2.60 | 3.05 | 2.24 |
+| `Gemm_v2` K=2048, n=16, m=28 | 1.35 | 0.194 | 1.40 | 5.02 | 3.72 |
+| `Gemm_v2` K=8192, n=1024, m=35 | 3.93 | 0.568 | 4.75 | 10.81 | 8.04 |
+| `Gemm_v2` K=8192, n=16, m=29 | 2.60 | 0.541 | 3.02 | 12.52 | 9.12 |
+
+- **C0 = I.** The current tree checks it once per statement per process. The selftest pays that before the timed
+  verifications, so the current columns leave it out. The old tree measured it at 0.08–0.3 s a rep.
+- **What partial still costs.** `partial_types_s`, the fold over the slot's column-major types, takes 0.12 s at M0's
+  K=2048 and 0.48 s at K=8192. Δ is under 0.025 s.
+- **A tail I haven't located.** On the larger statements, about one rep in six takes 0.4–0.9 s more in
+  `partial_types_s`. It never happens at n=16. Flat at M0's K=8192 swings 3× across verifications. Both were seen on a
+  node at load 70–400.
+- **GPU serve sessions.** These ran on K=2048 `Gemm_v2`, n=2048, at `b9b724e9d` (before the C0 memo), on slices shared
+  with other jobs. Verify went from 1.446 to 0.356 s, and C0 = I was 0.17 s of the latter. The session went from 2.106 to
+  1.013 s. The prover binary and proof sizes were the same ([963794, 963794]), and every proof was accepted. The pod
+  stopped at 02:42Z, before K=8192.
+- **Equivalence.** `FC_LINCHECK` is read only by the verifier, and the selftest verifies the same proof bytes in every
+  mode. On all six statements, in each mode:
+  - honest proofs were accepted three times out of three;
+  - an altered `z_partial` and an altered round message were refused, with the same reason in every mode;
+  - the decoded proofs re-encode byte-identical;
+  - `both`, which refuses any disagreement between flat and partial, accepted every honest proof.
+
+  Earlier evidence: arch_proto k=13–25 and the K=64 selftests (41 cases).
+- **The study's unlocated 6.7 s / 21 s.** The timers leave nothing unattributed. What the study couldn't place was the
+  lincheck itself, which it underpriced.
+  - On M0 #20's own statements, the flat lincheck alone takes 4.99 s (K=2048) and 2.5–7.8 s (K=8192), even on today's
+    column-major fold. The study had priced it at 3.1–3.8 s at K=2048.
+  - M0 #20 ran the old verifier (the row-major fold, and C0 = I on every rep). On bf16-hill's four statements it is
+    2.1–4.8× slower than today's flat one, which plausibly covers M0 #20's 10.46 s and 27.42 s. Its host (load 48–125,
+    not exclusive) adds a share I can't measure from here.
+  - The old fold on M0 #20's statements would split the two. I withdrew that job at 07:23Z
+    (`note:20261001T0724Z-handoff-from-proofs-arch-provers-submit-in-error`). It needs one CPU slot for about 20 minutes.
+- **Against M0 #20.** On the same statements the partial verifier takes 0.227 s instead of 10.46 s (K=2048) and
+  0.525 s instead of 27.42 s (K=8192). The conditions differ: a held 16-core slice and a selftest, against serve's
+  loopback on a contended host.
+- **Next:** the Lean `lincheck` and `partial_eq_halve_fold`, as a separate commit.

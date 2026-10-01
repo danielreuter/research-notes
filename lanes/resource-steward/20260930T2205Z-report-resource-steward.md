@@ -26,7 +26,9 @@ Only with no open files (`lsof +D`), and only at `nice 19 ionice -c3`:
   it: `~/.cache/uv`, `/workspace/cache/uv`, `/workspace/jobs/cache/{uv,triton}`, `~/.triton`, `~/.cache/vllm`, and
   harness venvs under `/workspace/cache`. Never `~/.cache/verity-check/lean-deps` or `circuit-check` (check's verdict caches;
   their owner is the check, and run `r20260930-213917-d6b3` is moving them to `/workspace`);
-- shipped source trees `/workspace/research/src/<sha>` older than 24 h that no running run references. `tools/sweep.sh`
+- shipped source trees `/workspace/research/src/<sha>` older than **6 h** that no running run references (Daniel's ruling on
+  card `01933aa8`, 6:58 PM PDT 30 Sep; it was 24 h), and that hold nothing outside their commit besides build caches and
+  registered fixtures: a tree with other files may hold a run's output, so it waits on its owner (§5). `tools/sweep.sh`
   (§2) checks every request not yet finished (a dead runner's doesn't count), Kueue workloads and pods not finished, fill
   jobs queued or running, and every process's cwd, root, open files, maps, argv and environment. A tree whose ship is reused
   keeps its first mtime, so its age is from when it was shipped; a deleted tree is re-shipped from the node's bare repo.
@@ -269,3 +271,15 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   patterns from files. The trees that matter are younger: node 1's 235 trees hold 4.84M of its 9.39M inodes, the biggest
   176k–303k files each (`.venv` and `.lake`), shipped 08:30–13:50Z on 30 Sep, so they pass 24 h between 1:30 and 6:50 AM
   PDT. The sweep now runs every 6 h at :30 (`resource-steward-sweep`), and the 6 h retention card still waits on Daniel.
+- 06:03–06:50Z (11:03–11:50 PM PDT) card deadline timer: Daniel had chosen **6 h** on the retention card at 6:58 PM PDT
+  (01:58Z). The steward saw the thread event then but didn't act on it, so the 6 h cleanup started four hours late (node 1's
+  inodes stayed under 47% throughout). §1 now says 6 h.
+  - A 6 h dry run listed 179 trees (221 GB) on node 1 and 285 (56 GB) on node 2. Some were 11–16 GB, so the steward checked
+    whether trees hold run outputs. `node-sweep.sh` now keeps a tree with anything outside its commit besides build caches
+    and registered fixtures (§5 lists the 13 it keeps). That leaves 176 trees, 3.72M files, 207 GB on node 1 and 280
+    trees, 1.65M files, 56 GB on node 2.
+  - The real sweep started at 06:25Z in tmux. It rescanned after each rename (about 60–90 s per tree), so `sweep.sh`'s 1 h
+    limit stops node 1 at about 07:25Z after about 45 trees, and node 2 then runs the rewritten `node-sweep.sh`. The rewrite
+    renames the batch, rescans once (26–38 s per node), deletes, clears what an interrupted sweep left in `src/.trash`, and
+    takes a lock. A dry run of it on both nodes made the same decisions. The rest of node 1 goes at the next sweep, and
+    §4 gets the totals then.

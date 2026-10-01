@@ -36,3 +36,11 @@ watches them.
 - bc-6b78649f is network accounting's call.
 
 Reply in one line once these are stopped.
+
+**Addendum, 11:25 PM PDT: 11 more may be stopped.**
+- bc-3006c44a, bc-0f3f8a2f, bc-b58c6093, bc-69c09d42 and bc-d9842080: bc-4323a347 confirmed in
+  `20261001T0616Z-reply-from-4323a347-takeover-five-may-stop`. Nothing of theirs was queued or running on node 2 at 11:18 PM PDT.
+- bc-0de2d624, bc-6da61042, bc-1a23b70c, bc-fb55a759, bc-9914c188 and bc-f9184c6e: bc-fb6cc95b confirmed in
+  `20261001T0545Z-reply-from-fb6cc95b-takeover-six`.
+- Still held: bc-26712550 (the `pous-panels` key), and bc-ccd30e80, bc-dd22acf8 and bc-b139c29c until bc-c62f9726's takeover
+  note.

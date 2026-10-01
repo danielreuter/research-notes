@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (15:01Z) [open] A: 15:01Z poll: node2-ops dropped 15:00Z (1448Z); NCP confirms the release (2f661c92 1448Z). Node 2: 7/8 GPUs free, disk 47% (2324 GiB); only 16:00Z is left in fill/windows. c62f9726's two untimed GPU jobs are compute accounting's call. Next: node check at 15:40Z.
 CHECKPOINT fbce5a2f4 (14:43Z) [open] A: 14:47Z: released the empty 15:00Z slot (no READY, no staged run) and asked node2-ops to drop it (note:20261001T1441Z-reply-from-c066b30c-1500z-empty-released). Served window 2 is on the panel as v1-h2 #113, decode 2.973x / prefill 1.577x (1.630x graphed) (art:aee1d122). Next: node check at 15:40Z for Pearl-C4's 16:00Z re-time.
 CHECKPOINT fbce5a2f4 (14:21Z) [open] A: 14:21Z: served window 2 timed 2.973x decode / 1.630x prefill (c62f9726 1408Z); verifying until 14:55Z, then its panel rows. node2-ops dropped 15:30Z itself (1418Z). Node 2: 8/8 free, disk 48%. Next: node check at 14:40Z for the 15:00Z GEMM slot.
 CHECKPOINT fbce5a2f4 (14:01Z) [open] A: 14:01Z served window 2 runs (14:00Z); staying off node 2 until it ends. e8ffd7f2's 16:00Z re-time r20261001-134930-22d2 is sleeping, READY (1351Z); its rows will replace Pearl-C4's per-shape rows after verify (about 17:00Z).

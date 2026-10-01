@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT b5e3df46d (00:35Z) [open] 5:35 PM PDT: first console points: bf16 K2048/4096, e4m3/nvf4/mxf4 K2048 (overhead 1.3e8-2.5e8x, gpu_util 0.13-0.37); reruns on clean defaults; CPU split set; proofs-ir started
 CHECKPOINT cc21a7d94 (23:04Z) [open] 4:05 PM PDT: T3 first --queue lane job r20260930-230234-5dec lean-audit PASS, preserved. vLLM-deployment proving stopped (Daniel). Hillclimb workers running: proofs-bf16-hill (BF16 GemmCoordinate K=2048..16384), proofs-tc-defs (sm_120 FP8 RE + FP4/FP8 Definitions). Console told to replace plots.
 CHECKPOINT cc21a7d94 (22:34Z) [open] 3:35 PM PDT: (b) is verifier-bound (prover +6.6%, GPU 87% idle); owner deciding trim/stop. lean-audit question confirmed to cluster-build. Daniel's M0-chart questions: worker drafting. Node 1 disk 78%, dedupe loop running. Inbox 2209Z/2222Z/2230Z acted on.
 CHECKPOINT cc21a7d94 (22:02Z) [open] 3:03 PM PDT: node 1 (b) chunks 0/2500 advancing but GPU-light (~1.2 CPU cores, GPU mostly 0%): asked old RC about M0 pipelined-witness settings; node-2 guests cut to #1936 K=8192 x3 (infra restoring its stage), non-GEMM held pending owner. Inbox 2135Z data-movement reply folded into internal/data-movement/proofs.md.

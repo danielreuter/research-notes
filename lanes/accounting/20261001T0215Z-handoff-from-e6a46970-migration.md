@@ -121,5 +121,9 @@ mine is running now.
     the environment.
   - `/cursor/stores/self` may point at the agent's own empty store, not `bc-b729c175…`.
   - The store mount returns "Resource temporarily unavailable" for minutes at a time; retry.
+- **A notes push gets a 403 that names `cursor[bot]`.** The VM's `~/.gitconfig` rewrites `https://github.com/` URLs to the bot's
+  credential (`url.….insteadOf`), and the bot can't write to `research-notes`. Push to `https://x-access-token@github.com/danielreuter/research-notes.git`,
+  which isn't rewritten, with `GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=credential.helper` and a helper that prints
+  `password=$RESEARCH_NOTES_TOKEN`. That keeps the token out of every config file and log.
 - **`TC_PROBE_FP8_GPUCHECK` isn't in the shared tools registry.** Runs load it by import path
   (`--tool tools.tc_probe_fp4.tool_fp8:TC_PROBE_FP8_GPUCHECK`).

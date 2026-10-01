@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (14:26Z) [open] 1426Z the lean import landed on main (903c130cc). M5's tip 41157ff36 changes nothing under protocols/pouw/lean vs my signed 8e91aeb66 (policy 19e845c9, byte-identical), so my statement-reviewer signature covers the tip. Waiting on the assessor's FP4 re-grant and the design lane's answer to 1403Z.
 CHECKPOINT none (14:03Z) [open] 1403Z condition 3 falsified the one-layer carry bound (pow2 residuals stay cheap for up to 16 layers). Draft 7's full-carry repair is sound; I asked for 1 unit per carried layer, the absolute cost of 500K glue proofs, and pricing for the tau_row-weighted middle option (note:20261001T1403Z-reply-from-d545bc2a-draft7-full-carry-cost). The FP4 re-grant is still pending.
 CHECKPOINT none (13:39Z) [open] 1339Z draft 6 (art:edbeb581) meets draft-5 conditions 1 (one Q, folded RMSNorm, checked at registration) and 2 (the 65,536 headline at 0.55-0.7%); condition 3 (the adversarial one-layer run) is open (note:20261001T1339Z-reply-from-d545bc2a-draft6-conditions-1-2-met). The FP4 re-grant is still pending.
 CHECKPOINT none (13:17Z) [open] 1317Z draft 5: the residual-state rule answers C5; GO WITH CONDITIONS on R1-H's approval route (note:20261001T1317Z-reply-from-d545bc2a-draft5-residual-rule-go, art:8055a9b3). Conditions: state the one-Q and folded-RMSNorm dependencies, headline at 65,536 draws, falsify the one-layer bound. The FP4 re-grant is still pending.

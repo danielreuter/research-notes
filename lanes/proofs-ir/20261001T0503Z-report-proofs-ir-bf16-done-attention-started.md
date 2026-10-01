@@ -29,3 +29,5 @@ CHECKPOINT (05:45Z) BF16 slice done; attention started on `cursor/proofs-ir-95d4
   - Recommendation: a gate family `Rom<n>x<w>[<sha256>]_v1`, decoded lazily by id and defined in PROTOCOL §9 as the
     `_Read` construction over the table bytes.
   - The alternative is to wait for v2.
+
+- 2026-10-01T2302Z: registered inputs (`RegisteredInput<w>_v1`, `Program(registered=)`, PROTOCOL §5.3, `constants.program_data`) on `cursor/ir-registered-inputs-95d4` head `68f4f081c`; check r20261001-223357-e6d9 passed every step. The `Rom` table family above is superseded: a program's tables are registered inputs, and the table-read primitive belongs to the private-index read pricing worker.

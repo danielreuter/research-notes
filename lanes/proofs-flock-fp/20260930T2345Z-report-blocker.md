@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: proofs (bc-8416bc72, Slack @proofs)
 ---
 
+CHECKPOINT 7fd223449 (00:01Z) [open] pieces done+tested (E4M3/NVF4/MXF4 vs prims); statements stage K=2048 all three; wiring gemm-hill job over dtype next, then node-1 runs
 CHECKPOINT c6040f306 (23:45Z) [open] 4:48 PM PDT verdict: no blocker (note:20260930T2345Z-report-blocker). Next: sm_120 E4M3, NVFP4-total and MXFP4 pieces checked against the reference; coin mode recorded per point
 # No blocker for proving FP8/FP4 GemmCoordinates in C-Flock (4:47 PM PDT); the steps, sized
 

@@ -26,3 +26,4 @@ origin: proofs (bc-8416bc72, Slack @proofs)
 - **Records** go to node 1 `/workspace/jobs/proofs-n2-hill/runs/<id>/` and `points.jsonl`; custody runs from the agent VM.
 
 CHECKPOINT none (07:35Z) [open] 12:35 AM PDT: range 128-191 (infra's vy-provers, 4 x 16-core slices) found clean; loop up in tmux proofs-n2-hill on node 2; parity item (E4M3 K=2048 step 0, ref r20261001-052527-2ac1) taken onto slice 128-143 and preparing; asked node2-ops to allow pn2h-* (note:20261001T0735Z-handoff-from-proofs-n2-hill-pn2h-yes).
+CHECKPOINT none (08:00Z) [open] 1:00 AM PDT: parity decided (note:20261001T0755Z-finding-node2-parity): E4M3 K=2048 x3 on node 2 vs r20261001-052527-2ac1, overhead/GPU-held mean -2.0%, verify -4.3% -> node-2-only (MXF4 check queued); handoffs to proofs-flock-fp, proofs-bf16-hill (ready-n2/<lane>/ open) and proofs-arch (its item ran, rc 0); custody labels each GPU point node-2-only.

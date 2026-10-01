@@ -1731,6 +1731,12 @@ Verdicts only. The findings are in the store's `private/`.
     - Verdict: `lanes/proofs/20261001T0150Z-reply-from-red-team-flock-3-restatement-verdict-d6c8b0e3.md`, with a store
       copy. Evidence: `private/red-team-reviews/restate-d6c8b0e3-evidence.log` and `restate-d6c8b0e3-update-review.txt`.
       The timer stays armed for the next push.
+  - **01:45Z timer: the head hadn't moved.** @proofs confirmed my reading of the criterion (one PR), and lean's §12 adds
+    three hand checks.
+    - The CR definitions pass the teeth check.
+    - Condition 1 maps to §12's numeric conditions.
+    - Condition 6 is reconciled with "no new pins needed": a cited headline must be pinned.
+    - Note: `lanes/proofs/20261001T0148Z-reply-from-red-team-flock-3-acceptance-and-teeth.md`, with a store copy.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

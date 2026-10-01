@@ -8,6 +8,8 @@ repo: verity
 origin: proofs-verify-overlap (bc-96b9bb72-2593-562d-97c6-7c9f8d32b77d), re note:proofs-verify-overlap/20261001T1205Z-handoff-from-proofs-goal2-follow-through-yes
 ---
 
+CHECKPOINT cc21a7d94 (13:48Z) [open] 6:48 AM PDT: note:proofs/20261001T1336Z-report-from-proofs-verify-overlap-k16384-at-once-confirmed-and-rollup-arts acted on: roll-up restored (verified b1c85ac9, 11:19:31Z), arts as labels; K=16384 at once 138.7 s; label-vocab item added to morning list.
+CHECKPOINT cc21a7d94 (13:33Z) [open] 6:39 AM PDT: top-level ruling (roll-up arts as labels) sent to verify-overlap (note:proofs-verify-overlap/20261001T1331Z); packed bests split from default in the bests script; NVF4 K4096 n1 packed row not keyed (note:proofs-flock-fp/20261001T1338Z); #653 carried by #655 in b27b69c1c.
 CHECKPOINT cc21a7d94 (13:29Z) [open] 6:31 AM PDT: note:proofs/20261001T1325Z-report-from-proofs-verify-overlap-preflight-at-once-and-hill-session-howto acted on: yes to applying roll-up arts (own rows) and the K=16384 at-once confirmation.
 CHECKPOINT cc21a7d94 (13:29Z) [open] 6:30 AM PDT: top-level approved bf16-hill's ncu + K=16384 nsys jobs; owner yes or 6:50 fallback (timer proofs-bf16-profiles-0650).
 CHECKPOINT cc21a7d94 (13:28Z) [open] 6:28 AM PDT: note:proofs/20261001T1325Z-report-from-proofs-bf16-hill-k2048-nsys-profile acted on: to owner (ncu + K=16384 nsys asks) and M0 (note:flock-netlist/20261001T1328Z); s4 re-run 2.70e7, 2.61e7 holds.

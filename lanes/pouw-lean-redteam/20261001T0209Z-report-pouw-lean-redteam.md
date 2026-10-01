@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (19:27Z) [open] 1927Z poll: quiet. The cap branch (11 pins) is not on main yet and waits on Daniel. No statement review is open.
 CHECKPOINT none (19:05Z) [open] 1905Z correction: row 6 on R1-H's noiseless codes is unassigned, not the assessor's (it rates, it doesn't build; 1855Z). Assigning it is compute accounting's call, and I'm not waiting on it. Open for me: the cap branch's 11 pins once Daniel says yes, and any new statement review.
 CHECKPOINT none (18:53Z) [open] 1853Z M5 is on main: the policy is byte-equal to the 19e845c9 I signed (731 pins; the 66 are unchanged), so FP4 and M5 are closed (note:20261001T1853Z-reply-from-d545bc2a-m5-on-main-records-unchanged). The cap branch (11 pins) waits on Daniel; I check it when it lands.
 CHECKPOINT none (18:41Z) [open] 1841Z poll: quiet. Waiting on the M5/cap merge check, any statement review after Daniel's rulings, and the assessor's row-6 result.

@@ -278,7 +278,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   patterns from files. The trees that matter are younger: node 1's 235 trees hold 4.84M of its 9.39M inodes, the biggest
   176k–303k files each (`.venv` and `.lake`), shipped 08:30–13:50Z on 30 Sep, so they pass 24 h between 1:30 and 6:50 AM
   PDT. The sweep now runs every 6 h at :30 (`resource-steward-sweep`), and the 6 h retention card still waits on Daniel.
-- 06:03–06:50Z (11:03–11:50 PM PDT) card deadline timer: Daniel had chosen **6 h** on the retention card at 6:58 PM PDT
+- 06:03–06:35Z (11:03–11:35 PM PDT) card deadline timer: Daniel had chosen **6 h** on the retention card at 6:58 PM PDT
   (01:58Z). The steward saw the thread event then but didn't act on it, so the 6 h cleanup started four hours late (node 1's
   inodes stayed under 47% throughout). §1 now says 6 h.
   - A 6 h dry run listed 179 trees (221 GB) on node 1 and 285 (56 GB) on node 2. Some were 11–16 GB, so the steward checked

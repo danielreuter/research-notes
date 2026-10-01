@@ -329,3 +329,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 20:46Z: T13A 32396cc4a slot a r20261001-204253-44db (no send); T13B e925be34a slot b r20261001-204345-559a (send). Order 44db, 559a.
 - 20:51Z: T714 53eb34e8d slot c r20261001-204919-8166. Order 44db, 559a, 8166.
 - 21:20Z: MERGED T13A 32396cc4a + T13B e925be34a; main 743c7ce21. 8166 (#714) next; #705 #709 await infra fixes.
+- 21:29Z: T702 18e9fbe18 slot a r20261001-212749-07d3. Order 8166, 07d3.
+- 21:33Z: T716 402c53cbf slot b r20261001-213209-c6fc. Order 8166, 07d3, c6fc.

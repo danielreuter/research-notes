@@ -45,7 +45,11 @@ the top-level Agent Store `bc-b729c175…` unless it says "node 2".
   - `gpu3-fp8-padded-hot.sh` and `-hot-cancel.sh` (owner GPU 3), the padded re-search (a). Output `/workspace/pouw/gpu3-fp8/out/padded-hot{,-cancel}/`. Ends about 9:45 PM PDT to midnight. **Stop it at once if fix (2) fails** (compute-accounting, 0111Z).
   - `pearlc4-vex-coverage.sh` (owner bc-a8466279), V-EX coverage. Output `/workspace/pouw/pearlc4-cpu-fill/vex-coverage/<capture>/`, about 4 CPU-h; 3B at 188 tiles at 6:30 PM PDT, 7B next.
   - `pearlc4-bovf-strong-search.sh` (prio 5) and `f5bf-fp4-coverage-70b-cpu.sh` (prio 0) are queued and not started; the pous CPU slots are full.
-- **Workers' own fill:** GPU 7 `fp4-cov70b-*` (about 6.5 GPU-h, `/workspace/pouw/gpu7-fp4/cov70b/4f406662/`; salts 8–15 exceed the approved 5 GPU-h, ask open with you); GPU 0 `fp8gc-die*` (about 5 GPU-h, `/workspace/pouw/fill-out/fp8-gpucheck/`); GPU 2 `gpu2-h2hash-die*` (about 8.7 GPU-h).
+- **Workers' own fill:** GPU 7 `fp4-cov70b-*` (about 6.5 GPU-h, `/workspace/pouw/gpu7-fp4/cov70b/4f406662/`; salts 8–15 exceed the approved 5 GPU-h, ask open with you), still running. *(Updated 7:25 PM PDT, from the workers' handoffs.)* GPU 0's `fp8gc-die*` GPU half is done
+  (about 5.1 GPU-h, `/workspace/pouw/fill-out/fp8-gpucheck/`); its 54 CPU verify jobs (`fp8gcver-*` and the second fill's) are queued
+  but haven't had a pous CPU slot since 21:39Z. GPU 2's `gpu2-h2hash-die*` is done, all 832 gates passed, preserved as
+  `art:ad4999c6205fba59a28db6aea0ec9e9a41503cc86b56123c10713b00b215b6d0`. GPU 4 has nothing running; its 6.9 GB of word arrays under
+  `/workspace/pouw/fill-out/fp4-*` have no custody.
 - **Done, outputs staged in the store, needing `research data put --preserve` (bc-824e54a2):** `fill-out/fp4-dnf-replay-audit/` (the D-NF replay passed, 5:59 PM PDT); `fill-out/a67-canary-…/`.
 - **Done, outputs in the store** (`internal/pouw/rtx-pro/catalogue-audit/node2/`): `v1-closure-full-catalogue/`, all 10 regions equal to the copy, whole unit 1.0128.
 - **My workers' handoffs (7:20 PM PDT):** GPU 0, 1, 2, 4 and 5, the harness and both helpers have filed theirs. GPU 7's
@@ -78,6 +82,9 @@ the top-level Agent Store `bc-b729c175…` unless it says "node 2".
 - **Goal 3:** after bc-824e54a2's push, check that @console shows attempt 109 (3.4024× graphed, 1.2629× eager beside it).
 - **v2-hot:** GPU 3 runs fix (2) (0111Z). If it fails, stop (a), and v2-hot is parked. If it passes, bc-b58c6093 restages, and `v2-hot-16384` waits for a new order.
 - **The divisor window:** on your YES, the harness queues it. Adopting the divisor needs the confirming row: FP8 `_ew`, NVFP4 `_o_ew`.
+  The harness staged its run trees (7:15 PM PDT, not for merge): `cursor/divisor-confirm-tree-d2f2` `036fe6f93` (FP8, with GPU 1's
+  `a00db59ee`) and `cursor/divisor-confirm-nvfp4-d2f2` `3535b07fc` (with #580); the two arms can't share one process. Script
+  `runtree/divisor_confirm.sh`. Its card check (16 FP8 names taken, exit 0) hasn't run; details in bc-0de2d624's handoff.
 - **The MKL race:** collect each lane's "not exposed" or warm-up line. The leads are `f5bf-fp4-coverage-70b-cpu.sh` and `pearlc4-bovf-strong-search.sh`.
 - **The panel:** keep v2-hot off the plots, and v1 at 0.519% as the only FP8 line under 1%, until compute-accounting rules otherwise.
 - **I'd stop:** `floor-staircase-fine.sh` (GPU 3's clause (c) check covers it); v2's region-row re-search `gpu3-fp8-padded-zero.sh`, NO already; any further `hsplit` (withdrawn, finals for 17 shapes); per-die form repeats and hash benches beyond what's running.

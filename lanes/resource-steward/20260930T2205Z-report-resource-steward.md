@@ -187,3 +187,10 @@ None yet: no filesystem is over its watermark, there's no check scratch on eithe
       to launch with custody ([thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790811792332849)).
     - The ten earlier smoke runs: node2-ops names bc-0f3f8a2f, bc-efe47341 and the nebius-infra steward as likely
       submitters; they stay (under 3 MB).
+- 00:00Z (5:00 PM PDT) tick: node 1 `/workspace` is gaining about 336k inodes/h (40% used; space 70%).
+  - The driver is `research/src`: about 5–10 trees shipped an hour, each with its own `.venv` (about 22k files) and often a
+    Lean `.lake`, so about 24–30k inodes a tree.
+  - With the policy's 24 h cleanup (first at 05:30Z), steady state is about 4–7M inodes for `src`, which should keep the
+    filesystem under the 80% inode alert.
+  - If it doesn't, the next step is to ask the research tool's owner to share one venv per lockfile across trees.
+  - No action now.

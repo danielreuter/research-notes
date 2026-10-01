@@ -72,6 +72,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 18:10Z hourly (17Z): GPU busy 8.6% (0.62 of 7.27 GPU-h, all useful). The hour has 7.27 GPU-h because the sampler stopped during infra's 17:21Z restart.
+    - **Busy time:** served window 4's timed run (4.7 min, 0.62 GPU-h).
+    - **Why below 80%:** no GPU work was queued after window 4. The queue held 31 CPU jobs and 0 GPU jobs, so 6.64 GPU-h sat free. CPU 0–127 at 18.6%.
+    - **Backup:** `r20261001-180852-7e76` started. The last one took 1.5 min, so it ends long before the 18:45Z Verity stop.
+    - **Checks:** daemons (recreated 17:21Z) and `status.md` (18:08Z) are fine. Nothing new for me in the watched lanes; the 17:13Z GPU alert is node 1's. #494 is still closed.
 - 2026-10-01 18:08Z alerts tick: the quota cutover I took for done at 17:21Z had been called off. It is now booked for 18:50Z: a `18:50Z 15` line, someone else's, written at 17:35:47Z. Window 4 is verified (c62f9726, 17:57Z).
     - **What I did:** at 18:05:26Z I respawned the fill loop with `FILL_VERITY_LEND=0 FILL_CPU_SLOTS=0 FILL_VERITY_UNTIL=2026-10-01T18:15:00+00:00 FILL_VERITY_STOP=2026-10-01T18:45:00+00:00`. It adopted its 7 jobs: 6 kueue-fold Builds and bc-698052e1's Commit guest `gm170` on 1 GPU.
     - **What stays held:** GPU 0's verifies stay at 0 slots until the hand-back. GPU fill is gated by the line itself.

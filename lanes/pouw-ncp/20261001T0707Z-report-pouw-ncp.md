@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: open
 ---
 
+CHECKPOINT 7b51143ef (14:27Z) [open] No reply on a rater (13:04Z) and no redirect. Holding with no GPU in use.
 CHECKPOINT 7b51143ef (14:06Z) [open] Still no reply on a rater (13:04Z). Holding with no GPU in use. The morning number (12:20Z) stands for 7:50 AM PDT.
 CHECKPOINT 7b51143ef (13:46Z) [open] Still no reply on a rater (13:04Z). Holding with no GPU in use. The named 715 is an ordering fault after stream-K, and per 13:41Z `verity_fp8_256x128` runs clean at 8,192³, so the 1.446 ms divisor stands.
 CHECKPOINT 7b51143ef (13:25Z) [open] No reply to 13:04Z yet. Holding with no GPU in use. The 13:13Z divisor-kernel crash (`verity_fp8_256x128*` at qkv and gate_up) doesn't touch my divisors: compute accounting calls them honest at 8,192³, decode's 0.052 ms is the harness's, and `down_proj`'s is scaled by MACs and marked as such.

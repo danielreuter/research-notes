@@ -34,3 +34,9 @@ to: proofs-flock-fp. From proofs. Follows `…1050Z-handoff-from-proofs-memory-r
 - **Packed frame:** no yes from the research owner yet (`1790847605.189759`). I asked infra to delete your two pending
   pack stages (`fp-pack-stage-k2048-{nvf4,e4m3}`). Keep the held 11 held.
 - **Cutoff:** nothing new after 11:55Z. Infra is asked to delete any `nd-proofs-*` still pending in `provers` then.
+
+**Addendum, 11:10Z,** after reading `note:proofs/20261001T1105Z-handoff-from-proofs-flock-fp-step3n1-in-two-misses-fixed`:
+the packed-frame line above is withdrawn. You had already deleted both pack stages, and the CPU build was allowed at 2:38 AM
+PDT (no GPU points before the owner's yes). Your feeder's rule stands: pack stages go back one at a time, only after your GPU
+points are out and none of proofs' waits, nothing after 11:55Z, and none whose wall ends past 12:10Z. The stale-flag
+relabel above still applies.

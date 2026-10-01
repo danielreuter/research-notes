@@ -22,10 +22,11 @@ them.
 - **Zerocheck's first round is bound by its shared-memory lookups, not DRAM.** On the L1/shared-memory pipe it runs at 82%
   of peak, against 11% for DRAM. Each warp issues 154 shared loads per medium index j. 48 of them are the GF(2^8) log and
   antilog lookups, 48 the `s_t0` word-build table. Moving the products to the ALU pipe, which runs at 30%, should cut the
-  kernel by up to about 30%. At m = 35 it reads 13–16 GB in 58.4 ms, 14–17% of DRAM peak.
+  kernel by up to about 30%. At m = 35 it reads 13–16 GB in 58.4 ms (scaled from B = 16), 14–17% of DRAM peak.
 - **Lincheck at K=16384 is GPU-bound.** Its kernels take 58 ms against 18 ms at K=2048. Of the 40 ms difference,
   `linear_check_compressed_column_fold` is 24 ms. It is a sparse gather from the eq table, one warp per column.
-- **The 74 ms per session outside the phase timers (mean; 89 ms median in `f010`) has two parts**, each 3–8 times K=2048's:
+- **The 74 ms per session outside the phase timers (mean; 89 ms median in `f010`) has two parts**, both several times
+  K=2048's:
   - The launching thread's own `cudaMalloc` and `cudaFree` calls, which leave the GPU idle. There are 17 calls of 22–253 ms
     in 9 of the 24 timed sessions, and none in the first five. This part is 39 ms per session on average, against 8–15 ms at
     K=2048.
@@ -132,16 +133,22 @@ K=16384, with K=2048 in brackets:
     threads' six `cudaHostAlloc`, all at setup.
   - None falls in the first five timed sessions, so it grows with the process's history. The job's GPU memory peaks at 82 of
     95 GiB. The trace doesn't show the driver's side.
-  - The long sessions match one for one: session 6 (65.9 ms against a 58.5 ms `cudaMalloc`), session 18 (151 ms against
-    `cudaFree` calls of 101, 71 and 85 ms) and session 24 (260 ms against a 252.5 ms `cudaFree`).
+  - The long sessions line up with the long calls:
+    - session 6 (65.9 ms): a 58.5 ms `cudaMalloc` between its reps;
+    - session 18 (151 ms): a 85 ms `cudaFree` and a 43 ms `cudaMalloc` between its reps;
+    - session 24 (260 ms): a 252.5 ms `cudaFree` after its last kernel.
+  - Some calls land inside a phase timer instead. Session 18's timers total 936 ms against a 750 ms median, and its
+    `cudaFree` calls of 101 and 71 ms before its commitment account for most of that. So the calls' whole cost is 44 ms per
+    session on average, a little more than this gap's 39.
 - **Outside the prove calls (e2e − `prove_total_s`):** 35 ms on average, against 3–6 ms at K=2048. The sessions split into
   about 10 ms and 40–65 ms.
   - It isn't the transport's wait: the sessions with 40–65 ms of it have 19–42 ms of total coin wait, and that wait covers
     every call, Register and Hello included.
-  - In the trace it is host code with no CUDA call, at the session boundary: from rep 1's last Ligerito kernel to the next
-    session's first copy (`analysis/reps_ligerito.txt`). That stretch's mean idle is 79 ms in the second rep against 27 ms in
-    the first.
-  - The host isn't saturated: the job's slice uses about 2 of its 16 cores.
+  - In the trace it is host code with no CUDA call, in one GPU idle gap at the session boundary that ends at the next
+    session's first copy (`analysis/reps_ligerito.txt`). The second rep's Ligerito span, which runs to the session's last
+    kernel, has 79 ms of idle on average, 60 ms of it host code. The first rep's has 27 ms.
+  - The host isn't saturated, but it is shared. Over the timed sessions the job's 16 cores are 9.2 busy on average (at most
+    10.6 in a 5 s sample). Four next-session witness builds (0.84 s each) and the 2 verifiers run beside the prover.
   - My hypothesis, unconfirmed: the session's host witness (`w0`) and its device data are dropped at the end of the table
     loop, which is inside `e2e_s`.
 - **Witness.** Its kernels take 109 ms against 65 at K=2048: `fc_host_slots` 43 (26), `fc_sha_tape3` 39 (28) and
@@ -155,12 +162,12 @@ proof bytes and verdicts identical.
 - **1a. Zerocheck round 1: the GF(2^8) products on the ALU.**
   - Replace `s_antilog[s_log[a] + s_log[b]]` with a SWAR product: 8 byte-lanes per u64, shift and xor, reduced with xtime.
     The products are the same bytes, so the output is bit-identical.
-  - This removes 48 of the 154 shared loads per warp per j, about 29% of the load wavefronts and most of the conflicted byte
-    loads. It moves the work to the ALU, which is at 30%.
+  - This removes 48 of the 154 shared loads per warp per j: by my estimate from the entry widths, about 29% of the load
+    wavefronts and most of the conflicted byte loads. It moves the work to the ALU, which is at 30%.
   - Expected, as an upper bound for a kernel that stays bound by the shared-memory pipe: 58 → 41–46 ms per launch. That is
     25–35 ms per session, 3.5–5% at K=2048 and 3–4% at K=16384.
   - First step: a variant in `bench_*` on node 1, against the current kernel's output.
-- **1b. The `s_t0` word build (48 loads, about 45% of the wavefronts).** `t0` is the GF(2)-linear map `mcol` (64 × 64
+- **1b. The `s_t0` word build (48 loads; about 45% of the wavefronts, by the same estimate).** `t0` is the GF(2)-linear map `mcol` (64 × 64
   bytes, `upload_zerocheck_first_round_tables`).
   - If `mcol` sends each bit to a fixed GF(2^8) element per byte, the build becomes an 8×8 bit transpose plus 8 masked xors
     per word, all on the ALU.
@@ -178,8 +185,8 @@ proof bytes and verdicts identical.
 - **5 (refined). No `cudaMalloc` or `cudaFree` in steady-state sessions.**
   - Size a per-process arena at the first session, or use a stream-ordered pool (`cudaMallocAsync` with a high
     `cudaMemPoolAttrReleaseThreshold`).
-  - At K=16384 this is the largest single item outside the kernels: 39 ms per session on average (4.6%), plus the 1.0–1.1 s
-    tail sessions. At K=2048, 6–9 ms (1%).
+  - At K=16384 this is the largest single item outside the kernels: the calls cost 44 ms per session on average (5%), 39 of
+    it outside the timers, and they make the 1.0–1.1 s tail sessions. At K=2048, 6–9 ms (1%).
   - It doesn't depend on why the calls are slow.
 - **9 (new). Name the host code at the session boundary** (35 ms at K=16384, 4%).
   - Time the end of `session_proved`'s table loop, where `w0` and the device data are dropped, and the start up to rep 0's

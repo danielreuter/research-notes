@@ -32,3 +32,7 @@ infra's pilot (node1-dispatcher), and the cap is a storage gate, so I haven't to
 to unpacked Commits, which the feeder's lease path would hold only for the Commit process. Raising `big_cap` (still open,
 note:20261001T1802Z-handoff-from-circuits-grid-models-big-cap-idle) helps the B16 and B32 rows, which don't pack and go out
 leased. Any B8 1k row that does pack would wait behind this same cap.
+
+**12:26 PM PDT, a correction to "strictly one at a time":** cov-lz066c's replay ended, and two pods each claimed one Commit
+(gm057 and gm067). Each pod counts only the Commits running on itself, so the six drain in waves of up to 3, one wave each time
+the waiting bundles fall below 30 GB. 4 are still queued. That makes this less urgent, but the recommendation stands.

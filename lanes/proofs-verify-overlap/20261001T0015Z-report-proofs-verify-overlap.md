@@ -5,6 +5,7 @@ created: 2026-10-01T00:15Z
 status: open
 ---
 
+CHECKPOINT 33e5c336 (09:54Z) [open] 3:00 AM PDT: list done (K=2048 confirmed, K>=4096 parked, how-to note:proofs/20261001T0958Z-handoff-from-proofs-verify-overlap-howto-points-in-sessions); what I'd run next is at the end of this report. Nothing running, nothing queued.
 CHECKPOINT 8a5eb53d (09:51Z) [open] 2:53 AM PDT: renumbered the K=2048 session's 10 points to step 12, unflagged (Q3c grant), proofs.json metric says step 12; K>=4096 sessions parked per proofs 0944Z (acted on 0944Z).
 CHECKPOINT e8e13e6e (09:49Z) [open] 2:50 AM PDT: K=4096/8192/16384 session specs posted to proofs for the owner's yes (tree -l 404aa0535, in-pod 2 verifiers, ~0.8 GPU-h); not submitted. Next: the sessions how-to for bf16-hill and flock-fp.
 CHECKPOINT 35faa01f (09:42Z) [open] 2:41 AM PDT: K=2048 session landed, passed 10/10 (r20261001-092917-8b05 + r20261001-092307-041d): median amortized 37.84 s (step 5: 82.8), session 379.35 s, digests and proof bytes equal step 5's; roll-up step 8 and overnight row written. Acted on 0803Z (row = median amortized, N and session beside it) and 0919Z (placed at <=1 GPU).
@@ -19,3 +20,17 @@ CHECKPOINT c0005e81 (02:16Z) [open] overlap G4 r20261001-020954-a474 (556e40e39;
 CHECKPOINT 1143278f (01:52Z) [open] complies with 0140Z: one GPU at a time; deleted D/E (blocked on slice 96-111) and F (would build+stage on its GPU) before they proved; STAGE_ONLY=1 (556e40e39) builds+stages in a 0-GPU job, the GPU run proves from the cache (flagged staged-on-gpu otherwise); next: verifier fan-out FC_VERIFY_SERVERS=11 x FC_VERIFY_AHEAD=10 (d35ea8d05/cdcebde62; verify_ahead_matches_serial passes with 2 servers locally)
 CHECKPOINT 754dc219b (00:48Z) [open] overlap A r20261001-003208-80e9 (FC_VERIFY_AHEAD=10, 48 vCPU unlocked, others 45/48): 0.00152 GPU-held s/VU vs baseline 0.00336 (2.2x), gate incl. verify_ahead_matches_serial passed on GPU; merged slice locks (754dc219b); clean locked overlap C + serial D next
 CHECKPOINT none (00:15Z) [open] baseline K=2048 r20260930-235547-335a: 0.003356 GPU-held s/coord (12 timed, serial verdicts), sm 8.9%, prove 0.72 s, verify 6.16 s, gate passed; overlap implemented, local CPU test running
+
+## What I'd run next (3:00 AM PDT; nothing queued, the list from proofs' 0730Z order is done)
+
+1. **The preflight check's three GPU cases at once at K ≥ 4096.** They run one at a time there: 43, 80 and 148 s at K = 4096,
+   8192 and 16384 (bf16-hill's `r20261001-090355-df59`, `r20261001-085540-cab4`, `r20261001-090316-6c85`), against 26 s
+   at once at K=2048. Every job pays this, single points included, so at K=16384 it could save up to about 100 s per job. A
+   serial run records no per-case device peak, so the first job per K would measure one (`SELFTEST_JOBS=1`, each case's
+   `device_peak_mib`). After that, `74-gemm-hill.sh` would set `SELFTEST_JOBS=3` with that K's measured
+   `SELFTEST_CASE_MIB`, as at K=2048.
+2. **The parked K = 4096, 8192 and 16384 sessions,** if the owner wants each K confirmed:
+   `note:proofs/20261001T0950Z-handoff-from-proofs-verify-overlap-session-specs-k4096-k8192-k16384`. About 0.8 GPU-h.
+3. **Fewer verifier processes in the K=2048 verifier pod** (11 to 2). The verifier now takes 0.16 s per statement, so the
+   GPU-held time should stay the same while about 40 GB and 9 processes leave the CPU side. Worth one session only if the
+   CPU slots get tight.

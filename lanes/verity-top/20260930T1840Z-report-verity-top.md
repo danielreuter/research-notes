@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:13Z) [open] 7:13 PM PDT: PR set approved (≤110/90/60 by 8:05/10:05/2:05), PR captain bc-7ff3de9e fed from lanes/coordinator merge requests; #630, #212, #517, #613, #627 ready
 CHECKPOINT none (01:57Z) [open] 6:57 PM PDT: migrating off old PoUS Project (compute accounting, by 9 PM); Lean baseline #629 to infra; proofs-circuits interface page due 7:30
 CHECKPOINT none (01:41Z) [open] 6:42 PM PDT: acted on proofs' GPU-priority handoff: circuits first, proofs floor 2 GPUs on node 1 (infra enforcing), proofs' offers to circuits, restatement criterion asked of lean
 CHECKPOINT none (01:41Z) [open] 6:40 PM PDT: PR hygiene audit and old-accounting backlog doc started for Daniel; Daniel's key on node 2

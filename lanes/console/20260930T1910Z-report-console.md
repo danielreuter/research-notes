@@ -132,3 +132,4 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 - DEPLOY 06:19Z website-docs 5725033 (website-docs-izu3zav9t): /console/overnight filled; rollback fd06520 (website-docs-abee5sxcr).
 - PR verity #641 opened for the publisher change; infra asked to train it.
 - DEPLOY 06:50Z website-docs a84b2f5 (website-docs-q8tjuctfv): Overnight view follows the 11:33 PM goals edit (5 compute accounting goals, memory accounting, served decode from pouw-mvp-e2e); rollback 5725033. PR captain file copied to node 1 (06:33Z), now verity/overnight-pr-captain.
+- DEPLOY 07:02Z website-docs 3041a38 (website-docs-4lolf4bdv): non-Pearl goal wording per goals.md 11:49 PM edit; rollback a84b2f5. CHECKPOINT: overnight files proofs, pr-captain (in sync); #641 open; publisher OK.

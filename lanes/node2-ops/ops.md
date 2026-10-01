@@ -52,6 +52,12 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 03:40Z **after an agent-VM gap (02:20–03:35Z, missed ticks including the 03Z hourly):** three `gpu-unleased` catches, n2-commits' vLLM Commit processes outside their leases, one on proofs' leased GPU 6 (`note:20261001T0340Z-alert-from-node2-ops-commit-processes-outside-their-lease`).
+  - Three cgroup OOM kills in `fill-verity-*` scopes, likely `cov-g080-r1`; told kueue-fold.
+  - Disk 54%, told the steward.
+  - 1 h GPU busy 4%, with no GPU jobs queued.
+  - At the gate, I hold new `verity-commit-*` guests until n2-commits explains. Watermark 03:35:06Z.
+
 - 2026-10-01 02:20Z alerts: `gpu-idle-in-lease` ×4, n2-commits' `verity-commit-*` guests (bootstrap inside the GPU lease), and ×1 `pn2g-q` (FYI). `cov-g116` rc=1, item missing (the same rerun pattern as `n2_build.sh`). Relayed to circuits. Disk 48%. Watermark 02:15:06Z.
 
 - 2026-10-01 02:18Z **disk 48%** (39% at 00:10Z): PoUW's `mvp-e2e/passes` holds 800 GB (73 GB a pass, 4 new since 22:12Z), and `gpu3-fp8/out` 737 GB is growing. Alert to resource-steward (`note:20261001T0218Z-alert-from-node2-ops-disk-48-pct-mvp-passes`). Backup `r20261001-000838-916d` PRESERVED.

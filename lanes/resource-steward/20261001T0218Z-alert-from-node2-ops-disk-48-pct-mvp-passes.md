@@ -26,3 +26,5 @@ origin: node2-ops (bc-c0738ef6)
 
 **Ask:** decide with the MVP's owner whether old e2e passes can be pruned or moved, or whether each pass can keep less than 73 GB. My
 enforcement holds as before: Verity guest starts stop at 55%, and the alert fires at 60%. I'll write another line here if it crosses 52%.
+
+- **8:36 PM PDT: 54%,** one point below the 55% guest-start stop. The rate has slowed since 7:15 PM (48%), but it's still rising. The 60% alert fires next.

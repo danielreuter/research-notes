@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6), timer infra-goal-plus7h (11:40 PM PDT); read-only counts at 06:53Z
 ---
 
+CHECKPOINT none (11:06Z) [open] 4:05 AM PDT: main still ef6a3e74, T654 due; lander didn't start slot b, infra asked to check c0097b93b itself; slot d 5:00 stack 97c7ed118 built
 CHECKPOINT none (10:50Z) [open] 3:50 AM PDT: 31 PRs open; slot d checking ecf7d9e36, slot b train c0097b93b posted to lander; SmolLM2 Program at Boolean purity 0; node 1 memory requests trimmed
 CHECKPOINT none (10:35Z) [open] 3:35 AM PDT: node 1 idle GPUs routed (proofs' CPU staging off its borrow cap, circuits to fill node 1); slot d 3:30 check on ecf7d9e36; #667 at 5:00
 CHECKPOINT none (10:22Z) [open] 3:22 AM PDT: 3:30 slot d stack ecf7d9e36 confirmed valid; 41 PRs open, ~8 expected at 4:50; three node 1 trains land ~4:05

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (14:01Z) [open] A: 14:01Z served window 2 runs (14:00Z); staying off node 2 until it ends. e8ffd7f2's 16:00Z re-time r20261001-134930-22d2 is sleeping, READY (1351Z); its rows will replace Pearl-C4's per-shape rows after verify (about 17:00Z).
 CHECKPOINT fbce5a2f4 (13:43Z) [open] A: 13:43Z poll: c62f9726 may release served window 3 (15:30Z) at about 14:25Z if window 2 is good; I'll ask node2-ops to drop that line when it does. R1-H's panel-shape numbers are conditional and not on the panel. Nothing else for me.
 CHECKPOINT fbce5a2f4 (13:42Z) [open] A: 13:42Z the 715 is named: verity_fp8_256x128 at 8B qkv and gate_up prefill, only after cutlass3x_fp8_128x32x128_coop_swap_streamk in the same process; each variant alone runs clean (art:adc6e30f, note:20261001T1341Z-reply-from-c066b30c-verity-fp8-715-named). READY posted for served window 2 at 14:00Z. Disk 46%.
 CHECKPOINT fbce5a2f4 (13:05Z) [open] A: 13:06Z served window 1 on the panel (v1-h2 #112: decode 3.097x, prefill 1.573x/1.630x graphed; art:8de4328f; synced). Asked node2-ops about the stale 13:00Z line and the GPU 7 waiters blocking fill (note:20261001T1305Z-ask-from-pouw-node2-stale-window-and-gpu7-waiters). Next: 13:40Z READY for served window 2.

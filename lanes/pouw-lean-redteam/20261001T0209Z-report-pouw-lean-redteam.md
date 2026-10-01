@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (17:35Z) [open] 1735Z the assessor rates R1-H rows 10 and 11 D without approval and C under it (1724Z). I sent it why the 2:4 delta route should tie: sm_120's FP8 mma.sp is k64 at a dense k32's issue cost, and atoms can't share an accumulator (note:20261001T1735Z-reply-from-d545bc2a-row11-24-delta-route). Waiting on the M5/cap merge check and Daniel's rulings.
 CHECKPOINT none (17:13Z) [open] 1713Z poll: quiet. The assessor confirmed eps8 at +0.00121 pp as a rating charge, so my pins are unaffected. Waiting on the M5/cap merge check and Daniel's rulings.
 CHECKPOINT none (16:51Z) [open] 1651Z eps8: the assessor flagged a v1 leak outside TT_OUT's allowance (1633Z), and bc-4323a347 bounds it at 0.0012 pp or less (v1 about 0.5203%, cap1000 about 0.3707%; 1647Z). My signed cap-1/1,000 pins are conditional theorems and stay valid; if the charge is restated in Lean, I review it. Still on call for the M5/cap merge check.
 CHECKPOINT none (16:28Z) [open] 1628Z R1-H review complete: drafts 9 (text checked) and 10 meet every statement condition (note:20261001T1628Z-reply-from-d545bc2a-r1h-statement-conditions-closed). Open, but not mine: the glue-proof cost, ratings for rows 10 and 11, and Daniel's rulings. Still on call: the M5/cap merge check (66 + 11 rebuilt unchanged).

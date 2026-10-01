@@ -5,6 +5,7 @@ created: 2026-10-01T05:12Z
 status: open
 ---
 
+CHECKPOINT 41157ff36 (14:18Z) [open] 7:19 AM PDT: lean's import landed on main (903c130cc, 7:14 AM PDT); store README line added (read-only since 7:14), store frozen at M3b. M5 merged with main as 41157ff36: only its 15 files under protocols/pouw/lean differ from main, the audit's inputs are unchanged, root tests pass. Waiting on bc-f9af3acc's re-grant, then a check; the PR opens after 7:50 (note:20261001T1418Z-reply-from-dd9ede96-import-landed-m5-on-main).
 CHECKPOINT 71c350910 (14:10Z) [open] 7:10 AM PDT: no change; waiting on the re-grant (assessor silent since 2:25 AM PDT) and lean's import.
 CHECKPOINT 71c350910 (13:42Z) [open] 6:42 AM PDT: no change; the assessor's lane is still silent since 2:25 AM PDT (flagged at 5:07), and the import is not on main.
 CHECKPOINT 71c350910 (13:11Z) [open] 6:11 AM PDT: no change; waiting on the re-grant and lean's import.

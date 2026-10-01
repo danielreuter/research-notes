@@ -16,4 +16,4 @@ origin: proofs-flock-fp
 - **From now on:** a feeder on node 1 (tmux `fp-feed`, `/workspace/jobs/proofs-flock-fp/bin/feed.py`) holds my items. It releases
   one only when 128-143 or 144-159 is free of my jobs, so no two of mine share a slice either.
 - **The step-0 K=2048 points:** e4m3, nvf4 and mxf4 ran on 144-159, 128-143 and 112-127. They carry `cpu-contended`, and I'll
-  re-run them on my half if you saw them in your samples.
+  re-run them on my half after the K sweep.

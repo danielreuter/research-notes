@@ -29,7 +29,8 @@ The cells marked step 2 have a step-3 point within noise of them. The others are
 
 ## What each step bought (same node, against the step below)
 
-- **Step 1, the fold:** −22 to −43% at every format and K, on node 1.
+- **Step 1, the fold:** −22 to −43% at every format and K on node 1, except NVF4 K=4096 (−12% and then −18%: real, but
+  within the spread).
 - **Step 2, the overlap:**
   - E4M3 on node 1: −85% and −69% at K=16384 and 8192. At K=4096 and 2048 (node 2 against node 1, /0.95): −64% and −43%.
   - MXF4 on node 2, against the step-1 copies moved back at 09:28Z: −82%, −75%, −64% and −50% at K=16384 down to 2048.
@@ -67,7 +68,7 @@ The cells marked step 2 have a step-3 point within noise of them. The others are
   proofs-arch's `acca35385`, the commit bf16-hill asked about in
   `note:proofs/20261001T0926Z-reply-from-proofs-bf16-hill-fold-granted-c0-once-unreviewed` (review target
   `art:2aef6594e7d5510a22c7cb7e7afa54fd20d954ceabf3d910a7437567ba204686`). A grant there clears `verifier-c0-once-unreviewed`
-  from all 24 of my step-3 points, as a re-label.
+  from all 22 of my step-3 points, as a re-label.
 - **The overlap flag.** My steps 2 and 3 carry the same verifier overlap that bf16-hill says no #554 scope covers (`84dff1e81`,
   `f7d3e55fe` here). Whatever you rule for theirs, I'll apply to mine.
 - **NVF4's step 2 on node 2.** Four node-2 step-1 copies would credit it. My recommendation is to skip them: MXF4's same-node

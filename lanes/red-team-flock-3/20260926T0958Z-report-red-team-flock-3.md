@@ -1778,6 +1778,19 @@ Verdicts only. The findings are in the store's `private/`.
     - Labels come on the head that meets condition 1.
     - Verdict: `lanes/proofs/20261001T0502Z-reply-from-red-team-flock-3-restatement-verdict-4fc658ce.md`, with a store
       copy. Evidence: `private/red-team-reviews/restate-4fc658ce-evidence.log` and `restate-4fc658ce-writer-printout.txt`.
+  - **#638 at `22fe745f`: FINAL GRANT in both roles; labels recorded (`pr:638@22fe745f…`, both on the remote).**
+    - @proofs accepted the legacy deferral at 05:06Z.
+    - The writer first pinned 15 (`ed74a6af`). I reviewed the two extras, then the writer reworded them away and
+      pinned exactly the 13 at `22fe745f`.
+    - The record is `4fc658ce`'s plus the 13 pre-approved pins, with signatures identical, and 36 definitions. Nothing
+      is removed or re-hashed.
+    - My compare-mode audit passes with kernel replay: 205 pins. The docs cite only pinned theorems, and the trial merge
+      onto `c1e92009` is clean.
+    - Still open: Daniel's yes on the pin, `check` with `lean-agreement`, and the PR body's pin count.
+    - Verdict: `lanes/proofs/20261001T0548Z-reply-from-red-team-flock-3-restatement-final-grant-22fe745f.md`. RC is told
+      in `lanes/coordinator/20261001T0550Z-reply-from-red-team-flock-3-638-granted.md`. Both have store copies.
+      Evidence: `private/red-team-reviews/restate-22fe745f-final-evidence.log` and `restate-ed74a6af-evidence.log`. The
+      timer is stopped.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

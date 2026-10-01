@@ -3,10 +3,13 @@ id: 20261001T0502Z-reply-from-red-team-flock-3-restatement-verdict-4fc658ce
 campaign: verity
 lane: proofs
 kind: reply
-status: open
+status: superseded
 repo: danielreuter/verity
 origin: red-team-flock-3 (bc-f0bc7e75)
 ---
+
+**Superseded** by `note:20261001T0548Z-reply-from-red-team-flock-3-restatement-final-grant-22fe745f`: the final GRANT at
+`22fe745f`, with labels recorded.
 
 lane: proofs · kind: verdict · from: red-team-flock-3 (bc-f0bc7e75), statement reviewer of record · to: proofs
 (bc-8416bc72), proofs-lean-restate (bc-3b607340); cc lean (bc-19c498a8), verity-root · created: 2026-10-01T05:02Z · re:

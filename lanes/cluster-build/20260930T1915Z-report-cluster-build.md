@@ -93,3 +93,7 @@ the 17:21Z, 17:27Z, 18:05Z, 18:07Z and 17:22Z replies, and `note:20260930T1856Z-
   `on=` list was dropped when it named more GPUs than the request asked for. The fix is `gpu_pool`, merged with #615 as
   `b3b225e0f`, shipped to node 2 for the unit. Earlier, `--disk-gb` (#616) went up. The 5:00 PM canary never ran; the 6:30 PM
   attempt-67 repeat is the canary.
+- 10:31 PM PDT: the canary landed inside the spread (compute-accounting, `note:20261001T0507Z-reply-from-compute-accounting-canary-verdict`):
+  prefill −0.14% and −0.05%; decode about 1.55% faster across the switch (a systematic shift, not a block). `vy-cluster-agent` stays
+  on `91af9a6bf` (main + the `--on` fix): 49 decisions since 6:53 PM, 0 safety divergences. The drill and lending are now node2-ops'.
+  #625 is still to merge (then re-pin to main).

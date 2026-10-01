@@ -402,6 +402,8 @@ def sync_cache(fw: Path, fw1: str, dtype: str | None, K: str | None) -> dict:
         if p.returncode == 0 and (inc / k / "rec.json").exists():
             if not (sc / k).exists():
                 os.rename(inc / k, sc / k)
+            else:
+                subprocess.run(["rm", "-rf", str(inc / k)])
             copied.append(k)
     return {"matching_on_node1": len(keys), "copied": copied, "already": len(keys) - len(want)}
 
@@ -410,7 +412,16 @@ def rewrite(s: str, fw1: str, fw2: Path) -> str:
     return s.replace(fw1, str(fw2))
 
 
+PREP_LOCK = threading.Lock()
+
+
 def prepare(i: str) -> None:
+    """Copies trees, binaries, venvs and cache entries that items share, so one item at a time (the loop's prep threads)."""
+    with PREP_LOCK:
+        _prepare(i)
+
+
+def _prepare(i: str) -> None:
     d = ITEMS.get(i)
     item = d["item"]
     env = dict(item.get("env") or {})
@@ -852,7 +863,9 @@ class Loop:
                         set_state(iid, "deferred", f"fill script in {w}/ without a finished attempt")
             elif s == "deferred":
                 self.preempted_aside(d)
-                if not allow(d["expected_s"]) and self.where(d.get("fill_script", "")) not in ("queue", "running"):
+                last = max((datetime.fromisoformat(h["utc"].replace("Z", "+00:00")).timestamp() for h in d.get("history", [])
+                            if h["state"] == "deferred"), default=0.0)
+                if now() - last >= 120 and not allow(d["expected_s"]) and self.where(d.get("fill_script", "")) not in ("queue", "running"):
                     self.submit(d)
         if (H / "STOP").exists():
             return {"stop": True}

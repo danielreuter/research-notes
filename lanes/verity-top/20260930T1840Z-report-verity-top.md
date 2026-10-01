@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:18Z) [open] 5:18 PM PDT: FP8/FP4 defs green (goal hit early); TKQ landed; MKL first-call race routed; Boolean-defs and L1 decisions with Daniel
 CHECKPOINT none (00:01Z) [open] 5:01 PM PDT: TTR landed; one-order-giver ruling, old circuits lanes to circuits; no-op design questions with Daniel
 CHECKPOINT none (23:44Z) [open] 4:44 PM PDT: goals set at 1h/3h/7h (docs/goals.md), checks timed 5:40/7:40/11:40; pacing owner = steward per circuits; inbox empty
 CHECKPOINT none (23:27Z) [open] Daniel set direction: infra as standing engineer, circuits tracing+prediction streams, proofs per-subcircuit hill-climb + Flock restructure study; #449 FP-state leak being fixed; TTR (#607/#608/#587) checking

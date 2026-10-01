@@ -68,6 +68,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 23:18Z alerts tick: two more `gpu-idle-in-lease` alerts, for bc-698052e1's Commits on GPUs 7 and 6 at 0.0%. It's the pattern logged at 23:03Z, so nothing new to do. Backup `r20261001-230613-c160` is preserved. Watermark advanced to 23:15:00Z.
 - 2026-10-01 23:08Z hourly (22Z): GPU busy 8.0% (0.64 of 8.00 GPU-h, all useful): Pearl-C4's row 16 re-time 0.36 (2.7 min timed), Commits active 0.28.
     - **Commits' idle time:** bc-698052e1's Commits held 1.64 GPU-h, and 1.36 of it was idle (83%).
     - **Why below 80%:** apart from those Commits, no GPU job was queued. 6.0 GPU-h sat free. CPU 0–127 at 7.4%.

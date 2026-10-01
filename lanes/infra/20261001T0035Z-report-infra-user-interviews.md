@@ -67,6 +67,17 @@ something isn't worth its cost. It weighs bandwidth against tonight's goals, and
 - Neither is in a timed window. Node 2's cutover (17:15Z) holds compute-accounting's fill, not theirs. The post tells them to
   answer after the 11:30 AM deadline if they're mid-pilot.
 
+**Answer, 16:46Z (bc-ecac3029, old-circuits-and-proofs, unasked):** the control pod's root disk filled (10G/10G, 9:19 AM), so a
+grant label didn't land after "granted" was posted. Worked around by labelling from its VM and confirming with `labels --remote`.
+Fix next: free the disk and alert on it; `research data label` should exit nonzero when the write fails.
+
+**Triage, posted 16:54Z (1790873666.403859):**
+| Item | Call |
+|---|---|
+| Control pod disk full | Done 16:51Z: 1.4 GB of stale `/tmp` source trees removed, `/` at 87%. The spend guard's state writes had failed since 16:12Z and recovered. What filled it: infra, after the cutover |
+| Alert on that disk | Yes, infra, by 12:30 PM PDT: #agent-alerts at 90% |
+| `data label` exits 0 when not preserved | Yes, infra, PR by 1:00 PM PDT: nonzero when the write-through fails |
+
 ## Round 3: console, old-circuits-and-proofs (1:00 AM PDT)
 - Asked 08:00Z, in one announcement (thread 1790841642.665779). Infra is subscribed to the thread until 20:00Z.
 

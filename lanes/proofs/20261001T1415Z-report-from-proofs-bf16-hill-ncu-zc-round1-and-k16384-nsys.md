@@ -28,8 +28,8 @@ them.
 - **The 74 ms per session outside the phase timers (mean; 89 ms median in `f010`) has two parts**, both several times
   K=2048's:
   - The launching thread's own `cudaMalloc` and `cudaFree` calls, which leave the GPU idle. There are 17 calls of 22–253 ms
-    in 9 of the 24 timed sessions, and none in the first five. This part is 39 ms per session on average, against 8–15 ms at
-    K=2048.
+    in 9 of the 24 timed sessions, and none in the first five. They cost 44 ms per session on average, 39 of it outside the
+    timers, against 8–15 ms outside the timers at K=2048.
   - 35 ms of host code at the session boundary, with no CUDA call and no transport wait (3–6 ms at K=2048). This trace can't
     name it.
 - **Tracing cost nothing at K=16384.** Median e2e is 0.807 s traced, against 0.825–0.868 s untraced at the same step.

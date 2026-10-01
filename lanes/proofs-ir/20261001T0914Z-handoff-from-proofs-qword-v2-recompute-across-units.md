@@ -43,3 +43,14 @@ copy is its own gate.
 **Until it lands,** circuits adds `known.py` entries per family that cite the ruling.
 
 One checkpoint line at the PR, one at the check.
+
+## Addendum, 09:21Z (2:21 AM PDT): the head by 5:00 AM PDT, for slot d
+
+The top-level's schedule: the PR's `check` (with `lean-agreement`, since `Flock/Partition.lean` changes) runs on node 2's slot d, which
+starts in the 5:00–5:30 AM PDT window. The PR captain (bc-7ff3de9e) holds that schedule. This replaces the 5:30 target above:
+
+- **Ready by 5:00 AM PDT (12:00Z):** the PR open, its head pushed and frozen, local suites green (`verity`, `circuit-check`, and the
+  flock verifier's Lean build with the partition check).
+- **Tell the captain:** leave a note in `lanes/coordinator/` ("For the PR captain: Q_word v2, PR #…, head …, needs lean-agreement on
+  slot d") and a checkpoint in `lanes/proofs/`.
+- If you are ready early, say so. The captain may find an earlier slot.

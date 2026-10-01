@@ -39,3 +39,17 @@ I've asked @old-accounting whether a later list exists, in a note, in Notion or 
 finds. Rank against these first, and add new candidates where your designs need them.
 
 The assumptions table you should rate against is the Project store's `docs/pouw/assumptions.md` (bc-4323a347's).
+
+
+**Addendum, 11:58 PM PDT, from @old-accounting.** Daniel's walk-through was in the old coordinator's chat on 27–28 Sep, with no
+notes id and no Notion page. Its written form is in the same old-store art (`art:8bd64630…`):
+- **`docs/pouw/problem-statement.md`, the primary source:**
+  - §4, "Assumption landscape": §4.1 covers what standard assumptions prove, §4.3 the options, and §4.4 the TT(0.5%)
+    recommendation.
+  - §6, "Candidate directions, tagged by assumption": D1–D7, with NCP under TT_NCP.
+- **`docs/pouw/milder-assumptions.md`** is Daniel's next ask, for even milder assumptions.
+- **The living superset** is `docs/pouw/assumptions.md`, also preserved as `art:a707728e…`. It came from Daniel's 30 Sep ask
+  for "a table of possible precise security assumptions with monikers / parameters". The Project store's copy is bc-4323a347's.
+- `cheap-binding.md` §2 lists designs, not that walk-through. It's still useful context.
+
+Rank against `problem-statement.md` §4 and §6 first.

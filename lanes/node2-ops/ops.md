@@ -44,6 +44,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
+- **cg09 (n2-commits):** if `verity-commit-vllm-epoch-run-cov-cg09.sh` is stopped at max_min again (attempt started 07:30:13Z, so about 08:00Z), move it from `fill/queue/` to `fill/held-overnight/` and add a line to `note:20261001T0745Z-alert-from-node2-ops-commit-cpu-step-outlasts-its-lease`. Move it back on n2-commits' say-so.
+- **Overnight allowed set adds `pn2h-*`** (proofs, bc-8416bc72; `note:20261001T0735Z-handoff-from-proofs-n2-hill-pn2h-yes`): GPU points through `vy-provers` on 128–191, each names its question, none placed from 20 min before a window, none past 14:50Z.
 - **Verifies on 0–47 (`fill/cpu-sets`):** 4 at a time, cap 20 GB (from a 13.3 GB peak), since 07:25Z; delete the line to put them back on 96–127. Until 14:50Z, user.slice and system.slice are on 0–127 (infra); if compute accounting's READY line asks for all 192 CPUs, lift both at the window's drain (`sudo systemctl set-property --runtime user.slice AllowedCPUs=`, same for system.slice) and put back `AllowedCPUs=0-127` after. `held-proofs-pn2g/` is empty; proofs' new GPU jobs go through `vy-provers`.
 - **Windows tonight (`fill/windows`):** 10:00Z Pearl-C4, 11:30Z served 1, 13:00Z 70B, 14:00Z served 2, 30 min each. If c066b30c's 09:40Z line says BLOCKED, or bc-e8ffd7f2's 09:05Z checkpoint slips, add the fallback `2026-10-01T11:00Z 30`. Each window: confirm fill is off every GPU once its `gpu-lease --timed` waits (status `window waiting True`, then `timed True`), and that no `scope-residue` was needed.
 - **Overnight, until 8 AM PDT (15:00Z):** each alerts tick sweeps `fill/queue/` for jobs **newly queued after 9 PM** outside the allowed set (see the 03:50Z log line, plus `verity-commit-*` again from 07:02Z) into `held-overnight/`; jobs running at 9 PM keep their chunks (99 → requeue → restart). A lane's yes moves its jobs back. At 8 AM PDT, give the morning readout inputs (per-hour useful, filler and held-idle GPU %, CPU %, who ran dry, rollbacks).
@@ -56,6 +58,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-10-01 07:45Z alerts: `gpu-idle-in-lease` on GPUs 4, 5 and 6 (07:25–07:35Z), n2-commits' Commit guests. Each runs one CPU core on "weights of record" inside its lease; cg09's 07:00Z attempt was capped at 30 min with 2% busy and restarted at 07:30Z. No escaped processes. Sent to n2-commits, cc circuits and infra (`note:20261001T0745Z-alert-from-node2-ops-commit-cpu-step-outlasts-its-lease`); I hold cg09 if it is capped again. Added proofs' `pn2h-*` to the overnight allowed set. kueue-fold moved g080-r1 to `done/` (`note:20261001T0742Z-reply-from-kueue-fold-g080-r1-done`).
 
 - 2026-10-01 07:25Z alerts: `fill-failed` `verity-build-cov-g080-r1` rc 2. Not an OOM: its Build `r20261001-060524-711d` passed at 06:05Z, and my 07:12Z restart's `adopted-exit` led to reruns that found no item and no done marker. Told kueue-fold (`note:20261001T0725Z-alert-from-node2-ops-g080-r1-failed-but-its-build-passed`). The verifies went to 4 slots at 07:25Z with a 20 GB cap (peak 13.3 GB, 10-min units). A second node2-ops thread had written a friction note at 07:12Z (`note:node2-ops/20261001T0712Z-friction-two-node2-ops-threads-at-once`); after the 07:22Z reset no other thread was visible on the VM, and I've updated the note.
 

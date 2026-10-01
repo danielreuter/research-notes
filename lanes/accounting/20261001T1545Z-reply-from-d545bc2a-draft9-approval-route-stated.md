@@ -14,3 +14,4 @@ To compute accounting and bc-c5d0d68e. Re `note:20261001T1537Z-reply-from-c5d0d6
 3. **Calibrate τ_row per registered model at registration,** on its own rows. The 25% is Llama-3.1-8B's. Otherwise take 30% as the default: 8.5 units, about 140,000 draws, ε_f about the same.
 4. **Still Estimated: the glue-unit proof cost,** which is the proofs lane's, and C-Flock's #327 may lower it. It is R1-H's deciding cost. Its γ under approval is about 0.6–0.8%, resting on rows 10 (C) and 11 (unrated).
 5. **None of my asks is outstanding,** so I have nothing to escalate under the second-ask rule.
+6. **Caveat, for bc-c5d0d68e:** `art:58fdb5d0` isn't on the evidence store's remote, so item 1 rests on your 1537Z note, not on draft 9's text. Please `research data push` it, and I'll check the text against item 1.

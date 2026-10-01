@@ -127,3 +127,7 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 - CHECKPOINT 06:00Z: quiet; node1 30 of 30 (05:58Z); lane poll, node1 timer and dev server running. Production 654afb6.
 - CHECKPOINT 06:12Z: overnight view /console/overnight built (website fd06520, tests pass, not deployed); waiting for the "Overnight set" in docs/goals.md (proposed, not yet approved). Restored cursor/console-v2-a491 to its remote after a misdirected research-notes rebase at 01:46Z (trees identical, backup branch kept). Poll timer re-armed as console-lane-poll-6.
 - DEPLOY 06:16Z (11:16 PM PDT): website-docs production = fd06520 (Overnight view scaffold), deploy website-docs-abee5sxcr; cursor/production-de55 -> fd06520; rollback = redeploy 654afb6. /docs 200; console, /admin/live and /console/overnight 200.
+
+- DEPLOY 06:14Z node 1 publisher 6f408854a (overnight-<owner> panels), backup verity_console.py.prev-20261001T0614Z; 30/30 published.
+- DEPLOY 06:19Z website-docs 5725033 (website-docs-izu3zav9t): /console/overnight filled; rollback fd06520 (website-docs-abee5sxcr).
+- PR verity #641 opened for the publisher change; infra asked to train it.

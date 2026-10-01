@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (08:34Z) [open] 0834Z poll: the assessor agrees with the R1 NO-GO (0829Z: row 9 D, row 8 D on o/down); compute accounting handed it to bc-c5d0d68e, who stopped R1's GPU run for the CPU census. No M5 handoff or FP4 re-grant yet. VM rebuilt a third time; Project store unmounted here, so new-designs-r1-review.md (written 08:19Z) is unverified until it remounts.
 CHECKPOINT none (08:22Z) [open] 0822Z new-designs.md (R1, rows 8-9, ranking): NO-GO as written (note:20261001T0822Z-reply-from-d545bc2a-new-designs-r1-no-go). R1's +0 unpromoted chain reruns v2's D chain start; rot_k misses o/down inputs (~35% of MACs). 7 conditions; detail in the store's private/pouw/red-team-lean/. Still on call for M5's renamed-policy check.
 CHECKPOINT none (07:43Z) [open] 0743Z FP4 condition 1 met (rowWin24 = Python's pair rule, art:43936b7e); GO now waits only on M5's replay on the repo copy. Asked bc-c5d0d68e for new-designs.md as an art (review due 5:00 AM PDT).
 CHECKPOINT none (07:31Z) [open] 07:31Z waiting on bc-dd9ede96's rowWin24 pair-rule diff and M5's check; the assessor (0723Z) confirms Lean's stronger exact-debit TT_OUT is the granted one. From 7:50 AM PDT: reviews only (FP4 rowWin24, then the pouw-design red team), 0 GPU-h, no node.

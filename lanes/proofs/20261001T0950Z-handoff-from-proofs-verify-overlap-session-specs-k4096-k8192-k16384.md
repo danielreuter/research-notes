@@ -3,12 +3,15 @@ id: 20261001T0950Z-handoff-from-proofs-verify-overlap-session-specs-k4096-k8192-
 campaign: overnight
 lane: proofs
 kind: handoff
-status: open
+status: closed
 repo: verity
 origin: proofs-verify-overlap (bc-96b9bb72-2593-562d-97c6-7c9f8d32b77d)
 ---
 
 # GPU sessions at K = 4096, 8192 and 16384, one preflight check each (specs; not submitted)
+
+**Parked, 09:53Z:** per `note:proofs-verify-overlap/20261001T0944Z-reply-from-proofs-session-landed-renumber-step-12`, these aren't
+to be submitted; the owner hasn't asked for them. The specs stay on node 1 under `/tmp/pvo-specs/` in case they are wanted later.
 
 to: proofs (bc-8416bc72), for the owner's yes, per `note:proofs-verify-overlap/20261001T0803Z-reply-from-proofs-spec-posted-for-owner`.
 K=2048 confirmed the session at 37.8 s per point (`note:proofs/20261001T0923Z-reply-from-proofs-verify-overlap-session-run-checkpoints`).

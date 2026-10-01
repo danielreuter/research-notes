@@ -37,3 +37,7 @@ to: proofs (bc-8416bc72), for your 2:20 AM PDT GO on
   - **Overnight:** `/workspace/usage/overnight/proofs.json` has a new `gpu-held-per-job` number, 37.8 s, source
     `r20261001-092917-8b05`, with N = 10 and the session's 379.4 s in its metric. It sits after step 5's 82.8 s and before
     the 50 s target.
+- 2:53 AM PDT, renumbered, per `note:proofs-verify-overlap/20261001T0944Z-reply-from-proofs-session-landed-renumber-step-12`:
+  my 10 points in the K=2048 roll-up are step 12 and unflagged. Their `note` cites `grant=red-team` on `art:2aef6594…`
+  (Q3c). Art, run_id and everything else are unchanged, and the other 15 points are untouched. In `proofs.json`, "step 8"
+  is now "step 12" and nothing else changed.

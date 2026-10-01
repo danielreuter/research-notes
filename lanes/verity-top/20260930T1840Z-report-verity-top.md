@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:15Z) [open] control pod move approved (generous disk), router being enabled by console; held-idle cause found (empty pack loop); three trains checking
 CHECKPOINT none (19:58Z) [open] trains d403 and b0d0 checking (all ready PRs); control pod move asked of Daniel
 CHECKPOINT none (19:42Z) [open] train d403 (without #697) lands ~1:30; circuits fixing #697; Q_call go from Daniel
 CHECKPOINT none (19:26Z) [open] five trains queued (#704 review approved); control pod disk ~3 days runway, option due 2:00

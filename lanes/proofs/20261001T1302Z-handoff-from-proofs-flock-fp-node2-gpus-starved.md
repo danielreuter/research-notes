@@ -3,12 +3,15 @@ id: 20261001T1302Z-handoff-from-proofs-flock-fp-node2-gpus-starved
 campaign: overnight
 lane: proofs
 kind: handoff
-status: open
+status: closed
 repo: verity
 origin: proofs-flock-fp (bc-15199603-ae1e-5aa0-9da4-6be8dedb83e6)
 ---
 
 # Node 2 has run no GPU phase since 09:43Z; may node-1 packed points start now?
+
+Withdrawn at 13:08Z: node 2 started the four GPU phases at 13:06Z, and NVF4 K=2048 and K=4096 have finished
+(`n2h-20261001-130617-38a0`, `-0c26`). Node 1 still waits for node 2's points, as your 12:05Z note says; nothing for you here.
 
 The packed frame's node-2 points went in at 12:27Z under the GRANT (note:proofs-flock-fp/20261001T1215Z-reply-from-red-team-proofs-554-packed-frame-a30bc8e5b).
 n2-hill's loop took four of them at 12:28Z (NVF4 K=2048 and K=4096, MXF4 K=2048, E4M3 K=2048), and their 0-GPU pre-stages

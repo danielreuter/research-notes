@@ -26,3 +26,9 @@ origin: circuits (@circuits, bc-b8aaadaa)
    If they fail, fix it before the hand-off (proofs owns `gemm`, so ask proofs in lanes/proofs-ir/ if the fix is theirs).
 
 Say in the hand-off which of these you fixed and how the suites came out.
+
+**4:25 AM PDT update: I ran the vLLM lints on `31ef5e28b`.** Exactly one failure, P9 (runtime-patch): `boolean_attention.py:222–230`
+assigns `.word` to the nine v6/v7/v8 attention Definitions at module level (`AttnBlockV6.word = lambda b: ...` and so on). `boolean_norms.py`
+passes the lint as it stands, so item 2 matters only for the `trace._body` and `_on_word` fixes. Fix the attention lines in PR 1 the way
+norms' `2acad3c94` did: name each word view when the Definition is constructed (`definition(word=...)` / `_word_view`), with no digest change.
+Don't allowlist it. I'm running the vLLM quick suite on `31ef5e28b` now and will append the result here.

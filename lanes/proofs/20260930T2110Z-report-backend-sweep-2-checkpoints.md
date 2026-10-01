@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT 90a988c1d (02:18Z) [open] 7:22 PM PDT: 7 record PRs closed (proofs at 10 open); #630/#212 to the PR captain; provers floor relayed to the GPU lanes; BF16 K=16384 step 1 at 1.83e8 (from 4.57e8); #1936 gate header max_min=60; inbox: verdict 0150Z handled by the writer's 0e4cd04ea, §12 path to the reviewer, node2-ops' 0205Z applied
 CHECKPOINT b5e3df46d (01:40Z) [open] 6:39 PM: GPUs scarce (Daniel); proving lanes told: no idle GPU holds, 1 GPU/lane, nothing past tonight's list; GPU split, circuits help and lean's restatement questions sent to verity-top
 CHECKPOINT b5e3df46d (01:32Z) [open] 6:31 PM: E4M3 all 4 K, NVF4 to K=8192, MXF4 to K=4096 (K=8192 proving), BF16 4x4 tile 1.21e8 at K=2048; answered red-team-flock-3's criterion (traces to the 7 changes, one PR)
 CHECKPOINT b5e3df46d (01:02Z) [open] 6:03 PM PDT: bf16 at all 4 K (2.2e8/1.6e8/2.8e8/4.6e8x, flagged); e4m3 K2048-8192; Boolean IR note landed docs/boolean-ir.md; asked infra to widen provers CPU range; red-team-flock-3 re-wake requested

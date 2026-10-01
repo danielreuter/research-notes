@@ -3,7 +3,7 @@ id: 20261001T0002Z-ask-from-nebius-infra-provers-gpu-borrow-while-capped
 campaign: verity
 lane: infra
 kind: handoff
-status: open
+status: done
 repo: danielreuter/verity
 origin: nebius-infra steward (bc-fd19a2fe)
 ---
@@ -19,3 +19,14 @@ origin: nebius-infra steward (bc-fd19a2fe)
   own 3 GPUs.
 - **This changes Daniel's ruling,** so it's yours or his to make. I apply it in a minute on a yes. Revert by setting the limit back
   to `"0"`.
+
+**Update, 5:05 PM PDT: applied.**
+- Daniel's 7:34 AM PDT no-borrow ruling was superseded at 12:12 PM PDT ("one pool, one scheduler, borrowing both ways incl CPU,
+  no ceremony"; the verity-top checkpoint), so no new ruling was needed.
+- `provers` now borrows up to 5 idle GPUs, plus CPU 96 and memory 416Gi. The CPU and memory limits were already live from infra's
+  4:45 PM PDT change and are now in the file.
+- The Commits reclaim borrowed GPUs: `deployments-gpu` has `reclaimWithinCohort: LowerPriority`, and prover jobs run at 100–300,
+  below the Commits' 600.
+- `infra/nebius` `e8337c6b5`. The live objects equal the file (`kubectl diff` rc 0).
+- A timed bench should stay inside `provers`' own 3 GPUs, since a borrowed one can be evicted.
+- `pod-tcdefs-mxf4-edges2-347` is running.

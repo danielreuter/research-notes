@@ -339,3 +339,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 22:22Z: took ownership of constant design (constant-api-public.md, verity.ir.constants, verity.ml.library) per top; Daniel ruling: values always hidden. Await proofs-ir change list (cursor/ir-registered-inputs-95d4).
 - 22:39Z: MERGED TL4 d93e796e3 (12ac); main fa3c22edf; stack empty.
 - 22:52Z: pass.sh machines.d merge disabled (MIRROR_MACHINES=1 to re-enable) per infra; it reverted vy-control.toml to old pod 3x.
+- 23:08Z: reviewed #723 (APPROVE, 2 notes: program_data shared-Definition doc; no hidden-values claim until program_data=={}). Doc rewrite subagent bc-36ec5479 on constant-api-public.md.

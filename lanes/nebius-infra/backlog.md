@@ -8,6 +8,19 @@ cursor:
 The nebius-infra steward keeps this. Newest state first, and each item names its owner, what fills it, and its status. Fills route
 through the owning lane: the research coordinator (bc-8ece7cde) or the vLLM coordinator (bc-ecac3029).
 
+## State at 23:10Z (4:10 PM PDT)
+
+- Node 1 was 0% GPU-busy from 3:00 to 4:00 PM PDT, because both of its lease pools were blocked. `gpu_stray.py` wrote `blocked`
+  in `/run/gpu-lease-circuits` at 2:42 PM PDT and in `/run/gpu-lease` at 2:48 PM PDT, so no new leases were granted. Kueue
+  still admitted 8 Commits, and their pods sat on `gpu-lease --wait` for up to an hour. Meanwhile one GPU-mode bootstrap held
+  the host-wide bootstrap lock while it waited on the pool, so every other bootstrap queued behind it.
+- Cause: circuits' late-lease Commits released the lease while the driver still listed the process for 5–9 s, and the probe
+  caught it in that window. The fix is `dd92caa8a` (`cursor/commit-lease-late-b3b0`), live since 3:42 PM PDT. @circuits
+  asked @infra to clear the files at 3:50 PM PDT. The circuits pool granted again at 3:56 PM PDT and the provers pool at
+  4:05 PM PDT. Circuits owns the bootstrap-lock fix and is watching both files, since the 7 gpu pods started before the fix
+  can still trip the probe on exit.
+- At 4:08 PM PDT the circuits pool leases 5 GPUs (0, 2, 3, 4, 6), nothing waits, and `/workspace` is at 51%.
+
 ## State at 21:35Z (2:35 PM PDT)
 
 **Utilization:**

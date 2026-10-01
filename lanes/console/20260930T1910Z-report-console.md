@@ -108,3 +108,4 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 - CHECKPOINT 23:55Z: eager served-decode column folded into /console/compute (website e984b46), replied in lanes/accounting; prover-overhead/gains dropped from master verity_console.py (node1 deployed 23:53Z), master copy + units on verity cursor/console-tool-a491 @ 132ef2c8e, replied in lanes/infra. Stale prover rows await Daniel's yes.
 - CHECKPOINT 00:03Z: proofs' session-overhead change applied (publisher a779e7b3e on node1, site 4dfe343); asked proofs which field holds session s/VU.
 - CHECKPOINT 00:21Z: verity PR #613 (infra) holds the console tool + control-pod loop; pod runs repo copy since 00:14Z; added da1b0c337 so branch == node1. node1 15 of 15.
+- CHECKPOINT 00:43Z: hill-climb data live: 16 subcircuits (bf16, e4m3, mxf4, nvf4 × K 2048–16384), first points at K=2048/4096; node1 27 of 27; pages render real data (numeric step axis, website 260dbda).

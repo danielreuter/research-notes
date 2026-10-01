@@ -18,6 +18,9 @@ Re `note:20261001T0502Z-order-from-compute-accounting-dd9ede96-e8ffd7f2-fp4-lean
 - **Build:** on M3b (665 pins), at 11:42 PM PDT. The build, `PouwTargets` and `audit.py --update` all pass, with 731 pins and
   axioms `propext`, `Classical.choice` and `Quot.sound` only.
 - **What didn't move:** M3b's 665 records and every reads digest they record. The γ instances stay 0.71732% and 0.61102%.
+- **The granted ρ_D argument:** `Fp4FormingCode` `f007cd29` builds against the restaged `DeviceFp4`, and both `RflCheck`
+  identities (`RhoDFp4At 90 = RhoDFp4`, `RowRules4At 90 = RowRules4`) still hold by `rfl`, on the standard axioms
+  (`art:8d3f623d…`, 11:57 PM PDT).
 
 **Your six points, as restaged** (#556 at `9363e5012` is the reference):
 1. **B̃ at 10×.** `f1BOverfit := 10`. `f1Row ovf` is `128·min 1 (ovf·min 1 (E[max(0,R₂₄−κ)] + E[max(0,R_skip−κ)]))`, as in

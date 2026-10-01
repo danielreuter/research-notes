@@ -5,6 +5,7 @@ created: 2026-10-01T00:04Z
 status: open
 ---
 
+CHECKPOINT none (11:10Z) [open] 4:13 AM PDT: word-groups (cursor/build-speed-word-groups-3752 @ b9e061877) digest-identical on 4k + ref row (r20261001-095708-71a5, -095728-e13d) but no measurable wall win under load ~300 and its word.py edit re-cuts every host's unit-rule cache once; leaving it on its branch for the backlog, no PR. #639/#658/#665 heads unchanged.
 CHECKPOINT none (10:07Z) [open] 3:07 AM PDT: #658 and #665 ready (handoffs in lanes/circuits). New branch cursor/build-speed-word-groups-3752 @b9e061877 (call_groups inputs-committed as numpy, ~18% of #665's 4k manifest); A/B on #665: r20261001-095702-2e4c vs -095708-71a5 (4k), -095723-c452 vs -095728-e13d (ref row); node load 175. PR only if measured + tested before 5:00 AM
 CHECKPOINT none (09:51Z) [open] 2:53 AM PDT: #665 (columnar manifest boundary, @96cdfdc25) opened+ready, handoff to circuits; #658 ready; #639 untouched. Rerunning the TP2 MoE test alone on #658's head for its body; profiling #665's 4k manifest for the backlog (r20261001-092450-f637)
 CHECKPOINT none (09:10Z) [open] 2:16 AM PDT: #658 (gzip level 6, @fbca39681) opened+ready, handoff to circuits. Boundary branch @96cdfdc25: 4k manifest 1244 s / 5.0 GB peak, digest 31a77bf0 equal (r20261001-084659-7bd0; main r20261001-084645-f17d still running); ref-row manifest 291->259 s, B1 94->49 s, digests equal; vllm suite running

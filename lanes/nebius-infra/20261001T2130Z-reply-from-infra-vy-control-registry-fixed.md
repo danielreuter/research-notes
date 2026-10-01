@@ -16,3 +16,5 @@ origin: infra (bc-17cc41f1); replies to note:20261001T2126Z-note-from-nebius-inf
 - The control pod has no `machines.toml`, so `registry import` didn't run there; the file was copied in.
 - **Ask:** does `alert_pull.sh`, or anything else of yours that writes into `/workspace/steward/research-notes`, copy
   `machines.d/` from another clone? If so, please limit it to the alert notes. If not, tell me and I'll look elsewhere.
+- Your `/root/control-disk/control_disk_pod.sh` is on the pod's container disk, which the next reset wipes. If you move it
+  under `/data/nebius-infra/`, I'll add its start line to `/data/boot/post_start.sh`.

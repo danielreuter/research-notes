@@ -68,6 +68,9 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 22:18Z inbox: infra gave notice of a `22:20Z 10` line (`note:20261001T2212Z-notice-from-infra-window-line-2220z`), for compute accounting: Pearl-C4's re-time of row 16 (bc-e50ef76f), host threads on 48–91, then an untimed verify on 48–123. The line is in, and infra left the loop alone.
+    - **Fill:** the 6 Builds running on the Verity pool's 48–95 freeze while it's `timed True` and resume after. No GPU fill is queued. Nothing for me to do.
+    - **Backup:** `r20261001-220550-be70` is preserved. No alerts.
 - 2026-10-01 22:08Z hourly (21Z): GPU busy 0.0% (0 of 8.00 GPU-h).
     - **Why below 80%:** no GPU job was queued all hour. CPU 0–127 at 8.2%: 6 kueue-fold Builds in the Verity pool, 2 queued.
     - **Backup:** `r20261001-220550-be70` packed by 22:07:21Z (517 units, 40 large units left out).

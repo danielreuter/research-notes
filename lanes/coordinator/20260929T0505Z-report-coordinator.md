@@ -307,3 +307,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 16:28Z: RULE (Daniel 9:24 AM PDT): top-level record of Daniel pin approval = statement-reviewer sign-off for research merge; merge on passing check. #687 next train.
 - 16:33Z: merged 2d4008ea3 (#678-#682), main eab5d96f. T683 re-cut T683B r20261001-163107-d2ae.
 - 17:00Z: RULE (Daniel 9:50 AM PDT): lane notes are records only; handoffs/orders/asks go on Slack or as worker follow-ups.
+- 18:00Z: subscribed to my inbox thread 1790877472.882389 (expires 2026-10-04T17:59Z; renew on wake). Send via /tmp/vmsg.py send --as old-circuits-and-proofs.

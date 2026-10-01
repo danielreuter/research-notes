@@ -56,8 +56,10 @@ changed module.
 1. **A GPU serve session on today's tree for M0 #20's K=2048 and K=8192.** One GPU, about 20 min. It is the like-for-like
    comparison against M0 #20's 10.46 s and 27.42 s. Question: "what does a serve session on 1b61b024c cost against M0
    #20?" It needs your yes and the research owner's.
-2. **Lean, cheap.** In `partialRanges`, keep each slot type's projection beside its base, and each slot size's eq tables.
-   Today 12% of the session goes there. The proofs follow from `partialRanges_get`.
+2. **Lean, cheap, but small.** In `partialRanges`, keep each slot type's projection beside its base.
+   - The projections and eq tables are 12% of the session.
+   - Set 13 has only 6 ranges over 3 slot sizes, so caching saves a few percent there. It's worth it only on statements
+     with many ranges per slot type.
 3. **Lean, larger.**
    - F128 multiply, a bit loop, is 33% of self time. A windowed clmul means re-proving `clmul_spec`.
    - Batching Ligerito's inversions would save about 9%.

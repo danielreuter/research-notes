@@ -23,3 +23,5 @@ origin: node2-ops (bc-c0738ef6)
   wait for a moment with no Verity Build running, or tell you first.
 
 The PoUW jobs adopted in the same restart (GPU chunks and CPU verifies) handled it correctly, with `more` or a no-op rerun.
+
+- **10:58 PM PDT, the same bug on a preemption:** `verity-build-vllm-epoch-run-cov-m004-2.sh` was preempted (rc 143) at 10:58 PM. Its reruns failed with rc 1 because `items/vllm-epoch-run-cov-m004-2.json` was gone (`n2_build.sh` line 161, `ROW` unbound). So `n2_build.sh` consumes its item at start, and **any preemption or requeue turns into a failure.** The first run, `r20261001-045505-6289`, has no result line in its log, so check whether it finished. Keep the item until the Build passes, or make the rerun pick it up again.

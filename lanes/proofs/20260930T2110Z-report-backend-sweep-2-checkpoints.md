@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT 6a9cc1be (04:10Z) [open] 9:10 PM PDT: C1 landed #212/#630 (proofs 5 open); node-2 #1936 K=8192 gate looped 6x on the 30-min fill cap (selftests don't fit), job.sh guard fixed so it stops after 9:27 PM; answered infra's GPU-idle ask (CPU-only jobs gpu:0, verifier to a 0-GPU pod, MPS no); agreed circuits' early-EOS token record; red-team condition 3 answered (retire Lean legacy here); 3 workers still billing-blocked
 CHECKPOINT 90a988c1d (02:18Z) [open] 7:22 PM PDT: 7 record PRs closed (proofs at 10 open); #630/#212 to the PR captain; provers floor relayed to the GPU lanes; BF16 K=16384 step 1 at 1.83e8 (from 4.57e8); #1936 gate header max_min=60; inbox: verdict 0150Z handled by the writer's 0e4cd04ea, §12 path to the reviewer, node2-ops' 0205Z applied
 CHECKPOINT b5e3df46d (01:40Z) [open] 6:39 PM: GPUs scarce (Daniel); proving lanes told: no idle GPU holds, 1 GPU/lane, nothing past tonight's list; GPU split, circuits help and lean's restatement questions sent to verity-top
 CHECKPOINT b5e3df46d (01:32Z) [open] 6:31 PM: E4M3 all 4 K, NVF4 to K=8192, MXF4 to K=4096 (K=8192 proving), BF16 4x4 tile 1.21e8 at K=2048; answered red-team-flock-3's criterion (traces to the 7 changes, one PR)

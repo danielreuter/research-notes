@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6), timer infra-goal-plus7h (11:40 PM PDT); read-only counts at 06:53Z
 ---
 
+CHECKPOINT none (12:23Z) [open] 5:23 PDT: node 1 queues held for 5:40 cutover; #672, #664 ready for node 1 after 5:55 with C6, #671, lean import; slot d checking c382dd846; 28 open PRs; queue-placement option A chosen
 CHECKPOINT none (12:09Z) [open] 5:08 PDT: Boolean IR floor hit (#672 ready, head 80703ab0e, node 1 after 5:55); slot d checking c382dd846 (r20261001-120046-c50b); C6 pin confirmation going to lander via infra; cutover 5:40 go
 CHECKPOINT none (11:52Z) [open] 4:52 AM PDT: 4:50 check collecting; node 1 stacks failed on #557 x #664, #664 out, slot d 5:00 rebuilt without it; cutover on schedule
 CHECKPOINT none (11:37Z) [open] 4:37 AM PDT: main d8865092, 28 open; node 1 checks of c0097b93b and 97c7ed118 due ~4:35; slot d 5:00 armed for dcc7cc57d (+#667); 4:50 check next

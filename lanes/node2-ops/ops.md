@@ -53,6 +53,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 06:56Z +7 h goals to verity-top (`note:20261001T0656Z-report-from-node2-ops-infra-goals-plus7h`). (a) Miss: 49 of 137 jobs on node 2 and 6 of 36 on node 1 went through `--queue` with a question; node 1's Kueue jobs are uncounted (no kubeconfig). (b) Hit: node 1's disk at 31%. (c) Miss: delivered share over 03–06Z was 56% on node 2 and 15% on node 1.
+
 - 2026-10-01 06:38Z released bc-e6a46970's 52 CPU verifies from `held-overnight/` to `queue/`, on compute accounting's 11:26 PM PDT yes relayed by pouw-node2 (bc-c066b30c); their headers now name the question. Still held: the 4 `aw-*` (bc-8412d697). No new alerts.
 
 - 2026-10-01 06:20Z alerts: none new. kueue-fold fixed `n2_build.sh` reruns (`c332e1685`: a `.done` marker makes a rerun a no-op), so runner restarts no longer need a moment without Builds. It moved g084 to `done/` and requeued `cov-g080-r1` with 256 GiB (no OOM since). If g080 is OOM-killed again, hold it.

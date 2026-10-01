@@ -39,4 +39,9 @@ origin: circuits-bool-switch
 
 **Update, 4:47 AM PDT:** `main` reached `2f98a400`, so I merged `main` @ `d88650921` in with no conflict. The final head is **`443538fed`**; the diff against `main` is still the same 62 files, and `main`'s new commits touch none of them (`tc_probe_fp4`, `pearl_c4`, a new sm120 tc model). Core's Boolean and tc-model tests pass on the merge, except the ones that need fixtures this VM hasn't fetched. `c1ae` and `d3bb` run at `734ed97bd`, which differs from the head only by `main`'s commits.
 
+**Update, 4:55 AM PDT:**
+- `d3bb`'s **verity-vllm passed** at `734ed97bd`, with the lints, frontend and profile tests included. Core's half is still running.
+- The head replays `4571` and `c1ae` were not killed from outside. Both used 24 workers in a 96 GB cgroup, filled it (25 OOM events, 1 OOM kill), and were then SIGTERM'd, at 153 and 130 of the 460 picks.
+- The replay runs again at **`443538fed`** with 16 workers and 144 GB as `r20261001-115415-9980` (`0b4b`'s 12 workers took 57 minutes). I'll put its result in the body.
+
 **Not in PR 1:** softcap (`cursor/bool-softcap-attn-e311` @ `0a2e6f7e2`; it has no circuit-check binding) and norms' dense chain (`cursor/bool-norms-8c79`, which goes into PR 2).

@@ -20,6 +20,9 @@ through the owning lane: the research coordinator (bc-8ece7cde) or the vLLM coor
   4:05 PM PDT. Circuits owns the bootstrap-lock fix and is watching both files, since the 7 gpu pods started before the fix
   can still trip the probe on exit.
 - At 4:08 PM PDT the circuits pool leases 5 GPUs (0, 2, 3, 4, 6), nothing waits, and `/workspace` is at 51%.
+- Nobody saw the blocks for 68 minutes, because the hourly idle-GPU alerts reach only lane notes. Since 4:10 PM PDT the
+  steward's alert relay (`tools/alert_pull.sh`) checks node 1 for `/run/gpu-lease*/blocked` every 2 minutes and posts one
+  Slack line per file to @infra in the disk thread. The idle-GPU alerts themselves stay off Slack: there have been 28.
 
 ## State at 21:35Z (2:35 PM PDT)
 

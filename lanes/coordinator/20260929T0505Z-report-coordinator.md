@@ -320,3 +320,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 19:07Z: T704 85778c4d1 (c34cf9c13+#704, send) r20261001-190541-260b queued slot a.
 - 19:14Z: @lean APPROVE statement review #704 (p1790882009506219): FoldRealizes.folded strengthens hfold; 3 new level3 pins. Cite at 260b merge.
 - 19:22Z: abf7+5ae6 FAILED: #697 P7 env read (manifest.py:260 BUILD_RAM_BUDGET_GB). Cancelled 7c31, 260b; rm orphan scratch ox_caqkn. Asked captain: rebuild tip without #697 (+#704 #709).
+- 19:35Z: TN697 789f42573 (no #697; +#704 #709, send) slot a r20261001-193311-d403. Stopped abf7/5ae6.

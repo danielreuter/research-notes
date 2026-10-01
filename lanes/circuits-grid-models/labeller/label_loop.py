@@ -22,7 +22,11 @@ BY = "circuits-grid-models"
 RESEARCH = "/workspace/.venv/bin/research"
 PREFIX = "cursor/grid-models-8c79 @ b9880ac1 (cursor/coverage-v1-2622 @ 90ebe43d + the 20 grid-model checkpoints and their workloads)"
 #: each job tree an item's Build was submitted from (gather's `tree`), as its note names it
-TREES = {"/workspace/research/trees/cursor-grid-models-8c79": PREFIX}
+TREES = {"/workspace/research/trees/cursor-grid-models-8c79": PREFIX,
+         "/workspace/research/trees/cursor-grid-plan-gm-827a": (
+             "cursor/grid-plan-gm-827a @ 05fa9d3e (cursor/grid-models-8c79 @ b9880ac1 + cursor/grid-plan-cov-827a @ 04908a9a: "
+             "coverage-v1 @ 90c6d897 with the Commit's plan derived in the Build, the replay store written in a thread, "
+             "VERITY_DENSE_THREADS; note:20261001T1038Z-handoff-from-circuits-commit-phases-plan-tree)")}
 QUESTIONS = json.loads((HERE / "questions.json").read_text())
 #: one family id per publisher model series (circuits 07:19Z: base, instruct and coder together, R1 distills under their base)
 FAMILY_OF = {"QWEN25_3B": "qwen25", "QWEN25_05B_INSTRUCT": "qwen25", "QWEN25_CODER_15B": "qwen25", "R1_DISTILL_QWEN_15B": "qwen25",

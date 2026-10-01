@@ -9,7 +9,8 @@ git -C "$N" ls-files lanes | sort > "$seen"
 sums() { (cd "$N" && md5sum lanes/circuits-grid-models/*.md | grep -v -- '-report-circuits-grid-models.md'); }
 before=$(sums)
 while :; do
-  git -C "$N" pull -q --rebase origin main > /dev/null 2>&1 || git -C "$N" rebase --abort > /dev/null 2>&1
+  git -C "$N" pull -q --rebase --autostash origin main > /dev/null 2>&1 || { git -C "$N" rebase --abort > /dev/null 2>&1
+    echo "$(date -u +%H:%MZ) notes pull failed" >&2; }
   out=$(/workspace/.venv/bin/research notes inbox circuits-grid-models --peek 2>&1)
   new=$(comm -13 "$seen" <(git -C "$N" ls-files lanes | sort) | grep -v '^lanes/circuits-grid-models/' \
         | while read -r f; do grep -l -i 'grid-models' "$N/$f" 2> /dev/null; done)

@@ -2,9 +2,10 @@
 lane: circuits-grid-models
 kind: report
 created: 2026-10-01T07:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT b9880ac17 (14:40Z) [final] 7:41 AM PDT: 20 models / 10 families registered; 134 deployments ended (127 pass, 7 fail: 6 SiluMul_v1 edge, 1 item config gm127), 19 models / 9 families ended, 18 with a pass; 9 golden twins match unpacked (PACK_MODELS lacks them); feeder keeps node 1 fed
 CHECKPOINT 70e926d (14:15Z) [open] 7:16 AM PDT: acted on circuits' 1412Z: deadline gate dropped 14:12Z, burst caps kept (per_tick 12, cpu_pending_max 12, commit_cap 14). Build concurrency now bound by deployments-cpu's 608 Gi memory quota (Build requests 86-128 GB). Counts 14:15Z: 124 ended (117 pass, 7 fail: 6 SiluMul_v1 edge, 1 config gm127), 19 models (18 with a pass), 9 families. 7:40 counts next.
 CHECKPOINT de79a63 (14:03Z) [open] 7:05 AM PDT: golden twins done (all 9 same root/map/verdict, all unpacked: PACK_MODELS lacks them; note:20261001T1355Z-finding-golden-twins-unpacked-all-match, handoff 1357Z). Acted on kueue-fold's 1315Z reply (Hold ended 13:30Z as it said). New failure named: cov-gm127 (qwen3-30b) Commit died at vLLM KV-cache init, gpu_memory_utilization 0.5 < 56.9 GiB weights; set GPU_UTIL=0.9 on the 11 unsubmitted qwen3-30b items. cov-gm149 failed on the SiluMul_v1 edge (auto-checked). Feeder: burst commit_cap 14 to 14:20Z; deadline hold extended so no 7:50-crossing row goes before 14:50Z. Counts at 14:00Z: 117 ended, 110 pass, 7 fail (6 SiluMul edge, 1 config).
 CHECKPOINT e8cff57 (13:32Z) [open] 6:34 AM PDT: Hold lifted 13:30Z (kueue-fold's 1315Z reply: the quiet hour released it); no-release removed 13:2xZ. My 7 waiting Commits (gm135/051/149/127/204/133/132) admitted 13:30Z; 8 Builds admitted incl. twin gm005-pk, twin gm003-pk and gm096 moved to node 2. Feeder burst extended to 13:50Z (per_tick 12, cpu_pending_max 12) for the refill's first 15 min. Twins still not on PACK_MODELS (dispatch.py unchanged since 08:18Z).
@@ -35,7 +36,7 @@ CHECKPOINT 3843df1 (07:07Z) [open] 20 models staged (configs, TP1 fixtures, 480 
 ~~~text
 tip: cursor/grid-models-8c79 @ b9880ac17 (base cursor/coverage-v1-2622@90ebe43d)        merge-with: none
 known-failures: none    pod: none of mine (shared vy-nebius-1 and vy-n2; I created no pod); $0 of my own
-artifacts: none cited (outcomes are labels on each deployment's attempt, by circuits-grid-models)
+artifacts: art:c8c825f9f8aa2831d33b6b21039c5a90be8d6bcc6f990c16b8c6c35653ce7be3 (the labeller's gather at 14:37Z, which the counts come from); per-deployment outcomes are labels on each attempt, by circuits-grid-models
 ~~~
 
 **Models and families added: 20 ungated HF models in 10 families.**
@@ -90,10 +91,13 @@ The `-pk2` twins aren't submitted. They wait for infra to list the models, which
 
 **Handoffs received, all acted on:**
 
-- 0719Z decisions, 0749Z no-gemma-node1 and 0821Z go
-- 1006Z idle-hold-node2-fill and 1011Z feeder-opened-up, with its 3:16 addendum
-- 1038Z commit-phases plan-tree
-- 1158Z refill-node2-pack-goldens
-- 1315Z kueue-fold hold-ends-1330z
-- 1412Z drop-deadline-gate
-- 1417Z commit-phases boundary-gm-tree
+- 20261001T0719Z-handoff-from-circuits-decisions
+- 20261001T0749Z-handoff-from-circuits-no-gemma-node1
+- 20261001T0821Z-handoff-from-circuits-go
+- 20261001T1006Z-handoff-from-circuits-idle-hold-node2-fill
+- 20261001T1011Z-handoff-from-circuits-feeder-opened-up (with its 3:16 addendum)
+- 20261001T1038Z-handoff-from-circuits-commit-phases-plan-tree
+- 20261001T1158Z-handoff-from-circuits-refill-node2-pack-goldens
+- 20261001T1315Z-reply-from-kueue-fold-node1-hold-ends-1330z
+- 20261001T1412Z-handoff-from-circuits-drop-deadline-gate
+- 20261001T1417Z-handoff-from-circuits-commit-phases-boundary-gm-tree

@@ -5,6 +5,7 @@ created: 2026-09-30T20:03Z
 status: open
 ---
 
+CHECKPOINT ce30e9b65 (00:36Z) [open] WAITING on stack check r20261001-003433-0671 (#602 8a322b29, vy-nebius-2; supersedes r20261001-002356-2595 on 00d6c19dc, left to finish) for the 534-556-602 merge request
 CHECKPOINT ce30e9b65 (00:27Z) [open] 449/548 checks passed (r20260930-235746-36f1, r20261001-000221-f7ef; note updated). WAITING on stack check r20261001-002356-2595 (#602 00d6c19dc, vy-nebius-2) for the 534-556-602 merge request
 CHECKPOINT 1b1895bc6 (00:05Z) [open] WAITING on vy-nebius-2 checks r20260930-235746-36f1 (#449 1b1895bc, MKL first-call race fix) and r20261001-000221-f7ef (#548 7a30515b); note 20261001T0006Z-handoff-from-accounting-449-exp-mkl-race filed
 CHECKPOINT 135a1123d (23:17Z) [open] handoff note:20260930T2316Z-handoff-from-accounting-548-forkserver-fix filed: #548 37e9c944 merge-ready (check r20260930-222746-4aa1 passed, rc 0); grants none. Nothing left running.

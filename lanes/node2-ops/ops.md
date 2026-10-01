@@ -68,6 +68,9 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 22:48Z alerts tick: three `gpu-idle-in-lease` alerts (22:35, 22:40 and 22:45Z, on GPUs 7, 5 and 6, at 0.2–6.9% mean over 5 min). They're all bc-698052e1's Commit guests in their first 5 minutes.
+    - **Why it's fine:** each Commit holds a GPU for about 10 min (rc 0), and its replay now runs as a separate `verity-replay-*` CPU job. The low use is each Commit's start-up, not a GPU held through the replay.
+    - Nothing to do. Watermark advanced to 22:45:06Z.
 - 2026-10-01 22:18Z inbox: infra gave notice of a `22:20Z 10` line (`note:20261001T2212Z-notice-from-infra-window-line-2220z`), for compute accounting: Pearl-C4's re-time of row 16 (bc-e50ef76f), host threads on 48–91, then an untimed verify on 48–123. The line is in, and infra left the loop alone.
     - **Fill:** the 6 Builds running on the Verity pool's 48–95 freeze while it's `timed True` and resume after. No GPU fill is queued. Nothing for me to do.
     - **Backup:** `r20261001-220550-be70` is preserved. No alerts.

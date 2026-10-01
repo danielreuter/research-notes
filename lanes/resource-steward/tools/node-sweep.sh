@@ -9,13 +9,17 @@
 #    names them now, and deleted;
 #  - src/.trash/ entries an interrupted sweep left (decided already; nothing executes from there);
 #  - check scratch untouched for 2 h and not held open: /tmp/pytest-of-research/pytest-*, <verity-check cache>/lean-audit-scratch-*.
-# Prints "deleted PATH files=N mb=M age=Xh" or "kept PATH: why" per candidate. Exit 0, or 2 if not root or already running.
-# Patterns go through files, so no scanner process carries one in its argv or environment.
+# Prints "deleted PATH files=N mb=M age=Xh" or "kept PATH: why" per candidate, each line first appended, stamped, to $LOG (not
+# in a dry run), and goes on to the end when its ssh drops (SIGPIPE ignored), so $LOG is the record of what it did.
+# Exit 0, or 2 if not root or already running. Patterns go through files, so no scanner process carries one in its argv or
+# environment.
 [ "$(id -u)" = 0 ] || { echo "node-sweep: needs root to read every process" >&2; exit 2; }
 exec 9>/run/lock/resource-steward-sweep.lock; flock -n 9 || { echo "node-sweep: another sweep is running" >&2; exit 2; }
 DRY=0; AGE_H=24
 while [ $# -gt 0 ]; do case $1 in --dry-run) DRY=1;; --src-age-h) AGE_H=$2; shift;; *) echo "unknown $1" >&2; exit 2;; esac; shift; done
-R=/workspace/research; SRC=$R/src; TRASH=$SRC/.trash; now=$(date +%s); T=$(mktemp -d); trap 'rm -rf $T' EXIT
+R=/workspace/research; SRC=$R/src; TRASH=$SRC/.trash; now=$(date +%s); T=$(mktemp -d); trap 'rm -rf $T' EXIT; trap '' PIPE
+LOG=/home/research/resource-steward/node-sweep.log
+say() { [ $DRY = 1 ] || printf '%s %s\n' "$(date -u +%FT%TZ)" "$*" >> $LOG; echo "$*" 2>/dev/null; return 0; }
 age_h() { echo $(( (now - $(stat -c %Y "$1")) / 3600 )); }
 
 REFS_PY='
@@ -109,7 +113,7 @@ else:
 if extra: print(f"{len(extra)} file(s) outside the commit: " + ", ".join(extra[:3])); sys.exit(1)
 '
 gone() { local p=$1 n m; n=$(find "$p" -xdev 2>/dev/null | wc -l); m=$(du -sm --one-file-system "$p" 2>/dev/null | cut -f1)
-  if [ $DRY = 1 ]; then echo "would delete $3 files=$n mb=$m age=${2}h"; else rm -rf --one-file-system -- "$p" && echo "deleted $3 files=$n mb=$m age=${2}h"; fi; }
+  if [ $DRY = 1 ]; then say "would delete $3 files=$n mb=$m age=${2}h"; else rm -rf --one-file-system -- "$p" && say "deleted $3 files=$n mb=$m age=${2}h"; fi; }
 
 # what an interrupted sweep left in src/.trash
 [ $DRY = 0 ] && for t in $TRASH/*; do [ -d "$t" ] || continue; gone "$t" $(age_h "$t") "$t (left by an interrupted sweep)"; done
@@ -125,17 +129,17 @@ if [ -s $T/src ]; then
   grep -q '^FAILED' $T/held && { echo "node-sweep: $(grep '^FAILED' $T/held | head -1); no source tree deleted" >&2; exit 2; }
   : > $T/moved
   for s in $(cat $T/src); do
-    r=$(named $s $T/held); [ -n "$r" ] && { echo "kept $SRC/$s: $r"; continue; }
-    x=$(cd /tmp && GIT_OPTIONAL_LOCKS=0 runuser -u research -- python3 -c "$EXTRA_PY" $SRC/$s 2>&1) || { echo "kept $SRC/$s: ${x:-could not inspect}"; continue; }
+    r=$(named $s $T/held); [ -n "$r" ] && { say "kept $SRC/$s: $r"; continue; }
+    x=$(cd /tmp && GIT_OPTIONAL_LOCKS=0 runuser -u research -- python3 -c "$EXTRA_PY" $SRC/$s 2>&1) || { say "kept $SRC/$s: ${x:-could not inspect}"; continue; }
     a=$(age_h $SRC/$s)
     [ $DRY = 1 ] && { gone $SRC/$s $a $SRC/$s; continue; }
-    mkdir -p $TRASH; mv -T $SRC/$s $TRASH/$s-$now && echo "$s $a" >> $T/moved || echo "kept $SRC/$s: rename failed"
+    mkdir -p $TRASH; mv -T $SRC/$s $TRASH/$s-$now && echo "$s $a" >> $T/moved || say "kept $SRC/$s: rename failed"
   done
   if [ -s $T/moved ]; then
     cut -d' ' -f1 $T/moved > $T/pats; held $T/pats > $T/held2
     while read s a; do t=$TRASH/$s-$now; r=$(named $s $T/held2)
       if [ -n "$r" ] || grep -q '^FAILED' $T/held2; then
-        mv -T $t $SRC/$s && echo "kept $SRC/$s: named after rename: ${r:-scan failed}" || echo "STUCK $t: named after rename (${r:-scan failed}) and could not be put back"
+        mv -T $t $SRC/$s && say "kept $SRC/$s: named after rename: ${r:-scan failed}" || say "STUCK $t: named after rename (${r:-scan failed}) and could not be put back"
         continue
       fi
       gone $t $a $SRC/$s
@@ -153,7 +157,7 @@ done
 if [ -s $T/scr ]; then
   held $T/scr > $T/held
   for d in $(cat $T/scr); do
-    r=$(named "$d" $T/held); [ -n "$r" ] && { echo "kept $d: $r"; continue; }
+    r=$(named "$d" $T/held); [ -n "$r" ] && { say "kept $d: $r"; continue; }
     gone "$d" $(age_h "$d") "$d"
   done
 fi

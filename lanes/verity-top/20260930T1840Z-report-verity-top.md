@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (05:23Z) [open] 10:22 PM PDT: quiet; #602 Pearl-C and C4 checks running; Daniel has quota-cutover, PR-target and deploy-key questions
 CHECKPOINT none (05:07Z) [open] 10:07 PM PDT: PR +3h check done (52 open vs 90, Pearl-C late ~10:25); C4 checking; Gemma-2 18 rows running
 CHECKPOINT none (04:52Z) [open] 9:51 PM PDT: 3 more trains landed (main c1e92009), 52 open PRs; #602 Pearl-C check ~10:25; Lean restatement draft #638; node 1 at 6/8 GPUs
 CHECKPOINT none (04:36Z) [open] 9:36 PM PDT: T621, T635, C3 checking (land ~9:55); node 1 idle check sent to circuits

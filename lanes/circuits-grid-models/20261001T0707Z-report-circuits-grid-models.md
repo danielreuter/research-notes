@@ -29,3 +29,71 @@ CHECKPOINT a3db005 (07:52Z) [open] 12:54 AM PDT: acted on circuits' 0749Z no-Gem
 CHECKPOINT e3f0e02 (07:37Z) [open] 12:38 AM PDT: acted on circuits' 0719Z decisions. Holding for go. Tree cursor/grid-models-8c79 @ eda63fddd is synced to node 1 and already carries replay-keep-leaves (merged coverage-v1 @ 4764da87e). Added 12 TP1 rows for the 14B models (qwen3-14b and phi4-14b, B1/B8 256/32 x 3 samplings; say if you meant 12 each). 372 items in waves: (1) cov-gm001-120, B1/B8 of the 10 models under 7B; (2) gm121-228, B1/B8 of 7B+/MoE/Gemma-9B plus the 14B TP1 rows; (3) gm229-348, small B16/B32; (4) gm349-372, TP2, held for infra. Feeder tmux gm-feed on node 1 is armed: on go, wave 1 starts within 60 s. Families counted as 11.
 CHECKPOINT 31b05b7c7 (07:21Z) [open] 12:26 AM PDT: 20 models registered (branch cursor/grid-models-8c79 @ 31b05b7c7, merged coverage-v1 4764da87e), tree synced to node 1 at /workspace/research/trees/cursor-grid-models-8c79, 360 config-run items (cov-gm001..360) ready; nothing submitted; holding for circuits' go / 'builds now' (note 20261001T0707Z handoff)
 CHECKPOINT 3843df1 (07:07Z) [open] 20 models staged (configs, TP1 fixtures, 480 workloads, weights.tsv); download r20261001-064838-2a41 running, ETA 12:45 AM PDT; holding every submission until circuits' go (note:20261001T0707Z-handoff-from-circuits-grid-models-builds-chain-commits)
+
+## FINAL
+
+~~~text
+tip: cursor/grid-models-8c79 @ b9880ac17 (base cursor/coverage-v1-2622@90ebe43d)        merge-with: none
+known-failures: none    pod: none of mine (shared vy-nebius-1 and vy-n2; I created no pod); $0 of my own
+artifacts: none cited (outcomes are labels on each deployment's attempt, by circuits-grid-models)
+~~~
+
+**Models and families added: 20 ungated HF models in 10 families.**
+
+- qwen25: qwen25-05b-instruct, qwen25-3b, qwen25-coder-15b, r1-distill-qwen-15b
+- qwen3: qwen3-06b, qwen3-17b, qwen3-8b, qwen3-14b, qwen3-30b-a3b-2507
+- llama3: llama32-3b, llama31-8b, r1-distill-llama-8b
+- smollm2: smollm2-17b
+- mistral: mistral-7b-instruct
+- gemma2: gemma2-9b, held by circuits' 07:49Z ruling, so never run by me
+- olmoe: olmoe-1b-7b-0125-instruct
+- phi: phi4-14b
+- yi: yi15-6b
+- falcon3: falcon3-1b, falcon3-7b
+
+**Where the work lives.** The checkpoints and workloads are on `cursor/grid-models-8c79` @ b9880ac17, which is pushed. No PR has
+been opened. 372 items were run as `cov-gm001`..`cov-gm372` through node 1's dispatcher:
+
+- 74 on that branch's tree;
+- from 10:36Z, the plan tree `cursor/grid-plan-gm-827a` @ 05fa9d3e;
+- from 14:15Z, the boundary tree `cursor/grid-boundary-gm-827a` @ 1fff7995. circuits-commit-phases repointed the unsubmitted
+  items to it.
+
+**Deployments run, as of 14:37Z: 134 ended, 127 passing and 7 failing. Every failure has a named cause.**
+
+- 19 models have an ended deployment and 18 have a pass, in 9 families, all with a pass.
+- Where they ran, Build / Commit: node 1 / node 1: 104; node 2 / node 1: 26; node 1 / node 2: 3; node 2 / node 2: 1.
+- **6 failures: a Definition gap, SiluMul_v1's expf-overflow edge.** Not a Commit fault.
+  - Items: gm001, 031, 081, 082 and 001-pk (qwen3-06b), and gm149 (qwen3-8b).
+  - The quarantined SiluMul_v2 equals every mismatched committed word.
+- **1 failure: a configuration error in my item.**
+  - gm127 (qwen3-30b-a3b-2507) ran at gpu_memory_utilization 0.5, which is below its 56.9 GiB of weights, so vLLM's KV cache came to -9.81 GiB.
+  - Its other 11 items now set GPU_UTIL=0.9. gm137 is in flight with the fix.
+- 15 deployments were in flight at 14:37Z. Counts by model: `note:20261001T1440Z-report-from-circuits-grid-models-counts-0740`.
+
+**Golden twins.** All 9 match their bases on run root, binding map and verdict. All 9 ran unpacked, because `PACK_MODELS` lacks the
+9 models, so packing itself is untested. The per-model table is in `note:20261001T1355Z-finding-golden-twins-unpacked-all-match`.
+The `-pk2` twins aren't submitted. They wait for infra to list the models, which circuits re-asked for at 1412Z.
+
+**Still running after FINAL.**
+
+- **Feeder:** node-1 tmux `gm-feed`. Its policy is `feeder/policy.json`: no deadline gate, burst caps until 23:59Z. It keeps node 1
+  fed per circuits' 1412Z ruling ("7:50 is a deadline, not a stop"). Stop it with `touch /workspace/jobs/gm-feed/STOP`.
+- **Labeller:** tmux `gm-label` on this agent VM. It stops if the VM suspends. A successor resumes it with
+  `python3 labeller/label_loop.py loop 180`.
+
+**Open for circuits.**
+
+- The `-pk2` twins, once PACK_MODELS lists the 9 models.
+- Build memory requests: 86–128 GB per Build, against measured peaks of 2–72 GB. Under `deployments-cpu`'s 608 Gi they limit node 1
+  to about 5 concurrent Builds. A measured trim would raise that.
+
+**Handoffs received, all acted on:**
+
+- 0719Z decisions, 0749Z no-gemma-node1 and 0821Z go
+- 1006Z idle-hold-node2-fill and 1011Z feeder-opened-up, with its 3:16 addendum
+- 1038Z commit-phases plan-tree
+- 1158Z refill-node2-pack-goldens
+- 1315Z kueue-fold hold-ends-1330z
+- 1412Z drop-deadline-gate
+- 1417Z commit-phases boundary-gm-tree

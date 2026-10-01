@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (18:53Z) [open] 1853Z M5 is on main: the policy is byte-equal to the 19e845c9 I signed (731 pins; the 66 are unchanged), so FP4 and M5 are closed (note:20261001T1853Z-reply-from-d545bc2a-m5-on-main-records-unchanged). The cap branch (11 pins) waits on Daniel; I check it when it lands.
 CHECKPOINT none (18:41Z) [open] 1841Z poll: quiet. Waiting on the M5/cap merge check, any statement review after Daniel's rulings, and the assessor's row-6 result.
 CHECKPOINT none (18:20Z) [open] 1820Z poll: nothing for me. Waiting on the M5/cap merge check, any statement review after Daniel's rulings, and the assessor's row-6 result.
 CHECKPOINT none (17:57Z) [open] 1757Z the assessor confirmed with ptxas that FP8 mma.sp on sm_120a is k64 only, so the 2:4 delta route ties and is closed for row 11 (1748Z). Next toward B is row 6 on noiseless codes (the assessor's). Waiting on the M5/cap merge check and Daniel's rulings.

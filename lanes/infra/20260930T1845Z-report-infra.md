@@ -170,3 +170,16 @@ used. Node 2 had all 8 GPUs leased, 0 GPU jobs queued and 24 CPU jobs queued.
   - Commits dispatched before the 2:15 PM PDT template refresh replay on their GPUs;
   - TP2 is held after a crash.
 - **Fixes under way:** MPS packing (the golden match plus one pod, gated on storage), the verify split for the whole row, PR B.
+
+## Daily top 3 GPU wasters, Oct 1 (posted 9:43 AM PDT, ts 1790872988.580989)
+
+Idle GPU-hours over the 24 h to 16:38Z, both nodes, by kind and owner. Node 1 counts held minus busy from DCGM's one reading a
+minute (the console's `node1-owners`). Node 2 counts leased minus useful from POUS's 10 s sampler (`nodes.n2.kinds`, the console's
+`pool-kinds`), with timed leases left out.
+
+1. **circuits, `vllm-epoch-run`** (node 1's coverage rows): 74.5 idle of 81.5 GPU-h held, 9% busy. That's 57.3 as the dispatcher's
+   Kueue Jobs and 17.2 as Sep 30's SkyPilot `gpu-*` jobs (16–21Z, the `cov-m*` rows). Most of it is the CPU verify inside a GPU hold.
+   The fix is morning-set item 1: Commits lease their GPU after pod startup (pilot `cov-k01-lease`), target ≤40% held idle.
+2. **n2-commits (circuits' bc-698052e1), `verity-commit`** on node 2: 9.2 idle of 9.7 GPU-h leased, 5% useful, plus 0.44 of 0.45
+   in `cov-g217-proof`.
+3. **proofs, `backend-sweep`** on node 1: 7.8 idle of 8.4 GPU-h held, 7% busy. Proofs' node 1 kinds total 28.9 idle GPU-h.

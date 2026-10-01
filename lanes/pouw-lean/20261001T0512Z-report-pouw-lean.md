@@ -5,6 +5,7 @@ created: 2026-10-01T05:12Z
 status: open
 ---
 
+CHECKPOINT none (06:55Z) [open] 11:55 PM PDT: M3b landed (665, 43ba801d, art:0d156c69); FP4 restage built on M3b (731 pins, art:b0b06697), review asked of bc-d545bc2a; M5 waits for GO + re-grant
 CHECKPOINT none (06:38Z) [open] 11:38 PM PDT: M3a landed (663, 662b339d, art:bc50df67); M3b check due ~11:50; FP4 restage dev build on its last modules
 CHECKPOINT none (06:08Z) [open] 06:08Z M3a r…054243-b3e8 audit PASS, in check.sh; M3b r…055859-b6e8 COMPARE PASS (663 unmoved), in check.sh; C6 review asked of d545bc2a; FP4 restage starting on M3b tree
 CHECKPOINT none (06:00Z) [open] M3 28-pin replay r20261001-045752-652c PASSED (art:5aec38af). M3a check r20261001-054243-b3e8 in leanchecker. C6 restaged (M3b): dev build + audit --update 665 pins (43ba801d), 663 facts identical to M3 (COMPARE PASS), evidence art:96737e3d; review asked of bc-d545bc2a (note:20261001T0603Z-ask-from-dd9ede96-redteam-c6-restage-skipclass); M3b full check r20261001-055859-b6e8 running. Next: M3a write-back, then FP4 restage.

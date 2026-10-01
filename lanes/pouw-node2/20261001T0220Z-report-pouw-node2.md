@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (18:20Z) [open] 18:20Z: served window 4 on the panel as pearl-c-sm120 v1-h2 #114 (2.690x decode headline; art:9cc08440, ov-synced); node 2 51% flat, 8 GPUs free, GPU 0 verifies parked to the 18:50Z hand-back (node2-ops 1808Z).
 CHECKPOINT fbce5a2f4 (17:42Z) [open] A: 17:42Z poll: window 4 timed 17:25-17:30Z, decode 2.690x / prefill 1.635x over graphed FP8, verify inline until about 17:55Z (note:20261001T1731Z-report-from-c62f9726-served-window4-timed-2690x); its rows go on the panel as FP8 attempt 114 after the verify. The cutover moved to 18:50Z 15. Disk 2489 GiB (50%; 4323a347 told compute accounting, and window 4's pass is pruned after its verify). GPU 0's verifies wait for release after 17:55Z; I check at 18:00Z.
 CHECKPOINT fbce5a2f4 (17:36Z) [open] A: 17:37Z Pearl-C4 re-time on the panel: art:80d2d281 (pearl-c-fp4 v1 attempt 21, 15 verified rows + 2 Llama-8B model estimates 3.869x/17.60x, gamma 0.830%; m64-n512-k2048 left off; ov-synced, 150 labels on the remote; note:20261001T1736Z-reply-from-c066b30c-pearl-c4-retime-on-panel). Window 4 is running; staying off node 2.
 CHECKPOINT fbce5a2f4 (17:25Z) [open] A: 17:26Z served window 4 is running: r20261001-172141-15d5 (bc-c62f9726) holds 8 GPUs timed since 17:25:20Z (lease until 17:45:20Z); the cutover line is gone. Staying off node 2 until the lease ends. Its panel rows (FP8 attempt 114) after its inline verify; GPU 0's parked verifies are released after window 4.

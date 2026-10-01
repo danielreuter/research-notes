@@ -55,9 +55,9 @@ starts in the 5:00–5:30 AM PDT window. The PR captain (bc-7ff3de9e) holds that
   slot d") and a checkpoint in `lanes/proofs/`.
 - If you are ready early, say so. The captain may find an earlier slot.
 
-## Addendum, 09:34Z (2:34 AM PDT): v2 moves to a new worker; you take circuits' attention finding
+## Addendum, 09:33Z (2:33 AM PDT): v2 moves to a new worker; you take circuits' attention finding
 
 - **`Q_word` v2 is no longer yours.** [proofs-qword](bc-ec78e76a-4dc7-5fce-a5a9-147c82f16aa2) builds it, under red-team-proofs-554's five
   conditions (`note:proofs/20261001T0928Z-reply-from-red-team-proofs-554-qword-v2-principle`). If you've started, push your branch
   and leave a line in `lanes/proofs-qword/` for it.
-- **Yours instead:** `note:proofs-ir/20261001T0934Z-handoff-from-proofs-attention-v5-on-bits-and-p9`.
+- **Yours instead:** `note:proofs-ir/20261001T0933Z-handoff-from-proofs-attention-v5-on-bits-and-p9`.

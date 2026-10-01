@@ -5,7 +5,7 @@
   "channel": "C0C5RCXL66N",
   "inbox_ts": "1790877427.413399",
   "opened": "2026-10-01T17:57Z",
-  "closed": null,
-  "forward_to": null,
+  "closed": "2026-10-01T20:10Z",
+  "forward_to": "ci",
   "remit": "PR captain: shepherds open PRs to a passing check and into the merge trains."
 }

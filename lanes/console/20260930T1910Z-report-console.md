@@ -116,3 +116,4 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 - CHECKPOINT 02:02Z: eager decode column live in verity/pouw-overhead and rendered in production as "Over eager stock FP8" (told accounting). Timer re-armed with production 654afb6.
 - CHECKPOINT 02:12Z: PR budget (Daniel 7:08 PM PDT): console has 1 open PR (verity #613, ready, handed to the PR captain via lanes/coordinator).
 - CHECKPOINT 03:40Z: quiet; verity-panels publishing (latest 03:40Z); still no pous/node2-* panels. Production 654afb6.
+- DEPLOY 03:49Z (8:49 PM PDT): node 1 publisher (verity #613 @ 870cd09de): raw GPU busy (util > 0) beside useful on infra/pool-utilization and infra/targets for both nodes; new verity/node1-owners, verity/node1-owner-hours, verity/node2-hours (POUS sampler over ssh vy-n2). Timer run 30 of 30, no errors; live on /admin/live. Rollback = verity_console.py.prev-20261001T0347Z on node 1.

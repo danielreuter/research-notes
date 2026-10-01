@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: proofs (bc-8416bc72, Slack @proofs)
 ---
 
+CHECKPOINT e55ab7032 (01:38Z) [open] 6:41 PM PDT: FP4 K sweep through 8192 on console (nvf4 3.37e8/6.36e8, mxf4 3.12e8/6.27e8 at K=4096/8192); nvf4/mxf4 K=16384 running. Unpinned vLLM pipeline jobs take 5-9 cores of the prover slices (note:20261001T0137Z-handoff-from-proofs-flock-fp-vllm-jobs-on-prover-slices); re-runs of the 6 affected points queued behind. scheme/impl fields added (e55ab7032) and backfilled.
 CHECKPOINT 21e066adc (01:23Z) [open] 6:24 PM PDT: merged proofs-tc-defs; BlackwellMxf4OmmaDot64_v1's conformance now cites r20261001-000520-2440 (21e066adc), and test_prims replays its 73,728 edge words (9,216 under 0xFF) through the total primitive, all exact (its 16,384 'specials' words aren't in the fixtures, so the string doesn't claim them). nvf4 K=4096 3.37e8 on console; FP4 8192/16384 in flight.
 CHECKPOINT b191bb16e (01:14Z) [open] 6:15 PM PDT: FP8 K sweep proved: e4m3 K=2048 1.29e8 (r20261001-005440-970b, clean), 8192 3.56e8, 16384 8.09e8 (r20261001-004818-8ee9: verify 13.0 s vs prove 0.72 s; prove-only flat 4.3e7). Clean K=2048: nvf4 2.45e8 (ed99), mxf4 2.52e8 (9322). FP4 K=4096-16384 and the e4m3 K=4096 re-run in flight.
 CHECKPOINT e2a088f0 (00:59Z) [open] 6:00 PM PDT: e4m3 K=8192 on console (r20261001-003827-56eb, 3.56e8; verify 5.2 s vs prove 0.78 s per statement: the CPU verifier dominates and grows ~linearly in K, prove-only flat ~4-4.6e7). e4m3 K=16384 gate in selftest after 3 Kueue preemptions; K=2048 clean re-runs in progress on 128-159.

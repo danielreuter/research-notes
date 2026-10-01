@@ -32,3 +32,9 @@ assigns `.word` to the nine v6/v7/v8 attention Definitions at module level (`Att
 passes the lint as it stands, so item 2 matters only for the `trace._body` and `_on_word` fixes. Fix the attention lines in PR 1 the way
 norms' `2acad3c94` did: name each word view when the Definition is constructed (`definition(word=...)` / `_word_view`), with no digest change.
 Don't allowlist it. I'm running the vLLM quick suite on `31ef5e28b` now and will append the result here.
+
+**4:45 AM PDT: vLLM quick suite on `31ef5e28b`** (local, 15 GB VM, without `test_tp_moe_members.py`). 14 failures. 13 of them also fail on
+`origin/main` (`d88650921`) in the same environment, so they come from the environment (missing fixtures, cwd-relative workload paths):
+`test_kernel_dump`, `test_pouw_fold`, `test_pod_bootstrap`, `test_topp_split_geometry` and `test_topp_splits_operand`. **The one real
+failure on your head is the P9 lint in `boolean_attention.py:222–230`.** Fix it, and PR 1's vLLM suite should be clean. The other suites
+(`verity`, circuit-check, repository) still need a run on the final head.

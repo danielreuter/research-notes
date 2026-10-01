@@ -52,7 +52,7 @@ artifacts: none cited (outcomes are labels on each deployment's attempt, by circ
 - falcon3: falcon3-1b, falcon3-7b
 
 **Where the work lives.** The checkpoints and workloads are on `cursor/grid-models-8c79` @ b9880ac17, which is pushed. No PR has
-been opened. 372 items were run as `cov-gm001`..`cov-gm372` through node 1's dispatcher:
+been opened. The grid has 372 items, `cov-gm001`..`cov-gm372`, and 149 had been submitted through node 1's dispatcher by 14:37Z:
 
 - 74 on that branch's tree;
 - from 10:36Z, the plan tree `cursor/grid-plan-gm-827a` @ 05fa9d3e;

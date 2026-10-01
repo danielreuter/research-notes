@@ -119,3 +119,4 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 - DEPLOY 03:49Z (8:49 PM PDT): node 1 publisher (verity #613 @ 870cd09de): raw GPU busy (util > 0) beside useful on infra/pool-utilization and infra/targets for both nodes; new verity/node1-owners, verity/node1-owner-hours, verity/node2-hours (POUS sampler over ssh vy-n2). Timer run 30 of 30, no errors; live on /admin/live. Rollback = verity_console.py.prev-20261001T0347Z on node 1.
 - CHECKPOINT 03:55Z: #613 landed (TCN2); opened verity #634 from main with 870cd09de (as 8cc550849), told infra. Node 1 timer moves to main when #634 lands.
 - CHECKPOINT 04:20Z: quiet; node1 30 of 30 (04:18Z); verity #634 open, waiting on a train. Production 654afb6.
+- CHECKPOINT 04:40Z: quiet; node1 30 of 30 (04:38Z); verity #634 open. Production 654afb6.

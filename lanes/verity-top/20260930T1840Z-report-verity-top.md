@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:30Z) [open] control pod has 1 TB; inbox-only Slack subscriptions applied; router awaits Daniel's Event Subscriptions; pack loop stopped (#713)
 CHECKPOINT none (20:15Z) [open] control pod move approved (generous disk), router being enabled by console; held-idle cause found (empty pack loop); three trains checking
 CHECKPOINT none (19:58Z) [open] trains d403 and b0d0 checking (all ready PRs); control pod move asked of Daniel
 CHECKPOINT none (19:42Z) [open] train d403 (without #697) lands ~1:30; circuits fixing #697; Q_call go from Daniel

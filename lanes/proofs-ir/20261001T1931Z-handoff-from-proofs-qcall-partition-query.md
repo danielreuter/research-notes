@@ -81,7 +81,7 @@ proofs' counts at X = 32 under today's cut (`verity_vllm.query.word.unit_rule`, 
 | `SiluMul_v3{I=8}` | 8 | | |
 | `AttnBlockSoftcap_v3{D=16,NVIS=1,FIRST=True,…}` | 118,147 | 4 | 31,777 of 442,404 |
 
-The attention block shatters today because the cut promotes shared bits one at a time. Under the new query it should come
+A blank cell wasn't counted. The attention block shatters today because the cut promotes shared bits one at a time. Under the new query it should come
 out near the word Program's count; if it doesn't, say why.
 
 ## Review and landing

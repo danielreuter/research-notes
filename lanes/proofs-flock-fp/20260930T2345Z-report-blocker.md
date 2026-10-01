@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: proofs (bc-8416bc72, Slack @proofs)
 ---
 
+CHECKPOINT b191bb16e (01:14Z) [open] 6:15 PM PDT: FP8 K sweep proved: e4m3 K=2048 1.29e8 (r20261001-005440-970b, clean), 8192 3.56e8, 16384 8.09e8 (r20261001-004818-8ee9: verify 13.0 s vs prove 0.72 s; prove-only flat 4.3e7). Clean K=2048: nvf4 2.45e8 (ed99), mxf4 2.52e8 (9322). FP4 K=4096-16384 and the e4m3 K=4096 re-run in flight.
 CHECKPOINT e2a088f0 (00:59Z) [open] 6:00 PM PDT: e4m3 K=8192 on console (r20261001-003827-56eb, 3.56e8; verify 5.2 s vs prove 0.78 s per statement: the CPU verifier dominates and grows ~linearly in K, prove-only flat ~4-4.6e7). e4m3 K=16384 gate in selftest after 3 Kueue preemptions; K=2048 clean re-runs in progress on 128-159.
 CHECKPOINT b191bb16e (00:44Z) [open] 5:46 PM PDT: e4m3 K=4096 on console (r20261001-003624-3b27, 3.23e8, contended on 112-127: rerun queued). Merged bf16-hill's slice locks (b191bb16e, synced). Feeder fp-feed on node 1 runs my K sweep two at a time on 128-159.
 CHECKPOINT none (00:34Z) [open] 5:33 PM PDT: FP8+FP4 proved by C-Flock at K=2048, byte-identical, on console: e4m3 r20261001-002144-ad90 overhead 1.35e8; nvf4 r20261001-002838-ce55 2.34e8; mxf4 r20261001-002928-bb1e 2.54e8 (session, verifier incl.). K-sweep 4096-16384 queued.

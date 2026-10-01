@@ -5,6 +5,7 @@ created: 2026-10-01T00:04Z
 status: open
 ---
 
+CHECKPOINT none (06:22Z) [open] 11:27 PM PDT: #639 ready @1c2487ef8 (ref row 291->196 s, B1 112->65 s, digests equal), awaits circuits grant. 4k row (B1 4096/512 rtxpro6000) Build r20261001-061638-2e61 + derive py-spy r20261001-061655-752c running on branch; then the next cost on a new branch.
 CHECKPOINT none (06:12Z) [open] 11:12 PM PDT: on current main (with #517), back to back: ref row main 291 s (r20261001-055617-3f39) vs branch 196 s (r20261001-060202-d606); B1 256/32 112 s (r20261001-060607-e264) vs 65 s (r20261001-060949-3298); all digests equal. Branch merged main at 1c2487ef8. Next: PR, 4k row.
 CHECKPOINT none (05:55Z) [open] 10:56 PM PDT: awake. gc.freeze at exit (1354cdb8e) holds digests: A 318 s (r20261001-015315-1422), B 207 s (r20261001-022149-1656), derive exit 20.3->1.4 s (r20261001-021553-655c). Next: bring branch onto main (#517 landed), remeasure main vs branch, PR.
 CHECKPOINT none (01:53Z) [open] 6:55 PM PDT: back-to-back reruns: main 445 s (r20261001-012235-49e6), branch 335 s (r20261001-013029-4326), branch+#517 193 s (r20261001-013635-263c), digests equal. New: gc.freeze at exit (1354cdb8e) cuts derive exit 18.7->1.3 s (r20261001-014238-2978); remeasuring.

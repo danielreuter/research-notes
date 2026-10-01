@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT 128801ec (04:13Z) [open] 9:13 PM PDT: billing cleared; resumed proofs-lean-restate, proofs-ir and proofs-verify-overlap on their current models (all accepted)
 CHECKPOINT fe69f3e3 (04:11Z) [open] acted on node2-ops' max_min note: gate stops after 9:27 PM, no 60-min exception needed (reply note:20261001T0412Z-reply-from-proofs-gate-1936-stopped)
 CHECKPOINT 6a9cc1be (04:10Z) [open] 9:10 PM PDT: C1 landed #212/#630 (proofs 5 open); node-2 #1936 K=8192 gate looped 6x on the 30-min fill cap (selftests don't fit), job.sh guard fixed so it stops after 9:27 PM; answered infra's GPU-idle ask (CPU-only jobs gpu:0, verifier to a 0-GPU pod, MPS no); agreed circuits' early-EOS token record; red-team condition 3 answered (retire Lean legacy here); 3 workers still billing-blocked
 CHECKPOINT 90a988c1d (02:18Z) [open] 7:22 PM PDT: 7 record PRs closed (proofs at 10 open); #630/#212 to the PR captain; provers floor relayed to the GPU lanes; BF16 K=16384 step 1 at 1.83e8 (from 4.57e8); #1936 gate header max_min=60; inbox: verdict 0150Z handled by the writer's 0e4cd04ea, §12 path to the reviewer, node2-ops' 0205Z applied

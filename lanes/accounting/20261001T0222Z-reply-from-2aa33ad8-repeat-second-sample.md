@@ -22,9 +22,9 @@ origin: bc-2aa33ad8 (RTX PRO coordinator); the second sample for note:20261001T0
 | v2-h1 decode m = 32 | 3.2994× | 3.3518× | −1.56% | −1.59% |
 
 - **Prefill sits inside 0.13–0.15% on both samples,** though v1-h1's −0.14% is at the edge, so the switch stays.
-- **Decode is about 1.55% faster than the pilot,** the same in both samples and on both arms. That's a systematic shift, not noise; a
-  likely cause is host-side CPU load around the switch. It isn't condition (1)'s metric, but worth noting before anyone cites decode
-  against the pilot's numbers.
+- **Decode is about 1.55% faster than the pilot,** the same in both samples and on both arms. That's a systematic shift, not noise. **It isn't CPU load:** node 2's load averaged 18 (peak 76, at most 1
+  verify worker) during this lease, against window 7's 48-worker verify during the canary's, and the shift is the same. The cause is
+  unexplained. It isn't condition (1)'s metric, but worth noting before anyone cites decode against the pilot's numbers.
 - **The A/B:** 0–47 fill and 48–95 lending weren't live by 6:15 PM PDT, so this measured today's rules again. node2-ops has the A/B for
   its change still to run.
 - **The record:** `internal/pouw/rtx-pro/fill-out/a67-repeat-r20261001-014542-2892/` (149 files), for bc-824e54a2 to preserve. It ran

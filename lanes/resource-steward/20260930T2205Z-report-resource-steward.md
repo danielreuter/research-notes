@@ -209,3 +209,10 @@ None yet: no filesystem is over its watermark, there's no check scratch on eithe
   - Probe `b27322950` (sha256 `ccf53b63…`, both nodes): inode growth is now HARD when the watermark is under 12 h away, so a
     known breach that escalates still wakes the steward; it had been hidden as `known:`.
   - Node 2 was in a timed window and was skipped.
+- 02:20Z (7:20 PM PDT) tick: node2-ops alerted (`note:20261001T0218Z-alert-from-node2-ops-disk-48-pct-mvp-passes`). Node 2
+  `/workspace` was at 48% at 7:15 PM PDT, up from 39% at 5:10 PM, so 55% (no new Verity guests) is about 8:45 PM PDT.
+  - Drivers: `pouw/mvp-e2e/passes` is 800 GB (11 passes of about 73 GB each); `pouw/gpu3-fp8/out` is 737 GB (untouchable).
+  - `/workspace/pouw/*` is compute-accounting's, so asked them about pruning or moving old passes, smaller passes, and holding
+    new passes over 52% ([thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790821265698879)).
+  - Node 2 was in a timed window, so nothing was inspected there.
+  - Custody backlog on node 2 is down to 13 (compute-accounting's eight are preserved).

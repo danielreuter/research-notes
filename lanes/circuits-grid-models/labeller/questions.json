@@ -1,0 +1,2162 @@
+{
+"cov-gm001": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_06B",
+"tier": 0
+},
+"cov-gm002": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 0
+},
+"cov-gm003": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "FALCON3_1B",
+"tier": 0
+},
+"cov-gm004": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 0
+},
+"cov-gm005": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 0
+},
+"cov-gm006": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_17B",
+"tier": 0
+},
+"cov-gm007": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "SMOL17B",
+"tier": 0
+},
+"cov-gm008": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_3B",
+"tier": 0
+},
+"cov-gm009": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 0
+},
+"cov-gm010": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "YI15_6B",
+"tier": 0
+},
+"cov-gm011": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_8B",
+"tier": 0
+},
+"cov-gm012": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 0
+},
+"cov-gm013": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 0
+},
+"cov-gm014": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 0
+},
+"cov-gm015": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "FALCON3_7B",
+"tier": 0
+},
+"cov-gm016": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 0
+},
+"cov-gm017": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 0
+},
+"cov-gm018": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 0
+},
+"cov-gm019": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_14B",
+"tier": 0
+},
+"cov-gm020": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B1 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b1__i256__o32__mixed__greedy__bi-eager",
+"role": "PHI4",
+"tier": 0
+},
+"cov-gm021": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_06B",
+"tier": 1
+},
+"cov-gm022": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 1
+},
+"cov-gm023": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "FALCON3_1B",
+"tier": 1
+},
+"cov-gm024": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 1
+},
+"cov-gm025": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 1
+},
+"cov-gm026": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_17B",
+"tier": 1
+},
+"cov-gm027": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "SMOL17B",
+"tier": 1
+},
+"cov-gm028": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_3B",
+"tier": 1
+},
+"cov-gm029": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 1
+},
+"cov-gm030": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "YI15_6B",
+"tier": 1
+},
+"cov-gm031": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_8B",
+"tier": 1
+},
+"cov-gm032": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 1
+},
+"cov-gm033": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 1
+},
+"cov-gm034": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 1
+},
+"cov-gm035": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "FALCON3_7B",
+"tier": 1
+},
+"cov-gm036": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 1
+},
+"cov-gm037": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 1
+},
+"cov-gm038": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 1
+},
+"cov-gm039": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_14B",
+"tier": 1
+},
+"cov-gm040": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B8 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b8__i256__o32__mixed__greedy__bi-eager",
+"role": "PHI4",
+"tier": 1
+},
+"cov-gm041": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_06B",
+"tier": 2
+},
+"cov-gm042": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 2
+},
+"cov-gm043": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "FALCON3_1B",
+"tier": 2
+},
+"cov-gm044": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 2
+},
+"cov-gm045": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 2
+},
+"cov-gm046": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_17B",
+"tier": 2
+},
+"cov-gm047": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "SMOL17B",
+"tier": 2
+},
+"cov-gm048": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_3B",
+"tier": 2
+},
+"cov-gm049": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 2
+},
+"cov-gm050": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "YI15_6B",
+"tier": 2
+},
+"cov-gm051": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_8B",
+"tier": 2
+},
+"cov-gm052": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 2
+},
+"cov-gm053": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 2
+},
+"cov-gm054": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 2
+},
+"cov-gm055": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "FALCON3_7B",
+"tier": 2
+},
+"cov-gm056": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 2
+},
+"cov-gm057": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 2
+},
+"cov-gm058": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 2
+},
+"cov-gm059": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_14B",
+"tier": 2
+},
+"cov-gm060": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B1 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b1__i1024__o128__mixed__greedy__bi-eager",
+"role": "PHI4",
+"tier": 2
+},
+"cov-gm061": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_06B",
+"tier": 3
+},
+"cov-gm062": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_06B",
+"tier": 3
+},
+"cov-gm063": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 3
+},
+"cov-gm064": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 3
+},
+"cov-gm065": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_1B",
+"tier": 3
+},
+"cov-gm066": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_1B",
+"tier": 3
+},
+"cov-gm067": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 3
+},
+"cov-gm068": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 3
+},
+"cov-gm069": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 3
+},
+"cov-gm070": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 3
+},
+"cov-gm071": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_17B",
+"tier": 3
+},
+"cov-gm072": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_17B",
+"tier": 3
+},
+"cov-gm073": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "SMOL17B",
+"tier": 3
+},
+"cov-gm074": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "SMOL17B",
+"tier": 3
+},
+"cov-gm075": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_3B",
+"tier": 3
+},
+"cov-gm076": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_3B",
+"tier": 3
+},
+"cov-gm077": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 3
+},
+"cov-gm078": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 3
+},
+"cov-gm079": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "YI15_6B",
+"tier": 3
+},
+"cov-gm080": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "YI15_6B",
+"tier": 3
+},
+"cov-gm081": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_8B",
+"tier": 3
+},
+"cov-gm082": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_8B",
+"tier": 3
+},
+"cov-gm083": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 3
+},
+"cov-gm084": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 3
+},
+"cov-gm085": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 3
+},
+"cov-gm086": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 3
+},
+"cov-gm087": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 3
+},
+"cov-gm088": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 3
+},
+"cov-gm089": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_7B",
+"tier": 3
+},
+"cov-gm090": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_7B",
+"tier": 3
+},
+"cov-gm091": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 3
+},
+"cov-gm092": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 3
+},
+"cov-gm093": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 3
+},
+"cov-gm094": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 3
+},
+"cov-gm095": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 3
+},
+"cov-gm096": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 3
+},
+"cov-gm097": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_14B",
+"tier": 3
+},
+"cov-gm098": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_14B",
+"tier": 3
+},
+"cov-gm099": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B8 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b8__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "PHI4",
+"tier": 3
+},
+"cov-gm100": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B8 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b8__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "PHI4",
+"tier": 3
+},
+"cov-gm101": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_06B",
+"tier": 4
+},
+"cov-gm102": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 4
+},
+"cov-gm103": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "FALCON3_1B",
+"tier": 4
+},
+"cov-gm104": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 4
+},
+"cov-gm105": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 4
+},
+"cov-gm106": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_17B",
+"tier": 4
+},
+"cov-gm107": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "SMOL17B",
+"tier": 4
+},
+"cov-gm108": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_3B",
+"tier": 4
+},
+"cov-gm109": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 4
+},
+"cov-gm110": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "YI15_6B",
+"tier": 4
+},
+"cov-gm111": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_8B",
+"tier": 4
+},
+"cov-gm112": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 4
+},
+"cov-gm113": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 4
+},
+"cov-gm114": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 4
+},
+"cov-gm115": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "FALCON3_7B",
+"tier": 4
+},
+"cov-gm116": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 4
+},
+"cov-gm117": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 4
+},
+"cov-gm118": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 4
+},
+"cov-gm119": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_14B",
+"tier": 4
+},
+"cov-gm120": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B8 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
+"role": "PHI4",
+"tier": 4
+},
+"cov-gm121": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_06B",
+"tier": 5
+},
+"cov-gm122": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_06B",
+"tier": 5
+},
+"cov-gm123": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 5
+},
+"cov-gm124": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 5
+},
+"cov-gm125": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_1B",
+"tier": 5
+},
+"cov-gm126": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_1B",
+"tier": 5
+},
+"cov-gm127": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 5
+},
+"cov-gm128": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 5
+},
+"cov-gm129": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 5
+},
+"cov-gm130": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 5
+},
+"cov-gm131": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_17B",
+"tier": 5
+},
+"cov-gm132": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_17B",
+"tier": 5
+},
+"cov-gm133": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "SMOL17B",
+"tier": 5
+},
+"cov-gm134": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "SMOL17B",
+"tier": 5
+},
+"cov-gm135": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_3B",
+"tier": 5
+},
+"cov-gm136": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_3B",
+"tier": 5
+},
+"cov-gm137": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 5
+},
+"cov-gm138": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 5
+},
+"cov-gm139": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "YI15_6B",
+"tier": 5
+},
+"cov-gm140": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "YI15_6B",
+"tier": 5
+},
+"cov-gm141": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_8B",
+"tier": 5
+},
+"cov-gm142": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_8B",
+"tier": 5
+},
+"cov-gm143": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 5
+},
+"cov-gm144": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 5
+},
+"cov-gm145": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 5
+},
+"cov-gm146": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 5
+},
+"cov-gm147": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 5
+},
+"cov-gm148": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 5
+},
+"cov-gm149": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_7B",
+"tier": 5
+},
+"cov-gm150": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_7B",
+"tier": 5
+},
+"cov-gm151": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 5
+},
+"cov-gm152": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 5
+},
+"cov-gm153": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 5
+},
+"cov-gm154": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 5
+},
+"cov-gm155": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 5
+},
+"cov-gm156": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 5
+},
+"cov-gm157": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_14B",
+"tier": 5
+},
+"cov-gm158": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_14B",
+"tier": 5
+},
+"cov-gm159": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B8 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "PHI4",
+"tier": 5
+},
+"cov-gm160": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B8 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b8__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "PHI4",
+"tier": 5
+},
+"cov-gm161": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_06B",
+"tier": 6
+},
+"cov-gm162": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_06B",
+"tier": 6
+},
+"cov-gm163": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 6
+},
+"cov-gm164": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 6
+},
+"cov-gm165": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_1B",
+"tier": 6
+},
+"cov-gm166": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_1B",
+"tier": 6
+},
+"cov-gm167": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 6
+},
+"cov-gm168": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 6
+},
+"cov-gm169": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 6
+},
+"cov-gm170": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 6
+},
+"cov-gm171": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_17B",
+"tier": 6
+},
+"cov-gm172": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_17B",
+"tier": 6
+},
+"cov-gm173": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "SMOL17B",
+"tier": 6
+},
+"cov-gm174": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "SMOL17B",
+"tier": 6
+},
+"cov-gm175": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_3B",
+"tier": 6
+},
+"cov-gm176": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_3B",
+"tier": 6
+},
+"cov-gm177": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 6
+},
+"cov-gm178": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 6
+},
+"cov-gm179": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "YI15_6B",
+"tier": 6
+},
+"cov-gm180": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "YI15_6B",
+"tier": 6
+},
+"cov-gm181": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_8B",
+"tier": 6
+},
+"cov-gm182": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_8B",
+"tier": 6
+},
+"cov-gm183": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 6
+},
+"cov-gm184": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 6
+},
+"cov-gm185": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 6
+},
+"cov-gm186": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 6
+},
+"cov-gm187": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 6
+},
+"cov-gm188": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 6
+},
+"cov-gm189": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_7B",
+"tier": 6
+},
+"cov-gm190": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_7B",
+"tier": 6
+},
+"cov-gm191": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 6
+},
+"cov-gm192": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 6
+},
+"cov-gm193": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 6
+},
+"cov-gm194": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 6
+},
+"cov-gm195": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 6
+},
+"cov-gm196": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 6
+},
+"cov-gm197": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_14B",
+"tier": 6
+},
+"cov-gm198": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_14B",
+"tier": 6
+},
+"cov-gm199": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B1 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "PHI4",
+"tier": 6
+},
+"cov-gm200": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B1 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b1__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "PHI4",
+"tier": 6
+},
+"cov-gm201": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_06B",
+"tier": 7
+},
+"cov-gm202": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_06B",
+"tier": 7
+},
+"cov-gm203": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 7
+},
+"cov-gm204": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 7
+},
+"cov-gm205": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_1B",
+"tier": 7
+},
+"cov-gm206": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_1B",
+"tier": 7
+},
+"cov-gm207": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 7
+},
+"cov-gm208": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 7
+},
+"cov-gm209": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 7
+},
+"cov-gm210": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 7
+},
+"cov-gm211": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_17B",
+"tier": 7
+},
+"cov-gm212": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_17B",
+"tier": 7
+},
+"cov-gm213": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "SMOL17B",
+"tier": 7
+},
+"cov-gm214": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "SMOL17B",
+"tier": 7
+},
+"cov-gm215": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_3B",
+"tier": 7
+},
+"cov-gm216": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_3B",
+"tier": 7
+},
+"cov-gm217": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 7
+},
+"cov-gm218": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 7
+},
+"cov-gm219": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "YI15_6B",
+"tier": 7
+},
+"cov-gm220": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "YI15_6B",
+"tier": 7
+},
+"cov-gm221": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_8B",
+"tier": 7
+},
+"cov-gm222": {
+"q": "Does the qwen3 family's Qwen/Qwen3-8B (qwen3-8b, QWEN3_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-8b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_8B",
+"tier": 7
+},
+"cov-gm223": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 7
+},
+"cov-gm224": {
+"q": "Does the llama3 family's unsloth/Llama-3.1-8B (llama31-8b, LLAMA31_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama31-8b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA31_8B",
+"tier": 7
+},
+"cov-gm225": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 7
+},
+"cov-gm226": {
+"q": "Does the llama3 family's deepseek-ai/DeepSeek-R1-Distill-Llama-8B (r1-distill-llama-8b, R1_DISTILL_LLAMA_8B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-llama-8b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_LLAMA_8B",
+"tier": 7
+},
+"cov-gm227": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 7
+},
+"cov-gm228": {
+"q": "Does the mistral family's unsloth/mistral-7b-instruct-v0.3 (mistral-7b-instruct, MISTRAL7B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "mistral-7b-instruct__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "MISTRAL7B_INSTRUCT",
+"tier": 7
+},
+"cov-gm229": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_7B",
+"tier": 7
+},
+"cov-gm230": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-7B-Base (falcon3-7b, FALCON3_7B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-7b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_7B",
+"tier": 7
+},
+"cov-gm231": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 7
+},
+"cov-gm232": {
+"q": "Does the olmoe family's allenai/OLMoE-1B-7B-0125-Instruct (olmoe-1b-7b-0125-instruct, OLMOE_0125_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "olmoe-1b-7b-0125-instruct__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "OLMOE_0125_INSTRUCT",
+"tier": 7
+},
+"cov-gm233": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 7
+},
+"cov-gm234": {
+"q": "Does the qwen3 family's Qwen/Qwen3-30B-A3B-Instruct-2507 (qwen3-30b-a3b-2507, QWEN3_30B_A3B_2507) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-30b-a3b-2507__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_30B_A3B_2507",
+"tier": 7
+},
+"cov-gm235": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 7
+},
+"cov-gm236": {
+"q": "Does the gemma2 family's unsloth/gemma-2-9b (gemma2-9b, GEMMA2_9B) hold through Build, Commit and the 460-unit replay at TP1 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "gemma2-9b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "GEMMA2_9B",
+"tier": 7
+},
+"cov-gm237": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_14B",
+"tier": 7
+},
+"cov-gm238": {
+"q": "Does the qwen3 family's Qwen/Qwen3-14B (qwen3-14b, QWEN3_14B) hold through Build, Commit and the 460-unit replay at TP2 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-14b__bf16__rtxpro6000__tp2__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_14B",
+"tier": 7
+},
+"cov-gm239": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B1 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b1__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "PHI4",
+"tier": 7
+},
+"cov-gm240": {
+"q": "Does the phi family's microsoft/phi-4 (phi4-14b, PHI4) hold through Build, Commit and the 460-unit replay at TP2 B1 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "phi4-14b__bf16__rtxpro6000__tp2__b1__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "PHI4",
+"tier": 7
+},
+"cov-gm241": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_06B",
+"tier": 8
+},
+"cov-gm242": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_06B",
+"tier": 8
+},
+"cov-gm243": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_06B",
+"tier": 8
+},
+"cov-gm244": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 8
+},
+"cov-gm245": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 8
+},
+"cov-gm246": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 8
+},
+"cov-gm247": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__greedy__bi-eager",
+"role": "FALCON3_1B",
+"tier": 8
+},
+"cov-gm248": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_1B",
+"tier": 8
+},
+"cov-gm249": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_1B",
+"tier": 8
+},
+"cov-gm250": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 8
+},
+"cov-gm251": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 8
+},
+"cov-gm252": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 8
+},
+"cov-gm253": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 8
+},
+"cov-gm254": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 8
+},
+"cov-gm255": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 8
+},
+"cov-gm256": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_17B",
+"tier": 8
+},
+"cov-gm257": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_17B",
+"tier": 8
+},
+"cov-gm258": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_17B",
+"tier": 8
+},
+"cov-gm259": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__greedy__bi-eager",
+"role": "SMOL17B",
+"tier": 8
+},
+"cov-gm260": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "SMOL17B",
+"tier": 8
+},
+"cov-gm261": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "SMOL17B",
+"tier": 8
+},
+"cov-gm262": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_3B",
+"tier": 8
+},
+"cov-gm263": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_3B",
+"tier": 8
+},
+"cov-gm264": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_3B",
+"tier": 8
+},
+"cov-gm265": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__greedy__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 8
+},
+"cov-gm266": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 8
+},
+"cov-gm267": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 8
+},
+"cov-gm268": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__greedy__bi-eager",
+"role": "YI15_6B",
+"tier": 8
+},
+"cov-gm269": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "YI15_6B",
+"tier": 8
+},
+"cov-gm270": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B16 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b16__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "YI15_6B",
+"tier": 8
+},
+"cov-gm271": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_06B",
+"tier": 9
+},
+"cov-gm272": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_06B",
+"tier": 9
+},
+"cov-gm273": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_06B",
+"tier": 9
+},
+"cov-gm274": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 9
+},
+"cov-gm275": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 9
+},
+"cov-gm276": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 9
+},
+"cov-gm277": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__greedy__bi-eager",
+"role": "FALCON3_1B",
+"tier": 9
+},
+"cov-gm278": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_1B",
+"tier": 9
+},
+"cov-gm279": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_1B",
+"tier": 9
+},
+"cov-gm280": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 9
+},
+"cov-gm281": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 9
+},
+"cov-gm282": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 9
+},
+"cov-gm283": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 9
+},
+"cov-gm284": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 9
+},
+"cov-gm285": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 9
+},
+"cov-gm286": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN3_17B",
+"tier": 9
+},
+"cov-gm287": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_17B",
+"tier": 9
+},
+"cov-gm288": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_17B",
+"tier": 9
+},
+"cov-gm289": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__greedy__bi-eager",
+"role": "SMOL17B",
+"tier": 9
+},
+"cov-gm290": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "SMOL17B",
+"tier": 9
+},
+"cov-gm291": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "SMOL17B",
+"tier": 9
+},
+"cov-gm292": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__greedy__bi-eager",
+"role": "QWEN25_3B",
+"tier": 9
+},
+"cov-gm293": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_3B",
+"tier": 9
+},
+"cov-gm294": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_3B",
+"tier": 9
+},
+"cov-gm295": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__greedy__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 9
+},
+"cov-gm296": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 9
+},
+"cov-gm297": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 9
+},
+"cov-gm298": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__greedy__bi-eager",
+"role": "YI15_6B",
+"tier": 9
+},
+"cov-gm299": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "YI15_6B",
+"tier": 9
+},
+"cov-gm300": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B32 256/32 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b32__i256__o32__mixed__stoch-t0.8-p1__bi-eager",
+"role": "YI15_6B",
+"tier": 9
+},
+"cov-gm301": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_06B",
+"tier": 10
+},
+"cov-gm302": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_06B",
+"tier": 10
+},
+"cov-gm303": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_06B",
+"tier": 10
+},
+"cov-gm304": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 10
+},
+"cov-gm305": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 10
+},
+"cov-gm306": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 10
+},
+"cov-gm307": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+"role": "FALCON3_1B",
+"tier": 10
+},
+"cov-gm308": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_1B",
+"tier": 10
+},
+"cov-gm309": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_1B",
+"tier": 10
+},
+"cov-gm310": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 10
+},
+"cov-gm311": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 10
+},
+"cov-gm312": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 10
+},
+"cov-gm313": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 10
+},
+"cov-gm314": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 10
+},
+"cov-gm315": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 10
+},
+"cov-gm316": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_17B",
+"tier": 10
+},
+"cov-gm317": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_17B",
+"tier": 10
+},
+"cov-gm318": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_17B",
+"tier": 10
+},
+"cov-gm319": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+"role": "SMOL17B",
+"tier": 10
+},
+"cov-gm320": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "SMOL17B",
+"tier": 10
+},
+"cov-gm321": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "SMOL17B",
+"tier": 10
+},
+"cov-gm322": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_3B",
+"tier": 10
+},
+"cov-gm323": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_3B",
+"tier": 10
+},
+"cov-gm324": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_3B",
+"tier": 10
+},
+"cov-gm325": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 10
+},
+"cov-gm326": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 10
+},
+"cov-gm327": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 10
+},
+"cov-gm328": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+"role": "YI15_6B",
+"tier": 10
+},
+"cov-gm329": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "YI15_6B",
+"tier": 10
+},
+"cov-gm330": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B16 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b16__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "YI15_6B",
+"tier": 10
+},
+"cov-gm331": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_06B",
+"tier": 11
+},
+"cov-gm332": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_06B",
+"tier": 11
+},
+"cov-gm333": {
+"q": "Does the qwen3 family's Qwen/Qwen3-0.6B (qwen3-06b, QWEN3_06B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-06b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_06B",
+"tier": 11
+},
+"cov-gm334": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 11
+},
+"cov-gm335": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 11
+},
+"cov-gm336": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-0.5B-Instruct (qwen25-05b-instruct, QWEN25_05B_INSTRUCT) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-05b-instruct__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_05B_INSTRUCT",
+"tier": 11
+},
+"cov-gm337": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+"role": "FALCON3_1B",
+"tier": 11
+},
+"cov-gm338": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "FALCON3_1B",
+"tier": 11
+},
+"cov-gm339": {
+"q": "Does the falcon3 family's tiiuae/Falcon3-1B-Base (falcon3-1b, FALCON3_1B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "falcon3-1b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "FALCON3_1B",
+"tier": 11
+},
+"cov-gm340": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 11
+},
+"cov-gm341": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 11
+},
+"cov-gm342": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-Coder-1.5B (qwen25-coder-15b, QWEN25_CODER_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-coder-15b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_CODER_15B",
+"tier": 11
+},
+"cov-gm343": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 11
+},
+"cov-gm344": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 11
+},
+"cov-gm345": {
+"q": "Does the qwen25 family's deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B (r1-distill-qwen-15b, R1_DISTILL_QWEN_15B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "r1-distill-qwen-15b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "R1_DISTILL_QWEN_15B",
+"tier": 11
+},
+"cov-gm346": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN3_17B",
+"tier": 11
+},
+"cov-gm347": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN3_17B",
+"tier": 11
+},
+"cov-gm348": {
+"q": "Does the qwen3 family's Qwen/Qwen3-1.7B (qwen3-17b, QWEN3_17B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen3-17b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN3_17B",
+"tier": 11
+},
+"cov-gm349": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+"role": "SMOL17B",
+"tier": 11
+},
+"cov-gm350": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "SMOL17B",
+"tier": 11
+},
+"cov-gm351": {
+"q": "Does the smollm2 family's HuggingFaceTB/SmolLM2-1.7B (smollm2-17b, SMOL17B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "smollm2-17b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "SMOL17B",
+"tier": 11
+},
+"cov-gm352": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+"role": "QWEN25_3B",
+"tier": 11
+},
+"cov-gm353": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "QWEN25_3B",
+"tier": 11
+},
+"cov-gm354": {
+"q": "Does the qwen25 family's Qwen/Qwen2.5-3B (qwen25-3b, QWEN25_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "qwen25-3b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "QWEN25_3B",
+"tier": 11
+},
+"cov-gm355": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 11
+},
+"cov-gm356": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 11
+},
+"cov-gm357": {
+"q": "Does the llama3 family's unsloth/Llama-3.2-3B (llama32-3b, LLAMA32_3B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "llama32-3b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "LLAMA32_3B",
+"tier": 11
+},
+"cov-gm358": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 greedy on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+"role": "YI15_6B",
+"tier": 11
+},
+"cov-gm359": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p0.95 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager",
+"role": "YI15_6B",
+"tier": 11
+},
+"cov-gm360": {
+"q": "Does the yi family's 01-ai/Yi-1.5-6B (yi15-6b, YI15_6B) hold through Build, Commit and the 460-unit replay at TP1 B32 1024/128 stoch-t0.8-p1 on sm_120? (circuits-grid-models, overnight grid: 30 models / 10 families / 400 deployments)",
+"row": "yi15-6b__bf16__rtxpro6000__tp1__b32__i1024__o128__mixed__stoch-t0.8-p1__bi-eager",
+"role": "YI15_6B",
+"tier": 11
+}
+}

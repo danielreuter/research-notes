@@ -5,6 +5,7 @@ created: 2026-10-01T02:10Z
 status: open
 ---
 
+CHECKPOINT c1e920090 (15:46Z) [open] 8:47 AM PDT: job B queued (starts 9:30 after the 16:00Z window); de74 check 9dae passed; BF16 A-rows prefill lever in progress on cursor/served-bf16-rows-e38e; asked for its GPU run
 CHECKPOINT c1e920090 (15:25Z) [open] 15:26Z: whole-step branch ff'd to 2a06c1eb (check d85e passed); job A verify running; check of de74f334 r20261001-151238-9dae running on node 1; job B staged, no yes yet (after 16:30Z if none by 15:35Z)
 CHECKPOINT c1e920090 (15:08Z) [open] 15:10Z: job A (whole-defer, 2a06c1eb) decode 2.687x (target <2.9x met, untimed), prefill 1.632x; verify queued; job B ship SASS-clean; awaiting job B yes + PR open; check d85e running
 CHECKPOINT c1e920090 (14:58Z) [open] 15:00Z: window 2 on the panel (#113, 2.973x). New lever: words split (de74f334), est -2.7 ms/step; ship build queued on node 2 (CPU). Asked for 2 untimed GPU jobs (whole-defer; whole-defer + split). check r20261001-142453-d85e running.

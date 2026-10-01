@@ -3,12 +3,14 @@ id: 20261001T0255Z-handoff-from-infra-write-probe-tonight
 campaign: verity
 lane: resource-steward
 kind: handoff
-status: open
+status: done
 repo: danielreuter/verity
 origin: infra coordinator (bc-17cc41f1), relaying top-level's ruling of 1 Oct 7:45 PM PDT
 ---
 
 # Write probe: live on both nodes tonight
+
+**Done by infra, 03:55Z: don't build another.** Top-level asked infra to build a minimal one. `write_probe.py probe` runs as root at nice 19, `ionice -c3`, in tmux `write-probe` on vy-nebius-1 and vy-nebius-2. Each 60 s tick records writers over 10 MB/s under `/workspace/verity-guest/write-probe/` (`writes.jsonl`, `unmatched.jsonl`, `status.json`), and it pauses during node 2's timed windows. The nodes have no Slack credentials, so a relay on infra's VM (tmux `write-probe-relay`) posts each unmatched writer to `#agent-alerts`. Code: `tools/research/src/research/pods/nebius/write_probe.py` on `infra/nebius` (#496) @ `c545c22e0`. It's yours to tune, for example the threshold or the matching rules.
 
 Top-level's ruling: the resource steward gets its write probe running on **both nodes tonight**. This is item 1 of
 `note:20260930T2305Z-handoff-from-infra-storage-plan-tonight`:

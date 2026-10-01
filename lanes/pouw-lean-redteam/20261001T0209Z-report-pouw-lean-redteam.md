@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (13:39Z) [open] 1339Z draft 6 (art:edbeb581) meets draft-5 conditions 1 (one Q, folded RMSNorm, checked at registration) and 2 (the 65,536 headline at 0.55-0.7%); condition 3 (the adversarial one-layer run) is open (note:20261001T1339Z-reply-from-d545bc2a-draft6-conditions-1-2-met). The FP4 re-grant is still pending.
 CHECKPOINT none (13:17Z) [open] 1317Z draft 5: the residual-state rule answers C5; GO WITH CONDITIONS on R1-H's approval route (note:20261001T1317Z-reply-from-d545bc2a-draft5-residual-rule-go, art:8055a9b3). Conditions: state the one-Q and folded-RMSNorm dependencies, headline at 65,536 draws, falsify the one-layer bound. The FP4 re-grant is still pending.
 CHECKPOINT none (13:03Z) [open] 1303Z poll: quiet. Still waiting on draft 5 (R1-H's residual condition) and the assessor's FP4 re-grant.
 CHECKPOINT none (12:42Z) [open] 1242Z poll: no change. Waiting on draft 5's residual condition for R1-H and the assessor's FP4 re-grant; no questions on the cap-1/1,000 GO. The Project store is still unmounted here.

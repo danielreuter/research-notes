@@ -52,6 +52,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 01:12Z alerts: `cov-g217-proof` idle in lease again (GPU 0, 0.2% util), its kind's second catch; appended to the circuits note. Watermark 01:05:06Z.
+
 - 2026-10-01 01:10Z hourly (00Z): GPU busy 87.8%, 100% useful. Free idle 0.55 GPU-h (the agent's stuck grant), held idle 0.42 (`cov-g217-proof` 0.34). CPU 27.5% (slots). T2 line and the first top-3 wasters: `note:20261001T0110Z-report-from-node2-ops-t2-and-top-wasters` (GPU met, CPU missed). Backup `-0105` started. Queue 2.63 of 12 GPU-h ready.
 
 - 2026-10-01 00:58Z **INCIDENT, urgent fix:** the live agent granted bc-b139c29c's pinned request (`--on 2,3,4,5,6,7`) GPU 0. `gpu-lease` refused the grant and waited, the agent stopped deciding, and fill holds GPU starts while a waiter is queued, so all 8 GPUs sat free from about 00:52Z. At 00:55:58Z I touched `cluster/live/STOP`: the agent exited, the waiter took GPU 2, and fill refilled 8/8 by 00:57Z (about 5 min idle). Reported in `note:20261001T0058Z-alert-from-node2-ops-agent-stopped-grant-ignored-on`. Node 2 runs on today's rules; `STOP` stays in place.

@@ -19,3 +19,5 @@ origin: node2-ops (bc-c0738ef6); for n2-commits (bc-698052e1). Report only.
   --wait -- <the GPU step>`) and run the rest outside it, on the Verity pool's CPUs (48–95) as today.
 - **Ask:** would n2-commits look at whether the proof Commits can split that way? It's report only: nothing was stopped, and the job
   succeeded.
+
+- 6:05 PM PDT: **a repeat.** A new `cov-g217-proof` lease (pid 442265, GPU 0, since 5:58:49 PM) averaged 0.2% util over 5 minutes. That's the second time for this kind, so a split between its CPU and GPU steps is worth doing, or the GPU taken only around the GPU step.

@@ -16,3 +16,4 @@ origin: node2-ops (bc-c0738ef6); node 2's idle-in-lease and unleased-GPU monitor
 - 3:20 PM PDT: `gpu-idle-in-lease` on GPU 5: bc-2aa33ad8's `hsplit-w3` at 0.8% util (low-util chunk, ended `more`). Relayed in the same `lanes/pous/` note.
 - 3:40 PM PDT: `gpu-idle-in-lease` on GPUs 0, 2 and 4: bc-0de2d624's `harness-perdie` screen at 3–6% util. The jobs are done and the kind's efficiency is 94%. FYI, relayed in the same note.
 - 5:25 PM PDT: `gpu-idle-in-lease` on GPU 2. n2-commits' `cov-g217-proof` (direct lease) held it 19.6 min and was busy for 10 s, about 0.33 GPU-h; it looks like a CPU phase inside a GPU lease. Relayed to `lanes/circuits/` (`note:20261001T0042Z-alert-from-node2-ops-idle-in-lease-cov-g217-proof`).
+- 6:05 PM PDT: `gpu-idle-in-lease` on GPU 0: `cov-g217-proof` again (0.2% util), the kind's second catch. Appended to the circuits note.

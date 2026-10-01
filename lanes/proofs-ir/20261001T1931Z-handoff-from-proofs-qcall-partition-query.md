@@ -24,9 +24,12 @@ between 11:22 and 11:52 AM PDT, and said "go on all of the above" at 12:25 PM PD
 3. **The cut runs along Calls.** Each root Call (a non-Input root node, §5.2) is one unit if its outputs fit. Otherwise its
    body's nodes are the pieces. Each piece is one unit if its outputs fit, and is otherwise cut the same way: a call node
    into its callee's body, a batch into its members, a scan into its iterations.
-4. **A gate with no inputs is an input.** Program inputs and constants are in no unit and never committed; the verifier
-   reads a constant's value from the program. Every other gate is in exactly one unit. So the `WIRING` list goes, and gates
-   computed only from constants (structure today) are proven like any other gate.
+4. **A gate with no inputs is an input.** Program inputs and constants are in no unit and outside the committed set: each
+   is bound outside the partition, and the cut never reads its value. Every other gate is in exactly one unit. So the
+   `WIRING` list goes, and gates computed only from constants (structure today) are proven like any other gate.
+   *Corrected at 2:16 PM PDT, after Daniel's ruling at 1:14 PM PDT that a constant is a value, committed and always
+   hidden. Rule 4 first read "never committed; the verifier reads a constant's value from the program". The query is
+   unchanged.*
 5. **No wide gates for now:** a primitive gate whose own output exceeds X bits makes the query inapplicable, with a named
    code. Nothing more.
 
@@ -68,7 +71,9 @@ For each Call below, give units and committed bits under `Q_word` v1 `{X: 16, W:
 
 For each Call, also say how many committed bits come from constant-derived gates and from former wiring gates, and list
 any gate wider than 32 bits. If constant-derived gates add committed bits, the remedy is to fold them into literals in the
-program, not a new query rule: give the count.
+program, not a new query rule: give the count. *Withdrawn at 2:16 PM PDT: folding a program's constant puts a value into the
+circuit. A program's constants become registered inputs instead, and folding an operation's own constant bits waits on
+Daniel's question 1 (`internal/proofs/value-hiding-audit.md`).*
 
 proofs' counts at X = 32 under today's cut (`verity_vllm.query.word.unit_rule`, W = 32, on `e221350fd`):
 

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (21:17Z) [open] 2:16 PM PDT: Q_call v1's hiding-rule text correction is with proofs-ir (constants bound outside the partition, never read from the program; fold remedy withdrawn); it re-runs check --record on vy-nebius-1, then I open the draft PR.
 CHECKPOINT none (21:03Z) [open] 2:05 PM PDT: comms' messaging change applied: inbox is the only Slack subscription (3 work threads dropped), client and registry from slack-routing-b252 fc62531d6 (@pr-captain is @ci), watch timer now v7 and advisor timer -3 without thread subscriptions.
 CHECKPOINT none (20:59Z) [open] 1:58 PM PDT: bf16-hill done (note:proofs/20261001T2010Z-...-prover-5): change 5 byte-identical, e2e -1.8% to -7.8%; 1a+9 doesn't cost the prove; no floor met (closest K=8192 +2.8%). Its M0 next items held for Daniel's answer on re-basing the hill-climb on --zk. Node 1: 53%, no proofs job running.
 CHECKPOINT none (20:54Z) [open] 1:57 PM PDT: inbox 20261001T2040Z (Q_call attention 133 units, not 72): agreed, no merge rule in v1; goes to proofs-ir with the hiding correction (rule 4 text, fold-into-literals withdrawn, Glossary Partition wording) when its current run completes.

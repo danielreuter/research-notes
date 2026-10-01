@@ -286,3 +286,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 06:05Z: C4 + T602 merged, main 72aacf9b. T580 (#580) slot a. #638 waits Daniel pin yes.
 - 06:11Z: C5 (#611 #363) slot b r20261001-060956-f7c9 mm df241867 on T580; #611 needs vllm grant.
 - 06:14Z: #363 pulled (Daniel backlog hold, no release). C5B (#611) slot b r20261001-061246-974b mm 8e88c83e.
+- 06:39Z: T580 merged 4e2a7abc. T49 (#570 #491) slot a on C5B. #611 #640 need vllm grant.

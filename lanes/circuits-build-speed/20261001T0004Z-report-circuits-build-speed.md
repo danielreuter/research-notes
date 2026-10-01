@@ -5,6 +5,7 @@ created: 2026-10-01T00:04Z
 status: open
 ---
 
+CHECKPOINT none (08:48Z) [open] 1:48 AM PDT: 4k derive A/B done, digests+instance text equal, instance write 703->504 s under load (r20261001-074411-4cd5 vs -7330); gzip PR next. New branch cursor/build-speed-boundary-3752 @96cdfdc25: numpy boundary for the manifest (~60% of 4k manifest); 4k manifest A/B r20261001-084645-f17d vs -084659-7bd0, ref/B1 digest A/B queued
 CHECKPOINT none (08:06Z) [open] 1:06 AM PDT: 4k Build on #639 code: 4459 s (r20261001-061638-2e61; derive 1647, compose 161, manifest 2625). Fix on cursor/build-speed-4k-8c79 @a8bd32d42: instances.json.gz at gzip 6 (write 314->112 s, same text). A/B running: 4k derive (4cd5 main / 7330 branch), ref row (5e33 / bd27); manifest profile 40c0.
 CHECKPOINT none (07:19Z) [open] 12:20 AM PDT: #639 granted @1c2487ef8. 4k row (B1 4096/512) on branch: request derive 1647 s (export 387, derive 827, instances.json.gz write 382 s = gzip level 9 on 8.6 GB), compose 160 s, manifest >32 min (cold word check 632 s, then 20 GB). Next: instances gzip level (r20261001-070037-bbf0: L9 314 s, L6 112 s, L1 33 s).
 CHECKPOINT none (06:22Z) [open] 11:27 PM PDT: #639 ready @1c2487ef8 (ref row 291->196 s, B1 112->65 s, digests equal), awaits circuits grant. 4k row (B1 4096/512 rtxpro6000) Build r20261001-061638-2e61 + derive py-spy r20261001-061655-752c running on branch; then the next cost on a new branch.

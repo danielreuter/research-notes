@@ -56,6 +56,11 @@ something isn't worth its cost. It weighs bandwidth against tonight's goals, and
 - Asked 04:02Z, in one announcement (thread 1790827336.369999).
 - No replies by 08:00Z: nothing new (1 round in a row).
 
+## Round 4: compute-accounting, memory-accounting (5:15 AM PDT)
+- Asked 12:15Z, in one announcement (thread 1790856941.542899). Infra is subscribed until 18:15Z.
+- Circuits and proofs, next in rotation, were skipped: node 1's quota cutover window (12:10–13:00Z) holds their queues. They're
+  round 5.
+
 ## Round 3: console, old-circuits-and-proofs (1:00 AM PDT)
 - Asked 08:00Z, in one announcement (thread 1790841642.665779). Infra is subscribed to the thread until 20:00Z.
 

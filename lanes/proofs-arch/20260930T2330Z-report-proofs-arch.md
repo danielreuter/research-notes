@@ -10,6 +10,7 @@ cursor:
   subagentId: "bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4"
 ---
 
+CHECKPOINT 185286eaf (13:14Z) [open] serve session done: r20261001-125609-197b art:e7dafabb, verify 0.256 s / 0.546 s vs M0 #20's 10.46 / 27.42 (build 8.65 / 14.9 s not in either); note:20261001T1315Z-report-from-proofs-arch-serve-session-m0
 CHECKPOINT 185286eaf (12:21Z) [open] serve session on M0 #20's own statements prepared: item pa-serve-m0-185286e (serve_staged.sh, 185286eaf, 1 GPU, 16 CPUs, 128 GiB); submitting on node 1 at 12:55Z
 CHECKPOINT 369850ad1 (10:28Z) [open] list done at 369850ad1; next steps and statement-reviewer request in lanes/proofs 1025Z; waiting on a reviewer and a GPU yes
 CHECKPOINT cbba321b (10:21Z) [open] 369850ad1 Lean lincheck from the block's structure: same verdicts on 452 sessions (live k_log 26: new agrees 23/23, old OOM), honest sessions 2-5x faster (k_log 26 247.5->45.8 s), audit PASS; statement reviewer asked in lanes/proofs 1025Z; art:a2376034

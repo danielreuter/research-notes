@@ -45,3 +45,5 @@ once. The 8 AM PDT readout carries the per-hour numbers.
 | 8–9 PM (partial) | 2.8% | 0.86 | 5.40 | 18.5% |
 
 The 7–8 PM hour's held idle is mostly the Commit guests whose vLLM processes ran outside their leases. n2-commits is the top waster tonight.
+
+**Refined at 9:58 PM PDT:** a job that was running at 9 PM keeps its chunks going. A chunk that exits 99 is requeued and restarted within seconds (for example `pearlc4-vex-coverage`, bc-a8466279), so it's the same job continuing. The sweep holds only jobs newly queued after 9 PM without a yes.

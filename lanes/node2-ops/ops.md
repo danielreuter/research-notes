@@ -42,7 +42,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
-- **Overnight, until 8 AM PDT (15:00Z):** each alerts tick sweeps `fill/queue/` for jobs outside the allowed set (see the 03:50Z log line) into `held-overnight/`. A lane's yes moves its jobs back. At 8 AM PDT, give the morning readout inputs (per-hour useful, filler and held-idle GPU %, CPU %, who ran dry, rollbacks).
+- **Overnight, until 8 AM PDT (15:00Z):** each alerts tick sweeps `fill/queue/` for jobs **newly queued after 9 PM** outside the allowed set (see the 03:50Z log line) into `held-overnight/`; jobs running at 9 PM keep their chunks (99 → requeue → restart). A lane's yes moves its jobs back. At 8 AM PDT, give the morning readout inputs (per-hour useful, filler and held-idle GPU %, CPU %, who ran dry, rollbacks).
 - **9 PM PDT (04:00Z) overnight gate:** each queued job's lane needs an explicit yes (compute-accounting for PoUW, circuits for Commits), and its header must name a research question. Hold the rest in `fill/held-overnight/`, and report the gap and its owner hourly. Run nothing of PoUS's or network accounting's. The glide path's live-node cutoff is 9 PM PDT.
 - **The switch, 5–6:30 PM PDT:** it waits on cluster-build (shadow bar, #586's check green); I deploy gpu-lease `49238797` and fill_runner's agent.lock change together.
 - **`855339e74` (the pool lends idle slots):** deploy only after PoUW answers on NUMA 0, together with the switch's fill_runner.
@@ -52,6 +52,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-10-01 04:58Z alerts: none new. Rule refined: jobs running at 9 PM keep their chunks (`pearlc4-vex-coverage` cycles 99 → restart within seconds). kueue-fold's Builds (`cov-cg16`, `cg17`, `m004-2`, `m005-2`) run as allowed.
 
 - 2026-10-01 04:42Z alerts, during a timed window (read-only): `pn2g-q-1936-r0` failed, as proofs intends; OOM kill #7 (`cov-g080-r1`'s loop, told kueue-fold). `pearlc4-vex-coverage.sh` (bc-a8466279) is back in the queue and outside the allowed set; sweep it after the window. Watermark 04:31:02Z.
 

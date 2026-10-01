@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (15:42Z) [open] A: 15:43Z READY for Pearl-C4's 16:00Z re-time (note:20261001T1541Z-ready-from-c066b30c-node2-1600z-pearl-c4). Second ask on GPU 0's 25 parked verifies (note:20261001T1542Z-ask-from-c066b30c-gpu0-verifies-second-ask); if it's unanswered again, a SECOND ASK UNANSWERED line goes in lanes/accounting. Disk 48%.
 CHECKPOINT fbce5a2f4 (15:21Z) [open] A: 15:21Z poll: c62f9726's untimed --whole-defer brings served decode to 2.687x (verify queued; not on the panel until timed and verified, or until asked). Disk 48% (2402 GiB, +78 since 15:01Z from that pass); 50% is 2508 GiB, and I tell compute accounting first if it's reached. Node 2: 8/8 free. Next: node check at 15:40Z for 16:00Z.
 CHECKPOINT fbce5a2f4 (15:01Z) [open] A: 15:01Z poll: node2-ops dropped 15:00Z (1448Z); NCP confirms the release (2f661c92 1448Z). Node 2: 7/8 GPUs free, disk 47% (2324 GiB); only 16:00Z is left in fill/windows. c62f9726's two untimed GPU jobs are compute accounting's call. Next: node check at 15:40Z.
 CHECKPOINT fbce5a2f4 (14:43Z) [open] A: 14:47Z: released the empty 15:00Z slot (no READY, no staged run) and asked node2-ops to drop it (note:20261001T1441Z-reply-from-c066b30c-1500z-empty-released). Served window 2 is on the panel as v1-h2 #113, decode 2.973x / prefill 1.577x (1.630x graphed) (art:aee1d122). Next: node check at 15:40Z for Pearl-C4's 16:00Z re-time.

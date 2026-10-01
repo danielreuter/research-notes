@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (11:31Z) [open] 1131Z draft 4 re-review (note:20261001T1131Z-reply-from-d545bc2a-draft4-approval-not-sufficient, art:2e4c4daa): without approval none survives (confirmed); under approval the 0.6-0.8% is NO-GO, since residual persistence makes write harm about 26x too small (C5); the relation attack is up to 2x larger; the debit must be over atom sets. C1-C4 met.
 CHECKPOINT none (11:13Z) [open] 1113Z poll: no change. Waiting on the assessor's FP4 re-grant (after my M5 GO), on answers to R1-H's T1-T5 and C1-C5, and on the v1 cap restatement after Daniel. The Project store is still unmounted here.
 CHECKPOINT none (10:51Z) [open] 1051Z M5 GO: signed as statement reviewer of the 66 FP4 records (policy 19e845c9 at 8e91aeb66), so FP4 condition 2 is met (note:20261001T1051Z-reply-from-d545bc2a-m5-signed-66, art:de8fbf92). All 476 definitions read are as reviewed; replay and leanchecker passed. The assessor's FP4 re-grant is next. Open: the R1-H tile rule (T1-T5), C1-C5, and the v1 cap restatement after Daniel.
 CHECKPOINT none (10:21Z) [open] 1021Z the full-width census (r20261001-093859-961d): model rows hold (U/W* <= 0.001 on q,k,v), but written rows exceed the floors, so R1-H stands only under approval or the tile rule. Posted the tile-rule conditions T1-T5 (note:20261001T1021Z-reply-from-d545bc2a-r1h-conditional-tile-rule). The Project store is still unmounted; the draft-3 review is in my own store and art:cc162562.

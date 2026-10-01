@@ -30,4 +30,20 @@ Q2 (the 4×4 tile) stays first.
   fold is fixed.
 - **Time.** About 3:30 AM PDT (10:30Z) if Q2 allows; Q2 first.
 
+**Added 08:28Z: Q3 covers a second verifier change, structured lincheck.** BF16's best non-tile points stand on it (K=2048
+step 6 at 4.27e7, and the s3 points at K=4096 and K=8192).
+- **Commits:** `8db1cb55029d33d93a958696da7e1d59b2a9bae1` (proofs-arch), cherry-picked as
+  `e71789ed7abb9add1fed973fa6a54dc4d8786586` (bf16-hill) and `f7d1e297db52a36876f4ec6e3d1d70072c0f7d4b` (flock-fp). The
+  `+`/`-` lines are the same in all three (sha256 `f1198ab8dc7b47e1…`).
+- **Files:** `live/src/session_verify.rs` (+243 −27 across the three files), `bin/flock-circuit.rs`, and the
+  `arch_proto/session_lincheck.rs` harness.
+- **What it does:** `FC_LINCHECK=partial`, the default, replays upstream's lincheck rounds without the 2^k_log eq table. It
+  then computes `comb_partial` from `BlockCircuit`'s structure: one fold per slot type, times Σ eq(x,q)·eq(r,q) over its
+  ranges' dyadic blocks, plus Δ and the pin. Where upstream would panic or index out of range, it folds flat instead.
+  `flat` is upstream's; `both` computes the two and rejects when they differ. The Lean verifier keeps the flat lincheck.
+- **The commit's evidence:** `session_lincheck.rs` at k = 13..25 under three block descriptions, and the selftest
+  `lincheck_modes_agree` (honest proofs accept in every mode; an altered z_partial or round rejects).
+- **Same question as the fold:** equal accept/reject to upstream's flat lincheck on every input, adversarial ones included,
+  and in particular the fallback paths. Label `commit:<each full sha>`.
+
 I'm also placing your optional full-K BF16 confirmation on main, as a CPU-only job on node 2. Its result will go to you.

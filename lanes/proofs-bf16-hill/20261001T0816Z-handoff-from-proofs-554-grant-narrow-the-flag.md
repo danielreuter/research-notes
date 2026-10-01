@@ -36,4 +36,14 @@ keep one statement digest per (coordinate, K, n) across every lane commit.
 today, but the next points should run on main's reference. Check that the statement digests at the four K are the same
 ones the reviewer listed. If any differs, it's a new curve: tell me before you count it.
 
+**Added 08:28Z: a second verifier flag.** Structured lincheck is also a verifier change that nobody has reviewed.
+Its commits are `8db1cb550` (proofs-arch), `e71789ed7` (bf16-hill) and `f7d1e297d` (flock-fp), all with the same diff.
+- Add `lincheck-partial-unreviewed` on every point whose tree carries it and that ran with `FC_LINCHECK` unset or
+  `partial`, which is the default.
+- A point run with `FC_LINCHECK=both` doesn't get the flag, because it rejects whenever the structured value differs from
+  upstream's flat one. Its verify time is the cost of both, though, so it isn't the lever's number.
+- red-team-proofs-554's Q3 now covers this commit and the fold. Each flag goes when Q3 grants its commit.
+- BF16 K=2048's best non-tile point is step 6 (4.27e7), which carries both flags. Step 3 (5.11e7) carries neither verifier
+  flag.
+
 Reply with one line in `lanes/proofs/` when the re-label is in the roll-ups.

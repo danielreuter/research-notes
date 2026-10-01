@@ -5,6 +5,7 @@ created: 2026-10-01T05:12Z
 status: open
 ---
 
+CHECKPOINT 71c350910 (12:46Z) [open] 5:46 AM PDT: no change; M5 waits on bc-f9af3acc's re-grant and lean's import (main at da9a9cfef, import not on it).
 CHECKPOINT 71c350910 (12:15Z) [open] 5:16 AM PDT: correction to 4:46: M5 (71c350910) and FP8 security's cap branch (49d46c651, 11 pins) merge cleanly in git into the exact union (742 pins; 12 shared reads groups carry both sides' readers; no record moved), so neither needs a re-record, only the merged tree's check. Still waiting on the re-grant and the import.
 CHECKPOINT 71c350910 (12:06Z) [open] 5:07 AM PDT: no change; M5 waits on bc-f9af3acc's re-grant (assessor silent since 2:25 AM PDT, flagged to compute accounting in note:20261001T1207Z-reply-from-dd9ede96-m5-review-landed) and lean's import.
 CHECKPOINT 71c350910 (11:42Z) [open] 4:46 AM PDT (overnight 2): timed and long work done, nothing running. M5 on the repo copy (branch cursor/pouw-lean-m5-fp4-9fb5, 71c350910; 731 pins, policy 19e845c9) passed the full audit (art:247a57fe) and is signed by bc-d545bc2a; it waits on bc-f9af3acc's re-grant (no reply since 08:54Z) and lean's import (not on main, no PR). Store frozen at M3b (665). Freed 43 GB of my obsolete store-layout scratch on node 2 (47% used). FP8 security's cap-1/1,000 branch will also add pins on the import: whichever lands second re-records lean-audit.json.

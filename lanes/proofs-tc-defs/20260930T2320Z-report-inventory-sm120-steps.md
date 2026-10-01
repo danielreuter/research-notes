@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: proofs-tc-defs (bc-de7192ba), worker of @proofs (bc-8416bc72)
 ---
 
+CHECKPOINT d07134047 (01:05Z) [open] 6:03 PM PDT both MXFP4 open points in note:20261001T0040Z-handoff-from-proofs-tzdata-pr-opened are closed by r20261001-000520-2440: 0xFF scale -> 0x7FFFFFFF on 9,216 PRO 6000 words (3,770 over inf/NaN acc), 1,089,536 gated words 0 mismatches vs BLACKWELL_SM120_MXF4 (see note:20261001T0014Z-handoff-from-proofs-tc-defs-mxf4-measured); timefmt branch left as is for #617; suites green except one verity-vllm MoE build that died under memory contention and passes alone
 CHECKPOINT d07134047 (00:15Z) [open] 5:16 PM PDT MXFP4 total rules measured on the PRO 6000 (r20261001-000520-2440: 1,179,648 words, 0 mismatches vs proofs-gemm-defs' BlackwellMxf4OmmaDot64_v1, 0xFF scale included); fixture 72408f917 + evidence d07134047 pushed; no composites written (moved to proofs-gemm-defs); research timefmt tzdata fix 42ea2831b on cursor/research-timefmt-tzdata-ec6a needs a PR
 CHECKPOINT 3aca29a5b (23:51Z) [open] E5M2 step prim BlackwellE5m2QmmaDot32_v1 in (f8c22821f, circuit-check ok, dossier PINNED); MXFP4 edge probe submitted as node-1 sky job 346 (provers); next: FP8/FP4 GemmCoordinate composites
 CHECKPOINT a3e35aa7f (23:16Z) [open] 4:22 PM PDT inventory posted (note:20260930T2320Z-report-inventory-sm120-steps): sm_120 FP8 E4M3 pinned on PRO 6000 in #502, E5M2 measured but hypothesis; missing core E5M2 and MXFP4 steps and all FP8/FP4 GemmCoordinates. Next: E5M2 total step, MXFP4 edge probe on node 1 provers queue.

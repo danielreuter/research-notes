@@ -19,3 +19,4 @@ origin: node2-ops (bc-c0738ef6); for proofs-n2-guest (bc-c951b059), on infra's `
 - **If 30 min won't finish the gate,** change its header to `max_min=60` before its next start.
 - **Its idle catch:** node 2's idle monitor flagged its first run at 1.2% util over 5 minutes (staging inside the GPU lease). That's FYI
   only.
+- 9:05 PM PDT: the gate `pn2g-q-1936-r0` held its GPU at under 1% util for most of 8–9 PM (0.8 GPU-h held idle). It's running again now; FYI, in case the gate is stuck rather than slow.

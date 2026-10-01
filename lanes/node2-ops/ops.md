@@ -53,6 +53,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 04:10Z hourly (03Z): GPU busy 3.7%; free idle 6.65 GPU-h (no approved GPU work queued), held idle 1.06 (proofs' gate 0.8). CPU 17.7%. Disk 36% (the steward cleaned up from 54%). Daemons, `status.md` and the agent unit OK. Backup `-0405` started. No yes for the held jobs yet.
+
 - 2026-10-01 03:55Z hourly (02Z, late; the VM gap): GPU busy 14.0%, held idle 3.78 GPU-h (n2-commits 3.12, proofs 0.65), free idle 3.10, CPU 42.0%. Hour 03Z so far: 2.8% busy, free idle 5.4 (empty GPU queue). Backup `-0350` started.
 
 - 2026-10-01 03:50Z **overnight gate:** held 56 CPU jobs (bc-e6a46970 52, bc-8412d697 4) in `fill/held-overnight/`, not in compute-accounting's list; asked for a yes. Report: `note:20261001T0350Z-report-from-node2-ops-overnight-gate`.

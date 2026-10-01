@@ -5,6 +5,7 @@ created: 2026-10-01T02:10Z
 status: open
 ---
 
+CHECKPOINT none (20:10Z) [open] 1:11 PM PDT: READY for window 5 (20:30Z): run r20261001-200934-8dbd, ship b959acdf, host threads 48-91 + 1 s per-core log; replaced r20261001-185716-6781 (stopped by me, rc 143, it lacked both); verifies passed (art:f88aafeb, art:004a75ac); node 2 at 2,245 GiB (44.8%)
 CHECKPOINT e221350fd (20:05Z) [open] 1:06 PM PDT: both untimed verifies passed (job B and BF16: prefill/decode ACCEPT, controls REJECT; art:f88aafeb, art:004a75ac PRESERVED); both 73 GB passes deleted, node 2 at 2,245 GiB (44.8%); window 5 run r20261001-185716-6781 waiting for 20:30Z
 CHECKPOINT 1d971e54 (19:05Z) [open] 12:06 PM PDT: fill reopened; both verifies running (BF16 b959acdf-8 from 12:03, job B from 12:05, ~41 min); window 5 booked 20:30Z, run r20261001-185716-6781 waiting on it
 CHECKPOINT none (18:58Z) [open] 12:00 PM PDT: window 5 run r20261001-185716-6781 (ship b959acdf) sleeping on its line, gated on both verifies and disk <50%; job B's verify requeued by fill at the 11:45 cutoff (prefill ACCEPT, controls REJECT); both verifies wait for fill to reopen

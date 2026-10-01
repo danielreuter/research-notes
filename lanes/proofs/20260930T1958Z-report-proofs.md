@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (23:01Z) [open] 4:00 PM PDT: bf16-hill's first --zk points are submitted (K=16384, K=8192); the other seven value-hiding workers are still running. Proofs' lease pool, blocked by a circuits stray since 2:48 PM, was cleared at 3:56 PM. @circuits and @compute-accounting took vLLM's and PoUW's hiding work.
 CHECKPOINT none (22:31Z) [open] 3:30 PM PDT: value hiding is Daniel's top priority (yes to all three at 3:06 PM PDT). Eight proofs workers run: --zk at the BF16 cells, the ZK Lean proof, hidden statement outputs, registered commitments, private-index read pricing, C-Flock constants as inputs, IR registered inputs, the ruling's record. The rule went to @circuits, @compute-accounting, @top, @lean and @old-circuits-and-proofs (now the constant design's owner). #717 granted by red-team and ready in the queue.
 CHECKPOINT none (21:57Z) [open] 2:57 PM PDT: #717 (Q_call v1) check r20261001-211827-3a26 passed on e823817da; waiting on red-team-proofs-554's verdict before ready; Daniel's two value-hiding cards are up in #ask-daniel; asked the research owner for a yes on the Lean port.
 CHECKPOINT none (21:37Z) [open] 2:37 PM PDT: opened #717 (draft), Q_call v1 at e823817da with the hiding-rule wording; its check r20261001-211827-3a26 is running; red-team-proofs-554 reviews it (label on pr:717@e823817da); circuits has the counts.

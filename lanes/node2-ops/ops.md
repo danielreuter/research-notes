@@ -68,6 +68,13 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 23:08Z hourly (22Z): GPU busy 8.0% (0.64 of 8.00 GPU-h, all useful): Pearl-C4's row 16 re-time 0.36 (2.7 min timed), Commits active 0.28.
+    - **Commits' idle time:** bc-698052e1's Commits held 1.64 GPU-h, and 1.36 of it was idle (83%).
+    - **Why below 80%:** apart from those Commits, no GPU job was queued. 6.0 GPU-h sat free. CPU 0–127 at 7.4%.
+    - **Disk 44% → 52%** (2,601 GiB) in the hour: 425 GB of Commit replay bundles (`/workspace/jobs/cov/cov-gm*/…/replay_bundle_p0`, 46–118 GB per Commit). Each bundle goes once its `verity-replay-*` CPU job finishes (gm181 and gm185 are gone), so this is a passing peak.
+    - **The guard gap:** fill's 55% disk stop covers only Verity CPU jobs, not Commit GPU guests. A long Commit run could still fill the disk faster than its replays clear it.
+    - **Backup:** `r20261001-230613-c160` packed by 23:07:45Z (517 units, 40 large units left out). Disk was back to 50% (2,471 GiB) by 23:08Z.
+    - **Checks:** daemons and `status.md` (23:05Z) are fine. #494 is still closed. Infra's 23:00Z alert is node 1's.
 - 2026-10-01 23:03Z alerts tick: four more `gpu-idle-in-lease` alerts for bc-698052e1's Commits: GPUs 3 and 4 at 22:50Z, 6 and 7 at 22:55Z, at 0.0–0.1% over 5 min.
     - **Not just start-up:** GPUs 3 and 4 were 8–10 min into their leases. So these Commits hold the GPU at about 0% for most of a 10-min lease. That is the pattern of n2-commits' `verity-commit` in infra's daily top-3 (9.2 idle of 9.7 GPU-h).
     - **Why no note:** no GPU work is queued behind them, so nobody waits. Infra's daily wasters already carry it. The 23:05Z hourly gives the leased-idle figure.

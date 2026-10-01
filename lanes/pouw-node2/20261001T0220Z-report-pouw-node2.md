@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (23:52Z) [open] A 23:52Z poll: no new notes for me; still off node 2, no 'back'; GPU 0 totals wait; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (23:32Z) [open] A 23:31Z poll: node2-ops 2308Z: disk peaked 52% (2,601 GiB, Commit replay bundles) in the 22Z hour, back to 50% by 23:08Z; told compute accounting; bc-26712550 2306Z: pous/* live panels frozen since 02:03Z, needs a new-Project publisher or retirement (compute accounting's call); still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (23:00Z) [open] A 23:00Z poll: nothing for me (node2-ops 2248Z: idle-in-lease alerts are bc-698052e1's Commit start-ups, fine); still off node 2, no 'back'; GPU 0 totals wait; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (22:44Z) [open] A 22:40Z poll: Pearl-C4 m64-n512-k2048 (r20261001-221559-4289) on the panel as pearl-c-fp4 v1 #21 at 22.35x, rated C Python only and plotted per the assessor's 2230Z note; panel art:63261f6f; still off node 2, no 'back'

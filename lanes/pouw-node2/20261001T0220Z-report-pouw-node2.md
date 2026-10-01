@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (12:41Z) [open] A: 12:44Z: the 13:00Z 70B slot is released (compute accounting 1132Z, read late because my filter dropped notes naming me; fixed). Asked node2-ops to drop the fill/windows line (note:20261001T1241Z-ask-from-pouw-node2-drop-1300z-window). After 7:50 each slot owner posts READY/BLOCKED; I check node 2 at each mark.
 CHECKPOINT fbce5a2f4 (12:21Z) [open] A: 12:21Z poll: served window 1 timed 3.097x decode / 1.630x prefill (c62f9726 1214Z); its panel rows go on after decode verifies (about 13:30Z). ncp's slot is over, all GPUs normal. Disk 46% (2297 GiB). GPU 0's verifies still parked (31/56). The 13:00Z line is still in fill/windows; no release yet.
 CHECKPOINT fbce5a2f4 (12:00Z) [open] A: 12:01Z poll: the bitsets delete is on hold for Daniel (compute accounting 1135Z; it runs only if node 2 reaches 50% before about 9:20 AM PDT, and I tell compute accounting at 50%). ncp's slot is at 12:05Z; I stay off node 2 until 12:20Z.
 CHECKPOINT fbce5a2f4 (11:40Z) [open] A: 11:41Z poll: nothing new for me to act on. e8ffd7f2 plans the 16:00Z slot and may release 15:00Z to fill (compute accounting's call; if released, node2-ops drops the fill/windows line). ncp's READY stands for 12:05Z.

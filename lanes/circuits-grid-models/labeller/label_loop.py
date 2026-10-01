@@ -26,7 +26,10 @@ TREES = {"/workspace/research/trees/cursor-grid-models-8c79": PREFIX,
          "/workspace/research/trees/cursor-grid-plan-gm-827a": (
              "cursor/grid-plan-gm-827a @ 05fa9d3e (cursor/grid-models-8c79 @ b9880ac1 + cursor/grid-plan-cov-827a @ 04908a9a: "
              "coverage-v1 @ 90c6d897 with the Commit's plan derived in the Build, the replay store written in a thread, "
-             "VERITY_DENSE_THREADS; note:20261001T1038Z-handoff-from-circuits-commit-phases-plan-tree)")}
+             "VERITY_DENSE_THREADS; note:20261001T1038Z-handoff-from-circuits-commit-phases-plan-tree)"),
+         "/workspace/research/trees/cursor-grid-boundary-gm-827a": (
+             "cursor/grid-boundary-gm-827a @ 1fff7995 (the plan tree cursor/grid-plan-gm-827a @ 05fa9d3e + the Build's call-boundary "
+             "plan read by the Commit; note:20261001T1417Z-handoff-from-circuits-commit-phases-boundary-gm-tree)")}
 QUESTIONS = json.loads((HERE / "questions.json").read_text())
 #: one family id per publisher model series (circuits 07:19Z: base, instruct and coder together, R1 distills under their base)
 FAMILY_OF = {"QWEN25_3B": "qwen25", "QWEN25_05B_INSTRUCT": "qwen25", "QWEN25_CODER_15B": "qwen25", "R1_DISTILL_QWEN_15B": "qwen25",

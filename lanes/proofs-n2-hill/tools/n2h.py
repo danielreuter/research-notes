@@ -533,8 +533,11 @@ def job(i: str, phase: str) -> int:
     if phase == "stage":
         env["PATH"] = f"{H / 'stub'}:{env['PATH']}"
         env.pop("CUDA_VISIBLE_DEVICES", None)
-        if "STAGE_ONLY=1" not in cmd:
+        if d.get("gpus") and "STAGE_ONLY=1" not in cmd:
             cmd += " STAGE_ONLY=1"
+    else:
+        # a node-1 pod's nvidia-smi sees only its GPU; node 2's sees all 8, so 74-gemm-hill.sh's gpu.csv and host.txt would name GPU 0
+        env["PATH"] = f"{H / 'gpuview'}:{env['PATH']}"
     (R / "n2-command.json").write_text(json.dumps({"cwd": d["tree"]["node2"], "cmd": ["taskset", "-c", slot["cpus"], "bash", "-c", cmd],
                                                    "env": {k: env[k] for k in sorted(env) if k in d["env"] or k.startswith(("N2H", "RESEARCH_", "HILL_", "FLOCK_", "CUDA_", "GPU_LEASE", "FILL"))
                                                            or k in ("CPUSET", "SLICE_LOCKS", "PYBIN", "OMP_NUM_THREADS", "LD_PRELOAD", "PATH")}}, indent=1))
@@ -619,7 +622,9 @@ def record(d: dict, R: Path, run: str, phase: str, rc: int, t0: float, t1: float
            "affinity_check": {"before_range": pre, "before_slot": mine, "after_slot": post},
            "nice": os.getpriority(os.PRIO_PROCESS, 0), "gpu": gpu if phase == "gpu" else None, "fill_job": os.environ.get("FILL_JOB"),
            "loopback": f"{d['slot']['loopback']} (n2h_loopback.so; node 1 runs each job in a pod network namespace of its own)",
-           "rc": rc, "t_start": iso(t0), "t_end": iso(t1), "wall_s": round(t1 - t0, 1), "cmd": d["cmd"] + (" STAGE_ONLY=1" if phase == "stage" and "STAGE_ONLY=1" not in d["cmd"] else ""),
+           "rc": rc, "t_start": iso(t0), "t_end": iso(t1), "wall_s": round(t1 - t0, 1),
+           "cmd": d["cmd"] + (" STAGE_ONLY=1" if phase == "stage" and d.get("gpus") and "STAGE_ONLY=1" not in d["cmd"] else ""),
+           "gpu_view": f"{H / 'gpuview/nvidia-smi'}: --query-gpu and -L name only CUDA_VISIBLE_DEVICES' GPU, as in a node-1 pod" if phase == "gpu" else None,
            "flock_work": d["flock_work"], "bin": d.get("bin"), "stage_cache_sync": d.get("stage_cache_sync"), "staged": _staged(R),
            "hillclimb": hc, "parity": d.get("parity")}
     if phase == "stage":
@@ -705,15 +710,26 @@ class Loop:
         for d in ITEMS.all():
             if d.get("state") not in ("done", "failed", "refused", "shipped", "withdrawn"):
                 lanes_busy[d["lane"]] = lanes_busy.get(d["lane"], 0) + 1
-        # round-robin: the lane holding fewest slots first, then the oldest item
-        cands.sort(key=lambda x: (lanes_busy.get(x[1].split("/")[0], 0), x[0]))
+        bodies = {}
+        if cands:
+            r2 = n1(f"cd {N1_READY} && for f in {' '.join(shlex.quote(f) for _t, f in cands[:40])}; do printf '%s\\0' \"$f\"; cat \"$f\"; printf '\\0'; done")
+            parts = r2.stdout.split("\0")
+            bodies = dict(zip(parts[0::2], parts[1::2]))
+
+        def gpus_of(f: str) -> int:
+            try:
+                return int(((json.loads(bodies.get(f, "")).get("resources") or {}).get("prover-bench") or {}).get("gpus", 1))
+            except (ValueError, AttributeError, TypeError):
+                return 1
+        # GPU points first; then the lane holding fewest slots, then the oldest item
+        cands = [c for c in cands if bodies.get(c[1], "").strip()]
+        cands.sort(key=lambda x: (gpus_of(x[1]) == 0, lanes_busy.get(x[1].split("/")[0], 0), x[0]))
         for _t, f in cands:
             if not free:
                 return
             lane, name = f.split("/", 1)
-            body = n1(f"cat {N1_READY}/{shlex.quote(f)}").stdout
             try:
-                item = json.loads(body)
+                item = json.loads(bodies[f])
                 env = item.get("env") or {}
                 gpus = int(((item.get("resources") or {}).get("prover-bench") or {}).get("gpus", 1))
                 cmd = env.get("CMD", "")

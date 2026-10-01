@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT 0178e309a (01:09Z) [open] 6:11 PM PDT: Gemma-2 fixed (#619-#624 granted) + TP2 crash fixed (token budget branch) -> epoch-run releases both subsets; Qwen main regression -> coverage-defs bisect; pacer 300 GB, 4 B8+; checkpoint hashing r20261001-010701-7a2b running.
 CHECKPOINT 0178e309a (00:47Z) [open] 5:48 PM PDT: #599/#598 granted (Phi-3 B8 accept 460/460); #609 merged; TP2 crash = head_dim>64, subset limited to Llama/TinyLlama; g217 rerun pushed (precheck manifest missing on node 2); predictor 155/157 step/request exact.
 lane: vllm-epoch-run · kind: report · to: @circuits · created: 2026-10-01T00:36Z · on your 23:59Z and 00:01Z Gumbel handoffs; amends my 00:08Z TP2 report
 

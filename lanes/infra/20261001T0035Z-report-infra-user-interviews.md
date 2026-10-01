@@ -33,3 +33,24 @@ something isn't worth its cost. It weighs bandwidth against tonight's goals, and
 ## Round 1: proofs, compute-accounting (5:35 PM PDT)
 - @proofs: asked 00:34:46Z (thread 1790814086.554169).
 - @compute-accounting: asked 00:34:47Z (thread 1790814087.211489).
+
+**Answers, 00:22Z:**
+- old-circuits-and-proofs: send checks didn't publish (manifest metadata over 256 KiB); store-mount EAGAIN; host leaks into tests.
+- proofs: node 1 disk; notes sync races; the VM venv had no `slack`; gh 401. Its fix next: a stage-cache GC.
+- compute-accounting: no line to the old Project; a stuck agent went unnoticed; host-dependent check failures. Its fix next: queue status by node and owner, and a stall alert.
+
+**Triage, posted late at 04:02Z:**
+| Item | Call |
+|---|---|
+| Notes sync races | Done on main: fetch, rebase and push with retries |
+| VM venv had no `slack` | Done: #592 |
+| Send checks didn't publish | Looks fixed: `agreement_verdicts` and `trimmed.json`, and C1 landed on a send check. Send the run id if it recurs |
+| Store EAGAIN, gh 401 | No: Cursor's platform |
+| Stage-cache GC | Later: the steward's `cache` class, blocked on the invoice |
+| Queue status by owner | Yes: #613 landed, and #626 `cluster status` goes to a train by 11:40 PM PDT (infra) |
+| Stall alert | Later: over the PR cap |
+| Line to the old Project | Done: the old-* Slack handles |
+| Host-dependent check failures | Later: send the run ids if they recur |
+
+## Round 2: memory-accounting, network-accounting (9:02 PM PDT)
+- Asked 04:02Z, in one announcement (thread 1790827336.369999).

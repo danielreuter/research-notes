@@ -5,6 +5,7 @@ created: 2026-09-30T19:56Z
 status: open
 ---
 
+CHECKPOINT cc21a7d94 (00:36Z) [open] +1 h mark 5:36 PM PDT: stock-arm HIT (eager); canary PENDING (no attempt-67 run on node 2; asked if it goes before window 7 at 5:40 PM PDT). #449+#548 checks passed, sent to train; stack check on #602 8a322b29 next
 CHECKPOINT cc21a7d94 (23:40Z) [open] 4:42 PM PDT: goals reset to +1/+3/+7 h (top-level docs/goals.md). +1 h stock-arm answer HIT (eager: 2.15x is over eager FP8, like-for-like about 3.7x untimed); canary at 5 PM PDT pending; window 7 at 5:45 PM PDT gives the like-for-like row
 CHECKPOINT cc21a7d94 (22:17Z) [open] 3:19 PM PDT: approved bc-2aa33ad8's cut: PoUW node-2 backlog about 8-10 GPU-h + timed windows (not 60); dropped hsplit rest, form repeats, hash bench, keeper jobs; told infra spare GPUs go to Verity guests; interim-work review final; #548 forkserver fix with accounting-merge
 CHECKPOINT cc21a7d94 (22:03Z) [open] 3:03 PM PDT: data-movement doc filed (internal/data-movement/compute-accounting.md; old-accounting's numbers pending); window-plan and first backlog slice (10 GPU-h by 4:30 PM PDT) pending from bc-2aa33ad8; interim-work review finalizes 3:42 PM PDT; keeper proposal-only

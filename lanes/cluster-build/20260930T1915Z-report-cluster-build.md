@@ -89,3 +89,7 @@ the 17:21Z, 17:27Z, 18:05Z, 18:07Z and 17:22Z replies, and `note:20260930T1856Z-
 - 4:21 PM PDT: **switched.** The live agent `r20260930-232102-e6ac` (`e4e972eae`) holds `agent.lock` and grants fill in about
   1 s. Node2-ops' deploy (gpu-lease `49238797`, fill_runner `5e033072`) went in at 4:17 PM, after window 3. The shadow ended
   clean (3 windows, 0 safety divergences). The canary is the 5:00 PM window; the rollback drill is node2-ops', after the canary.
+- 6:05 PM PDT: node2-ops stopped the live agent at 5:55 PM: it had granted GPU 0 to a request pinned with `--on 2,…,7`, because the
+  `on=` list was dropped when it named more GPUs than the request asked for. The fix is `gpu_pool`, merged with #615 as
+  `b3b225e0f`, shipped to node 2 for the unit. Earlier, `--disk-gb` (#616) went up. The 5:00 PM canary never ran; the 6:30 PM
+  attempt-67 repeat is the canary.

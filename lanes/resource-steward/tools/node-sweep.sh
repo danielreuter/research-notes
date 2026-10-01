@@ -1,12 +1,13 @@
 #!/bin/bash
 # The resource steward's delete-without-asking sweep, run ON a node as root (`sudo nice -n 19 ionice -c3 node-sweep.sh`).
-# Usage: node-sweep.sh [--dry-run] [--src-age-h H]. Per the policy in lanes/resource-steward/*-report-resource-steward.md:
+# Usage: node-sweep.sh [--dry-run] [--src-age-h H] [--approved FILE]. Per the policy in lanes/resource-steward/*-report-resource-steward.md:
 #  - /workspace/research/src/<sha> trees whose directory is older than H h (default 24), unless something live names the sha
 #    (REFS_PY: a request not yet finished or refused whose runner is alive or not yet launched, a Kueue workload or pod not finished, a
 #    fill job queued or running, any process's cwd, root, open files, maps, argv or environment), and unless the tree holds
 #    files outside its commit (EXTRA_PY), which may be a run's output. The trees that pass are renamed into src/.trash/ (one
 #    rename each, so the launcher never sees a half-deleted READY tree), scanned once more together, put back if anything
-#    names them now, and deleted;
+#    names them now, and deleted. A tree listed in the --approved FILE (shas, whose owners have said their files outside the
+#    commit may go) skips only the age and EXTRA_PY checks;
 #  - src/.trash/ entries an interrupted sweep left (decided already; nothing executes from there);
 #  - check scratch untouched for 2 h and not held open: /tmp/pytest-of-research/pytest-*, <verity-check cache>/lean-audit-scratch-*.
 # Prints "deleted PATH files=N mb=M age=Xh" or "kept PATH: why" per candidate, each line first appended, stamped, to $LOG (not
@@ -15,8 +16,10 @@
 # environment.
 [ "$(id -u)" = 0 ] || { echo "node-sweep: needs root to read every process" >&2; exit 2; }
 exec 9>/run/lock/resource-steward-sweep.lock; flock -n 9 || { echo "node-sweep: another sweep is running" >&2; exit 2; }
-DRY=0; AGE_H=24
-while [ $# -gt 0 ]; do case $1 in --dry-run) DRY=1;; --src-age-h) AGE_H=$2; shift;; *) echo "unknown $1" >&2; exit 2;; esac; shift; done
+DRY=0; AGE_H=24; APPROVED=
+while [ $# -gt 0 ]; do case $1 in --dry-run) DRY=1;; --src-age-h) AGE_H=$2; shift;;
+  --approved) APPROVED=$(tr -s ' \n' ',,' < "$2") || exit 2; shift;; *) echo "unknown $1" >&2; exit 2;; esac; shift; done
+approved() { [[ ,$APPROVED, == *,$1,* ]]; }
 R=/workspace/research; SRC=$R/src; TRASH=$SRC/.trash; now=$(date +%s); T=$(mktemp -d); trap 'rm -rf $T' EXIT; trap '' PIPE
 LOG=/home/research/resource-steward/node-sweep.log
 say() { [ $DRY = 1 ] || printf '%s %s\n' "$(date -u +%FT%TZ)" "$*" >> $LOG; echo "$*" 2>/dev/null; return 0; }
@@ -123,7 +126,7 @@ gone() { local p=$1 n m; n=$(find "$p" -xdev 2>/dev/null | wc -l); m=$(du -sm --
 : > $T/src
 for d in $SRC/*/; do d=${d%/}; s=${d##*/}
   [[ $s =~ ^[0-9a-f]{40}$ ]] || continue
-  [ $(age_h $d) -ge $AGE_H ] && echo $s >> $T/src
+  { [ $(age_h $d) -ge $AGE_H ] || approved $s; } && echo $s >> $T/src
 done
 if [ -s $T/src ]; then
   held $T/src > $T/held
@@ -131,9 +134,9 @@ if [ -s $T/src ]; then
   : > $T/moved
   for s in $(cat $T/src); do
     r=$(named $s $T/held); [ -n "$r" ] && { say "kept $SRC/$s: $r"; continue; }
-    x=$(cd /tmp && GIT_OPTIONAL_LOCKS=0 runuser -u research -- python3 -c "$EXTRA_PY" $SRC/$s 2>&1) || { say "kept $SRC/$s: ${x:-could not inspect}"; continue; }
+    approved $s || x=$(cd /tmp && GIT_OPTIONAL_LOCKS=0 runuser -u research -- python3 -c "$EXTRA_PY" $SRC/$s 2>&1) || { say "kept $SRC/$s: ${x:-could not inspect}"; continue; }
     a=$(age_h $SRC/$s)
-    [ $DRY = 1 ] && { gone $SRC/$s $a $SRC/$s; continue; }
+    [ $DRY = 1 ] && { gone $SRC/$s $a "$SRC/$s$(approved $s && echo ' (owner-approved)')"; continue; }
     mkdir -p $TRASH; mv -T $SRC/$s $TRASH/$s-$now && echo "$s $a" >> $T/moved || say "kept $SRC/$s: rename failed"
   done
   if [ -s $T/moved ]; then
@@ -143,7 +146,7 @@ if [ -s $T/src ]; then
         mv -T $t $SRC/$s && say "kept $SRC/$s: named after rename: ${r:-scan failed}" || say "STUCK $t: named after rename (${r:-scan failed}) and could not be put back"
         continue
       fi
-      gone $t $a $SRC/$s
+      gone $t $a "$SRC/$s$(approved $s && echo ' (owner-approved)')"
     done < $T/moved
   fi
 fi

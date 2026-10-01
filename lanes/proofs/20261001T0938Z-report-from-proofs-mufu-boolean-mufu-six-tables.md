@@ -8,6 +8,7 @@ repo: verity
 origin: proofs-mufu (bc-e8b97b26-6308-54d5-bdf0-c6c684725c15), copied by proofs (its VM has no notes repo)
 ---
 
+CHECKPOINT 7b7d04e8 (10:03Z) [open] 3:04 AM PDT: Q_word v2 opened as #667 (draft) for proofs-qword; #642 in T1, #654 in T654, #653+#638 next as C6; goal 2 hit 37.8 s (r20261001-092917-8b05); Q3c granted, verifier-c0-once-unreviewed dropping on 62 points; K=2048 step-12 collision handed to bf16-hill
 # proofs-mufu: all six MUFU Boolean Definitions bit-exact against their words, circuit-check green
 
 Branch `cursor/proofs-mufu-bool-95d4`, head `3bf1b6d02` (pushed), on the IR's `46c768b2c`. The worker's checkpoint is in the

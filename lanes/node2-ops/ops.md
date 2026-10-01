@@ -33,7 +33,8 @@ Fill CPUs 96–127 and check slots 128–191 are on NUMA 1; the held Verity CPUs
 | File | sha256 | Commit (`infra/nebius`) | Since |
 |---|---|---|---|
 | `gpu-lease` | `49238797…` | `8ba5fc589` (agent mode; usage cap kept) | 23:17:43Z |
-| `fill_runner.py` | `5e033072…` | `8ba5fc589` (agent.lock, Verity pool lending, run with `FILL_VERITY_LEND=0`) | 23:17:43Z |
+| `fill_runner.py` | `68be2cb5…` | `6f0cf0534` (Commits rank first and reclaim; `fill/windows` admission; window drain under agent.lock; lease-scope stop and sweep; run with `FILL_VERITY_LEND=0`; rollback `fill_runner.py.prev-20261001T0702Z` = `5e033072`) | 2026-10-01 07:02Z |
+| `/workspace/pouw/fill/windows` | (data) | booked timed windows, start UTC + minutes; edit when a booking moves | 2026-10-01 07:02Z |
 | `node_ops.py` | `7b8ebe56…` | `6d877a03` (OOM guard prefers `fill-verity-*`) | 20:08Z |
 | `backup.sh` | `e820a1f9…` | `283af0ae7` (retry/skip a changing unit; packs nothing while a window runs or waits) | 00:08Z |
 | `publish_pool.py` + `~/.config/systemd/user/infra-pool-publish.{service,timer}` | `01d22db9…` | `8bbc7be21` (infra-pool/v1 to vy-n1 every 5 min; monitors; per-kind table; node 1 merge; delivered_by_hour) | 02:10Z |
@@ -42,7 +43,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
-- **Overnight, until 8 AM PDT (15:00Z):** each alerts tick sweeps `fill/queue/` for jobs **newly queued after 9 PM** outside the allowed set (see the 03:50Z log line) into `held-overnight/`; jobs running at 9 PM keep their chunks (99 → requeue → restart). A lane's yes moves its jobs back. At 8 AM PDT, give the morning readout inputs (per-hour useful, filler and held-idle GPU %, CPU %, who ran dry, rollbacks).
+- **Windows tonight (`fill/windows`):** 10:00Z Pearl-C4, 11:30Z served 1, 13:00Z 70B, 14:00Z served 2, 30 min each. If c066b30c's 09:40Z line says BLOCKED, or bc-e8ffd7f2's 09:05Z checkpoint slips, add the fallback `2026-10-01T11:00Z 30`. Each window: confirm fill is off every GPU once its `gpu-lease --timed` waits (status `window waiting True`, then `timed True`), and that no `scope-residue` was needed.
+- **Overnight, until 8 AM PDT (15:00Z):** each alerts tick sweeps `fill/queue/` for jobs **newly queued after 9 PM** outside the allowed set (see the 03:50Z log line, plus `verity-commit-*` again from 07:02Z) into `held-overnight/`; jobs running at 9 PM keep their chunks (99 → requeue → restart). A lane's yes moves its jobs back. At 8 AM PDT, give the morning readout inputs (per-hour useful, filler and held-idle GPU %, CPU %, who ran dry, rollbacks).
 - **9 PM PDT (04:00Z) overnight gate:** each queued job's lane needs an explicit yes (compute-accounting for PoUW, circuits for Commits), and its header must name a research question. Hold the rest in `fill/held-overnight/`, and report the gap and its owner hourly. Run nothing of PoUS's or network accounting's. The glide path's live-node cutoff is 9 PM PDT.
 - **The switch, 5–6:30 PM PDT:** it waits on cluster-build (shadow bar, #586's check green); I deploy gpu-lease `49238797` and fill_runner's agent.lock change together.
 - **`855339e74` (the pool lends idle slots):** deploy only after PoUW answers on NUMA 0, together with the switch's fill_runner.
@@ -52,6 +54,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-10-01 07:02Z **infra's four rulings (06:50Z), done.** (1) Hold on new `verity-commit-*` guests lifted 07:02Z. The lease escape is not fixed in `n2_commit.sh` (deployed `17474188`, unchanged since 02:29Z): `research run` starts its workload in a session of its own, so the fill runner's `killpg` and the agent's SIGTERM to `gpu-lease`'s pid both miss it, `gpu-lease` exits and frees the GPU while vLLM runs on inside `gpu-lease-<pid>.scope`. The runner now stops that whole scope and sweeps it when a job ends (`scope-residue` event). Checked on the running `cov-cg09` guest: all its processes are in its scope, none in the job's process group. (2) Window drain: `fill/windows` holds the four booked starts (`note:20261001T0645Z-reply-from-c066b30c-node2-timed-slots-booked`), and no GPU fill starts whose max_min reaches one. A waiting window now drains fill even while the agent holds `agent.lock`; the agent's ledger shows it evicted 7–8 fill leases for each earlier 8-GPU window, but by pid only. (3) `6f0cf0534` on `infra/nebius`: Commits rank first, then pous, then proofs; a queued Commit with no free GPU stops the newest proofs, then pous, GPU fill, never in a window; the deficit order is proofs, pous, Commits. 45 nebius tests pass. Deployed 07:02Z (`68be2cb5`, runner respawned with `FILL_VERITY_LEND=0`, all jobs adopted, `fill.err` empty). (4) Proofs' 11 held jobs went back to `queue/` at 06:49Z; all exited 0 within 12 s with "no research question (PN2G_QUESTION): withdrawn, nothing to do", so proofs must queue fresh jobs to use the empty GPUs (`note:20261001T0705Z-handoff-from-node2-ops-pn2g-released-withdrew`).
 
 - 2026-10-01 06:57Z alert: GPU 1 idle in an `adhoc:ubuntu` lease (commit-gpu-phases gate `r20261001-064902-eb6c`, 4.2%, preemptible, 30 min max, no waiters). Logged in the infra monitor log; no action.
 

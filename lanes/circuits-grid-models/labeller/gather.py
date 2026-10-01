@@ -48,11 +48,15 @@ for key, e in outcome.items():
     item = key.split("/", 1)[1]
     rows = sorted(p for p in (COV / item).glob("*/") if p.is_dir()) if (COV / item).is_dir() else []
     rec = {"key": key, "state": e.get("state"), "rc": e.get("rc"), "task": e.get("task"), "t": t, "on": e.get("on", "vy-nebius-1"),
-           "tree": tree.get(key), "packed": packed.get(key), "row": None, "runs": [],
+           "tree": tree.get(key), "packed": packed.get(key), "moved": key in moved, "lease": None, "row": None, "runs": [],
            "stages": [], "max_gates": None, "word_fail": None}
     if rows:
         d = rows[0]
         rec["row"] = d.name
+        try:
+            rec["lease"] = json.loads((d / "gpu_lease.json").read_text())
+        except (OSError, ValueError):
+            pass
         runs = set()
         for f in d.rglob("*"):
             if f.is_file() and f.stat().st_size < 4_000_000 and f.suffix in ("", ".txt", ".log", ".json", ".jsonl"):

@@ -44,12 +44,11 @@ TREES = {"/workspace/research/trees/cursor-grid-models-8c79": PREFIX,
              "and their workloads; note:20261001T1636Z-handoff-from-circuits-grid-models-pk3-three-models-reorder)"),
          "/workspace/research/trees/cursor-grid-boundary-lease-b3b0": (
              "cursor/grid-boundary-lease-b3b0 @ e2d2e43b (the boundary tree cursor/grid-boundary-gm-827a @ 1fff7995 + the Commit lease "
-             "cursor/commit-lease-b3b0 @ b36d08e7), Commit leased (lease: self; "
-             "note:20261001T1705Z-handoff-from-circuits-replay-keep-leaves-lease-self)"),
+             "cursor/commit-lease-b3b0 @ b36d08e7; note:20261001T1705Z-handoff-from-circuits-replay-keep-leaves-lease-self)"),
          "/workspace/research/trees/cursor-grid-models-more-lease-b3b0": (
              "cursor/grid-models-more-lease-b3b0 @ 08c2be4f (cursor/grid-models-more-be5a @ 70471454 + the Commit lease "
-             "cursor/commit-lease-b3b0 @ b36d08e7), Commit leased (lease: self; "
-             "note:20261001T1705Z-handoff-from-circuits-replay-keep-leaves-lease-self)")}
+             "cursor/commit-lease-b3b0 @ b36d08e7; note:20261001T1705Z-handoff-from-circuits-replay-keep-leaves-lease-self)")}
+LEASE_TREES = {t for t in TREES if t.endswith("-lease-b3b0")}
 QUESTIONS = json.loads((HERE / "questions.json").read_text())
 #: one family id per publisher model series (circuits 07:19Z: base, instruct and coder together, R1 distills under their base)
 FAMILY_OF = {"QWEN25_3B": "qwen25", "QWEN25_05B_INSTRUCT": "qwen25", "QWEN25_CODER_15B": "qwen25", "R1_DISTILL_QWEN_15B": "qwen25",
@@ -132,6 +131,12 @@ def desired(rec: dict) -> dict[str, str]:
                      + (f"its Commit packed in {rec['packed']}" if rec.get("packed") else "its Commit not packed"))
     if rec.get("on") == "vy-nebius-2":
         parts.append("Commit and replay on vy-nebius-2 (n2_commit.sh offload; the Build on vy-nebius-1)")
+    lease = rec.get("lease")
+    if lease:
+        parts.append(f"its Commit leased its GPU (lease: self): waited {lease.get('waited_min')} min, held {lease.get('held_min')} min")
+    elif rec.get("tree") in LEASE_TREES:
+        parts.append("its Commit not leased (" + ("its Build ran on vy-nebius-2, and n2_build.sh submits the Commit without the lease)"
+                                                  if rec.get("moved") else "no gpu_lease.json beside the row)"))
     if "__stoch-" in row and rec["max_gates"] is not None:
         m = re.search(r"=(\d+)", rec["max_gates"] or "")
         parts.append(f"sampler Call one unit (MAX_GATES raised to {m.group(1)}); not provable in practice" if m

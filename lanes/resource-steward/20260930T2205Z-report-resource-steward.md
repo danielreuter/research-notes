@@ -183,6 +183,13 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   each in node 1's `/workspace/jobs/runs/<run>/`) are regenerable and may go once proved, and whether the feeder can hold
   new rows or clean up after itself. Asked at 3:43 PM PDT
   ([thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790808184589359)), reply wanted by 4:15 PM PDT.
+- Source trees the sweep keeps because they hold files outside their commit (not asked yet; in the 8 AM PDT summary):
+  - node 1, `overnight-sep30` (vLLM): `29f691be`, `c379497f`, `ddeabc86`, `e3238d3c`, each with 6 untracked
+    `integrations/vllm/workloads/*__bi-eager.json`;
+  - node 1, `9b88cb01` (16 GB, run `r20260930-131845-b088`, no campaign): modified `protocols/{pous,network_warden}/lean/lean-audit.json`;
+  - node 1, `vllm-sm120`: `b84e85ef`, modified `tools/circuit_check/src/circuit_check/pins.json`;
+  - node 2, `pouw` (@compute-accounting): `0555d893` with 25 files in `RUN_OUT/` (`tc_probe_fp4` runs), and
+    `1fbf4fbd`, `2dfaf436`, `7d9c944b`, `80a4c8ff`, `adb66134` with a modified `pouw_hash_bench` submodule (`gpu-lease` runs).
 
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and

@@ -10,20 +10,24 @@ SINCE = "2026-10-01T07:00:00Z"
 ROOT = Path("/workspace/jobs/dispatch")
 COV = Path("/workspace/jobs/cov")
 RUN = re.compile(r"r20\d{6}-\d{6}-[0-9a-f]{4}")
+#: only the feeder's own keys: other lanes run variants of them (cov-gm006-plan, circuits-commit-phases' check)
+MINE = re.compile(r'"vllm-epoch-run/cov-gm\d{3}"')
 
 ends, moved, tree = {}, set(), {}
 for line in (ROOT / "log.jsonl").read_text().splitlines():
-    if '"vllm-epoch-run/cov-gm' in line and '"ev": "submit"' in line and '"task": 0' in line:
+    if not MINE.search(line):
+        continue
+    if '"ev": "submit"' in line and '"task": 0' in line:
         e = json.loads(line)
         tree[e["key"]] = e.get("tree")
-    elif '"vllm-epoch-run/cov-gm' in line and '"ev": "end"' in line:
+    elif '"ev": "end"' in line:
         e = json.loads(line)
         ends[e["key"]] = e["t"]
-    elif '"vllm-epoch-run/cov-gm' in line and '"ev": "moved"' in line:
+    elif '"ev": "moved"' in line:
         moved.add(json.loads(line)["key"])
 outcome = {}
 for line in (ROOT / "done.jsonl").read_text().splitlines():
-    if '"vllm-epoch-run/cov-gm' in line:
+    if MINE.search(line):
         e = json.loads(line)
         outcome[e["key"]] = e
 # a Commit that n2_commit.sh moved to node 2 and that replayed there with rc 0 never reaches done.jsonl: its row's .n2-replay

@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: final
 ---
 
+CHECKPOINT b9880ac17 (14:42Z) [final] 7:43 AM PDT: 20 models / 10 families registered; 134 deployments ended (127 pass, 7 fail: 6 SiluMul_v1 edge, 1 item config gm127); 19 models / 9 families ended, 18 with a pass; 9 golden twins match, all unpacked (PACK_MODELS lacks them); feeder keeps node 1 fed; art:c8c825f9f8aa2831d33b6b21039c5a90be8d6bcc6f990c16b8c6c35653ce7be3
 CHECKPOINT b9880ac17 (14:40Z) [final] 7:41 AM PDT: 20 models / 10 families registered; 134 deployments ended (127 pass, 7 fail: 6 SiluMul_v1 edge, 1 item config gm127), 19 models / 9 families ended, 18 with a pass; 9 golden twins match unpacked (PACK_MODELS lacks them); feeder keeps node 1 fed
 CHECKPOINT 70e926d (14:15Z) [open] 7:16 AM PDT: acted on circuits' 1412Z: deadline gate dropped 14:12Z, burst caps kept (per_tick 12, cpu_pending_max 12, commit_cap 14). Build concurrency now bound by deployments-cpu's 608 Gi memory quota (Build requests 86-128 GB). Counts 14:15Z: 124 ended (117 pass, 7 fail: 6 SiluMul_v1 edge, 1 config gm127), 19 models (18 with a pass), 9 families. 7:40 counts next.
 CHECKPOINT de79a63 (14:03Z) [open] 7:05 AM PDT: golden twins done (all 9 same root/map/verdict, all unpacked: PACK_MODELS lacks them; note:20261001T1355Z-finding-golden-twins-unpacked-all-match, handoff 1357Z). Acted on kueue-fold's 1315Z reply (Hold ended 13:30Z as it said). New failure named: cov-gm127 (qwen3-30b) Commit died at vLLM KV-cache init, gpu_memory_utilization 0.5 < 56.9 GiB weights; set GPU_UTIL=0.9 on the 11 unsubmitted qwen3-30b items. cov-gm149 failed on the SiluMul_v1 edge (auto-checked). Feeder: burst commit_cap 14 to 14:20Z; deadline hold extended so no 7:50-crossing row goes before 14:50Z. Counts at 14:00Z: 117 ended, 110 pass, 7 fail (6 SiluMul edge, 1 config).
@@ -91,13 +92,13 @@ The `-pk2` twins aren't submitted. They wait for infra to list the models, which
 
 **Handoffs received, all acted on:**
 
-- 20261001T0719Z-handoff-from-circuits-decisions
-- 20261001T0749Z-handoff-from-circuits-no-gemma-node1
-- 20261001T0821Z-handoff-from-circuits-go
-- 20261001T1006Z-handoff-from-circuits-idle-hold-node2-fill
-- 20261001T1011Z-handoff-from-circuits-feeder-opened-up (with its 3:16 addendum)
-- 20261001T1038Z-handoff-from-circuits-commit-phases-plan-tree
-- 20261001T1158Z-handoff-from-circuits-refill-node2-pack-goldens
-- 20261001T1315Z-reply-from-kueue-fold-node1-hold-ends-1330z
-- 20261001T1412Z-handoff-from-circuits-drop-deadline-gate
-- 20261001T1417Z-handoff-from-circuits-commit-phases-boundary-gm-tree
+- 20261001T0719Z-handoff-from-circuits-decisions.md
+- 20261001T0749Z-handoff-from-circuits-no-gemma-node1.md
+- 20261001T0821Z-handoff-from-circuits-go.md
+- 20261001T1006Z-handoff-from-circuits-idle-hold-node2-fill.md
+- 20261001T1011Z-handoff-from-circuits-feeder-opened-up.md (with its 3:16 addendum)
+- 20261001T1038Z-handoff-from-circuits-commit-phases-plan-tree.md
+- 20261001T1158Z-handoff-from-circuits-refill-node2-pack-goldens.md
+- 20261001T1315Z-reply-from-kueue-fold-node1-hold-ends-1330z.md
+- 20261001T1412Z-handoff-from-circuits-drop-deadline-gate.md
+- 20261001T1417Z-handoff-from-circuits-commit-phases-boundary-gm-tree.md

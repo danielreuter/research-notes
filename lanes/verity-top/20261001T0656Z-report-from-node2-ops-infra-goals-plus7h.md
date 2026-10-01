@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6), timer infra-goal-plus7h (11:40 PM PDT); read-only counts at 06:53Z
 ---
 
+CHECKPOINT none (11:52Z) [open] 4:52 AM PDT: 4:50 check collecting; node 1 stacks failed on #557 x #664, #664 out, slot d 5:00 rebuilt without it; cutover on schedule
 CHECKPOINT none (11:37Z) [open] 4:37 AM PDT: main d8865092, 28 open; node 1 checks of c0097b93b and 97c7ed118 due ~4:35; slot d 5:00 armed for dcc7cc57d (+#667); 4:50 check next
 CHECKPOINT none (11:21Z) [open] 4:21 AM PDT: Boolean IR on main (d8865092), 28 PRs open; node 1 checking 97c7ed118 (lands the rest), slot d 5:00 takes #667 + Boolean PR 1
 CHECKPOINT none (11:06Z) [open] 4:05 AM PDT: main still ef6a3e74, T654 due; lander didn't start slot b, infra asked to check c0097b93b itself; slot d 5:00 stack 97c7ed118 built

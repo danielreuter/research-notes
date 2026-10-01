@@ -208,6 +208,10 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Check scratch on node 1, 151,747 files, 11,039 MB: `lean-audit-scratch-lwqhx813` (142,654 files, 9,324 MB),
     `/tmp/pytest-of-research/pytest-1092` (9,024 files, 1,714 MB) and `pytest-1093` (69 files, 1 MB), all untouched 2 h.
   - After: node 1 has 50 trees, `/workspace` at 36% space and 35% inodes; node 2 has 40 trees, at 40% and 13%.
+- 11:15Z (4:15 AM PDT), node 1, check scratch under `/tmp/pytest-of-research`: 4 directories, 17,841 files, 4.65 GB. The
+  policy allowed it: each was untouched for over 2 h, had no open files, and the PID in its pytest `.lock` was dead.
+  `pytest-1094` (245 files, 1,702 MB, last written 06:35Z), `pytest-1122` (251 files, 11 MB, 06:30Z), `pytest-1194` (16,438
+  files, 2,915 MB, 08:15Z) and `pytest-1245` (907 files, 22 MB, 08:43Z). Root free went from 160 to 164 GB.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -386,3 +390,8 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - The largest holder is infra's `/workspace/jobs/src` (§5). Nothing is deleted; it is asked in
     `note:20261001T1015Z-ask-from-resource-steward-jobs-src-copies-unreaped`. Slack refuses an `ask` from @infra to @infra,
     so the ask went as a note.
+- 11:12–11:16Z (4:12–4:16 AM PDT) tick (exit 1): "n1: / gaining 113,637 inodes/h".
+  - Root is at 3% of inodes. Its free space went from 197 GB at 10:50Z to 160 GB: ten live pytest sessions
+    (`pytest-1460`–`1473`, about 3 GB each, written 11:10–11:13Z).
+  - Deleted the four stale sessions under the 2 h scratch rule (§4, 4.65 GB). Root is now at 164 GB free, with the alert
+    at 60 GB. No Slack, since that is under 50 GB.

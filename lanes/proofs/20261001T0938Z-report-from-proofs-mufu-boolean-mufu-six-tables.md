@@ -8,6 +8,7 @@ repo: verity
 origin: proofs-mufu (bc-e8b97b26-6308-54d5-bdf0-c6c684725c15), copied by proofs (its VM has no notes repo)
 ---
 
+CHECKPOINT c27ca13d (10:34Z) [open] 3:40 AM PDT: borrowing node 1 from 3:20 (3 FP stage jobs placed by me, bf16-hill's re-runs queued); #667 merge of tr-T654 with proofs-qword; red-team on Lean lincheck records (369850ad1) till 11:50Z; owner asked for proofs-arch's serve session
 CHECKPOINT 7b7d04e8 (10:03Z) [open] 3:04 AM PDT: Q_word v2 opened as #667 (draft) for proofs-qword; #642 in T1, #654 in T654, #653+#638 next as C6; goal 2 hit 37.8 s (r20261001-092917-8b05); Q3c granted, verifier-c0-once-unreviewed dropping on 62 points; K=2048 step-12 collision handed to bf16-hill
 # proofs-mufu: all six MUFU Boolean Definitions bit-exact against their words, circuit-check green
 

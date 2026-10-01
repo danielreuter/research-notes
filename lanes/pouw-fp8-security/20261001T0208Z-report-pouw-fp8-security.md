@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT 3403247f7 (20:45Z) [open] bitsets: still holding for served window 5 (to 21:00Z); 13 of 88 done, 104.0 GiB raw freed, no failed checks; relaunch ~20:56Z; node 2 df 47%
 CHECKPOINT 3403247f7 (20:16Z) [open] bitsets: holding for served window 5 (20:00-21:00Z), 13 of 88 units done, 104.0 GiB raw freed, all checks pass; relaunch of 3403247f7 at ~20:56Z; node 2 df 45%; VM reset rebuilt, no data touched
 CHECKPOINT 3403247f7 (20:01Z) [open] 20:02Z bitsets: 13 of 88 units compressed, preserved (R2) and deleted, 104.0 GiB raw -> 2191 MiB zst, all transpose + round-trip checks pass; manifest snapshot art:64a6decc; stopped r20261001-192440-83f1 by PID before r64@1's delete (its preserved read-back trickled at 70 KB/s; raw intact); fix 329a04c31 retries preserved in a fresh process, 3403247f7 adds a job lock; relaunch after served window 5's hold (21:00Z); node 2 df 48%; CPU only, 0 GPU-h
 CHECKPOINT 6d76e5e81 (19:26Z) [open] 19:26Z bitsets compress-preserve-delete (Daniel yes 11:48 PDT, compute accounting 11:50): test r20261001-191639-a1a7 did 2 units (sparse 112 MiB, dense 1342 MiB of 8 GiB each; R2 sha256 readback + cols rebuild from R2 verified); full job r20261001-192440-83f1 running on node 2 (cores 96-191, nice 19), holds 20:00-21:00Z for served window 5; df 51.5%; CPU only, 0 GPU-h

@@ -67,3 +67,7 @@ I'll add the targets, new failures and per-family recompute counts here when the
 
 - **With PR 2 `1361a9fe4`** (`r20261001-132926-32cf`): 1,419 targets, 0 new failures, the same ten recomputes.
 - **Confirming runs:** `r20261001-134347-8f22` (head) and `r20261001-134417-c553` (head + PR 2, `2871098cd`).
+
+**Confirmed, 7:05 AM PDT.**
+- **At the head `31c1117c3`** (`r20261001-134347-8f22`, `art:b06bdff199be8085ecbca9502cf5639b85b7b07c226e4312b6cf79df681cf2b4`): 1,397 targets, **0 new failures**, 1 known, 0 unpartitioned. The same ten recomputes, 285,722 gates.
+- **With PR 2 `1361a9fe4`** (`r20261001-134417-c553`, `art:c03cef1cd031a04e35bf7b9e3f58b4b5f0a4e5933f921ec960356377cbc47540`): 1,419 targets, 0 new failures, 0 unpartitioned. `AttentionSoftcap_v3` at T=17 adds 99,675, making 11 Calls and 385,397 gates.

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:52Z) [open] 9:51 PM PDT: 3 more trains landed (main c1e92009), 52 open PRs; #602 Pearl-C check ~10:25; Lean restatement draft #638; node 1 at 6/8 GPUs
 CHECKPOINT none (04:36Z) [open] 9:36 PM PDT: T621, T635, C3 checking (land ~9:55); node 1 idle check sent to circuits
 CHECKPOINT none (04:05Z) [open] 9:05 PM PDT: 60 open PRs (2:05 AM target met early); node 2 disk 36%; write probe live; next train checking
 CHECKPOINT none (03:49Z) [open] 9 PM PDT: 4 trains landed (C1 incl. #630), 72 open PRs; next train posted by infra; node 2 pass deletion assigned; invoice outage 7:27-8:39 recovered

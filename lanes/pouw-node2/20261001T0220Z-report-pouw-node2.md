@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (22:00Z) [open] A 22:00Z poll: assessor 2156Z (bbe249577 landed; Pearl-C4 C covers 128<=n<4096, Python only) touches no panel row (no pearl-c-fp4 row has 2048<=n<4096); m64-n512-k2048 stays off until its timed re-time ACCEPTs; still off node 2, no 'back'; panel art:e500294d
 CHECKPOINT fbce5a2f4 (21:40Z) [open] A 21:40Z poll: infra 2130Z says window 5's hold was theirs and node2-ops' 20:47Z fill loop stands; no 'back' and no word from compute accounting, so still off node 2; GPU 0 totals wait on that read; panel art:e500294d
 CHECKPOINT fbce5a2f4 (21:26Z) [open] A window 5 (r20261001-200934-8dbd) on the panel as pearl-c-sm120 v1-h2 #115: decode 2.324x over graphed FP8, prefill 1.428x (1.477x graphed); panel art:e500294d; GPU 0 totals wait on a node-2 read
 CHECKPOINT fbce5a2f4 (21:00Z) [open] A 21:01Z poll: window 5 timed ~20:32-20:47Z (node2-ops ops.md); fill hold lifted 20:47:59Z; waiting on c62f9726's verify record for r20261001-200934-8dbd, then v1-h2 #115 on the panel; still off node 2.

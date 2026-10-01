@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:41Z) [open] 6:40 PM PDT: PR hygiene audit and old-accounting backlog doc started for Daniel; Daniel's key on node 2
 CHECKPOINT none (01:25Z) [open] 6:25 PM PDT: HF token install sent to Daniel; Boolean IR rulings settled; Lean workflow asked of lean
 CHECKPOINT none (01:08Z) [open] 6:08 PM PDT: Boolean IR decisions plus restructure levers with Daniel; checkpoint hashing run on node 1; W1 on Grok running
 CHECKPOINT none (00:52Z) [open] 5:52 PM PDT: 5:40 check sent (proofs, infra hit; g217, canary missed); canary running; replay off GPU accepted (Commit GPU hold 2069s to 894s)

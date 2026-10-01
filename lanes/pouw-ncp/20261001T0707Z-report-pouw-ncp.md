@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: open
 ---
 
+CHECKPOINT 7b51143ef (13:46Z) [open] Still no reply on a rater (13:04Z). Holding with no GPU in use. The named 715 is an ordering fault after stream-K, and per 13:41Z `verity_fp8_256x128` runs clean at 8,192³, so the 1.446 ms divisor stands.
 CHECKPOINT 7b51143ef (13:25Z) [open] No reply to 13:04Z yet. Holding with no GPU in use. The 13:13Z divisor-kernel crash (`verity_fp8_256x128*` at qkv and gate_up) doesn't touch my divisors: compute accounting calls them honest at 8,192³, decode's 0.052 ms is the harness's, and `down_proj`'s is scaled by MACs and marked as such.
 CHECKPOINT 7b51143ef (13:05Z) [open] The assessor has been silent since 09:25Z, so I asked compute accounting for a rater (note 20261001T1304Z). Holding with no GPU in use.
 CHECKPOINT 7b51143ef (12:43Z) [open] No reply yet on F-NCP-salt or X-R9-2. No GPU in use. One caveat for readers of 12:20Z: at decode, this run's own plain GEMM is 0.0332 ms, against the harness divisor of 0.052 ms. The weights stay in L2 across its dependent chain. So against its own plain the bound unit is 28.4× (two-thread SHAKE256) and 13.5× (BLAKE3 XOF), where the morning note's 18.58× and 8.84× use the harness divisor as ordered.

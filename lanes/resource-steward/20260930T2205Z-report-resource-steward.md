@@ -240,6 +240,10 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   than 6 h and named by no Running or Pending pod (about 2.5M inodes). Nothing is deleted.
   `note:20261001T1015Z-ask-from-resource-steward-jobs-src-copies-unreaped` asks infra to approve adding them to the sweep
   and to point `prover-bench` and `prover-dev` at `job_tree.sh`.
+- Node 1 RAM (@circuits, asked 17:00Z): about 405 GB available. Circuits' three `boolean-replay` runs outside Kubernetes
+  hold 800 GB of `/workspace/ramlock` reservations, while vllm-epoch-run replays are still queued in Kueue. The ask:
+  start no new `boolean-replay` on node 1 until one finishes, and check that the queued replays fit. Thread
+  `1790873900.706599` (`sub_0bac0d2b`).
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
   deployed it on both nodes; wrote this policy; sent handoffs to node2-ops and nebius-infra. Armed the timer
@@ -440,3 +444,18 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 15:48Z (8:48 AM PDT) tick (exit 1): "n2: / gaining 406,923 inodes/h". Node 2 was not in a timed window.
   - Root is at 4% of inodes (1.09M) with 177 GB free. The growth is `/home/research/.cache` (824k inodes), a cache that
     can be rebuilt and is far under its watermark. No action.
+- 16:54–17:00Z (9:54–10:00 AM PDT) tick (exit 1): "n1: queued replay 360 GB (4 Commits) > half of available RAM -283 GB
+  (after ramlock reservations)". This is the replay-RAM hard stop.
+  - Node 1: 1,310 GB used of 1,716 GB, 390–435 GB available over 15 min.
+  - The consumers are circuits' bool-elementwise runs outside Kubernetes, each a `verity-vllm boolean-replay` with
+    forked workers:
+    - `r20261001-161823-8b22` (`l32-bool`, 9:18 AM PDT) and `r20261001-162600-177d` (`cov-l32-bool`, 9:26 AM), each
+      with a 400 GB reservation;
+    - `r20261001-163611-11a7` (`cov-g2b-bool`, 9:36 AM), with no reservation.
+  - Summed process RSS reads 2.36 TB because forked workers share pages. Only the node totals mean anything.
+  - The 128 GB reservation from `r20260930-235157-362d` has a dead pid. The probe and `research.mem` already leave it
+    out, so I left it.
+  - Kueue: vllm-epoch-run replays, two admitted (created 16:47 and 16:52Z) and one pending. Kueue can't see the host
+    runs' memory.
+  - Asked @circuits (`1790873900.706599`): start no new `boolean-replay` on node 1 until one finishes, and check that the
+    queued replays fit. Nothing is stopped.

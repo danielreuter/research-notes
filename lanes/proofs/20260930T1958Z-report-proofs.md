@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (22:31Z) [open] 3:30 PM PDT: value hiding is Daniel's top priority (yes to all three at 3:06 PM PDT). Eight proofs workers run: --zk at the BF16 cells, the ZK Lean proof, hidden statement outputs, registered commitments, private-index read pricing, C-Flock constants as inputs, IR registered inputs, the ruling's record. The rule went to @circuits, @compute-accounting, @top, @lean and @old-circuits-and-proofs (now the constant design's owner). #717 granted by red-team and ready in the queue.
 CHECKPOINT none (21:57Z) [open] 2:57 PM PDT: #717 (Q_call v1) check r20261001-211827-3a26 passed on e823817da; waiting on red-team-proofs-554's verdict before ready; Daniel's two value-hiding cards are up in #ask-daniel; asked the research owner for a yes on the Lean port.
 CHECKPOINT none (21:37Z) [open] 2:37 PM PDT: opened #717 (draft), Q_call v1 at e823817da with the hiding-rule wording; its check r20261001-211827-3a26 is running; red-team-proofs-554 reviews it (label on pr:717@e823817da); circuits has the counts.
 CHECKPOINT none (21:17Z) [open] 2:16 PM PDT: Q_call v1's hiding-rule text correction is with proofs-ir (constants bound outside the partition, never read from the program; fold remedy withdrawn); it re-runs check --record on vy-nebius-1, then I open the draft PR.

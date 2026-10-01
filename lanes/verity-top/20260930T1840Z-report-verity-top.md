@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:42Z) [open] train d403 (without #697) lands ~1:30; circuits fixing #697; Q_call go from Daniel
 CHECKPOINT none (19:26Z) [open] five trains queued (#704 review approved); control pod disk ~3 days runway, option due 2:00
 CHECKPOINT none (19:10Z) [open] node 2 cutover done; four trains queued; window 5 booked 1:30; router awaiting Daniel
 CHECKPOINT none (18:54Z) [open] morning set closed, afternoon set proposed; node 2 cutover 11:50; router awaiting Daniel's flag; retention store with infra

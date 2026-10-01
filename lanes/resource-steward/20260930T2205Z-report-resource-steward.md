@@ -212,6 +212,21 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   policy allowed it: each was untouched for over 2 h, had no open files, and the PID in its pytest `.lock` was dead.
   `pytest-1094` (245 files, 1,702 MB, last written 06:35Z), `pytest-1122` (251 files, 11 MB, 06:30Z), `pytest-1194` (16,438
   files, 2,915 MB, 08:15Z) and `pytest-1245` (907 files, 22 MB, 08:43Z). Root free went from 160 to 164 GB.
+- 12:38–12:39Z (5:38–5:39 AM PDT), the 6 h sweep (`sweep.sh --src-age-h 6`): 39 entries, 778,039 files, 40.8 GB.
+  - Node 1, 26 trees, 578,825 files, 30,255 MB: `016d97bd`, `0423128a`, `0e991d9d`, `22fe745f`, `4fc658ce`, `53cc3d99`,
+    `59eedcc0`, `6221a271`, `6454cc3a`, `67f82b87`, `68e7d205`, `6db2c066`, `72aacf9b`, `780673e7`, `7c80f77e`,
+    `a905d170`, `ad9f93b0`, `ae902546`, `b08e5e6b`, `b3e7e093`, `b7dd48f0`, `c8442c22`, `df081875`, `ee7b8c26` (10 h),
+    `fb8f525c`, `fc8eac5a`. The rest were 6–8 h old, 4,848–30,039 files and 87–1,701 MB each.
+  - Node 2, 9 trees, 194,298 files, 10,453 MB: `036fe6f9`, `2b2aa982` (15 h), `4df4bfea`, `815bc58e` (14 h), `947f1de2`,
+    `ee47ec2c` (14 h), `efd5739b`, `f50b7605`, `fbce5a2f`. The rest were 6–8 h old.
+  - Check scratch, 4 directories, 4,916 files, 66 MB: node 1 `pytest-1329` and `pytest-1336`, node 2 `pytest-120` and
+    `pytest-165`.
+  - Kept, 10 trees, all on node 2.
+    - Seven are named by live processes, by fill queue entries, or by request `r20260930-112057-cff1`.
+    - Three (`8aa9452d`, `b3b268ca`, `f6b39a2b`, 140 MB each, shipped 04:41–06:35Z) hold two generated files outside
+      their commit, under `integrations/vllm/out/gen/r9/cmt-hidden/src/`. They are too small to ask about.
+  - After: node 1 has 68 trees, with `/workspace` at 38% space and 39% inodes and root at 193 GB free. Node 2 has 77
+    trees, at 48% space and 10% inodes.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -397,3 +412,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     at 60 GB. No Slack, since that is under 50 GB.
 - 11:55Z (4:55 AM PDT) tick (exit 1): "n1: GPU 4 holds 49 GiB at 0% for 15 min". By the time I looked it was already free
   (0 MiB, no process), and infra's GPU alerter covers idle holds. No action.
+- 12:38–12:41Z (5:38–5:41 AM PDT) sweep (exit 1): 40.8 GB deleted (§4), no STUCK line. Node 2 was not in a timed window
+  (`timed False` at 12:39Z). No Slack, since that is under 50 GB. Node 2 `/workspace` is at 48%, up from 45.7% at 09:35Z.
+  Compute-accounting's hold is at 52% and my stop at 55%. Infra's `/workspace/jobs/src` note is still open.

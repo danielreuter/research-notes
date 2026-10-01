@@ -1,0 +1,1 @@
+2026-09-30T04:16Z epoch run: #23 will be deferred (Commit admission refused: 562,640 MiB predicted against 545,501 MiB limit); the config-run smoke on vyv-rf-epoch-smoke (1x L40S, ≤$2.50) is accepted; #466/#467 overlap check sent; epoch line $214.16; balance $147.52.

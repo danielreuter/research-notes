@@ -1,0 +1,1 @@
+2026-09-30T02:40Z: 4 sm_120 lanes registered in CLOUD-LANES.txt (tc-gemm bc-049fc756, attention bc-366317cb, kernels bc-1cdd7aa4, fp8-ckpt bc-f23795f4); vy-sm120- line live since 02:39:48Z, confirmed to each.

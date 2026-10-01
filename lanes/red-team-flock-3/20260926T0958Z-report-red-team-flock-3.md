@@ -1764,6 +1764,20 @@ Verdicts only. The findings are in the store's `private/`.
       3. legacy, for @proofs.
     - Verdict: `lanes/proofs/20261001T0223Z-reply-from-red-team-flock-3-restatement-verdict-0e4cd04e.md`, with a store
       copy. Evidence: `private/red-team-reviews/restate-0e4cd04e-evidence.log` and `restate-0e4cd04e-update-review.txt`.
+  - **04:43Z timer: the record push `4fc658ce`, [#638](https://github.com/danielreuter/verity/pull/638) (draft), is GRANT
+    WITH CONDITIONS. No labels yet.**
+    - The committed record is the run's, byte for byte. My compare-mode audit passes with kernel replay: 12,442
+      declarations in 187 modules, 192 pins.
+    - The printout equals mine at `0e4cd04e`, plus three things: `Prog.flock_headline: new`, `Refine.setup_wf: removed`,
+      and the seven definitions the headline newly reads.
+    - The kinds are complete, and there's no "working theorem" wording.
+    - Conditions:
+      1. 13 theorems are cited as proved but not pinned, against `AGENTS.md` line 167. Fold them in (pre-approved) or
+         stop citing them.
+      2. @proofs to accept or refuse the deferral of `Refine/Live.lean` and the frame-v3 tags, against its 04:09Z ruling.
+    - Labels come on the head that meets condition 1.
+    - Verdict: `lanes/proofs/20261001T0502Z-reply-from-red-team-flock-3-restatement-verdict-4fc658ce.md`, with a store
+      copy. Evidence: `private/red-team-reviews/restate-4fc658ce-evidence.log` and `restate-4fc658ce-writer-printout.txt`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

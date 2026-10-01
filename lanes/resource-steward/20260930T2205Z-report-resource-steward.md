@@ -279,8 +279,8 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     311 MB each), `06cf2201` (5,192 files, 94 MB), `087f33d5` (4,905 files, 88 MB), `2e1a9268`, `dabb17c0` (4,968 files,
     89 MB each), `b3f1912a` (5,415 files, 98 MB), `7aa3abf6` (21 h, 5,653 files, 139 MB), `9d5abb09` (33 h, 5,644 files,
     138 MB), `bf77c948` (25 h, 5,648 files, 139 MB); the rest 6 h old.
-  - Kept, 24 node 2 trees: `1503e18c` (request `r20260930-112057-cff1`), `91af9a6b` (a live python3), the four
-    `cmt-hidden` trees, fourteen without `READY.json` and four with no `.git` and a commit the bare repo lacks (`0d1cc2ef`,
+  - Kept, 25 node 2 trees: `1503e18c` (request `r20260930-112057-cff1`), `91af9a6b` (a live python3), the four
+    `cmt-hidden` trees, fifteen without `READY.json` and four with no `.git` and a commit the bare repo lacks (`0d1cc2ef`,
     `335d1f20`, `41a4eeb9`, `5f21ea3d`).
   - After: node 1 has 31 trees, `/workspace` at 45% space and 48% inodes (9.80M; 10.37M at 20:03Z), root 186 GB free.
     Node 2 has 36 trees, at 45% space and 10% inodes.

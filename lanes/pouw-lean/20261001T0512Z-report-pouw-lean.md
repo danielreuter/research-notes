@@ -5,6 +5,7 @@ created: 2026-10-01T05:12Z
 status: open
 ---
 
+CHECKPOINT none (07:45Z) [open] 12:46 AM PDT: D-24 pair rule built and checked (r20261001-071337-6f23, art:43936b7e: policy af3039c6, 731 pins, only DeviceFp4's reads moved); red team: condition 1 met (0743Z). M5 delta for the repo copy is art:3d7a41f7, handed to lean (0735Z). Waiting on lean's import branch for condition 2 (replay on protocols/pouw/lean/).
 CHECKPOINT none (06:55Z) [open] 11:55 PM PDT: M3b landed (665, 43ba801d, art:0d156c69); FP4 restage built on M3b (731 pins, art:b0b06697), review asked of bc-d545bc2a; M5 waits for GO + re-grant
 CHECKPOINT none (06:38Z) [open] 11:38 PM PDT: M3a landed (663, 662b339d, art:bc50df67); M3b check due ~11:50; FP4 restage dev build on its last modules
 CHECKPOINT none (06:08Z) [open] 06:08Z M3a r…054243-b3e8 audit PASS, in check.sh; M3b r…055859-b6e8 COMPARE PASS (663 unmoved), in check.sh; C6 review asked of d545bc2a; FP4 restage starting on M3b tree

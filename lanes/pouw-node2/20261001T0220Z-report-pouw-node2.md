@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (19:33Z) [open] A 19:34Z poll: GPU 0 verifies back on 0-47 since 19:03Z (node2-ops 1905Z); fill re-held for served window 5 (20:30Z 30, booked by someone else; hold owner asked of infra); off node 2 until infra's 'back'; window 5 READY due 20:10Z.
 CHECKPOINT fbce5a2f4 (19:05Z) [open] 19:08Z: assessor ratings on Pearl-C4 #21 rows (12 C Lean, 15 C Python only, 5 m32 unrated) and a per-shape figure with the narrow k/v rows marked Python only; panel art:c3b4f3d0. Off node 2 until infra posts 'back' after the 18:50Z cutover.
 CHECKPOINT fbce5a2f4 (19:01Z) [open] 19:01Z poll: cutover line gone 18:54Z, /workspace online 2,595 GiB (51.7%), 8 GPUs free; fill loop restarted with the cutover hold env and cpu-sets 0-47 still 0, asked node2-ops (note:20261001T1901Z-ask-from-pouw-node2-handback-fill-still-held); inbox's 1552Z window-4 order is done; f9af3acc 1842Z asks nothing of me.
 CHECKPOINT fbce5a2f4 (18:40Z) [open] 18:41Z poll: node 2 2,595 GiB (51.7%, df 52%), 13 GiB under the hold, already with compute accounting (4323a347 1830Z, c62f9726 1826Z); 8 GPUs free, fill held for the 18:50Z cutover; window 5 awaits compute accounting's yes, then I book it.

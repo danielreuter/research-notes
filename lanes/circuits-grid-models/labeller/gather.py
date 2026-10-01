@@ -10,8 +10,8 @@ SINCE = "2026-10-01T07:00:00Z"
 ROOT = Path("/workspace/jobs/dispatch")
 COV = Path("/workspace/jobs/cov")
 RUN = re.compile(r"r20\d{6}-\d{6}-[0-9a-f]{4}")
-#: only the feeder's own keys and their packed golden twins (-pk, -pk2): other lanes run variants of them (cov-gm006-plan)
-MINE = re.compile(r'"vllm-epoch-run/cov-gm\d{3}(?:-pk2?)?"')
+#: only the feeder's own keys and their packed golden twins (-pk, -pk2, -pk3): other lanes run variants of them (cov-gm006-plan)
+MINE = re.compile(r'"vllm-epoch-run/cov-gm\d{3}(?:-pk\d*)?"')
 
 ends, moved, tree, packed = {}, set(), {}, {}
 for line in (ROOT / "log.jsonl").read_text().splitlines():

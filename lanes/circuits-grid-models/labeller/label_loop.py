@@ -38,7 +38,10 @@ TREES = {"/workspace/research/trees/cursor-grid-models-8c79": PREFIX,
              "VERITY_DENSE_THREADS; note:20261001T1038Z-handoff-from-circuits-commit-phases-plan-tree)"),
          "/workspace/research/trees/cursor-grid-boundary-gm-827a": (
              "cursor/grid-boundary-gm-827a @ 1fff7995 (the plan tree cursor/grid-plan-gm-827a @ 05fa9d3e + the Build's call-boundary "
-             "plan read by the Commit; note:20261001T1417Z-handoff-from-circuits-commit-phases-boundary-gm-tree)")}
+             "plan read by the Commit; note:20261001T1417Z-handoff-from-circuits-commit-phases-boundary-gm-tree)"),
+         "/workspace/research/trees/cursor-grid-models-more-be5a": (
+             "cursor/grid-models-more-be5a @ 70471454 (the boundary tree cursor/grid-boundary-gm-827a @ 1fff7995 + 3 more checkpoints "
+             "and their workloads; note:20261001T1636Z-handoff-from-circuits-grid-models-pk3-three-models-reorder)")}
 QUESTIONS = json.loads((HERE / "questions.json").read_text())
 #: one family id per publisher model series (circuits 07:19Z: base, instruct and coder together, R1 distills under their base)
 FAMILY_OF = {"QWEN25_3B": "qwen25", "QWEN25_05B_INSTRUCT": "qwen25", "QWEN25_CODER_15B": "qwen25", "R1_DISTILL_QWEN_15B": "qwen25",
@@ -102,8 +105,8 @@ def current(run: str) -> dict[str, tuple[str, str]]:
 
 
 def base_of(item: str) -> str:
-    """cov-gmNNN for an item or either of its packed golden twins (-pk, -pk2)."""
-    return re.sub(r"-pk2?$", "", item)
+    """cov-gmNNN for an item or any of its packed golden twins (-pk, -pk2, -pk3)."""
+    return re.sub(r"-pk\d*$", "", item)
 
 
 def desired(rec: dict) -> dict[str, str]:
@@ -114,7 +117,9 @@ def desired(rec: dict) -> dict[str, str]:
     parts = [TREES.get(rec.get("tree") or "", f"tree {rec.get('tree')}" if rec.get("tree") else PREFIX)]
     if base != item:
         second = (" (the second, submitted once PACK_MODELS listed the model; "
-                  "note:20261001T1412Z-handoff-from-circuits-drop-deadline-gate)") if item.endswith("-pk2") else ""
+                  "note:20261001T1412Z-handoff-from-circuits-drop-deadline-gate)") if item.endswith("-pk2") else (
+            " (the third, with its Build kept on vy-nebius-1 so its Commit routes and packs; "
+            "note:20261001T1555Z-handoff-from-circuits-1130-set)") if item.endswith("-pk3") else ""
         parts.append(f"packed golden twin of {base}{second} (note:20261001T1158Z-handoff-from-circuits-refill-node2-pack-goldens), "
                      + (f"its Commit packed in {rec['packed']}" if rec.get("packed") else "its Commit not packed"))
     if rec.get("on") == "vy-nebius-2":

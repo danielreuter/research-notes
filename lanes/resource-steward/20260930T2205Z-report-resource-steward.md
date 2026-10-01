@@ -92,8 +92,8 @@ resource, what was deleted, what waits on an owner, and trends (from each node's
 - `tools/research/src/research/pods/nebius/resource_probe.py` on `infra/nebius` (`233f451f2`, then `7bcf2fc5f`: inode growth
   is measured against a base reading at least 15 min old), with its test `tools/research/tests/test_nebius_resource_probe.py`
   (12 tests).
-- Deployed at `~/resource-steward/bin/resource_probe.py` on both nodes (sha256 `765bc846…`, `infra/nebius` `542169a73`, 22:33Z), by
-  install and rename.
+- Deployed at `~/resource-steward/bin/resource_probe.py` on both nodes (sha256 `18d5fde99a73…`, `infra/nebius` `f2d8decc9`,
+  1 Oct 07:45Z; 14 tests), by install and rename.
 - The tick is `lanes/resource-steward/tools/tick.sh`: the probe on both nodes (node 2 skipped in a timed window), plus new
   resource `*alert*` notes. It exits 1 only for a new kind of breach, a HARD stop, a failed probe or a new alert note; a known
   breach prints as `known:` and exits 0. `tools/bootstrap.sh` restores the agent VM after a reset (no secrets).
@@ -297,3 +297,12 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   (`verity-commit-vllm-epoch-run-cov-cg09.sh`, run `r20261001-070053-839a`, gemma2-2b, owner bc-698052e1, from 07:01Z) at
   100% of one CPU, so it was in a CPU phase with its leased GPU still loaded. There were no lease waiters and 5 of 8 GPUs
   were free, so nobody was blocked and nothing was asked. Commit lease norms are node2-ops' and kueue-fold's.
+- 07:40Z (12:40 AM PDT) tick: "queued replay 1080 GB (12 Commits) > half of available RAM 1551 GB" on node 2 was a probe
+  bug. The fill runner keeps `.<job>.pgid` and `.<job>.unit` beside each running job, and `pathlib` globs match
+  dotfiles, so each of the 4 running Commits counted three times. The real figure is 4 × 90 GB = 360 GB. Fixed in
+  `infra/nebius` `f2d8decc9` (a test with the sidecars) and deployed; the breach is gone.
+  - `tools/tick.sh`'s dedupe key also replaced the GPU index with `#` (`GPU_5` became `GPU_#`), so every GPU shared one
+    breach kind. It keeps the index now (`GPU<5>`). GPUs 4–7 on node 2 are each held by one of the four running vLLM
+    Commits (n048-2, n049-2, m001-2, cg09; 48 GiB each, 0% GPU, about 100% of one CPU). Like GPU 7 at 07:20Z, they were in
+    a CPU phase with their leased GPU loaded. GPUs 0–3 were free and there were no waiters, so nothing was asked; the
+    pattern goes in the 8 AM PDT summary.

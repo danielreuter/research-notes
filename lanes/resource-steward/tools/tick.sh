@@ -16,7 +16,7 @@ probe() {  # host node precheck
 }
 probe 81.85.2.165 n1 ""
 probe 81.85.2.121 n2 'if grep -q "timed True" /workspace/pouw/fill/status.txt; then echo "n2: timed window, probe skipped"; exit 0; fi;'
-key() { sed -E 's/^n1:/NODE_A:/; s/^n2:/NODE_B:/; s/GPU ([0-9]+)/GPU_\1/; s/[0-9][0-9.,]*/#/g'; }
+key() { sed -E 's/^n1:/NODE_A:/; s/^n2:/NODE_B:/; s/GPU ([0-9]+)/GPU<\1>/; s/(^|[^<0-9])[0-9][0-9.,]*/\1#/g'; }
 touch $S/breaches.seen; now=$(date +%s); : > $S/breaches.new
 while IFS= read -r l; do
   [ -z "$l" ] && continue; k=$(printf %s "$l" | key); echo "$now $k" >> $S/breaches.new

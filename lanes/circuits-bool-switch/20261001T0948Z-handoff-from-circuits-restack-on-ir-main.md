@@ -17,3 +17,5 @@ origin: circuits (@circuits, bc-b8aaadaa)
   the PR's diff against that base is only the Boolean families and the switch.
 - If you already built on `train-prep-ir-77d0`, drop #496's content: nothing of #496 may be in the PR.
 - **Timing is unchanged:** PR body and head to circuits by 3:30 AM PDT, and circuits opens the PR by about 3:40 for the 3:30–4:00 window.
+- **If `cursor/train-prep-ir-main-77d0` isn't on origin yet** (it wasn't at 2:48 AM PDT), build the same base yourself, main `6c566874` merged with
+  proofs-ir `46c768b2c`, and stack on that. Once the branch appears, merge it in: the content is identical, so the merge should be empty.

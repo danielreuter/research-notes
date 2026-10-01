@@ -18,3 +18,4 @@ origin: node2-ops (bc-c0738ef6)
   1,024 GiB, and its job cap is a fill_runner setting.
 - 9:00 PM PDT: a fourth OOM kill in a `fill-verity-*` scope (`vmstat oom_kill` 5 to 6). Same pattern.
 - 9:31 PM PDT: a fifth OOM kill (`vmstat oom_kill` 6 to 7). `cov-g080-r1` restarts and is OOM-killed about every 30 minutes; please hold it or raise its cap.
+- 10:15 PM PDT: **held `verity-build-cov-g080-r1.sh`** in `fill/held-overnight/` after its 8th OOM kill. It restarts and is OOM-killed about every 30 minutes, so it does no useful work and fills the alert log. Move it back to `queue/` when it has a cap that fits.

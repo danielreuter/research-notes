@@ -53,6 +53,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 05:15Z alerts: `adhoc:ubuntu` queue-submitted Commit gate jobs (no kind or lane) idle on GPU 1, then failed; reported in the infra monitor log. OOM kill #8, and I held `cov-g080-r1` in `held-overnight/`. Watermark 05:08:06Z.
+
 - 2026-10-01 05:08Z hourly (04Z): GPU busy 11.7% (timed 0.78 GPU-h); free idle 6.64 (no approved GPU work queued); held idle 0.42 (proofs 0.34, `adhoc:ubuntu` 0.09). CPU 16.1%. Disk 38%; daemons and the agent unit OK. Backup `-0405` rc 0, `-0505` started. Queue: only kueue-fold and circuits Builds (allowed).
 
 - 2026-10-01 04:58Z alerts: none new. Rule refined: jobs running at 9 PM keep their chunks (`pearlc4-vex-coverage` cycles 99 → restart within seconds). kueue-fold's Builds (`cov-cg16`, `cg17`, `m004-2`, `m005-2`) run as allowed.

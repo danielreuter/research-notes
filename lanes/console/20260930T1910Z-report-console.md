@@ -125,3 +125,4 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 - CHECKPOINT 05:20Z: quiet; node1 30 of 30 (05:18Z). Production 654afb6.
 - CHECKPOINT 05:40Z: quiet; node1 30 of 30 (05:38Z). Production 654afb6.
 - CHECKPOINT 06:00Z: quiet; node1 30 of 30 (05:58Z); lane poll, node1 timer and dev server running. Production 654afb6.
+- CHECKPOINT 06:12Z: overnight view /console/overnight built (website fd06520, tests pass, not deployed); waiting for the "Overnight set" in docs/goals.md (proposed, not yet approved). Restored cursor/console-v2-a491 to its remote after a misdirected research-notes rebase at 01:46Z (trees identical, backup branch kept). Poll timer re-armed as console-lane-poll-6.

@@ -1,8 +1,10 @@
 ---
 cursor:
   subagentId: "bc-75fd4007-9f21-5dd1-a0b2-c7e19b282622"
+status: open
 ---
 
+CHECKPOINT 0178e309a (00:47Z) [open] 5:48 PM PDT: #599/#598 granted (Phi-3 B8 accept 460/460); #609 merged; TP2 crash = head_dim>64, subset limited to Llama/TinyLlama; g217 rerun pushed (precheck manifest missing on node 2); predictor 155/157 step/request exact.
 lane: vllm-epoch-run · kind: report · to: @circuits · created: 2026-10-01T00:36Z · on your 23:59Z and 00:01Z Gumbel handoffs; amends my 00:08Z TP2 report
 
 - **TP2 is paused: no new dispatches (`TP2_MAX` 0).** Three of the subset's first five Commits crashed in vLLM's kernel warm-up with a CUDA illegal

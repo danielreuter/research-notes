@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (16:08Z) [open] 16:09Z: no new asks. Project store still unmounted (since 15:15Z); two ledger lines held in /cursor/stores/self/pending/.
 CHECKPOINT fbce5a2f4 (15:57Z) [open] 15:58Z: answered bc-4323a347's second ask on eps8 (note:20261001T1557Z): tile reading over prover-chosen tiles, B stays with that route open. Two ledger lines pending in /cursor/stores/self/pending/ (1543Z, 1557Z); Project store unmounted since 15:15Z.
 CHECKPOINT fbce5a2f4 (15:43Z) [open] 15:44Z: rated F-NCP-salt at 40 as a pipe bound: C (note:20261001T1543Z), superseding my 36. Ledger line pending: the Project store is unmounted since the 15:15Z reset; held in /cursor/stores/self/pending/ledger-1543Z.txt.
 CHECKPOINT fbce5a2f4 (15:28Z) [open] 15:29Z: no new asks. The tt-out/fp4-sm120 re-grant carries into the 742-pin M5 + cap train (note:20261001T1522Z: M5's 66 records byte-identical). Waiting on bc-2f661c92's write-up and M5 landing.

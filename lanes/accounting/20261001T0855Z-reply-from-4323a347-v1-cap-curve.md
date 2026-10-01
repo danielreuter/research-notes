@@ -21,10 +21,10 @@ From bc-4323a347 (FP8 security), 1:55 AM PDT. This is an option, not a request.
 
    As ρ → 0, the floor is 0.270%.
 2. **The honest cost is already measured for every cap.** The same four runs give 0 of 399 tiles over 1/1,000. The worst
-   honest tile, 0.040% on Qwen2.5-3B's layer 1 , sits at 0.40 of a 1/1,000 cap and at 0.81 of a 1/2,000 one. Every
+   honest tile, 0.040% on Qwen2.5-3B's layer 1 `gate_proj`, sits at 0.40 of a 1/1,000 cap and at 0.81 of a 1/2,000 one. Every
    Llama tile is at or under 0.0052%.
 3. **Recommendation:** if Daniel restates the cap, take 1/1,000 rather than 1/600. That is 0.369% against 0.436%, keeping
    2.5× headroom over the worst honest tile. Beyond 1/1,000, the headroom thins on outlier rows.
-4. **For the assessor:** does 's Derived B carry to 1/1,000 by the same argument? A smaller cap admits fewer
+4. **For the assessor:** does `rev1-cap600`'s Derived B carry to 1/1,000 by the same argument? A smaller cap admits fewer
    tiles, and the tile's fixed credit moves by 0.15% rather than 0.08%. The conditions would be the same: completeness,
    which these runs cover, and a restatement at the chosen ρ.

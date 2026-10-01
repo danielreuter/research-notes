@@ -8,12 +8,13 @@ repo: danielreuter/verity
 origin: proofs-ir (bc-6cd83494)
 ---
 
-# Draft PR body for `cursor/proofs-qcall-95d4` at `213f4361b` (base `main`)
+# Draft PR body for `cursor/proofs-qcall-95d4` at `e823817da` (base `main`)
 
 to: proofs (bc-8416bc72). From proofs-ir. I can't open the PR from this VM: `gh` is read-only and I have no PR tool. Please
-open it with base `main` and the title and body below. The branch is pushed, and `main` (`e221350fd`) has not moved past it.
-`check --record` is `r20261001-203205-c3c1` on vy-nebius-1, and it passed at 2:04 PM PDT. Everything under the rule is the
-body.
+open it with base `main` and the title and body below. The branch is pushed at `e823817da`, which adds the wording of Daniel's
+ruling on constants (1:14 PM PDT) to `213f4361b`. The branch is based on `e221350fd`, and `main` has since moved to `743c7ce21`.
+`check --record` on `e823817da` is `r20261001-211827-3a26` on vy-nebius-1: VERDICT-PENDING. `r20261001-203205-c3c1` passed on
+`213f4361b`. Everything under the rule is the body.
 
 **Title:** verity.ir: `Q_call` v1, the partition query cut along Calls with at most 32 bits out of a proof unit
 
@@ -24,7 +25,7 @@ PDT (brief: `note:proofs-ir/20261001T1931Z-handoff-from-proofs-qcall-partition-q
 - A proof unit has at most X = 32 output bits and unbounded inputs.
 - The cut runs along Calls: a Call that fits is one unit; otherwise it is cut into its body nodes, then a call node into its
   callee's body, and a batch or scan into its members or iterations.
-- Program inputs and constants are in no unit. Every other gate is in exactly one.
+- Program inputs and constants are in no unit: each is bound outside the partition. Every other gate is in exactly one.
 - A recompute across units is reported, never refused.
 
 `Q_word` v1 and v2 are unchanged: their vectors, digests and verdicts are byte-identical, and no recorded partition object
@@ -57,7 +58,7 @@ changes.
 ## Rules the IR left open, pinned in §11
 
 - **A pass-through output** resolves to a parameter of the Call or to a constant, not to a computing gate. It is no output of any
-  unit: the value is the Call's input or the program's literal.
+  unit: the value is the Call's input, or a constant, bound outside the partition like an input.
 - **A scan's carry** follows from the reads. An iteration's returned carry is an output of that iteration when the next iteration
   reads it, and of the Call when it is the final carry. A carry passed through unchanged resolves to the scan's `init`, so it
   is a pass-through.
@@ -112,8 +113,8 @@ Every Q_call row verifies (`verify` ok, no codes).
 
 - **Constant-derived gates add no committed bits** in any Call. They add recomputes instead: each unit that reads a
   constant-derived value computes it again. That is 30,727 of the softcap block's 32,438, mostly the 16 PV wgmma members each
-  recomputing about 1,771 gates of the QK `DotBf16` node. Folding them into literals in the program removes those recomputes,
-  and needs no query rule.
+  recomputing about 1,771 gates of the QK `DotBf16` node. These recomputes go away when a program's constants become
+  registered inputs. Folding an operation's own constant bits waits on Daniel's open question 1. Neither needs a query rule.
 - **Former wiring gates add no committed bits.** None of these Calls has a wiring gate.
 - **No gate is wider than 32 bits** in any of them.
 - **Recomputes that are not constant-derived** (`AttnBlock_v8`'s 63,771) come mostly from sibling Calls reading one operand. The
@@ -125,7 +126,7 @@ Every Q_call row verifies (`verify` ok, no codes).
 
 **Under `Q_call` the Boolean block and the word block cut identically:** 133 units for `AttnBlock_v8` and `AttnBlock_v5`, and 24
 for the two softcap blocks. The Boolean block has 17 fewer committed bits (3,983 against 4,000) because each of its 17
-`MufuEx2Ftz_v2` Calls has a 31-bit output: the sign bit is a constant 0, a pass-through, so it is not committed. The softcap
+`MufuEx2Ftz_v2` Calls has a 31-bit output: the sign bit is a constant 0, a pass-through, so it is outside the committed set. The softcap
 block's one bit (751 against 752) is the same.
 
 **It is 133, not 72, because of the model, not a bug.** `Q_word` v1 merges a gate into its only consumer's unit, so the word
@@ -157,9 +158,8 @@ row likewise reads 32,634, against 31,346 for `_v3` here.
     name, version and parameters, such as `Q_word` v1 `{X: 16, W: 32}`, and a verifier evaluates the query itself. The committed
     set, every gate read across a unit boundary plus the program's outputs, follows from the partition and is never stored."
   - After: "a division of a program's computed gates into proof units, each in exactly one (`verity/partition/v1`,
-    `verity.ir.partition_object`). A gate with no inputs, a program input or a constant, is in no unit: the input commitment
-    certifies inputs, and a unit reads a constant's value from the program (`Q_word` also leaves out its structure: wiring, and
-    gates computed from constants alone). It is a named query on the program: the object holds the program's digest and the
+    `verity.ir.partition_object`). A gate with no inputs, a program input or a constant, is in no unit: each is bound outside
+    the partition (`Q_word` also leaves out its structure: wiring, and gates computed from constants alone). It is a named query on the program: the object holds the program's digest and the
     query's name, version and parameters, such as `Q_call` v1 `{X: 32}`, which cuts each Call down its hierarchy until every
     unit has at most 32 output bits, or `Q_word` v1 `{X: 16, W: 32}`. A verifier evaluates the query itself. The committed set,
     every gate read across a unit boundary plus every value a Call returns, follows from the partition and is never stored."
@@ -178,9 +178,9 @@ row likewise reads 32,634, against 31,346 for `_v3` here.
 
 - `packages/verity/tests/ir`: 282 passed, including the 14 new `test_qcall_vectors.py` tests.
 - `tools/circuit_check`: `test_q_call_is_recorded_per_call_and_refuses_a_gate_wider_than_32_bits` and its neighbours pass.
-- `check --record`: `r20261001-203205-c3c1` on `213f4361b` **passed**. Every step passed: pytest, circuit-check on 1,439
-  targets with 0 new failures, the Lean build, unit-cut, audit and suites. lean-agreement was skipped (nothing under
-  `backends/flock/`).
+- `check --record`: `r20261001-211827-3a26` on `e823817da`: VERDICT-PENDING. Before the wording commit,
+  `r20261001-203205-c3c1` on `213f4361b` passed every step: pytest, circuit-check on 1,439 targets with 0 new failures, the Lean
+  build, unit-cut, audit and suites.
 - Review: red-team-proofs-554 is asked to read the committed set's derivation and the recompute report
   (`note:red-team-proofs-554/20261001T2034Z-ask-from-proofs-ir-review-qcall`).
-- No lean-agreement is needed: nothing under `backends/flock/` changes.
+- Nothing under `backends/flock/` changes on this branch, so no lean-agreement is needed for it.

@@ -1,3 +1,1 @@
-{
- "cov-gm001": "Definition gap, not a Commit fault: SiluMul_v1 is not vLLM's _C.silu_and_mul on a gate whose expf(-g) overflows f32. At model.layers.27.mlp.act_fn/out (r0 prefill step 0, row 15, element 107) gate=0xc2c2 (-97.0), up=0x4183 (16.375): the GPU committed 0x8000 (-0, g/inf), SiluMulBf16_v1 gives 0x8010 (a tiny g*e^g); the quarantined SiluMul_v2 (lane vllm-coverage-defs, the red-team's sm_120 edge words, labels on r20260930-092038-7dbc) equals the committed row in all 3072 elements; 459 of 460 sampled VUs equal"
-}
+{}

@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: proofs (bc-8416bc72, Slack @proofs)
 ---
 
+CHECKPOINT 4367b466e (00:16Z) [open] 5:17 PM PDT: gemm-hill over dtype (4367b466e: DTYPE, PROGRAM=, fill N from gate, session overhead, coins os-seed-prf, session batched-J1); census -> rtx-pro-6000-server/* (ff5901d18); e4m3/nvf4/mxf4 K=2048 step 0 submitted to node 1 provers (prover-bench, 1 GPU). GPU prover refuses --session-tables>1
 CHECKPOINT 7fd223449 (00:01Z) [open] pieces done+tested (E4M3/NVF4/MXF4 vs prims); statements stage K=2048 all three; wiring gemm-hill job over dtype next, then node-1 runs
 CHECKPOINT c6040f306 (23:45Z) [open] 4:48 PM PDT verdict: no blocker (note:20260930T2345Z-report-blocker). Next: sm_120 E4M3, NVFP4-total and MXFP4 pieces checked against the reference; coin mode recorded per point
 # No blocker for proving FP8/FP4 GemmCoordinates in C-Flock (4:47 PM PDT); the steps, sized

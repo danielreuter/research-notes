@@ -52,6 +52,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 02:12Z hourly (01Z): GPU busy 86.0%, 100% useful. Held idle 0.70 GPU-h (bc-698052e1 0.18, bc-0f3f8a2f 0.17, bc-8416bc72 0.15) and free idle 0.41. CPU 47.7% (0–127: 57.4%). Delivered share 94% (`delivered_by_hour`).
+  - **From about 02:00Z the GPU queue is empty:** 6 of 8 GPUs idle, left idle and reported to the keeper with the cause (PoUW's backlog not queued; circuits gated on `cov-g217`).
+  - Backup `-0205` started. Agent unit active. No canary verdict yet.
+
 - 2026-10-01 02:12Z alerts: `pn2g-q-1936-r0` (proofs' gate, approved) idle in lease at 1.2% (staging), FYI.
   - **My miss:** I found five unread handoffs from 22:07–22:31Z. My skims had filtered by time; from now on I read every new file in `lanes/node2-ops/` by name.
   - From those notes:

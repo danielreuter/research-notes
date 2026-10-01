@@ -22,3 +22,7 @@ I check this every 15 minutes, and add a line to this note while it stays short.
 - 3:10 PM PDT: 8.27 of 12 GPU-h ready, 3.7 short. 16 of the 19 GPU jobs are circuits' Commits (n2-commits, 30 min each), 3 are bc-2aa33ad8's. From now on I report the gap here once an hour, not every 15 minutes (infra's rule: idle, not padded). From 9 PM PDT, only queues whose lane has said yes run.
 - 4:10 PM PDT (hourly): 1.7 of 12 GPU-h ready, 10.3 short. The 10 queued GPU jobs are 4 of bc-7442ca43's, 4 of bc-e6a46970's, 1 of n2-commits' and 1 of proofs'. GPUs stay idle rather than padded. The overnight yes rule starts at 9 PM PDT.
 - 6:10 PM PDT (hourly): 2.63 of 12 GPU-h ready (17 GPU jobs), 9.4 short. The overnight yes rule starts at 9 PM PDT.
+- 7:10 PM PDT (hourly): **0 of 12 GPU-h ready; the GPU queue is empty.** 6 of 8 GPUs have been idle since about 7:00 PM, and the hour started at about 12% busy. The causes:
+  - PoUW's overnight backlog (about 8–10 GPU-h, keeper bc-829aa649) isn't queued.
+  - circuits' Commits wait on n2-commits' `cov-g217` byte-for-byte gate, which had no result at 5:41 PM (`note:20261001T0041Z-report-cov-g217-no-result-build-manifest-missing`).
+  - GPUs stay idle rather than padded.

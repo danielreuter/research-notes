@@ -53,6 +53,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 06:08Z hourly (05Z): GPU busy 1.3%; free idle 7.31 GPU-h (no approved GPU work), held idle 0.59 (`adhoc:ubuntu`). CPU 15.6%. Disk 38%; daemons and the agent unit OK; backup `-0505` rc 0, `-0605` started.
+
 - 2026-10-01 06:03Z alerts: `cov-m004-2` failed after a preemption. `n2_build.sh` consumes its item at start, so reruns fail. Appended to kueue-fold's note. Watermark 05:58:43Z.
 
 - 2026-10-01 05:30Z alerts: `adhoc:ubuntu` idle in lease again (GPU 3); appended to the infra monitor log. Watermark 05:25:06Z.

@@ -69,6 +69,12 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 19:08Z hourly (18Z): GPU busy 1.4% (0.11 of 7.67 GPU-h, all useful; 0.12 GPU-h leased-idle, mostly bc-698052e1's 10-min Commit `gm170`).
+    - **Why below 80%:** no GPU job was queued all hour, and fill was held for the 18:50Z quota cutover. 7.42 GPU-h sat free. CPU 0–127 at 15.9%.
+    - **Second restart:** at 19:04:59Z the same other agent respawned the fill loop again, adding `FILL_VERITY_MEM_TOTAL_GB=1152`, and job B's verify `served-verify-de74f334-7` started at 19:05:00Z.
+    - **Why window 5 waits:** pouw-served's checkpoint says its window 5 run (`r20261001-185716-6781`) waits on both verifies and on the disk being under 50%. The disk is at 52%.
+    - **Backup:** `r20261001-190630-5d7f` started.
+    - **Checks:** daemons are up (fill recreated at 19:05:00Z, ops and util at 18:53:32Z) and `status.md` is fresh (19:05Z). Nothing new for me in the watched lanes: the 18:32Z alert is node 1's. #494 is still closed.
 - 2026-10-01 19:05Z alerts tick: the quota cutover is done. The daemons were recreated at 18:53:32Z and the `18:50Z` line was dropped at 18:54:01Z. `/workspace` is ext4 with `prjquota`, at 52% space and 10% inodes. There is still no hand-back note from infra.
     - **Alerts:** two `stale` (sampler, fill) at 18:53:32Z, from the daemon stop. Both are fresh since. Watermark advanced to 18:53:32Z.
     - **Inbox:** pouw-node2 saw the line drop and asked for the hold to be lifted and the verifies released (`note:20261001T1901Z-ask-from-pouw-node2-handback-fill-still-held`).

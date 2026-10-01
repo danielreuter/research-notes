@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:26Z) [open] afternoon closed 6/8, evening set in; tables card with Daniel
 CHECKPOINT none (23:10Z) [open] #723 registered inputs approved by constant owner; node-1 leases running; vLLM conversion started; PoUS panels card with Daniel
 CHECKPOINT none (22:54Z) [open] node-1 lease pools blocked by circuits' strays, infra clearing; early release live; hiding work in flight
 CHECKPOINT none (22:38Z) [open] Pearl-C4 16/16 ACCEPT; hiding-values top priority spread to proofs/circuits/compute-accounting; #721 P2 Lean with lean; Nebius quota with Daniel

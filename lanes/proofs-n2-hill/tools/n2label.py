@@ -3,9 +3,10 @@
 
 Runs on node 1 beside the shipped run dirs (RUNS_DIR/<run id>/n2.json). A point's socket neighbours are the other node-2 jobs on
 the prover range while it ran: the n2h jobs its record saw on 128-191 at its start and end, every shipped run whose interval
-overlaps it, and any process outside n2h on the range. Proofs (08:02Z) counts node-2 points beside node 1's on overhead, from
-the E4M3 K=2048 parity; an FP4 point is node-2-only once RUNS_DIR/../FP4_NODE2_ONLY exists (the MXF4 K=2048 parity check's mean
-overhead off by more than 3%), its first line the reason. Stdlib only.
+overlaps it, and any process outside n2h on the range. Node-2 points go on the overhead curve labelled by node, and proofs'
+offset rule (08:30Z) divides a node-2 overhead by 0.95 before any comparison with a node-1 number; an FP4 point is node-2-only
+once RUNS_DIR/../FP4_NODE2_ONLY exists (proofs 08:02Z: the MXF4 K=2048 parity check's mean overhead off by more than 3%), its
+first line the reason. Stdlib only.
 """
 from __future__ import annotations
 
@@ -41,28 +42,36 @@ def neighbours(runs: Path, d: dict) -> list[str]:
     return out
 
 
+def slice_numa(cpuset: str) -> str:
+    """Node 2's NUMA node 0 is CPUs 0-95 and node 1 is 96-191, so 92-107 straddles them."""
+    lo, hi = (int(x) for x in cpuset.split("-"))
+    if hi <= 95 or lo >= 96:
+        return str(0 if hi <= 95 else 1)
+    return f"0+1: {lo}-95 on 0, 96-{hi} on 1"
+
+
 def labels(runs: Path, run: str) -> dict:
     d = json.loads((runs / run / "n2.json").read_text())
     g = d.get("gpu") or {}
-    slot = d.get("slot") or {}
     m = re.search(r"\bDTYPE=(\w+)", d.get("cmd") or "")
     fp4 = bool(m) and m.group(1).lower() in ("nvf4", "mxf4")
-    where = (f"node vy-nebius-2, prover slice {d['cpuset']} (NUMA {slot.get('numa')}) via vy-provers, "
+    where = (f"node vy-nebius-2, prover slice {d['cpuset']} (NUMA {slice_numa(d['cpuset'])}) via vy-provers, "
              f"GPU {g.get('cuda_visible_devices')} (NUMA {g.get('numa')})")
     nb = neighbours(runs, d)
     socket = f"socket neighbours on {d.get('range') or '128-191'}: {'; '.join(nb) if nb else 'none'}"
     flag = runs.parent / "FP4_NODE2_ONLY"
     if fp4 and flag.exists():
         why = (flag.read_text().splitlines() or ["MXF4 parity off by more than 3%"])[0]
-        head = f"node-2-only ({REF}): FP4 points compare with node-2 points only, {why}"
+        head = (f"node-2-only ({REF}): FP4 points compare with node-2 points only, {why}; "
+                f"a gain under 20% is confirmed on node 2")
     else:
-        head = (f"counts beside node 1's on overhead ({REF}; proofs 08:02Z: E4M3 K=2048 x3 against node 1, mean overhead -2.0%, "
-                f"GPU-held -2.0%, verify/statement -4.3%)")
-        if fp4:
-            head += "; FP4: back to node-2-only if the MXF4 K=2048 parity check's mean overhead is off by more than 3%"
-    note = f"{head}; {where}; {socket}; a gain under 20% is confirmed on its baseline's node"
+        head = (f"on the overhead curve as a node-2 point ({REF}; proofs' offset rule, 08:30Z): divide this overhead by 0.95 "
+                f"before comparing it with any node-1 number (E4M3 K=2048 x3 against node 1: -5.4%, +0.5%, -1.1%, mean -2.0%), "
+                f"and report the raw value with its node beside the corrected one; same-node pairs need no correction; "
+                f"the 20% rule applies to the corrected gain, and a gain under 20% is confirmed on its baseline's node")
+    note = f"{head}; {where}; {socket}"
     hardware = (f"vy-nebius-2: GPU {g.get('cuda_visible_devices')} {g.get('name') or ''} (NUMA {g.get('numa')}); "
-                f"prover slice {d['cpuset']} of {d.get('range') or '128-191'} (NUMA {slot.get('numa')}) via vy-provers")
+                f"prover slice {d['cpuset']} of {d.get('range') or '128-191'} (NUMA {slice_numa(d['cpuset'])}) via vy-provers")
     return {"note": note, "hardware": hardware, "ref": REF, "fp4": fp4}
 
 

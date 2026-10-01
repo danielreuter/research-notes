@@ -5,6 +5,12 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT f12fe3592 (09:01Z) [open] 2:01 AM PDT, node 1 unless noted:
+- K=8192 s5, 2 verifier servers ahead 4 (cab4): 2.38e7 against s3's 3.16e7, a 25% same-node gain. Verifier peak 11 GB, against 8 processes' 88 GB at K=16384, and NUMA node 1 has 19 GB free.
+- K=16384 s2 overlap 3.58e7 (5802; 269c was its evicted first attempt), s3 lincheck 2.85e7 (9514). Its 2-server step runs now.
+- Confirmations: K=2048 s5 4.58e7 (8c9e) and s6 4.36e7 (4a30); K=4096 s3 2.37e7 (2e7e).
+- Node 2, 2 servers (RUNS=96): no gain at K=2048 (4.50e7) or K=4096 (2.39e7).
+- Node 2 next: chunked device prefetch at K=2048/4096/8192, never measured before.
 CHECKPOINT f12fe3592 (08:46Z) [open] 1:46 AM PDT: #554 re-label done (flags rule in f12fe35; roll-ups + hill.flags labels); clean step 0 ef42/3cd7 now flag-free. 3x2 tile refused by the verifier (6 units/VU, not a power of two), tiles stopped. Node 2 RUNS=96 (byte-identical): K=2048 4.36e7 (af2b), K=4096 2.28e7 (0970), K=8192 2.37e7 (932b; /0.95 = 2.50e7, 21% under node 1's s3 3.16e7, GPU util 0.86 vs 0.60). RUNS=96 is a measurement check, not a lever: node 1 is slower at K=8192. Next lever: 2 verifier servers (node 1 K=8192/16384, node 2 K=2048/4096).
 CHECKPOINT none (08:15Z) [open] 1:16 AM PDT, clean: K=8192 s2 overlap 3.04e7 (c459), s3 lincheck 3.16e7 (b3ec, prover-bound). Tiles: blocks cap at 2^26, so 4x2/4x3 at K=4096 fail (2^27) and none gains at K>=8192; trying 3x2 at K=4096 (1.5x coords). Staging K=16384 for s2/s3. 3 node-2 items queued.
 CHECKPOINT none (07:56Z) [open] 12:56 AM PDT, all clean: K=2048 s5 fold+overlap 4.85e7 (97e4), s6 lincheck 4.27e7 (9094, verify 0.32 s), s7 4x4 tile 1.44e7 (4da7, tile-statement-unreviewed). K=4096 s3 lincheck 2.39e7 (8bb3). Next: tiles at K=4096 (4x3) and K=8192 (2x3); K=8192/16384 overlap+lincheck.

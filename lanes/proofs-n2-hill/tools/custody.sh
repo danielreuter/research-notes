@@ -6,7 +6,7 @@
 set -euo pipefail
 export PATH=/workspace/.venv/bin:$PATH RESEARCH_NOTES=$HOME/.research/notes RESEARCH_MACHINES_D=$HOME/.research/notes/machines.d
 N=/workspace/jobs/proofs-n2-hill
-# every GPU point's art gets a `note` (counts beside node 1's on overhead, or node-2-only; its node, slice, GPU and socket
+# every GPU point's art gets a `note` (a node-2 point under proofs' offset rule, or node-2-only for FP4; its node, slice, GPU and socket
 # neighbours) and a `hardware` label, both from n2label.py on node 1; `custody.sh relabel` rewrites them on every GPU point
 S=$(mktemp -d)
 trap 'rm -rf $S' EXIT

@@ -25,7 +25,7 @@ ends, or while the runner reports a timed window running or waiting; nothing who
 (17:00Z, the range's end as infra extended it at 07:40Z); no
 node-1 traffic while node 1's /workspace is offline (12:40-12:55Z); nothing new once node 2's /workspace is 55% full. A
 preempted attempt is moved aside and re-run, never reported. Node 2 has no unprivileged network namespaces (AppArmor), so every
-job's IPv4 loopback traffic goes to its slot's own address (n2h_loopback.so, N2H_LOOPBACK=127.77.<slot+1>.1, ports unchanged):
+job's IPv4 loopback traffic goes to its slot's own address (n2h_loopback.so, N2H_LOOPBACK=127.77.<first core // 16 + 1>.1, so growing RANGE never moves a running slot's address, ports unchanged):
 74-gemm-hill.sh's fixed ports 7720/7721, which node 1's pods each have to themselves, never meet another slot's.
 """
 from __future__ import annotations
@@ -216,7 +216,7 @@ def slots() -> list[dict]:
         numa = 0 if cs[-1] <= 95 else 1 if cs[0] >= 96 else None
         # any free GPU, as node 1's scheduler places them without regard to socket (r20261001-052527-2ac1: slice 160-175 on
         # NUMA 1, GPU 0 on NUMA 0); an item's "on" pins it, and each record has the GPU's NUMA node
-        out.append({"index": len(out), "cpus": span(cs), "numa": numa, "gpus": None, "loopback": f"127.77.{len(out) + 1}.1"})
+        out.append({"index": len(out), "cpus": span(cs), "numa": numa, "gpus": None, "loopback": f"127.77.{cs[0] // SLOT + 1}.1"})
     return out
 
 

@@ -3,7 +3,7 @@ id: 20261001T0830Z-ask-from-node2-ops-commit-guests-hold-gpus-idle-proofs-wait
 campaign: overnight-sep30
 lane: infra
 kind: handoff
-status: open
+status: resolved
 repo: verity
 origin: node2-ops (bc-c0738ef6); follows note:20261001T0745Z-alert-from-node2-ops-commit-cpu-step-outlasts-its-lease
 ---
@@ -18,3 +18,5 @@ to: infra (bc-17cc41f1); cc n2-commits (bc-698052e1), proofs (bc-8416bc72).
 - **Who waits.** GPU 7 is memory accounting's, and memory accounting's two `pous-climb` jobs hold the other two GPUs. Proofs' four `pn2h-*` jobs are queued. They rank below Commits (Daniel's order), so they start only when a Commit ends.
 - **I'm not stopping anything.** A stop throws away each guest's 40 min of CPU work, and with `ad91739ef`'s 90-min cap they should end by about 09:15–09:30Z. If the step needs more than 90 min, they'll loop the way cg09 did at 30 min.
 - **Your call.** My recommendation: no new Commit guests on node 2 until n2-commits runs this step before taking the GPU, or until one finishes inside its cap. Then the next GPUs that free up go to proofs and pous. Nothing is queued for Commits right now; `n2_commit.sh` is what queues them. If you want a cap on concurrent Commits in the fill runner instead, that's a code change and I'll write it.
+
+Resolved 08:44Z: infra cancelled the five Gemma-2 Commit guests at 08:32Z (held in `fill/held-circuits-gemma2-20261001T0832Z/`), and proofs' `pn2h-*` started on the freed GPUs.

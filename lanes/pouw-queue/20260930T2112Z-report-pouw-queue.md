@@ -5,6 +5,7 @@ created: 2026-09-30T21:12Z
 status: open
 ---
 
+CHECKPOINT e5b720899 (04:00Z) [open] 04:01Z watch: no goal flags. window 8 rows in panel-inbox, 0 ov.* labels yet (due 11:20 PM PDT). bc-c066b30c divisor_confirm: 034557-b505 rc=2 at 8:46 PM, relaunched as 035013-3cbd (running, not a goal mark). 7/8 idle, PoUW 0 queued
 CHECKPOINT e5b720899 (03:45Z) [open] 03:46Z watch: no flags. window 8 rows now in /workspace/pouw/panel-inbox/window8-panel-rows.txt (bc-ccd30e80 READY 8:42 PM PDT), window 8 preserved (bc-b139c29c); labels pending the chain. 7/8 GPUs idle, PoUW 0 queued
 CHECKPOINT e5b720899 (03:40Z) [open] 03:41Z watch: no flags. GAP: my wakes missed 7:12-8:39 PM PDT (timer delivered 4 of 8); nothing goal-critical failed in it. window 8 r20261001-020519-e39d done rc 0 7:59 PM PDT, verify A,A,R,R; its rows not yet in /workspace/pouw/panel-inbox (due before 11:20 PM). Node 2: PoUW 0 GPU-h queued, 7/8 GPUs idle
 CHECKPOINT e5b720899 (02:13Z) [open] 02:14Z watch: no flags. a67 repeat r20261001-014542-2892 done rc 0 6:57 PM PDT. window 8 r20261001-020519-e39d (bc-dd22acf8, window8.sh) launched 7:05 PM, waiting (2 procs); READY bc-ccd30e80/bc-b139c29c 7:02-7:03 PM. Panel: attempt 109 labels on remote, published panel unconfirmed. PoUW 0 GPU-h queued, Verity 6 GPUs, 2/8 idle

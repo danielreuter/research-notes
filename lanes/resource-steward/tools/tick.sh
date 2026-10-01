@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # One resource-steward tick (no secrets). Exit 0: every metric under its watermark and no new resource alert note; the turn
-# ends silently. Exit 1: lines on stdout to act on: a breach whose kind wasn't in the last tick (numbers ignored, GPU index
+# ends silently. Exit 1: lines on stdout to act on: a breach whose kind wasn't seen in the last 6 h (numbers ignored, GPU index
 # kept), any HARD stop, a failed probe, or a new alert note. Known breaches print under "known:" and exit 0.
 # 1. the probe (infra/nebius tools/research/src/research/pods/nebius/resource_probe.py, deployed at ~/resource-steward/bin/)
 #    on each node at nice 19; node 2 is skipped while fill/status.txt says `timed True`.
@@ -17,12 +17,13 @@ probe() {  # host node precheck
 probe 81.85.2.165 n1 ""
 probe 81.85.2.121 n2 'if grep -q "timed True" /workspace/pouw/fill/status.txt; then echo "n2: timed window, probe skipped"; exit 0; fi;'
 key() { sed -E 's/^n1:/NODE_A:/; s/^n2:/NODE_B:/; s/GPU ([0-9]+)/GPU_\1/; s/[0-9][0-9.,]*/#/g'; }
-touch $S/breaches.last; : > $S/breaches.now
+touch $S/breaches.seen; now=$(date +%s); : > $S/breaches.new
 while IFS= read -r l; do
-  [ -z "$l" ] && continue; k=$(printf %s "$l" | key); echo "$k" >> $S/breaches.now
-  if grep -qxF "$k" $S/breaches.last && ! printf %s "$l" | grep -qE 'HARD|FAILED'; then echo "known: $l"; else echo "$l"; rc=1; fi
+  [ -z "$l" ] && continue; k=$(printf %s "$l" | key); echo "$now $k" >> $S/breaches.new
+  if awk -v k="$k" -v t=$((now - 21600)) '{ s=$1; $1=""; sub(/^ /,""); if ($0==k && s>=t) f=1 } END { exit !f }' $S/breaches.seen \
+     && ! printf %s "$l" | grep -qE 'HARD|FAILED'; then echo "known: $l"; else echo "$l"; rc=1; fi
 done <<< "$out"
-mv $S/breaches.now $S/breaches.last
+awk -v t=$((now - 21600)) '$1>=t' $S/breaches.seen $S/breaches.new > $S/breaches.tmp; mv $S/breaches.tmp $S/breaches.seen
 N=~/.research/notes
 git -C $N -c credential.helper= pull -q --rebase --autostash https://github.com/danielreuter/research-notes.git main >/dev/null 2>&1
 W=$S/alerts.seen; touch $W

@@ -194,3 +194,6 @@ None yet: no filesystem is over its watermark, there's no check scratch on eithe
     filesystem under the 80% inode alert.
   - If it doesn't, the next step is to ask the research tool's owner to share one venv per lockfile across trees.
   - No action now.
+- 00:20Z (5:20 PM PDT) tick: node 2's inode growth (about 112k/h, `research/src`, as at 23:40Z) came back after dipping
+  under the threshold for one tick. `tools/tick.sh` now remembers a breach kind for 6 h, so a metric that flaps around its
+  watermark doesn't wake the steward each time. No action.

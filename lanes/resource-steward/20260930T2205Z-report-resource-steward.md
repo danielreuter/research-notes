@@ -605,3 +605,13 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   entries, 54.3 GB, node 1 down to 9.20M inodes (45%); §4. Slack (over 50 GB): one announce to @infra
   (`1790893411.516639`): the sweep, the three orphans since 18:00Z (1.59M inodes, 93.5 GB), PR #708 still a draft, and
   `jobs/src` still waiting.
+- 22:30–23:05Z ticks: exit 0. #agent-alerts had two of infra's unmatched-writer alerts on node 1 (22:32Z and 22:58Z: lanes
+  copying a Lean `.lake` and the warm `lean-deps` into their trees, 35–40 MB/s); infra's, no action.
+- 23:26Z (4:26 PM PDT) tick (exit 1): node 1 HARD at 764k/h (80% in 8.9 h). Its scratch burst was already gone: no
+  `lean-audit-scratch-*` left, 9.64M inodes (47%), `jobs/src` at 831 copies (+15 in an hour). The same tick showed a
+  space burst: `/workspace` 46.8% at 23:05Z, 58.6% at 23:27Z and 2,951 GB (59%) at 23:29Z, then 2,819 GB at 23:33Z and
+  2,608 GB (52%) at 23:37Z. About 600 GB written and released in under 40 min. Files over 200 MB created since 22:43Z
+  came to only 26.5 GB, so the bulk was many smaller files or ones already deleted. At 23:29Z the writers were two `check`
+  suites (115 and 36 MB/s) and `60-circuit.sh` (78 MB/s), and `nd-vllm-epoch-run-*` build/replay/gpu pods started
+  23:32–23:35Z. It never reached the 80% alert. No action, no Slack. A burst of that rate from 52% would reach 85% in
+  about an hour, so watch for a repeat.

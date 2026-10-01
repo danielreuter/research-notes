@@ -395,3 +395,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     (`pytest-1460`–`1473`, about 3 GB each, written 11:10–11:13Z).
   - Deleted the four stale sessions under the 2 h scratch rule (§4, 4.65 GB). Root is now at 164 GB free, with the alert
     at 60 GB. No Slack, since that is under 50 GB.
+- 11:55Z (4:55 AM PDT) tick (exit 1): "n1: GPU 4 holds 49 GiB at 0% for 15 min". By the time I looked it was already free
+  (0 MiB, no process), and infra's GPU alerter covers idle holds. No action.

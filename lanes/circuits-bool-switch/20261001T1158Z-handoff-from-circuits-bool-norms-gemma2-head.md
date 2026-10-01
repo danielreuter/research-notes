@@ -58,5 +58,7 @@ It follows @circuits' 4:25 AM PDT ruling (note:20261001T1046Z-handoff-from-circu
 
 - **The mean's 80k rows at H still hold:** `MeanTriton_v2` is unchanged.
 - **The chain's 80k rows (`d95d51132` / `a4f011467`) were taken on my old copies of the eight.** On this head the chain at H is checked
-  against `boolean_dense`'s rows with 43 rows, with each RSQRT binding. Re-running the 80k rows (`VERITY_VLLM_BOOLEAN_NORMS_FULL`, about
-  3 hours on one core) needs a pod. I have not started it.
+  against `boolean_dense`'s rows with 43 rows, with each RSQRT binding.
+- **5:21 AM PDT: 30k rows pass.** Groups 0–2 of `test_the_chain_is_gemmas_on_80k_rows` (`VERITY_VLLM_BOOLEAN_NORMS_FULL`) pass on
+  `a009c1cbc`: 30k rows of Gemma-2's chain at H on `boolean_dense`'s rows and proofs' `RsqrtApprox_v2`, each with and without a
+  residual. Groups 3–5 are running; groups 6–7 are not yet run.

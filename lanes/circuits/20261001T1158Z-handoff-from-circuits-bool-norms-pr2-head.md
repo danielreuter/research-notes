@@ -37,5 +37,6 @@ a word Definition, so `ops["AmpereBF16TcDot16"]` is `_v2` even with gemm importe
 ## Evidence
 
 - **Chain at H on `boolean_dense`'s rows:** passes with 43 rows for each RSQRT binding.
-- **30k rows of the Boolean chain at H:** running now, groups 0–2 of the 80k test. I'll append the result here.
-- **The other 50k rows:** a pod run.
+- **5:21 AM PDT: 30k rows of the Boolean chain at H pass** (groups 0–2 of the 80k test, on `a009c1cbc`).
+- **Groups 3–5:** running now, done about 5:46 AM PDT.
+- **Groups 6–7:** not yet run.

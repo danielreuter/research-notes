@@ -5,6 +5,7 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT d34b7a58d (11:33Z) [open] 04:34 PDT: Llama big-memory unit timed out (STAGE_TIMEOUT 5320 s, peak 102.9 GiB, no OOM); chain stopped, nothing of mine on node 1. Main moved 4 more trains; local digest check: PR head + current main predicts 410/410 sampled keys as f6697c66e, and + #557 head 173/173 Qwen2.5 keys as the preview. #557 still open. Report at 04:50.
 CHECKPOINT d34b7a58d (11:10Z) [open] 04:11 PDT: preview score with #557 = 4139/4151 exact (99.71%), art:2fc889888864 (b782 fresh on abfbbc9cc: 700/700 coverage-v1 drift units exact). #557 still open, so the landed re-score is pending (land.sh). PR body in the store updated with this number. Llama big-memory unit at 72 GB, times out at 04:20 unless it settles; report at 04:50.
 CHECKPOINT d34b7a58d (10:45Z) [open] 03:46 PDT: #557 still open (granted, no train yet). b782 at 39/41 Qwen workloads; composed preview on main+#557 head is 4135/4151 exact (99.6%) with 4 units still pending there, ~4139 expected. Big-memory Llama request starved (~20% of a core): driver now stops the chain if a unit doesn't settle, since every later unit is longer.
 CHECKPOINT d34b7a58d (10:19Z) [open] 03:19 PDT: #557 still open. b782 (preview on main+#557 head): all Qwen steps/requests done, 36/41 workloads; queued jobs on node 1 get ~20% of a core each (taskset 96-191 oversubscribed), so it ends ~03:35. Big-memory Llama request r20261001-095111-6466 at 29 GB of ~100, starved; may not settle by 05:30. land.sh ready to queue main's re-score the moment #557 merges.

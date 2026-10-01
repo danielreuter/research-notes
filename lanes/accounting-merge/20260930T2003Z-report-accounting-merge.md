@@ -5,6 +5,7 @@ created: 2026-09-30T20:03Z
 status: open
 ---
 
+CHECKPOINT 784471db9 (02:05Z) [open] WAITING check r20261001-020451-3aec on #602 784471db (merge of #572 9288c339 into the Pearl-C stack; conflicts in pouw.py, schemes/__init__.py, PROTOCOL.md resolved keeping both sides; local pouw 304, pouw-benchmarks 202, repository 32, vllm protocol_options pass)
 CHECKPOINT e5b720899 (01:09Z) [open] Filed 20261001T0109Z-handoff-from-accounting-pearl-c-stack-534-556-602 (stack check r20261001-003433-0671 on #602 8a322b29 passed); idle
 CHECKPOINT ce30e9b65 (00:36Z) [open] WAITING on stack check r20261001-003433-0671 (#602 8a322b29, vy-nebius-2; supersedes r20261001-002356-2595 on 00d6c19dc, left to finish) for the 534-556-602 merge request
 CHECKPOINT ce30e9b65 (00:27Z) [open] 449/548 checks passed (r20260930-235746-36f1, r20261001-000221-f7ef; note updated). WAITING on stack check r20261001-002356-2595 (#602 00d6c19dc, vy-nebius-2) for the 534-556-602 merge request

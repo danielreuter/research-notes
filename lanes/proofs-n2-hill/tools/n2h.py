@@ -578,7 +578,8 @@ def job(i: str, phase: str) -> int:
         rc = p.wait()
     t1 = now()
     post = affinity(slot["cpus"], mine_root=os.getpid(), sample_s=1.0)
-    rec = record(d, R, run, phase, rc, t0, t1, pre, mine, post)
+    post_range = affinity(H.joinpath("RANGE").read_text().split("#")[0].strip(), mine_root=os.getpid(), sample_s=1.0, item=i)
+    rec = record(d, R, run, phase, rc, t0, t1, pre, mine, post, post_range)
     ok = rc == 0 and (phase == "stage" or (R / "hillclimb.json").exists())
     mark(i, run, "done" if ok else "failed", rc, t0, t1)
     if phase == "stage":
@@ -606,7 +607,8 @@ def _staged(R: Path) -> dict:
     return out
 
 
-def record(d: dict, R: Path, run: str, phase: str, rc: int, t0: float, t1: float, pre: dict, mine: dict, post: dict) -> dict:
+def record(d: dict, R: Path, run: str, phase: str, rc: int, t0: float, t1: float, pre: dict, mine: dict, post: dict,
+           post_range: dict | None = None) -> dict:
     gpu = {"cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"), "gpu_lease_uuid": os.environ.get("GPU_LEASE_UUID")}
     try:
         head = (R / "out" / "gpu.csv").read_text().splitlines()
@@ -628,7 +630,7 @@ def record(d: dict, R: Path, run: str, phase: str, rc: int, t0: float, t1: float
            "range_source": H.joinpath("RANGE").read_text().partition("#")[2].strip() or None,
            "scope": {"cgroup": Path("/proc/self/cgroup").read_text().strip().split("::", 1)[-1], "cpus": span(sorted(os.sched_getaffinity(0))),
                      "via": f"{VY_PROVERS} with VY_PROVERS_CPUS={os.environ.get('VY_PROVERS_CPUS')}", "slice_locks": SLICE_LOCKS},
-           "affinity_check": {"before_range": pre, "before_slot": mine, "after_slot": post},
+           "affinity_check": {"before_range": pre, "before_slot": mine, "after_slot": post, "after_range": post_range},
            "nice": os.getpriority(os.PRIO_PROCESS, 0), "gpu": gpu if phase == "gpu" else None, "fill_job": os.environ.get("FILL_JOB"),
            "loopback": f"{d['slot']['loopback']} (n2h_loopback.so; node 1 runs each job in a pod network namespace of its own)",
            "rc": rc, "t_start": iso(t0), "t_end": iso(t1), "wall_s": round(t1 - t0, 1),

@@ -6,12 +6,25 @@
 set -euo pipefail
 export PATH=/workspace/.venv/bin:$PATH RESEARCH_NOTES=$HOME/.research/notes RESEARCH_MACHINES_D=$HOME/.research/notes/machines.d
 N=/workspace/jobs/proofs-n2-hill
-# every GPU point's art gets this `note` label, until a parity check says node-2 points count beside node 1's
-PARITY_REF=note:20261001T0755Z-finding-node2-parity
-PARITY_NOTE="node-2-only: a vy-nebius-2 point (prover slice through vy-provers); node-2 parity ($PARITY_REF) put overhead within 2% of node 1's but verify per statement 4.3% under, so it compares with node-2 points only"
+# every GPU point's art gets a `note` (counts beside node 1's on overhead, or node-2-only; its node, slice, GPU and socket
+# neighbours) and a `hardware` label, both from n2label.py on node 1; `custody.sh relabel` rewrites them on every GPU point
 S=$(mktemp -d)
 trap 'rm -rf $S' EXIT
 ssh1() { research pods ssh vy-nebius-1 -- "$@"; }
+label_point() {  # RUN_ID ART
+  local j
+  j=$(ssh1 "python3 $N/bin/n2label.py $N/runs $1" < /dev/null)
+  local ref note hw
+  ref=$(python3 -c 'import json, sys; print(json.loads(sys.argv[1])["ref"])' "$j")
+  note=$(python3 -c 'import json, sys; print(json.loads(sys.argv[1])["note"])' "$j")
+  hw=$(python3 -c 'import json, sys; print(json.loads(sys.argv[1])["hardware"])' "$j")
+  research data label $2 note "$note" --by proofs-n2-hill --ref $ref > /dev/null
+  research data label $2 hardware "$hw" --by proofs-n2-hill --ref $ref > /dev/null
+}
+if [ "${1:-}" = relabel ]; then
+  ssh1 "awk -F'\t' '\$4==\"gpu\"{print \$1, \$2}' $N/custody.tsv" | while read -r id art; do label_point $id $art; echo "$id $art relabelled"; done
+  exit 0
+fi
 have=$(ssh1 "mkdir -p $N/runs && touch $N/custody.tsv && cut -f1 $N/custody.tsv")
 ids=$(ssh1 "cd $N/runs && for d in n2h-*; do [ -f \$d/n2.json ] && echo \$d; done; true")
 new=0
@@ -32,7 +45,7 @@ print(json.dumps({"run_id": d["run_id"], "schema": d["schema"], "phase": d["phas
   phase=$(python3 -c 'import json, sys; d = json.load(open(sys.argv[1])); print(d["phase"], d["lane"])' $S/$id/n2.json)
   art=$(research data put --kind run-record/v1 --tree $S/$id --meta "$meta" --preserve | grep -o 'art:[0-9A-Za-z_-]*' | head -1)
   [ -n "$art" ] || { echo "$id: put failed"; exit 1; }
-  case $phase in gpu\ *) research data label $art note "$PARITY_NOTE" --by proofs-n2-hill --ref $PARITY_REF > /dev/null ;; esac
+  case $phase in gpu\ *) label_point $id $art ;; esac
   ssh1 "printf '%s\t%s\t%s\t%s\t%s\n' $id $art $(date -u +%FT%TZ) $phase >> $N/custody.tsv"
   echo "$id $art $phase"
   new=$((new + 1))

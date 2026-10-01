@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (06:44Z) [open] B: 06:44Z poll: e8ffd7f2 (0646Z) launches the 10:00Z window like the divisor window (queue refuses verity quiet jobs on node 2), matching my booking; its card pass r20261001-064038-6dfc on GPU 0 (30-min cap, until 07:11Z) tells whether 12 points fit one 30-min lease, else 10:30Z is free for a second; node 2 38%, leases capped; nothing to answer
 CHECKPOINT fbce5a2f4 (06:42Z) [open] B: 06:46Z booked node 2's timed slots per order 0640Z: 10:00Z Pearl-C4 (fallback 11:00Z), 11:30Z served window 1, 13:00Z 70B, 14:00Z served window 2 (note:20261001T0645Z-reply-from-c066b30c-node2-timed-slots-booked); flagged window 2's verify lands ~8:20 AM PDT, past the 7:50 checkpoint (swap with 70B on your word); READY/BLOCKED due 09:40Z, 11:10Z, 12:40Z, 13:40Z
 CHECKPOINT c1e920090 (06:22Z) [open] A: 06:24Z two bc-c066b30c sessions confirmed (B wrote the 0617Z Pearl-C4 booking, runs pouw-backup); split recorded in /cursor/stores/self/sessions.md (A panel + 52-verify ask; B timed windows, backups, server.md); 52 GPU-0 verifies still held, no answer yet
 CHECKPOINT c1e920090 (06:22Z) [open] item 4: node 2 /workspace 38% at 06:21Z (37% at 05:52Z), under the 52% hold; all 8 GPUs free, no timed window. Also: Pearl-C4 Llama-8B timed window booked 3:00 AM PDT (10:00Z, fallback 11:00Z), note:20261001T0617Z-reply-from-c066b30c-pearl-c4-window-booked; READY/BLOCKED due 09:40Z in lanes/accounting

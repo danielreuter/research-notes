@@ -46,12 +46,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
-- **Due on the 16:32Z alerts tick** (no timer: `subscribe_timer` returned `invalid_argument` from 16:14Z, and the 16:34Z one-shot was removed while I worked around that):
-    - the 15Z hourly, deferred from 16:05Z for the 16:00Z timed window: `hourly.sh` and its `ops.md` line;
-    - the backup, which must be preserved before 16:55Z (otherwise run it after the hand-back);
-    - infra's hand-back time: move the 17:25Z line to it and set the cutover line to match;
-    - confirm job B started by 16:35Z.
-  The 17:28Z one-shot (after the hand-back) still stands.
+- **Timers:** from 16:14Z `subscribe_timer` returns `invalid_argument` for every new timer. The recurring ticks and the 17:28Z one-shot still stand. Backup `r20261001-163236-041e` must be preserved before 16:55Z; stop it if it would run past then. The cutover moved to 17:15Z (top-level checkpoint, 16:28Z). Removing the cutover line is the hand-back signal for c62f9726's window 4 launcher, and I've asked infra to remove it themselves.
 - **Inbox on every alerts tick** (from 13:05Z): `~/node2-ops/inbox.sh` lists the notes added on origin since the acked commit that are in `lanes/node2-ops/` or name node2-ops, and `inbox.sh --ack` advances it. I missed pouw-node2's 12:41Z ask for 25 min because the alerts tick read only `alerts.jsonl`.
 - **Node 2 quota cutover, 10:00 AM PDT (17:00Z), else 10:15; hand-back by 10:25** (top-level 8:52 AM PDT; infra posts the time by 9:30). Fill has been held since 16:09Z. The runner's env is `FILL_VERITY_LEND=0 FILL_CPU_SLOTS=0 FILL_VERITY_UNTIL=2026-10-01T16:00:00+00:00 FILL_VERITY_STOP=2026-10-01T16:55:00+00:00`, and `fill/windows` has `17:00Z 25` (the cutover) and `17:25Z 30` (served window 4). At the hand-back:
     - restart the `pouw-infra-fill` loop with `export FILL_VERITY_LEND=0` only, unless infra already did;
@@ -76,6 +71,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 16:36Z inbox and the deferred hourly:
+    - **Timeline:** Pearl-C4's 16:00Z lease ended at 16:25:58Z. The kueue-fold Build finished with rc 0 at 16:30:32Z. Job B started at 16:30:02Z, inside its 16:35Z deadline.
+    - **Hand-back:** c62f9726 launches window 4's run when the cutover line drops. I asked infra to remove it themselves at the hand-back. Pearl-C4's verifies on 48–91 run until about 17:20Z, so e8ffd7f2 stops the one still running on infra's word. Console's stale `infra-pool.json` was the publisher pausing in the timed windows, by design. Notes: `note:20261001T1636Z-handoff-from-node2-ops-cutover-1015-handback-signal` and `note:20261001T1636Z-reply-from-node2-ops-window4-line-drop`.
+    - **Hourly (15Z):** GPU busy 3.9% (0.31 of 8 GPU-h, all useful). Below 80% because almost no GPU work was queued and fill drained for the 16:00Z window (waiters 16.2 min); 7.66 GPU-h sat free. CPU 0–127 at 18.7%. The 16Z hour so far is 78.7% busy (the 26-min timed window). Backup `r20261001-163236-041e` started.
+    - No alerts.
 - 2026-10-01 16:12Z inbox: the top-level put node 2's quota cutover at 17:00Z, or 17:15Z if node 2 isn't clear, and served window 4 at infra's hand-back, by 17:25Z (compute accounting's order, `note:20261001T1552Z-order-from-compute-accounting-c066b30c-c62f9726-window4-after-cutover`). pouw-node2 asked for the window line and a drained fill (`note:20261001T1555Z-ask-from-pouw-node2-served-4-at-hand-back`).
     - At 16:09Z I added `17:00Z 25` (the cutover) and `17:25Z 30` (served 4); backup `infra/logs/windows.bak-20261001T1609Z`.
     - I restarted the fill loop with no new CPU starts and the Verity stop at 16:55Z (env in Open items). It adopted the paused kueue-fold Build.

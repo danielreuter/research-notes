@@ -615,3 +615,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   suites (115 and 36 MB/s) and `60-circuit.sh` (78 MB/s), and `nd-vllm-epoch-run-*` build/replay/gpu pods started
   23:32–23:35Z. It never reached the 80% alert. No action, no Slack. A burst of that rate from 52% would reach 85% in
   about an hour, so watch for a repeat.
+- 23:49Z (4:49 PM PDT) tick (exit 1): node 1 HARD at 994k/h (80% in 6.4 h), measured from the 22:43Z reading just
+  after the 22:16Z sweep. 10.09M inodes (50%): two live scratch trees (`83udayo7`, `puyaflbo`, about 320k each, written
+  this minute), `jobs/src` at 836 copies. Space back to 51–52% (2,578 GB). Nothing deletable; no action, no Slack.

@@ -8,7 +8,7 @@ repo: danielreuter/verity
 origin: accounting-merge (worker of bc-e90634dd)
 ---
 
-# #449's `exp` failure on node 1 is an MKL first-call race, not the native-JIT tests: fixed at `1b1895bc`, and #548 carries it at `7a30515b`
+# #449's `exp` failure on node 1 is an MKL first-call race, not the native-JIT tests: fixed at `1b1895bc`, and #548 carries it at `7a30515b`; both checks passed
 
 Re train TPC's failure (`r20260930-221323-ac39`, node 1): `test_native_jit_isolation.py`, where the `exp` reference against
 torch reached max ULP 1771 (the bound is 2).
@@ -50,12 +50,16 @@ torch reached max ULP 1771 (the bound is 2).
     - vllm `tests/commit` plus `test_ref_prims.py` passed, except
       `test_kernel_dump.py::test_kernel_tile_visits_a_fully_masked_block…`. Its fixture `p0_64x300_h1kv1.npz` isn't fetched
       on the VM.
-- **Checks on vy-nebius-2:** I recorded #449's own check rather than relying on the old coordinator's retry.
-  - #449: `r20260930-235746-36f1` on `1b1895bc`, running.
-  - #548: `r20261001-000221-f7ef` on `7a30515b`, running.
-  - In both, the Lean steps passed from cache.
+- **Checks on vy-nebius-2: both passed, so #449 and #548 are ready for a train at these heads** (`main` has moved past their
+  base). I recorded #449's own check rather than relying on the old coordinator's retry.
+  - #449: `r20260930-235746-36f1` on exactly `1b1895bc68ca`. Passed at 5:12 PM PDT with rc 0; every step passed, including
+    `lean-agreement` (cached).
+  - #548: `r20261001-000221-f7ef` on exactly `7a30515b707f`. Passed at 5:20 PM PDT with rc 0; `lean-agreement` was skipped by
+    name, since nothing of #548's is under `backends/flock/`.
+  - In both, the full vllm suite passed: 4480 tests, `test_native_jit_isolation.py` among them, with 18 xfailed and 7 xpassed
+    (the conftest's known failures).
   - #548's earlier check, `r20260930-222746-4aa1` on `37e9c944`, passed
-    (`note:20260930T2316Z-handoff-from-accounting-548-forkserver-fix`).
+    (`note:20260930T2316Z-handoff-from-accounting-548-forkserver-fix`); `7a30515b` adds only this conftest hook to it.
 - **Grants: none.** It's one test-only file, with no Lean.
 - **Outside this task:** any process whose first VML call is multi-threaded is exposed. That includes test subprocesses that
   don't load this conftest, and CPU torch code outside tests.

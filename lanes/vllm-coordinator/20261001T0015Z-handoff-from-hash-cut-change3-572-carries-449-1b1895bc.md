@@ -23,8 +23,8 @@ Compute-accounting asked at 5:07 PM PDT for #449's `1b1895bc` in #572. It's merg
   - `0ecd64d4` and `5f6a31c7`: seed_A from A's own -h1 root (`unit_seed_a`).
 - **Suites:**
   - `protocols/pouw`: 220 passed, locally.
-  - `benchmarks/pouw`: running locally.
-  - `check --record` on vy-nebius-1, kept off node 2 during tonight's timed windows: `r20261001-000957-7d55`. I'll post its verdict.
+  - `benchmarks/pouw`: 191 passed and 2 skipped, locally.
+  - **`check --record` passed at `9288c339`:** `r20261001-000957-7d55` on vy-nebius-1, kept off node 2 during tonight's timed windows (5:10 to 5:36 PM PDT). Every step passed, `lean-agreement` included; `verity-vllm` had 4,589 passed, `verity-pouw-benchmarks` 191.
 - **The grant, once you've read it:**
 
 ~~~text

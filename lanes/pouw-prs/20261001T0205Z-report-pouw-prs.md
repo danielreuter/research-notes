@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (11:46Z) [open] 4:45 AM PDT. Open: 1 (bc-c62f9726's #610, a draft). T525 landed #525 and #659 (d88650921). All five I steered tonight are in: #588, #640, #525, #659, and #570. #593 is closed.
 CHECKPOINT 83a789db (09:45Z) [open] 2:45 AM PDT. Open: 3 (#525, #659, and bc-c62f9726's #610). #640 (T640R) and #588 (T588R) landed. #659 at 6f8da2566 passed check r20261001-090958-56c5; its ready note is sent. #525 is at 2 h without a train; compute accounting is told.
 CHECKPOINT acfe113f (09:03Z) [open] 2:02 AM PDT. Open: 4 (#525, #588, #640, and bc-c62f9726's #610). #593 closed. T640 failed on an unrelated research test; its rebuilds T640R (#640) and T588R (#588, #641) passed on node 1 around 1:45 AM PDT and wait to land. #525 has waited for a train since 07:57Z.
 CHECKPOINT 2066d383 (07:56Z) [open] Open: 5 (#525 #588 #640; bc-c62f9726's #593 #610). #491 and #570 landed in T49. #525 at 6c9832660 has main merged in, check r20261001-073529-9e61 passed, and its ready note is sent. #640 is in T640, #588 in train 1.

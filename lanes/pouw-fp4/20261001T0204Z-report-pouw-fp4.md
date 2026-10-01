@@ -2,9 +2,10 @@
 lane: pouw-fp4
 kind: report
 created: 2026-10-01T02:04Z
-status: blocked
+status: open
 ---
 
+CHECKPOINT 97e90885f (22:27Z) [open] m64-n512-k2048 decode re-time done: r20261001-221559-4289 (97e90885f) in infra's 22:20Z line, lease 2m35s, cores 0-47 0.15%. Panel slowdown 22.3477x vs re-time 22.328x, hash-free 2.8443x vs 2.8416x. Transcript ACCEPT, no-write control REJECT, from the harness verify and from main 743c7ce21's verity_pouw. Record art:cc6bdc3614f67944b36a1680e7bd22e5d08d97983e6f4459500c3e67fd622440 PRESERVED. Ready for the assessor's rating (item 4).
 CHECKPOINT 97e90885f (21:49Z) [blocked] m64-n512-k2048 decode re-time: CPU verify from main 743c7ce21 on the re-time's own dump ACCEPT, no-write control REJECT (art:848ad17f72a465d9f7ea7f4d8720137a77f0b72271d89d52db3f43afbc7d4692); run tree cursor/pearl-c4-decode-row-retime-49b8 @ 97e90885f, cubin art:7418102e56c56ff4cf8234937dabf8fb39578feca4a1302357df711fc1e31e71; launch: bash runtree/launch_decode_row.sh WINDOW_AT 10. Blocked on a 10-min whole-node fill/windows line (no /tmp/vmsg; asked compute accounting) and a yes on --on instead of --queue (queue refuses quiet guest jobs on vy-nebius-2).
 CHECKPOINT 4729ee36d (19:26Z) [final] decode_floor r20261001-181625-a5f3 PRESERVED (record art:1a96581c, breakdown art:6c734ad5), labeled: commit_rows is 51-78% of a decode call at m 64-512 (0.24-0.26 ms at k 4096, 0.68-0.70 ms at k 14336); measured only, row/v1 waits for Daniel. Parallel r1_rows: cursor/pearl-c4-replay-r1-rows-49b8 @ 4729ee36d (pouw 346 pass, pouw-benchmarks 459 pass; not a PR); q/o prefill prove 5.54 s -> 593.8 s at 4 workers, declares B row 3328 main credited, ACCEPT (art:caaf79ef). Nothing running. Agent bc-7f347b4b.
 CHECKPOINT eab5d96fa (17:22Z) [final] Handed over to compute accounting's successor: note:20261001T1721Z-handoff-pouw-fp4-to-compute-accounting-successor (branches bbe249577, 06cf22014; decode_floor.sh and parallel r1_rows approved, not started). Nothing running.

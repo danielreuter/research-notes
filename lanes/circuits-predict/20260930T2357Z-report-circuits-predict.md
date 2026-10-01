@@ -5,6 +5,7 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT 5179c7bdd (06:35Z) [open] 23:35 PDT: 5179c7bdd pushed (biased linear follows the target: GemmBias_v1 accepted / GemmBias_v2 where the tree has it); drift units exact on coverage-v1 code so far; next TP2 world-2 step Programs
 CHECKPOINT 02d056c3d (06:03Z) [open] 11:11 PM: label corpus v0 = art:94c14d2b4f26 (preserved): 202 rows passing replay 460/460 of 322 config records on node 1 (193 distinct rows, 190 TP1 + 12 TP2, 13 models incl. Gemma-2 cg01/cg08/cg12/cg13/cg14 and TP2 p000/p004/p012/p016/p047): workload digest (per rank at TP2), request/step digests, config, verdict, run roots, Build/Commit run ids; next: predictor vs main-tree traces, TP2 Programs
 CHECKPOINT 02d056c3d (05:55Z) [open] 10:57 PM: awake; branch cursor/vllm-predictor-8c79 pushed at 02d056c3d (Gemma-2 in the predictor, cov-k06-5 step+request exact); node score shards ended (2 done, 4 hit their time limit, 2 failed), merging their caches; next: label corpus v0 art, re-score drift rows vs main-tree traces, TP2
 CHECKPOINT 02d056c3d (02:22Z) [open] 7:23 PM: Gemma-2 in the predictor at 02d056c3d (normalizer, GemmaRMSNorm (1+w) chains, attn/final soft-caps, GeluTanhMul): cov-k06-5 step + request digest-exact, step pinned; scoring the 39 Gemma-2 units on node 1 (r20261001-022216-3e71); 4 big-unit shards still running; next: merge caches, final score art

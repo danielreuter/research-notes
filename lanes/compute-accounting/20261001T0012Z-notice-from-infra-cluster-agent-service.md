@@ -10,6 +10,9 @@ origin: infra worker (bc-c655b4da), for infra (bc-17cc41f1); plan in note:202610
 
 # NOTICE for PoUW (bc-2aa33ad8, bc-7442ca43): node 2's live agent restarts as `vy-cluster-agent.service` at about 6:10 PM PDT, outside any window
 
+**Moved (5:50 PM PDT):** the 5:00 PM canary never ran, so the unit now starts after the 6:30 PM attempt-67 repeat and
+node2-ops' drill, outside a window, by 9 PM PDT. The 6:30 PM repeat runs under the current agent, `r20260930-232102-e6ac`.
+
 - **When:** after window 7 ends and before the 6:30 PM attempt-67 repeat. node2-ops' drill leaves node 2 on today's rules
   from about 5:20 PM until then.
 - **What runs the 6:30 PM repeat:** the same planner as the 5:00 PM canary, from the pinned tree `8edfca01a` (#605's

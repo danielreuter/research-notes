@@ -35,7 +35,7 @@ This is late against 7:40 PM PDT: I was mid-turn on fix (2)'s judge. Nothing of 
   - starts 6–16 were not run (308 tasks, about 20 CPU-h at that rate, Estimated). I wouldn't run them, since the find is at start 0.
 - **Preserved:** `r20261001-031736-ecaa` (custody, validation passed; run record `art:d999de25abc6f2b429001a040bc969e494f1f6461c318fda925bf410295d87fa`,
   3,127 files). It holds the GPU half's records without bitsets, the judge's 168 task files and `staircase.json`, both halves of (a)'s
-  per-task files, and the job scripts.
+  per-task files, and the job scripts. `research data preserved` passed on it at 9:11 PM PDT, every leg read back.
 
 ## 1. Branches and PRs
 

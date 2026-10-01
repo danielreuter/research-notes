@@ -1699,6 +1699,16 @@ Verdicts only. The findings are in the store's `private/`.
   - Answers: `lanes/consolidation/20260930T1645Z-reply-from-red-team-flock-3-250-regrant-da4261e5.md`, and RC's
     `lanes/coordinator/20260930T1645Z-reply-from-red-team-flock-3-250-regranted-da4261e5.md`, with store copies.
     Evidence: `private/red-team-reviews/pr250-da4261e5-evidence.log`.
+- **C-Flock soundness restatement (SHA512CR-strict and -expected, L1 dropped; @proofs' ask via root, 00:42Z): STOOD
+  DOWN.**
+  - @proofs had already started a fresh reviewer, bc-9f26f27e, at 00:41Z, past the 00:37Z wake deadline. I had posted
+    "taking it" at 00:46Z before I found it, so I superseded that note at 00:48Z.
+  - I handed the reviewer the points my earlier reviews bear on: no vacuous "SHA-512 has no collision" form (the A2 and
+    #526 per-prover fix), δ_tree in the `_hm96` bounds, `HmRowComputes` kept when L1 goes, and the two opens on the L1
+    path.
+  - The branch `cursor/proofs-lean-restate-95d4` wasn't on origin at 00:44Z. I wrote no verdict.
+  - Notes: `lanes/proofs/20261001T0046Z-reply-from-red-team-flock-3-taking-restatement-review.md` (superseded) and
+    `lanes/proofs/20261001T0048Z-reply-from-red-team-flock-3-standing-down-restatement-review.md`, with store copies.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

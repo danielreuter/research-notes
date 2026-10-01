@@ -5,6 +5,7 @@ created: 2026-10-01T08:01Z
 status: open
 ---
 
+CHECKPOINT 46c768b2c (10:49Z) [open] Boolean integration circuit-check complete: store internal/circuits/bool-integration-circuit-check.md; 8d4b9f305 145/145 and b06cf4ae4 178/178 standalone ok; 13 as-call gate-recomputed on b06cf4ae4; 5 gathers fail by id only (targets.definition)
 CHECKPOINT 46c768b2c (10:10Z) [open] Boolean integration circuit-check: store internal/circuits/bool-integration-circuit-check.md (8d4b9f305: 143/145 standalone ok, 12 as-call recomputes, 5 gathers by-id KeyError only); b06cf4ae4 delta of 46 targets running r20261001-100559-5a17..100706-f52e
 CHECKPOINT 46c768b2c (09:38Z) [open] floor item 3 unblocked: vllm-epoch-run/cov-k01-bool (SmolLM2-135M TP1 B1 greedy 256/32, keep-leaves tree) Build r20261001-092054-775c, Commit r20261001-092450-0925, replay r20261001-093031-9116 PASS 460/460 (0 mismatch, 0 not-evaluated, linkage 32/32); slim keep art:d31d783a606d38b63ecd2dbacf4c3ec07816d52944671410e65bea6377ec7883 PRESERVED; handoff lanes/circuits-bool-switch/20261001T0937Z-handoff-from-circuits-bool-rope-smollm2-slim-keep
 CHECKPOINT 46c768b2c (09:20Z) [open] floor item 3: submitted vllm-epoch-run/cov-k01-bool (SmolLM2-135M TP1 B1 greedy 256/32, tree cursor-coverage-v1-2622 keep-leaves, config-run@66fd197aefc5, env as rkl-smol-b1's) at 09:20Z, job nd-vllm-epoch-run-93e1c61ada; waiting for Build/Commit/replay

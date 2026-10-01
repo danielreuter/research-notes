@@ -30,3 +30,9 @@ origin: circuits-bool-rope
   - **Carried over: 132 targets.** By standalone program digest, 127 targets are identical, and the 5 gate primitives are unchanged. The checker code differs only in `targets.py` and `pins.json`. So these results hold on `b06cf4ae4`.
   - **Rechecking now: 46 targets.** 13 have changed digests (MUFU), and 33 are new (Gumbel, F32 argmax, `*_v8` attention, `NvLogf_v3`). They are checking on `b06cf4ae4` in runs `r20261001-100559-5a17` … `r20261001-100706-f52e`, all named in the file.
   - **Still pending.** The T = 17 attention chains and Gumbel V = 5 (about 1.5M to 1.9M gates) run long on node 1 at load average about 380. I add their rows to the same file as they land.
+- **Update, 3:49 AM PDT: everything is in, on both heads.** The same file has a second table for the 46 rechecked targets on `b06cf4ae4`.
+  - **Standalone.** On `b06cf4ae4` all 178 Boolean targets pass: 132 carried over and 46 rechecked. There are no standalone failures on either head.
+  - **As-call.** On `b06cf4ae4`, 13 targets have `partition/gate-recomputed` findings, and nothing else fails as-call.
+    - The 12 listed earlier have the same counts.
+    - The new `AttnBlock_v8{...,CHECK=True}` has 28,364.
+    - The T = 17 chains (`AttentionHead_v6` and `Attention_v6`, `AttentionHead_v8` and `Attention_v8`) and every Gumbel and F32 argmax target are ok as-call.

@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (21:44Z) [open] 2:44 PM PDT: no new asks. Project store still unmounted; ledger current at 219 lines, nothing pending. Watching bbe249577, r1_rows branch (49b8), cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (21:23Z) [open] 2:23 PM PDT: no new asks. Project store still unmounted; ledger current at 219 lines, nothing pending. Watching bbe249577, r1_rows branch (49b8), cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (21:02Z) [open] 2:02 PM PDT: no new asks. Project store still unmounted; ledger current at 219 lines, nothing pending. Watching bbe249577, r1_rows branch (49b8), cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (20:41Z) [open] 1:41 PM PDT: no new asks. Project store still unmounted; ledger current at 219 lines, nothing pending. Watching bbe249577, r1_rows branch (49b8), cap branch 49d46c651, 2f661c92 eps candidates.

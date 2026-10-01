@@ -4,6 +4,8 @@ kind: report
 created: 2026-09-30T18:40Z
 status: open
 ---
+CHECKPOINT 2026-10-01T17:50Z open: inbox empty; node 2 cutover 11:50; held-idle 11:00 hour at risk (leases idle in engine startup, circuits adding compile cache + late lease); lean owns guarantee review, @lean handle up.
+
 CHECKPOINT 2026-10-01T17:33Z open: inbox empty; served window 4 running; node 2 cutover called off 10:21, rescheduling; 16 PRs open, train 1f2011900 still checking; comms reshaping to research msg.
 
 CHECKPOINT 2026-10-01T17:00Z open: inbox empty; comms agent bc-3e100045 owns messaging (lane notes records-only, #692); node 1 RAM tight, Kueue raise escalated to infra; Nebius key rotation urged to Daniel.

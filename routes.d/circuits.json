@@ -1,0 +1,11 @@
+{
+  "schema": "verity/slack-route/v1",
+  "name": "circuits",
+  "holder": "bc-b8aaadaa-aefd-503e-9863-5eabb3a28c79",
+  "channel": "C0C5RCXL66N",
+  "inbox_ts": "1790877414.596169",
+  "opened": "2026-10-01T17:56Z",
+  "closed": null,
+  "forward_to": null,
+  "remit": "Circuits of real workloads: the vLLM integration, the epoch run, sm_120 GEMM, TP2."
+}

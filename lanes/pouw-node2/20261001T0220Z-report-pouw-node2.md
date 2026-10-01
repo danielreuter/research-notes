@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT 923b5acb8 (05:30Z) [open] 05:47Z v2-hot lead now 'parked' per assessor 0510Z (fix (2) fails as specified, not a break); panel re-rendered (234 rows, 4 store) and preserved art:bf6ff435; Project store unmounted since VM reset 05:04Z, so its internal/pouw/panel + docs/pouw/panel.md copy is stale until I recopy from art:bf6ff435; node 2: GPUs 2,3 adhoc, /workspace 38%
 CHECKPOINT 923b5acb8 (05:04Z) [open] 05:08Z divisor timed r20261001-044003-aa48 PASSED (FP8 _ew 1.4171 ms, NVFP4 _o_ew 0.7244 ms fastest at 8192^3; preserved), verdict in accounting 0507Z; panel adoption awaits compute-accounting yes; VM reset #3 at 04:59Z, state rebuilt from agent store
 CHECKPOINT b6e09ee44 (04:41Z) [open] 04:42Z attempt 110 (window 8) appended+published (30 ov labels on remote, console loader sees it); panel rendered from art:e578daed, now in Project store internal/pouw/panel + preserved art:de3c2e3a; 2aa33ad8 may stop (0437Z); tarball matched art, deleted; divisor timed r20261001-044003-aa48 launched 04:40Z (card r20261001-035013-3cbd passed)
 CHECKPOINT b6e09ee44 (04:40Z) [open] 04:41Z divisor timed window r20261001-044003-aa48 launched 04:40:03Z (4df4bfea, 8 GPUs timed until 05:00:15Z, fill frozen); one launch only (the panel session's scheduled one; my duplicate type-ahead discarded); verify follows the lease; readout to lanes/accounting when it lands

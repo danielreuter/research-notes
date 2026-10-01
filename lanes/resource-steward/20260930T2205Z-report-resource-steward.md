@@ -26,9 +26,10 @@ Only with no open files (`lsof +D`), and only at `nice 19 ionice -c3`:
   it: `~/.cache/uv`, `/workspace/cache/uv`, `/workspace/jobs/cache/{uv,triton}`, `~/.triton`, `~/.cache/vllm`, and
   harness venvs under `/workspace/cache`. Never `~/.cache/verity-check/lean-deps` or `circuit-check` (check's verdict caches;
   their owner is the check, and run `r20260930-213917-d6b3` is moving them to `/workspace`);
-- shipped source trees `/workspace/research/src/<sha>` older than 24 h that no running run references (checked against every
-  running run's `launch.json`/`status.json` and `lsof`). The oldest tree now is from 05:22Z, so none qualifies before
-  1 Oct 05:22Z (10:22 PM PDT tonight).
+- shipped source trees `/workspace/research/src/<sha>` older than 24 h that no running run references. `tools/sweep.sh`
+  (§2) checks every request not yet finished (a dead runner's doesn't count), Kueue workloads and pods not finished, fill
+  jobs queued or running, and every process's cwd, root, open files, maps, argv and environment. A tree whose ship is reused
+  keeps its first mtime, so its age is from when it was shipped; a deleted tree is re-shipped from the node's bare repo.
 
 Every deletion is logged in §4 (path, size, age). Slack hears of it only if it frees over 50 GB.
 
@@ -242,3 +243,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   away). The writer was check scratch: `/tmp/pytest-of-research` held 249k files. Deleted the 15 directories untouched
   for over 2 h (§4: 226,587 files, 14.6 GB). Root is now at 582k inodes (2%) and 25% used. Pytest scratch accrues about
   300k files/h while checks run, so the src-cleanup step (05:30Z) also sweeps it each time.
+- 05:29–05:45Z (10:29–10:45 PM PDT) source-tree cleanup timer: the first trees passed 24 h at about 05:22Z. Wrote
+  `tools/sweep.sh` and `tools/node-sweep.sh` (§2) and ran them: §4 lists 6 trees on node 1 (489 MB) and one pytest dir on
+  node 2. A first hand check had read its own `sudo` argv and `SUDO_COMMAND` as live references; the scripts read their
+  patterns from files. The trees that matter are younger: node 1's 235 trees hold 4.84M of its 9.39M inodes, the biggest
+  176k–303k files each (`.venv` and `.lake`), shipped 08:30–13:50Z on 30 Sep, so they pass 24 h between 1:30 and 6:50 AM
+  PDT. The sweep now runs every 6 h at :30 (`resource-steward-sweep`), and the 6 h retention card still waits on Daniel.

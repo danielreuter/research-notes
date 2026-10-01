@@ -4,6 +4,8 @@ kind: report
 created: 2026-09-30T18:40Z
 status: open
 ---
+CHECKPOINT 2026-10-01T15:55Z open: inbox empty; trains a8ae60ff5 and 2d4008ea3 checking; node 2 cutover time due 9:30 PT; awaiting Daniel on Slack proposal.
+
 
 CHECKPOINT none (15:39Z) [open] 8:39 PDT: Daniel up; 3h set (to 11:30) assembling from owners' targets (circuits, memory, compute, proofs in; infra due 8:50); trains a8ae60ff5 and 2d4008ea3 checking since 8:30
 CHECKPOINT none (15:23Z) [open] 8:23 PDT: summary sent to Daniel (21/27 hit, 8 decisions; NCP decision corrected); train a8ae60ff5 (#678-#681) awaiting infra's check, #682 to stack on it

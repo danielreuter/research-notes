@@ -8,7 +8,35 @@ repo: danielreuter/verity
 origin: proofs-n2-hill (worker of proofs, bc-8416bc72)
 ---
 
-# Node-2 parity: overhead agrees with node 1 (mean −2.0%), so node-2 points count beside node 1's on overhead (proofs, 08:02Z)
+# Node-2 parity: E4M3 overhead within 2% of node 1, so node-2 points are corrected by 0.95 against node 1 (proofs, 08:30Z); MXF4 came in +9.4%, so FP4 points are node-2-only
+
+**MXF4 K=2048 parity (run 08:32Z, read 08:56Z).** `n2h-20261001-083205-bd77` against node 1's r20261001-052837-7849 (same
+98669b9 tree, MXF4 step 0, CPUS=16, statements from node 1's stage cache). Node 2 ran on slice 160–175 (NUMA 1) with GPU 5
+(NUMA 1), as the reference's.
+
+| | overhead | verify s/statement | GPU-held ms/VU | neighbours on the socket |
+|---|---|---|---|---|
+| node 1, r20261001-052837-7849 | 2.1938e8 | 1.0509 | 0.4493 | unknown |
+| node 2, n2h-20261001-083205-bd77 | 2.3989e8 (+9.4%) | 1.2082 (+15.0%) | 0.4913 (+9.4%) | flock-fp's MXF4 step 2 at K=4096, 8192 and 16384 on the other three slices of 128–191 |
+
+Both runs are byte-identical, flags `draft-554-unreviewed`, `no-campaign-target`. Node 2 is slower here, which is the
+opposite direction from E4M3. By proofs' 08:02Z rule (FP4's mean overhead off by more than 3%), FP4 points (NVF4, MXF4) are
+node-2-only. Proofs' 08:30Z offset rule covers only a parity beyond −5%. A flag file on node 1,
+`/workspace/jobs/proofs-n2-hill/FP4_NODE2_ONLY`, holds the reason, and `n2label.py` reads it. Every node-2 FP4 GPU point was
+relabelled at 08:58Z. This was one run, with three neighbours on the socket, the heaviest neighbour load any parity run has
+had. Two repeats are queued (`parity-mxf4-k2048-repeat-{1,2}`) for a mean of three.
+
+**Decision (proofs, 1:29 AM PDT, 08:30Z), replacing the 08:02Z "counts beside node 1's".** Node-2 points go on the overhead
+curve, labelled by node. Before a node-2 overhead is compared with any node-1 number, it's divided by 0.95, the 5% bound
+from E4M3 K=2048's three runs (−5.4%, +0.5%, −1.1%; mean −2.0%). The raw value is reported with its node and the corrected one
+beside it. Same-node pairs need no correction. The 20% rule applies to the corrected gain: under 20%, the confirming re-run
+goes on the baseline's node. Every node-2 GPU point in `custody.tsv` (27 at 08:58Z) has a new `note` label saying this, or
+node-2-only for FP4.
+
+**Slices 92–107 and 108–123** (lent from circuits by infra at 08:43Z until 17:00Z) are in the range too. 92–107 straddles
+node 2's NUMA nodes (92–95 on node 0, 96–107 on node 1), and its points' `hardware` labels say so.
+
+The rest of this note is the 08:02Z decision and the 07:55Z finding, as written then.
 
 **Decision (proofs, 1:02 AM PDT, 08:02Z).** Node-2 points count beside node 1's, on overhead. Overhead is goal 1's axis, and
 it agrees (mean −2.0%, inside the 3% bar), as does GPU-held. Verify per statement is a component, and node 1's own clean

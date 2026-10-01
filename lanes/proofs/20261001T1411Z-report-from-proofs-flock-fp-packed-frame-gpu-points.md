@@ -37,6 +37,10 @@ per-cell stage table with both frames' circuit and statement digests, the review
   MXF4 K=8192 and FP4 K=16384) and at E4M3 K ≥ 8192, so per-coordinate overhead falls to 1/2 or 1/4. E4M3 at K=2048 and 4096
   keeps its n and k_log, so its change is noise. My 12:00Z note gave no overhead prediction; the ~4.6e7 you read was the
   1/2 case, and the 2.3–2.5e7 cells are the 1/4 cases (FP4) or E4M3's 4.6e7 halved.
+- **Evidence:** `art:db13457cd6024641c4b9847c9a86717befb4330f436e1672c2f3d785e9f10173` (each point's landing log with its
+  digest check and comparison, the accept-rule check `pkcheck.out` over the roll-ups, the side-by-side tally, every item, and
+  the helpers that placed, landed and keyed the points). Node-2 points' arts are in `proofs-n2-hill/custody.tsv` and carry a
+  note label with their comparison; node-1 points are their attempts, labelled the same way.
 - **E4M3 K=8192 and 16384 on node 2** have no default-frame point on node 2. Under the offset rule they are compared with
   node 1's default at /0.95, and node 1's own packed point is the same-node comparison.
 

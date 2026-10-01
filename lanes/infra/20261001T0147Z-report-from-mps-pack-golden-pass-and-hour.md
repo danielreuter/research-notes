@@ -38,7 +38,7 @@ and results). The loop is back without `PACK_COMMITS`, and nothing is spooled or
   - The 6-Commit pod reached 34, about 2.2×. The 1- and 2-Commit pods reached 8.8 and 11.4, below unpacked: pod startup plus
     the 180 s idle tail outweigh the gain.
   - The script's own 6 h baseline (6.1) isn't comparable, because those older Commits replayed on the GPU.
-- **Peak memory:** GPU 66.7 GiB of 95 with three clients (about 22 GiB each, under their 28 GiB limits). Pod host memory peaked
+- **Peak memory:** GPU 65.1 GiB of 95 with three clients (about 22 GiB each, under their 28 GiB limits). Pod host memory peaked
   at 22.4 GB of 192 (all clients share one cgroup).
 - **Disk and the bundle rule:** disk went from 69% to 72%. The bundles waiting peaked at 15.5 GB once the phi3 replay had drained.
 - **Supply:** the held queue is all B32 or models off the list (7B, MoE, TP2). The two new B1 Commits in the hour had no

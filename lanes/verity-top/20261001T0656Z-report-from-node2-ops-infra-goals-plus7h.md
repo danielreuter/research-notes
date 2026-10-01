@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6), timer infra-goal-plus7h (11:40 PM PDT); read-only counts at 06:53Z
 ---
 
+CHECKPOINT none (10:04Z) [open] 3:04 AM PDT: 2:05 check closed (all owners reported); node 2 Commit cap 40 min approved; node 1 held-idle 86.6% pushed to circuits
 CHECKPOINT none (09:49Z) [open] 2:49 AM PDT: T496R failed on #496 fences fixture; IR rebuilt alone on main, lander node 1 + slot d 3:30 hedge; #496 fix with PR captain
 CHECKPOINT none (09:33Z) [open] 2:33 AM PDT: IR prep check r20261001-091202-7aa6 running on slot d; all 34 open PRs scheduled; inbox empty
 CHECKPOINT none (09:21Z) [open] 2:21 AM PDT: 2:05 check done; rulings on IR-before-T647, slot d through GEMM windows, proofs confirming run; inbox empty

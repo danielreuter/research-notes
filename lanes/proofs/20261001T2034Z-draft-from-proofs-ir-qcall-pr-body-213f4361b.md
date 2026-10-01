@@ -113,8 +113,9 @@ Every Q_call row verifies (`verify` ok, no codes).
 
 - **Constant-derived gates add no committed bits** in any Call. They add recomputes instead: each unit that reads a
   constant-derived value computes it again. That is 30,727 of the softcap block's 32,438, mostly the 16 PV wgmma members each
-  recomputing about 1,771 gates of the QK `DotBf16` node. These recomputes go away when a program's constants become
-  registered inputs. Folding an operation's own constant bits waits on Daniel's open question 1. Neither needs a query rule.
+  recomputing about 1,771 gates of the QK `DotBf16` node. These recomputes don't go away when a program's constants become
+  registered inputs: they become recomputes from those inputs. An operation's own constant bits stay gates (Daniel, 1 Oct,
+  3:06 PM PDT). Neither needs a query rule.
 - **Former wiring gates add no committed bits.** None of these Calls has a wiring gate.
 - **No gate is wider than 32 bits** in any of them.
 - **Recomputes that are not constant-derived** (`AttnBlock_v8`'s 63,771) come mostly from sibling Calls reading one operand. The

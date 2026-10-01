@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:18Z) [open] control pod restored (deploy key + old-pod terminate await Daniel); window 5 served goal met; main 743c7ce21
 CHECKPOINT none (21:02Z) [open] control pod incident (RunPod rename reset containers), infra restoring guard+steward; GPU disk +10 TiB awaiting Daniel; window 5 goals met
 CHECKPOINT none (20:46Z) [open] server Slack router live 1:42; GPU node +10 TiB disks awaiting Daniel; #712 approved, with ci
 CHECKPOINT none (20:30Z) [open] control pod has 1 TB; inbox-only Slack subscriptions applied; router awaits Daniel's Event Subscriptions; pack loop stopped (#713)

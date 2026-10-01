@@ -53,6 +53,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 06:38Z released bc-e6a46970's 52 CPU verifies from `held-overnight/` to `queue/`, on compute accounting's 11:26 PM PDT yes relayed by pouw-node2 (bc-c066b30c); their headers now name the question. Still held: the 4 `aw-*` (bc-8412d697). No new alerts.
+
 - 2026-10-01 06:20Z alerts: none new. kueue-fold fixed `n2_build.sh` reruns (`c332e1685`: a `.done` marker makes a rerun a no-op), so runner restarts no longer need a moment without Builds. It moved g084 to `done/` and requeued `cov-g080-r1` with 256 GiB (no OOM since). If g080 is OOM-killed again, hold it.
 
 - 2026-10-01 06:12Z the overnight allowed set adds `pearlc4-bovf-boundary.sh` (bc-e8ffd7f2, PoUW CPU, 24 cores, about 1.6 h), on compute accounting's 10:46 PM PDT order (`note:20261001T0546Z-order-from-compute-accounting-e8ffd7f2-bovf-condition-7`). Running since 06:06Z.

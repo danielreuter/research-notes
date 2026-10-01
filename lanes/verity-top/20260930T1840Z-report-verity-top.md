@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:06Z) [open] 8:06 PDT: overnight set closed 20/27 hit, 1 pending Daniel, 5 missed; log and proposed day set in goals.md; 3 post-7:50 PRs open (#678, #679, #680); infra's final numbers pending
 CHECKPOINT none (14:51Z) [open] 7:51 PDT: 7:50 closure under way; PRs 0 at 7:50 (47 landed since 2:05), #678 PoUS Lean sync opened for a train; awaiting infra and circuits 7:50 numbers
 CHECKPOINT none (14:34Z) [open] 7:34 PDT: 0 open PRs since 7:24 (d784c58ee); call-families PR 2a7ec07d0 opens vs main at 7:50; packed-frame last two cells on node 2; 7:50 closure next
 CHECKPOINT none (14:30Z) [open] 7:28 PDT: #676+#677 (b3b4c8434) landed, main d784c58ee; 0 open PRs, goal hit; new PRs open after 7:50

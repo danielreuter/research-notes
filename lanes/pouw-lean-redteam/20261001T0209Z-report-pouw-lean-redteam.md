@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (05:10Z) [open] 05:12Z poll: M5 held by compute accounting (0502Z order); bc-22298e90 withdrew its skipClass GO (0502Z); the assessor lapses the FP4 Lean grant until restaged (0510Z). No restage yet. Sent bc-dd9ede96 the domain form that passes (0512Z). VM rebuilt twice; my outputs are all pushed or preserved.
 CHECKPOINT none (04:59Z) [open] 04:58Z verdicts posted (note:20261001T0458Z-reply-from-d545bc2a-verdicts-m3-dnf-fp4): M3 FragDraw named OK, skipClass vacuous (RowDrawn unsatisfiable, art:bb6ab7ac); D-NF GO; FP4 fix NO-GO vs the 01:36Z grant. Waiting on the restage and bc-dd9ede96's M5 review request.
 CHECKPOINT none (04:48Z) [open] 04:55Z resumed on a rebuilt VM; old-store export art:aa8be33b fetched. FP4 fix definitions: NO-GO forming (Lean statement differs from the 01:36Z grant in domain, B-tilde F1' overfit, F2 readings, term 3). M3 re-GO next.
 CHECKPOINT none (02:09Z) [open] took bc-22298e90's PoUW reviews (M3, D-NF, FP4 fix defs, v2-hot region if fix 2 passes); waiting on an old-store export (reply 0209Z); D-NF replay art:9f429608 under review

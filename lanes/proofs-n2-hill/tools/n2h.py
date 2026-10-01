@@ -476,6 +476,13 @@ def job(i: str, phase: str) -> int:
     if (H / "STOP").exists():
         print("STOP is set: nothing to do")
         return 0
+    # the fill runner requeues a job it adopted after a restart once it exits (it has no exit status for it): run nothing twice
+    if d.get("state") in ("done", "failed", "refused", "withdrawn"):
+        print(f"item {i} is {d['state']}: nothing to do")
+        return 0
+    if any(a.get("state") == "running" and a.get("pid") and Path(f"/proc/{a['pid']}").exists() for a in d.get("attempts", [])):
+        print(f"item {i} has a live attempt: nothing to do")
+        return 0
     q = (d.get("env") or {}).get("QUESTION")
     if not q:
         set_state(i, "refused", "no QUESTION")
@@ -532,7 +539,8 @@ def job(i: str, phase: str) -> int:
     cmd = d["cmd"]
     if phase == "stage":
         env["PATH"] = f"{H / 'stub'}:{env['PATH']}"
-        env.pop("CUDA_VISIBLE_DEVICES", None)
+        # no GPU without a lease: a node-1 0-GPU pod has no GPU devices at all
+        env["CUDA_VISIBLE_DEVICES"] = ""
         if d.get("gpus") and "STAGE_ONLY=1" not in cmd:
             cmd += " STAGE_ONLY=1"
     else:

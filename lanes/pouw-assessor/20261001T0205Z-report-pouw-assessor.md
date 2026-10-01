@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (15:17Z) [open] 15:20Z: VM reset at 15:15Z, env rebuilt. No new asks: M5 is with compute accounting to land (note:20261001T1517Z), NCP ratings relayed (pouw-ncp 1516Z), R1-H draft 8 is with the red team, no assessor ask since draft 4.
 CHECKPOINT da9a9cfef (15:14Z) [open] 15:15Z: NCP answered (note:20261001T1505Z; ledger 15:05Z x3, art:c617f4b2). M5 type-hash check passed; tt-out/fp4-sm120 re-granted in Lean at C (note:20261001T1514Z; ledger 15:14Z). Next: replies from bc-2f661c92, bc-c5d0d68e's R1 re-review.
 CHECKPOINT da9a9cfef (15:05Z) [open] 15:06Z: answered note:20261001T1304Z: F-NCP-salt D at 40, C at 36; epoch weights X-R9-2 (D for credit); eps at worst cell 0.78%/1.27%. Ledger lines 15:05Z, art:c617f4b2. Note 20261001T1505Z.
 CHECKPOINT da9a9cfef (14:47Z) [open] 14:46Z: taking the lane back (last checkpoint 09:25Z). Rating F-NCP-salt and ruling on per-epoch weights as X-R9-2 for bc-2f661c92, due 16:20Z.

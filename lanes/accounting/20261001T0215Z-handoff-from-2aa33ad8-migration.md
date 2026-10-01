@@ -18,7 +18,7 @@ the top-level Agent Store `bc-b729c175…` unless it says "node 2".
 
 | PR | Branch | Head | Owner | State and what's left |
 |---|---|---|---|---|
-| #580 | `cursor/pearl-c4-f1f2-3084` | `639128c87` | GPU 5 bc-71c6ab78 | F1′, R1, tightened D-NF, pinned c_L, the 8-block rotation + V/O/interleave registration rule (6:40 PM PDT); 1,691 tests pass. Left: the B-OVF port; then merge |
+| #580 | `cursor/pearl-c4-f1f2-3084` | `639128c87` | GPU 5 bc-71c6ab78 | F1′, R1, tightened D-NF, pinned c_L, the 8-block rotation + V/O/interleave registration rule (6:40 PM PDT); 1,691 tests pass. *(Corrected 7:12 PM PDT, from GPU 5's handoff: B-OVF is already in, via merge `fb251c6e`, vectors regenerated `7a75614a`.)* Left: take #556's head `9363e5012`, `check --record`, then a train with #556 |
 | #548 | `cursor/pearl-c-fp4-3084` | `7a30515b7` | GPU 5 | check passed (`r20261001-000221-f7ef`, the MKL warm-up merged); ready for a train |
 | #491 | `cursor/pouw-harness-sm120-d2f2` | `aa4f95db9` | harness bc-0de2d624 | dropped-names run fails (`9db36fe7d`); each library's best timed and chained (`88ef0927b`); 233 pass |
 | #588 | `cursor/harness-helper-cd3d` | `dd23c0c36` | harness helper bc-6da61042 | #588's plain-GEMM divisors; merges #491 cleanly (243 pass on the merge) |

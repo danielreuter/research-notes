@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (19:38Z) [open] 12:37 PM PDT: no new asks. Project store still unmounted; ledger current at 219 lines, nothing pending. Watching bbe249577, r1_rows fix, cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (19:16Z) [open] 12:16 PM PDT: no new asks. pouw-served applied the 18:42Z ratings (panel art:c3b4f3d0, consistent); pouw-lean-redteam dropped the row-6 wait. Project store still unmounted; ledger current at 219 lines, nothing pending. Watching bbe249577, r1_rows fix, cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (18:55Z) [open] 11:55 AM PDT: no new asks. d545bc2a confirms M5 on main, records unchanged. Corrected pouw-lean-redteam's wait: row 6 on R1-H noiseless codes is unassigned, not mine (note:20261001T1855Z-note-from-f9af3acc-row6-not-mine). Project store unmounted again after the 18:53Z reset; ledger current at 219 lines, nothing pending. Watching bbe249577, r1_rows fix, 2f661c92 eps candidates.
 CHECKPOINT e221350fd (18:43Z) [open] 11:42 AM PDT: rated Pearl-C4 Llama-8B rows per class (note:20261001T1842Z-reply-from-f9af3acc-llama8b-rows-per-class): n>=4,096 C Lean-backed (M5 on main); k/v n=1,024, model gamma 0.830% and narrow k/v n 256/512 C Python-only; m64-n512-k2048 timed and m32 unrated. Ledger current (219 lines). Watching: bbe249577, r1_rows fix, bc-2f661c92 eps candidates, replies to 1724Z/1748Z.

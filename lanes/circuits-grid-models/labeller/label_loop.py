@@ -20,7 +20,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BY = "circuits-grid-models"
 RESEARCH = "/workspace/.venv/bin/research"
-PREFIX = "cursor/grid-models-8c79 @ eda63fdd (cursor/coverage-v1-2622 @ 4764da87 + the 20 grid-model checkpoints and their workloads)"
+PREFIX = "cursor/grid-models-8c79 @ b9880ac1 (cursor/coverage-v1-2622 @ 90ebe43d + the 20 grid-model checkpoints and their workloads)"
 QUESTIONS = json.loads((HERE / "questions.json").read_text())
 #: one family id per publisher model series (circuits 07:19Z: base, instruct and coder together, R1 distills under their base)
 FAMILY_OF = {"QWEN25_3B": "qwen25", "QWEN25_05B_INSTRUCT": "qwen25", "QWEN25_CODER_15B": "qwen25", "R1_DISTILL_QWEN_15B": "qwen25",

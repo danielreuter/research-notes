@@ -54,3 +54,7 @@ something isn't worth its cost. It weighs bandwidth against tonight's goals, and
 
 ## Round 2: memory-accounting, network-accounting (9:02 PM PDT)
 - Asked 04:02Z, in one announcement (thread 1790827336.369999).
+- No replies by 08:00Z: nothing new (1 round in a row).
+
+## Round 3: console, old-circuits-and-proofs (1:00 AM PDT)
+- Asked 08:00Z, in one announcement (thread 1790841642.665779). Infra is subscribed to the thread until 20:00Z.

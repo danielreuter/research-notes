@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: cursor/proofs-ir-95d4
 ---
 
+CHECKPOINT 46c768b2c (19:55Z) [open] Q_call v1 spec + vectors pushed: cursor/proofs-qcall-95d4 @ b307d8320 (cut.evaluate_call, partition_object Q_call v1, PROTOCOL.md §11, tests/ir/qcall_vectors.json; tests/ir 282 pass). Next: circuit-check, Glossary, measurements (running), red-team ask, check --record.
 CHECKPOINT (05:45Z) BF16 slice done; attention started on `cursor/proofs-ir-95d4` at `ac15d5abf`. Design note: Phase 2, Phase 3.
 
 - **BF16 measures:** the same committed bits as v2. That is 1,024 bits per MAC in the unit slot, and 2,048 / 4,096 for

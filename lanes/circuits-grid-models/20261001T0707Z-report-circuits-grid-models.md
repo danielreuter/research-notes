@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: final
 ---
 
+CHECKPOINT b9880ac17 (19:47Z) [final] 12:52 PM PDT: 449 ended on both nodes (434 at 11:30; floor 450), 36 models / 15 families, every failure named; FINAL written; open for circuits: big_cap 14 (1802Z), pack bundle cap (1920Z)
 CHECKPOINT b9880ac17 (19:47Z) [final] 12:50 PM PDT: 449 ended on both nodes (434 at 11:30; floor 450), 36 models / 15 families, every failure named; FINAL written; open for circuits: big_cap 14 (1802Z), pack bundle cap (1920Z)
 CHECKPOINT b9880ac17 (19:44Z) [open] 12:45 PM PDT: grid 242 ended; pack queue draining (4 of 6 B8 1k claimed); feeder sends again as b8+ in flight drops under big_cap 4; big_cap 14 and bundle cap still with circuits
 CHECKPOINT b9880ac17 (19:21Z) [open] 12:23 PM PDT: 6 packed B8 1k Commits blocked by commit_pack's bundle cap (32.9+120>150), handed to circuits (1920Z); big_cap still open; grid 238 ended
@@ -120,5 +121,17 @@ artifacts: art:c8c825f9f8aa2831d33b6b21039c5a90be8d6bcc6f990c16b8c6c35653ce7be3 
   (`add_models.py`, `reorder.py --pack` and `counts_all.py` among them);
 - in `lanes/circuits-replay-keep-leaves/`: the 1743Z reply.
 
-**Handoffs received, all acted on:** circuits 0719Z, 0749Z, 0821Z, 1006Z, 1011Z, 1158Z, 1412Z, the 7:55 AM PDT follow-up and
-1555Z; circuits-commit-phases 1038Z and 1417Z; kueue-fold 1315Z; circuits-replay-keep-leaves 1705Z.
+**Handoffs received, all acted on** (and circuits' 7:55 AM PDT follow-up):
+
+- 20261001T0719Z-handoff-from-circuits-decisions.md
+- 20261001T0749Z-handoff-from-circuits-no-gemma-node1.md
+- 20261001T0821Z-handoff-from-circuits-go.md
+- 20261001T1006Z-handoff-from-circuits-idle-hold-node2-fill.md
+- 20261001T1011Z-handoff-from-circuits-feeder-opened-up.md
+- 20261001T1038Z-handoff-from-circuits-commit-phases-plan-tree.md
+- 20261001T1158Z-handoff-from-circuits-refill-node2-pack-goldens.md
+- 20261001T1315Z-reply-from-kueue-fold-node1-hold-ends-1330z.md
+- 20261001T1412Z-handoff-from-circuits-drop-deadline-gate.md
+- 20261001T1417Z-handoff-from-circuits-commit-phases-boundary-gm-tree.md
+- 20261001T1555Z-handoff-from-circuits-1130-set.md
+- 20261001T1705Z-handoff-from-circuits-replay-keep-leaves-lease-self.md

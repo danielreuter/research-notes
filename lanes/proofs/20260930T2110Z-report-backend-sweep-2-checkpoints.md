@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT f7c38f2d (05:31Z) [open] 10:32 PM PDT: the two fresh agents are the BF16 and FP8/FP4 hillclimb workers (0-GPU staging pods running), stop lines removed, originals stay idle; node 1 31%
 CHECKPOINT cc21a7d94 (05:28Z) [open] 10:30 PM PDT: #638 at 22fe745f, 13 cited theorems pinned (205 pins), body updated; red-team's labels pending, then Daniel's yes and check; README citation scope flagged to lean as FYI
 CHECKPOINT 25e29ea2 (05:04Z) [open] red-team GRANT w/ conditions on 4fc658ce: record approved; accepted the legacy deferral (cond 2); 13 cited pins pre-approved and being folded in by the writer (cond 1)
 CHECKPOINT 3364449a (05:03Z) [open] 10:05 PM PDT: roll-call, watch timer live to 8 AM; node 1 idle; resume of bf16-hill/flock-fp spawned 2 fresh agents (short ids), STOP lines placed, originals resume after they report; overlap's 0-GPU verifier pod -10.7% GPU held; proofs-ir BF16 slice done, ROM table format needs Daniel

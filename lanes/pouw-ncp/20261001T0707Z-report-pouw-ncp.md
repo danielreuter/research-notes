@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: open
 ---
 
+CHECKPOINT 7b51143ef (14:49Z) [open] The assessor took the lane back at 14:46Z and is rating F-NCP-salt and X-R9-2, due 16:20Z. Node 2's 15:00Z NCP slot was released to fill, and I agreed (note 20261001T1448Z): 12:05Z already timed the per-epoch rows bit-exact. Holding with no GPU in use, to answer the assessor.
 CHECKPOINT 7b51143ef (14:27Z) [open] No reply on a rater (13:04Z) and no redirect. Holding with no GPU in use.
 CHECKPOINT 7b51143ef (14:06Z) [open] Still no reply on a rater (13:04Z). Holding with no GPU in use. The morning number (12:20Z) stands for 7:50 AM PDT.
 CHECKPOINT 7b51143ef (13:46Z) [open] Still no reply on a rater (13:04Z). Holding with no GPU in use. The named 715 is an ordering fault after stream-K, and per 13:41Z `verity_fp8_256x128` runs clean at 8,192³, so the 1.446 ms divisor stands.

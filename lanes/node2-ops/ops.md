@@ -52,6 +52,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 00:42Z alerts: `gpu-idle-in-lease` on GPU 2. n2-commits' `cov-g217-proof` held it 19.6 min with 10 s busy (a CPU phase in a GPU lease); relayed to `lanes/circuits/`. bc-2aa33ad8 replied that the 0–47 sequencing is fine: measure NUMA 0 as `MemFree + Inactive(file)` (769 GB), log NUMA 0 memory at each freeze, and keep the `mem_gb` caps beside `--membind=1`. Canary window not yet run. Watermark 00:25:02Z.
+
 - 2026-10-01 00:12Z `backup.sh` now waits out timed windows before each unit, and stops with 75 after an hour of windows (`283af0ae7`, sha `e820a1f9`, test added; rollback `backup.sh.prev-20261001T0015Z`). Started the deferred 00Z backup.
 
 - 2026-10-01 00:10Z hourly (23Z): GPU busy 97.6%, 100% useful, 0.17 GPU-h leased-idle (above target). CPU 26.1% (0–127: 35.5%): 55 CPU jobs queue behind 4 slots on 96–127; 0–47 and lending come after the canary.

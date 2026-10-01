@@ -227,6 +227,37 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
       their commit, under `integrations/vllm/out/gen/r9/cmt-hidden/src/`. They are too small to ask about.
   - After: node 1 has 68 trees, with `/workspace` at 38% space and 39% inodes and root at 193 GB free. Node 2 has 77
     trees, at 48% space and 10% inodes.
+- 18:17–18:20Z (11:17–11:20 AM PDT), `sweep.sh --src-age-h 6`, run from the 18:06Z tick's inode HARD line (§6) instead of
+  waiting for the 18:30Z timer: 127 entries, 1,850,993 files, 92.3 GB.
+  - Node 1, 67 trees, 1,079,105 files, 53,454 MB: `04af3429`, `063d6d2b`, `08a869fc`, `127fb3cc`, `15159f7d`, `21a3d38d`
+    (10 h), `23f2018c`, `291877ee`, `2b52f034`, `2fdd1105` (11 h), `31ef5e28`, `33e10236`, `34eb7edc`, `35d14750`,
+    `36102418` (10 h), `3b6653dd`, `3c81408b` (11 h), `4127073f`, `43d7e430`, `443538fe`, `46c768b2` (10 h), `4e2a7abc`
+    (11 h), `4f1fd43d`, `4ff29e61`, `5d90708f` (10 h), `63f836e2`, `67c2055f`, `6f8da256`, `71eca2f7`, `734ed97b`,
+    `77a7b6dc`, `8150148d`, `88930666` (11 h), `8c2c9c21` (11 h), `8d3a0046`, `8d4b9f30`, `92849f82` (11 h), `97c7ed11`,
+    `9d19a91d` (10 h), `9ec8b794` (10 h), `a009c1cb`, `aac15370` (10 h), `abfbbc9c`, `ac502b63` (10 h), `aeee0d32`
+    (10 h), `b06cf4ae`, `b737755b`, `b9b27dc2`, `bdedc145`, `c0097b93`, `c07b1d4c` (11 h), `c0d8216d` (10 h), `c2cc505b`
+    (11 h), `d7691fc6` (10 h), `d9e9ba1e`, `dfc7cc21`, `e272fb46`, `e79b4aee`, `ea8cc26a`, `eb8cb916`, `eb995b2c`,
+    `ef6a3e74`, `f2a572cf`, `f49f0415`, `f6697c66`, `f7c0bd24` (10 h), `fdb178ee`. The rest were 6–9 h old, 4,863–30,412
+    files and 88–1,712 MB each.
+  - Node 2, 50 trees, 423,508 files, 15,781 MB: `064d1522` (11 h), `09c81e87`, `116d8590`, `14c4a047`, `1fa67c4b` (10 h),
+    `1ff24ad5`, `223e3e0e`, `25d54031`, `301c31d1`, `36584b4b` (10 h), `37008e8a` (15 h), `377b7c48` (10 h), `408a7470`,
+    `43dc9fe2` (10 h), `43e8dc44`, `453abfb0`, `4dd558a5`, `51a7a69b`, `553a1b49` (17 h), `5776475f`, `5a7f8aff` (11 h),
+    `678b7d29` (10 h), `6c983266` (10 h), `6e5b9c70`, `7777c3d9`, `8150148d`, `86351426` (10 h), `8e91aeb6`, `923b5acb`
+    (11 h), `9abbecb0`, `9bea11bf`, `9ec8b794` (10 h), `a371a25d`, `a3fa6642`, `a4e2e108`, `b737755b`, `b79830ad`,
+    `bdedc145`, `be89244f`, `c2cc505b` (11 h), `c382dd84`, `d664e854`, `d91928ee`, `dfc7cc21`, `e5b6661a`, `eb6b83a5`,
+    `ecf7d9e3`, `ef1042a0`, `f9b0d16d` (11 h), `fb2ec7d8`. The rest were 6–9 h old, 4,844–30,351 files and 87–1,711 MB.
+  - Check scratch, node 1, 348,153 files, 23,012 MB: `lean-audit-scratch-f7jkfxj1` (321,002 files, 19,771 MB, last
+    written about 14:11Z; left by a `check` that ended without its `finally`, since `lean_audit.py` removes its scratch
+    otherwise), and `/tmp/pytest-of-research/pytest-1454`, `-1489`, `-1491`, `-1631`, `-1635` (16,812 files, 3,071 MB),
+    `-1678` and `-1700`. Node 2: `pytest-567` and `pytest-614` (227 files, 3 MB).
+  - Kept, 24 trees, all on node 2:
+    - five are named by live processes, fill queue entries or request `r20260930-112057-cff1`;
+    - four hold the two generated `integrations/vllm/out/gen/r9/cmt-hidden/src/` files: `8aa9452d`, `b3b268ca`,
+      `f6b39a2b` (as before) and `375a32bd`;
+    - fifteen have no `READY.json`, or no `.git` and a commit the bare repo lacks (`5f21ea3d`). All are 88 MB, shipped
+      07:25–11:38Z, 1.3 GB together. They are too small to ask about.
+  - After: node 1 has 32 trees, `/workspace` at 44% space and 43% inodes (47% before), root 181 GB free. Node 2 has 48
+    trees, at 52% space and 10% inodes, root 184 GB free.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -459,3 +490,22 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     runs' memory.
   - Asked @circuits (`1790873900.706599`): start no new `boolean-replay` on node 1 until one finishes, and check that the
     queued replays fit. Nothing is stopped.
+- 17:16–17:43Z ticks (exit 0): the replay line is known and easing, from 270 GB queued (3 Commits, -178 GB) at 17:23Z to
+  90 GB (1 Commit, -37 GB) at 17:43Z. Circuits hasn't replied.
+- 18:06–18:27Z (11:06–11:27 AM PDT) tick (exit 1): "n1: HARD /workspace gaining 714,153 inodes/h: 80% of inodes in 10.1 h"
+  and "n1: GPU 7 holds 86 GiB at 0% for 15 min".
+  - GPU 7 was free (1 MiB) by 18:07Z. No action.
+  - Node 1 inodes went from 42.5% at 17:43Z to 47% (9.57M) at 18:15Z, in bursts of up to about 2M an hour. The drivers:
+    - two `check` runs' Lean-audit scratch trees from 18:02Z, `lean-audit-scratch-otchoghv` (494k inodes, held by no
+      process at 18:16Z) and `-yulqo3ye` (320k, the audit's cwd);
+    - the leftover `-f7jkfxj1` (321k, untouched since about 14:11Z, held by nothing);
+    - new source trees, and `jobs/src` up to 763 copies (from 713 at 13:53Z).
+  - Ran `sweep.sh --src-age-h 6` early (§4): 92.3 GB and 1.85M files. Node 1's inodes fell to 43%. If `otchoghv` stays
+    untouched, the 00:30Z sweep takes it under the 2 h rule.
+  - Node 2, seen while checking: `/workspace` went from 49.5% at 18:06Z to 51.7% at 18:23:41Z, then stayed flat.
+    - The writer was `served-wsd-b959acdf-8` (lane pouw-served, `bc-c62f9726`). Its e2e verify pass wrote retained
+      passes at about 500 MB/s for 4 min into `/workspace/pouw/mvp-e2e/passes/fill-wsd-b959acdf-8`: 74.5 GB, the same
+      as `fill-wsd-de74f334-7`'s, which its CPU verify is reading now.
+    - There are 167 GB before 55%. Each served window keeps about 74.5 GB until its verify deletes it.
+  - Slack: one announce to @infra and @compute-accounting (`1790879553.355979`), since the sweep was over 50 GB. No
+    action asked.

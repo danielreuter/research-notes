@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT d163c8d2 (15:45Z) [open] 8:45 AM PDT: proposed 11:30 targets to the top-level (BF16 -6..-12% every K, packed FP new bests, core row schemas PR, <=30 s GPU per proof job, #554 successor landed); M0's and the owner's twice-unanswered asks brought to the top-level
 CHECKPOINT 6c87acc8 (15:31Z) [open] 8:31 AM PDT: flock-fp's packed nsys done (statement profile = BF16's at m=35; bf16-hill's proposals apply to FP unchanged); bf16-hill's K=16384 CPU-sampled nsys and column-fold ncu rc 0, write-up and 1a microbench pending
 CHECKPOINT 9fad66ca (15:03Z) [open] 8:03 AM PDT: acted on note:proofs/20261001T1500Z-handoff-from-red-team-proofs-554-core-checkable-rows-pointer: checkable rows need new core protocol (row schemas, frame-v3-sha512 element rows) -> Daniel's morning list item 14; flock-fp scoped to core side + stager switch, verifiers wait (note:proofs-flock-fp/20261001T1502Z-handoff-from-proofs-checkable-rows-core-first-verifiers-wait)
 CHECKPOINT 3b687a74 (14:54Z) [open] 7:54 AM PDT: top-level approved 4 items (7:52); ruling posted in the owner's threads (1790866362.367269, 1790866362.697799); flock-fp (packed nsys + checkable rows CPU-only), bf16-hill (K=16384 CPU-sampled nsys, column-fold ncu, 1a microbench) and red-team (rows design review) resumed; node-1 cap 4 (flock-fp 1, bf16-hill ≤3)

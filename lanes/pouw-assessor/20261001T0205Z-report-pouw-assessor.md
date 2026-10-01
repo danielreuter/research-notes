@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (18:55Z) [open] 11:55 AM PDT: no new asks. d545bc2a confirms M5 on main, records unchanged. Corrected pouw-lean-redteam's wait: row 6 on R1-H noiseless codes is unassigned, not mine (note:20261001T1855Z-note-from-f9af3acc-row6-not-mine). Project store unmounted again after the 18:53Z reset; ledger current at 219 lines, nothing pending. Watching bbe249577, r1_rows fix, 2f661c92 eps candidates.
 CHECKPOINT e221350fd (18:43Z) [open] 11:42 AM PDT: rated Pearl-C4 Llama-8B rows per class (note:20261001T1842Z-reply-from-f9af3acc-llama8b-rows-per-class): n>=4,096 C Lean-backed (M5 on main); k/v n=1,024, model gamma 0.830% and narrow k/v n 256/512 C Python-only; m64-n512-k2048 timed and m32 unrated. Ledger current (219 lines). Watching: bbe249577, r1_rows fix, bc-2f661c92 eps candidates, replies to 1724Z/1748Z.
 CHECKPOINT fbce5a2f4 (17:59Z) [open] 17:59Z: no new asks. Store still unmounted; eight ledger lines pending in /cursor/stores/self/pending/.
 CHECKPOINT fbce5a2f4 (17:48Z) [open] 17:49Z: row 11's 2:4 delta route closed by ISA granularity (ptxas: FP8 mma.sp only at k64 on sm_120a, art:d66d9da6; note:20261001T1748Z). Eight ledger lines pending in /cursor/stores/self/pending/; store unmounted.

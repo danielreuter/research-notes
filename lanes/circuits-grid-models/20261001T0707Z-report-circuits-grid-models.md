@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: final
 ---
 
+CHECKPOINT b9880ac17 (14:42Z) [final] 7:44 AM PDT: 20 models / 10 families registered; 134 deployments ended (127 pass, 7 fail: 6 SiluMul_v1 edge, 1 item config gm127); 19 models / 9 families ended, 18 with a pass; 9 golden twins match, all unpacked (PACK_MODELS lacks them); feeder keeps node 1 fed; art:c8c825f9f8aa2831d33b6b21039c5a90be8d6bcc6f990c16b8c6c35653ce7be3
 CHECKPOINT b9880ac17 (14:42Z) [final] 7:43 AM PDT: 20 models / 10 families registered; 134 deployments ended (127 pass, 7 fail: 6 SiluMul_v1 edge, 1 item config gm127); 19 models / 9 families ended, 18 with a pass; 9 golden twins match, all unpacked (PACK_MODELS lacks them); feeder keeps node 1 fed; art:c8c825f9f8aa2831d33b6b21039c5a90be8d6bcc6f990c16b8c6c35653ce7be3
 CHECKPOINT b9880ac17 (14:40Z) [final] 7:41 AM PDT: 20 models / 10 families registered; 134 deployments ended (127 pass, 7 fail: 6 SiluMul_v1 edge, 1 item config gm127), 19 models / 9 families ended, 18 with a pass; 9 golden twins match unpacked (PACK_MODELS lacks them); feeder keeps node 1 fed
 CHECKPOINT 70e926d (14:15Z) [open] 7:16 AM PDT: acted on circuits' 1412Z: deadline gate dropped 14:12Z, burst caps kept (per_tick 12, cpu_pending_max 12, commit_cap 14). Build concurrency now bound by deployments-cpu's 608 Gi memory quota (Build requests 86-128 GB). Counts 14:15Z: 124 ended (117 pass, 7 fail: 6 SiluMul_v1 edge, 1 config gm127), 19 models (18 with a pass), 9 families. 7:40 counts next.

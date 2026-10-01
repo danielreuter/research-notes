@@ -266,6 +266,24 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Node 2, 2 trees, 9,945 files, 179 MB: `888c8aed` (4,966 files, 89 MB, 6 h) and `d099b8f3` (4,979 files, 90 MB, 6 h).
     Check scratch: `pytest-615` (5,952 files, 3,024 MB) and `pytest-616` (2,257 files, 12 MB), both 2 h old.
   - Kept: the same 24 node 2 trees as at 18:17Z.
+- 20:08–20:13Z (1:08–1:13 PM PDT), the 6 h sweep run from the 20:03Z tick (`sweep.sh --src-age-h 6`): 25 entries,
+  774,936 files, 43.5 GB.
+  - Node 1, 10 trees, 190,880 files, 9,871 MB, 6–7 h old: `27f6a0a0`, `31c1117c`, `4d44830f` (7 h), `55aebcc5` (8,499
+    files, 311 MB each), `4473e281` (30,276 files, 1,709 MB), `86d68c2d` (29,405 files, 1,669 MB), `b27b69c1` (7 h,
+    30,737 files, 1,720 MB), `b3b4c843` (30,735 files, 1,720 MB), `b3f1912a` (30,666 files, 1,718 MB), `da9a9cfe` (5,065
+    files, 91 MB).
+  - Node 1, check scratch, 507,650 files, 31,552 MB, both 2 h old: `lean-audit-scratch-otchoghv` (493,976 files, 28,716
+    MB, last written 18:08:18Z, an orphan of a cancelled `check`) and `/tmp/pytest-of-research/pytest-1865` (13,674
+    files, 2,836 MB).
+  - Node 2, 12 trees, 76,406 files, 2,118 MB: `05f8d08a` (7 h), `28710983`, `87510450`, `c38a5bd9` (8,501–8,504 files,
+    311 MB each), `06cf2201` (5,192 files, 94 MB), `087f33d5` (4,905 files, 88 MB), `2e1a9268`, `dabb17c0` (4,968 files,
+    89 MB each), `b3f1912a` (5,415 files, 98 MB), `7aa3abf6` (21 h, 5,653 files, 139 MB), `9d5abb09` (33 h, 5,644 files,
+    138 MB), `bf77c948` (25 h, 5,648 files, 139 MB); the rest 6 h old.
+  - Kept, 24 node 2 trees: `1503e18c` (request `r20260930-112057-cff1`), `91af9a6b` (a live python3), the four
+    `cmt-hidden` trees, fourteen without `READY.json` and four with no `.git` and a commit the bare repo lacks (`0d1cc2ef`,
+    `335d1f20`, `41a4eeb9`, `5f21ea3d`).
+  - After: node 1 has 31 trees, `/workspace` at 45% space and 48% inodes (9.80M; 10.37M at 20:03Z), root 186 GB free.
+    Node 2 has 36 trees, at 45% space and 10% inodes.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -563,3 +581,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   (1.99M) and `/workspace` is down to 47.65%. Node 1 is at 10.22M inodes (50%), with four scratch trees (`3g6nt1s0`,
   `frute7lo`, `lkzyik2u`, and the orphan `otchoghv`) and `jobs/src` at 811 copies. No action: `otchoghv` is sweepable
   after 20:08:18Z.
+- 20:03Z (1:03 PM PDT) tick (exit 1): node 1 HARD at 814k/h (80% in 7.5 h), at 10.37M inodes (51%). The growth was
+  check scratch: `3g6nt1s0` live (321k), `lkzyik2u` (770k, last written 19:07Z) and the orphan `otchoghv` (494k), with
+  `jobs/src` at 812 copies. Ran the 6 h sweep once `otchoghv` passed 2 h (20:08:18Z): 25 entries, 43.5 GB, node 1 down to
+  9.80M inodes (48%); §4. No Slack (under 50 GB). `lkzyik2u` is sweepable after 21:07Z if nothing holds it.

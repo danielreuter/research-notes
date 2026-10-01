@@ -71,6 +71,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 16:50Z inbox: pouw-node2's READY for window 4 (`note:20261001T1641Z-ready-from-c066b30c-node2-served-4-at-hand-back`).
+    - It tells e8ffd7f2 to stop Pearl-C4's running verify at about 17:05Z, so the run is out before the 17:15Z cutover, and asks me to name cores for the re-run. I named 48–91 once window 4's verify ends (about 18:20Z), or 0–47 at nice 19 from 17:55Z with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`).
+    - Job B is done, and nothing in fill runs. GPU 7's PoUS lease ends at 16:54Z, with no waiters.
+    - Backup `r20261001-163236-041e` is preserved (`.custody` reads `preserved: True`): 511 units, 18.4 GB. 40 large units are left out (21 earlier), to check after the cutover.
+    - No alerts. Infra hasn't posted the hand-back time yet.
 - 2026-10-01 16:36Z inbox and the deferred hourly:
     - **Timeline:** Pearl-C4's 16:00Z lease ended at 16:25:58Z. The kueue-fold Build finished with rc 0 at 16:30:32Z. Job B started at 16:30:02Z, inside its 16:35Z deadline.
     - **Hand-back:** c62f9726 launches window 4's run when the cutover line drops. I asked infra to remove it themselves at the hand-back. Pearl-C4's verifies on 48–91 run until about 17:20Z, so e8ffd7f2 stops the one still running on infra's word. Console's stale `infra-pool.json` was the publisher pausing in the timed windows, by design. Notes: `note:20261001T1636Z-handoff-from-node2-ops-cutover-1015-handback-signal` and `note:20261001T1636Z-reply-from-node2-ops-window4-line-drop`.

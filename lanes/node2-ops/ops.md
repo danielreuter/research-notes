@@ -35,7 +35,7 @@ Fill CPUs 96–127 and check slots 128–191 are on NUMA 1; the held Verity CPUs
 | `gpu-lease` | `49238797…` | `8ba5fc589` (agent mode; usage cap kept) | 23:17:43Z |
 | `fill_runner.py` | `5e033072…` | `8ba5fc589` (agent.lock, Verity pool lending, run with `FILL_VERITY_LEND=0`) | 23:17:43Z |
 | `node_ops.py` | `7b8ebe56…` | `6d877a03` (OOM guard prefers `fill-verity-*`) | 20:08Z |
-| `backup.sh` | `914dd687…` | `d06d14b5` (retry/skip a changing unit) | 20:19Z |
+| `backup.sh` | `e820a1f9…` | `283af0ae7` (retry/skip a changing unit; packs nothing while a window runs or waits) | 00:08Z |
 | `publish_pool.py` + `~/.config/systemd/user/infra-pool-publish.{service,timer}` | `f9ea6fdf…` | `6f778a00d` (infra-pool/v1 to vy-n1 every 5 min; idle-in-lease and unleased monitors; per-kind table) | 21:44Z |
 
 Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-pool`, relayed by infra) approved the guest path and the cutover; nothing is held now.
@@ -51,6 +51,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-10-01 00:12Z `backup.sh` now waits out timed windows before each unit, and stops with 75 after an hour of windows (`283af0ae7`, sha `e820a1f9`, test added; rollback `backup.sh.prev-20261001T0015Z`). Started the deferred 00Z backup.
 
 - 2026-10-01 00:10Z hourly (23Z): GPU busy 97.6%, 100% useful, 0.17 GPU-h leased-idle (above target). CPU 26.1% (0–127: 35.5%): 55 CPU jobs queue behind 4 slots on 96–127; 0–47 and lending come after the canary.
   - Backup deferred until the 5:00 PM canary window has run (`backup.sh` doesn't check for windows; it should).

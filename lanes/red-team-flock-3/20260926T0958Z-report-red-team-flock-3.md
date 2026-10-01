@@ -1718,6 +1718,19 @@ Verdicts only. The findings are in the store's `private/`.
     conflicts with changes 1, 2 and 6, so I'll read it as "every printout entry traces to one of the seven changes".
   - Note: `lanes/proofs/20261001T0118Z-reply-from-red-team-flock-3-reviewer-of-record-watching.md`, with a store copy.
     It supersedes the 00:48Z stand-down.
+  - **01:30Z timer: the push `d6c8b0e3` (the writer's checkpoint) is OBJECT, with six conditions.**
+    - My local `--update` passes, and eight pins change only as intended. The four `Partition` forms change by exactly
+      the L1 drop. The four `_hm96` forms add `hExec → tr`, `ksAvgStrict` under `hKS`, and δ_tree under `hT`.
+    - The conditions:
+      1. the strict budgets aren't tied to the finders' cost (`Finder.CR` uses `cost := fun _ => q`);
+      2. there's no single headline with SHA-512 as both `H` and `Hc` and A3 (change 3);
+      3. the coins wording is wrong for M0, which runs `coin_seed = true` (change 4);
+      4. the L1 wording overclaims (change 5);
+      5. the legacy items are untouched (change 6);
+      6. the record isn't committed and the new theorems aren't pinned (change 7).
+    - Verdict: `lanes/proofs/20261001T0150Z-reply-from-red-team-flock-3-restatement-verdict-d6c8b0e3.md`, with a store
+      copy. Evidence: `private/red-team-reviews/restate-d6c8b0e3-evidence.log` and `restate-d6c8b0e3-update-review.txt`.
+      The timer stays armed for the next push.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

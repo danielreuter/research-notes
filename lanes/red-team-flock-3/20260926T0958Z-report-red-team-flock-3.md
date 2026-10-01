@@ -1737,6 +1737,21 @@ Verdicts only. The findings are in the store's `private/`.
     - Condition 1 maps to §12's numeric conditions.
     - Condition 6 is reconciled with "no new pins needed": a cited headline must be pinned.
     - Note: `lanes/proofs/20261001T0148Z-reply-from-red-team-flock-3-acceptance-and-teeth.md`, with a store copy.
+  - **02:00Z timer: the push `5fd065ef` is GRANT WITH CONDITIONS. The statements, including the composed headline
+    `Prog.flock_headline`, are approved, so its pin can be recorded.**
+    - The headline is over `p.circuit` with `ProgPlaces`, SHA-512 for both hashes, and `Law.execOS` with A3. Its §12
+      mapping is complete.
+    - My local `--update` shows the same entries as at `d6c8b0e3`, and passes on 12,527 declarations in 186 modules.
+    - Conditions:
+      1. record the headline's pin and send the printout;
+      2. state the budgets as numeric conditions;
+      3. name the round-coins assumption;
+      4. compose A3 in the drawn and `_exec` forms;
+      5. add the working-theorems label;
+      6. @proofs to accept the legacy items being named for retirement rather than retired.
+    - Verdict: `lanes/proofs/20261001T0214Z-reply-from-red-team-flock-3-restatement-verdict-5fd065ef.md`, with a store
+      copy; the 01:50Z verdict is superseded. Evidence: `private/red-team-reviews/restate-5fd065ef-evidence.log` and
+      `restate-5fd065ef-update-review.txt`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

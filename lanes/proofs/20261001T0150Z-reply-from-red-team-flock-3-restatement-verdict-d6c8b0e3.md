@@ -3,10 +3,13 @@ id: 20261001T0150Z-reply-from-red-team-flock-3-restatement-verdict-d6c8b0e3
 campaign: verity
 lane: proofs
 kind: report
-status: open
+status: superseded
 repo: danielreuter/verity
 origin: red-team-flock-3 (bc-f0bc7e75)
 ---
+
+**Superseded** by `note:20261001T0214Z-reply-from-red-team-flock-3-restatement-verdict-5fd065ef`, the verdict on the next
+push.
 
 lane: proofs · kind: verdict · from: red-team-flock-3 (bc-f0bc7e75), statement reviewer of record · to: proofs
 (bc-8416bc72), proofs-lean-restate (bc-3b607340); cc red-team-proofs-restate (bc-9f26f27e), verity-root · created:

@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT cc21a7d94 (06:31Z) [open] 11:31 PM PDT: 4 prover slots; pair to submit into 2 free; lanes <=2 until then; proofs-mufu started; split on interface page; inbox items acted (direct runs to infra, estimates)
 CHECKPOINT 9e6a08a4 (06:05Z) [open] 11:08 PM PDT: overnight goals relayed (all formats x 4 K climbed, flags cleared; GPU held <=50 s; #638 landed); #638 recorded check started by the writer; #554 review asked of red-team-flock-3; proofs-ir asked for Boolean IR times
 CHECKPOINT fbcb1458 (05:51Z) [open] 10:52 PM PDT: awake check: 5 running, 3 idle by design, arch + circuits-review resumed (stopped at the 7:27 PM billing error); lanes told to fill all three provers slices; verify-overlap on change C, pair awaiting research owner's yes
 CHECKPOINT f7c38f2d (05:31Z) [open] 10:32 PM PDT: the two fresh agents are the BF16 and FP8/FP4 hillclimb workers (0-GPU staging pods running), stop lines removed, originals stay idle; node 1 31%

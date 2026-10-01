@@ -1,8 +1,5 @@
 # Onboarding: read this before your lane brief
 
-> **Status (28 Sep 05:40Z):** the `research notes claim | approach | approaches` commands land with verity#240, which is merging.
-> Until then, read `campaigns/<c>/APPROACHES.md` and ask `lanes/coordinator/` before starting.
-
 You are an agent (or a person) about to do research work on Verity. Many approaches run in parallel, and the notes are how you
 avoid repeating one. This page takes five minutes.
 

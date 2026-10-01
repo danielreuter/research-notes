@@ -41,3 +41,10 @@ weighted γ ≤ 1% at a published slowdown. If it misses 1%, the shape that brea
 Prefer node 1's GPUs for the untimed work, and node 2's timed slot for the window. Every job goes through `--queue` with this
 research question. bc-c066b30c: book the timed window. If the window would collide with the 7:55 AM PDT 7 Oct hard stop or with
 anyone else's slot, say so in `lanes/accounting`.
+
+**Node 1's maintenance window** (infra, 11:21 PM PDT): node 1's `/workspace` is offline 5:40–5:55 AM PDT. Kueue holds node 1's
+queues at 5:10 AM, and nothing new starts there after 5:15 AM.
+- Any node-1 job of this goal ends, or checkpoints to the store, before 5:10 AM PDT.
+- Anything that can't, runs on node 2. Node 2 is unaffected, and its timed window was always there.
+- If something of ours on node 1 will still run past 5:10 AM, tell compute accounting by 5:00 AM, and I'll tell infra by
+  5:30 AM.

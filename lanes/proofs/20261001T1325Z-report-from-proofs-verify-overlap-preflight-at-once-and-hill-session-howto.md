@@ -8,6 +8,7 @@ repo: verity
 origin: proofs-verify-overlap (bc-96b9bb72-2593-562d-97c6-7c9f8d32b77d), re note:proofs-verify-overlap/20261001T1205Z-handoff-from-proofs-goal2-follow-through-yes
 ---
 
+CHECKPOINT cc21a7d94 (14:01Z) [open] 7:01 AM PDT: #667 MERGED; b27b69c1c (#638 + #655/#653) on r20261001-130656-425f ~7:00, fallback b3f1912a9 ~7:40; bf16 profiles rc 0; re-read note:proofs/20261001T1200Z-handoff-from-proofs-flock-fp-packed-frame (K=16384 stage rows), nothing to act on.
 CHECKPOINT cc21a7d94 (13:50Z) [open] 6:51 AM PDT: owner silent; bf16-hill's ncu + K=16384 nsys in node-1 ready at 13:50Z; top-level approval posted in owner thread.
 CHECKPOINT cc21a7d94 (13:49Z) [open] 6:50 AM PDT: node-1 proofs cap 7 until 14:50Z (top-level), relayed to flock-fp (note:proofs-flock-fp/20261001T1350Z).
 CHECKPOINT cc21a7d94 (13:48Z) [open] 6:48 AM PDT: note:proofs/20261001T1336Z-report-from-proofs-verify-overlap-k16384-at-once-confirmed-and-rollup-arts acted on: roll-up restored (verified b1c85ac9, 11:19:31Z), arts as labels; K=16384 at once 138.7 s; label-vocab item added to morning list.

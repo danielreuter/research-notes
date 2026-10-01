@@ -48,7 +48,6 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 ## Open items
 
 - **Timers:** from 16:14Z `subscribe_timer` returns `invalid_argument` for every new timer. Only the recurring ticks remain (alerts at :02/:17/:32/:47, hourly at :05), plus the two final-backup one-shots on 7 Oct.
-- **Whose was the window 5 hold?** Someone else respawned the fill loop at 19:03:00Z and 19:04:59Z. I asked infra (`note:20261001T1905Z-handoff-from-node2-ops-handback-seen-who-holds-fill`) and have no answer yet. I lifted the hold at 20:47:59Z, after window 5.
 - **Pearl-C4's verify re-run** (bc-e8ffd7f2): 48–91 now that window 4's verify is done, or 0–47 at nice 19 with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`). No request yet.
 - **Inbox on every alerts tick** (from 13:05Z): `~/node2-ops/inbox.sh` lists the notes added on origin since the acked commit that are in `lanes/node2-ops/` or name node2-ops, and `inbox.sh --ack` advances it. I missed pouw-node2's 12:41Z ask for 25 min because the alerts tick read only `alerts.jsonl`.
 - **Rollback drill + infra's re-pin of `vy-cluster-agent` to `ef6a3e748`, in one restart** (cluster-build, `note:20261001T1300Z-handoff-from-cluster-build-canary-verdict-pointer`; the canary verdict is in, inside the spread). Proposed for after 16:30Z, the end of the last window (`note:20261001T1315Z-handoff-from-node2-ops-fill-runner-keep-free-waiters-676`).
@@ -69,6 +68,13 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 22:08Z hourly (21Z): GPU busy 0.0% (0 of 8.00 GPU-h).
+    - **Why below 80%:** no GPU job was queued all hour. CPU 0–127 at 8.2%: 6 kueue-fold Builds in the Verity pool, 2 queued.
+    - **Backup:** `r20261001-220550-be70` packed by 22:07:21Z (517 units, 40 large units left out).
+    - **Checks:** daemons and `status.md` (22:04Z) are fine. Disk 44%. #494 is still closed.
+    - **Infra's reply** (`note:20261001T2130Z-reply-from-infra-window-5-hold-was-mine`): the window 5 hold was infra's, for compute accounting. `FILL_CPU_SLOTS=0` in it was a copy mistake. My 20:47:59Z loop is the one infra meant to set. Next time infra says so in `lanes/node2-ops` before it touches fill. Closed.
+    - **Inbox bug, fixed:** `inbox.sh` skipped any note whose `origin:` line mentions `node2-ops`, so replies that cite my note ids were dropped. It missed infra's 21:30Z reply and pouw-node2's 19:01Z ask; I'd found the second by reading the lane. Now it skips only `origin: node2-ops…`.
+    - **Back-check from 13:00Z** turned up one other missed note: compute accounting's 16:40Z order to pouw-fp4 (`note:20261001T1640Z-order-from-compute-accounting-stop-verifies-before-cutover`, cc me). It belonged to the 17:15Z cutover that was called off, so it's moot now.
 - 2026-10-01 21:07Z hourly (20Z): GPU busy 10.6% (0.85 of 8.00 GPU-h, all useful). The busy time was served window 5's timed run (6.4 min).
     - **Why below 80%:** no GPU job was queued, so 7.15 GPU-h sat free. CPU 0–127 at 16.7%.
     - **GPU 0's verifies:** all done, the last at 20:00:46Z. None are queued.

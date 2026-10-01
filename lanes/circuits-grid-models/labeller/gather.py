@@ -10,13 +10,16 @@ SINCE = "2026-10-01T07:00:00Z"
 ROOT = Path("/workspace/jobs/dispatch")
 COV = Path("/workspace/jobs/cov")
 RUN = re.compile(r"r20\d{6}-\d{6}-[0-9a-f]{4}")
-#: only the feeder's own keys: other lanes run variants of them (cov-gm006-plan, circuits-commit-phases' check)
-MINE = re.compile(r'"vllm-epoch-run/cov-gm\d{3}"')
+#: only the feeder's own keys and their packed golden twins (-pk): other lanes run variants of them (cov-gm006-plan)
+MINE = re.compile(r'"vllm-epoch-run/cov-gm\d{3}(?:-pk)?"')
 
-ends, moved, tree = {}, set(), {}
+ends, moved, tree, packed = {}, set(), {}, {}
 for line in (ROOT / "log.jsonl").read_text().splitlines():
     if not MINE.search(line):
         continue
+    if '"packed": "' in line:
+        e = json.loads(line)
+        packed[e.get("key")] = e["packed"]
     if '"ev": "submit"' in line and '"task": 0' in line:
         e = json.loads(line)
         tree[e["key"]] = e.get("tree")
@@ -45,7 +48,7 @@ for key, e in outcome.items():
     item = key.split("/", 1)[1]
     rows = sorted(p for p in (COV / item).glob("*/") if p.is_dir()) if (COV / item).is_dir() else []
     rec = {"key": key, "state": e.get("state"), "rc": e.get("rc"), "task": e.get("task"), "t": t, "on": e.get("on", "vy-nebius-1"),
-           "tree": tree.get(key), "row": None, "runs": [],
+           "tree": tree.get(key), "packed": packed.get(key), "row": None, "runs": [],
            "stages": [], "max_gates": None, "word_fail": None}
     if rows:
         d = rows[0]

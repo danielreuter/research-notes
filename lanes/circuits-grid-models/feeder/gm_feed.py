@@ -6,7 +6,8 @@
 Each tick (60 s) it re-reads policy.json:
   {"mode": "hold" | "run", "waves": [1, 2, ...], "skip_roles": [...], "skip_tp": [2], "skip_keys": [...], "builds_cap": 6,
    "build_mem_gb": 300, "backlog_cap": 20, "commit_cap": 6, "big_cap": 6, "cpu_pending_max": 1, "per_tick": 3,
-   "deadlines": [["12:10", "12:55"], ["14:35", "14:35"]]}
+   "deadlines": [["12:10", "12:55"], ["14:35", "14:35"]], "burst": ["13:10", {"per_tick": 12, "cpu_pending_max": 12}]}
+("burst": until HH:MM UTC, its values replace the policy's.)
 and submits the next items whose wave is allowed and whose role, TP and key aren't skipped while
   - fewer than builds_cap of its Builds are unfinished and their memory requests stay under build_mem_gb,
   - fewer than backlog_cap of its items are past Build and not ended (Commit or replay to come or running),
@@ -41,7 +42,7 @@ DRY = "--dry-run" in sys.argv
 ROW_RE = re.compile(r"(.+?)__\w+__\w+__tp(\d)__b(\d+)__i(\d+)__")
 QUEUE_MIN = 10
 # Commit minutes at batch 1-8 and 256 tokens, by model; Build minutes by input length and batch
-COMMIT_MIN = (("qwen3-30b-a3b", 55), ("-14b", 28), ("olmoe", 14), ("-8b", 14), ("-7b", 14), ("-6b", 10), ("-4b", 10), ("-3b", 10))
+COMMIT_MIN = (("gemma2-9b", 60), ("qwen3-30b-a3b", 55), ("-14b", 28), ("olmoe", 14), ("-8b", 14), ("-7b", 14), ("-6b", 10), ("-4b", 10), ("-3b", 10))
 BUILD_MIN = {256: {1: 15, 8: 15, 16: 40, 32: 60}, 1024: {1: 35, 8: 55, 16: 110, 32: 130}}
 
 
@@ -160,6 +161,10 @@ def guarded(t=None):
 
 def tick():
     pol = json.loads((HERE / "policy.json").read_text())
+    now = time.time()
+    until, over = pol.get("burst") or (None, {})
+    if until and now < hhmm_today(until, now):
+        pol = {**pol, **over}
     if pol.get("mode") != "run" or (HERE / "STOP").exists() or guarded():
         return f"idle ({'STOP' if (HERE / 'STOP').exists() else 'guard' if guarded() else pol.get('mode')})"
     items = json.loads((HERE / "items.json").read_text())
@@ -175,7 +180,6 @@ def tick():
     summary = (f"builds {len(builds)} ({build_mem} GB) later {len(later)} (commits {len(commits)}, b8+ {len(big)}) "
                f"ended {sum(1 for s, _ in st.values() if s == 'ended')} moved {sum(1 for s, _ in st.values() if s == 'moved')} cpu-pending {pend}")
     sent, late = 0, 0
-    now = time.time()
     due = deadline(pol, now)
     gate = due is not None
     obs = walls() if gate else {}

@@ -77,16 +77,20 @@ def current(run: str) -> dict[str, tuple[str, str]]:
 
 def desired(rec: dict) -> dict[str, str]:
     item = rec["key"].split("/", 1)[1]
-    row = rec["row"] or QUESTIONS[item]["row"]
+    base = item.removesuffix("-pk")
+    row = rec["row"] or QUESTIONS[base]["row"]
     passed = rec["state"] == "succeeded" and any(s.startswith("config PASS") and "460/460 equal" in s for s in rec["stages"])
     parts = [TREES.get(rec.get("tree") or "", f"tree {rec.get('tree')}" if rec.get("tree") else PREFIX)]
+    if base != item:
+        parts.append(f"packed golden twin of {base} (note:20261001T1158Z-handoff-from-circuits-refill-node2-pack-goldens), "
+                     + (f"its Commit packed in {rec['packed']}" if rec.get("packed") else "its Commit not packed"))
     if rec.get("on") == "vy-nebius-2":
         parts.append("Commit and replay on vy-nebius-2 (n2_commit.sh offload; the Build on vy-nebius-1)")
     if "__stoch-" in row and rec["max_gates"] is not None:
         m = re.search(r"=(\d+)", rec["max_gates"] or "")
         parts.append(f"sampler Call one unit (MAX_GATES raised to {m.group(1)}); not provable in practice" if m
                      else "word check at the default MAX_GATES (no raise)")
-    parts.append(f"question: {QUESTIONS[item]['q']}")
+    parts.append(f"question: {QUESTIONS[base]['q']}")
     auto = json.loads(AUTO.read_text()) if AUTO.exists() else {}
     if not passed:
         if item in CAUSES:

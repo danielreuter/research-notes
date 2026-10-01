@@ -15,12 +15,15 @@ Q = json.loads((HERE / "questions.json").read_text())
 recs = [json.loads(ln) for ln in Path(sys.argv[1] if len(sys.argv) > 1 else "/tmp/gm-last-gather.jsonl").read_text().splitlines() if ln.strip()]
 by_cause = collections.Counter()
 models, families, passed = set(), set(), 0
+twins = []
 for r in recs:
     item = r["key"].split("/", 1)[1]
     want = desired(r)
-    role = Q[item]["role"]
+    role = Q[item.removesuffix("-pk")]["role"]
     models.add(role)
     families.add(FAMILY_OF[role])
+    if item.endswith("-pk"):
+        twins.append(f"{item} {want['ov.gate']}{' packed' if r.get('packed') else ' unpacked'}")
     if want["ov.gate"] == "pass":
         passed += 1
         continue
@@ -31,3 +34,5 @@ print(f"deployments run {len(recs)}: pass {passed}, fail {len(recs) - passed}; m
       f"({', '.join(sorted(families))})")
 for c, n in by_cause.most_common():
     print(f"  {n:4d}  {c}")
+if twins:
+    print(f"of which packed golden twins ({len(twins)}): {', '.join(sorted(twins))}")

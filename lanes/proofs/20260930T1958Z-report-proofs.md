@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 3b687a74 (14:54Z) [open] 7:54 AM PDT: top-level approved 4 items (7:52); ruling posted in the owner's threads (1790866362.367269, 1790866362.697799); flock-fp (packed nsys + checkable rows CPU-only), bf16-hill (K=16384 CPU-sampled nsys, column-fold ncu, 1a microbench) and red-team (rows design review) resumed; node-1 cap 4 (flock-fp 1, bf16-hill ≤3)
 CHECKPOINT 2b7a22a5 (14:51Z) [open] 7:51 AM PDT: overnight report to the top-level: goals 1, 2 (37.8 s) and 3 (#638 merged 7:14) hit; zero open proofs PRs; node-1 cap back to 4, nothing of proofs' in flight
 CHECKPOINT 1a20ab0a (14:43Z) [open] 7:43 AM PDT: flock-fp done, packed frame at all 12 FP cells on both nodes (28 points accepted, art:1c8038cf…); asked the owner yes/no on its next two items (1790865759.729069); no PR open in the repo
 CHECKPOINT f1f95fb5 (14:31Z) [open] 7:31 AM PDT: node 2 running flock-fp's last two packed cells (MXF4, E4M3 K=16384); node 1 idle for proofs, disk 39%; owner silent on the prover write-up

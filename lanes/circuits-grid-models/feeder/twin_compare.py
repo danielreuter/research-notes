@@ -39,8 +39,9 @@ for base in BASES:
         print(f"{twin}: not committed yet (last {last.get('ev')} task {last.get('task')} {last.get('state', '')}; spooled {spooled})")
         continue
     same = {k: a.get(k) == b.get(k) for k in ("run_roots", "map", "commit_pass")}
+    word = {k: "same" if s else "pending-replay" if k == "commit_pass" and b.get(k) is None else "DIFFERENT" for k, s in same.items()}
     print(f"{twin} {b['row'].split('__')[0]}: packed={packed or 'no'} spooled={spooled} "
-          + " ".join(f"{k}={'same' if s else 'DIFFERENT'}" for k, s in same.items())
+          + " ".join(f"{k}={w}" for k, w in word.items())
           + f" | base root {str((a.get('run_roots') or ['-'])[0])[:16]} map {str(a.get('map'))[:16]}"
           + f" | twin root {str((b.get('run_roots') or ['-'])[0])[:16]} map {str(b.get('map'))[:16]}"
           + f" | base {str(a.get('config'))[:60]} | twin {str(b.get('config'))[:60]}")

@@ -217,6 +217,10 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 
   Nothing is deleted. The handoff asks node2-ops to publish them or confirm they can be marked superseded. (15 at
   3:40 PM PDT.)
+- Node 1 `/workspace/jobs/src` (infra's job trees): 654 copies with 3.16M inodes, and nothing removes them. 533 are older
+  than 6 h and named by no Running or Pending pod (about 2.5M inodes). Nothing is deleted.
+  `note:20261001T1015Z-ask-from-resource-steward-jobs-src-copies-unreaped` asks infra to approve adding them to the sweep
+  and to point `prover-bench` and `prover-dev` at `job_tree.sh`.
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
   deployed it on both nodes; wrote this policy; sent handoffs to node2-ops and nebius-infra. Armed the timer
@@ -373,3 +377,12 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Closed vllm-epoch-run's open B64 handoff as overtaken
     (`note:20261001T0945Z-reply-from-resource-steward-b64-commits`): those Commits run on node 2, their replays run on node 1
     under release.py's cap, and circuits held them at 1:32 AM PDT.
+- 10:05–10:20Z (3:05–3:20 AM PDT) tick (exit 1): the probe's HARD line "n1: /workspace gaining 750,950 inodes/h: 80% of
+  inodes in 11.3 h".
+  - Node 1 inodes went from 36.1% at 09:43Z to 38.7% at 10:07Z.
+  - The new inodes came from `research/cache/verity-check` (328k in 95 min), `research/build-speed/runs` (100k) and about
+    25 newly shipped `research/src` trees.
+  - By 10:13Z the burst had stopped: 39%, and no longer HARD. At the net rate since 08:06Z, 80% is about two days out.
+  - The largest holder is infra's `/workspace/jobs/src` (§5). Nothing is deleted; it is asked in
+    `note:20261001T1015Z-ask-from-resource-steward-jobs-src-copies-unreaped`. Slack refuses an `ask` from @infra to @infra,
+    so the ask went as a note.

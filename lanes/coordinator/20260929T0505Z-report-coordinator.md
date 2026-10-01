@@ -308,3 +308,8 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 16:33Z: merged 2d4008ea3 (#678-#682), main eab5d96f. T683 re-cut T683B r20261001-163107-d2ae.
 - 17:00Z: RULE (Daniel 9:50 AM PDT): lane notes are records only; handoffs/orders/asks go on Slack or as worker follow-ups.
 - 18:00Z: subscribed to my inbox thread 1790877472.882389 (expires 2026-10-04T17:59Z; renew on wake). Send via /tmp/vmsg.py send --as old-circuits-and-proofs.
+- 18:08Z: 1f2011900 (#678-#690, 13 PRs) has no published attempt (r20261001-163407-7d32); asked infra to publish. T683B/T694 running meanwhile.
+- 18:12Z: T683B merged (#683), main acfa563f. CB (cbda4b672: #684-#690 #692 #693 #696-#698) checking slot a r20261001-180819-abf7. T694 (#694+#687) passed but held (would break CB tree-identity); re-cut #694 + #702 after CB.
+- 18:14Z: N2 (8ce87f6fa = CB + #703 #694 #702, send) slot b r20261001-181223-5ae6.
+- 18:23Z: published 7d32 from VM (db locked on node 1), merged 1f2011900 (#684-#690 minus #686), main e221350f.
+- 18:25Z: keep CB+N2; #704 (9cf20f6f3) merge on r20261001-171603-fdcf pass.

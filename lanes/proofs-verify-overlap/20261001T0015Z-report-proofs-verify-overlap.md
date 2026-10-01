@@ -5,6 +5,7 @@ created: 2026-10-01T00:15Z
 status: open
 ---
 
+CHECKPOINT 8a5eb53d (09:51Z) [open] 2:53 AM PDT: renumbered the K=2048 session's 10 points to step 12, unflagged (Q3c grant), proofs.json metric says step 12; K>=4096 sessions parked per proofs 0944Z (acted on 0944Z).
 CHECKPOINT e8e13e6e (09:49Z) [open] 2:50 AM PDT: K=4096/8192/16384 session specs posted to proofs for the owner's yes (tree -l 404aa0535, in-pod 2 verifiers, ~0.8 GPU-h); not submitted. Next: the sessions how-to for bf16-hill and flock-fp.
 CHECKPOINT 35faa01f (09:42Z) [open] 2:41 AM PDT: K=2048 session landed, passed 10/10 (r20261001-092917-8b05 + r20261001-092307-041d): median amortized 37.84 s (step 5: 82.8), session 379.35 s, digests and proof bytes equal step 5's; roll-up step 8 and overnight row written. Acted on 0803Z (row = median amortized, N and session beside it) and 0919Z (placed at <=1 GPU).
 CHECKPOINT 9dd90d7b (09:23Z) [open] 2:22 AM PDT: GO from Proofs; K=2048 10-point session serve job submitted (nd-proofs-verify-c391cca793-prover-b-0); GPU job waits for address files and a free floor GPU

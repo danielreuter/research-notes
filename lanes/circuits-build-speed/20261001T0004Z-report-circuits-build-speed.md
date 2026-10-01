@@ -5,6 +5,7 @@ created: 2026-10-01T00:04Z
 status: open
 ---
 
+CHECKPOINT none (09:10Z) [open] 2:16 AM PDT: #658 (gzip level 6, @fbca39681) opened+ready, handoff to circuits. Boundary branch @96cdfdc25: 4k manifest 1244 s / 5.0 GB peak, digest 31a77bf0 equal (r20261001-084659-7bd0; main r20261001-084645-f17d still running); ref-row manifest 291->259 s, B1 94->49 s, digests equal; vllm suite running
 CHECKPOINT none (08:48Z) [open] 1:48 AM PDT: 4k derive A/B done, digests+instance text equal, instance write 703->504 s under load (r20261001-074411-4cd5 vs -7330); gzip PR next. New branch cursor/build-speed-boundary-3752 @96cdfdc25: numpy boundary for the manifest (~60% of 4k manifest); 4k manifest A/B r20261001-084645-f17d vs -084659-7bd0, ref/B1 digest A/B queued
 CHECKPOINT none (08:06Z) [open] 1:06 AM PDT: 4k Build on #639 code: 4459 s (r20261001-061638-2e61; derive 1647, compose 161, manifest 2625). Fix on cursor/build-speed-4k-8c79 @a8bd32d42: instances.json.gz at gzip 6 (write 314->112 s, same text). A/B running: 4k derive (4cd5 main / 7330 branch), ref row (5e33 / bd27); manifest profile 40c0.
 CHECKPOINT none (07:19Z) [open] 12:20 AM PDT: #639 granted @1c2487ef8. 4k row (B1 4096/512) on branch: request derive 1647 s (export 387, derive 827, instances.json.gz write 382 s = gzip level 9 on 8.6 GB), compose 160 s, manifest >32 min (cold word check 632 s, then 20 GB). Next: instances gzip level (r20261001-070037-bbf0: L9 314 s, L6 112 s, L1 33 s).

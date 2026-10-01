@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 9fad66ca (15:03Z) [open] 8:03 AM PDT: acted on note:proofs/20261001T1500Z-handoff-from-red-team-proofs-554-core-checkable-rows-pointer: checkable rows need new core protocol (row schemas, frame-v3-sha512 element rows) -> Daniel's morning list item 14; flock-fp scoped to core side + stager switch, verifiers wait (note:proofs-flock-fp/20261001T1502Z-handoff-from-proofs-checkable-rows-core-first-verifiers-wait)
 CHECKPOINT 3b687a74 (14:54Z) [open] 7:54 AM PDT: top-level approved 4 items (7:52); ruling posted in the owner's threads (1790866362.367269, 1790866362.697799); flock-fp (packed nsys + checkable rows CPU-only), bf16-hill (K=16384 CPU-sampled nsys, column-fold ncu, 1a microbench) and red-team (rows design review) resumed; node-1 cap 4 (flock-fp 1, bf16-hill ≤3)
 CHECKPOINT 2b7a22a5 (14:51Z) [open] 7:51 AM PDT: overnight report to the top-level: goals 1, 2 (37.8 s) and 3 (#638 merged 7:14) hit; zero open proofs PRs; node-1 cap back to 4, nothing of proofs' in flight
 CHECKPOINT 1a20ab0a (14:43Z) [open] 7:43 AM PDT: flock-fp done, packed frame at all 12 FP cells on both nodes (28 points accepted, art:1c8038cf…); asked the owner yes/no on its next two items (1790865759.729069); no PR open in the repo

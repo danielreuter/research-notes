@@ -95,6 +95,12 @@ resource, what was deleted, what waits on an owner, and trends (from each node's
 - The tick is `lanes/resource-steward/tools/tick.sh`: the probe on both nodes (node 2 skipped in a timed window), plus new
   resource `*alert*` notes. It exits 1 only for a new kind of breach, a HARD stop, a failed probe or a new alert note; a known
   breach prints as `known:` and exits 0. `tools/bootstrap.sh` restores the agent VM after a reset (no secrets).
+- The sweep is `lanes/resource-steward/tools/sweep.sh` (every 6 h at :30, timer `resource-steward-sweep`): it installs
+  `tools/node-sweep.sh` on each node and runs it as root at `nice 19 ionice -c3`, node 2 only outside a timed window. It
+  deletes exactly the policy's source trees (`--src-age-h`, 24 by default) and check scratch (`/tmp/pytest-of-research/pytest-*`,
+  `lean-audit-scratch-*`), keeps anything something live names, and logs every line to `~/resource-steward/deletions.log`. A
+  tree is renamed into `src/.trash/` before it is deleted and put back if a scan after the rename finds a reference, so the
+  launcher never sees a half-deleted ready tree. `--dry-run` lists without deleting. Exit 1 means something was deleted.
 - It reads statvfs, `/proc/meminfo`, the ramlock dir, Kueue (node 1) or the fill queue (node 2), Prometheus (node 1) or the
   sampler JSONL (node 2), and the run dirs. It takes 0.1–0.8 s at `nice 19`, and never deletes, stops a process or touches NVML.
 - Exit codes: 0 means all clear, 1 a breach (one line each), 2 a failed source (never read as all clear).
@@ -148,6 +154,20 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 
   Root went from 74 GB to 60 GB used and from 808k to 582k inodes. Kept: `pytest-945` onward (written within 2 h;
   `pytest-948` held open), and `/tmp/sm120-base-*`, `/tmp/sb*` (about 47k files, owner unknown, not check scratch).
+- 05:42Z (10:42 PM PDT), first `tools/sweep.sh` (policy: source trees over 24 h that nothing live names; check scratch):
+  - node 1, 6 source trees, 27,033 files, 489 MB. Two of them (`b82f1dd2`, `6d7e2998`) were named only by five requests
+    from 30 Sep 05:21–05:29Z whose runners died at launch (`PermissionError: '/root/dm'`, no `status.json`).
+
+    | tree | files | MB | age |
+    |---|---:|---:|---|
+    | `4464033f046872a02bb182b07326bd00c53d50ac` | 4,422 | 78 | 24 h |
+    | `5f740e972d79fdbd7021b4fb7374568f6dcb728b` | 4,918 | 99 | 24 h |
+    | `6d7e2998642f2b87de6de9f6992a3f961a18cd68` | 4,422 | 78 | 24 h |
+    | `b82f1dd2be55056823e295b088524777a287eaa6` | 4,419 | 78 | 24 h |
+    | `fa6190a020a35ad1e2f681648239822d2b62a9bb` | 4,427 | 78 | 24 h |
+    | `fd47cdd1b8e2a012a30bd9dcf7ae59642dcdafb1` | 4,425 | 78 | 24 h |
+  - node 2, `/tmp/pytest-of-research/pytest-104`, 258 files, 12 MB, 8 h. Kept `pytest-120` and `pytest-165`, both untouched
+    for 2 h but held open by a live `python`.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:

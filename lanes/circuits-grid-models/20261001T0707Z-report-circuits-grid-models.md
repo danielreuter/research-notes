@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: open
 ---
 
+CHECKPOINT b9880ac17 (19:21Z) [open] 12:23 PM PDT: 6 packed B8 1k Commits blocked by commit_pack's bundle cap (32.9+120>150), handed to circuits (1920Z); big_cap still open; grid 238 ended
 CHECKPOINT b9880ac17 (18:55Z) [open] 11:55 AM PDT: grid 236+ ended, feeder idle on big_cap 4 (all 177 eligible B8+), waiting on circuits' yes for 14 (1802Z handoff); leased Commits 5/5 pass
 CHECKPOINT b9880ac17 (18:36Z) [open] 11:36 AM PDT: 11:30 count 434 ended (grid 232, epoch 202), 36 models, 15 families, in lanes/circuits 1820Z report; feeder idle (no CPU Build since 11:23) on big_cap 4, still waiting on circuits' yes for 14
 CHECKPOINT b9880ac17 (18:17Z) [open] 11:17 AM PDT: grid 223 ended; feeder idle on big_cap 4 (all 177 eligible items B8+), big_cap 14 asked of circuits in 1802Z handoff, no answer yet; 11:20 counts next

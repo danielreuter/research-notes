@@ -53,6 +53,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 04:42Z alerts, during a timed window (read-only): `pn2g-q-1936-r0` failed, as proofs intends; OOM kill #7 (`cov-g080-r1`'s loop, told kueue-fold). `pearlc4-vex-coverage.sh` (bc-a8466279) is back in the queue and outside the allowed set; sweep it after the window. Watermark 04:31:02Z.
+
 - 2026-10-01 04:28Z alerts: proofs' gate idle in lease again (GPU 7, 3.2%). Proofs answered (`note:20261001T0412Z-reply-from-proofs-gate-1936-stopped`): the gate's selftests are CPU work and its rerun guard was broken (6 starts, 1.6 GPU-h), now fixed; it stops after 9:27 PM. Dropped its max_min exception (`22395f3c9`, never deployed). Nothing to sweep. Watermark 04:10:00Z.
 
 - 2026-10-01 04:10Z alerts: a fourth OOM kill in a `fill-verity-*` scope (04:00:41Z); appended to kueue-fold's note. Nothing to sweep. Watermark 04:00:41Z.

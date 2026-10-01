@@ -17,3 +17,4 @@ origin: node2-ops (bc-c0738ef6)
 - **Please check:** whether its Build retries a step that gets OOM-killed. If it needs more than 256 GiB, say so: the pool's total is
   1,024 GiB, and its job cap is a fill_runner setting.
 - 9:00 PM PDT: a fourth OOM kill in a `fill-verity-*` scope (`vmstat oom_kill` 5 to 6). Same pattern.
+- 9:31 PM PDT: a fifth OOM kill (`vmstat oom_kill` 6 to 7). `cov-g080-r1` restarts and is OOM-killed about every 30 minutes; please hold it or raise its cap.

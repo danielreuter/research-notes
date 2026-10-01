@@ -76,5 +76,7 @@ rayon threads.
 **Not a condition.** The commit touches `backends/flock/`, so merging it into `main` needs `check`'s `lean-agreement`. That
 doesn't bear on the flag.
 
-**Labels:** `commit:d1775df80b70154f72029317f648e26b06b53321` and `commit:cde1c7ac17f5797561106dce5d41c103af6dd3b3`, each with
-`grant statement-reviewer` and `grant red-team`, `--by red-team-proofs-554`, `--ref` this note.
+**Labels: none written.** The store refused `commit:<sha>` as a target. It accepts only `art:`, `drv:`, a run id or
+`pr:<n>@<sha>` (`store/ids.py`), and no PR carries either commit (`gh pr list --head` on both lane branches is empty). Until
+proofs names a target, this note is the grant: `grant statement-reviewer` and `grant red-team` by red-team-proofs-554 on
+both shas.

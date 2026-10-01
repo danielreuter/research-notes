@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (12:21Z) [open] A: 12:21Z poll: served window 1 timed 3.097x decode / 1.630x prefill (c62f9726 1214Z); its panel rows go on after decode verifies (about 13:30Z). ncp's slot is over, all GPUs normal. Disk 46% (2297 GiB). GPU 0's verifies still parked (31/56). The 13:00Z line is still in fill/windows; no release yet.
 CHECKPOINT fbce5a2f4 (12:00Z) [open] A: 12:01Z poll: the bitsets delete is on hold for Daniel (compute accounting 1135Z; it runs only if node 2 reaches 50% before about 9:20 AM PDT, and I tell compute accounting at 50%). ncp's slot is at 12:05Z; I stay off node 2 until 12:20Z.
 CHECKPOINT fbce5a2f4 (11:40Z) [open] A: 11:41Z poll: nothing new for me to act on. e8ffd7f2 plans the 16:00Z slot and may release 15:00Z to fill (compute accounting's call; if released, node2-ops drops the fill/windows line). ncp's READY stands for 12:05Z.
 CHECKPOINT fbce5a2f4 (11:38Z) [open] A: 11:39Z Pearl-C4 Llama-8B on the panel (15 rows; art:37a9498c; synced; note:20261001T1137Z-reply-from-c066b30c-pearl-c4-llama8b-on-panel). Served window 1's timed lease is done. READY for ncp at 12:05Z (note:20261001T1138Z-ready-from-c066b30c-node2-1205z-ncp). The Project store isn't mounted on this VM since 07:00Z, so its panel copy lags (told compute accounting). Disk 48%.

@@ -71,3 +71,8 @@ I'll add the targets, new failures and per-family recompute counts here when the
 **Confirmed, 7:05 AM PDT.**
 - **At the head `31c1117c3`** (`r20261001-134347-8f22`, `art:b06bdff199be8085ecbca9502cf5639b85b7b07c226e4312b6cf79df681cf2b4`): 1,397 targets, **0 new failures**, 1 known, 0 unpartitioned. The same ten recomputes, 285,722 gates.
 - **With PR 2 `1361a9fe4`** (`r20261001-134417-c553`, `art:c03cef1cd031a04e35bf7b9e3f58b4b5f0a4e5933f921ec960356377cbc47540`): 1,419 targets, 0 new failures, 0 unpartitioned. `AttentionSoftcap_v3` at T=17 adds 99,675, making 11 Calls and 385,397 gates.
+
+**Final head, 7:18 AM PDT: `2a7ec07d0`.**
+- **What changed.** It is `31c1117c3` with #674 merged in, so the PR stacks on #674. Its tree is identical to the trial merge's, so `c553` is its `--all`.
+- **The coverage fixes.** The top-level confirmed both (the `select` fix and the 4M budget) at 7:13 AM PDT.
+- **What I need from you.** Your agreement to v2 for Boolean Calls (a–c above). The PR opens after 7:50 AM PDT.

@@ -8,6 +8,7 @@ repo: verity
 origin: proofs-mufu (bc-e8b97b26-6308-54d5-bdf0-c6c684725c15), copied by proofs
 ---
 
+CHECKPOINT cc21a7d94 (11:54Z) [open] 4:50 report: goal1 hit 16/16 clean node-1 bests, goal2 hit 37.8s, goal3 open (#638 cleared: lean-audit.json blob a18ab53b identical at 22fe745f and in C6 merged tree; posted 1790855546.393529). Owner asked yes on 5 starred items (1790855605.130489). Node 1 11:55Z: one proofs CPU stage, feeder window closed 11:50Z.
 # `MufuTanh_v2`: MUFU.TANH on bits, bit-exact on all 2^32 inputs, 1,049 ANDs
 
 Copied by proofs from proofs-mufu's final message. The original report, `internal/20261001T1145Z-report-from-proofs-mufu-boolean-mufu-tanh.md`,

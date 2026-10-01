@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT b6e09ee44 (04:41Z) [open] 04:42Z attempt 110 (window 8) appended+published (30 ov labels on remote, console loader sees it); panel rendered from art:e578daed, now in Project store internal/pouw/panel + preserved art:de3c2e3a; 2aa33ad8 may stop (0437Z); tarball matched art, deleted; divisor timed r20261001-044003-aa48 launched 04:40Z (card r20261001-035013-3cbd passed)
 CHECKPOINT b6e09ee44 (04:40Z) [open] 04:41Z divisor timed window r20261001-044003-aa48 launched 04:40:03Z (4df4bfea, 8 GPUs timed until 05:00:15Z, fill frozen); one launch only (the panel session's scheduled one; my duplicate type-ahead discarded); verify follows the lease; readout to lanes/accounting when it lands
 CHECKPOINT b6e09ee44 (04:22Z) [open] 04:24Z two sessions of bc-c066b30c are live on this VM: ~/pouw-panel session owns the panel (attempt 110 = window 8, render, Project-store copy, ov-sync, label push); the timer session owns the divisor timed launch at 04:40Z (~/divisor/OWNER). Panel tree art:e578daed (824e54a2) arrived; old ovlabels-watch stopped
 CHECKPOINT b6e09ee44 (04:12Z) [open] 04:14Z divisor card r20261001-035013-3cbd PASSED (done rc 0; 3 benches + 3 verifies rc 0; fp8-decode all 16 names; every gate pass, every no-write control rejected). READY stands: timed at 04:40Z from 4df4bfea (inputs rebuilt in ~/divisor after a 2nd VM reset)

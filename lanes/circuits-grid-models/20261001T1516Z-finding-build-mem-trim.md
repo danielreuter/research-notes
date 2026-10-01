@@ -114,3 +114,20 @@ The batch factors come from 256/32 runs and are also used at 1024/128. That is c
 | yi15_6b | B32 256/32 greedy | 1 | 96 | 24 | 16.0 (b8/256/greedy 7.1 x 2.24) |
 | yi15_6b | B16 256/32 stoch | 2 | 64 | 17 | 11.0 (b8/256/stoch 7.2 x 1.54) |
 | yi15_6b | B32 256/32 stoch | 2 | 96 | 24 | 16.0 (b8/256/stoch 7.2 x 2.24) |
+
+## Afterwards (8:55 AM PDT)
+
+- **The trim holds so far.** Seven trimmed items have run since 15:16Z, all of them B16 256/32 (gm241–247: qwen3-17b,
+  r1-distill-qwen-15b and smollm2-17b). They peaked at 4.0–7.8 GB against new requests of 17–25 GB, at most 0.32 of the
+  request. No Build has failed since the trim: 19 Builds, 21 Commits and 18 replays succeeded. The one failure was
+  gm001-pk2's replay, the known SiluMul_v1 edge.
+- **Builds no longer bind the quota; replays do.** At 15:47Z, `deployments-cpu` held 12 Builds (451 GB, at the feeder's
+  `builds_cap` of 12, under its 600 GB `build_mem_gb`) and 3 replays (192 GB). Four more replays were pending at 64 GB each,
+  and Kueue reported "insufficient unused quota for memory, 54164971008 more needed".
+- **Replay requests stay as they are.** The 64 GB is config-run's template default, and `items.json`
+  `resources.replay.memory` would override it (`dispatch.py` `task_resources`). Across the 171 gm replays that recorded a
+  peak, it ranged from 4 to 87 GB: the median is 20.7 GB at B1 and 26.3 GB at B8. Four measured classes already exceed
+  64 GB: qwen3-06b B8 1024 greedy at 87.0, yi15-6b B1 1024 greedy at 81.8, yi15-6b B1 1024 stoch-1unit at 81.8, and
+  qwen3-14b B8 256 stoch at 70.9. None of the 193 unsubmitted items shares a measured class, so a trim would rest wholly on
+  extrapolation, against a request some classes already overrun. Taking 1.5 times each model's maximum instead would raise
+  the remaining total from 11,008 to 13,456 GB. Neither rule is worth applying.

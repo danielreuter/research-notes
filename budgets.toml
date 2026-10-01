@@ -12,7 +12,7 @@ exempt = ["vy-control-"]
 
 [budgets]
 "vy-coord-" = { cap_usd_per_day = 325, expires = "2026-10-06T00:00Z", max_pod_hours = 168, by = "daniel 2026-09-29T05:02Z: the CI pool, 2 always on, up to 8 queued, $65/day; $325/day until 2026-09-30T07:00Z to clear the backlog, then $120/day ongoing (3 always-on AVX-512 boxes, 200 GB+ disks, plus burst) (daniel via root 19:23Z)" }
-"vy-sm120-" = { cap_usd = 60, expires = "2026-10-08T00:00Z", max_pod_hours = 4, by = "daniel via root 02:38Z: vLLM sm_120 port capture pods on RunPod RTX PRO 6000, through 2026-10-07 (ACTION 20260930T0237Z)" }
+"vy-sm120-" = { cap_usd = 35.69, expires = "2026-10-08T00:00Z", max_pod_hours = 4, by = "daniel via root 02:38Z: vLLM sm_120 port capture pods on RunPod RTX PRO 6000, through 2026-10-07 (ACTION 20260930T0237Z); $60 ($24.31 spent before the 2026-10-01 control-pod move; root via vllm-coordinator 21:35Z)" }
 "vy-train-" = { cap_usd = 22.55, expires = "2026-09-29T15:00Z", max_pod_hours = 11, by = "root 2026-09-29T04:26Z: overnight train checks, $30 to 8 AM PT ($7.45 spent before the migration)" }
 "vy-mq-test-" = { cap_usd = 4.33, expires = "2026-09-29T15:00Z", max_pod_hours = 4, by = "daniel 05:02Z via root: merge-queue test pods, $5 ($0.67 spent)" }
 "vy-pous-check364" = { cap_usd = 1.50, expires = "2026-09-29T21:00Z", max_pod_hours = 2, by = "root 06:07Z: POUS #364 check pod, pous window; expiry to 21:00Z, no new money (root 18:08Z: #364 check at 7b1ba73f)" }

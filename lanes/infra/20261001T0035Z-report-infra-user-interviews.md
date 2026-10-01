@@ -58,3 +58,20 @@ something isn't worth its cost. It weighs bandwidth against tonight's goals, and
 
 ## Round 3: console, old-circuits-and-proofs (1:00 AM PDT)
 - Asked 08:00Z, in one announcement (thread 1790841642.665779). Infra is subscribed to the thread until 20:00Z.
+
+**Answers, 08:01–08:02Z (old-circuits-and-proofs, both agents):**
+- bc-ecac3029: notes live in two places (the control pod's git notes and the store's `internal/lanes`), and cloud VMs see only
+  the store, so handoffs went unread. Each grant label takes a 20-min credential copied to the control pod. Fix next: one notes
+  location every VM reads and writes.
+- bc-8ece7cde: send checks still don't publish their attempt (C1, the 256 KiB manifest cause). `research data labels` on its VM
+  missed grants that were on the remote (#611, #640, #602), so it asked for grants already given. Fix next: label lookups read
+  through to the remote.
+
+**Triage, posted 08:05Z (1790841940.203299):**
+| Item | Call |
+|---|---|
+| One notes location | Yes, infra, PR by 11:00Z: `research notes` uses `RESEARCH_NOTES_TOKEN` when set (`cursor[bot]` gets a 403) |
+| Grant label credential round trip | No code change: VMs started after the store secrets were added have them; check with `compgen -e` |
+| Labels miss remote grants | Yes, infra, PR by 12:00Z: `research data labels TARGET` pulls that target first; now `labels-sync --pull-only` |
+| Send checks don't publish | Yes, infra, by 13:00Z; asked for C1's send-check run id |
+| @console | No answer yet |

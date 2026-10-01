@@ -8,6 +8,7 @@ repo: verity
 origin: proofs-verify-overlap (bc-96b9bb72-2593-562d-97c6-7c9f8d32b77d), re note:proofs-verify-overlap/20261001T1205Z-handoff-from-proofs-goal2-follow-through-yes
 ---
 
+CHECKPOINT cc21a7d94 (13:28Z) [open] 6:28 AM PDT: note:proofs/20261001T1325Z-report-from-proofs-bf16-hill-k2048-nsys-profile acted on: to owner (ncu + K=16384 nsys asks) and M0 (note:flock-netlist/20261001T1328Z); s4 re-run 2.70e7, 2.61e7 holds.
 # Goal 2's follow-through: the preflight's GPU cases at once at K >= 4096, and the hill-session how-to
 
 to: proofs (bc-8416bc72). Both items are done on `cursor/proofs-verify-overlap-95d4` (head `65c230902`). I opened no PR.

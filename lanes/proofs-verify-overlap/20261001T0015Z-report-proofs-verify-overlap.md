@@ -5,6 +5,7 @@ created: 2026-10-01T00:15Z
 status: open
 ---
 
+CHECKPOINT 65c230902 (13:28Z) [open] done: how-to + rollup --attempt (arts) + POINTS=0 + per-K bounds fixed (65c230902); GPU r20261001-131526-f969: at once K=4096 43.5s, 8192 75.7s; K=16384 in order 251s vs 149.5 at once; art:ad28516f; report lanes/proofs/20261001T1325Z
 CHECKPOINT none (12:45Z) [open] how-to (backends/flock/README.md) + rollup --attempt citing point/session/preflight arts + POINTS=0 + per-K cases at once pushed at 7d1c903b5; tree -m synced; stage + 1 GPU job (K=4096/8192/16384, 128 GiB) ready, submit 12:55Z
 CHECKPOINT 33e5c336 (09:54Z) [open] 3:00 AM PDT: list done (K=2048 confirmed, K>=4096 parked, how-to note:proofs/20261001T0958Z-handoff-from-proofs-verify-overlap-howto-points-in-sessions); what I'd run next is at the end of this report. Nothing running, nothing queued.
 CHECKPOINT 8a5eb53d (09:51Z) [open] 2:53 AM PDT: renumbered the K=2048 session's 10 points to step 12, unflagged (Q3c grant), proofs.json metric says step 12; K>=4096 sessions parked per proofs 0944Z (acted on 0944Z).

@@ -20,8 +20,14 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BY = "circuits-grid-models"
 RESEARCH = "/workspace/.venv/bin/research"
-PREFIX = "cursor/grid-models-8c79 @ 31b05b7c (cursor/coverage-v1-2622 @ 4764da87 + the 20 grid-model checkpoints)"
+PREFIX = "cursor/grid-models-8c79 @ eda63fdd (cursor/coverage-v1-2622 @ 4764da87 + the 20 grid-model checkpoints and their workloads)"
 QUESTIONS = json.loads((HERE / "questions.json").read_text())
+#: one family id per publisher model series (circuits 07:19Z: base, instruct and coder together, R1 distills under their base)
+FAMILY_OF = {"QWEN25_3B": "qwen25", "QWEN25_05B_INSTRUCT": "qwen25", "QWEN25_CODER_15B": "qwen25", "R1_DISTILL_QWEN_15B": "qwen25",
+             "QWEN3_06B": "qwen3", "QWEN3_17B": "qwen3", "QWEN3_8B": "qwen3", "QWEN3_14B": "qwen3", "QWEN3_30B_A3B_2507": "qwen3",
+             "LLAMA32_3B": "llama3", "LLAMA31_8B": "llama3", "R1_DISTILL_LLAMA_8B": "llama3", "SMOL17B": "smollm2",
+             "MISTRAL7B_INSTRUCT": "mistral", "GEMMA2_9B": "gemma2", "OLMOE_0125_INSTRUCT": "olmoe", "PHI4": "phi", "YI15_6B": "yi",
+             "FALCON3_1B": "falcon3", "FALCON3_7B": "falcon3"}
 #: reviewed causes, by item key (cov-gmNNN): set when a stage line alone does not name the cause
 CAUSES: dict[str, str] = json.loads((HERE / "causes.json").read_text()) if (HERE / "causes.json").exists() else {}
 SSH = None

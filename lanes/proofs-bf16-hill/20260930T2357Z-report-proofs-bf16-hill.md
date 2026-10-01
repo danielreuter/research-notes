@@ -5,6 +5,7 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT none (07:56Z) [open] 12:56 AM PDT, all clean: K=2048 s5 fold+overlap 4.85e7 (97e4), s6 lincheck 4.27e7 (9094, verify 0.32 s), s7 4x4 tile 1.44e7 (4da7, tile-statement-unreviewed). K=4096 s3 lincheck 2.39e7 (8bb3). Next: tiles at K=4096 (4x3) and K=8192 (2x3); K=8192/16384 overlap+lincheck.
 CHECKPOINT none (07:37Z) [open] 12:38 AM PDT: step-1 gains vs clean step 0: K=16384 5.82e8->1.83e8 (e54c) 3.2x; paired 2b1a 1.98e8 flagged by kcompactd1 (note to infra). K=8192 2.84e8->1.47e8 (a814) 1.9x, clean. K=4096 s1 6.95e7, s2 overlap 2.62e7 (ca26), clean. Running K=2048 s5, K=4096 s3.
 CHECKPOINT none (07:06Z) [open] 12:07 AM PDT: clean step 0 (foreign cores 0.01/0.04): K=16384 5.82e8 (r20261001-064953-ef42, verify 18.7 s; same binary+slot gave 4.72e8 earlier, so ~±12% spread), K=8192 2.84e8 (r20261001-070020-3cd7). Pairing step 1 back to back at both K now, then the overlap ladder.
 CHECKPOINT none (06:49Z) [open] 11:51 PM PDT: one slot (0626Z). Queue: clean step 0 K=16384 then K=8192 (128-175 clean after infra's slice confinement), then fold+overlap and structured lincheck at K=2048 (steps 5, 6), K=8192 and K=16384 (steps 2, 3). -lc binary built (r20261001-064119-8cdc).

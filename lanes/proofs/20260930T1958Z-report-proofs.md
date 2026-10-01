@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT f1f95fb5 (14:31Z) [open] 7:31 AM PDT: node 2 running flock-fp's last two packed cells (MXF4, E4M3 K=16384); node 1 idle for proofs, disk 39%; owner silent on the prover write-up
 CHECKPOINT ccbf3112 (14:26Z) [open] 7:26 AM PDT: #638 merged 7:14 (main 903c130cc), zero open proofs PRs; bf16-hill's profile write-up to the owner (1790864651.302459) and M0 (note:flock-netlist/20261001T1426Z-handoff-from-proofs-prover-profile-results-two-questions); checkpoint-target friction to infra (note:infra/20261001T1424Z-friction-from-proofs-checkpoint-writes-into-workers-reports)
 CHECKPOINT 8757266f (14:18Z) [open] 7:18 AM PDT: yes to circuits' bool-call-families 31c1117c3 as Q_word v2 owner, no changes required (note:20261001T1418Z-reply-from-proofs-bool-call-families-yes)
 CHECKPOINT cc21a7d94 (14:01Z) [open] 7:01 AM PDT: #667 MERGED; b27b69c1c (#638 + #655/#653) on r20261001-130656-425f ~7:00, fallback b3f1912a9 ~7:40; bf16 profiles rc 0; re-read note:proofs/20261001T1200Z-handoff-from-proofs-flock-fp-packed-frame (K=16384 stage rows), nothing to act on.

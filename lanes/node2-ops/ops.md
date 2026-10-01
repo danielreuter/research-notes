@@ -69,6 +69,13 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 21:07Z hourly (20Z): GPU busy 10.6% (0.85 of 8.00 GPU-h, all useful). The busy time was served window 5's timed run (6.4 min).
+    - **Why below 80%:** no GPU job was queued, so 7.15 GPU-h sat free. CPU 0–127 at 16.7%.
+    - **GPU 0's verifies:** all done, the last at 20:00:46Z. None are queued.
+    - **CPU fill:** 6 kueue-fold Builds fill the Verity pool's 6 slots on 48–95, and 5 more wait (`cpus=16`, 64 GB each). Meanwhile 0–47 (slot d is free) and 96–123 sit idle.
+    - **Borrowing:** the runner lends idle Verity slots to pous, but it has no reverse path, so a Verity job can't borrow pous's idle 96–123. Infra could weigh that alongside Daniel's 19:12Z "borrowing goes both ways".
+    - **Backup:** `r20261001-210554-a3d7` packed by 21:07:30Z (517 units, 40 large units left out); its custody upload was still pending at 21:08Z.
+    - **Checks:** daemons and `status.md` (21:04Z) are fine, and the loop runs on `FILL_VERITY_LEND=0` alone. Disk 47%. The new infra alerts (20:32Z, 20:40Z) are node 1's. #494 is still closed.
 - 2026-10-01 20:48Z alerts tick: served window 5 has run, with `timed True` at 20:32Z and `timed False` by 20:47Z. No windows are booked ahead.
     - **The hold:** its 20:25Z stop had requeued Builds `gm225` and `gm226` after 80.3 min each. That's lost work, since a Build reruns from the top. With the window over, the hold left 3 queued Builds unable to start.
     - **What I did:** at 20:47:59Z I respawned the loop with `export FILL_VERITY_LEND=0` alone, dropping the hold and its `FILL_VERITY_MEM_TOTAL_GB=1152`. All 3 Builds started.

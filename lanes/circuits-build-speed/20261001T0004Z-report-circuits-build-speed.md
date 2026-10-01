@@ -5,6 +5,7 @@ created: 2026-10-01T00:04Z
 status: open
 ---
 
+CHECKPOINT none (01:53Z) [open] 6:55 PM PDT: back-to-back reruns: main 445 s (r20261001-012235-49e6), branch 335 s (r20261001-013029-4326), branch+#517 193 s (r20261001-013635-263c), digests equal. New: gc.freeze at exit (1354cdb8e) cuts derive exit 18.7->1.3 s (r20261001-014238-2978); remeasuring.
 CHECKPOINT none (01:21Z) [open] 6:21 PM PDT: HIT so far. Reference row Build 328 s on branch alone (r20261001-005319-e28e), 213 s with #517 (r20261001-010258-dbbf), from 442 s on main; B1 256/32 82 s (r20261001-011624-3a7a) from 95 s; all program/manifest/correspondence digests equal. vllm suite running on b5e0ad2e0.
 CHECKPOINT 816fe3d02 (01:01Z) [open] 6:01 PM PDT: branch 250ef6193 (scheduling+GC+manifest beside compose; refs hunk dropped, it is #517's) builds the B8 1024/128 ref row in 328 s (baseline 442 s), all program/workload/manifest digests equal (r20261001-005319-e28e vs r20260930-235343-09de); next: +#517 run, compose/load profile
 CHECKPOINT 86ff83193 (00:37Z) [open] 5:37 PM PDT: GC tuning for build/global-program committed (dc0df3eda; envelope derive 203->173 s, same digests, r20261001-002750-caee); combined after-run r20261001-003720-bd76 running; next: overlap manifest with compose

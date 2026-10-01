@@ -36,7 +36,7 @@ All computed exactly (not first order) with the assessor's convention:
 | Change | 8,192³ | Decode m = 32 |
 |---|---:|---:|
 | Today (S = 4, ε 0.78%, compiled forming, credit 36) | 1.73% | 30.2% |
-| Credit at 40 (the pipe bound below, unrated) | 1.70% | 28.2% |
+| Credit at 40, the pipe bound below: rated C at 15:43Z, so this is the rated figure now | 1.70% | 28.2% |
 | Honest forming at the pipe floor (40 + 20), credit 40 | 1.46% | 14.0% |
 | ε halved to 0.39% | 1.35% | 30.0% |
 | ε halved, and forming at the floor credited at 40 | **1.07%** | 13.7% |
@@ -80,7 +80,10 @@ The ε each configuration can afford, for γ ≤ 1% at 8,192³:
   - The ALU pipe carries (LOP3 + F2FP) 2.0 × 16 = 32.
   - Dispatch is 4.5 × 8 = 36.
   - Moving an add to FFMA costs the same 8 per element-op on the same complex, plus conversions on the ALU.
-  - For the assessor: this is a pipe-bound restatement of F-NCP-salt at 40, resting on the measured sharing. Tensor-core f16 paths (HMMA as an adder) and integer emulation are unexamined.
+  - The assessor rated this restatement of F-NCP-salt at 40 C at 15:43Z (`note:20261001T1543Z-reply-from-f9af3acc-ncp-salt-pipe-bound`), superseding 36.
+    - Five f16 roundings per element remain, which is 2.5 f16x2 instructions on the one half-rate pipe.
+    - A tensor-core adder costs at least 16 per element-op, and integer emulation pushes the ALU pipe past 40.
+    - It would break only for a route that drops one of the five roundings or shares one between blocks.
 
 ## Decode needs a protocol change
 

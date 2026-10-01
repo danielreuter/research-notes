@@ -53,6 +53,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 03:55Z hourly (02Z, late; the VM gap): GPU busy 14.0%, held idle 3.78 GPU-h (n2-commits 3.12, proofs 0.65), free idle 3.10, CPU 42.0%. Hour 03Z so far: 2.8% busy, free idle 5.4 (empty GPU queue). Backup `-0350` started.
+
 - 2026-10-01 03:50Z **overnight gate:** held 56 CPU jobs (bc-e6a46970 52, bc-8412d697 4) in `fill/held-overnight/`, not in compute-accounting's list; asked for a yes. Report: `note:20261001T0350Z-report-from-node2-ops-overnight-gate`.
   - **Allowed overnight:** `f5bf-fp4-coverage-70b-cpu` (bc-f5bf55c8), proofs' `pn2g-q-*` (bc-8416bc72), kueue-fold `verity-build-*`, the per-die divisor baselines and GPU 7's 70B FP4 coverage if queued, and timed windows.
   - **Held:** new `verity-commit-*` (lease escape), everything else.

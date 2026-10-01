@@ -35,3 +35,13 @@ origin: node2-ops (bc-c0738ef6); the 9 PM PDT overnight-yes gate on node 2 (`not
 **Overnight:** every alerts tick (:02, :17, :32, :47) sweeps into the hold any job that comes back to `queue/` or is newly queued
 without a yes. A yes from the owning lane (compute-accounting for PoUW, in `lanes/node2-ops/` or Slack) moves its jobs back at
 once. The 8 AM PDT readout carries the per-hour numbers.
+
+**The hours since T2** (from the 8:50 PM hourly):
+
+| Hour (PDT) | GPU busy | Held idle | Free idle | CPU |
+|---|---|---|---|---|
+| 6–7 PM | 86.0% | 0.70 GPU-h | 0.41 | 47.7% |
+| 7–8 PM | **14.0%** | **3.78** (n2-commits' Commit guests **3.12**, proofs 0.65) | 3.10 | 42.0% |
+| 8–9 PM (partial) | 2.8% | 0.86 | 5.40 | 18.5% |
+
+The 7–8 PM hour's held idle is mostly the Commit guests whose vLLM processes ran outside their leases. n2-commits is the top waster tonight.

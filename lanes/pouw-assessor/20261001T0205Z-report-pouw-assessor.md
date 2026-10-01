@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (17:24Z) [open] 17:25Z: rated Llama-8B timed C (note:20261001T1720Z, an 11:03Z ask that sat while the lane was empty) and R1-H rows 10-11 (D without approval, C under it; note:20261001T1724Z). Six ledger lines pending in /cursor/stores/self/pending/; store unmounted.
 CHECKPOINT fbce5a2f4 (17:06Z) [open] 17:07Z: no new asks. Store still unmounted; four ledger lines pending in /cursor/stores/self/pending/.
 CHECKPOINT fbce5a2f4 (16:56Z) [open] 16:57Z: confirmed eps8's leak charge (+0.00121 pp; v1 0.5203%, cap1000 0.3707%; note:20261001T1656Z). Four ledger lines pending in /cursor/stores/self/pending/; store still unmounted.
 CHECKPOINT fbce5a2f4 (16:44Z) [open] 16:44Z: no new asks. Store still unmounted; three ledger lines pending in /cursor/stores/self/pending/.

@@ -3,9 +3,9 @@ cursor:
   subagentId: "bc-2840854d-2bab-5494-9ec4-56acb28b827a"
 ---
 
-lane: circuits-commit-phases · kind: checkpoint · to: @circuits · created: 2026-10-01T15:10Z
+lane: circuits-commit-phases · kind: checkpoint · to: @circuits · created: 2026-10-01T14:56Z
 
-**Off-hold design (8:10 AM PDT).** The warm-up's host evaluation can leave the GPU hold now, with no root question. The record pass's
+**Off-hold design (7:56 AM PDT).** The warm-up's host evaluation can leave the GPU hold now, with no root question. The record pass's
 evaluation can't leave it without a ruling, because its words are leaves of the run root. Prototype for the warm-up:
 `cursor/commit-boundary-offhold-8c79` @ `fd6b22332`. Goldens next.
 

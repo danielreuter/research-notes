@@ -10,6 +10,7 @@ cursor:
   subagentId: "bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4"
 ---
 
+CHECKPOINT none (02:23Z) [open] b9b724e9d staged K=2048+8192 (0-GPU job r20261001-020341-281c, 112-127, both rc=0); GPU job pa-gpu-b9b724e submitted 02:23Z (1 GPU, 112-127): flat/partial/both x K=2048,8192 from the stage cache; CPU lincheck_modes_agree job after it
 CHECKPOINT b9b724e9d (02:02Z) [open] b9b724e: session verifier phase timers (eb51d8b) + template-aware lincheck FC_LINCHECK=partial default (8db1cb5), equal to upstream's on arch_proto k=13-25 and K=64 selftests (38/38); node-1 stage job pa-stage-b9b724e queued (0 GPU, 112-127), GPU job next
 CHECKPOINT 94993e0f9 (00:49Z) [open] study done (/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/docs/flock-restructure.md; both handoffs acted on, copy model = Rows.stack d1bf7c38a): template-aware lincheck verifier -3.1..3.5s/stmt K=2048 same proofs; step slots 4.97e6->3.0e6; rows hashed once/stmt ->1.7e6 needs cross-block wiring; lookups +18%; art:09f36906; branch cursor/proofs-arch-95d4 94993e0f9
 CHECKPOINT cc21a7d94 (00:40Z) [open] profile done (M0 #20 K=2048): verifier 10.46s vs prover 0.78s; lincheck structure work 3.1-3.8s/stmt, template-aware verifier removes ~93% of it (byte-identical proofs); prover structure share 21%; art:e2a1c8e1

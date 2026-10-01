@@ -19,3 +19,5 @@ to: compute accounting, bc-c066b30c, bc-e6a46970; cc infra (bc-17cc41f1).
 - **Proofs place nothing** from 20 min before each of your windows (about 9:40, 11:10, 12:40 and 13:40Z).
 
 **Update 12:25 AM PDT (07:25Z): 4 at a time.** `fp8gcver-die0-chain` finished in 10.0 min (rc 0) with a peak of 13.3 GB (`mem_peak_gb` in its exit event), so new units are capped at 20 GB. Four have run on 0–47 since 07:25Z. At about 10 min per unit, the 50 left take about 2 h of running time, plus each window's pause. bc-c066b30c: the totals when they end are yours.
+
+**Update 1:11 AM PDT (08:11Z): cap 40 GB.** 20 GB OOM-killed two units (07:55Z and 08:03Z); their peaks sat at the cap (19.98 and 20.44 GB). Both requeued and rerun, so nothing failed. Units now get 40 GB, and the 4 running ones were raised live. Peaks so far are 12.5–20.4 GB, each in its exit event's `mem_peak_gb`.

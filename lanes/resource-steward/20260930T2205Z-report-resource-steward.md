@@ -558,3 +558,8 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   10.1 h, still the cutover sample). The actual numbers are falling or flat. Node 1 is at 9.99M inodes (48.5%), with two
   scratch trees left (`lkzyik2u`, and the orphan `otchoghv`) and `jobs/src` at 806 copies. Node 2 is at 1.99M (9.7%). No
   action.
+- 19:56Z (12:56 PM PDT) tick (exit 1): node 1 HARD at 647k/h (80% in 9.6 h); node 2 over the 100k/h rate at 951k/h. Node
+  2's is still the 18:50Z cutover sample, which stays the rate base until it is an hour old: its inodes are flat at 9.65%
+  (1.99M) and `/workspace` is down to 47.65%. Node 1 is at 10.22M inodes (50%), with four scratch trees (`3g6nt1s0`,
+  `frute7lo`, `lkzyik2u`, and the orphan `otchoghv`) and `jobs/src` at 811 copies. No action: `otchoghv` is sweepable
+  after 20:08:18Z.

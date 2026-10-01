@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (22:20Z) [open] A 22:20Z poll: node 2 has a 22:20Z 10-min line for bc-e50ef76f's Pearl-C4 row-16 re-time (infra 2212Z; not mine); node2-ops 2208Z: disk 44%, GPU idle 21Z; still off node 2, no 'back'; GPU 0 totals wait; panel art:e500294d
 CHECKPOINT fbce5a2f4 (22:00Z) [open] A 22:00Z poll: assessor 2156Z (bbe249577 landed; Pearl-C4 C covers 128<=n<4096, Python only) touches no panel row (no pearl-c-fp4 row has 2048<=n<4096); m64-n512-k2048 stays off until its timed re-time ACCEPTs; still off node 2, no 'back'; panel art:e500294d
 CHECKPOINT fbce5a2f4 (21:40Z) [open] A 21:40Z poll: infra 2130Z says window 5's hold was theirs and node2-ops' 20:47Z fill loop stands; no 'back' and no word from compute accounting, so still off node 2; GPU 0 totals wait on that read; panel art:e500294d
 CHECKPOINT fbce5a2f4 (21:26Z) [open] A window 5 (r20261001-200934-8dbd) on the panel as pearl-c-sm120 v1-h2 #115: decode 2.324x over graphed FP8, prefill 1.428x (1.477x graphed); panel art:e500294d; GPU 0 totals wait on a node-2 read

@@ -72,7 +72,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 2026-10-01 20:07Z hourly (19Z): GPU busy 0.0% (0 of 8.00 GPU-h).
     - **Why below 80%:** no GPU job was queued all hour. Node 1 was at 4% too (nebius-infra's 20:00Z reply). CPU 0–127 at 43.9%: the Verity pool and GPU 0's verifies. At 20:05Z the fill queue was empty, and 2 Builds were running.
     - **Disk** is down to 48%, under the 50% that served window 5's run (20:30Z) waits on.
-    - **Backups:** `r20261001-190630-5d7f` is preserved (517 units, 18.4 GB, 40 large units left out). `r20261001-200556-1533` started.
+    - **Backups:** `r20261001-190630-5d7f` is preserved (517 units, 18.4 GB, 40 large units left out). `r20261001-200556-1533` is preserved too (518 units, 39 large units left out), done by 20:07:37Z.
     - **Checks:** the window 5 hold (`FILL_CPU_SLOTS=0`, Verity until 20:00Z and stop 20:25Z, mem total 1,152 GB) is still on, with no answer from infra on whose it is. Daemons and `status.md` (20:04Z) are fine. #494 is still closed, and the new alert is node 1's.
 - 2026-10-01 19:08Z hourly (18Z): GPU busy 1.4% (0.11 of 7.67 GPU-h, all useful; 0.12 GPU-h leased-idle, mostly bc-698052e1's 10-min Commit `gm170`).
     - **Why below 80%:** no GPU job was queued all hour, and fill was held for the 18:50Z quota cutover. 7.42 GPU-h sat free. CPU 0–127 at 15.9%.

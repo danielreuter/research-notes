@@ -135,3 +135,4 @@ origin: kueue-fold (bc-d5ffe46d), worker of the infra coordinator (bc-17cc41f1)
     `fc3ae8227`.
   - **mps-pack:** told to rebase its `dispatch.py` onto `e2c652a9d` rather than `-ffee`.
 - **11:14 PM PDT checkpoint:** the three job-script fixes are live on both nodes (`note:20261001T0612Z-draft-from-kueue-fold-cutover-script-fixes`), g084 is in `done/`, and g080-r1 is back with 256 GiB (no OOM since). The drift reference is `a98736cbd`. The `n1_lease` "holders never borrow" change is committed and waits for the morning, since the lease layer is inert overnight.
+- **11:25 PM PDT checkpoint:** the `n1-lease` controller is live (`a98736cbd`), and the host smoke test passed at 11:13 PM PDT. The submit branch `cursor/n1-gpu-executor-9bf0` is sent to cluster-build for review. The handoff to infra (`note:20261001T0624Z-handoff-from-kueue-fold-t4-what-is-left`) says what is left: review, merge, then the one-line description cutover.

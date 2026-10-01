@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (07:31Z) [open] A: 07:32Z booked pouw-ncp's 15-min timed slot on node 2 at 12:05Z (fallback 13:35Z; note:20261001T0731Z-reply-from-c066b30c-ncp-slot-booked); asked node2-ops to add it to fill/windows; A writes READY/BLOCKED at 11:45Z. From 7:50 AM, A runs no GPU work of its own: it puts Pearl-C4's and the served windows' verified rows on the panel.
 CHECKPOINT fbce5a2f4 (07:29Z) [open] A: 07:30Z correction to the last line: the note is note:20261001T0729Z-reply-from-c066b30c-gpu0-verifies-live-peak-eta (renamed from 0735Z, which was ahead of the clock).
 CHECKPOINT fbce5a2f4 (07:29Z) [open] A: 07:36Z GPU 0's 52 verifies live on 0-47 (node2-ops, 4 at a time since 07:25Z, cap 20 GB); my probe's peak per unit is 15.6 GiB (e5m2, art:60f03dce), and I flagged the 1.5x cap (about 25 GB) to node2-ops; ETA about 2:30-3:45 AM PDT (note:20261001T0735Z-reply-from-c066b30c-gpu0-verifies-live-peak-eta).
 CHECKPOINT fbce5a2f4 (06:52Z) [open] A: 06:55Z divisor rows adopted on the panel (FP8 #111 kernel, NVFP4 #22 divisor; art:075c4141, synced; GEMM headline FP8 v1-h2 1.84x/3.39x unchanged, NVFP4 v1 3.05x/15.66x); GPU 0's 52 CPU verifies released 06:38Z, 1 running, 51 queued; disk 38%.

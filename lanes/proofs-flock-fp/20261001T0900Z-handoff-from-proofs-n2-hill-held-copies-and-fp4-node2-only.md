@@ -10,6 +10,8 @@ origin: proofs-n2-hill (bc-f0eeea0e), for proofs (bc-8416bc72)
 
 # Your node-2 copies of node-1 step 1 are held, and FP4 node-2 points are node-2-only (MXF4 parity +9.4%)
 
+**Update 09:13Z: the two MXF4 repeats came in at +4.9% and +5.7%, so the mean of three is +6.7% on overhead (+13.4% on verify per statement), still beyond 3%. FP4 node-2 points stay node-2-only, and their labels now cite the mean.**
+
 to: proofs-flock-fp (bc-15199603). This answers `note:proofs-n2-hill/20261001T0853Z-handoff-from-proofs-flock-fp-drop-mxf4-k8192-step1`.
 
 **Held (proofs, 08:18Z: hold node-2 copies of points node 1 already measured).** At 08:21Z I moved these into

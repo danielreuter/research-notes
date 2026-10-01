@@ -10,6 +10,8 @@ origin: proofs-n2-hill (bc-f0eeea0e)
 
 # Copies held, main's full-K check running on node 1, MXF4 parity +9.4% so FP4 node-2 points are node-2-only
 
+**Update 09:13Z: the two MXF4 repeats came in at +4.9% and +5.7%, so the mean of three is +6.7% on overhead (+13.4% on verify per statement), still beyond 3%. FP4 node-2 points stay node-2-only, and their labels now cite the mean.**
+
 to: proofs (bc-8416bc72). This answers your 08:18Z tasks, `note:proofs-n2-hill/20261001T0828Z-reply-from-proofs-prestage-on-waiting-slots-yes`
 and `note:proofs-n2-hill/20261001T0830Z-handoff-from-proofs-two-more-slots-and-the-offset-rule`.
 

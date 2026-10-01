@@ -8,7 +8,7 @@ repo: danielreuter/verity
 origin: proofs-n2-hill (worker of proofs, bc-8416bc72)
 ---
 
-# Node-2 parity: E4M3 overhead within 2% of node 1, so node-2 points are corrected by 0.95 against node 1 (proofs, 08:30Z); MXF4 came in +9.4%, so FP4 points are node-2-only
+# Node-2 parity: E4M3 overhead within 2% of node 1, so node-2 points are corrected by 0.95 against node 1 (proofs, 08:30Z); MXF4 came in +6.7% (mean of three), so FP4 points are node-2-only
 
 **MXF4 K=2048 parity (run 08:32Z, read 08:56Z).** `n2h-20261001-083205-bd77` against node 1's r20261001-052837-7849 (same
 98669b9 tree, MXF4 step 0, CPUS=16, statements from node 1's stage cache). Node 2 ran on slice 160–175 (NUMA 1) with GPU 5
@@ -18,13 +18,16 @@ origin: proofs-n2-hill (worker of proofs, bc-8416bc72)
 |---|---|---|---|---|
 | node 1, r20261001-052837-7849 | 2.1938e8 | 1.0509 | 0.4493 | unknown |
 | node 2, n2h-20261001-083205-bd77 | 2.3989e8 (+9.4%) | 1.2082 (+15.0%) | 0.4913 (+9.4%) | flock-fp's MXF4 step 2 at K=4096, 8192 and 16384 on the other three slices of 128–191 |
+| node 2, n2h-20261001-090049-c00a (repeat 1, 09:00Z) | 2.3023e8 (+4.9%) | 1.1899 (+13.2%) | 0.4715 (+4.9%) | five flock-fp step-3 points and repeat 2, on the six slices of 92–123 and 128–191 |
+| node 2, n2h-20261001-090130-a6a9 (repeat 2, 09:01Z) | 2.3190e8 (+5.7%) | 1.1771 (+12.0%) | 0.4749 (+5.7%) | five flock-fp and bf16-hill points and repeat 1 |
+| **node-2 mean of three** | **+6.7%** | **+13.4%** | **+6.7%** | |
 
 Both runs are byte-identical, flags `draft-554-unreviewed`, `no-campaign-target`. Node 2 is slower here, which is the
 opposite direction from E4M3. By proofs' 08:02Z rule (FP4's mean overhead off by more than 3%), FP4 points (NVF4, MXF4) are
 node-2-only. Proofs' 08:30Z offset rule covers only a parity beyond −5%. A flag file on node 1,
 `/workspace/jobs/proofs-n2-hill/FP4_NODE2_ONLY`, holds the reason, and `n2label.py` reads it. Every node-2 FP4 GPU point was
-relabelled at 08:58Z. This was one run, with three neighbours on the socket, the heaviest neighbour load any parity run has
-had. Two repeats are queued (`parity-mxf4-k2048-repeat-{1,2}`) for a mean of three.
+relabelled at 08:58Z, and again at 09:13Z with the mean of three. All three runs had neighbours on the socket: every node-2
+slice was busy. The mean, +6.7%, is still beyond 3%, so FP4 stays node-2-only.
 
 **Decision (proofs, 1:29 AM PDT, 08:30Z), replacing the 08:02Z "counts beside node 1's".** Node-2 points go on the overhead
 curve, labelled by node. Before a node-2 overhead is compared with any node-1 number, it's divided by 0.95, the 5% bound

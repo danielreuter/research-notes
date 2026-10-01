@@ -4,6 +4,8 @@ kind: report
 created: 2026-09-30T18:40Z
 status: open
 ---
+
+CHECKPOINT none (18:06Z) [open] handles live for all 10 cloud leads; console pending Daniel's alternative; held-idle 10:00 miss pushed to circuits
 CHECKPOINT 2026-10-01T17:50Z open: inbox empty; node 2 cutover 11:50; held-idle 11:00 hour at risk (leases idle in engine startup, circuits adding compile cache + late lease); lean owns guarantee review, @lean handle up.
 
 CHECKPOINT 2026-10-01T17:33Z open: inbox empty; served window 4 running; node 2 cutover called off 10:21, rescheduling; 16 PRs open, train 1f2011900 still checking; comms reshaping to research msg.

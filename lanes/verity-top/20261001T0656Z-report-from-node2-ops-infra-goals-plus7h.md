@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6), timer infra-goal-plus7h (11:40 PM PDT); read-only counts at 06:53Z
 ---
 
+CHECKPOINT none (09:21Z) [open] 2:21 AM PDT: 2:05 check done; rulings on IR-before-T647, slot d through GEMM windows, proofs confirming run; inbox empty
 CHECKPOINT none (09:01Z) [open] 2:00 AM PDT: node 1 ~4/8 GPUs active (grid Commits), 2 empty; node 2 only GPU 7 (PoUS timed) busy, 3 empty, rest proofs in CPU phases; staging 20 checkpoints to node 2 is the lever; full round at 2:05
 CHECKPOINT none (08:45Z) [open] 1:45 AM PDT: node 2 ~4/8 busy after Gemma-2 cancels; node 1 0% (4 empty, 4 grid Commits planning, 29 grid jobs in dispatcher); infra asked whether pacer holds them and to confirm proofs' node 2 slots
 CHECKPOINT none (08:31Z) [open] 1:30 AM PDT: 2/16 GPUs busy (both PoUS on node 2); node 2's five hopeless Gemma-2 Commits still running 10 min after circuits' cancel ask, infra pushed; node 1 has 5 empty GPUs, grid rows starting (Qwen3-30B), compute accounting filling

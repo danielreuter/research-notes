@@ -68,6 +68,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 23:03Z alerts tick: four more `gpu-idle-in-lease` alerts for bc-698052e1's Commits: GPUs 3 and 4 at 22:50Z, 6 and 7 at 22:55Z, at 0.0–0.1% over 5 min.
+    - **Not just start-up:** GPUs 3 and 4 were 8–10 min into their leases. So these Commits hold the GPU at about 0% for most of a 10-min lease. That is the pattern of n2-commits' `verity-commit` in infra's daily top-3 (9.2 idle of 9.7 GPU-h).
+    - **Why no note:** no GPU work is queued behind them, so nobody waits. Infra's daily wasters already carry it. The 23:05Z hourly gives the leased-idle figure.
+    - Watermark advanced to 22:55:06Z.
 - 2026-10-01 22:48Z alerts tick: three `gpu-idle-in-lease` alerts (22:35, 22:40 and 22:45Z, on GPUs 7, 5 and 6, at 0.2–6.9% mean over 5 min). They're all bc-698052e1's Commit guests in their first 5 minutes.
     - **Why it's fine:** each Commit holds a GPU for about 10 min (rc 0), and its replay now runs as a separate `verity-replay-*` CPU job. The low use is each Commit's start-up, not a GPU held through the replay.
     - Nothing to do. Watermark advanced to 22:45:06Z.

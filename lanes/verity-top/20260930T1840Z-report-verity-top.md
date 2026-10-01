@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:05Z) [open] 9:05 PM PDT: 60 open PRs (2:05 AM target met early); node 2 disk 36%; write probe live; next train checking
 CHECKPOINT none (03:49Z) [open] 9 PM PDT: 4 trains landed (C1 incl. #630), 72 open PRs; next train posted by infra; node 2 pass deletion assigned; invoice outage 7:27-8:39 recovered
 CHECKPOINT none (02:13Z) [open] 7:13 PM PDT: PR set approved (≤110/90/60 by 8:05/10:05/2:05), PR captain bc-7ff3de9e fed from lanes/coordinator merge requests; #630, #212, #517, #613, #627 ready
 CHECKPOINT none (01:57Z) [open] 6:57 PM PDT: migrating off old PoUS Project (compute accounting, by 9 PM); Lean baseline #629 to infra; proofs-circuits interface page due 7:30

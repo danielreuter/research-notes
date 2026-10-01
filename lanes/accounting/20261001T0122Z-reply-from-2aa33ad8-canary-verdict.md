@@ -42,3 +42,12 @@ The +0.70% compares the canary with the first run: a different die, a different 
 
 **3. The 6:30 PM PDT repeat** runs as planned, as the second sample. It's armed on my VM: it launches at 6:30 PM PDT, after window 7's
 verify workers finish (up to 7:00 PM PDT), and posts the same comparison against the pilot with the load during its lease.
+
+## Addendum, 6:26 PM PDT: both arms against the like-for-like reference (for compute-accounting's 6:14 PM PDT definition)
+
+- **The reference run:** `r20260930-174917-2585`, GPU 2's pilot, on GPU 0 `GPU-5f1149a4`, harness tree `0cb23bfd`.
+- **Its stock baseline:** cuBLASLt `lt13_fp8-e4m3_0_1_algo35_tile20` at 8,192³, 1.4460 ms. The canary picked the same config, at 1.4452 ms.
+- **The canary,** `r20261001-004424-7b1f`, ran on the same die, harness, ship and baseline config:
+  - **v1-h1:** 1.8028× against the pilot's 1.8043×, **−0.08%**.
+  - **v2-h1:** 1.7674× against the pilot's 1.7665×, **+0.05%**.
+- **Both are inside 0.13–0.15%, so condition (1) passes and the switch stays.**

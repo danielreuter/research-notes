@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT b5e3df46d (04:31Z) [open] 9:31 PM PDT: node-2 #1936 gate loop ended (guard refused, job failed; 2.58 GPU-h); its K=8192 prove logs preserved art:826f01c5 (21/21 accepted, prover 0.78 s vs verifier 10 s a session); node 1 30%, no proofs pods yet
 CHECKPOINT 9caa5c91 (04:13Z) [open] answered red-team-flock-3's writer-alive ask: writer resumed 04:13Z on the record push (note:20261001T0414Z-reply-from-proofs-writer-resumed)
 CHECKPOINT 128801ec (04:13Z) [open] 9:13 PM PDT: billing cleared; resumed proofs-lean-restate, proofs-ir and proofs-verify-overlap on their current models (all accepted)
 CHECKPOINT fe69f3e3 (04:11Z) [open] acted on node2-ops' max_min note: gate stops after 9:27 PM, no 60-min exception needed (reply note:20261001T0412Z-reply-from-proofs-gate-1936-stopped)

@@ -3,7 +3,8 @@
 # ends silently. Exit 1: lines on stdout to act on: a breach whose kind wasn't seen in the last 6 h (numbers ignored, GPU index
 # kept), any HARD stop, a failed probe, or a new alert note. Known breaches print under "known:" and exit 0.
 # 1. the probe (infra/nebius tools/research/src/research/pods/nebius/resource_probe.py, deployed at ~/resource-steward/bin/)
-#    on each node at nice 19; node 2 is skipped while fill/status.txt says `timed True`.
+#    on each node at nice 19; node 2 is probed only while fill/status.txt says `timed False` (a missing or unreadable
+#    status, as during a cutover, skips it).
 # 2. new *alert* notes in lanes/{infra,node2-ops,resource-steward}/ since the last tick: every one in resource-steward/, and
 #    the others only when their name is about disk, RAM, inodes, OOM or space.
 K=~/.ssh/research_key; rc=0; S=~/resource-steward; mkdir -p $S
@@ -15,7 +16,7 @@ probe() {  # host node precheck
   [ $r -gt 1 ] && { out+="$2: FAILED probe rc=$r"$'\n'; }
 }
 probe 81.85.2.165 n1 ""
-probe 81.85.2.121 n2 'if grep -q "timed True" /workspace/pouw/fill/status.txt; then echo "n2: timed window, probe skipped"; exit 0; fi;'
+probe 81.85.2.121 n2 'if ! grep -qs "timed False" /workspace/pouw/fill/status.txt; then grep -qs "timed True" /workspace/pouw/fill/status.txt && echo "n2: timed window, probe skipped" || echo "n2: fill/status.txt does not say timed False, probe skipped"; exit 0; fi;'
 key() { sed -E 's/^n1:/NODE_A:/; s/^n2:/NODE_B:/; s/GPU ([0-9]+)/GPU<\1>/; s/(^|[^<0-9])[0-9][0-9.,]*/\1#/g'; }
 touch $S/breaches.seen; now=$(date +%s); : > $S/breaches.new
 while IFS= read -r l; do

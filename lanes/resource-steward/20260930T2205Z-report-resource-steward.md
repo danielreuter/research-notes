@@ -94,11 +94,13 @@ resource, what was deleted, what waits on an owner, and trends (from each node's
   (12 tests).
 - Deployed at `~/resource-steward/bin/resource_probe.py` on both nodes (sha256 `18d5fde99a73…`, `infra/nebius` `f2d8decc9`,
   1 Oct 07:45Z; 14 tests), by install and rename.
-- The tick is `lanes/resource-steward/tools/tick.sh`: the probe on both nodes (node 2 skipped in a timed window), plus new
+- The tick is `lanes/resource-steward/tools/tick.sh`: the probe on both nodes (node 2 only while `fill/status.txt` says `timed
+  False`; a missing or unreadable status skips it, as does a timed window), plus new
   resource `*alert*` notes. It exits 1 only for a new kind of breach, a HARD stop, a failed probe or a new alert note; a known
   breach prints as `known:` and exits 0. `tools/bootstrap.sh` restores the agent VM after a reset (no secrets).
 - The sweep is `lanes/resource-steward/tools/sweep.sh` (every 6 h at :30, timer `resource-steward-sweep`): it installs
-  `tools/node-sweep.sh` on each node and runs it as root at `nice 19 ionice -c3`, node 2 only outside a timed window. It
+  `tools/node-sweep.sh` on each node and runs it as root at `nice 19 ionice -c3`, node 2 only while its status says `timed
+  False`. It
   deletes exactly the policy's source trees (`--src-age-h`, 24 by default) and check scratch (`/tmp/pytest-of-research/pytest-*`,
   `lean-audit-scratch-*`), keeps anything something live names, and logs every line to `~/resource-steward/deletions.log`. A
   tree is renamed into `src/.trash/` before it is deleted and put back if a scan after the rename finds a reference, so the
@@ -518,3 +520,23 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 18:38–18:42Z (11:38–11:42 AM PDT) sweep (exit 1): 8 entries, 7.1 GB (§4). No Slack. The infra `jobs/src` note is still
   open. node2-ops' `note:20261001T1808Z-handoff-from-node2-ops-fill-held-for-1150-cutover` holds fill on node 2 for an
   infra `/workspace` cutover at 18:50Z, so node 2 readings may look odd until the hand-back.
+- 18:50–19:02Z (11:50 AM–12:02 PM PDT) tick (exit 1): "n1: HARD /workspace gaining 3,578,618 inodes/h: 80% of inodes in 1.9 h",
+  then 5.07M/h and 1.2 h at 18:54Z. Also "grep: /workspace/pouw/fill/status.txt: No such file or directory".
+  - Node 1 inodes: 8.74M (43%) after the 18:20Z sweep, then 9.81M at 18:50Z and 10.79M (52%) at 19:00Z. Space is at 44%.
+  - The cause is check's Lean-audit scratch trees in `~/.cache/verity-check`:
+    - three live checks hold 630k–770k inodes each: `a7mec2rc` (`r20261001-181223-5ae6`, `check-b`), `lkzyik2u`
+      (`r20261001-180819-abf7`, `check-a`) and `ox_caqkn`;
+    - `otchoghv` (494k) is orphaned. It belonged to `r20261001-180102-ee96`, which infra cancelled at 18:08:18Z
+      ("superseded by 9890ad470"). The run exited 143 (SIGTERM), and the tree's newest file is from that same second.
+  - The leak: `research cancel` and the dispatcher's killpg send SIGTERM, whose default skips `lean_audit.py`'s `finally`,
+    so every cancel during the Lean audit orphans its tree. `f7jkfxj1`, swept at 18:18Z, was the same.
+  - Fix: verity [#708](https://github.com/danielreuter/verity/pull/708) (`cursor/lean-audit-sigterm-0ead`, draft). SIGTERM
+    exits 143 through the cleanup. It has a test that fails without the fix (`-15`); `verity-check` and `repository` pass.
+    The first check after it lands re-audits every Lean package once.
+  - Live checks can add at most about 0.9M more inodes (4 slots), against the 5.85M left before 80%, so the HARD projection
+    overstates the risk. Nothing is deletable yet: `otchoghv` meets the 2 h rule after 20:08:18Z, and I run the sweep at
+    the first tick after that.
+  - The node 2 grep error: `status.txt` was missing at 18:50Z during the cutover (back at 18:54Z). `tick.sh` and `sweep.sh`
+    skipped node 2 only when the file said `timed True`, so a missing file failed open. Both now run on node 2 only when it
+    says `timed False`, and otherwise print why they skipped. `tick.sh` is reinstalled.
+  - Slack: one announce to @infra (`1790881248.691289`) with the cause, the PR and the plan.

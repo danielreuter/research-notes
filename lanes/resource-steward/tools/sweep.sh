@@ -13,8 +13,8 @@ while [ $# -gt 0 ]; do case $1 in --approved) AP=$2; shift;; *) ARGS+=("$1");; e
 [ -r $AP ] || { echo "sweep: cannot read $AP"; exit 2; }
 sweep() {  # host node
   local o r
-  if [ $2 = n2 ] && timeout 60 "${SSH[@]}" research@$1 'grep -q "timed True" /workspace/pouw/fill/status.txt'; then
-    echo "$2: timed window, sweep skipped"; return; fi
+  if [ $2 = n2 ] && ! timeout 60 "${SSH[@]}" research@$1 'grep -qs "timed False" /workspace/pouw/fill/status.txt'; then
+    echo "$2: fill/status.txt does not say timed False (a timed window, a cutover, or no ssh), sweep skipped"; return; fi
   if timeout 60 "${SSH[@]}" research@$1 'pgrep -f "[n]ode-sweep.sh" >/dev/null'; then
     echo "$2: a sweep is already running there, skipped"; return; fi
   timeout 120 "${SSH[@]}" research@$1 \

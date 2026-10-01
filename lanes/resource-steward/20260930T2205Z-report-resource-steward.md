@@ -258,6 +258,12 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
       07:25–11:38Z, 1.3 GB together. They are too small to ask about.
   - After: node 1 has 32 trees, `/workspace` at 44% space and 43% inodes (47% before), root 181 GB free. Node 2 has 48
     trees, at 52% space and 10% inodes, root 184 GB free.
+- 18:38–18:42Z (11:38–11:42 AM PDT), the 6 h sweep (`sweep.sh --src-age-h 6`): 8 entries, 23,016 files, 7.1 GB.
+  - Node 1, check scratch, 4,862 files, 3,916 MB: `/tmp/pytest-of-research/pytest-1798` (422 files, 1,601 MB),
+    `-1799` (244 files, 328 MB), `-1801` (305 files, 1,601 MB) and `-1803` (3,891 files, 386 MB), all 2 h old.
+  - Node 2, 2 trees, 9,945 files, 179 MB: `888c8aed` (4,966 files, 89 MB, 6 h) and `d099b8f3` (4,979 files, 90 MB, 6 h).
+    Check scratch: `pytest-615` (5,952 files, 3,024 MB) and `pytest-616` (2,257 files, 12 MB), both 2 h old.
+  - Kept: the same 24 node 2 trees as at 18:17Z.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -509,3 +515,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     - There are 167 GB before 55%. Each served window keeps about 74.5 GB until its verify deletes it.
   - Slack: one announce to @infra and @compute-accounting (`1790879553.355979`), since the sweep was over 50 GB. No
     action asked.
+- 18:38–18:42Z (11:38–11:42 AM PDT) sweep (exit 1): 8 entries, 7.1 GB (§4). No Slack. The infra `jobs/src` note is still
+  open. node2-ops' `note:20261001T1808Z-handoff-from-node2-ops-fill-held-for-1150-cutover` holds fill on node 2 for an
+  infra `/workspace` cutover at 18:50Z, so node 2 readings may look odd until the hand-back.

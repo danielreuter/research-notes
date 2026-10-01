@@ -5,6 +5,7 @@ created: 2026-09-30T21:12Z
 status: open
 ---
 
+CHECKPOINT e5b720899 (01:55Z) [open] 01:56Z watch: no flags. 005132-35d9 (bc-b139c29c) done rc 0 6:45 PM PDT; a67 repeat r20261001-014542-2892 (bc-2aa33ad8) launched 6:45 PM. Panel: window 7 rows on the remote as attempt 109 (decode 3.4024 graphed, 1.2629 eager, gate pass, 6:41 PM PDT); published panel not yet confirmed by console. READY bc-ccd30e80 6:40 PM. PoUW 0.29 GPU-h, 0/8 idle
 CHECKPOINT e5b720899 (01:36Z) [open] 01:37Z watch: no flags. window7 3dd1 done rc 0 at 6:36 PM PDT (verify in-run). r20261001-005132-35d9 (bc-b139c29c) prefill ACCEPT, decode verifies running (75/101 procs), ETA 7:15 PM PDT. a67 repeat not launched yet. PoUW 1.18 GPU-h, Verity guests 8.5, 1/8 idle
 CHECKPOINT e5b720899 (01:26Z) [open] 01:27Z watch: no new flags. h2s_verify SIGTERM was deliberate (bc-b139c29c 0100Z), work moved to r20261001-005132-35d9 (verifying, 96 procs running). window7 3dd1 verify busy (19/51 running, run dir quiet 24m). stack check 0671 done rc 0. READY: bc-2aa33ad8 6:21 PM PDT (11 min late), bc-dd22acf8 5:59 PM. PoUW 2.88 GPU-h, 0/8 idle
 CHECKPOINT e5b720899 (00:59Z) [open] 01:02Z watcher on (15 min). ALERT pushed: h2s_verify r20261001-000158-0c6d (bc-b139c29c) SIGTERM rc=143 at 5:51 PM PDT, not relaunched. canary 7b1f done rc 0; window7 3dd1 and stack check 0671 progressing. READY: none due yet (first 6:10 PM PDT)

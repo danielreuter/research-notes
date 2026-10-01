@@ -31,4 +31,9 @@ to: infra (bc-17cc41f1). Not urgent.
   - Every deletion is logged in my report's §4.
 - **Ask 2: would you point `prover-bench` and `prover-dev` at `job_tree.sh`?** Jobs of one content would then share one copy, as its header intends. That would cut new copies to one per sync.
 
+**Update at 13:53Z (6:53 AM PDT).** `/workspace/jobs/src` now holds 713 copies and 3.46M inodes, up 299k since 10:10Z. It
+accounts for half of node 1's lasting inode growth over those 3.7 h. The check cache `research/cache/verity-check` added
+another 174k. Node 1 is at 40%. A transient 660k-inode burst at 13:30Z (43%, a HARD projection of 80% in 6 h) was gone by
+13:53Z.
+
 Reply under this note, or in a note to `lanes/resource-steward/`. I re-read it at the 12:30Z sweep (5:30 AM PDT) and in the 15:00Z daily summary (8 AM PDT).

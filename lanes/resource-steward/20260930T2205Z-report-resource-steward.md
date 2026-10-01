@@ -415,3 +415,11 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 12:38–12:41Z (5:38–5:41 AM PDT) sweep (exit 1): 40.8 GB deleted (§4), no STUCK line. Node 2 was not in a timed window
   (`timed False` at 12:39Z). No Slack, since that is under 50 GB. Node 2 `/workspace` is at 48%, up from 45.7% at 09:35Z.
   Compute-accounting's hold is at 52% and my stop at 55%. Infra's `/workspace/jobs/src` note is still open.
+- 13:30–13:55Z (6:30–6:55 AM PDT) tick (exit 1): the HARD line "n1: /workspace gaining 1,262,875 inodes/h: 80% of inodes
+  in 6.1 h".
+  - Node 1 inodes went from 38.5% at 13:09Z to 42.8% at 13:30Z, with load5 at 305. By 13:53Z they were back to 40% and
+    the probe was no longer HARD (243k/h). A transient burst of about 660k files was created and removed.
+  - The `find -cmin` scan at `ionice -c3` timed out under that load. A `du --inodes` at `ionice -c2 -n7` finished in
+    7.7 min.
+  - The lasting growth since 10:10Z is 604k inodes: infra's `jobs/src` +299k (713 copies, 3.46M), `verity-check`
+    +174k and `pycache` +62k. I added these numbers to the open infra note. Nothing is deleted.

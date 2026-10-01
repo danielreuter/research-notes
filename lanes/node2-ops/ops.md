@@ -53,6 +53,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 05:08Z hourly (04Z): GPU busy 11.7% (timed 0.78 GPU-h); free idle 6.64 (no approved GPU work queued); held idle 0.42 (proofs 0.34, `adhoc:ubuntu` 0.09). CPU 16.1%. Disk 38%; daemons and the agent unit OK. Backup `-0405` rc 0, `-0505` started. Queue: only kueue-fold and circuits Builds (allowed).
+
 - 2026-10-01 04:58Z alerts: none new. Rule refined: jobs running at 9 PM keep their chunks (`pearlc4-vex-coverage` cycles 99 → restart within seconds). kueue-fold's Builds (`cov-cg16`, `cg17`, `m004-2`, `m005-2`) run as allowed.
 
 - 2026-10-01 04:42Z alerts, during a timed window (read-only): `pn2g-q-1936-r0` failed, as proofs intends; OOM kill #7 (`cov-g080-r1`'s loop, told kueue-fold). `pearlc4-vex-coverage.sh` (bc-a8466279) is back in the queue and outside the allowed set; sweep it after the window. Watermark 04:31:02Z.

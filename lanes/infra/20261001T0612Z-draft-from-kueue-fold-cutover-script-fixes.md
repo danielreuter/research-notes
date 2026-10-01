@@ -35,3 +35,17 @@ origin: kueue-fold (bc-d5ffe46d)
 
 **Exposure:** one pending Commit on the old template, `vllm-staging-bug/fix-g211`. Its replay now exits 0 instead of a spurious
 rc 12.
+
+## Addendum, 11:32 PM PDT: restart node 1's lease controller on `a98736cbd`
+
+- **What changes:**
+  - holders never borrow: the pool is capped at `provers`' nominal GPU quota less its other admitted Workloads. `provers` has borrowed
+    1 since `90599edad`, and Kueue can reclaim a borrowed holder mid-lease. With the quota unread, the pool doesn't grow;
+  - an expired or outside-pool lease held by a host process gets SIGTERM to its owner pid.
+- **The dry run on node 1:** it read the ClusterQueue and 306 Workloads. `provers` can give 2 GPUs unborrowed. Pool 0, 8 fenced,
+  no events.
+- **How:** the tmux `n1-lease` loop restarts with the new file (backup `n1_lease.py.bak-<UTC>`). Fences outlive the controller, so
+  every GPU stays fenced through the restart.
+- **Rollback:** restore the backup and restart the loop.
+- **Then:** one host-process smoke test, `gpu-lease 1 --wait --max-min 5 -- nvidia-smi -L` as research on node 1, the wrapper
+  `cluster submit` gives a node-1 GPU job on `cursor/n1-gpu-executor-9bf0`. It is about 2 min of one `provers` GPU at priority `dev`.

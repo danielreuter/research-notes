@@ -53,6 +53,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 06:20Z alerts: none new. kueue-fold fixed `n2_build.sh` reruns (`c332e1685`: a `.done` marker makes a rerun a no-op), so runner restarts no longer need a moment without Builds. It moved g084 to `done/` and requeued `cov-g080-r1` with 256 GiB (no OOM since). If g080 is OOM-killed again, hold it.
+
 - 2026-10-01 06:12Z the overnight allowed set adds `pearlc4-bovf-boundary.sh` (bc-e8ffd7f2, PoUW CPU, 24 cores, about 1.6 h), on compute accounting's 10:46 PM PDT order (`note:20261001T0546Z-order-from-compute-accounting-e8ffd7f2-bovf-condition-7`). Running since 06:06Z.
 
 - 2026-10-01 06:08Z hourly (05Z): GPU busy 1.3%; free idle 7.31 GPU-h (no approved GPU work), held idle 0.59 (`adhoc:ubuntu`). CPU 15.6%. Disk 38%; daemons and the agent unit OK; backup `-0505` rc 0, `-0605` started.

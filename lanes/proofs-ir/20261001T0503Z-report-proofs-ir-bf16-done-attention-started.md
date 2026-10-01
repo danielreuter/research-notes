@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: cursor/proofs-ir-95d4
 ---
 
+CHECKPOINT 213f4361b (20:38Z) [open] Q_call v1 PR ready at 213f4361b: body for proofs to open at note:proofs/20261001T2034Z-draft-from-proofs-ir-qcall-pr-body-213f4361b; red-team ask at note:red-team-proofs-554/20261001T2034Z-ask-from-proofs-ir-review-qcall; check --record r20261001-203205-c3c1 running
 CHECKPOINT 46c768b2c (19:55Z) [open] Q_call v1 spec + vectors pushed: cursor/proofs-qcall-95d4 @ b307d8320 (cut.evaluate_call, partition_object Q_call v1, PROTOCOL.md §11, tests/ir/qcall_vectors.json; tests/ir 282 pass). Next: circuit-check, Glossary, measurements (running), red-team ask, check --record.
 CHECKPOINT (05:45Z) BF16 slice done; attention started on `cursor/proofs-ir-95d4` at `ac15d5abf`. Design note: Phase 2, Phase 3.
 

@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT 3403247f7 (21:28Z) [open] bitsets r20261001-205558-eee7 running after served window 5: r64@1 FAILED (raw kept): its R2 blob 9678643a (hot.rows.u32.zst, 406.7 MB, content-addressed so every re-put reuses it) reads ~375 MB fast then 1 MiB/30 s, reproduced by a fresh fetch; zero blob 8 s. r64@2 done in 89 s; 14 of 88 done; df 47%
 CHECKPOINT 3403247f7 (20:45Z) [open] bitsets: still holding for served window 5 (to 21:00Z); 13 of 88 done, 104.0 GiB raw freed, no failed checks; relaunch ~20:56Z; node 2 df 47%
 CHECKPOINT 3403247f7 (20:16Z) [open] bitsets: holding for served window 5 (20:00-21:00Z), 13 of 88 units done, 104.0 GiB raw freed, all checks pass; relaunch of 3403247f7 at ~20:56Z; node 2 df 45%; VM reset rebuilt, no data touched
 CHECKPOINT 3403247f7 (20:01Z) [open] 20:02Z bitsets: 13 of 88 units compressed, preserved (R2) and deleted, 104.0 GiB raw -> 2191 MiB zst, all transpose + round-trip checks pass; manifest snapshot art:64a6decc; stopped r20261001-192440-83f1 by PID before r64@1's delete (its preserved read-back trickled at 70 KB/s; raw intact); fix 329a04c31 retries preserved in a fresh process, 3403247f7 adds a job lock; relaunch after served window 5's hold (21:00Z); node 2 df 48%; CPU only, 0 GPU-h

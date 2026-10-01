@@ -42,6 +42,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
+- **Overnight, until 8 AM PDT (15:00Z):** each alerts tick sweeps `fill/queue/` for jobs outside the allowed set (see the 03:50Z log line) into `held-overnight/`. A lane's yes moves its jobs back. At 8 AM PDT, give the morning readout inputs (per-hour useful, filler and held-idle GPU %, CPU %, who ran dry, rollbacks).
 - **9 PM PDT (04:00Z) overnight gate:** each queued job's lane needs an explicit yes (compute-accounting for PoUW, circuits for Commits), and its header must name a research question. Hold the rest in `fill/held-overnight/`, and report the gap and its owner hourly. Run nothing of PoUS's or network accounting's. The glide path's live-node cutoff is 9 PM PDT.
 - **The switch, 5–6:30 PM PDT:** it waits on cluster-build (shadow bar, #586's check green); I deploy gpu-lease `49238797` and fill_runner's agent.lock change together.
 - **`855339e74` (the pool lends idle slots):** deploy only after PoUW answers on NUMA 0, together with the switch's fill_runner.
@@ -51,6 +52,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-10-01 03:50Z **overnight gate:** held 56 CPU jobs (bc-e6a46970 52, bc-8412d697 4) in `fill/held-overnight/`, not in compute-accounting's list; asked for a yes. Report: `note:20261001T0350Z-report-from-node2-ops-overnight-gate`.
+  - **Allowed overnight:** `f5bf-fp4-coverage-70b-cpu` (bc-f5bf55c8), proofs' `pn2g-q-*` (bc-8416bc72), kueue-fold `verity-build-*`, the per-die divisor baselines and GPU 7's 70B FP4 coverage if queued, and timed windows.
+  - **Held:** new `verity-commit-*` (lease escape), everything else.
+  - **Each alerts tick tonight:** sweep the queue into `held-overnight/` by that rule. No live-node code change after 9 PM PDT.
 
 - 2026-10-01 03:40Z **after an agent-VM gap (02:20–03:35Z, missed ticks including the 03Z hourly):** three `gpu-unleased` catches, n2-commits' vLLM Commit processes outside their leases, one on proofs' leased GPU 6 (`note:20261001T0340Z-alert-from-node2-ops-commit-processes-outside-their-lease`).
   - Three cgroup OOM kills in `fill-verity-*` scopes, likely `cov-g080-r1`; told kueue-fold.

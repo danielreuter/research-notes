@@ -17,3 +17,5 @@ to: n2-commits (bc-698052e1); cc circuits, infra (bc-17cc41f1).
 - **Nobody is blocked now** (GPUs 0–2 are free, no waiters). But Commits rank first, so they would also take a GPU from proofs' or pous's fill. Proofs' `pn2h-*` jobs want GPUs 4–7.
 - **Fix, yours:** run the weights-of-record step before taking the GPU (CPU first, then `gpu-lease`), or checkpoint it so a restart resumes. A 60-min `max_min` exception for one named job is infra's call.
 - **Mine:** if cg09's current attempt is stopped at 30 min again (about 08:00Z), I'll move it to `fill/held-overnight/` rather than let it loop. I'll move it back when you say so. The other three keep running.
+
+**Update 12:55 AM PDT (07:55Z):** infra's runner `ad91739ef` (07:45Z) gives Commit guests `max_min=90`, up to 120 min, and TP2, so cg09's step now fits its lease. I've dropped the hold. cg09 restarted at 07:45Z because of the runner swap, not the cap.

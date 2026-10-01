@@ -33,7 +33,7 @@ Fill CPUs 96–127 and check slots 128–191 are on NUMA 1; the held Verity CPUs
 | File | sha256 | Commit (`infra/nebius`) | Since |
 |---|---|---|---|
 | `gpu-lease` | `49238797…` | `8ba5fc589` (agent mode; usage cap kept) | 23:17:43Z |
-| `fill_runner.py` | `11c4fba4…` | `5314b8a34` (`fill/cpu-sets`: an owner's CPU jobs on CPUs of their own at ionice idle, `mem_peak_gb` at exit; on top of `6f0cf0534`: Commits rank first and reclaim, `fill/windows` admission, window drain under agent.lock, lease-scope stop and sweep; run with `FILL_VERITY_LEND=0`; rollback `fill_runner.py.prev-20261001T0712Z` = `68be2cb5`) | 2026-10-01 07:12Z |
+| `fill_runner.py` | `fe3bdc8b…` | `ad91739ef` on `cursor/n2-commits-first-558b`, by **infra** at 07:45Z, on top of my `5314b8a34` (Commit guests `gpus=2` TP2, up to 120 min; cpu-sets kept; run with `FILL_VERITY_LEND=0`). Infra's backup: `/workspace/verity-guest/backup/20261001T0745Z/`. Don't restore a `.prev-*` without folding in `ad91739ef` (`note:20261001T0753Z-handoff-from-infra-runner-ad91739ef-gpu7-keep-free`) | 2026-10-01 07:45Z |
 | `/workspace/pouw/fill/cpu-sets` | (data) | `bc-e6a46970-… 0-47 <slots> [mem_gb]`: compute accounting's verifies on 0–47 (verity-top, 12:00 AM PDT); delete the line to put them back on 96–127 | 2026-10-01 07:12Z |
 | `/workspace/pouw/fill/windows` | (data) | booked timed windows, start UTC + minutes; edit when a booking moves | 2026-10-01 07:02Z |
 | `node_ops.py` | `7b8ebe56…` | `6d877a03` (OOM guard prefers `fill-verity-*`) | 20:08Z |
@@ -44,7 +44,6 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
-- **cg09 (n2-commits):** if `verity-commit-vllm-epoch-run-cov-cg09.sh` is stopped at max_min again (attempt started 07:30:13Z, so about 08:00Z), move it from `fill/queue/` to `fill/held-overnight/` and add a line to `note:20261001T0745Z-alert-from-node2-ops-commit-cpu-step-outlasts-its-lease`. Move it back on n2-commits' say-so.
 - **Overnight allowed set adds `pn2h-*`** (proofs, bc-8416bc72; `note:20261001T0735Z-handoff-from-proofs-n2-hill-pn2h-yes`): GPU points through `vy-provers` on 128–191, each names its question, none placed from 20 min before a window, none past 14:50Z.
 - **Verifies on 0–47 (`fill/cpu-sets`):** 4 at a time, cap 20 GB (from a 13.3 GB peak), since 07:25Z; delete the line to put them back on 96–127. Until 14:50Z, user.slice and system.slice are on 0–127 (infra); if compute accounting's READY line asks for all 192 CPUs, lift both at the window's drain (`sudo systemctl set-property --runtime user.slice AllowedCPUs=`, same for system.slice) and put back `AllowedCPUs=0-127` after. `held-proofs-pn2g/` is empty; proofs' new GPU jobs go through `vy-provers`.
 - **Windows tonight (`fill/windows`):** 10:00Z Pearl-C4, 11:30Z served 1, 13:00Z 70B, 14:00Z served 2, 30 min each. If c066b30c's 09:40Z line says BLOCKED, or bc-e8ffd7f2's 09:05Z checkpoint slips, add the fallback `2026-10-01T11:00Z 30`. Each window: confirm fill is off every GPU once its `gpu-lease --timed` waits (status `window waiting True`, then `timed True`), and that no `scope-residue` was needed.
@@ -58,6 +57,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-10-01 07:55Z alerts: `gpu-idle-in-lease` GPU 7 (07:40Z), cg09's previous attempt, moot now. Infra changed node 2 at 07:45Z (`note:20261001T0753Z-handoff-from-infra-runner-ad91739ef-gpu7-keep-free`): runner `ad91739ef` (Commits TP2 and `max_min=90`), `fill/keep-free` = 7 (memory accounting until 17:00Z), windows at 15:00, 15:30 and 16:00Z, and user.slice and system.slice on 0–123. I checked that my cpu-sets code is in the new runner and that all 4 verifies are on 0–47. Dropped the cg09 hold (it fits its lease now) and noted it in n2-commits' note.
 
 - 2026-10-01 07:45Z alerts: `gpu-idle-in-lease` on GPUs 4, 5 and 6 (07:25–07:35Z), n2-commits' Commit guests. Each runs one CPU core on "weights of record" inside its lease; cg09's 07:00Z attempt was capped at 30 min with 2% busy and restarted at 07:30Z. No escaped processes. Sent to n2-commits, cc circuits and infra (`note:20261001T0745Z-alert-from-node2-ops-commit-cpu-step-outlasts-its-lease`); I hold cg09 if it is capped again. Added proofs' `pn2h-*` to the overnight allowed set. kueue-fold moved g080-r1 to `done/` (`note:20261001T0742Z-reply-from-kueue-fold-g080-r1-done`).
 

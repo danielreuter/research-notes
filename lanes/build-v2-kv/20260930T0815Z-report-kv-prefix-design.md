@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---
 
+CHECKPOINT 872be0366 (02:05Z) [open] #517 granted at 872be036, merge request open, told the coordinator it is train-ready (02:07Z). Trial merge onto main 4860d817 clean, lint passes. Trains TPT/TCX passed it. next: FINAL when it lands
 CHECKPOINT 872be0366 (00:33Z) [open] #587 landed (train TTR). #517 granted by vllm-coordinator at 872be036 (23:16Z); merge request open; trial merge onto main 28174db5 clean, lint passes; waiting for a train. next: FINAL when it lands
 CHECKPOINT 872be0366 (23:02Z) [blocked] on the vllm-coordinator grant for #517 at 872be036. Correction sent: trains come from merge requests, not research queue; #517's request reopened at 872be036 and #587 requested (note:20260930T2301Z-merge-request-build-v2-kv-517-587-correction).
 CHECKPOINT 872be0366 (21:29Z) [blocked] on the vllm-coordinator grant for #517 at 872be036 (asked 16:15Z, routed 18:26Z; no reply). Trial merge onto main e15dc1ef clean, lint passes. #587 admitted, not yet synced.

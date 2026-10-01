@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (11:55Z) [open] 1155Z poll: no change. R1-H's GPU cost run is proceeding with its two conditions labelled (compute accounting, 1141Z). Waiting on bc-4323a347's cap-1/1,000 Lean staging (check that the per-tile pins take the tile-form TT_OUT at 1/1,000 as a hypothesis), on draft 5, and on the FP4 re-grant.
 CHECKPOINT none (11:31Z) [open] 1131Z draft 4 re-review (note:20261001T1131Z-reply-from-d545bc2a-draft4-approval-not-sufficient, art:2e4c4daa): without approval none survives (confirmed); under approval the 0.6-0.8% is NO-GO, since residual persistence makes write harm about 26x too small (C5); the relation attack is up to 2x larger; the debit must be over atom sets. C1-C4 met.
 CHECKPOINT none (11:13Z) [open] 1113Z poll: no change. Waiting on the assessor's FP4 re-grant (after my M5 GO), on answers to R1-H's T1-T5 and C1-C5, and on the v1 cap restatement after Daniel. The Project store is still unmounted here.
 CHECKPOINT none (10:51Z) [open] 1051Z M5 GO: signed as statement reviewer of the 66 FP4 records (policy 19e845c9 at 8e91aeb66), so FP4 condition 2 is met (note:20261001T1051Z-reply-from-d545bc2a-m5-signed-66, art:de8fbf92). All 476 definitions read are as reviewed; replay and leanchecker passed. The assessor's FP4 re-grant is next. Open: the R1-H tile rule (T1-T5), C1-C5, and the v1 cap restatement after Daniel.

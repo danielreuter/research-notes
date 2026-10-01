@@ -5,6 +5,7 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT f12fe3592 (08:46Z) [open] 1:46 AM PDT: #554 re-label done (flags rule in f12fe35; roll-ups + hill.flags labels); clean step 0 ef42/3cd7 now flag-free. 3x2 tile refused by the verifier (6 units/VU, not a power of two), tiles stopped. Node 2 RUNS=96 (byte-identical): K=2048 4.36e7 (af2b), K=4096 2.28e7 (0970), K=8192 2.37e7 (932b; /0.95 = 2.50e7, 21% under node 1's s3 3.16e7, GPU util 0.86 vs 0.60). RUNS=96 is a measurement check, not a lever: node 1 is slower at K=8192. Next lever: 2 verifier servers (node 1 K=8192/16384, node 2 K=2048/4096).
 CHECKPOINT none (08:15Z) [open] 1:16 AM PDT, clean: K=8192 s2 overlap 3.04e7 (c459), s3 lincheck 3.16e7 (b3ec, prover-bound). Tiles: blocks cap at 2^26, so 4x2/4x3 at K=4096 fail (2^27) and none gains at K>=8192; trying 3x2 at K=4096 (1.5x coords). Staging K=16384 for s2/s3. 3 node-2 items queued.
 CHECKPOINT none (07:56Z) [open] 12:56 AM PDT, all clean: K=2048 s5 fold+overlap 4.85e7 (97e4), s6 lincheck 4.27e7 (9094, verify 0.32 s), s7 4x4 tile 1.44e7 (4da7, tile-statement-unreviewed). K=4096 s3 lincheck 2.39e7 (8bb3). Next: tiles at K=4096 (4x3) and K=8192 (2x3); K=8192/16384 overlap+lincheck.
 CHECKPOINT none (07:37Z) [open] 12:38 AM PDT: step-1 gains vs clean step 0: K=16384 5.82e8->1.83e8 (e54c) 3.2x; paired 2b1a 1.98e8 flagged by kcompactd1 (note to infra). K=8192 2.84e8->1.47e8 (a814) 1.9x, clean. K=4096 s1 6.95e7, s2 overlap 2.62e7 (ca26), clean. Running K=2048 s5, K=4096 s3.

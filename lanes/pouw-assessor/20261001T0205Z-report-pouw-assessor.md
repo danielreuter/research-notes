@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (22:17Z) [open] 3:17 PM PDT: no new asks. m64-n512-k2048 re-time has a node-2 window at 22:20Z (infra notice); I rate it once it ACCEPTs with control REJECT. Store unmounted; ledger line pending (self/pending/ledger-2156Z.txt). Watching cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (21:56Z) [open] 2:56 PM PDT: bbe249577 and the replay R1 fix are on main; Pearl-C4 C now covers 128<=n<4,096 Python only (note:20261001T2156Z-reply-from-f9af3acc-bovf-r1-landed). m64-n512-k2048 waits only on its timed re-time (pouw-fp4, node-2 window). Store unmounted; ledger line pending in self/pending/ledger-2156Z.txt. Watching the re-time, cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (21:44Z) [open] 2:44 PM PDT: no new asks. Project store still unmounted; ledger current at 219 lines, nothing pending. Watching bbe249577, r1_rows branch (49b8), cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (21:23Z) [open] 2:23 PM PDT: no new asks. Project store still unmounted; ledger current at 219 lines, nothing pending. Watching bbe249577, r1_rows branch (49b8), cap branch 49d46c651, 2f661c92 eps candidates.

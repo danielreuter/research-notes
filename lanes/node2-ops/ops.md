@@ -46,6 +46,12 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
+- **Due on the 16:32Z alerts tick** (no timer: `subscribe_timer` returned `invalid_argument` from 16:14Z, and the 16:34Z one-shot was removed while I worked around that):
+    - the 15Z hourly, deferred from 16:05Z for the 16:00Z timed window: `hourly.sh` and its `ops.md` line;
+    - the backup, which must be preserved before 16:55Z (otherwise run it after the hand-back);
+    - infra's hand-back time: move the 17:25Z line to it and set the cutover line to match;
+    - confirm job B started by 16:35Z.
+  The 17:28Z one-shot (after the hand-back) still stands.
 - **Inbox on every alerts tick** (from 13:05Z): `~/node2-ops/inbox.sh` lists the notes added on origin since the acked commit that are in `lanes/node2-ops/` or name node2-ops, and `inbox.sh --ack` advances it. I missed pouw-node2's 12:41Z ask for 25 min because the alerts tick read only `alerts.jsonl`.
 - **Node 2 quota cutover, 10:00 AM PDT (17:00Z), else 10:15; hand-back by 10:25** (top-level 8:52 AM PDT; infra posts the time by 9:30). Fill has been held since 16:09Z. The runner's env is `FILL_VERITY_LEND=0 FILL_CPU_SLOTS=0 FILL_VERITY_UNTIL=2026-10-01T16:00:00+00:00 FILL_VERITY_STOP=2026-10-01T16:55:00+00:00`, and `fill/windows` has `17:00Z 25` (the cutover) and `17:25Z 30` (served window 4). At the hand-back:
     - restart the `pouw-infra-fill` loop with `export FILL_VERITY_LEND=0` only, unless infra already did;

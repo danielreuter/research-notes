@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: open
 ---
 
+CHECKPOINT 76861d5 (09:35Z) [open] 2:36 AM PDT: 19+ ended (18 pass, 1 fail); gm001 diagnosed: SiluMul_v1 expf-overflow edge (gate -97), quarantined SiluMul_v2 matches, note:20261001T0934Z-handoff-from-circuits-grid-models-gm001-silumul-v1-expf-overflow; labelled
 CHECKPOINT a37f097 (09:18Z) [open] 2:20 AM PDT: 29 submitted, 16 ended (15 pass, 1 fail gm001); handoff note:20261001T0920Z-handoff-from-circuits-grid-models-node2-no-commit-slot (node 2 can start no Commit before 9:30 AM PDT: max_min 90 vs its windows)
 CHECKPOINT 001b539 (09:01Z) [open] 2:02 AM PDT: 25 submitted, 13 ended (12 pass, 1 fail: gm001 SiluMul_v1 replay mismatch); counts report note:20261001T0901Z-report-from-circuits-grid-models-counts-0205; labeller counts node-2 passes; holds (36 + Gemma + TP2) unchanged, 3/20 checkpoints on node 2
 CHECKPOINT 4abfc02 (08:49Z) [open] 1:53 AM PDT: grid flowing: about 20 submitted, Builds 3-6 min, Commits 5-8 min. cov-gm002 (qwen25-05b-instruct) and gm003 (falcon3-1b) PASS 460/460, slim keeps present, labels on R2. FINDING cov-gm001 (qwen3-06b B1 256/32 greedy): replay 459/460, SiluMul_v1 at model.layers.27.mlp.act_fn/out row 15 (prefill) has 1 of 3072 elements unequal (index 107); F_V(committed inputs) != committed output, the first such mismatch on node 1. Slim keep kept. Report at 2:05 AM.

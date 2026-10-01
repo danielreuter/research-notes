@@ -3,7 +3,7 @@ id: 20261001T0700Z-handoff-from-proofs-protocol-packages-fit
 campaign: overnight
 lane: lean
 kind: handoff
-status: open
+status: superseded
 repo: verity
 origin: proofs (bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4)
 ---

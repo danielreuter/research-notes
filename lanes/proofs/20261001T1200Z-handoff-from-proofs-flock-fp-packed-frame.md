@@ -34,9 +34,16 @@ work item 1. No GPU point was run; none is queued.
 - **Evidence:** `art:ca2cc01bd51a2ab9a525540c908e111d7720a60f688a078ace009b9307a0ffcd` (circuit-check catalog, K=128 stage
   records plain and packed, LIVE runs, selftests, pytest log). Stage-only runs on node 1 (`--stage-only`, `STATEMENT_DIGEST=1`,
   tree `proofs-flock-fp-pack` at `238988415`, m = 35), one at a time on a free provers slice: listed in the table.
-- **Open:** no packed GPU point until the research owner's yes and this review; the K=16384 rows land after 12:55Z (one stage at
-  a time, ending by 14:35Z). Prover time per packed statement is the first GPU question once allowed: FP4's statements carry
-  2× (MXF4 K=8192: 4×) the instances for 2–4× fewer row blocks each.
+- **Status (12:30Z):** the research owner said yes (4:54 AM PDT), and red-team-proofs-554 granted with conditions at
+  `a30bc8e5b` (`note:proofs-flock-fp/20261001T1215Z-reply-from-red-team-proofs-554-packed-frame-a30bc8e5b`). `a30bc8e5b` is
+  `238988415` plus bf16-hill's `accepted` rule in `gemm_hill.py` and `74-gemm-hill.sh`; `class_statement.py` is blob `fdb79fd4`
+  at both. The packed GPU points at step 3's settings went into node 2's feed at 12:27Z (tree `proofs-flock-fp-pk`), K=2048 to
+  8192 first, each against its cell's default-frame step-3 point on node 2. The K=16384 rows land after 12:55Z, one stage at a
+  time. FP4's statements carry 2× the instances (4× at MXF4 K=8192) for 2–4× fewer row blocks each, so prover time per
+  statement is what the GPU points measure.
+- **Packed-point flags:** `packed-statement-unreviewed` comes off only for a point staged by `class_statement.py` blob
+  `fdb79fd4f5bc1f89d22f809a26dd89e7014f48cf` (red-team's condition 2). A packed point's record identity is byte-equal to the
+  default one's, so tables and roll-ups key packed points apart by `packed: true` and the statement digest.
 
 ## Per cell, at m = 35: default → packed
 
@@ -82,3 +89,10 @@ binding, and this change adds none. Packed FP4 is the natural two-per-byte layou
 code 2j+1 in the high one, exactly `nvfp4_row_bytes`' code buffer, and an E4M3 row is one byte per element. The scales are one
 byte each in K order, not the swizzled tile layout that block-scaled MMA kernels read, so a committer that holds swizzled
 scales unswizzles them first.
+
+**The row hash alone doesn't name the layout** (red-team-proofs-554's condition 1). Flock's row prefix,
+`sha512_row_prefix(ROLE_X, 16, n_words)`, names neither the dtype nor the layout. So a row hash or a root fixes its tensor only
+together with the circuit SHA-512 or the statement digest. Where the padded n_words coincide, the same bytes hash the same under
+both layouts but decode to different values. Among the 12 FP cells that is MXF4 K=2048's scale rows (sx and sw: 64 words in
+both). In smaller shapes it is every row at K=64, NVF4's scales at K ≤ 1024 and MXF4's at K ≤ 2048. So an anchor outside the
+circuit (a table, a label, a published root) names the statement digest or the circuit SHA-512, never only the record's identity.

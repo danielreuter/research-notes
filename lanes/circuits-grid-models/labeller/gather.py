@@ -3,6 +3,7 @@ dispatcher's done.jsonl and the item's sweep dir, as one JSON line each. Read-on
 import json
 import re
 import sys
+import time
 from pathlib import Path
 
 SINCE = "2026-10-01T07:00:00Z"
@@ -10,23 +11,34 @@ ROOT = Path("/workspace/jobs/dispatch")
 COV = Path("/workspace/jobs/cov")
 RUN = re.compile(r"r20\d{6}-\d{6}-[0-9a-f]{4}")
 
-ends = {}
+ends, moved = {}, set()
 for line in (ROOT / "log.jsonl").read_text().splitlines():
     if '"vllm-epoch-run/cov-gm' in line and '"ev": "end"' in line:
         e = json.loads(line)
         ends[e["key"]] = e["t"]
+    elif '"vllm-epoch-run/cov-gm' in line and '"ev": "moved"' in line:
+        moved.add(json.loads(line)["key"])
 outcome = {}
 for line in (ROOT / "done.jsonl").read_text().splitlines():
     if '"vllm-epoch-run/cov-gm' in line:
         e = json.loads(line)
         outcome[e["key"]] = e
+# a Commit that n2_commit.sh moved to node 2 and that replayed there with rc 0 never reaches done.jsonl: its row's .n2-replay
+# marker ("RUN_ID RC", copied home with the row) is the end. A failure on node 2 goes back to node 1's dispatcher, which ends it.
+for key in moved - outcome.keys():
+    for mk in (COV / key.split("/", 1)[1]).glob("*/.n2-replay"):
+        parts = mk.read_text().split()
+        if len(parts) == 2 and parts[1] == "0":
+            t = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(mk.stat().st_mtime))
+            outcome[key] = {"key": key, "state": "succeeded", "rc": 0, "task": 2, "t": t, "on": "vy-nebius-2"}
 for key, e in outcome.items():
     t = e.get("t") or ends.get(key, "")
     if t < SINCE:
         continue
     item = key.split("/", 1)[1]
     rows = sorted(p for p in (COV / item).glob("*/") if p.is_dir()) if (COV / item).is_dir() else []
-    rec = {"key": key, "state": e.get("state"), "rc": e.get("rc"), "task": e.get("task"), "t": t, "row": None, "runs": [],
+    rec = {"key": key, "state": e.get("state"), "rc": e.get("rc"), "task": e.get("task"), "t": t, "on": e.get("on", "vy-nebius-1"),
+           "row": None, "runs": [],
            "stages": [], "max_gates": None, "word_fail": None}
     if rows:
         d = rows[0]

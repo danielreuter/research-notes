@@ -69,6 +69,8 @@ def desired(rec: dict) -> dict[str, str]:
     row = rec["row"] or QUESTIONS[item]["row"]
     passed = rec["state"] == "succeeded" and any(s.startswith("config PASS") and "460/460 equal" in s for s in rec["stages"])
     parts = [PREFIX]
+    if rec.get("on") == "vy-nebius-2":
+        parts.append("Commit and replay on vy-nebius-2 (n2_commit.sh offload; the Build on vy-nebius-1)")
     if "__stoch-" in row and rec["max_gates"] is not None:
         m = re.search(r"=(\d+)", rec["max_gates"] or "")
         parts.append(f"sampler Call one unit (MAX_GATES raised to {m.group(1)}); not provable in practice" if m

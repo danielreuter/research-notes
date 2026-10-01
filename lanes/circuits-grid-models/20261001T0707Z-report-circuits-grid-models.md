@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: open
 ---
 
+CHECKPOINT 2be6e6f (10:00Z) [open] 3:00 AM PDT: 48 submitted, 35 ended (33 pass, 2 fail: both SiluMul_v1 expf-overflow edge, labelled by silu_check); 4 Commits stuck on node 2 (no slot before 9:30 AM PDT); feeder now gates Builds on my node-1 Commits so fewer wait into offload
 CHECKPOINT 76861d5 (09:35Z) [open] 2:36 AM PDT: 19+ ended (18 pass, 1 fail); gm001 diagnosed: SiluMul_v1 expf-overflow edge (gate -97), quarantined SiluMul_v2 matches, note:20261001T0934Z-handoff-from-circuits-grid-models-gm001-silumul-v1-expf-overflow; labelled
 CHECKPOINT a37f097 (09:18Z) [open] 2:20 AM PDT: 29 submitted, 16 ended (15 pass, 1 fail gm001); handoff note:20261001T0920Z-handoff-from-circuits-grid-models-node2-no-commit-slot (node 2 can start no Commit before 9:30 AM PDT: max_min 90 vs its windows)
 CHECKPOINT 001b539 (09:01Z) [open] 2:02 AM PDT: 25 submitted, 13 ended (12 pass, 1 fail: gm001 SiluMul_v1 replay mismatch); counts report note:20261001T0901Z-report-from-circuits-grid-models-counts-0205; labeller counts node-2 passes; holds (36 + Gemma + TP2) unchanged, 3/20 checkpoints on node 2

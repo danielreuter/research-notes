@@ -60,7 +60,7 @@ proof bytes (572482, 628418, 740162 per rep) equal bf16-hill's runs. No case tim
   - `plot` now reads an attempt's points the same way, through `research data show`, since `select --attempt` returns
     nothing.
 - **Tests:** `test_gemm_hill.py` covers the roll-up from the store and from the run directory, a tampered file, a missing
-  attempt, and `POINTS=0`. Run with `test_class_statement.py`: 14 passed. CPU dry runs of `POINTS=0` and
+  attempt, and `POINTS=0`. Run with `test_class_statement.py` at `65c230902`: 15 passed. CPU dry runs of `POINTS=0` and
   `STAGE_ONLY=1 POINTS=0`, and of both specs' commands through the template's `bash -c`, behaved as intended.
 - **Tried on real data, on a copy only:** I ran the how-to's node-1 command against a copy of
   `/workspace/usage/hillclimb/bf16-GemmCoordinate_v2-K2048.json` with my session `r20261001-092917-8b05`. All 10 of its rows

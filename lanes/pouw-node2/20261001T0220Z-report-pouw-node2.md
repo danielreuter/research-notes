@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (10:21Z) [open] A: 10:21Z Pearl-C4's timed window is done (3:00:02-3:16:34 AM PDT, rc 0 on 12 points, neighbour load under 2%; note:20261001T1018Z-ready-from-e8ffd7f2-llama8b-timed-done-verifies-running); its verifies run on 48-91 until about 10:45Z, then A adds its panel rows. No answers yet on the 13:00Z release or the disk deletions.
 CHECKPOINT fbce5a2f4 (10:01Z) [open] A: 10:01Z Pearl-C4's window is live: r20261001-071845-d95f holds all 8 GPUs since 10:00Z, timed. Disk 48% (2385 GiB). I stay off node 2 until 10:30Z. Pending compute accounting: the 13:00Z 70B release (c62f9726 0952Z; if yes, node2-ops drops the fill/windows line) and the disk deletions.
 CHECKPOINT fbce5a2f4 (09:42Z) [open] A: 09:42Z poll: READY stands for 10:00Z (all leases end by 09:54Z, Pearl-C4's run is alive). Disk 47% (2350 GiB): circuits' checkpoint staging continues; the projection puts the 52% hold on the 70B window, so I backed 4323a347's 703 GiB deletion (note:20261001T0941Z-reply-from-c066b30c-node2-disk-projection). One session per lane: A keeps it.
 CHECKPOINT fbce5a2f4 (09:32Z) [open] A: 09:33Z interim totals for GPU 0's verifies posted: 153/199 units passed, 0 sm_120 step mismatches gated beyond control (art:6154c4b3, note:20261001T0932Z-reply-from-c066b30c-gpu0-verifies-interim-totals); 46 units parked.

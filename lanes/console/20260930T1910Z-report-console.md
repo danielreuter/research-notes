@@ -151,3 +151,4 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 - CHECKPOINT 11:20Z (4:20 AM PDT, cloud): 28 open PRs on verity (7 drafts); PR captain's file updated 11:12Z, copied 11:12Z; Overnight set unchanged; node1 37 of 37 (11:19Z), no error runs. Production c58161d.
 - CHECKPOINT 11:40Z (4:40 AM PDT, cloud): quiet; 28 open PRs on verity (6 drafts); Overnight set unchanged; node1 37 of 37 (11:39Z), no error runs. Production c58161d.
 - CHECKPOINT 12:00Z (5:00 AM PDT, cloud): 29 open PRs on verity (6 drafts); 4:50 AM goal notes copied 11:47Z and 11:52Z (27 of 27 with notes, 11 done); node1 37 of 37 (11:59Z), no error runs. Production c58161d.
+- CHECKPOINT 12:20Z (5:20 AM PDT, cloud): 28 open PRs on verity (6 drafts); PR captain's file 11:54Z copied; goal notes copied 12:07Z (14 done); node1 37 of 37 (12:19Z), no error runs. Node 1's quota cutover 5:40–5:55 AM: the loop retries any failed copy on its next pass. Production c58161d.

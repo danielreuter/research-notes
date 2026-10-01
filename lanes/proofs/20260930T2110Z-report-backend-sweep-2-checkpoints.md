@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT 5466ad63 (07:44Z) [open] 12:45 AM PDT: FP step 1 E4M3 K=16384 4.49e8 (-38%, clean); IR check r20261001-073736-9655 on 46c768b2c running; #554 fresh reviewer red-team-proofs-554 started; n2-hill parity running (e4m3, mxf4 K=2048); node 2 range to 17:00Z pending infra; node 1 disk 36%, provers CPU 48 GPU 2; post-7:50 plan and morning list drafted in state.md
 CHECKPOINT b5e3df46d (07:01Z) [open] 12:00 AM PDT: goal 2 at 82.8 s (step 5 r20261001-064454-9419, from 148.7; target 50, needs lever A = Daniel); 4 clean step-0 re-runs in provers; node 2 runner proofs-n2-hill preparing (4x16 cores granted to 7:50 AM); protocols answer docs/protocols-layout.md; inbox 0610Z answered by infra's 128-191 rule
 CHECKPOINT cc21a7d94 (06:31Z) [open] 11:31 PM PDT: 4 prover slots; pair to submit into 2 free; lanes <=2 until then; proofs-mufu started; split on interface page; inbox items acted (direct runs to infra, estimates)
 CHECKPOINT 9e6a08a4 (06:05Z) [open] 11:08 PM PDT: overnight goals relayed (all formats x 4 K climbed, flags cleared; GPU held <=50 s; #638 landed); #638 recorded check started by the writer; #554 review asked of red-team-flock-3; proofs-ir asked for Boolean IR times

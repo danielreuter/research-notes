@@ -1,0 +1,11 @@
+{
+  "schema": "verity/slack-route/v1",
+  "name": "lean",
+  "holder": "bc-19c498a8-628e-5c04-8f61-fe785a24741b",
+  "channel": "C0C5RCXL66N",
+  "inbox_ts": "1790876784.355249",
+  "opened": "2026-10-01T17:46Z",
+  "closed": null,
+  "forward_to": null,
+  "remit": "Lean: reviews every audit-flagged change to a pinned Lean guarantee (Daniel, 2026-10-01 10:18 PDT)"
+}

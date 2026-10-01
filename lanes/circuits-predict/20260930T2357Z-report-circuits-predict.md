@@ -5,6 +5,7 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT none (01:59Z) [open] 7:04 PM, 11:40 goal HIT early: predicted Program digest == traced for SmolLM2-135M (cov-k01-10), Llama-3.2-1B (cov-k05-7), TinyLlama (cov-k04-7) at rtxpro6000 TP1 B1 256/32 greedy bi-eager, step + request + workload, 9/9 units exact (art:0ed6c4da121a); older-tree traces k01-9/k04-6 differ (Attention_v2 drift). Full score: local pass + 4 node-1 shards running; 7:40 art next
 CHECKPOINT f9290bab6 (01:47Z) [open] 6:48 PM: MoE (OLMoE, Qwen3-MoE) in the predictor at f9290bab6, steps exact for both; full local score pass running (1742 cached units); next: node-1 job for the over-budget units, 7:40 score art
 CHECKPOINT none (01:08Z) [open] 6:12 PM PDT: 8962d0ee5 adds Qwen2 q/k/v bias, Qwen3 per-head q/k norm, Phi-3 inert window (exact on cov-k03-7, cov-k07-3, cov-g242); score pass restarted with them (798 tasks, 4 workers); next: divergence pass, store score
 CHECKPOINT 8962d0ee5 (01:03Z) [open] 8962d0ee5: vocabulary now also covers Qwen2 q/k/v bias, Qwen3 per-head q/k norm, Phi-3 inert sliding window; digest-exact step+request+workload vs near-main traces: Qwen2.5-0.5B (cov-k03-7), Phi-3-mini (cov-k07-3), Qwen3-4B (cov-g242), SmolLM2 stoch B1/B8 (cov-k17, cov-g230); score pass ~2/3 done; next: rerun plan with new families, divergences, store

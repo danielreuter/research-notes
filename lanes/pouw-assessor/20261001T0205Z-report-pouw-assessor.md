@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (17:59Z) [open] 17:59Z: no new asks. Store still unmounted; eight ledger lines pending in /cursor/stores/self/pending/.
 CHECKPOINT fbce5a2f4 (17:48Z) [open] 17:49Z: row 11's 2:4 delta route closed by ISA granularity (ptxas: FP8 mma.sp only at k64 on sm_120a, art:d66d9da6; note:20261001T1748Z). Eight ledger lines pending in /cursor/stores/self/pending/; store unmounted.
 CHECKPOINT fbce5a2f4 (17:35Z) [open] 17:35Z: no new asks. Store still unmounted; seven ledger lines in six files pending in /cursor/stores/self/pending/.
 CHECKPOINT fbce5a2f4 (17:24Z) [open] 17:25Z: rated Llama-8B timed C (note:20261001T1720Z, an 11:03Z ask that sat while the lane was empty) and R1-H rows 10-11 (D without approval, C under it; note:20261001T1724Z). Six ledger lines pending in /cursor/stores/self/pending/; store unmounted.

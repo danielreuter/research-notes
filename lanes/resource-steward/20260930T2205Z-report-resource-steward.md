@@ -209,10 +209,11 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   each in node 1's `/workspace/jobs/runs/<run>/`) are regenerable and may go once proved, and whether the feeder can hold
   new rows or clean up after itself. Asked at 3:43 PM PDT
   ([thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790808184589359)), reply wanted by 4:15 PM PDT.
-- Source trees the sweep keeps because they hold files outside their commit (not asked yet; in the 8 AM PDT summary):
+- Source trees the sweep keeps because they hold files outside their commit (asked at 1:05 AM PDT,
+  [thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790841929326899); a ✅ lets the steward delete them):
   - node 1, `overnight-sep30` (vLLM): `29f691be`, `c379497f`, `ddeabc86`, `e3238d3c`, each with 6 untracked
     `integrations/vllm/workloads/*__bi-eager.json`;
-  - node 1, `9b88cb01` (16 GB, run `r20260930-131845-b088`, no campaign): modified `protocols/{pous,network_warden}/lean/lean-audit.json`;
+  - node 1, `9b88cb01` (16 GB, `check` run `r20260930-131845-b088`, no campaign; asked @proofs): modified `protocols/{pous,network_warden}/lean/lean-audit.json`;
   - node 1, `vllm-sm120`: `b84e85ef`, modified `tools/circuit_check/src/circuit_check/pins.json`;
   - node 2, `pouw` (@compute-accounting): `0555d893` with 25 files in `RUN_OUT/` (`tc_probe_fp4` runs), and
     `1fbf4fbd`, `2dfaf436`, `7d9c944b`, `80a4c8ff`, `adb66134` with a modified `pouw_hash_bench` submodule (`gpu-lease` runs).
@@ -336,5 +337,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   during a load spike on node 1: load5 went from about 92 at 07:36Z to 473 at 07:51Z on 128 cores, with CPU pressure
   ("some") at 36–43% and I/O pressure low. It came from `lean` (user research) and `python` (user ubuntu) processes
   outside Kubernetes, not from the sweep, and was down to load1 163 by 07:59Z. `node-sweep.sh` now logs on the node and
-  outlives a dropped ssh, and `sweep.sh` skips a node already sweeping (§2). Slack: one line in #agent-coordination
-  (over 50 GB).
+  outlives a dropped ssh, and `sweep.sh` skips a node already sweeping (§2). Slack (over 50 GB): one announcement in
+  #agent-coordination with the totals, addressed only to the owners of the kept trees (@circuits, @compute-accounting,
+  @proofs), each asked whether its trees' extra files are preserved or not needed
+  ([thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790841929326899), subscribed).

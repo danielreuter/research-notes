@@ -343,3 +343,7 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 23:20Z: constant-api-public.md rewritten (505 lines; backup .pre-hidden-values-20261001.md). Sent proofs 4 more #723 notes (pinned operation list, evaluator tables, library docstring, run-constant consumers).
 - 23:20Z: T717 4ddd7a5a3 slot a r20261001-231841-a235.
 - 23:28Z: constant-api-public.md §4 q4: added proofs table-read costs (art:60de3b7d…), pending Daniel on fixed-function tables.
+- 23:35Z: mirror edit-sync fix delegated (bc-7ec4a1bc) per root via infra.
+- 23:37Z: root example for mirror fix: lanes/vllm-coordinator/checkpoints.md (store edit never reached research-notes). Verify against it when bc-7ec4a1bc returns. Steward told to stay out of pass.sh.
+- 23:40Z: infra gave mirror overwrite examples (stale copy beats newer edit): see internal/lanes/coordinator/mirror-overwrite-examples-20261001.txt. Resume bc-7ec4a1bc with these + root example before accepting the fix.
+- 23:40Z: FORWARD PAUSED per root (flag ~/cloud-mirror/PAUSE_FORWARD; pass.sh line 112, backup .bak-20261001T2338Z); reverse + pre-sync continue. After fix: one-time recovery of dropped lines since 29 Sep via git history; report count. Check bc-7ec4a1bc kept the pause line.

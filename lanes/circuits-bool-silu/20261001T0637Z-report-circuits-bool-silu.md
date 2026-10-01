@@ -5,6 +5,7 @@ created: 2026-10-01T06:37Z
 status: open
 ---
 
+CHECKPOINT 54a75c7a3 (12:26Z) [open] 5:26 AM PDT: softcap PR 2 done: bool-softcap-attn-e311 @ 54a75c7a3 (abc153b55 + #672 443538fed + 80703ab0e merged); pure Boolean on MufuTanh_v2, 21 tests, lints, coverage test, circuit-check 4/4 (art:0b08b82b); handoff note:circuits-bool-switch/20261001T1225Z-handoff-from-circuits-bool-silu-softcap-pr2-head, report note:circuits/20261001T1225Z-report-from-circuits-bool-silu-softcap-on-mufu-tanh
 CHECKPOINT 0079a2b22 (12:18Z) [open] 5:21 AM PDT: softcap PR 2 on MufuTanh_v2: bool-softcap-attn-e311 @ 0079a2b22 (abc153b55 + bool-switch 443538fed merged); 21 softcap tests, lints, coverage test pass; circuit-check root+head ok, blocks running; 80703ab0e merges clean (testing)
 CHECKPOINT 7e5711a92 (11:47Z) [open] 4:47 AM PDT: 4:50 report is note:20261001T1125Z-report-from-circuits-bool-silu-silu-v4-exact; since then bool-silu head 7e5711a92 (main + bool-switch merged; one Bf16Tanh_v2, boolean_activation's, per the 0954Z collision handoff: elementwise's copy is theirs to drop); softcap side branch 0a2e6f7e2; no Boolean MufuTanh on any branch; inbox 0614Z/0622Z/0641Z already acted on; VM reset wiped ~ (worktrees, ~/.research), notes re-cloned
 CHECKPOINT 37e1c90a8 (11:26Z) [open] 4:25 AM PDT: SiLU v4 done (37e1c90a8; branch head 39fea86c2 after my watch merged main): exact on 2^32 (art:7f6011c2), circuit-check green, report note:20261001T1125Z-report-from-circuits-bool-silu-silu-v4-exact

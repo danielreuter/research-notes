@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (11:38Z) [open] A: 11:39Z Pearl-C4 Llama-8B on the panel (15 rows; art:37a9498c; synced; note:20261001T1137Z-reply-from-c066b30c-pearl-c4-llama8b-on-panel). Served window 1's timed lease is done. READY for ncp at 12:05Z (note:20261001T1138Z-ready-from-c066b30c-node2-1205z-ncp). The Project store isn't mounted on this VM since 07:00Z, so its panel copy lags (told compute accounting). Disk 48%.
 CHECKPOINT fbce5a2f4 (11:01Z) [open] A: 11:02Z READY for served window 1 at 11:30Z (note:20261001T1101Z-ready-from-c066b30c-node2-1130z-served-1). pouw-ncp is READY for 12:05Z (2f661c92 1044Z; its run r20261001-104904-38fa is waiting). Disk 48%. GPU 0's verifies still parked.
 CHECKPOINT fbce5a2f4 (10:40Z) [open] A: 10:41Z poll: node 2 out of the window; 6/8 GPUs free (both waiters are memory accounting's, on GPU 7 by design). GPU 0's verifies still parked (31 jobs done, 25 queued; no ruling yet on 48-91). Disk 48% (2373 GiB, down from 2385). No answers yet on the 13:00Z release or the deletions. Next: Pearl-C4 panel rows, the 11:10Z READY line.
 CHECKPOINT fbce5a2f4 (10:21Z) [open] A: 10:21Z Pearl-C4's timed window is done (3:00:02-3:16:34 AM PDT, rc 0 on 12 points, neighbour load under 2%; note:20261001T1018Z-ready-from-e8ffd7f2-llama8b-timed-done-verifies-running); its verifies run on 48-91 until about 10:45Z, then A adds its panel rows. No answers yet on the 13:00Z release or the disk deletions.

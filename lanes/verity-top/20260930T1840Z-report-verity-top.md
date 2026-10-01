@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:57Z) [open] 6:57 PM PDT: migrating off old PoUS Project (compute accounting, by 9 PM); Lean baseline #629 to infra; proofs-circuits interface page due 7:30
 CHECKPOINT none (01:41Z) [open] 6:42 PM PDT: acted on proofs' GPU-priority handoff: circuits first, proofs floor 2 GPUs on node 1 (infra enforcing), proofs' offers to circuits, restatement criterion asked of lean
 CHECKPOINT none (01:41Z) [open] 6:40 PM PDT: PR hygiene audit and old-accounting backlog doc started for Daniel; Daniel's key on node 2
 CHECKPOINT none (01:25Z) [open] 6:25 PM PDT: HF token install sent to Daniel; Boolean IR rulings settled; Lean workflow asked of lean

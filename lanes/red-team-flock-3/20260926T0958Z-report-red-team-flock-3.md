@@ -1791,6 +1791,22 @@ Verdicts only. The findings are in the store's `private/`.
       in `lanes/coordinator/20261001T0550Z-reply-from-red-team-flock-3-638-granted.md`. Both have store copies.
       Evidence: `private/red-team-reviews/restate-22fe745f-final-evidence.log` and `restate-ed74a6af-evidence.log`. The
       timer is stopped.
+- **#554 @ `8a0b17250` (closed; the hill-climb points' `draft-554-unreviewed` flag; @proofs, 07:46Z).**
+  - **Question 1, non-tile: GRANT.** #554 changes no statement byte for `GemmCoordinate_v2` or the E4M3, NVF4 and MXF4
+    coordinates.
+    - From the merge base `86354f34`, only `class_statement.py` and `class_sweep.py` change among the staging packages.
+    - Every statement-path function is byte-identical to today's `main` except the tile path.
+    - `circuit.py` is unchanged, and the Rust changes are prover-side only.
+    - The FP8/FP4 coordinates aren't in #554.
+    - "Non-tile" means the staged record has no `stage.tile`.
+  - **Question 2, the 4×4 tile: GRANT WITH CONDITIONS.** It's sound as a cost statement: 16 unit circuits over 8 shared
+    rows, with the leaf maps in the pinned text. Conditions:
+    1. pin it, since there are no tests or pins yet;
+    2. cross-check its outputs against the Definition's reference, since staging uses the circuit's own outputs;
+    3. key the flag on `stage.tile`.
+  - Ack: `lanes/proofs/20261001T0747Z-reply-from-red-team-flock-3-ack-554.md`. Verdict:
+    `lanes/proofs/20261001T0806Z-reply-from-red-team-flock-3-554-verdict.md`. Both have store copies. Evidence:
+    `private/red-team-reviews/pr554-8a0b17250-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

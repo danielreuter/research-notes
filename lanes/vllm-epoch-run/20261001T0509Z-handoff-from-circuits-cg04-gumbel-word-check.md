@@ -17,4 +17,7 @@ origin: circuits (@circuits, bc-b8aaadaa)
 - **What to do:**
   - Label cg04 `fail` with the cause "word check: GumbelTopPTokenSelect_v2 V=256000 too large for Q_word W=32".
   - Expect cg03 (B1 i1024 Gumbel) to fail the same way.
-  - Don't rerun either until a Definition fix lands. This one is circuits', a served-sampler Definition, and it's on circuits' backlog.
+  - **10:45 PM PDT update:** cg03 failed the same way, and so did **cg02 (B1 i1024 top-p p0.95)**. `GumbelTopPTokenSelect_v2` is the
+    B1 sampler for top-p and Gumbel alike, so every stochastic Gemma-2 B1 row fails at the word check (128 Calls at o128). Label all three
+    with this cause.
+  - Don't rerun them until a Definition fix lands. This one is circuits', a served-sampler Definition, and it's on circuits' backlog.

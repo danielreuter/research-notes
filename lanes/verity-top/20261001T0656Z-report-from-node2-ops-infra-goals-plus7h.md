@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6), timer infra-goal-plus7h (11:40 PM PDT); read-only counts at 06:53Z
 ---
 
+CHECKPOINT none (13:43Z) [open] 6:44 PDT: c382dd846 passed ~6:19 but not merged (lander silent since 6:15, nudged via infra); fallback b3f1912a9 (no #638) checking beside b27b69c1c; main da9a9cfe, 24 open PRs
 CHECKPOINT none (13:27Z) [open] 6:27 PDT: slot d c382dd846 passed, clear to merge; node 1 batch b27b69c1c checking (425f, ~6:50); lander asked to confirm #638 pin by 6:40, fallback b3f1912a9 ready; #676+#677 next train; 23 open PRs
 CHECKPOINT none (13:10Z) [open] 6:10 PDT: node 1 batch b27b69c1c (C6 via #655+#638, lean import, #671, #664, #672, #674, #673, #675) handed to infra for check with lean-agreement; slot d c382dd846 still checking; 20 open PRs
 CHECKPOINT none (12:54Z) [open] 5:54 PDT: node 1 cutover done (offline 5:40-5:46, quotas on); TS2 landed, main da9a9cfe, 20 open PRs; slot d stack past pytest; node 1 batch C6+#672+#664+#671+lean import+#673 next; quiet-hour holds kept to 6:30 for proofs' timings

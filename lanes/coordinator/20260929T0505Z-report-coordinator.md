@@ -288,3 +288,22 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 06:14Z: #363 pulled (Daniel backlog hold, no release). C5B (#611) slot b r20261001-061246-974b mm 8e88c83e.
 - 06:39Z: T580 merged 4e2a7abc. T49 (#570 #491) slot a on C5B. #611 #640 need vllm grant.
 - 07:43Z: C5B + T49 merged, main aac15370. T588 (#588 #641) slot a on T640; #588 needs vllm grant.
+- 08:12Z: T496 (#496 f730d513f) slot b on T588. verity-root: new 0736Z proofs ask to wake red-team-flock-3 for #554.
+- 08:15Z: RULE: run research data labels-sync --pull-only before any grant check/announcement (/tmp/grantcheck.sh). 4 stale-grant misses tonight.
+- 08:48Z: T640 failed (flaky research test); re-ran T640R c, T588R a, T496R b.
+- 09:17Z: T640R + T588R merged, main 6c566874. T647 (#647 #649 #645) c on T496R.
+- 09:47Z: T496R FAILED (fences fixture /proc/locks "->" parse, 93c16169b); T647 stopped; waiting infra fix.
+- 09:53Z: T656 b, T1 a, T654 c (Boolean IR, send) stacked. Missed 0705Z request until now. #496 chain blocked on infra fix. C6 next.
+- 10:09Z: HOLD #638 (C6) merge until Daniel yes on pin (relayed by root); check may run. Also needs PR body 192->205 + out of draft (author).
+- 10:39Z: T656 + T1 merged, main ef6a3e74. T525 (#525 #659) a on T654. C6 + #667 after 05:55 PDT. #496 chain blocked.
+- 11:11Z: T654 (Boolean IR) + T525 merged, main d8865092. T663 a (#663 #668), TS2 b (#496 stack v2 + #662 #669 #670). C6/#667 after 05:55.
+- 12:41Z: T663 + TS2 merged, main da9a9cfe (#496 chain, #662 #669 #670 #663 #668). After 12:55Z: C6 + #667.
+- 13:17Z: T667 (#667) b, C6 (#638 alone; #653 conflicts pyproject) a r20261001-131455-c9cd; #638 merge held.
+- 13:31Z: render watchdog: today 13:01Z render OK (84 results, was 83). latest.json had been reverted to 20260928 by the mirror (reads notes renders, which stop at 0928 since >1MB skip); patched ~/cloud-mirror/pass.sh to read /workspace/steward/renders/daily first (backup pass.sh.bak-20261001T1330Z); latest.json = 20261001T1300Z. Re-armed watchdog-1002.
+- 13:47Z: root lifted #638 hold. Order: T667 -> c382dd846 (r20261001-120046-c50b) -> b27b69c1c (cursor/train-prep-n1-0601-77d0). Stopped standalone C6. Posted in 1790860557.
+- 13:54Z: merged c382dd846 (slot d stack incl #667), main 23fe2db5. Next b27b69c1c (r20261001-130656-425f), then b3b4c8434 (#676+#677).
+- 14:15Z: merged b27b69c1c (incl #638), main pushed. Next b3b4c8434.
+- 14:25Z: merged b3b4c8434 (#676 #677), main d784c58e.
+- 16:28Z: RULE (Daniel 9:24 AM PDT): top-level record of Daniel pin approval = statement-reviewer sign-off for research merge; merge on passing check. #687 next train.
+- 16:33Z: merged 2d4008ea3 (#678-#682), main eab5d96f. T683 re-cut T683B r20261001-163107-d2ae.
+- 17:00Z: RULE (Daniel 9:50 AM PDT): lane notes are records only; handoffs/orders/asks go on Slack or as worker follow-ups.

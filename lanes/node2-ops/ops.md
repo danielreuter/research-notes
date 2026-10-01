@@ -48,11 +48,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 ## Open items
 
 - **Timers:** from 16:14Z `subscribe_timer` returns `invalid_argument` for every new timer. Only the recurring ticks remain (alerts at :02/:17/:32/:47, hourly at :05), plus the two final-backup one-shots on 7 Oct.
-- **The 18:50Z quota cutover** (the `18:50Z 15` line; top-level 10:26 AM PDT, compute accounting 10:28; `/workspace` offline up to 10 min). Fill is held from 18:05Z: `FILL_CPU_SLOTS=0 FILL_VERITY_UNTIL=18:15Z FILL_VERITY_STOP=18:45Z` (env in the 18:08Z log line). Asked infra for the hand-back time (`note:20261001T1808Z-handoff-from-node2-ops-fill-held-for-1150-cutover`). **At the hand-back:**
-    - Respawn the loop with `export FILL_VERITY_LEND=0` only, and drop the `18:50Z` line if infra hasn't.
-    - **GPU 0's verifies:** set the `cpu-sets` line back to `bc-e6a46970-… 0-47 4 40` (4 slots, as before 08:58Z). With #701 they yield to slot d's checks. Then post one line in `lanes/accounting` (`note:20261001T1808Z-reply-from-node2-ops-gpu0-verifies-after-1150-cutover`).
-    - **Pearl-C4's verify re-run:** 48–91 (window 4's verify is done), or 0–47 at nice 19 with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`).
-    - Run an hourly backup if the 18:05Z one was skipped.
+- **Fill hold for served window 5** (`20:30Z 30`, bc-c62f9726, booked 19:02:53Z in a Slack thread). It isn't mine: someone else respawned the loop at 19:03:00Z with `FILL_CPU_SLOTS=0 FILL_VERITY_UNTIL=20:00Z FILL_VERITY_STOP=20:25Z`. Asked infra whose it is and whether `FILL_CPU_SLOTS=0` belongs in it (`note:20261001T1905Z-handoff-from-node2-ops-handback-seen-who-holds-fill`). After window 5, the loop goes back to `export FILL_VERITY_LEND=0` alone, unless the hold's owner says otherwise.
+- **Pearl-C4's verify re-run** (bc-e8ffd7f2): 48–91 now that window 4's verify is done, or 0–47 at nice 19 with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`). No request yet.
 - **Inbox on every alerts tick** (from 13:05Z): `~/node2-ops/inbox.sh` lists the notes added on origin since the acked commit that are in `lanes/node2-ops/` or name node2-ops, and `inbox.sh --ack` advances it. I missed pouw-node2's 12:41Z ask for 25 min because the alerts tick read only `alerts.jsonl`.
 - **Rollback drill + infra's re-pin of `vy-cluster-agent` to `ef6a3e748`, in one restart** (cluster-build, `note:20261001T1300Z-handoff-from-cluster-build-canary-verdict-pointer`; the canary verdict is in, inside the spread). Proposed for after 16:30Z, the end of the last window (`note:20261001T1315Z-handoff-from-node2-ops-fill-runner-keep-free-waiters-676`).
 
@@ -72,6 +69,13 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 19:05Z alerts tick: the quota cutover is done. The daemons were recreated at 18:53:32Z and the `18:50Z` line was dropped at 18:54:01Z. `/workspace` is ext4 with `prjquota`, at 52% space and 10% inodes. There is still no hand-back note from infra.
+    - **Alerts:** two `stale` (sampler, fill) at 18:53:32Z, from the daemon stop. Both are fresh since. Watermark advanced to 18:53:32Z.
+    - **Inbox:** pouw-node2 saw the line drop and asked for the hold to be lifted and the verifies released (`note:20261001T1901Z-ask-from-pouw-node2-handback-fill-still-held`).
+    - **What I did:** at 19:02:56Z I set `cpu-sets` to `bc-e6a46970-… 0-47 4 40` (backup `infra/logs/cpu-sets.bak-20261001T1903Z`), and 4 `fp8gcver` verifies started. Slot d is free. Then I respawned the loop with `FILL_VERITY_LEND=0` alone.
+    - **The race:** at 19:03:00Z someone else respawned it with a hold for served window 5 (`20:30Z 30`, added at 19:02:53Z): `FILL_CPU_SLOTS=0 FILL_VERITY_UNTIL=20:00Z FILL_VERITY_STOP=20:25Z`. I left it, and asked infra whose it is.
+    - **Fill now:** the runner adopted all 9 jobs: 4 Builds, `served-verify-b959acdf-8` and the 4 verifies. `served-verify-de74f334-7` (31 min lost at the 18:45Z stop) is queued.
+    - **Notes:** `note:20261001T1905Z-reply-from-node2-ops-handback-verifies-released` (accounting) and `note:20261001T1905Z-handoff-from-node2-ops-handback-seen-who-holds-fill` (infra).
 - 2026-10-01 18:32Z inbox: pouw-node2's note (`note:20261001T1819Z-reply-from-c066b30c-served-window4-on-panel`) puts window 4 on the panel and keeps GPU 0's verifies parked until the hand-back, as planned. It also gives node 2's disk as 51% (2,532 GiB), with 76 GiB left before compute accounting's 52% hold on new passes. Nothing for me to do. No alerts.
 - 2026-10-01 18:18Z alerts tick: one alert, `gpu-idle-in-lease` at 18:05:06Z. GPU 7 ran at 8.9% mean over 5 min.
     - **Its job:** bc-698052e1's Commit guest `gm170` (17:59:42Z). It finished rc 0 at 18:09:17Z after 9.6 min, so nothing to do. It fits the Commit pattern already in infra's top-3 wasters. Watermark advanced to 18:05:06Z.

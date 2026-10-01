@@ -10,6 +10,7 @@ cursor:
   subagentId: "bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4"
 ---
 
+CHECKPOINT cbba321b (10:21Z) [open] 369850ad1 Lean lincheck from the block's structure: same verdicts on 452 sessions (live k_log 26: new agrees 23/23, old OOM), honest sessions 2-5x faster (k_log 26 247.5->45.8 s), audit PASS; statement reviewer asked in lanes/proofs 1025Z; art:a2376034
 CHECKPOINT 369850ad1 (09:24Z) [open] Lean lincheck from the block's structure (CircuitFold.folded, folded_eq, partial_eq_halve_fold) at 369850ad1: all three packages build, audit PASS; soundness FoldRealizes changed, needs a statement reviewer; Lean old/new verdict sweep running
 CHECKPOINT cc21a7d94 (08:19Z) [open] 1b61b024c node 2 clean slice: old verifier 6.33s K=2048 / 7.41s K=8192 vs M0 #20's 10.46/27.42 (4.1/20.0s = its host); partial 0.206/0.445s (31x/17x); node-1 tail was host noise; Lean folded path same verdicts on set 1 (31 sessions), proofs in progress
 CHECKPOINT 4644ec6d (07:33Z) [open] 1b61b024c verifier: timers attribute it all (other<=1.1ms); M0 #20's own statements: partial 0.227s K=2048 / 0.525s K=8192 vs flat 5.08/5.42; 6 statements equivalent in all modes; old fold on M0 stmts withdrawn (provers hold), needs 1 CPU slot ~20 min
@@ -167,17 +168,60 @@ proofs-bf16-hill carries all of them, and proofs-verify-overlap has them through
   contended serve session, those are 51× and 62×; a serve session on today's tree is the like-for-like comparison.
 - **Next:** the Lean `lincheck` and `partial_eq_halve_fold`, as a separate commit (§5).
 
-## 5. The Lean verifier's template-aware lincheck (Oct 1, 1:20 AM PDT, in progress)
+## 5. The Lean verifier's template-aware lincheck (Oct 1, 1:20–3:20 AM PDT)
+
+Commit `369850ad1` on `cursor/proofs-arch-95d4`, on top of §4's `1b61b024c`.
 
 The Lean executable's lincheck used to build the 2^k comb, add β at the pin and halve it every round. It now takes
 the comb's 64 surviving entries from the statement once the rounds are done (`CircuitFold.folded`). `Stmt.folded`
 computes them per slot type, as the Rust partial path does, whenever the ranges are aligned, inside the block and
 disjoint (`Stmt.structured`, which `Circuit.checkLayout` already enforces). Otherwise it folds and halves as before.
 
-- **Same verdicts.** Built from the uncommitted tree, against the pre-change binary, `tools/flock_verify/ci.py` with a
-  no-op upstream over vectors.json's set 1 gives the same VERDICT on all 31 sessions, including the `lc-round` and
-  `lc-z-partial` mutants: 177 s instead of 260 s. The remaining replayable and live sets are running.
-- **Proofs.** The level-3 theorem `folded_eq` will say that `Stmt.folded` equals fold, then pin, then halve. The
-  soundness package's `FoldRealizes` gains that as a field, so `lincheck_refines` keeps its statement. Eight pinned
-  soundness records read `Flock.lincheck` or `CircuitFold` and will change (`needs-daniel:` in `lanes/proofs` names a
-  reviewer).
+- **Proofs.**
+  - Level 3 (`FlockLevel3.Folded`):
+    - `partial_eq_halve_fold`: halving at `ts` in turn leaves `Σ_u eq(ts reversed, u)·v[s + 64u]` at `s`.
+    - `foldedPartial_eq` and `folded_eq`: a `folded` that succeeds is `fold` with β at the pin, halved at `ts`.
+    - All three are pinned.
+  - Soundness:
+    - `FoldRealizes` gains a `folded` field, which `stmtOf_fold` proves from `folded_eq`.
+    - `lincheck_refines` takes the 64 entries from that field, and its statement is unchanged.
+- **Audit (`audit.py --update`, all three packages PASS).**
+  - The executable is unchanged (15 pins).
+  - Level 3 has 3 new pins (53 in all).
+  - Soundness (192 pins): no pinned signature changed. One definition record changed: `FoldRealizes`.
+    - Six pins read it: `lincheck_refines`, `ofCircuit_fold`, `rep_refines`, `verify_refines`, `verify_refines_hm96`
+      and `verify_tableAfter`.
+    - The end-to-end `verify_refines_ofCircuit(_hm96)` don't read it.
+    - The change needs a named statement reviewer; the request is
+      `note:proofs/20261001T1025Z-reply-from-proofs-arch-lean-lincheck-done-next`.
+  - Correction: §5's earlier "eight pinned records will change" was wrong. One definition record changed and no
+    signature did.
+- **Same verdicts.**
+  - Setup: `backends/flock/verifier/ci.py` with a no-op upstream, `--seed 20261001 --fuzz 4`, old binary (`1b61b024c`)
+    against new (`369850ad1`).
+  - Replayable sets 0–15: identical `(accepted, why)` on all 430 sessions, mutants and fuzz included. All 188 sessions
+    with a recorded expectation meet it.
+  - Live set 0: identical on 22 of 22.
+  - Live set 1 (k_log 26):
+    - The new binary agrees with upstream's recorded live verdicts on 23 of 23 (3 accepted), as main's Lean did at
+      `ac412eb8`.
+    - The old binary was OOM-killed after its honest session. This 15 GB VM was shared with another lane's tests.
+  - `art:a237603417cf6dc3acf4f601642d250b15775fa73a4eead39fcb48067f3cb459` (label `question`).
+- **Speed (the honest session, as `flock-verify` prints it, setup included).**
+
+  | statement | old | new |
+  |---|---|---|
+  | live set 0 (attention head, T=5) | 36.2 s | 16.6 s |
+  | set 13 (gemm-coordinate k1024, k_log 23, m 26), median of 3 alternated runs at load 15–25 | 85.3 s | 23.1 s |
+  | live set 1 (attention head, T=130, k_log 26) | 247.5 s | 45.8 s |
+
+- **Where the new verifier's time goes** (perf, set 13 honest).
+  - The lincheck is 38%: the slot types' fold 23%, the projections 8% and the eq tables 3.5%. In the old verifier it
+    was 76%: the halving rounds 44% and the 2^k fold 32%.
+  - Statement setup is 36%: parsing the tables and HM rows, and their SHA-512.
+  - Ligerito is 14%, of which 9% is field inversions.
+  - The F128 carry-less multiply loop (`clmulGo`) is 33% of self time across all of these.
+- **Flock test suite** (`suites.py backends/flock --quick`): 358 passed, 6 skipped, 1 failed.
+  - The failure is `test_flock_rows_is_the_layout[rmsnorm-triton-2048]`. `flock-rows` was OOM-killed (-9) at about
+    5 GB, twice, beside the other lane's tests.
+  - `flock-rows` imports neither `Flock.Piop` nor `Flock.Statement`.

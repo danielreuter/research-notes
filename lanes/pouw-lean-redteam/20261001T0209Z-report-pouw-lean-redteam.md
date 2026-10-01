@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (15:45Z) [open] 1545Z draft 9 (art:58fdb5d0) states the approval route fully (epoch length; T3; 0 honest rejections at tau_row 25%). GO WITH CONDITIONS stands: pin tiles at 64 words or more, calibrate tau_row per model (or 30%), and the glue-proof cost is still Estimated (note:20261001T1545Z-reply-from-d545bc2a-draft9-approval-route-stated). Nothing to escalate. The R1-H review cycle is done until Daniel rules.
 CHECKPOINT none (15:22Z) [open] 1522Z FP4 closed: the assessor re-granted tt-out/fp4-sm120 at C (1514Z), and M5 is ready to merge with me as statement reviewer. The merge.py dry run of M5 plus the cap branch gives 742 pins, with both signed sets (66 + 11) byte-identical (note:20261001T1522Z-reply-from-d545bc2a-m5-cap-merge-carries-signatures). Open: draft 8's leftovers (epoch length, tau_row honest rate, a C-Flock glue proof).
 CHECKPOINT none (15:11Z) [open] 1511Z poll: nothing for me. The assessor is active again (1505Z, NCP), so its FP4 re-grant on M5 may follow. Still waiting on the design lane's answer to 1448Z.
 CHECKPOINT none (14:48Z) [open] 1448Z draft 8 (art:4a7e960f) answers my draft-7 points, with the eps_f arithmetic checked (note:20261001T1448Z-reply-from-d545bc2a-draft8-audit-cost-checked). Left: name the epoch length the headline assumes, T3 and the honest rejection rate for tau_row = 25%, and a real C-Flock glue-unit proof. The FP4 re-grant is still pending.

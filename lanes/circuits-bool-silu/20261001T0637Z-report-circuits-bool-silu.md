@@ -5,6 +5,8 @@ created: 2026-10-01T06:37Z
 status: open
 ---
 
+CHECKPOINT 37e1c90a8 (11:26Z) [open] 4:25 AM PDT: SiLU v4 done (37e1c90a8; branch head 39fea86c2 after my watch merged main): exact on 2^32 (art:7f6011c2), circuit-check green, report note:20261001T1125Z-report-from-circuits-bool-silu-silu-v4-exact
+CHECKPOINT 0b1787843 (11:23Z) [open] 4:23 AM PDT: bool-silu @ 7e5711a92 = main (proofs-ir) + bool-switch merged in; Bf16Tanh_v2 collision already resolved by elementwise (9366d8afc); circuit-check 7/7 ok, coverage ok; told switch in note:20261001T1123Z-handoff-from-circuits-bool-silu-switch-merged-head
 CHECKPOINT 0b1787843 (11:19Z) [open] proofs-ir landed on main: merged origin/main (217 commits, clean) into cursor/bool-silu-8c79 on top of 37e1c90a8 (the v4 pair) -> 39fea86c2, pushed (fast-forward). On the merged tree: test_boolean_activation + test_boolean_silu (not slow) + tests/lint 91 pass; circuit-check SiluMulBf16_v3/v4, SiluMul_v3/v4{I=8}, TanhBf16_v2, Bf16Tanh_v2{N=8} ok, 0 warnings; coverage test passes. No Boolean MufuTanh on origin yet (softcap side branch unchanged at 0a2e6f7e2). /home/ubuntu/bool-silu-wt is now one merge behind origin.
 CHECKPOINT aa9acb14b (10:18Z) [open] SiluMulBf16_v4 / SiluMul_v4{I} (word _v2) at aa9acb14b on cursor/bool-silu-8c79: exact on all 2^32 pairs (art:7f6011c2), circuit-check green (art:af255d33), 1380 ANDs; ids handed to bool-switch (note:20261001T1018Z-handoff-from-circuits-bool-silu-silu-v4-ids); suites running
 CHECKPOINT 59b134051 (08:43Z) [open] 1:43 AM PDT: Bf16Tanh_v2{N}/TanhBf16_v2 green (391 ANDs/elt, exact on 65,536 words, pinned); my GeLU + scalar rows retired as duplicates of elementwise's boolean_dense; attention softcap blocked on MufuTanh_v2 + proofs' v6 block; report 20261001T0843Z

@@ -5,6 +5,7 @@ created: 2026-10-01T05:12Z
 status: open
 ---
 
+CHECKPOINT none (07:14Z) [open] 12:15 AM PDT: store frozen at M3b (665, 43ba801d) per compute accounting 0707Z; M5 moves to the repo copy after lean's import. Red team GO on two conditions (0708Z). D-24 now the pair rule (rowWin24 + rowWin24_groups); its dev build runs as queued r20261001-071337-6f23 on node 2 CPUs 48-95 (check slots are provers' now).
 CHECKPOINT none (06:55Z) [open] 11:55 PM PDT: M3b landed (665, 43ba801d, art:0d156c69); FP4 restage built on M3b (731 pins, art:b0b06697), review asked of bc-d545bc2a; M5 waits for GO + re-grant
 CHECKPOINT none (06:38Z) [open] 11:38 PM PDT: M3a landed (663, 662b339d, art:bc50df67); M3b check due ~11:50; FP4 restage dev build on its last modules
 CHECKPOINT none (06:08Z) [open] 06:08Z M3a r…054243-b3e8 audit PASS, in check.sh; M3b r…055859-b6e8 COMPARE PASS (663 unmoved), in check.sh; C6 review asked of d545bc2a; FP4 restage starting on M3b tree

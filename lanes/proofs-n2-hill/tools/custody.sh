@@ -21,8 +21,14 @@ label_point() {  # RUN_ID ART
   research data label $2 note "$note" --by proofs-n2-hill --ref $ref > /dev/null
   research data label $2 hardware "$hw" --by proofs-n2-hill --ref $ref > /dev/null
 }
-if [ "${1:-}" = relabel ]; then
-  ssh1 "awk -F'\t' '\$4==\"gpu\"{print \$1, \$2}' $N/custody.tsv" | while read -r id art; do label_point $id $art; echo "$id $art relabelled"; done
+if [ "${1:-}" = relabel ]; then  # relabel [fp4]: every GPU point, or only the FP4 ones
+  only=${2:-}
+  ssh1 "awk -F'\t' '\$4==\"gpu\"{print \$1, \$2}' $N/custody.tsv" | while read -r id art; do
+    if [ "$only" = fp4 ]; then
+      ssh1 "python3 $N/bin/n2label.py $N/runs $id" < /dev/null | grep -q '"fp4": true' || continue
+    fi
+    label_point $id $art; echo "$id $art relabelled"
+  done
   exit 0
 fi
 have=$(ssh1 "mkdir -p $N/runs && touch $N/custody.tsv && cut -f1 $N/custody.tsv")

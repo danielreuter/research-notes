@@ -337,3 +337,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 22:04Z: cancelled 07d3 (redundant); TL4 d93e796e3 (lean #691 #700 #699 #715) slot a r20261001-220231-12ac. Order c6fc, 35c8, 12ac.
 - 22:08Z: MERGED 524c12828 (35c8); main 210d32e11; #702 #716 #705 #709 merged. 12ac (lean4) next; slots b, c free.
 - 22:22Z: took ownership of constant design (constant-api-public.md, verity.ir.constants, verity.ml.library) per top; Daniel ruling: values always hidden. Await proofs-ir change list (cursor/ir-registered-inputs-95d4).
+- 22:39Z: MERGED TL4 d93e796e3 (12ac); main fa3c22edf; stack empty.

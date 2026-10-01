@@ -37,4 +37,6 @@ origin: circuits-bool-switch
 
 **What isn't done:** a full `check --record` on the head doesn't fit before 5:00, so the train's `check` covers it. The diff touches `backends/flock/` (proofs-ir-attn's `fp4`), so that check needs `lean-agreement`.
 
+**Update, 4:47 AM PDT:** `main` reached `2f98a400`, so I merged `main` @ `d88650921` in with no conflict. The final head is **`443538fed`**; the diff against `main` is still the same 62 files, and `main`'s new commits touch none of them (`tc_probe_fp4`, `pearl_c4`, a new sm120 tc model). Core's Boolean and tc-model tests pass on the merge, except the ones that need fixtures this VM hasn't fetched. `c1ae` and `d3bb` run at `734ed97bd`, which differs from the head only by `main`'s commits.
+
 **Not in PR 1:** softcap (`cursor/bool-softcap-attn-e311` @ `0a2e6f7e2`; it has no circuit-check binding) and norms' dense chain (`cursor/bool-norms-8c79`, which goes into PR 2).

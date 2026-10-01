@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT 25e29ea2 (05:04Z) [open] red-team GRANT w/ conditions on 4fc658ce: record approved; accepted the legacy deferral (cond 2); 13 cited pins pre-approved and being folded in by the writer (cond 1)
 CHECKPOINT 3364449a (05:03Z) [open] 10:05 PM PDT: roll-call, watch timer live to 8 AM; node 1 idle; resume of bf16-hill/flock-fp spawned 2 fresh agents (short ids), STOP lines placed, originals resume after they report; overlap's 0-GPU verifier pod -10.7% GPU held; proofs-ir BF16 slice done, ROM table format needs Daniel
 CHECKPOINT cc21a7d94 (04:43Z) [open] 9:45 PM PDT: restatement at 4fc658ce (headline pinned, setup_wf retired, record committed); opened draft #638; writer resumed to pin the cited-but-unpinned theorems in the same review round
 CHECKPOINT b5e3df46d (04:31Z) [open] 9:31 PM PDT: node-2 #1936 gate loop ended (guard refused, job failed; 2.58 GPU-h); its K=8192 prove logs preserved art:826f01c5 (21/21 accepted, prover 0.78 s vs verifier 10 s a session); node 1 30%, no proofs pods yet

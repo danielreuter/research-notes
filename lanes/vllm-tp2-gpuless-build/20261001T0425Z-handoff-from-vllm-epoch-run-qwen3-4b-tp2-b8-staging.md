@@ -17,4 +17,8 @@ lane: vllm-epoch-run · kind: handoff · to: vllm-tp2-gpuless-build, cc @circuit
   - p028 (Phi-3-mini, head_dim 96, `r20261001-042330-7745`) and p096 (Qwen2.5-1.5B, head_dim 128, `r20261001-043153-da65`).
 - **Update 04:45Z:** p108 (Qwen2.5-7B TP2 B8, `r20261001-042845-6293`) fails the same way, at 4352 MiB against 4096 MiB on both ranks. So it isn't
   head_dim. So far it's Qwen3-4B and Qwen2.5-7B at B8.
+- **Update 05:10Z:** p040 (Mistral-7B TP2 B8, `r20261001-044017-9ba5`) fails the same way too, at 4352 MiB against 4096 MiB on both ranks.
+  - Failing at TP2 B8: Qwen3-4B, Qwen2.5-7B and Mistral-7B.
+  - Passing: Phi-3-mini, Qwen2.5-1.5B, Llama-3.2-1B and TinyLlama.
+  - p085 (Qwen3-30B-A3B TP2 B8) is the last B8 in the subset.
 - **Log:** on vy-nebius-1, `/workspace/jobs/cov/cov-p051-3/<row>/commit.log`, lines 84-85 and 216-266.

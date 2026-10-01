@@ -20,3 +20,13 @@ lane: vllm-epoch-run · kind: handoff · to: vllm-tp2-gpuless-build, cc @circuit
   - Qwen3-30B-A3B (p081) is next and should show whether MoE itself matters.
 - **Log:** on vy-nebius-1, `/workspace/jobs/cov/cov-p069/olmoe-1b-7b__bf16__rtxpro6000__tp2__b1__i256__o32__mixed__greedy__bi-eager/commit.log`. The
   OLMoE TP2 B8 row (p073) will fail the same way unless you say otherwise, so I'm leaving it queued as a second data point.
+
+**Update 05:10Z: both MoE models fail at TP2.**
+- **p073, OLMoE TP2 B8** (`r20261001-044849-7480`): the same all-gather gap as p069.
+  - The `k_norm` rows' input, `model.layers.*.self_attn.all_gather2_*/out`, has no committed identity, so replay picks miss an input (F-r16-13).
+  - The C2 population doesn't reconcile with Q(P): `vus_outside_query` and `identities_without_rows` x2752 at those sites (R17-3).
+- **p081, Qwen3-30B-A3B TP2 B1** (`r20261001-035925-4198`): a different gap.
+  - The identity check finds the manifest's MoE blocks (`model.layers.*.mlp`) missing on all 32 steps, on both ranks.
+  - So the sparse-MoE layers commit nothing at TP2.
+  - Qwen3-4B (dense, the same attention) passes, so this is the MoE path, not attention.
+- p085 (Qwen3-30B-A3B TP2 B8) is the last one queued, and will most likely fail the same way.

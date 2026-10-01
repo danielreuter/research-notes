@@ -52,6 +52,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 00:58Z **INCIDENT, urgent fix:** the live agent granted bc-b139c29c's pinned request (`--on 2,3,4,5,6,7`) GPU 0. `gpu-lease` refused the grant and waited, the agent stopped deciding, and fill holds GPU starts while a waiter is queued, so all 8 GPUs sat free from about 00:52Z. At 00:55:58Z I touched `cluster/live/STOP`: the agent exited, the waiter took GPU 2, and fill refilled 8/8 by 00:57Z (about 5 min idle). Reported in `note:20261001T0058Z-alert-from-node2-ops-agent-stopped-grant-ignored-on`. Node 2 runs on today's rules; `STOP` stays in place.
+
 - 2026-10-01 00:42Z alerts: `gpu-idle-in-lease` on GPU 2. n2-commits' `cov-g217-proof` held it 19.6 min with 10 s busy (a CPU phase in a GPU lease); relayed to `lanes/circuits/`. bc-2aa33ad8 replied that the 0–47 sequencing is fine: measure NUMA 0 as `MemFree + Inactive(file)` (769 GB), log NUMA 0 memory at each freeze, and keep the `mem_gb` caps beside `--membind=1`. Canary window not yet run. Watermark 00:25:02Z.
 
 - 2026-10-01 00:12Z `backup.sh` now waits out timed windows before each unit, and stops with 75 after an hour of windows (`283af0ae7`, sha `e820a1f9`, test added; rollback `backup.sh.prev-20261001T0015Z`). Started the deferred 00Z backup.

@@ -5,6 +5,7 @@ created: 2026-10-01T05:12Z
 status: open
 ---
 
+CHECKPOINT 86351426c (09:04Z) [open] 2:05 AM PDT (overnight 1): M5 on the repo copy is running (r20261001-080500-8c61): --update PASS with 731 pins (66 new, policy 19e845c9, no import record moved), kernel replay PASS (11,215 constants, standard axioms); leanchecker --fresh, runs and the cross-check against the store's records are next.
 CHECKPOINT 86351426c (08:06Z) [open] 1:07 AM PDT: lean's import is cursor/pouw-lean-import-741b (269ac671f, no renames, 665 pins rehashed SHA-256). M5 applied on it as branch cursor/pouw-lean-m5-fp4-9fb5 (86351426c, 66 placeholders); queued run r20261001-080500-8c61 records them with the repo audit.py, then the full audit (replay, --fresh, runs) and a cross-check against the store's af3039c6 records.
 CHECKPOINT none (07:45Z) [open] 12:46 AM PDT: D-24 pair rule built and checked (r20261001-071337-6f23, art:43936b7e: policy af3039c6, 731 pins, only DeviceFp4's reads moved); red team: condition 1 met (0743Z). M5 delta for the repo copy is art:3d7a41f7, handed to lean (0735Z). Waiting on lean's import branch for condition 2 (replay on protocols/pouw/lean/).
 CHECKPOINT none (06:55Z) [open] 11:55 PM PDT: M3b landed (665, 43ba801d, art:0d156c69); FP4 restage built on M3b (731 pins, art:b0b06697), review asked of bc-d545bc2a; M5 waits for GO + re-grant

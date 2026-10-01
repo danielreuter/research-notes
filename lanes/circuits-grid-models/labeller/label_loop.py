@@ -30,6 +30,11 @@ FAMILY_OF = {"QWEN25_3B": "qwen25", "QWEN25_05B_INSTRUCT": "qwen25", "QWEN25_COD
              "FALCON3_1B": "falcon3", "FALCON3_7B": "falcon3"}
 #: reviewed causes, by item key (cov-gmNNN): set when a stage line alone does not name the cause
 CAUSES: dict[str, str] = json.loads((HERE / "causes.json").read_text()) if (HERE / "causes.json").exists() else {}
+#: silu_check.py's verdict on a SiluMul_v1 replay mismatch, by item key ("" = checked, not that edge); filled by one_pass
+AUTO = HERE / "causes_auto.json"
+SILU_EDGE = ("Definition gap, not a Commit fault: SiluMul_v1's expf-overflow edge (a gate <= -89, where the GPU's silu is g/inf = -0 "
+             "and SiluMulBf16_v1 a tiny g*e^g); the quarantined SiluMul_v2 (lane vllm-coverage-defs, the red-team's sm_120 edge words) "
+             "equals the committed words of every mismatched row (labeller/silu_check.py): ")
 SSH = None
 
 
@@ -76,9 +81,12 @@ def desired(rec: dict) -> dict[str, str]:
         parts.append(f"sampler Call one unit (MAX_GATES raised to {m.group(1)}); not provable in practice" if m
                      else "word check at the default MAX_GATES (no raise)")
     parts.append(f"question: {QUESTIONS[item]['q']}")
+    auto = json.loads(AUTO.read_text()) if AUTO.exists() else {}
     if not passed:
         if item in CAUSES:
             parts.append(f"cause: {CAUSES[item]}")
+        elif auto.get(item):
+            parts.append(f"cause: {auto[item]}")
         else:
             fail = next((s for s in reversed(rec["stages"]) if " FAIL " in s and "not run" not in s), None) or \
                    next((s for s in reversed(rec["stages"]) if " FAIL " in s), f"rc {rec['rc']} at task {rec['task']}")
@@ -86,9 +94,37 @@ def desired(rec: dict) -> dict[str, str]:
     return {"ov.ws": "coverage", "ov.config": row, "ov.gate": "pass" if passed else "fail", "ov.note": "; ".join(parts)}
 
 
+def silu_cause(item: str) -> str:
+    """SILU_EDGE plus each mismatched row's elements when silu_check.py finds v2 equal on every SiluMul_v1 mismatch, else ""."""
+    r = subprocess.run(["/workspace/.venv/bin/python", str(HERE / "silu_check.py"), item], cwd="/workspace/integrations/vllm",
+                       capture_output=True, text=True, timeout=900)
+    rows = re.findall(r": (\S+) (r\d+) step (\d+) row (\d+): v1 differs at (\d+) of \d+ elements, v2 at (\d+)", r.stdout)
+    if r.returncode or not rows or any(v2 != "0" or n == "0" for *_, n, v2 in rows):
+        return ""
+    gates = re.findall(r"gate 0x[0-9a-f]{4} \((-?[\d.]+)\)", r.stdout)
+    return SILU_EDGE + "; ".join(f"{op} {rid} step {st} row {row}: {n} element(s)" for op, rid, st, row, n, _ in rows) + \
+        f" (gates {', '.join(sorted(set(gates)))})"
+
+
+def fill_auto(recs: list[dict]) -> None:
+    auto = json.loads(AUTO.read_text()) if AUTO.exists() else {}
+    for rec in recs:
+        item = rec["key"].split("/", 1)[1]
+        if item in CAUSES or item in auto or rec["state"] == "succeeded" or not any("SiluMul_v1" in s for s in rec["stages"]):
+            continue
+        try:
+            auto[item] = silu_cause(item)
+        except (subprocess.SubprocessError, OSError) as e:
+            print(f"{item}: silu_check failed: {e}", flush=True)
+            continue
+        print(f"{item}: silu_check -> {auto[item][-160:] or 'not the expf-overflow edge'}", flush=True)
+        AUTO.write_text(json.dumps(auto, indent=1, sort_keys=True) + "\n")
+
+
 def one_pass(dry: bool) -> None:
     recs = gather()
     Path("/tmp/gm-last-gather.jsonl").write_text("".join(json.dumps(r) + "\n" for r in recs))
+    fill_auto(recs)
     for rec in recs:
         key = rec["key"]
         if not rec["runs"] or not rec["row"]:

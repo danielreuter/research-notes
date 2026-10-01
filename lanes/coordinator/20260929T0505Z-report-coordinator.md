@@ -325,3 +325,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 19:53Z: T697 6f3711284 (789f+#711+#697 a1c019d8c, send) slot b r20261001-195108-b0d0. Order d403 then b0d0.
 - 20:05Z: T710 30344d13f slot c r20261001-200300-34af. Order d403, b0d0, 34af.
 - 20:28Z: per comms: unsubscribed channel sub_715b8b12; inbox thread sub_de2841d8 kept; vmsg.py re-fetched (733e5bd5).
+- 20:38Z: d403/b0d0/34af FAILED: #705 timeout= (no_wall_clock), #709 store README > 48 KiB. Asked ci rebuild w/o #705 #709 (+#712). Fixed launchv prelint (grep matched "1 failed, 4 passed"); added test_repository.py.

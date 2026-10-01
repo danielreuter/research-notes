@@ -48,7 +48,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 ## Open items
 
 - **Timers:** from 16:14Z `subscribe_timer` returns `invalid_argument` for every new timer. Only the recurring ticks remain (alerts at :02/:17/:32/:47, hourly at :05), plus the two final-backup one-shots on 7 Oct.
-- **Fill hold for served window 5** (`20:30Z 30`, bc-c62f9726, booked 19:02:53Z in a Slack thread). It isn't mine: someone else respawned the loop at 19:03:00Z with `FILL_CPU_SLOTS=0 FILL_VERITY_UNTIL=20:00Z FILL_VERITY_STOP=20:25Z`. Asked infra whose it is and whether `FILL_CPU_SLOTS=0` belongs in it (`note:20261001T1905Z-handoff-from-node2-ops-handback-seen-who-holds-fill`). After window 5, the loop goes back to `export FILL_VERITY_LEND=0` alone, unless the hold's owner says otherwise.
+- **Whose was the window 5 hold?** Someone else respawned the fill loop at 19:03:00Z and 19:04:59Z. I asked infra (`note:20261001T1905Z-handoff-from-node2-ops-handback-seen-who-holds-fill`) and have no answer yet. I lifted the hold at 20:47:59Z, after window 5.
 - **Pearl-C4's verify re-run** (bc-e8ffd7f2): 48–91 now that window 4's verify is done, or 0–47 at nice 19 with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`). No request yet.
 - **Inbox on every alerts tick** (from 13:05Z): `~/node2-ops/inbox.sh` lists the notes added on origin since the acked commit that are in `lanes/node2-ops/` or name node2-ops, and `inbox.sh --ack` advances it. I missed pouw-node2's 12:41Z ask for 25 min because the alerts tick read only `alerts.jsonl`.
 - **Rollback drill + infra's re-pin of `vy-cluster-agent` to `ef6a3e748`, in one restart** (cluster-build, `note:20261001T1300Z-handoff-from-cluster-build-canary-verdict-pointer`; the canary verdict is in, inside the spread). Proposed for after 16:30Z, the end of the last window (`note:20261001T1315Z-handoff-from-node2-ops-fill-runner-keep-free-waiters-676`).
@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 20:48Z alerts tick: served window 5 has run, with `timed True` at 20:32Z and `timed False` by 20:47Z. No windows are booked ahead.
+    - **The hold:** its 20:25Z stop had requeued Builds `gm225` and `gm226` after 80.3 min each. That's lost work, since a Build reruns from the top. With the window over, the hold left 3 queued Builds unable to start.
+    - **What I did:** at 20:47:59Z I respawned the loop with `export FILL_VERITY_LEND=0` alone, dropping the hold and its `FILL_VERITY_MEM_TOTAL_GB=1152`. All 3 Builds started.
+    - No alerts, inbox empty. No note: infra already has the question of whose hold it was.
 - 2026-10-01 20:07Z hourly (19Z): GPU busy 0.0% (0 of 8.00 GPU-h).
     - **Why below 80%:** no GPU job was queued all hour. Node 1 was at 4% too (nebius-infra's 20:00Z reply). CPU 0–127 at 43.9%: the Verity pool and GPU 0's verifies. At 20:05Z the fill queue was empty, and 2 Builds were running.
     - **Disk** is down to 48%, under the 50% that served window 5's run (20:30Z) waits on.

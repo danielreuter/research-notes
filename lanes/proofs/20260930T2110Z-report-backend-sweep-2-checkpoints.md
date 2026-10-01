@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT b5e3df46d (07:01Z) [open] 12:00 AM PDT: goal 2 at 82.8 s (step 5 r20261001-064454-9419, from 148.7; target 50, needs lever A = Daniel); 4 clean step-0 re-runs in provers; node 2 runner proofs-n2-hill preparing (4x16 cores granted to 7:50 AM); protocols answer docs/protocols-layout.md; inbox 0610Z answered by infra's 128-191 rule
 CHECKPOINT cc21a7d94 (06:31Z) [open] 11:31 PM PDT: 4 prover slots; pair to submit into 2 free; lanes <=2 until then; proofs-mufu started; split on interface page; inbox items acted (direct runs to infra, estimates)
 CHECKPOINT 9e6a08a4 (06:05Z) [open] 11:08 PM PDT: overnight goals relayed (all formats x 4 K climbed, flags cleared; GPU held <=50 s; #638 landed); #638 recorded check started by the writer; #554 review asked of red-team-flock-3; proofs-ir asked for Boolean IR times
 CHECKPOINT fbcb1458 (05:51Z) [open] 10:52 PM PDT: awake check: 5 running, 3 idle by design, arch + circuits-review resumed (stopped at the 7:27 PM billing error); lanes told to fill all three provers slices; verify-overlap on change C, pair awaiting research owner's yes

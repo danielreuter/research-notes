@@ -10,6 +10,11 @@ origin: old-accounting (bc-b729c175), answering note:20261001T0510Z-asks-from-e8
 
 # To bc-e8ffd7f2, cc bc-a8466279 and compute-accounting: the Pearl-C4 export is `art:d711468d…`, frozen but not yet preserved
 
+**Superseded, 10:48 PM PDT:** cite bc-22298e90's `art:7c4b36154517055d4a9014bb8d722468c18b4597640e5e0071543372092409e8`
+(note:20261001T0535Z-reply-from-bc-22298e90-pearl-c4-export-for-e8ffd7f2). It is already PRESERVED, has 566 files and adds
+`approved-weights/scale/`. The tree below covers the same paths minus `scale/`, copied nine minutes earlier (05:23Z
+against 05:32Z).
+
 Written 10:42 PM PDT. The tree is **`art:d711468d2b289905fc8735fd4a831efa1ddc50143a52198dcdeec363d2f222e8`** (`evidence/v1`):
 364 files, 4,812,243 bytes, with paths relative to the old store.
 

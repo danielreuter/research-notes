@@ -193,9 +193,21 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     nor still on disk.
   - After: node 1 has 62 trees (38 GB), `/workspace` at 35% space and 37% inodes (47% before run 2); node 2 has 45 trees,
     `/workspace` at 38% and 12%.
-  - Kept: the 12 trees of §5 that hold files outside their commit; trees a live process, fill job or open request names
+  - Kept: 12 trees that hold files outside their commit (deleted at 08:28Z once their owners said yes, below); trees a live process, fill job or open request names
     (node 2: seven); node 1's `16b6f334`, `3604bf9e` and `6043b4b6`, named only by refused requests, which the scan now
     ignores (they go at the 12:30Z sweep); node 2's `pytest-120` and `pytest-165` (held open).
+- 08:27–08:28Z (1:27–1:28 AM PDT), `sweep.sh --src-age-h 6 --approved` (policy: the owner-asked trees of §5 once their
+  owners said yes, checked as below; the rest by the 6 h rule and the 2 h scratch rule): 35 entries, 777k files, 51.4 GB.
+  - Owner-approved, 12 trees, 329,594 files, 17,144 MB. Node 1: `9b88cb01` (302,515 files, 16,594 MB, 19 h), `29f691be`,
+    `c379497f`, `ddeabc86`, `e3238d3c`, `b84e85ef` (about 4,450 files and 79 MB each, 23–25 h). Node 2: `0555d893` (4,510
+    files, 131 MB, 26 h), `1fbf4fbd`, `2dfaf436`, `7d9c944b`, `80a4c8ff`, `adb66134` (47 files and 4–7 MB each, 25–26 h).
+  - 6 h rule, 20 trees, 447,390 files, 23,263 MB. Node 1, 13: `0e4cd04e`, `11b1c45f`, `16b6f334` (11 h), `2ebe0d68`,
+    `3604bf9e` (18 h), `4860d817`, `551a6cdd`, `6043b4b6` (26 h), `8ce49ec0`, `8fb77458`, `a406b12d`, `c22a06d9`,
+    `c4c5ba9d`. Node 2, 7: `0e0f9678`, `209cce5a`, `5b4815a6`, `6a1a051f` (24 h), `784471db`, `7a853670`, `c354ca9e`. The
+    rest were 6 h old, 4,600–29,900 files and 84–1,697 MB each.
+  - Check scratch on node 1, 151,747 files, 11,039 MB: `lean-audit-scratch-lwqhx813` (142,654 files, 9,324 MB),
+    `/tmp/pytest-of-research/pytest-1092` (9,024 files, 1,714 MB) and `pytest-1093` (69 files, 1 MB), all untouched 2 h.
+  - After: node 1 has 50 trees, `/workspace` at 36% space and 35% inodes; node 2 has 40 trees, at 40% and 13%.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -205,19 +217,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 
   Nothing is deleted. The handoff asks node2-ops to publish them or confirm they can be marked superseded. (15 at
   3:40 PM PDT.)
-- @proofs (backend-sweep-2): whether the `out/classes` trees of `73-sweep-shape.sh MODE=sampled-stage` rows (35–60 GB
-  each in node 1's `/workspace/jobs/runs/<run>/`) are regenerable and may go once proved, and whether the feeder can hold
-  new rows or clean up after itself. Asked at 3:43 PM PDT
-  ([thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790808184589359)), reply wanted by 4:15 PM PDT.
-- Source trees the sweep keeps because they hold files outside their commit (asked at 1:05 AM PDT,
-  [thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790841929326899); a ✅ lets the steward delete them):
-  - node 1, `overnight-sep30` (vLLM): `29f691be`, `c379497f`, `ddeabc86`, `e3238d3c`, each with 6 untracked
-    `integrations/vllm/workloads/*__bi-eager.json`;
-  - node 1, `9b88cb01` (16 GB, `check` run `r20260930-131845-b088`, no campaign; asked @proofs): modified `protocols/{pous,network_warden}/lean/lean-audit.json`;
-  - node 1, `vllm-sm120`: `b84e85ef`, modified `tools/circuit_check/src/circuit_check/pins.json`;
-  - node 2, `pouw` (@compute-accounting): `0555d893` with 25 files in `RUN_OUT/` (`tc_probe_fp4` runs), and
-    `1fbf4fbd`, `2dfaf436`, `7d9c944b`, `80a4c8ff`, `adb66134` with a modified `pouw_hash_bench` submodule (`gpu-lease` runs).
-
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
   deployed it on both nodes; wrote this policy; sent handoffs to node2-ops and nebius-infra. Armed the timer
@@ -347,3 +346,18 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   `/run/gpu-lease`: the two ad-hoc `gate_job.sh commit` runs (ubuntu) asked at 08:05–08:06Z and were granted GPUs 7 and 1
   within a minute. The sampler seems to count a granted holder whose command line carries `--wait`. Every Commit lease is
   preemptible by the node's scheduler (`cluster agent`), so nobody was blocked and nothing was asked.
+- 08:20–08:30Z (1:20–1:30 AM PDT) tick: node 2 GPU 2 held 48 GiB at 0%, the Commit `cg17` (same pattern as 08:06Z, nothing
+  queued for a GPU, nothing asked). The kept trees' owners had all said yes in the
+  [thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790841929326899) by 1:10 AM PDT (each author
+  checked with `research slack verify-author`). The steward checked each claim before deleting:
+  - the four vLLM trees' 24 workload files are byte for byte those of `fca071b24` (`origin/cursor/build-bench-6942`);
+  - `b84e85ef`'s only change adds `BlackwellE4m3QmmaDot32_v1` `{"and": 9793}`, which main has;
+  - `9b88cb01`'s two `lean-audit.json` equal main's (`3a0169610`), confirmed by @proofs and by the run's owner
+    (@old-circuits-and-proofs);
+  - `0555d893`'s `RUN_OUT/` matches `art:d49243022a1612615a58b4b70dac9a4bd6edaefea22ce153ed25cd8b236e324a` file for file
+    by sha256, PRESERVED (read back);
+  - the five hash-bench trees differ only in the tracked ELF `pouw_hash_bench`, rebuilt in place beside its `.cu`.
+
+  The sweep then deleted them (§4). It now takes `--approved FILE`: approved trees still go through the reference scan,
+  rename and rescan; the list goes through a file because a first dry run with the shas in argv read its own `sudo` as
+  a live reference. Slack: one status line in the thread (51.4 GB).

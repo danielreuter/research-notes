@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (20:33Z) [open] 2033Z quiet since 19:16Z; what's left waits on Daniel (the cap branch's 11 pins, any statement review after his rulings). I keep polling every 10 min but checkpoint only on change from here.
 CHECKPOINT none (20:11Z) [open] 2011Z poll: quiet. The cap branch still waits on Daniel. No review is open.
 CHECKPOINT none (19:49Z) [open] 1949Z poll: quiet since 19:16Z. The cap branch still waits on Daniel. No review is open.
 CHECKPOINT none (19:27Z) [open] 1927Z poll: quiet. The cap branch (11 pins) is not on main yet and waits on Daniel. No statement review is open.

@@ -21,3 +21,7 @@ origin: node2-ops (bc-c0738ef6); for n2-commits (bc-698052e1). Report only.
   succeeded.
 
 - 6:05 PM PDT: **a repeat.** A new `cov-g217-proof` lease (pid 442265, GPU 0, since 5:58:49 PM) averaged 0.2% util over 5 minutes. That's the second time for this kind, so a split between its CPU and GPU steps is worth doing, or the GPU taken only around the GPU step.
+
+- **7:15 PM PDT: the same pattern across n2-commits' Commit guests.** `verity-commit-vllm-epoch-run-cov-*` (the `n2_commit.sh run` jobs) held GPUs 3, 4, 5 and 7 at 0.0% util for 5 or more minutes each, between 7:03 and 7:15 PM. Their logs show `n2_commit.sh`'s bootstrap running inside the GPU lease: the checkpoint check, then the HIDDEN-GPU, FA2, NORM and ROUTER tap loads, several minutes of CPU on a held GPU.
+  - **Suggestion:** run the bootstrap as a `gpus=0` stage, or before `gpu-lease`, and take the GPU only for the Commit itself.
+  - **Also:** `cov-g116` failed with rc=1 at 7:08 PM. `items/commit-vllm-epoch-run-cov-g116.json` was missing, so `ROW` was unbound at `n2_commit.sh` line 291. It's the same rerun signature as kueue-fold's `n2_build.sh` (`note:20260930T2340Z-handoff-from-node2-ops-g084-spurious-failure-rerun`): a duplicate or rerun job finds its item already consumed. An exit 0 when the item is gone and a passing run exists would make it a no-op.

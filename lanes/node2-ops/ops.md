@@ -52,6 +52,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 02:20Z alerts: `gpu-idle-in-lease` ×4, n2-commits' `verity-commit-*` guests (bootstrap inside the GPU lease), and ×1 `pn2g-q` (FYI). `cov-g116` rc=1, item missing (the same rerun pattern as `n2_build.sh`). Relayed to circuits. Disk 48%. Watermark 02:15:06Z.
+
 - 2026-10-01 02:18Z **disk 48%** (39% at 00:10Z): PoUW's `mvp-e2e/passes` holds 800 GB (73 GB a pass, 4 new since 22:12Z), and `gpu3-fp8/out` 737 GB is growing. Alert to resource-steward (`note:20261001T0218Z-alert-from-node2-ops-disk-48-pct-mvp-passes`). Backup `r20261001-000838-916d` PRESERVED.
 
 - 2026-10-01 02:12Z hourly (01Z): GPU busy 86.0%, 100% useful. Held idle 0.70 GPU-h (bc-698052e1 0.18, bc-0f3f8a2f 0.17, bc-8416bc72 0.15) and free idle 0.41. CPU 47.7% (0–127: 57.4%). Delivered share 94% (`delivered_by_hour`).

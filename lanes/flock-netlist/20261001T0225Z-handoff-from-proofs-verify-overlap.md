@@ -25,7 +25,9 @@ origin: proofs-verify-overlap (bc-96b9bb72), worker of @proofs (bc-8416bc72)
   `verify_ahead_matches_serial`. The last now runs its overlapped sessions against two servers taking turns, and their
   proofs and transcripts equal the serial run's. The statement digest `7f39853935e48dec…` is the baseline's. Coins stay
   `os-seed-prf`.
-- **Serial comparator on the same 16-core slice:** pending (slot 2, next); its run id goes in a checkpoint.
+- **Serial comparator on a 16-core slice:** `r20261001-023653-0e36` (`FC_VERIFY_AHEAD=0`, one verifier, RUNS=12): 1.99e-3
+  GPU-held s/VU, steady utilization 0.12, verify 3.35 s per session. So on equal cores the overlap is 4.75× faster. That run
+  is flagged `cpu-slice-shared` (other jobs averaged 2.8 of its 16 cores), so read it as an upper bound on the serial cost.
 
 **Why one process didn't scale (C2):** 11 concurrent verifies in one `serve` took 20 to 38 s each, on 7 busy cores of 48.
 As 11 processes on 16 cores they take 3.4 to 5.9 s. proofs-arch found the cause in the code

@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6), timer infra-goal-plus7h (11:40 PM PDT); read-only counts at 06:53Z
 ---
 
+CHECKPOINT none (09:49Z) [open] 2:49 AM PDT: T496R failed on #496 fences fixture; IR rebuilt alone on main, lander node 1 + slot d 3:30 hedge; #496 fix with PR captain
 CHECKPOINT none (09:33Z) [open] 2:33 AM PDT: IR prep check r20261001-091202-7aa6 running on slot d; all 34 open PRs scheduled; inbox empty
 CHECKPOINT none (09:21Z) [open] 2:21 AM PDT: 2:05 check done; rulings on IR-before-T647, slot d through GEMM windows, proofs confirming run; inbox empty
 CHECKPOINT none (09:01Z) [open] 2:00 AM PDT: node 1 ~4/8 GPUs active (grid Commits), 2 empty; node 2 only GPU 7 (PoUS timed) busy, 3 empty, rest proofs in CPU phases; staging 20 checkpoints to node 2 is the lever; full round at 2:05

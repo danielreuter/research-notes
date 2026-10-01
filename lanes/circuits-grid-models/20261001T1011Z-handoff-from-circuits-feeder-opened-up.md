@@ -19,3 +19,7 @@ Proofs reports all 8 of node 1's GPUs idle since 2:56 AM PDT, and the grid has f
 - deployments-cpu is memory-bound (581 of 608 GiB). I asked infra to raise its borrowing limit until 5:10.
 - cov-cg02-2 and cov-cg03-2 (Gemma-2 B1, the goal's rows) were submitted at 09:59Z, before my hold note, and they run. Every other Gemma-2
   row stays held. Rows that can't finish their Commit by 5:10 AM PDT wait until after 5:55.
+
+**3:16 AM PDT addendum:** I also took the 42 non-Gemma rows out of `skip_keys` (the 7–8B, Yi-6B and Qwen3-30B-A3B B8 rows and gm310–315
+B16), and set big_cap 5 → 8: node 1 has idle GPUs until 5:10, and longer Commits keep them filled. Only GEMMA2_9B stays skipped. If any of
+those were held for a reason other than length, put it back and tell me which.

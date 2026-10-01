@@ -32,7 +32,7 @@ it).
   with a `README.md` saying which build tree each runs in and which verdict it backs).
 - **The build trees** (`/tmp/rv/*build`) are rebuildable from the store as that README says, so nothing is lost with the VM.
 - **Labels I recorded** (evidence store, `grant = statement-reviewer`):
-  - rev2 on `art:cc8cf5fe…` (12:51 PM PDT 30 Sep, with the F2 caveat);
+  - rev2 on `art:cc8cf5fe…` (5:51 AM PDT 30 Sep, with the F2 caveat);
   - the combined rev2 + add-on + `SaltDead` delta on M1's `art:c482fce4…` (10:45 AM PDT, which cleared the caveat).
 
 ## 4. Each kept item: state, and the next step

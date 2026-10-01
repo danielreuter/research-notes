@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: open
 ---
 
+CHECKPOINT 0d2ff8b68 (15:16Z) [open] The assessor's 15:05Z ruling: F-NCP-salt is D at 40 and C at 36 (centre and scale fuse into one HFMA2), X-R9-2 is confirmed, and ε is charged at the worst cell. Bound, rated C, γ now reads 2.02% uncredited and 1.73% credited at 36 at 8,192³, as compiled. I reproduced the fusion exhaustively on #295's fp16: 120 amplitudes × 1,024 fields, 0 mismatches. The queued untimed run r20261001-151500-a717 prices it, rate_salt_fused gated against the unfused reference. It also runs six pair controls that tell whether 36 is reachable. ptxas already splits f16x2 adds between HADD2 and HFMA2, yet the HADD2 control prices at 16 an instruction, so every f16x2 form appears to share one half-rate pipe. That would put the fused steps' FP16 bound at 2.5 × 16 = 40, above the dispatch bound's 36.
 CHECKPOINT 7b51143ef (14:49Z) [open] The assessor took the lane back at 14:46Z and is rating F-NCP-salt and X-R9-2, due 16:20Z. Node 2's 15:00Z NCP slot was released to fill, and I agreed (note 20261001T1448Z): 12:05Z already timed the per-epoch rows bit-exact. Holding with no GPU in use, to answer the assessor.
 CHECKPOINT 7b51143ef (14:27Z) [open] No reply on a rater (13:04Z) and no redirect. Holding with no GPU in use.
 CHECKPOINT 7b51143ef (14:06Z) [open] Still no reply on a rater (13:04Z). Holding with no GPU in use. The morning number (12:20Z) stands for 7:50 AM PDT.

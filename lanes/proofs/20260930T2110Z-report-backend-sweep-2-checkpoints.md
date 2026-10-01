@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT cc21a7d94 (08:27Z) [open] 1:28 AM PDT: #554 Q1 GRANT w/ conditions (labels on pr:554@8a0b172), Q2 tile OBJECT (cost, off curve; Daniel's morning list); Q3 (verifier fold + structured lincheck) asked; flags narrowed in both hill lanes; FP step-2 K=4096/2048 moved to node 2; n2-hill holding 6 node-2 copies + running main full-K stage check; steward tree 9b88cb01 ok'd
 CHECKPOINT 6d3d020d (08:04Z) [open] 1:03 AM PDT: session-preflight K=2048 spec posted for owner's yes (expected 44.7 s/point); red-team-flock-3 and red-team-proofs-554 both on #554; FP E4M3 K=4096 step 1 -36% (flagged by a 07:55Z vLLM pod on 176-191, forwarded to infra); IR check running
 CHECKPOINT 5466ad63 (07:44Z) [open] 12:45 AM PDT: FP step 1 E4M3 K=16384 4.49e8 (-38%, clean); IR check r20261001-073736-9655 on 46c768b2c running; #554 fresh reviewer red-team-proofs-554 started; n2-hill parity running (e4m3, mxf4 K=2048); node 2 range to 17:00Z pending infra; node 1 disk 36%, provers CPU 48 GPU 2; post-7:50 plan and morning list drafted in state.md
 CHECKPOINT b5e3df46d (07:01Z) [open] 12:00 AM PDT: goal 2 at 82.8 s (step 5 r20261001-064454-9419, from 148.7; target 50, needs lever A = Daniel); 4 clean step-0 re-runs in provers; node 2 runner proofs-n2-hill preparing (4x16 cores granted to 7:50 AM); protocols answer docs/protocols-layout.md; inbox 0610Z answered by infra's 128-191 rule

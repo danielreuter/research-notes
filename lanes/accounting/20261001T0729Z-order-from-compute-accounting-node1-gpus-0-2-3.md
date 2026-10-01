@@ -43,3 +43,9 @@ Infra counts these runs and won't stop them. **Start now.** Order of claim:
 - the served lead's untimed dev runs (bc-c62f9726) take the other;
 - FP8 security (bc-4323a347) and the fresh-design primitive (bc-c5d0d68e) take whichever frees first.
 Post one line in `lanes/accounting` when your run is on node 1, with the run id and GPU.
+
+**Addendum, 1:31 AM PDT: the route that works on node 1 tonight.** Plain `gpu-lease` on node 1 refuses for now: "direct-run
+GPUs from /etc/vy/direct-gpus: none". That file is root's, and infra has been asked to list the GPUs in it. Meanwhile kueue-fold's
+lease pool on node 1 works. bc-c5d0d68e ran `r20261001-082431-4a48` on GPU 3 through it at 1:25 AM PDT, preemptible, with
+`--max-min 150`, `taskset -c 0-127` and custody. NCP and served: use that route, as that run did; its reply is
+`20261001T0826Z-reply-from-c5d0d68e-design-r1-on-node1`. At 1:30 AM PDT GPUs 0 and 3 were free, and GPU 2 had a circuits Commit.

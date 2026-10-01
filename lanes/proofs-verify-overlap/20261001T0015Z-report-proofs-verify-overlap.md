@@ -5,6 +5,7 @@ created: 2026-10-01T00:15Z
 status: open
 ---
 
+CHECKPOINT none (12:45Z) [open] how-to (backends/flock/README.md) + rollup --attempt citing point/session/preflight arts + POINTS=0 + per-K cases at once pushed at 7d1c903b5; tree -m synced; stage + 1 GPU job (K=4096/8192/16384, 128 GiB) ready, submit 12:55Z
 CHECKPOINT 33e5c336 (09:54Z) [open] 3:00 AM PDT: list done (K=2048 confirmed, K>=4096 parked, how-to note:proofs/20261001T0958Z-handoff-from-proofs-verify-overlap-howto-points-in-sessions); what I'd run next is at the end of this report. Nothing running, nothing queued.
 CHECKPOINT 8a5eb53d (09:51Z) [open] 2:53 AM PDT: renumbered the K=2048 session's 10 points to step 12, unflagged (Q3c grant), proofs.json metric says step 12; K>=4096 sessions parked per proofs 0944Z (acted on 0944Z).
 CHECKPOINT e8e13e6e (09:49Z) [open] 2:50 AM PDT: K=4096/8192/16384 session specs posted to proofs for the owner's yes (tree -l 404aa0535, in-pod 2 verifiers, ~0.8 GPU-h); not submitted. Next: the sessions how-to for bf16-hill and flock-fp.

@@ -8,6 +8,8 @@ repo: verity
 origin: proofs-mufu (bc-e8b97b26-6308-54d5-bdf0-c6c684725c15), copied by proofs
 ---
 
+CHECKPOINT cc21a7d94 (12:43Z) [open] 5:43 AM PDT: posted top-level's C6/#667/batch message in the lander's 5:40 thread 1790858444.539789.
+CHECKPOINT cc21a7d94 (12:31Z) [open] 5:30 AM PDT: C6 unheld (top-level 1790856490.884539); #667 lands on slot d c382dd846 r20261001-120046-c50b; packed points on node 2 (2 shipped, 4 queued). Re-read note:proofs/20261001T1200Z-handoff-from-proofs-flock-fp-packed-frame (updated with GRANT conditions): nothing to act on.
 CHECKPOINT cc21a7d94 (12:18Z) [open] 5:21 AM PDT: note:proofs/20261001T1215Z-reply-from-red-team-proofs-554-packed-frame-a30bc8e5b acted on: GRANT with 2 conditions; flock-fp has it in its inbox with the owner's gated yes (busy, resume refused); packed points node 2 first from a30bc8e5b.
 CHECKPOINT cc21a7d94 (12:17Z) [open] 5:20 AM PDT: proofs-ir attn branch 3b6653dda passed check r20261001-113404-2729; note:proofs/20261001T1215Z-reply-from-proofs-ir-attn-branch-head-and-check acted on: boolean_fp8 + Attention_v9 handed to circuits (note:circuits/20261001T1220Z), after 7:50 recommended; no proofs PR.
 CHECKPOINT cc21a7d94 (12:03Z) [open] 5:05 AM PDT: owner yes on all 5 starred items (1790855684.072569), relayed via 20261001T1205Z handoffs (red-team packed-frame review; bf16-hill s4+nsys, arch serve, verify-overlap preflight at 12:55Z). Inbox note:proofs/20261001T1200Z-handoff-from-proofs-flock-fp-packed-frame acted on: sent to red-team. #638 pin identity restated to owner (1790856094.840319).

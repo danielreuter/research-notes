@@ -50,4 +50,5 @@ and `note:proofs-n2-hill/20261001T0830Z-handoff-from-proofs-two-more-slots-and-t
   - **NUMA:** 92–107 straddles NUMA nodes (92–95 on node 0, 96–107 on node 1), and labels say so.
   - **Queue:** `ready-n2/` holds only new points and my parity repeats.
 - **The pre-stage rule isn't live, and I haven't built it.** Since circuits' Commits were cancelled (08:32Z), three to
-  five GPUs have been free at each tick, so staging, not GPUs, sets the pace. I'll build it if points st
+  five GPUs have been free at each tick, so staging, not GPUs, sets the pace. I'll build it if points start waiting for GPUs
+  again.

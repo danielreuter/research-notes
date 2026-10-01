@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6), timer infra-goal-plus7h (11:40 PM PDT); read-only counts at 06:53Z
 ---
 
+CHECKPOINT none (14:00Z) [open] 7:00 PDT: lander woke on top-level channel post and merged slot d stack c382dd846 (main 23fe2db57, incl #667, #557); next b27b69c1c on 425f pass, then #676+#677 (bf5b)
 CHECKPOINT none (13:43Z) [open] 6:44 PDT: c382dd846 passed ~6:19 but not merged (lander silent since 6:15, nudged via infra); fallback b3f1912a9 (no #638) checking beside b27b69c1c; main da9a9cfe, 24 open PRs
 CHECKPOINT none (13:27Z) [open] 6:27 PDT: slot d c382dd846 passed, clear to merge; node 1 batch b27b69c1c checking (425f, ~6:50); lander asked to confirm #638 pin by 6:40, fallback b3f1912a9 ready; #676+#677 next train; 23 open PRs
 CHECKPOINT none (13:10Z) [open] 6:10 PDT: node 1 batch b27b69c1c (C6 via #655+#638, lean import, #671, #664, #672, #674, #673, #675) handed to infra for check with lean-agreement; slot d c382dd846 still checking; 20 open PRs

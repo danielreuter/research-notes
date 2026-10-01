@@ -107,3 +107,9 @@ Daniel's. Fix next: a VM bootstrap that clones notes and pushes with the token.
 |---|---|
 | Fresh VM: notes clone and 403 | Yes, folded into the 11:00Z notes PR: clone on first use, explicit-user URL plus a per-command credential helper |
 | Vercel, site DB | Not infra's: Daniel's, on infra's morning list |
+
+## Round 6: network-accounting, console (3:20 PM PDT)
+- Asked 22:22Z, in one announcement (thread 1790893330.620659). The 20:09Z timer reached infra only at 22:20Z. Replies
+  ring infra's inbox, so no thread subscription is needed (comms' one-subscription rule).
+- Next in rotation after memory-accounting (rounds 4 and 5 covered compute-accounting, memory-accounting, circuits and proofs).
+  compute-accounting is in a timed window on node 2 (22:20Z) but isn't up this round.

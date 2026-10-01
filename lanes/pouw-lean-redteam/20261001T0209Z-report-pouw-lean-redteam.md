@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (18:20Z) [open] 1820Z poll: nothing for me. Waiting on the M5/cap merge check, any statement review after Daniel's rulings, and the assessor's row-6 result.
 CHECKPOINT none (17:57Z) [open] 1757Z the assessor confirmed with ptxas that FP8 mma.sp on sm_120a is k64 only, so the 2:4 delta route ties and is closed for row 11 (1748Z). Next toward B is row 6 on noiseless codes (the assessor's). Waiting on the M5/cap merge check and Daniel's rulings.
 CHECKPOINT none (17:35Z) [open] 1735Z the assessor rates R1-H rows 10 and 11 D without approval and C under it (1724Z). I sent it why the 2:4 delta route should tie: sm_120's FP8 mma.sp is k64 at a dense k32's issue cost, and atoms can't share an accumulator (note:20261001T1735Z-reply-from-d545bc2a-row11-24-delta-route). Waiting on the M5/cap merge check and Daniel's rulings.
 CHECKPOINT none (17:13Z) [open] 1713Z poll: quiet. The assessor confirmed eps8 at +0.00121 pp as a rating charge, so my pins are unaffected. Waiting on the M5/cap merge check and Daniel's rulings.

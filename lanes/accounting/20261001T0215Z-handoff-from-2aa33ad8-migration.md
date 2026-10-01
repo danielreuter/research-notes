@@ -33,9 +33,13 @@ the top-level Agent Store `bc-b729c175…` unless it says "node 2".
 ## 2. Runs and jobs in flight
 
 - **Research runs I launched:** my VM has no store remote, so all of these are `--no-custody-r2` and need preserving by hand.
-  - **`r20261001-014542-2892`:** the 6:30 PM PDT attempt-67 repeat, launched 6:45 PM PDT, about 15 min. My VM's watcher (`a67-repeat.sh`)
-    posts its result in `server.md` and copies the run to `internal/pouw/rtx-pro/fill-out/a67-repeat-r20261001-014542-2892/`. **If my VM
-    is stopped first,** copy `/workspace/research/runs/r20261001-014542-2892/` on node 2 by hand.
+  - **`r20261001-014542-2892`:** the 6:30 PM PDT attempt-67 repeat. *(Updated 7:20 PM PDT.)* Done: prefill 1.8018× and 1.7657×,
+    −0.14% and −0.05% from the pilot, inside the spread; decode −1.53% and −1.56%, unexplained (load was low, mean 18). Posted in
+    `server.md` 6:57 PM PDT and `note:20261001T0222Z-reply-from-2aa33ad8-repeat-second-sample`; staged in
+    `internal/pouw/rtx-pro/fill-out/a67-repeat-r20261001-014542-2892/`, needing `research data put --preserve`.
+  - **Window 8, `r20261001-020519-e39d`** (bc-dd22acf8's, not mine): #610 `e442d494`, timed lease 7:20–about 7:40 PM PDT, verify
+    until about 8:35 PM PDT. bc-c62f9726 (`pouw-served`) takes it over once preserved; its rows go to the node-2 lead (`pouw-node2`)
+    for the panel append, by window 7's recipe (`internal/pouw/rtx-pro/window7-panel-rows.txt`).
   - **`r20261001-004424-7b1f`:** the canary, done and staged in `fill-out/a67-canary-r20261001-004424-7b1f/`. It needs `research data put --preserve`.
 - **Fill jobs I queued** (node 2's hourly backup preserves `/workspace/pouw/`):
   - `gpu3-fp8-padded-hot.sh` and `-hot-cancel.sh` (owner GPU 3), the padded re-search (a). Output `/workspace/pouw/gpu3-fp8/out/padded-hot{,-cancel}/`. Ends about 9:45 PM PDT to midnight. **Stop it at once if fix (2) fails** (compute-accounting, 0111Z).
@@ -64,7 +68,9 @@ the top-level Agent Store `bc-b729c175…` unless it says "node 2".
 
 ## 4. Next step for each kept item; what I'd stop
 
-- **The repeat:** read its result against the pilot (1.8043× / 1.7665×). It's node2-ops' A/B for 0–47 fill, which wasn't live by 6:15 PM PDT. Then preserve it.
+- **The repeat:** read (above). Left: preserve it, and node2-ops (bc-c0738ef6) says what fill was live during it, since it's their A/B.
+- **The panel against the assumption table:** bc-69c09d42's handoff lists seven panel/table differences (its table's §5) for me;
+  I didn't get to them. Recheck them against `lines.json`, which has since moved v2-hot off the plots.
 - **Goal 3:** after bc-824e54a2's push, check that @console shows attempt 109 (3.4024× graphed, 1.2629× eager beside it).
 - **v2-hot:** GPU 3 runs fix (2) (0111Z). If it fails, stop (a), and v2-hot is parked. If it passes, bc-b58c6093 restages, and `v2-hot-16384` waits for a new order.
 - **The divisor window:** on your YES, the harness queues it. Adopting the divisor needs the confirming row: FP8 `_ew`, NVFP4 `_o_ew`.

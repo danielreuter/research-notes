@@ -284,6 +284,20 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     `335d1f20`, `41a4eeb9`, `5f21ea3d`).
   - After: node 1 has 31 trees, `/workspace` at 45% space and 48% inodes (9.80M; 10.37M at 20:03Z), root 186 GB free.
     Node 2 has 36 trees, at 45% space and 10% inodes.
+- 22:16–22:23Z (3:16–3:23 PM PDT), the 6 h sweep run from the 22:15Z tick (`sweep.sh --src-age-h 6`): 14 entries,
+  959,384 files, 54.3 GB.
+  - Node 1, 6 trees, 132,135 files, 7,073 MB: `2a06c1eb` (7 h, 29,944 files, 1,698 MB), `2d4008ea` (30,748 files, 1,721
+    MB), `41157ff3` (30,623 files, 1,715 MB), `b9ec4b1b` (5,475 files, 144 MB), `d784c58e` (5,417 files, 98 MB),
+    `de74f334` (7 h, 29,928 files, 1,697 MB); the rest 6 h old.
+  - Node 1, check scratch, 771,725 files, 45,088 MB: `lean-audit-scratch-lkzyik2u` (770,175 files, 45,034 MB, last
+    written 19:07:22Z, 3 h; an orphan of a cancelled `check`) and `/tmp/pytest-of-research/pytest-1979` (1,550 files,
+    54 MB, 2 h).
+  - Node 2, 6 trees, 55,524 files, 2,166 MB: `0d2ff8b6` (7 h, 4,865 files, 88 MB), `2a06c1eb` (7 h, 4,992 files, 90 MB),
+    `69a2fcdd` (7 h, 4,970 files, 89 MB), `89e87f9e` (4,970 files, 89 MB), `a8ae60ff` (30,735 files, 1,720 MB),
+    `de74f334` (7 h, 4,992 files, 90 MB); the rest 6 h old.
+  - Kept, 26 node 2 trees: as at 20:08Z, plus `bb934d59` (no `READY.json`; sixteen such now).
+  - After: node 1 has 35 trees, `/workspace` at 47% space and 45% inodes (9.20M; 10.03M at 22:15Z), root 190 GB free.
+    Node 2 has 32 trees, at 44% space and 10% inodes, root 187 GB free.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -585,3 +599,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   check scratch: `3g6nt1s0` live (321k), `lkzyik2u` (770k, last written 19:07Z) and the orphan `otchoghv` (494k), with
   `jobs/src` at 812 copies. Ran the 6 h sweep once `otchoghv` passed 2 h (20:08:18Z): 25 entries, 43.5 GB, node 1 down to
   9.80M inodes (48%); §4. No Slack (under 50 GB). `lkzyik2u` is sweepable after 21:07Z if nothing holds it.
+- 20:25–21:53Z ticks: exit 0.
+- 22:15Z (3:15 PM PDT) tick (exit 1): node 1 HARD at 899k/h (80% in 7.1 h), at 10.03M inodes (49%): `anxt7zhi` live
+  (770k), the orphan `lkzyik2u` (770k, last written 19:07Z), `jobs/src` at 816 copies. Ran the 6 h sweep at once: 14
+  entries, 54.3 GB, node 1 down to 9.20M inodes (45%); §4. Slack (over 50 GB): one announce to @infra
+  (`1790893411.516639`): the sweep, the three orphans since 18:00Z (1.59M inodes, 93.5 GB), PR #708 still a draft, and
+  `jobs/src` still waiting.

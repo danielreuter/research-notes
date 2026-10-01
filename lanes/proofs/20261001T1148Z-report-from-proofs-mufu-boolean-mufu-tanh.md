@@ -8,6 +8,8 @@ repo: verity
 origin: proofs-mufu (bc-e8b97b26-6308-54d5-bdf0-c6c684725c15), copied by proofs
 ---
 
+CHECKPOINT cc21a7d94 (12:18Z) [open] 5:21 AM PDT: note:proofs/20261001T1215Z-reply-from-red-team-proofs-554-packed-frame-a30bc8e5b acted on: GRANT with 2 conditions; flock-fp has it in its inbox with the owner's gated yes (busy, resume refused); packed points node 2 first from a30bc8e5b.
+CHECKPOINT cc21a7d94 (12:17Z) [open] 5:20 AM PDT: proofs-ir attn branch 3b6653dda passed check r20261001-113404-2729; note:proofs/20261001T1215Z-reply-from-proofs-ir-attn-branch-head-and-check acted on: boolean_fp8 + Attention_v9 handed to circuits (note:circuits/20261001T1220Z), after 7:50 recommended; no proofs PR.
 CHECKPOINT cc21a7d94 (12:03Z) [open] 5:05 AM PDT: owner yes on all 5 starred items (1790855684.072569), relayed via 20261001T1205Z handoffs (red-team packed-frame review; bf16-hill s4+nsys, arch serve, verify-overlap preflight at 12:55Z). Inbox note:proofs/20261001T1200Z-handoff-from-proofs-flock-fp-packed-frame acted on: sent to red-team. #638 pin identity restated to owner (1790856094.840319).
 CHECKPOINT cc21a7d94 (11:54Z) [open] 4:50 report: goal1 hit 16/16 clean node-1 bests, goal2 hit 37.8s, goal3 open (#638 cleared: lean-audit.json blob a18ab53b identical at 22fe745f and in C6 merged tree; posted 1790855546.393529). Owner asked yes on 5 starred items (1790855605.130489). Node 1 11:55Z: one proofs CPU stage, feeder window closed 11:50Z.
 # `MufuTanh_v2`: MUFU.TANH on bits, bit-exact on all 2^32 inputs, 1,049 ANDs

@@ -10,6 +10,7 @@ cursor:
   subagentId: "bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4"
 ---
 
+CHECKPOINT 185286eaf (12:21Z) [open] serve session on M0 #20's own statements prepared: item pa-serve-m0-185286e (serve_staged.sh, 185286eaf, 1 GPU, 16 CPUs, 128 GiB); submitting on node 1 at 12:55Z
 CHECKPOINT 369850ad1 (10:28Z) [open] list done at 369850ad1; next steps and statement-reviewer request in lanes/proofs 1025Z; waiting on a reviewer and a GPU yes
 CHECKPOINT cbba321b (10:21Z) [open] 369850ad1 Lean lincheck from the block's structure: same verdicts on 452 sessions (live k_log 26: new agrees 23/23, old OOM), honest sessions 2-5x faster (k_log 26 247.5->45.8 s), audit PASS; statement reviewer asked in lanes/proofs 1025Z; art:a2376034
 CHECKPOINT 369850ad1 (09:24Z) [open] Lean lincheck from the block's structure (CircuitFold.folded, folded_eq, partial_eq_halve_fold) at 369850ad1: all three packages build, audit PASS; soundness FoldRealizes changed, needs a statement reviewer; Lean old/new verdict sweep running

@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (15:11Z) [open] 1511Z poll: nothing for me. The assessor is active again (1505Z, NCP), so its FP4 re-grant on M5 may follow. Still waiting on the design lane's answer to 1448Z.
 CHECKPOINT none (14:48Z) [open] 1448Z draft 8 (art:4a7e960f) answers my draft-7 points, with the eps_f arithmetic checked (note:20261001T1448Z-reply-from-d545bc2a-draft8-audit-cost-checked). Left: name the epoch length the headline assumes, T3 and the honest rejection rate for tau_row = 25%, and a real C-Flock glue-unit proof. The FP4 re-grant is still pending.
 CHECKPOINT none (14:26Z) [open] 1426Z the lean import landed on main (903c130cc). M5's tip 41157ff36 changes nothing under protocols/pouw/lean vs my signed 8e91aeb66 (policy 19e845c9, byte-identical), so my statement-reviewer signature covers the tip. Waiting on the assessor's FP4 re-grant and the design lane's answer to 1403Z.
 CHECKPOINT none (14:03Z) [open] 1403Z condition 3 falsified the one-layer carry bound (pow2 residuals stay cheap for up to 16 layers). Draft 7's full-carry repair is sound; I asked for 1 unit per carried layer, the absolute cost of 500K glue proofs, and pricing for the tau_row-weighted middle option (note:20261001T1403Z-reply-from-d545bc2a-draft7-full-carry-cost). The FP4 re-grant is still pending.

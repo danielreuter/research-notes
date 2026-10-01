@@ -124,7 +124,29 @@ Node 1's `/workspace` has grown from 69% at 2:24 PM PDT to 71%, and `/workspace/
 free, it reaches the 80% alert after about 0.48 TB more. The trend line starts with the next ticks.
 
 ## 4. Deletions
-None yet: no filesystem is over its watermark, there's no check scratch on either node, and no source tree is 24 h old.
+- 04:03Z (9:03 PM PDT), node 1, check scratch under `/tmp/pytest-of-research` (policy: untouched for more than 2 h, no open
+  files; each directory re-checked for both just before `rm`): 15 directories, 226,587 files, 14.6 GB.
+
+  | directory | files | MB | newest file (UTC) |
+  |---|---:|---:|---|
+  | `pytest-1` | 15,178 | 2,084 | 09-30 06:01 |
+  | `pytest-23` | 17,759 | 414 | 09-30 07:50 |
+  | `pytest-24` | 17,741 | 414 | 09-30 07:50 |
+  | `pytest-25` | 17,868 | 414 | 09-30 07:50 |
+  | `pytest-51` | 19,419 | 1,950 | 09-30 07:35 |
+  | `pytest-52` | 19,348 | 1,181 | 09-30 07:35 |
+  | `pytest-53` | 24,007 | 2,412 | 09-30 07:44 |
+  | `pytest-239` | 16 | 1 | 09-30 12:14 |
+  | `pytest-310` | 365 | 1,703 | 09-30 14:37 |
+  | `pytest-388` | 115 | 570 | 09-30 15:43 |
+  | `pytest-402` | 15,773 | 2,913 | 09-30 16:06 |
+  | `pytest-489` | 76,834 | 508 | 09-30 18:45 |
+  | `pytest-509` | 2,100 | 19 | 09-30 19:15 |
+  | `pytest-835` | 58 | 3 | 10-01 01:46 |
+  | `pytest-844` | 6 | 1 | 10-01 01:46 |
+
+  Root went from 74 GB to 60 GB used and from 808k to 582k inodes. Kept: `pytest-945` onward (written within 2 h;
+  `pytest-948` held open), and `/tmp/sm120-base-*`, `/tmp/sb*` (about 47k files, owner unknown, not check scratch).
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -216,3 +238,7 @@ None yet: no filesystem is over its watermark, there's no check scratch on eithe
     new passes over 52% ([thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790821265698879)).
   - Node 2 was in a timed window, so nothing was inspected there.
   - Custody backlog on node 2 is down to 13 (compute-accounting's eight are preserved).
+- 04:00Z (9:00 PM PDT) tick: node 1's root was gaining 326k inodes/h, though at 3% of its 33.4M inodes (80% about 79 h
+  away). The writer was check scratch: `/tmp/pytest-of-research` held 249k files. Deleted the 15 directories untouched
+  for over 2 h (§4: 226,587 files, 14.6 GB). Root is now at 582k inodes (2%) and 25% used. Pytest scratch accrues about
+  300k files/h while checks run, so the src-cleanup step (05:30Z) also sweeps it each time.

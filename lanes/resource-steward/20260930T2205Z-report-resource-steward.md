@@ -197,3 +197,15 @@ None yet: no filesystem is over its watermark, there's no check scratch on eithe
 - 00:20Z (5:20 PM PDT) tick: node 2's inode growth (about 112k/h, `research/src`, as at 23:40Z) came back after dipping
   under the threshold for one tick. `tools/tick.sh` now remembers a breach kind for 6 h, so a metric that flaps around its
   watermark doesn't wake the steward each time. No action.
+- 00:40Z (5:40 PM PDT) tick: **node 1 `/workspace` inodes at 42% and rising 0.7–1M/h**, which is 80% in about 8 h (around
+  1:40 AM PDT) and exhaustion around 6 AM PDT.
+  - The driver is `research/src`: 196 trees hold 4.15M inodes, 3.57M of them in 167 trees older than 6 h (2.28M in 114 trees
+    older than 12 h), and none is 24 h old. Each tree carries its own `.venv`. A missing tree is shipped again from the node's
+    bare git repo (`remote.ship_source`).
+  - A cleanup sooner than 24 h is deletion beyond the policy, so it went to Daniel as blocking card
+    `01933aa8-6663-4d2e-989c-7b2d983bddfd` ([card](https://computeverification.slack.com/archives/C0C5UCA0S0Z/p1790815323264569)):
+    6 h (recommended), 12 h, or keep 24 h, deadline 11 PM PDT, with a timing correction in its thread. A one-off timer at
+    06:00Z checks it.
+  - Probe `b27322950` (sha256 `ccf53b63…`, both nodes): inode growth is now HARD when the watermark is under 12 h away, so a
+    known breach that escalates still wakes the steward; it had been hidden as `known:`.
+  - Node 2 was in a timed window and was skipped.

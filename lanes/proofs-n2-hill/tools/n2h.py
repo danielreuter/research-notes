@@ -213,8 +213,9 @@ def slots() -> list[dict]:
     for k in range(0, len(c) - SLOT + 1, SLOT):
         cs = c[k:k + SLOT]
         numa = 0 if cs[-1] <= 95 else 1 if cs[0] >= 96 else None
-        out.append({"index": len(out), "cpus": span(cs), "numa": numa, "gpus": {0: "0-3", 1: "4-7"}.get(numa),
-                    "loopback": f"127.77.{len(out) + 1}.1"})
+        # any free GPU, as node 1's scheduler places them without regard to socket (r20261001-052527-2ac1: slice 160-175 on
+        # NUMA 1, GPU 0 on NUMA 0); an item's "on" pins it, and each record has the GPU's NUMA node
+        out.append({"index": len(out), "cpus": span(cs), "numa": numa, "gpus": None, "loopback": f"127.77.{len(out) + 1}.1"})
     return out
 
 
@@ -780,7 +781,8 @@ class Loop:
                 rec = json.loads((R / "n2.json").read_text())
                 line = {k: rec.get(k) for k in ("run_id", "phase", "lane", "item", "question", "cpuset", "rc", "t_start", "t_end", "wall_s", "hillclimb",
                                                 "stage_cached", "parity")}
-                line.update(commit=rec["tree"]["commit"], node1_dir=f"{N1_OUT}/runs/{a['run']}", attempt=a["state"])
+                line.update(commit=rec["tree"]["commit"], node1_dir=f"{N1_OUT}/runs/{a['run']}", attempt=a["state"], host=HOST,
+                            gpu=(rec.get("gpu") or {}).get("cuda_visible_devices"), gpu_numa=(rec.get("gpu") or {}).get("numa"))
                 n1(f"cat >> {N1_OUT}/points.jsonl", input_=json.dumps(line, default=str) + "\n")
                 ITEMS.update(d["id"], lambda x: [b.update(shipped=iso()) for b in x.get("attempts", []) if b["run"] == a["run"]])
                 log(event="shipped", run=a["run"], item=d["id"], state=a["state"])

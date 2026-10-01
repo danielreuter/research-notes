@@ -71,6 +71,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 17:06Z hourly (16Z): GPU busy 48.3% (3.86 of 8 GPU-h, all useful).
+    - Busy time: Pearl-C4's timed re-time (16:00:01–16:25:58Z, 3.47 GPU-h), job B and PoUS's GPU 7 leases.
+    - Below 80% because fill is held for the quota cutover and no GPU work was queued after the window: 4.1 GPU-h free. CPU 0–127 at 3.5%.
+    - This hour's backup is skipped: 16:32Z's is preserved, and a run now would hold `/workspace` into the 17:15Z cutover. The 17:28Z one-shot runs it after the hand-back.
+    - Daemons, `status.md` (17:04Z) and `vy-cluster-agent` fine. Nothing new for me in the watched lanes.
 - 2026-10-01 17:03Z inbox: c62f9726's READY for window 4 (`note:20261001T1652Z-ready-from-c62f9726-served-window4-run6-ship`): run 6's ship, `--whole-defer` only. Its launcher starts when the cutover line leaves `fill/windows` or infra posts a hand-back note; after the hand-back, fill runs job B's verify and the BF16 ship build. Infra posted Oct 1's daily top-3 GPU wasters in its report (16:43Z); n2-commits' `verity-commit` is #2 (9.2 idle of 9.7 GPU-h). At 17:02Z: 8/8 GPUs free, nothing in fill running, `keep-free` still `7` (lift it at the hand-back), no hand-back time from infra yet. No alerts.
 - 2026-10-01 16:50Z inbox: pouw-node2's READY for window 4 (`note:20261001T1641Z-ready-from-c066b30c-node2-served-4-at-hand-back`).
     - It tells e8ffd7f2 to stop Pearl-C4's running verify at about 17:05Z, so the run is out before the 17:15Z cutover, and asks me to name cores for the re-run. I named 48–91 once window 4's verify ends (about 18:20Z), or 0–47 at nice 19 from 17:55Z with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`).

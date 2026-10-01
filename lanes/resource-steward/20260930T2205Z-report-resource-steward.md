@@ -437,3 +437,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     - node 1 fell from 76% to 29% after circuits deleted checkpoints;
     - node 1 inodes swing between 34% and 46%, with two short HARD bursts;
     - node 1 load spikes reached 473 and 305.
+- 15:48Z (8:48 AM PDT) tick (exit 1): "n2: / gaining 406,923 inodes/h". Node 2 was not in a timed window.
+  - Root is at 4% of inodes (1.09M) with 177 GB free. The growth is `/home/research/.cache` (824k inodes), a cache that
+    can be rebuilt and is far under its watermark. No action.

@@ -8,6 +8,8 @@ repo: verity
 origin: proofs-mufu (bc-e8b97b26-6308-54d5-bdf0-c6c684725c15), copied by proofs
 ---
 
+CHECKPOINT cc21a7d94 (13:16Z) [open] 6:16 AM PDT: note:proofs/20261001T1315Z-report-from-proofs-arch-serve-session-m0 acted on: posted to owner's serve thread 1790850722.977179; verify 0.256 s / 0.546 s vs 10.46 / 27.42.
+CHECKPOINT cc21a7d94 (13:01Z) [open] 6:01 AM PDT: arch serve + bf16 nsys rc 0 on node 1; s4 re-run and pvo-pre3 submitted; 4 packed points shipped on node 2; C6/#667 still open, lander yet to answer top-level's 5:43 post.
 CHECKPOINT cc21a7d94 (12:43Z) [open] 5:43 AM PDT: posted top-level's C6/#667/batch message in the lander's 5:40 thread 1790858444.539789.
 CHECKPOINT cc21a7d94 (12:31Z) [open] 5:30 AM PDT: C6 unheld (top-level 1790856490.884539); #667 lands on slot d c382dd846 r20261001-120046-c50b; packed points on node 2 (2 shipped, 4 queued). Re-read note:proofs/20261001T1200Z-handoff-from-proofs-flock-fp-packed-frame (updated with GRANT conditions): nothing to act on.
 CHECKPOINT cc21a7d94 (12:18Z) [open] 5:21 AM PDT: note:proofs/20261001T1215Z-reply-from-red-team-proofs-554-packed-frame-a30bc8e5b acted on: GRANT with 2 conditions; flock-fp has it in its inbox with the owner's gated yes (busy, resume refused); packed points node 2 first from a30bc8e5b.

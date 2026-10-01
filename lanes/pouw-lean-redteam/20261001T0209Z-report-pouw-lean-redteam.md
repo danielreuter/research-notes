@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (17:57Z) [open] 1757Z the assessor confirmed with ptxas that FP8 mma.sp on sm_120a is k64 only, so the 2:4 delta route ties and is closed for row 11 (1748Z). Next toward B is row 6 on noiseless codes (the assessor's). Waiting on the M5/cap merge check and Daniel's rulings.
 CHECKPOINT none (17:35Z) [open] 1735Z the assessor rates R1-H rows 10 and 11 D without approval and C under it (1724Z). I sent it why the 2:4 delta route should tie: sm_120's FP8 mma.sp is k64 at a dense k32's issue cost, and atoms can't share an accumulator (note:20261001T1735Z-reply-from-d545bc2a-row11-24-delta-route). Waiting on the M5/cap merge check and Daniel's rulings.
 CHECKPOINT none (17:13Z) [open] 1713Z poll: quiet. The assessor confirmed eps8 at +0.00121 pp as a rating charge, so my pins are unaffected. Waiting on the M5/cap merge check and Daniel's rulings.
 CHECKPOINT none (16:51Z) [open] 1651Z eps8: the assessor flagged a v1 leak outside TT_OUT's allowance (1633Z), and bc-4323a347 bounds it at 0.0012 pp or less (v1 about 0.5203%, cap1000 about 0.3707%; 1647Z). My signed cap-1/1,000 pins are conditional theorems and stay valid; if the charge is restated in Lean, I review it. Still on call for the M5/cap merge check.

@@ -21,7 +21,8 @@ its scope cannot leave the slot, and 74-gemm-hill.sh holds the slot's lock under
 the evidence store.
 
 Rules (proofs, 2026-10-01): at most one job per slot; nothing placed from 20 min before a booked window (fill/windows) until it
-ends, or while the runner reports a timed window running or waiting; nothing whose expected wall reaches a window or 14:50Z; no
+ends, or while the runner reports a timed window running or waiting; nothing whose expected wall reaches a window or END
+(17:00Z, the range's end as infra extended it at 07:40Z); no
 node-1 traffic while node 1's /workspace is offline (12:40-12:55Z); nothing new once node 2's /workspace is 55% full. A
 preempted attempt is moved aside and re-run, never reported. Node 2 has no unprivileged network namespaces (AppArmor), so every
 job's IPv4 loopback traffic goes to its slot's own address (n2h_loopback.so, N2H_LOOPBACK=127.77.<slot+1>.1, ports unchanged):
@@ -51,7 +52,7 @@ N1_OUT = "/workspace/jobs/proofs-n2-hill"
 LANE = "proofs-n2-hill"
 OWNER = "bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4"           # proofs (@proofs), whose worker this is
 HOST = "vy-nebius-2"
-END = datetime(2026, 10, 1, 14, 50, tzinfo=timezone.utc).timestamp()
+END = datetime(2026, 10, 1, 17, 0, tzinfo=timezone.utc).timestamp()
 LEAD_S, MARGIN_S = 20 * 60, 120
 N1_OFFLINE = (datetime(2026, 10, 1, 12, 38, tzinfo=timezone.utc).timestamp(), datetime(2026, 10, 1, 12, 57, tzinfo=timezone.utc).timestamp())
 DISK_STOP = 55.0
@@ -174,7 +175,7 @@ def allow(expected_s: float, t: float | None = None) -> str | None:
     """None if a job of this expected wall may be placed at t, else why not."""
     t = now() if t is None else t
     if t + expected_s > END:
-        return f"would run past 14:50Z (expected {expected_s:.0f} s)"
+        return f"would run past {iso(END)} (expected {expected_s:.0f} s)"
     st = status()
     if st["timed"] or st["waiting"]:
         return f"the fill runner reports a window: {st['line'][:120]}"
@@ -669,7 +670,7 @@ class Loop:
         on = f" on={gp}" if gp else ""
         body = (f"#!/usr/bin/env bash\n# fill: owner={OWNER} gpus=1 project=verity cpus={SLOT} max_min={mm} mem_gb={mem}{on}\n"
                 f"# question: \"{q}\"\n# proofs-n2-hill: lane {d['lane']}'s item {d['file']} on prover slot {d['slot']['cpus']} through vy-provers "
-                f"(infra, 128-191 until 14:50Z); LD_PRELOAD n2h_loopback.so moves its loopback to {d['slot']['loopback']}\n"
+                f"(infra, 128-191 until {iso(END)}); LD_PRELOAD n2h_loopback.so moves its loopback to {d['slot']['loopback']}\n"
                 f"export N2H_ITEM={shlex.quote(d['id'])} VY_PROVERS_CPUS={d['slot']['cpus']}\n"
                 f"exec {VY_PROVERS} python3 {H}/bin/n2h.py job {shlex.quote(d['id'])} gpu\n")
         p = H / "scripts" / name

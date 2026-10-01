@@ -5,6 +5,7 @@ created: 2026-10-01T05:12Z
 status: open
 ---
 
+CHECKPOINT 71c350910 (14:10Z) [open] 7:10 AM PDT: no change; waiting on the re-grant (assessor silent since 2:25 AM PDT) and lean's import.
 CHECKPOINT 71c350910 (13:42Z) [open] 6:42 AM PDT: no change; the assessor's lane is still silent since 2:25 AM PDT (flagged at 5:07), and the import is not on main.
 CHECKPOINT 71c350910 (13:11Z) [open] 6:11 AM PDT: no change; waiting on the re-grant and lean's import.
 CHECKPOINT 71c350910 (12:46Z) [open] 5:46 AM PDT: no change; M5 waits on bc-f9af3acc's re-grant and lean's import (main at da9a9cfef, import not on it).

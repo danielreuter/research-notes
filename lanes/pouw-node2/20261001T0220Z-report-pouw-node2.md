@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT c1e920090 (06:01Z) [open] 06:02Z no answer yet on the 52 held GPU-0 verifies (ask 0547Z); stand-down order 0552Z is for old agents only; Project store remounted, panel copy already current (parked v2-hot, hashes match art:bf6ff435)
 CHECKPOINT c1e920090 (05:59Z) [open] item 2 done: v2-hot's lead is parked on the panel (fix (2) fails as specified, not a break; note:20261001T0250Z-reply-from-0f3f8a2f-v2hot-fix2-fails, assessor's 0510Z ruling); FP8 stays v1 at 0.519% packed; republished to the Project store (docs/pouw/panel.md, internal/pouw/panel/lines.json, sha256 checked; the other 261 files already matched); ov-sync 0 new, labels-sync 0 to push; preserved as art:bf6ff435da3b36c658094685179170ee47551d9dc21bf69678834b2580cf2dbb (PRESERVED)
 CHECKPOINT c1e920090 (05:56Z) [open] item 1 done: divisor verdict for r20261001-044003-aa48 (done rc 0, PRESERVED) is in lanes/accounting (note:20261001T0507Z-reply-from-c066b30c-divisor-confirmed) and in server.md 10:55 PM PDT; server.md now lives in the Project store at internal/pouw/rtx-pro/server.md, carried from art:e578daed (old store unmounted here)
 CHECKPOINT 923b5acb8 (05:42Z) [open] 05:48Z stop order 0536Z: my 5 predecessors stop (26712550 waits on pous-panels key); I own bc-e6a46970's node-2 jobs: 51 done, 52 CPU verifies held by node2-ops' 03:50Z overnight gate; asked compute-accounting yes/no (accounting 0547Z); Project store still unmounted

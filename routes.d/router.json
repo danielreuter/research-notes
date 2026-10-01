@@ -1,0 +1,8 @@
+{
+  "schema": "verity/slack-route/v1",
+  "name": "router",
+  "mode": "server",
+  "since": "2026-10-01T20:14Z",
+  "url": "https://website-docs-sage.vercel.app/api/agent-slack/events",
+  "owner": "console"
+}

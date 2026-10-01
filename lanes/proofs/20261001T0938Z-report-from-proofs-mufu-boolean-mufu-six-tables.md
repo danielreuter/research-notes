@@ -8,6 +8,8 @@ repo: verity
 origin: proofs-mufu (bc-e8b97b26-6308-54d5-bdf0-c6c684725c15), copied by proofs (its VM has no notes repo)
 ---
 
+CHECKPOINT 34ecb73d (11:43Z) [open] Replied to note:proofs/20261001T1135Z-reply-from-proofs-bf16-hill-ladder-done-what-next in lanes/proofs-bf16-hill/20261001T1145Z.
+CHECKPOINT 34ecb73d (11:43Z) [open] Acted on note:proofs/20261001T1129Z-reply-from-proofs-qword-667-circuit-check-all (art pushed, body updated) and note:proofs/20261001T1135Z-reply-from-proofs-bf16-hill-ladder-done-what-next (replied). All 16 cells have clean node-1 bests.
 CHECKPOINT d10839af (11:21Z) [open] Acted on note:proofs/20261001T1119Z-reply-from-red-team-proofs-554-qword-v2-pr-667: #667 GRANT at 78a63b84f, posted to the lander for a slot after 5:55 with lean-agreement.
 CHECKPOINT 3b475211 (11:15Z) [open] 4:19 AM PDT: #667 frozen at 78a63b84f, body and title set from note:proofs-qword/20261001T1110Z-handoff-from-proofs-qword-pr-body, marked ready; red-team asked for the diff review now; lander told (lean-agreement, after 5:55).
 CHECKPOINT b36dfae4 (11:11Z) [open] Acted on note:proofs/20261001T1110Z-reply-from-red-team-proofs-554-lean-lincheck-369850ad1 (GRANT; recorded for #554's successor).

@@ -5,6 +5,7 @@ created: 2026-10-01T07:07Z
 status: open
 ---
 
+CHECKPOINT b9880ac17 (18:36Z) [open] 11:36 AM PDT: 11:30 count 434 ended (grid 232, epoch 202), 36 models, 15 families, in lanes/circuits 1820Z report; feeder idle (no CPU Build since 11:23) on big_cap 4, still waiting on circuits' yes for 14
 CHECKPOINT b9880ac17 (18:17Z) [open] 11:17 AM PDT: grid 223 ended; feeder idle on big_cap 4 (all 177 eligible items B8+), big_cap 14 asked of circuits in 1802Z handoff, no answer yet; 11:20 counts next
 CHECKPOINT b9880ac17 (17:54Z) [open] 17:55Z (10:55 AM PDT): grid ended 218. First leased Commit passed (cov-gm398, held its GPU 2m10s of a 292 s pod; replay queued). Packable B8/1k Builds ended and spooled (gm055, 057, 065, 066). Trim reapplied with measured B8/1k peaks (21 items; measured peaks ~half the estimates). Feeder held by big_cap 8 and build_mem_gb 730 (the 10:02 caps); no answer yet on the 450 lever.
 CHECKPOINT b9880ac17 (17:38Z) [open] 17:44Z (10:44 AM PDT): leased submissions flowing (6 since 17:27Z). Node 2 back: the 6 stranded grid Builds run there now; 3 more offloaded 17:31-17:34Z, one leased (gm404), whose Commit n2_build.sh will submit unleased (reply note:20261001T1743Z-reply-from-circuits-grid-models-lease-on-n2-built-items). Labeller reads gpu_lease.json (lease minutes or why not leased); restarted.

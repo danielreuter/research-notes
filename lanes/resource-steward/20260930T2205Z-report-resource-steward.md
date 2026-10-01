@@ -341,3 +341,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   #agent-coordination with the totals, addressed only to the owners of the kept trees (@circuits, @compute-accounting,
   @proofs), each asked whether its trees' extra files are preserved or not needed
   ([thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790841929326899), subscribed).
+- 08:06Z (1:06 AM PDT) tick: node 2 GPU 0 held 48 GiB at 0% for 15 min. The holder was the vLLM Commit `cg09` again (run
+  `r20261001-074552-988a`, from 07:45Z, owner bc-698052e1) at 98% of one CPU; GPUs 2, 4, 5 and 6 are held the same way
+  by `cg17`, `n048-2`, `n049-2` and `m001-2`. The sampler showed lease waiters, but nothing was queued in
+  `/run/gpu-lease`: the two ad-hoc `gate_job.sh commit` runs (ubuntu) asked at 08:05–08:06Z and were granted GPUs 7 and 1
+  within a minute. The sampler seems to count a granted holder whose command line carries `--wait`. Every Commit lease is
+  preemptible by the node's scheduler (`cluster agent`), so nobody was blocked and nothing was asked.

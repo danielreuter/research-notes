@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:39Z) [open] 8:39 PDT: Daniel up; 3h set (to 11:30) assembling from owners' targets (circuits, memory, compute, proofs in; infra due 8:50); trains a8ae60ff5 and 2d4008ea3 checking since 8:30
 CHECKPOINT none (15:23Z) [open] 8:23 PDT: summary sent to Daniel (21/27 hit, 8 decisions; NCP decision corrected); train a8ae60ff5 (#678-#681) awaiting infra's check, #682 to stack on it
 CHECKPOINT none (15:06Z) [open] 8:06 PDT: overnight set closed 20/27 hit, 1 pending Daniel, 5 missed; log and proposed day set in goals.md; 3 post-7:50 PRs open (#678, #679, #680); infra's final numbers pending
 CHECKPOINT none (14:51Z) [open] 7:51 PDT: 7:50 closure under way; PRs 0 at 7:50 (47 landed since 2:05), #678 PoUS Lean sync opened for a train; awaiting infra and circuits 7:50 numbers

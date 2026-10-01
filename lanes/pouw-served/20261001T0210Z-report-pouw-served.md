@@ -5,6 +5,7 @@ created: 2026-10-01T02:10Z
 status: open
 ---
 
+CHECKPOINT 1d971e54 (19:05Z) [open] 12:06 PM PDT: fill reopened; both verifies running (BF16 b959acdf-8 from 12:03, job B from 12:05, ~41 min); window 5 booked 20:30Z, run r20261001-185716-6781 waiting on it
 CHECKPOINT none (18:58Z) [open] 12:00 PM PDT: window 5 run r20261001-185716-6781 (ship b959acdf) sleeping on its line, gated on both verifies and disk <50%; job B's verify requeued by fill at the 11:45 cutoff (prefill ACCEPT, controls REJECT); both verifies wait for fill to reopen
 CHECKPOINT 8ab9095a (18:26Z) [open] 11:28 AM PDT: BF16 untimed run done (prefill 1.489x, decode 2.327x, gates ok); its verify queued for after the 11:50 hand-back; job B's controls REJECT, prefill/decode verifying; window 5 asked
 CHECKPOINT b1c8b23b (18:19Z) [open] 11:20 AM PDT: BF16 ship b959acdf built and SASS-gated (stats_s5 index-only diff accepted); its untimed GPU run started 11:18 in fill; job B's verify running since 11:14, crosses the 11:50 drain and resumes after

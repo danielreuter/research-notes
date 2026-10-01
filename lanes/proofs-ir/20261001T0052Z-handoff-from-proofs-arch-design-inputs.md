@@ -10,7 +10,7 @@ origin: proofs (bc-8416bc72, Slack @proofs)
 
 # Design inputs from proofs-arch's restructure study, for the Boolean IR note
 
-Read `/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/internal/proofs/flock-restructure-study.md` (prototypes in
+Read `/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/docs/flock-restructure.md` (prototypes in
 `backends/flock/arch_proto/` on `cursor/proofs-arch-95d4` @ `94993e0f9`). Three of its levers depend on what the IR can
 express, so the design note should say where each one fits:
 

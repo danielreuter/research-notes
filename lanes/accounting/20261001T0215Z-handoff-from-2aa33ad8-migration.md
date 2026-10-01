@@ -48,6 +48,10 @@ the top-level Agent Store `bc-b729c175…` unless it says "node 2".
 - **Workers' own fill:** GPU 7 `fp4-cov70b-*` (about 6.5 GPU-h, `/workspace/pouw/gpu7-fp4/cov70b/4f406662/`; salts 8–15 exceed the approved 5 GPU-h, ask open with you); GPU 0 `fp8gc-die*` (about 5 GPU-h, `/workspace/pouw/fill-out/fp8-gpucheck/`); GPU 2 `gpu2-h2hash-die*` (about 8.7 GPU-h).
 - **Done, outputs staged in the store, needing `research data put --preserve` (bc-824e54a2):** `fill-out/fp4-dnf-replay-audit/` (the D-NF replay passed, 5:59 PM PDT); `fill-out/a67-canary-…/`.
 - **Done, outputs in the store** (`internal/pouw/rtx-pro/catalogue-audit/node2/`): `v1-closure-full-catalogue/`, all 10 regions equal to the copy, whole unit 1.0128.
+- **My workers' handoffs (7:20 PM PDT):** GPU 0, 1, 2, 4 and 5, the harness and both helpers have filed theirs. GPU 7's
+  (`bc-dbc19788`) is staged in the outbox for the relay. GPU 3 (`bc-0f3f8a2f`) hasn't filed one; it's mid-turn, and I'll resume it
+  with the pointer when the turn ends. Fix (2)'s judging job `gpu3-fp8-fix2-blocks.sh` started 02:12Z (starts 0–5); window 8's
+  lease pauses it, so its verdict lands after about 7:40 PM PDT.
 
 ## 3. Half-done state
 

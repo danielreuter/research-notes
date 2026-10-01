@@ -1,9 +1,8 @@
 {
   "schema": "verity/slack-route/v1",
   "name": "router",
-  "mode": "cli",
-  "since": "2026-10-01T20:18Z",
+  "mode": "server",
+  "since": "2026-10-01T20:42Z",
   "url": "https://website-docs-sage.vercel.app/api/agent-slack/events",
-  "owner": "console",
-  "note": "server mode waits on Slack's Event Subscriptions for the bot (request URL /api/agent-slack/events, bot event message.groups)"
+  "owner": "console"
 }

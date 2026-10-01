@@ -41,7 +41,15 @@ TREES = {"/workspace/research/trees/cursor-grid-models-8c79": PREFIX,
              "plan read by the Commit; note:20261001T1417Z-handoff-from-circuits-commit-phases-boundary-gm-tree)"),
          "/workspace/research/trees/cursor-grid-models-more-be5a": (
              "cursor/grid-models-more-be5a @ 70471454 (the boundary tree cursor/grid-boundary-gm-827a @ 1fff7995 + 3 more checkpoints "
-             "and their workloads; note:20261001T1636Z-handoff-from-circuits-grid-models-pk3-three-models-reorder)")}
+             "and their workloads; note:20261001T1636Z-handoff-from-circuits-grid-models-pk3-three-models-reorder)"),
+         "/workspace/research/trees/cursor-grid-boundary-lease-b3b0": (
+             "cursor/grid-boundary-lease-b3b0 @ e2d2e43b (the boundary tree cursor/grid-boundary-gm-827a @ 1fff7995 + the Commit lease "
+             "cursor/commit-lease-b3b0 @ b36d08e7), Commit leased (lease: self; "
+             "note:20261001T1705Z-handoff-from-circuits-replay-keep-leaves-lease-self)"),
+         "/workspace/research/trees/cursor-grid-models-more-lease-b3b0": (
+             "cursor/grid-models-more-lease-b3b0 @ 08c2be4f (cursor/grid-models-more-be5a @ 70471454 + the Commit lease "
+             "cursor/commit-lease-b3b0 @ b36d08e7), Commit leased (lease: self; "
+             "note:20261001T1705Z-handoff-from-circuits-replay-keep-leaves-lease-self)")}
 QUESTIONS = json.loads((HERE / "questions.json").read_text())
 #: one family id per publisher model series (circuits 07:19Z: base, instruct and coder together, R1 distills under their base)
 FAMILY_OF = {"QWEN25_3B": "qwen25", "QWEN25_05B_INSTRUCT": "qwen25", "QWEN25_CODER_15B": "qwen25", "R1_DISTILL_QWEN_15B": "qwen25",

@@ -24,6 +24,9 @@ and submits the next items whose wave is allowed and whose role, TP and key aren
 It never submits a key that log.jsonl or done.jsonl names or that it attempted before (attempted.txt, written before the submit:
 a failed submit is not retried; a new key is), and submits nothing from 11:30Z to 12:55Z (node 1's /workspace window and Kueue's
 12:10Z hold) or while a file STOP sits beside it.
+An item on a tree in LEASE_TREES whose Commit dispatch's packable() wouldn't pack goes out leased (`"lease": "self"`, through
+submit_leased.py) on that tree merged with the Commit lease, so its Commit holds a GPU only while the Commit process runs
+(note:20261001T1705Z-handoff-from-circuits-replay-keep-leaves-lease-self); packing items go out as before.
 """
 import json
 import re
@@ -36,6 +39,11 @@ HERE = Path(__file__).resolve().parent
 DISPATCH = Path("/workspace/jobs/dispatch")
 PY = "/workspace/jobs/venv312/bin/python"
 DISPATCH_PY = "/workspace/jobs/dispatch/infra/nebius/dispatch.py"
+sys.path.insert(0, str(Path(DISPATCH_PY).parent))
+import dispatch as D  # noqa: E402  (for packable(); importing it starts nothing)
+LEASED_PY = "/workspace/research/lease-pilot/submit_leased.py"
+LEASE_TREES = {"cursor-grid-boundary-gm-827a": "cursor-grid-boundary-lease-b3b0",
+               "cursor-grid-models-more-be5a": "cursor-grid-models-more-lease-b3b0"}
 WS = "vllm-epoch-run"
 GUARD = ((11, 30), (12, 55))
 DRY = "--dry-run" in sys.argv
@@ -201,7 +209,10 @@ def tick():
         if gate and now + est * 60 > due:
             late += 1
             continue
-        cmd = [PY, DISPATCH_PY, "submit", it["template"], k, "--tree", it["tree"], "--resources", json.dumps(it["resources"])]
+        base = it["tree"].rsplit("/", 1)[-1]
+        leased = base in LEASE_TREES and D.packable({**it, "id": i["key"]}, k, 1) is not None
+        tree = it["tree"].replace(base, LEASE_TREES[base]) if leased else it["tree"]
+        cmd = [PY, LEASED_PY if leased else DISPATCH_PY, "submit", it["template"], k, "--tree", tree, "--resources", json.dumps(it["resources"])]
         for ek, ev in it["env"].items():
             cmd += ["--env", f"{ek}={ev}"]
         if DRY:
@@ -211,7 +222,7 @@ def tick():
                 f.write(i["key"] + "\n")
         r = subprocess.run(cmd, capture_output=True, text=True)
         out = (r.stdout.strip().splitlines() or [""])[-1] if not DRY else f"rendered {len(r.stdout)} bytes"
-        log(f"submit {i['key']} wave {i['wave']} {it['env']['ROW']}{f' est {est:.0f} min' if gate else ''} rc {r.returncode}: "
+        log(f"submit {i['key']} wave {i['wave']} {it['env']['ROW']}{' leased' if leased else ''}{f' est {est:.0f} min' if gate else ''} rc {r.returncode}: "
             f"{out} {r.stderr.strip()[-300:]}")
         if r.returncode:
             continue

@@ -14,7 +14,9 @@ Reviewed head `51069d4a2372910cb5cc9f4655b13168fee2a70c`. The head moved while I
 commit. I reviewed both. Evidence (probes, outputs, `tests/ir` log, the R1–R3 diff):
 `art:bc517027f24c3d5f56fdc96196a683f5ddf94ae94fc2f31e935891abb6c35707`.
 
-Label: `pr:723@51069d4a2372910cb5cc9f4655b13168fee2a70c deny red-team`.
+Label: `finding` on `pr:723@51069d4a2372910cb5cc9f4655b13168fee2a70c` ("DENY by red-team: …"), with no `grant`. The
+vocabulary has no `deny` key, and the store refused `deny red-team`. A denial is the absence of `grant red-team` on the head,
+which keeps the merge queue closed. The `finding` label says why.
 
 The deny is for one finding, L1: an input node inside a Definition's body. The fix is small, and it breaks nothing in the
 catalog. Additivity, fail-closed behaviour and binding for root parameters all hold. With L1 fixed, I would grant.

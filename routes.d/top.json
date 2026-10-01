@@ -1,0 +1,11 @@
+{
+  "schema": "verity/slack-route/v1",
+  "name": "top",
+  "holder": "bc-7f347b4b-6175-4b6e-84c6-731add2f8589",
+  "channel": "C0C5RCXL66N",
+  "inbox_ts": "1790877429.351069",
+  "opened": "2026-10-01T17:57Z",
+  "closed": null,
+  "forward_to": null,
+  "remit": "Top-level: Daniel's coordinator across every lead; relays to agents nobody else can reach."
+}

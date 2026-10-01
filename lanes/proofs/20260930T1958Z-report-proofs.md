@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT (16:28Z) [open] 9:28 AM PDT: both 8:40 asks answered before 9:15. The owner said yes (1790869365.170629). Root ruled yes at 8:45 on 1a/5/9 and on #554's successor, which root merges on a passing check (note:proofs/20261001T1545Z-handoff-from-verity-root-c-flock-prover-and-554-yes). M0 answered mcol and the comb (…T1546Z-…). Relayed: bf16-hill gets M0's gates (lanes/proofs-bf16-hill/20261001T1602Z-…), proofs-arch is told root merges (lanes/proofs-arch/20261001T1603Z-…), and flock-fp's core-rows branch holds while Daniel picks the row schema's design (lanes/proofs-flock-fp/20261001T1628Z-…)
 CHECKPOINT c17702ec (15:41Z) [open] 8:41 AM PDT: escalations posted top-level: M0 via @old-circuits-and-proofs (1790869228.798669; prover changes 1a/5/9, 1b, 4a), research owner (1790869229.093199; (d) and flock-fp's items); watching both to 9:15
 CHECKPOINT d163c8d2 (15:37Z) [open] 8:37 AM PDT: proposed 11:30 targets to the top-level (BF16 -6..-12% every K, packed FP new bests, core row schemas PR, <=30 s GPU per proof job, #554 successor landed); M0's and the owner's twice-unanswered asks brought to the top-level
 CHECKPOINT 6c87acc8 (15:31Z) [open] 8:31 AM PDT: flock-fp's packed nsys done (statement profile = BF16's at m=35; bf16-hill's proposals apply to FP unchanged); bf16-hill's K=16384 CPU-sampled nsys and column-fold ncu rc 0, write-up and 1a microbench pending

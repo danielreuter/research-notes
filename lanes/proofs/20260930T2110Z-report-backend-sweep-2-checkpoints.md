@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT 9e6a08a4 (06:05Z) [open] 11:08 PM PDT: overnight goals relayed (all formats x 4 K climbed, flags cleared; GPU held <=50 s; #638 landed); #638 recorded check started by the writer; #554 review asked of red-team-flock-3; proofs-ir asked for Boolean IR times
 CHECKPOINT fbcb1458 (05:51Z) [open] 10:52 PM PDT: awake check: 5 running, 3 idle by design, arch + circuits-review resumed (stopped at the 7:27 PM billing error); lanes told to fill all three provers slices; verify-overlap on change C, pair awaiting research owner's yes
 CHECKPOINT f7c38f2d (05:31Z) [open] 10:32 PM PDT: the two fresh agents are the BF16 and FP8/FP4 hillclimb workers (0-GPU staging pods running), stop lines removed, originals stay idle; node 1 31%
 CHECKPOINT cc21a7d94 (05:28Z) [open] 10:30 PM PDT: #638 at 22fe745f, 13 cited theorems pinned (205 pins), body updated; red-team's labels pending, then Daniel's yes and check; README citation scope flagged to lean as FYI

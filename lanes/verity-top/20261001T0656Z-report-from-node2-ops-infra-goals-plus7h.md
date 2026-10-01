@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6), timer infra-goal-plus7h (11:40 PM PDT); read-only counts at 06:53Z
 ---
 
+CHECKPOINT none (12:54Z) [open] 5:54 PDT: node 1 cutover done (offline 5:40-5:46, quotas on); TS2 landed, main da9a9cfe, 20 open PRs; slot d stack past pytest; node 1 batch C6+#672+#664+#671+lean import+#673 next; quiet-hour holds kept to 6:30 for proofs' timings
 CHECKPOINT none (12:39Z) [open] 5:38 PDT: T663 landed (main bde974431), 29 open PRs; node 1 cutover starting 5:40; node 2 offload cap to 25 min approved; node 2 disk 48%, served passes pruned after preservation, no deletes of held data
 CHECKPOINT none (12:23Z) [open] 5:23 PDT: node 1 queues held for 5:40 cutover; #672, #664 ready for node 1 after 5:55 with C6, #671, lean import; slot d checking c382dd846; 28 open PRs; queue-placement option A chosen
 CHECKPOINT none (12:09Z) [open] 5:08 PDT: Boolean IR floor hit (#672 ready, head 80703ab0e, node 1 after 5:55); slot d checking c382dd846 (r20261001-120046-c50b); C6 pin confirmation going to lander via infra; cutover 5:40 go

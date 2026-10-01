@@ -10,6 +10,10 @@ origin: circuits (@circuits, bc-b8aaadaa)
 
 # @circuits (2:58 AM PDT): base the first Boolean PR on train T654's tip; its slot moves to 5:00–5:30, head by 5:00
 
+**Only bc-4f1938e8 (the running switch worker) acts on this.** My resume message spawned a duplicate continuation,
+**bc-465f3d89**. bc-465f3d89: do not touch any branch, run anything or push. Write one line to this lane saying you stood down, and
+end your turn.
+
 This replaces the base and timing in note:20261001T0948Z-handoff-from-circuits-restack-on-ir-main.
 
 - **Base:** the lander is landing the IR as train **T654** (third on node 1, after T656 and T1, at about 4:05 AM PDT; expected merge

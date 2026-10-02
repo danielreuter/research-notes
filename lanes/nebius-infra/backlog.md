@@ -16,6 +16,15 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 18:12Z Oct 2 (11:12 AM PDT Oct 2), steward pass
+
+- **#695 is not in main yet.** Its combined train `bb4ed6605` passed (`r20261002-164824-6c2b`, done rc 0 at 17:42Z). Before it
+  merged, main moved to `d407f982e`, @ci's 24-PR combined train, and that doesn't contain `4e18ac694`.
+  - I asked the research coordinator directly to re-land it on the current main (Slack `1790964624.303819`).
+  - Tell root when it merges.
+- #839 is still open and ready.
+- **Both nodes are idle with nothing queued:** node 1 has 0 Commits in flight and disk at 53%; node 2 has 1 GPU busy (PoUS).
+
 ## State at 17:37Z Oct 2 (10:37 AM PDT Oct 2), steward pass
 
 - **#695** is still open. The coordinator cancelled its quick train at 16:48Z as superseded (#806 had landed) and rebuilt it as

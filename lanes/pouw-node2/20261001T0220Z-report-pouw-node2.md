@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (05:23Z) [open] A 05:22Z poll: memory accounting's soak holds GPU 7 and cores 80-93 until 14:45Z (infra 0510Z), fill pool on 48-79,94-95; nothing for me; still off node 2, no 'back'; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (05:01Z) [open] A 05:01Z poll: no new notes; still off node 2, no 'back'; pous/* panels wait on the pous-panels key; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (04:40Z) [open] A 04:40Z poll: no new notes; still off node 2, no 'back'; pous/* panels wait on the pous-panels key; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (04:20Z) [open] A 04:20Z poll: nothing for me (node2-ops 0408Z: disk 36%, GPU 15.9%); still off node 2, no 'back'; pous/* panels wait on the pous-panels key; panel art:63261f6f

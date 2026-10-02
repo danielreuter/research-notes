@@ -172,3 +172,10 @@ cancelling queued checks by killing runner pids over ssh; reading slot ownership
 **Delivered, 00:49-00:55Z:** `tools/check/slot.py --status` (PR #741, owed 06:00Z); the hourly per-node preflight probe for
 network-accounting's round 6 ask (PR #742, tmux `preflight-probe`; first pass passed on both nodes). Every round 6 and 7 yes is
 now delivered; the open items are the "later"s (`research run cancel` after #708, per-phase held-idle).
+
+## Round 8: proofs, compute-accounting (12:48 AM PDT)
+- Asked 07:48Z, 2 Oct, in one announcement (ts 1790927339.192449), almost 4 h late: the 04:00Z timer reached infra at 07:47Z.
+  Next in rotation after circuits. Neither was in a timed window or an incident (proofs has an 8 AM PDT Lean deadline, so
+  answers may be short). The ask lists what shipped since round 7 so it doesn't come back: `research cancel` (#788, round 7's
+  "later" for old-circuits-and-proofs, without the Lean scratch cleanup), `slot.py --status` who-asked (#782), node 2's uv
+  (#785), the gpu_stray race (#790), node 2's slot `d` back in use, and `research deploy` (#777).

@@ -16,6 +16,22 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 15:45Z Oct 2 (8:45 AM PDT Oct 2), steward pass
+
+- **Node 2 restart:**
+  - The research coordinator cancelled `9160` at 15:33Z (rc 143). Its custody runner, pid 1997360, has exited, and it starts
+    nothing on node 2 until I say the agent is healthy.
+  - Still blocking: the fill job `verity-commit-vllm-epoch-run-cov-gm176.sh` in `fill/running/`.
+  - The agent is active, with no `STOP` yet. Waiting for node2-ops' reply in `lanes/infra/`.
+- **On 2 Oct I asked @infra in the thread** to give node2-ops a Slack handle or have it watch the thread, at root's ask.
+- **Circuits' overlap analysis** (`/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/internal/circuits/overlap-slowdown-analysis.md`):
+  - Five leased `-to4` Commits pinned 1,284 GB of shared memory while each requested 170 G, so Commits slowed 5–12×.
+  - Circuits will size gm-feed's B8+ requests from the predicted pool.
+  - My call: no pacer memory rule for now, since Kueue's memory quota then caps pinned pools. If they still overlap after the
+    resize, add the Shmem rule.
+  - The vmstat collector is @infra's call. I replied in the thread.
+- **Still to verify:** the next prover after 15:00Z gets `taskset` 160-191. None has been submitted since.
+
 ## State at 15:20Z Oct 2 (8:20 AM PDT Oct 2): node 2 agent restart approved, on @infra's behalf
 
 - **Root asked** me to answer node2-ops' request for infra. I said yes to one restart of node 2's `vy-cluster-agent`, covering the

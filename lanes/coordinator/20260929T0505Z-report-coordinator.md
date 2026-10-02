@@ -446,3 +446,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 15:10Z: HOLD #806 merge (root): needs PR statement on final_c (a/b/c) + red-team confirm, and no "--zk sound" wording until #793. #757-only train edb0883b8 node1 r20261002-150659-4a1d. 9160 continues. circuits: yes to 6 more qwen3 rows.
 - 15:12Z: no new checks on node 2 after 9160 finishes until steward says vy-cluster-agent healthy (drill). Use node 1.
 - 15:35Z: research cancel 9160 (rc 143); told steward node 2 has no check (runner publishing custody). No node-2 launches until agent healthy.
+- 15:52Z: #806 cleared (case c, scoped wording, red-team carried). T806 f76d9e0cc node1 r20261002-154805-beed. Order 4a1d, beed.

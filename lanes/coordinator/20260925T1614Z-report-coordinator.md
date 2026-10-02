@@ -395,3 +395,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-02T21:46Z: #856 (draw-words; lean + red-team grants) stacked on #850 train: a2c202084, --agreement node1 r20261002-214236-ce78.
 - 2026-10-02T21:51Z: #849 (row-seg; red-team grant, no pin moves) stacked on #856 train: ad431245a, --agreement node1, r20261002-214937-4567.
 - 2026-10-02T21:54Z: #857 (plays-coin; changed records, lean read --update 749c; red-team grant) stacked on #849 train: 042b6f167 (import conflict w/ #856 resolved, both kept), --agreement node1 r20261002-215219-1e84.
+- 2026-10-02T22:08Z: MERGED #852 (two-stage exfiltration; T852 074925421, c249 incl. lean-agreement) -> main. Stack: #850 3fe6 (node2, past lean-audit), #856 ce78, #849 4567, #857 1e84.

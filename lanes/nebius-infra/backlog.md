@@ -16,6 +16,15 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 22:07Z Oct 2 (3:07 PM PDT Oct 2), steward pass
+
+- **TP2 work is back on node 1** (in @top's thread `1790958343.711109`):
+  - @circuits resumed the stochastic phi4 TP2 rows after fixing its staging bug.
+  - @top approved 4 qwen3-14b TP2 greedy rows (`gm349`/`351`/`353`/`359`) on the new tree, unleased under the two-at-a-time TP2
+    cap, switching to leased once the TP-lease change deploys.
+- Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
+- The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+
 ## State at 20:12Z Oct 2 (1:12 PM PDT Oct 2), steward pass
 
 - **All 16 GPUs are idle, with nothing queued anywhere:** no ready files on node 1, an empty fill queue on node 2, and 0 Commits in

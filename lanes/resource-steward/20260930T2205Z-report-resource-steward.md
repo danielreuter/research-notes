@@ -358,6 +358,24 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     `-29417a4eac-prover-b-0-nc7cg` and `-7dd07e18c4-prover-b-0-gqgxf` (4,700–4,718 files, 84 MB each).
   - Kept: `62e3c42b` on node 1 and the same 26 node 2 trees. No `STUCK` lines.
 
+- 08:21–08:23Z (1:21–1:23 AM PDT), the sweep a one-off timer ran for the Lean scratch `ju7dx3l8` (`sweep.sh --src-age-h
+  6`): 50 entries, 548,104 files, 26.9 GB. `ju7dx3l8` itself was kept: a file in it was last written 113 min before, so it
+  was under the 2 h rule. The 12:30Z sweep takes it if it is still idle.
+  - Node 1, 17 source trees, 378,970 files, 19,645 MB. 6 h: `31f68948`, `42d7c299`, `7ec45f5e`, `96c6e103`, `eb33e23f`
+    (30,698–30,760 files, 1,718–1,722 MB each), `fdb598b7` (27,803 files, 1,610 MB), `50bcd017` and `e43f30d1` (5,477–5,480
+    files, 100 MB each). 7 h: `b59b4a88`, `d75d2f23`, `ee629453` (30,640–30,785 files, 1,718–1,723 MB each), `ec34d069`
+    (27,804 files, 1,614 MB), `3044a24e` and `3b1d7b1b` (25,073–25,116 files, 1,079–1,080 MB each), and `0e6a848c`,
+    `20235b3e`, `ce0e6081` (5,473–5,479 files, 100 MB each).
+  - Node 1 check scratch, 2 h old: `/tmp/pytest-of-research/pytest-3015` (17,356 files, 2,920 MB), `pytest-3024` (3,187
+    files, 1,617 MB) and `pytest-3025` (64 files, 1 MB).
+  - Node 1 `jobs/src`: 4 content copies, 23,625 files, 526 MB: `15417a6884b2eb85` (6 h, 6,057 files, 155 MB),
+    `4437db44ac250cd4` (7 h, 5,597 files, 102 MB), `a83836a28ff005d6` (6 h, 6,098 files, 158 MB) and `f578f1f6fcf1eb79` (7 h,
+    5,873 files, 111 MB). And 24 per-pod copies, 113,949 files, 2,032 MB, 6–7 h old: `nd-circuits-c240fe2a0b-prover-d-0-z7mbg`
+    (5,490 files, 100 MB) and 23 `nd-proofs-bf16-hi-*-prover-b-0-*` (4,700–4,718 files, 84 MB each).
+  - Node 2, 2 source trees, 10,953 files, 200 MB: `20235b3e` (7 h) and `e43f30d1` (6 h), 100 MB each.
+  - Kept: `62e3c42b` on node 1 and the same 26 trees on node 2. No `STUCK` lines.
+  - After: node 1 at 8.15M inodes (40%), with four Lean scratch trees, one of them live.
+
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
   - three are node2-ops' hourly backups that stalled in multipart custody: `r20260930-081105-b32f` (17 GB),
@@ -758,3 +776,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Node 2 root gaining 761k inodes/h: one live audit's scratch in `~/.cache/verity-check` (14 processes in it) and
     pytest garbage that was already gone. Root is at 1.40M inodes (5%) and 158 GB free. No action.
   No Slack.
+- 08:14Z tick: exit 0. 08:21Z one-off sweep (exit 1): 50 entries, 26.9 GB (§4). `ju7dx3l8` is still under 2 h untouched
+  and is left to the 12:30Z sweep. Node 1 is at 8.15M inodes (40%), which closes the 07:49Z HARD line. No Slack.

@@ -384,3 +384,6 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 04:38Z: T750 0619e7b2a (1d7009e9e + #767 + #750, send) slot b r20261002-043450-b030. #751 out: needs vLLM grant (circuits) + followups PR/ready (proofs). Order 7c05, b030.
 - 04:42Z: #767 -> 2f96d7c57; T750b 009b32020 slot b r20261002-043811-6aa7 (cancelled b030). Watch for newer #767 head.
 - 04:45Z: T765 7cb0e4968 (= 009b32020 + #762 #764 #765) slot b r20261002-044148-7422 (cancelled 6aa7). Order 7c05, 7422.
+- 04:50Z: T751 391009b6a (7cb0e4968 + #751 + #767@a8fa60289) slot b r20261002-044616-9ba7; cancelled 7422. #767 needs ready label at a8fa.
+- 04:52Z: @lean down tonight (Daniel 04:45Z): accept handoffs naming the package coordinator as statement reviewer, without @lean.
+- 04:54Z: root conditions on overnight Lean rule: reviewer != author of changed statements; PR description names reviewer and says they read --update output (each changed signature + definition). Hold handoffs missing either.

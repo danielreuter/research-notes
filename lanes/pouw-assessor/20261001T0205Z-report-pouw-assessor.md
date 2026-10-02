@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (21:27Z) [open] 2:27 PM PDT: no new asks. Ratings stand. Main 27c5889ba (fetch ok 21:27Z; 21:16Z fetch failed), PoUW policy 437224e7; FP8 #847 (verifier cap) not on main yet. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (21:06Z) [open] 2:06 PM PDT: no new asks. Ratings stand. Main 27c5889ba (#838 on main, verified additive), PoUW policy 437224e7; FP8 #847 (verifier cap) not on main yet. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (20:44Z) [open] 1:45 PM PDT: no new asks. Ratings stand. PR #838 on main (27c5889ba): my own diff from d407f982e is 660 insertions, 0 deletions across 3 files in protocols/pouw (lean-audit.json additions only, no fp4/M5/PearlC4 line), agreeing with d545bc2a's 2041Z note (policy 437224e7, 743 pins). Pearl-C4 ratings unaffected. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (20:33Z) [open] 1:34 PM PDT: no new asks. Ratings stand. Verity fetch failed auth at 20:33Z; last good read 20:23Z: main 1affc167c, PoUW policy c7f178e8, PR #838 in train ed7ad28f8, not on main. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).

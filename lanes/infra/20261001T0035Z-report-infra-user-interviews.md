@@ -138,3 +138,18 @@ Daniel's. Fix next: a VM bootstrap that clones notes and pushes with the token.
 - Asked 00:23Z, 2 Oct, in one announcement (ts 1790900589.720389). Next in rotation after console; the rotation wraps to
   circuits. Neither was in a timed window or an incident. The ask lists what was fixed since round 6 (#724, #729, #733), so
   those don't come back as answers.
+
+**Answers, 00:23Z:**
+- circuits: silent stalls cost most of the 3:00 and 4:00 PM hours. Both lease pools were blocked from 2:42 PM and they heard
+  an hour later through a worker; node 1's dispatcher failed every tick 2:42–5:05 PM with no alert. Worked around: deactivated
+  a waiting workload to free Kueue quota; re-derive Commit phases from run records by hand to explain held-idle. Fix next: one
+  alert to the owning handle within 5 min when a pool's `blocked` file appears or dispatcher ticks fail in a row, naming the
+  pid/pod or the error.
+
+**Triage for circuits, posted 00:25Z (1790900706.250169):**
+| Item | Call |
+|---|---|
+| Blocked-pool and dispatcher-failure alerts | Yes, infra, live by 03:00Z: one relay polling node 1 each minute, the pool's handle (circuits / proofs) or @circuits plus infra, once per incident plus "cleared"; the 06:00Z preflight probe joins it |
+| Deactivating workloads for Kueue quota | No longer needed: holders request only their GPU since 23:09Z (#724) |
+| Commit phases by hand | Later: a per-phase split in held-idle-hourly once circuits names where the phase timestamps are |
+| Dispatcher failing 2:42–5:05 PM | Context: #732 is on ci's next train |

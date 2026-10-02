@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (15:02Z) [open] 8:02 AM PDT: #757, #793, #806 on the queue; overhead method (every shape, FLOPs at peak, request mix) awaiting Daniel's mix pick
 CHECKPOINT none (14:31Z) [open] 7:32 AM PDT: overheads now --zk peak-normalized only (Daniel, #831); #793 ready; Llama zkaudit 31/31; #828 check past rust tests
 CHECKPOINT none (14:07Z) [open] 7:12 AM PDT: dot products 20/20 cells (BF16 K=32768 x1.24); #827, #828 opened; dense zkaudit, #757 main merge, #806 merge, #828 statement review running; summary docs/proofs-8am-2-oct.md final 7:50
 CHECKPOINT none (12:06Z) [open] 5:10 AM PDT: train 1456 passed. #814+#802+#792 in train 9c1a. #757's own check 49bd failed 3 flock-live Rust tests; fix rides its merge onto the tip. #793 final_c' fix at 3a107a121 (red team + tip merge running). Qwen3-30B-A3B row final and granted (130,897x --zk pre-fix / 92,281x M0, opened model, zkaudit all 33 measured). BF16 K=32768 M0 accepted; --zk retry after a serial-gate fix. e2e-hm on the v1 reduction.

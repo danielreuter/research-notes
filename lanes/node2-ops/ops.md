@@ -70,6 +70,13 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 11:09Z hourly (10Z): GPU busy 10.6% (0.85 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7 alone. Leased-idle 0.15 GPU-h (bc-15ada664).
+    - **Why below 80%:** nothing else was queued, so 7.0 GPU-h sat free. CPU 0–127 at 2.6%.
+    - **Disk** at 38%.
+    - **Backup:** `r20261002-110528-f913` packed on 48–79,94–95 at nice 19 (542 units, 20.3 GB, 40 large units left out); its custody upload is pending. The 10Z backup `r20261002-100534-18c8` is preserved.
+    - **Checks:** daemons and `status.md` (11:04Z) are fine. The runner is still #778 with `FILL_VERITY_CPU_SET=48-79,94-95`.
+        - Nebius-infra's 10:40Z steward pass says node 2's PoUS soak ended. It hasn't: it is still running in fill (its log was written at 11:02:59Z, chunks preserved), and it holds GPU 7 until 14:45Z. Their point that the other 7 GPUs are free is right, so I sent no correction.
+        - The 10:02Z and 10:32Z alerts are node 1's. #494 is still closed.
 - 2026-10-02 10:09Z hourly (09Z): GPU busy 11.4% (0.91 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7, plus bc-698052e1's Commit gm345. Leased-idle 0.54 GPU-h (bc-698052e1 0.40, bc-15ada664 0.14).
     - **Why below 80%:** nothing else was queued, so 6.55 GPU-h sat free. CPU 0–127 at 8.2%.
     - **Disk** at 38%.

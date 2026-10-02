@@ -70,6 +70,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 14:09Z hourly (13Z): GPU busy 16.6% (1.33 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7, plus bc-698052e1's `-r2` Commits until about 13:30Z. Leased-idle 0.72 GPU-h (bc-698052e1 0.56, bc-15ada664 0.16).
+    - **Why below 80%:** nothing else was queued, so 5.95 GPU-h sat free. CPU 0–127 at 7.9%.
+    - **Disk** at 38%.
+    - **Backup:** `r20261002-140533-e474` packed on 48–79,94–95 at nice 19 (542 units, 20.6 GB, 40 large units left out); its custody upload is pending. The 13Z backup `r20261002-130534-4541` is preserved.
+    - **Checks:** daemons and `status.md` (14:05Z) are fine. The runner is still #778 with `FILL_VERITY_CPU_SET=48-79,94-95`; the soak's revert is due at 14:45Z. The new alerts (13:30Z disk-guard release, 13:42Z, gpu-idle) are node 1's. #494 is still closed.
 - 2026-10-02 13:09Z hourly (12Z): GPU busy 18.7% (1.50 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7, plus bc-698052e1's `-r2` Commits (gm148, gm228, gm227 from 12:43Z). Leased-idle 1.26 GPU-h (bc-698052e1 1.17, bc-15ada664 0.08).
     - **Why below 80%:** nothing else was queued, so 5.25 GPU-h sat free. The Commits held their GPUs mostly idle again (1.17 GPU-h). CPU 0–127 at 9.9%: proofs' `zkk32k-stage-bf16-k32768-gate`.
     - **Disk** at 38%.

@@ -397,6 +397,22 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     commit). No `STUCK` lines.
   - After: node 1 at 8.21M inodes (40%), with three live Lean audits.
 
+- 12:30–12:35Z (5:30–5:35 AM PDT), the scheduled 6 h sweep (`sweep.sh --src-age-h 6`, `--jobs-src` on node 1): 108
+  entries, 579,493 files, 12.6 GB.
+  - Node 1 `jobs/src`, 100 per-pod copies, 532,650 files, 11,613 MB, 6–8 h old (4,700–5,896 files and 84–150 MB each):
+    27 `nd-proofs-vllm-de-*`, 24 `nd-proofs-vllm-mo-*`, 19 `nd-proofs-zk-cell-*`, 16 `nd-proofs-zk-k32k-*` and 14
+    `nd-proofs-bf16-hi-*`.
+  - Node 1 `jobs/src`, 5 content copies, 30,206 files, 694 MB: `0276b882360fed48` (6 h, 6,102 files, 158 MB),
+    `155387e8266b6871` (7 h, 5,923 files, 111 MB), `4f64565474d2d784` (8 h, 6,059 files, 155 MB), `60a6711df58d858b`
+    (8 h, 5,985 files, 111 MB) and `b7c35f94de07bb62` (8 h, 6,137 files, 159 MB).
+  - Node 2, 3 source trees, 16,637 files, 302 MB: `b710820a` (8 h), `b8c9dd47` (6 h) and `e0b0dbf6` (7 h), 100–101 MB each.
+  - Kept on node 1: every source tree older than 6 h, 22 of them, because one process names them all. That is pid 311605,
+    a `bash -c 'cd /workspace/research/src; python3 …/src/*/tools/check/slot.py --status'` over ssh from 52.38.225.52.
+    The glob expanded to 79 `slot.py` paths, so `--status` was no longer first: `slot.py` took the other paths as a
+    command and queued in the check line (4th of 6 at 12:35Z, asleep since 11:46Z). When it reaches a slot, its
+    `execvpe` of a mode-644 `slot.py` fails, so it frees the slot at once and the trees go to the next sweep. Not killed
+    and not chased. Node 2 kept 32 trees. No `STUCK` lines.
+
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
   - three are node2-ops' hourly backups that stalled in multipart custody: `r20260930-081105-b32f` (17 GB),
@@ -810,3 +826,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 11:28Z and 11:44Z ticks: exit 0. 12:06Z (5:06 AM PDT) tick (exit 1): node 1 HARD at 761k inodes/h (80% in 10.3 h), at
   8.61M (42%). There are four Lean scratch trees, all 13–27 min old. `l00nalfw` has no process in it and was last
   written 14 min ago. Nothing is deletable yet, so no action and no Slack; the 12:30Z sweep is next.
+- 12:28Z tick: exit 0. 12:30Z scheduled sweep (exit 1): 108 entries, 12.6 GB, mostly `jobs/src` (§4). The 22 node 1
+  source trees over 6 h were all held by one misfired `slot.py --status` waiting in the check line, which frees them when
+  it fails at its slot. No Slack.

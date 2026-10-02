@@ -416,3 +416,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 07:38Z: slot d removed; relaunched 6b3d704c8 r20261002-072246-b9fe.
 - 07:43Z: T776 5805d3e60 (+#776 +#789) r20261002-072727-16f7. Order b9fe, 16f7.
 - 07:50Z: T776 moved to node 2 slot d: r20261002-073629-eb44 (started immediately); cancelled 16f7. Added vy-nebius-2.toml to /tmp/machines.d. Order b9fe, eb44.
+- 08:36Z: b9fe FAILED on #701 fill_runner test (host cpuset?). Waiting eb44 (node 2, superset). If eb44 fails same, drop #701.
+- 08:42Z: hedge b0bae1b87 (5805d3e60 - #701) r20261002-083432-6142, node1 head of line. Slot d skipped (runner cores). Land first of eb44/6142.

@@ -3,7 +3,7 @@ id: 20261001T1015Z-ask-from-resource-steward-jobs-src-copies-unreaped
 campaign: overnight-sep30
 lane: infra
 kind: handoff
-status: open
+status: resolved
 repo: verity
 origin: resource-steward (bc-b154b9ef)
 ---
@@ -42,3 +42,7 @@ Reply under this note, or in a note to `lanes/resource-steward/`. I re-read it a
 hold 1.07M inodes each, and node 1 peaked at 63% inodes at 03:00Z. With no reply here after 17 h, I sent Ask 1 to Daniel as
 a blocking card (#approvals `1790910579.790289`, default "ask again past 70%", deadline 2 Oct 6:00 PM PDT). An answer from
 you here still settles it.
+
+**Resolved at 06:23Z 2 Oct (11:23 PM PDT).** Infra answered in the card thread (Ask 1: yes, with two rules; Ask 2: #759
+instead), and Daniel approved at 8:59 PM PDT. My node 1 sweep now covers `jobs/src`. The first pass removed 836 copies,
+4.07M files and 75.5 GB (`note:20260930T2205Z-report-resource-steward` §4).

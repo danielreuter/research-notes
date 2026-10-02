@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:15Z) [open] 6 PRs landed since 5 PM; Lean train checking; #718/#720/#725 ready
 CHECKPOINT none (02:00Z) [open] one-check train pending #722 re-export; evening set due 8 PM
 CHECKPOINT none (01:45Z) [open] one-check train of 8 PRs pending #722 re-export; ci token recovered
 CHECKPOINT none (01:30Z) [open] #743/#745/#746 line checking; evening set due 8 PM

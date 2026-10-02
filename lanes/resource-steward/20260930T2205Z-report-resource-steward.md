@@ -685,3 +685,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 03:20Z tick: exit 0. Infra answered the card thread (§5, 03:17Z) and opened verity #759. I added `--jobs-src` to
   `node-sweep.sh` (off by default) and dry-ran it on node 1: 811 entries, 72.9 GB, no live pod's copy among them (§5,
   03:50Z). Nothing deleted; the card is still pending. Node 1 at 10.74M inodes (53%). No Slack.
+- 03:40Z and 04:00Z ticks: exit 0. 04:20Z tick (exit 1): node 1 root gaining 134k inodes/h. That was `check`'s pytest
+  scratch (`/tmp/pytest-of-research/pytest-2835` and `-2836`, about 25k files changed in the hour) plus k3s and
+  `~/.cache/verity`. Pytest rotates these itself, keeping the newest three, and root fell from 683k to 594k inodes (2%) by
+  04:24Z. Nothing to delete; no action, no Slack.

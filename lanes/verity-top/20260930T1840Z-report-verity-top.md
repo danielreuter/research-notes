@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:31Z) [open] Nebius quota and P2 park card with Daniel; #717 and #732 checking
 CHECKPOINT none (00:14Z) [open] hidden PoUW tile check in #731; P2 k=100 and audit-size cards with Daniel
 CHECKPOINT none (23:58Z) [open] evening: memory GPU goals hit, #729 loop fix live, #717 checking
 CHECKPOINT none (23:42Z) [open] tables ruling recorded (values); evening set live; #717 checking

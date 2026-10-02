@@ -133,3 +133,7 @@ I4 complete it.
 - **What I'd run.** Nothing was needed for this verdict. For I3, the flock-zk-verify-lean lane re-stages its fixture with
   the new build, on CPU: the same `selftest --zk --record-dir` and `serve`/`prove --zk` sessions that made
   that fixture, then `research data put`, re-pin `FIXTURE`, and rerun `agree.py --zk`.
+- **Seen in passing, for flock-zk-verify-lean.** The fixture it pins today is local only:
+  `research data where art:ba7f09ba33b1…08465` gives this VM's store present (110/110 blobs) and the remote ABSENT. A
+  pod's `check` can't fetch it. Whoever put it should run `research data push art:ba7f09ba33b1e1edfdae5bf79f641b4687d91bd990ed532845fb5db640d08465`
+  (or put the re-staged fixture with `--preserve`). I didn't push it, since it isn't mine.

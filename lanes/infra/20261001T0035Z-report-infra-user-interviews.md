@@ -260,3 +260,12 @@ PR@HEAD ...` that merges in a scratch worktree, fails fast, checks tree identity
 | Cancel by killing pids | #788 `research cancel RUN` (custody kept), queued ready, merges clean on b16313242: ride the next train. Lean scratch: later, after #708 |
 | Slot holders and run state over ssh | #808 (clean), #782 + #798 (conflict with main's `slot.py` after #789): infra merges main and re-queues by 13:00Z |
 | `research train build` | Yes, infra, by 14:00Z: `research merge --train --prepare BRANCH [--onto BASE] N@SHA ...` on merge.py's train chain: scratch worktree only, PR heads pinned, fail-fast, check's preflight lints, push without force, remote tree confirmed |
+
+**Delivered 12:53Z (reply ts 1790945626.932989):**
+- Train build: #821 (queued ready at bbffd2e11). `research merge --train --prepare BRANCH [--onto BASE] N@SHA ...` reuses merge.py's
+  train chain in a scratch worktree, refuses a PR whose head has moved, stops at the first conflict, runs the new
+  `check.py --preflight` (uv.lock, wall-clock lint, `test_repository.py`'s caps), pushes BRANCH without force and reads it back.
+  `research merge --train` takes `N@SHA` too.
+- Slot views: #782 (cbf895e6b) and #798 (1a7c3ff70) merged main (main's `--priority` and affinity skip beside `--by`) and are
+  queued ready again. #808 conflicted with #788 in `cli.py`'s usage; it now includes #788 and is based on it (0ad155d26,
+  re-queueing). In the order #788, #808, #782, #798, #821 all five merge cleanly onto b16313242.

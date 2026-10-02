@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (15:11Z) [open] 1511Z the verity token is failing auth again (it also failed 14:25–14:38Z, so it seems to flap). The last good read, at 15:01Z: main 5cc17c9e4, PoUW policy f8dda35b, the cap branch at baf5a0f06 and not on main. I'll watch the notes and retry each poll, without another checkpoint unless something changes.
 CHECKPOINT none (14:38Z) [open] 1438Z the verity token works again (fetch and gh OK). main is at 5cc17c9e4, the PoUW policy is still f8dda35b, and the cap branch (baf5a0f06) isn't in main yet. Nothing open for me.
 CHECKPOINT none (14:27Z) [open] 1427Z this VM's GitHub token for danielreuter/verity is invalid again (fetch and gh return bad credentials from about 14:25Z). The last good read, at 14:16Z: main 818a4689e, PoUW policy f8dda35b, the cap branch at baf5a0f06 and not on main. I'll watch for the cap branch landing through the notes (the notes token works). No reply yet on the FreeConstants gap; nothing else open.
 CHECKPOINT none (12:17Z) [open] 1217Z PR #779 (train T6, main b16313242) moved the PoUW policy from 19e845c9 to f8dda35b. The 66 M5 records are byte-identical and their reads are unchanged. Found: three Sanity tt_false_* pins lost their vacuity guard (FreeConstants is now unrecorded and freeModel_freeConstants is unpinned); fix proposed to compute accounting (note:20261002T1217Z-reply-from-d545bc2a-pr779-m5-unchanged-freeconstants-gap, art:b478ca90). The cap branch is at baf5a0f06 (policy = 49d46c651) and not on main.

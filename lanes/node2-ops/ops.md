@@ -68,6 +68,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 21:08Z hourly (20Z): GPU busy 11.0% (0.88 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series.
+    - **Why below 80%:** nothing else was queued anywhere (infra's backlog: all 16 GPUs idle), so 7.0 GPU-h sat free. Leased-idle was 0.12 GPU-h (the series' start-ups).
+    - **Coming from infra:** a PR by 23:00Z adding `fill_runner.py fence`, one line in node 2's fill dir per timed window (from memory accounting's interview, round 12). When it's deployed, I'll check the runner's sha and env.
+    - **Backup:** `r20261002-210626-5502`, unpinned. The 20Z backup `r20261002-200646-96f1` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (21:04Z). The agent is on `1253f09ec` (no restarts). No windows. The new GPU-at-0% alert is node 1's. #494 is still closed.
 - 2026-10-02 20:09Z hourly (19Z): GPU busy 11.5% (0.92 of 8.00 GPU-h, all useful): memory accounting's soak rerun until 19:49Z, then their vLLM e2e series.
     - **Why below 80%:** nothing else was queued, so 7.0 GPU-h sat free. Leased-idle was 0.08 GPU-h (the series' start-up).
     - **Infra released the rerun's fence at 20:00Z** (`soak-rerun/FENCE.released-20261002T2000Z`, `fill/keep-free` gone). They respawned the fill loop at 20:00:52Z with `FILL_VERITY_LEND=0` only. The series was restarted then.

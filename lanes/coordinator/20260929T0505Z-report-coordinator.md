@@ -451,3 +451,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 16:20Z: node 2 cleared for checks again (agent healthy on 1253f09ec).
 - 16:24Z: MERGED T757 edb0883b8 (4a1d); main 56b7e4f7c. Next beed, cf85.
 - 16:30Z: ci24 b31e538ea node2 r20261002-162031-a7ad; combined hedge 6bff4847c node1 r20261002-162138-cc34. Friction asks posted (steward, infra); #826 APPROVE. Trains via --prepare from now.
+- 16:38Z: #695 via --prepare 68b9d547e node1 r20261002-163340-bbf1. --prepare needs uv run (pytest); train.sh needs sha.
+- 16:40Z: tool-fix train: #826@406045eb7 (not 7d7fdb38c), #836 BLAS caps (behind #833 #834 #826). First #818 #797 #785.

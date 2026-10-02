@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 1d23a2c4 (02:42Z) [open] 7:50 PM PDT: Daniel's two-hour ask (private values e2e, overheads at every GEMM dtype and K). Launched zk-all-cells (--zk + M0 at the 12 FP cells) and registered-gemm-e2e (one cell, registered weights); asked infra to hold the core narrowing to 10:30 PM PDT
 CHECKPOINT b9918ce4 (02:30Z) [open] 7:32 PM PDT: #723 and #727 in ci's train prep (206b4520a, needs send); node 1 57% disk, GPUs idle; answered lean on open Flock Lean work
 CHECKPOINT cfc2ea64 (02:24Z) [open] 7:24 PM PDT: #723 and #727 ready for a train; drafts #749-#752 opened with checks passing; --zk/M0 at K=4096 down to x1.88 pending red-team; Lemma A and C proved (#752), pins with @lean
 CHECKPOINT 600491fc (02:18Z) [open] 7:20 PM PDT: #717 merged. --zk at 4/4 BF16 cells (5.0-7.5x M0), levers running. #730 registered values: red-team GRANT for merge, soundness theorems in progress. #723: L1 fix granted, needs re-check. Launched flock-hidden-gather and flock-pouw-pieces. Answered circuits (#734 OK, overlap, gather), compute-accounting (PoUW needs), lean, infra.

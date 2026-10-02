@@ -803,3 +803,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   9.02M (44%). There were six Lean scratch trees: three live audits, and three idle 135–202 min with no process in them.
   Ran the sweep at once: 59 entries, 70.4 GB (§4). Node 1 is down to 8.21M (40%). Posted to @infra, since the total is
   over 50 GB.
+- 10:07Z to 10:53Z ticks: exit 0. 11:15Z (4:15 AM PDT) tick (exit 1): node 1 HARD at 2.36M inodes/h (80% in 3.4 h). That
+  was four Lean audits starting together on slots check-a to check-d, all written within the last 3 min, from a base of
+  7.68M (37%) at 10:53Z. Node 1 is at 8.56M (42%). Four full audits (about 1.07M each) would reach about 12.9M (63%).
+  Nothing is idle or deletable, so no action and no Slack.

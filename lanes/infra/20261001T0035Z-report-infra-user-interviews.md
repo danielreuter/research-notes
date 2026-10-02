@@ -304,3 +304,19 @@ infra item. Worked around: its VM's Shell sessions lost their injected secrets a
 through a fresh `tmux ... bash -l` script writing to a file (it took that for the VM, not infra); the inbox footer's `research msg
 read` said "unknown command 'msg'" because its checkout was 759 commits behind main (its own; updated). Fix next: an unknown
 command should say how far the checkout is behind origin/main. Started: #834.
+
+**proofs (16:29Z, ts 1790958545.597289):** Cost: nothing on the servers; its VM's stale `research` turned landing one red-team
+label into an 11-minute `data push --pending` that re-verified 3,046 artifacts the remote held (`labels-sync` or main's tool was
+the right call; it now runs main's tool from a worktree). Worked around: ran `notes sync` and the push for a worker VM whose shell
+lacked the env (with top-level and Daniel). Fix next: nothing new.
+
+**Triage, posted 16:42Z (1790959354.312319):**
+| Item | Call |
+|---|---|
+| Unknown command reads like a typo, not a stale checkout (compute-accounting) | Yes, done: #834, queued ready |
+| Stale `research` spent 11 min in `data push --pending` (proofs) | No: shared cause with the above is an old checkout; main's tool from a worktree is the fix, and a warning on every command is only as fresh as the last fetch |
+| Shell sessions lost injected secrets at 02:10Z (compute-accounting) | Not infra's: the VM; passed to top-level with the worker-VM credentials question |
+| Worker VMs can't push notes or labels without the env (proofs) | With top-level and Daniel |
+| #826 | Approved by old-circuits-and-proofs; tamper assertion added, re-queued at 406045eb7 |
+
+Theme of round 11: both answers trace to stale tool checkouts on agent VMs, not to the servers.

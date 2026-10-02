@@ -8,6 +8,7 @@ repo: verity
 origin: proofs-flock-fp (bc-15199603-ae1e-5aa0-9da4-6be8dedb83e6)
 ---
 
+CHECKPOINT 85e8434b8 (05:58Z) [open] 10:58 PM PDT: red-team finding (a) fixed in 1302c654d: a sha512/row/v2 statement's identity names hm96-sha512/row/v2 in both verifiers, only under META row_schemas, so v1 digests are unchanged; the bit-row toys re-pinned with Rust and Lean agreeing. origin/main merged (85e8434b8). check --record r20261002-032024-0401 on vy-nebius-1 passed every step with lean-agreement on the pinned upstream build. The PR title and body are in the proofs project store's internal/proofs/flock-fp-row-v2-pr.md. v2 statement digests moved, so restage before GPU points; those are held tonight.
 FP hill-climb (E4M3, NVF4, MXF4), newest first. Each step is a byte-identical point against the format's clean step 0 at the
 same K; a gain under 20% is re-run once (clean FP4 samples spread 12-19%). Branch `cursor/proofs-flock-fp-95d4`.
 

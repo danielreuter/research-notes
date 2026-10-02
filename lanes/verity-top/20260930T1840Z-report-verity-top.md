@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:43Z) [open] 19:43Z: #841 #842 #845 ready; attention flake is torch AMX, fix #848 in quick tier; #820/#844 conflict resolution staged
 CHECKPOINT none (19:28Z) [open] 19:27Z: phi4 TP2 paused on two TP2 bugs (fix worker running); NestedEscape statement approved; train a6655225d awaits slot
 CHECKPOINT none (19:12Z) [open] 19:11Z: train a6655225d awaits slot; eager-attention flake assigned to infra as a real bug; #845 nearly through quick tier
 CHECKPOINT none (18:56Z) [open] 18:56Z: tool-fix train landed (main a2d9b48ba); train a6655225d (6 PRs) awaits slot; phi4 TP2 rows running on node 1; soak rerun on schedule

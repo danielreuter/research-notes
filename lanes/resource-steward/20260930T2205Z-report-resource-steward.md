@@ -646,3 +646,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   mostly the live scratch tree `y16o44cs` (321k, written 01:34Z). 10.41M inodes (51%), 58 source trees, space 60%
   (2,992 GB). `jobs/src` reached 872 copies and 4.23M inodes (§5, with the projection and the escalation date). Nothing
   deletable; no action, no Slack.
+- 01:47Z (6:47 PM PDT) tick (exit 1): node 1 at 192k inodes/h, over the 100k/h line but no longer HARD. It is the
+  01:34Z growth (scratch, source trees between sweeps, `jobs/src`). Nothing deletable; no action.

@@ -920,3 +920,8 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   (48%), +55k since 19:47Z, so it's growing at about 220k/h now. No reply from @proofs yet. No action.
 - 20:04Z tick (exit 1): the HARD line again (1.48M/h, 4.3 h). Node 1 is at 10.13M inodes (50%), +274k in 22 min, about
   750k/h. At that rate the 65% card trigger is about 4.4 h away. No reply from @proofs. No action.
+- 20:26Z tick: exit 0, at 9.39M inodes. 20:48Z tick (exit 1): the HARD line (1.17M/h, 5.7 h) is measured from the 20:26Z
+  trough. Since 19:42Z, node 1 has swung between 45.6% and 49.2% (9.4–10.1M) with no net growth: 9.82M (48%) now.
+  - Four of the earlier `.lake` trees are gone (`74ab1ba4`, `f9f85f34`, `00649cea`, `6dd2ee91`). Ten trees hold
+    `.lake/packages`, seven of them unheld.
+  - No reply from @proofs. No action.

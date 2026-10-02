@@ -433,6 +433,21 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     - `62e3c42b`, with 419 files outside its commit (`flock/`).
   - Node 2 kept 31 trees. No `STUCK` lines.
   - After: node 1 `/workspace` is at 54% space and 40% inodes (8.14M; 8.95M before).
+- 18:30–18:34Z (11:30–11:34 AM PDT), the scheduled 6 h sweep (`sweep.sh --src-age-h 6`, `--jobs-src` on node 1): 27
+  entries, 477,219 files, 32.1 GB.
+  - Node 1, 20 source trees, 6–7 h old, 384,357 files, 20,859 MB:
+    - eight of about 100 MB: `17645305`, `1e9e9208`, `5f08b1ab`, `82654645`, `8da0d090`, `a53a415b`, `c02c2ca2`,
+      `d7d6b68d`;
+    - twelve of 1.3–1.9 GB: `32dc51b6`, `35555699`, `4e3f9735`, `592d2a3e`, `59656e69`, `6507008a`, `73de6b3c`,
+      `77c13a65`, `95278db0`, `b2c6023d`, `c1e389fa`, `d8af262d`.
+  - Node 1 `jobs/src`, 1 content copy: `9dbf9ec187f42ceb` (6 h, 6,057 files, 155 MB).
+  - Node 2, 5 source trees, 6–7 h old, 78,955 files, 3,771 MB: `12839460` (1,734 MB), `5f08b1ab`, `a6d946c9` and
+    `ac382ff2` (about 100 MB each), and `bdaa8d28` (1,732 MB).
+  - Node 2, check scratch `/tmp/pytest-of-research/pytest-181` (3 h, 7,850 files, 7,294 MB).
+  - Kept on node 1:
+    - `2e635be2` and `62e3c42b`, with files outside their commits;
+    - `778c10d8` and `pytest-3524`, both held by pid 258335.
+  - Node 2 kept 31 trees. No `STUCK` lines.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:

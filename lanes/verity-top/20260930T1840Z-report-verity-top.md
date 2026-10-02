@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (11:45Z) [open] 11:45Z train 9c1a (#814/#802/#792) checking; #757 needs second merge with #802 (Tags.lean); Qwen3 row zkaudit all pass
 CHECKPOINT none (11:28Z) [open] 11:28Z trains 1456/fc09/5d0f checking before 12:10Z hold; soak clean at 6.1M answers
 CHECKPOINT none (11:11Z) [open] 11:11Z main-push guard #816 fixed and approved by infra; gemma2-9b Builds rerunning; relay 401 fixed
 CHECKPOINT none (10:54Z) [open] 10:54Z main moved outside merge (5f08b1ab2, +#812); guard #816 held by ci for train fast-forward bug

@@ -413,3 +413,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 07:27Z: T-no730 316ec452e r20261002-071648-c37e (20 PRs). #730 fix + #776 trim on top later.
 - 07:33Z: c37e, 5fc6 DIED on slot d (affinity EINVAL). Urgent ask infra to remove d. Holding relaunch.
 - 07:36Z: root: relaunch 6b3d704c8 as soon as steward confirms slot d is out.
+- 07:38Z: slot d removed; relaunched 6b3d704c8 r20261002-072246-b9fe.
+- 07:43Z: T776 5805d3e60 (+#776 +#789) r20261002-072727-16f7. Order b9fe, 16f7.

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (07:12Z) [open] 12:13 AM PDT: #771 fixed (4663a5bb7, suite 35/35, granted, ready); #776 ready (red-team GRANT); #786 opened (zk text, check a8e6); k_log 27 yes -> zk-k32k; word_bits -> registered-values; Keccak pieces -> flock-pouw-pieces; +3h MISS 2/4 posted
 CHECKPOINT none (06:09Z) [open] 11:24 PM: hZero proved (e2e-zero, on placed+aliased); placed/aliased/layout/exec pieces landing; M0 FC_COINS=os accepted by flock-verify. K=32768 FP cells done (--zk x1.35-1.58); BF16 K=32768 awaits a yes on k_log 27.
 CHECKPOINT none (05:40Z) [open] 10:46 PM: e2e findings: verifier doesn't pin sha512x3/hm96 nets (hHm false as is; launched verifier-hm-pin bc-d3259f45); headline must move to the salted session (e2e-exec owns). #730 trimmed under the PROTOCOL.md cap (51b2f5586), in train f38a.
 CHECKPOINT none (05:27Z) [open] 10:33 PM PDT: nine e2e workers (one per open guarantee + --zk session soundness + M0 live-os coins) coordinating in #agent-coordination 1790918245.593149; #730 ready with red-team's conditions, with the lander; zk-protocol-text and zk-all-cells done

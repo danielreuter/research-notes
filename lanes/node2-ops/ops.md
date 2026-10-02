@@ -47,6 +47,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
+- **Memory accounting's honest-latency soak, 04:45–14:45Z** (vLLM on GPU 7, responder on cores 80–93; infra, `note:20261002T0510Z-notice-from-infra-verity-pool-off-80-93`). The fill loop carries `FILL_VERITY_CPU_SET=48-79,94-95` until infra's root timer `vy-fill-cpu-revert` respawns the old loop at 14:45Z. Don't touch the loop before then: a changed pane makes the timer leave it alone, and the revert becomes mine. Until 14:45Z, launch the hourly backup as `-- taskset -c 48-79,94-95 nice -n 19 bash /workspace/pouw/infra/bin/backup.sh`.
 - **Timers:** from 16:14Z `subscribe_timer` returns `invalid_argument` for every new timer. Only the recurring ticks remain (alerts at :02/:17/:32/:47, hourly at :05), plus the two final-backup one-shots on 7 Oct.
 - **Pearl-C4's verify re-run** (bc-e8ffd7f2): 48–91 now that window 4's verify is done, or 0–47 at nice 19 with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`). No request yet.
 - **Inbox on every alerts tick** (from 13:05Z): `~/node2-ops/inbox.sh` lists the notes added on origin since the acked commit that are in `lanes/node2-ops/` or name node2-ops, and `inbox.sh --ack` advances it. I missed pouw-node2's 12:41Z ask for 25 min because the alerts tick read only `alerts.jsonl`.
@@ -68,6 +69,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 05:20Z alerts tick: infra's notice (`note:20261002T0510Z-notice-from-infra-verity-pool-off-80-93`) moves the Verity CPU pool off cores 80–93 for memory accounting's soak, 04:45–14:45Z. Checked read-only:
+    - The runner (pid 3649474, restarted 05:09:38Z, jobs adopted) carries `FILL_VERITY_LEND=0 FILL_VERITY_CPU_SET=48-79,94-95`.
+    - `cov-gm334`'s processes are pinned to 48–79,94–95. `zkk32k-stage-e4m3` had already finished (it is in `fill/done/`).
+    - `vy-fill-cpu-revert.timer` fires at 14:45Z. Status: `timed False`.
+    - My side: until 14:45Z the hourly backup goes on 48–79,94–95 at nice 19 (about 11 CPU-s and 1 MB written per run, so it's cautious, not needed). No reply sent, since it's a notice and nothing differs from it.
 - 2026-10-02 05:09Z hourly (04Z): GPU busy 20.8% (1.66 of 8.00 GPU-h, all useful): memory accounting's PoUS jobs and two of bc-698052e1's Commits (gm319, gm328). Leased-idle 0.75 GPU-h (bc-698052e1 0.41, bc-15ada664 0.34).
     - **Why below 80%:** no other GPU work was queued, so 5.59 GPU-h sat free. CPU 0–127 at 6.4%: 1 kueue-fold Build and proofs' `zkk32k-stage-e4m3`.
     - **Disk** at 37%.

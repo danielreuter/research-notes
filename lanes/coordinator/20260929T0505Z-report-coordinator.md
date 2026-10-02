@@ -393,3 +393,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 05:25Z: PR #773 train.sh + --record --agreement (ready). Store copy of launchers: internal/lanes/coordinator/tools/.
 - 05:28Z: T773 1c7d509e2 via train.sh (first live use) r20261002-052340-51e4. Order 9cae, 51e4.
 - 05:33Z: #730 on 1c7d509e2 exceeds flock PROTOCOL.md 128 KiB cap by 715 B; cancelled 06e1; asked proofs to trim. Note: my lint && chain did not gate launch; next time check lint rc.
+- 05:39Z: T730 597e355d5 (ff108ac24 + #730@51b2f5586) via train.sh r20261002-053548-f38a. Order 9cae, 51e4, f38a.

@@ -13,6 +13,19 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 05:40Z Oct 2 (10:40 PM PDT Oct 1)
+
+- **Slot `d` is on its way.** `VY_PROVER_CPUS` is 160–191 in `dispatch.env` since 10:35 PM PDT; the backup is
+  `dispatch.env.bak-20261002T0535Z`, and the dispatcher was restarted. New prover jobs land on 160–191.
+  - 7 prover pods created earlier still run pinned to 128–191, the oldest since 9:13 PM PDT.
+  - `/workspace/research/locks/slot_d_waiter.sh`, under setsid on node 1 and logging to `slot-d-waiter.log`, adds
+    `d 128-159` to `locks/slots` and ` 128-159` to `check-slots` once no running pod is pinned onto 128–159. It then writes
+    `locks/slot-d-added`.
+  - Next pass: if that marker exists, post in the disk thread that `d` is live, and tell @ci the lander needs no change.
+    The only lander that locked `check-a.lock` directly was the research coordinator's, which launches through `slot.py`
+    since #773 (`tools/check/train.sh`). Slot `a`'s holder since 10:01 PM PDT is still a direct flock, from before that
+    change.
+
 ## State at 05:05Z Oct 2 (10:05 PM PDT Oct 1)
 
 - **The pacer's hold gates only Commits, by construction**, since 9:59 PM PDT; nobody held the change.

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (05:00Z) [open] 05:00Z: lean down for reviews tonight (self-review by package coordinators); comms #770 quiet-ask/doorbell fixes; #751/#771 granted for next train; console blocked on PoUS explorer data, infra asked to copy to node 1
 CHECKPOINT none (04:45Z) [open] 04:45Z: main e0b0dbf66 (#758 + infra seven); 7c05 (#761) and 7422 (#767,#750,#762,#764,#765) checking; cov-gm002-rv 460/460 registered values; memory all-night latency run
 CHECKPOINT none (04:30Z) [open] 04:30Z: overnight +1h all 6 leads HIT; zk-all-cells 14/16 cells, ×1.39–1.76 prover; next check 06:20Z
 CHECKPOINT none (04:15Z) [open] 04:15Z: main 9139997ed (#721, #752, infra five landed); fef2 and 7c05 checking; circuits held-idle 70% at 8 PM, Daniel asking circuits directly; lean PoUS move lane started

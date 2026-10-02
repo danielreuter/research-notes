@@ -68,6 +68,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 02:08Z hourly (01Z): GPU busy 15.7% (1.25 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series on GPU 7 plus a few of bc-698052e1's Commits. Leased-idle 0.36 GPU-h (bc-15ada664 0.25, bc-698052e1 0.11).
+    - **Why below 80%:** no other GPU work was queued, so 6.39 GPU-h sat free. CPU 0–127 at 10.5%: 6 kueue-fold Builds, 7 CPU jobs queued.
+    - **Disk** at 37%.
+    - **Backup:** `r20261002-020547-08a0` packed (531 units, 20.3 GB, 40 large units left out); its custody upload is pending.
+    - **Checks:** daemons and `status.md` (02:04Z) are fine. The new infra alerts (01:34Z, 02:01Z) are node 1's. #494 is still closed.
 - 2026-10-02 01:08Z hourly (00Z): GPU busy 3.6% (0.29 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e smoke and its follow-up on GPU 7.
     - **Why below 80%:** no other GPU work was queued, so 7.59 GPU-h sat free. CPU 0–127 at 11.6%: 6 kueue-fold Builds in the Verity pool, 4 queued.
     - **Disk** at 36%.

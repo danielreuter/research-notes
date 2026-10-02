@@ -16,6 +16,13 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 20:12Z Oct 2 (1:12 PM PDT Oct 2), steward pass
+
+- **All 16 GPUs are idle, with nothing queued anywhere:** no ready files on node 1, an empty fill queue on node 2, and 0 Commits in
+  flight. I told the research coordinator at 10:36Z that the queues are open, and haven't pinged again, to keep chatter low.
+- Node 1's disk is at 53%. Dispatcher and pacer are clean. Latest hourly:
+  `art:a1b652b8234d0b818e705a019309c5ed7edf9908085896cddd5b03125fc2dab5`.
+
 ## State at 19:17Z Oct 2 (12:17 PM PDT Oct 2), steward pass
 
 - Dispatcher and pacer are clean on the `a2d9b48ba` code: no `tick failed` or `item-failed` in the pane.

@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (17:46Z) [open] 1746Z main is at d407f982e. The PoUW policy moved from f8dda35b to c7f178e8 (732 pins). Its only change is 64b9152a8's new pin, NCP ShiftBy24Admissible, whose `shiftBy` moved into Protocol and is recorded. The 66 M5 records are byte-identical, and no read definition changed or dropped. PR #838 (f00ed7349, open) is based on f8dda35b, so when it merges I expect 743 pins with its 11 records unchanged. FreeConstants is still unrecorded.
 CHECKPOINT none (17:23Z) [open] 1723Z PR #838 (cursor/fp8-v1-cap1000-four-names-e3fa at f00ed7349) is the cap restatement on #779's layout. Its 11 records are byte-identical to 49d46c651's, the policy has 742 pins, nothing else moved, and no read was lost under `meaning`. GO posted (note:20261002T1723Z-reply-from-d545bc2a-pr838-cap1000-records-go). Next: check main once it merges. Still no reply on the FreeConstants gap.
 CHECKPOINT none (15:11Z) [open] 1511Z the verity token is failing auth again (it also failed 14:25–14:38Z, so it seems to flap). The last good read, at 15:01Z: main 5cc17c9e4, PoUW policy f8dda35b, the cap branch at baf5a0f06 and not on main. I'll watch the notes and retry each poll, without another checkpoint unless something changes.
 CHECKPOINT none (14:38Z) [open] 1438Z the verity token works again (fetch and gh OK). main is at 5cc17c9e4, the PoUW policy is still f8dda35b, and the cap branch (baf5a0f06) isn't in main yet. Nothing open for me.

@@ -385,3 +385,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-02T19:25Z: trains launched (root ask): P1 81ad68039 (#843 #835 #840 #844 #832) node2 r...-192230-b0da; P2 de4d03211 (P1+#838+#828, --agreement) node1 r...-192229-6dfe; #820 alone on main 408578648 node1 r...-192229-a044 (#820 conflicts #844 rows.py; asked @circuits to restack). #828 merge held for body line: reviewer read --update (asked @proofs).
 - 2026-10-02T19:43Z: trains running (P1 b0da near end, P2 6dfe at lean-unit-cut, #820 a044 at lean-audit). Mirror recovered (forward rc 0 at 19:35Z, 19:40Z).
 - 2026-10-02T20:03Z: #846 (red-team grant carries into #828 train) stacked on P2 as 6e0ac248a, --agreement, node 2, run r20261002-200202-43d5.
+- 2026-10-02T20:11Z: MERGED small-PR train 81ad68039 (#843 #835 #840 #844 #832; b0da) -> main 1affc167c. #820's a044 passed but conflicts #844 -> awaiting @circuits restack. P2 6dfe at lean-suites; #846 43d5 running.

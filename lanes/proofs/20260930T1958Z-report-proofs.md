@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (23:10Z) [open] #849 fix running; #866 awaits @lean; #858/#860/#861/#863 with lander
 CHECKPOINT e259af141 (22:38Z) [open] #858/#860/#861/#863 with lander; #862 waits #857; #846 held last
 CHECKPOINT e259af141 (22:09Z) [open] #858 ready and in lander queue; #849/850/856/857 in train; waiting #860 review, #846 fix
 CHECKPOINT e259af141 (21:46Z) [open] #852/#850/#856 training; #857 awaiting @lean; #846 fix, zk ε_ks in progress

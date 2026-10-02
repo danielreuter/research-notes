@@ -450,3 +450,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 16:19Z: T793 4394c78cf (+#793 zk fix) node1 r20261002-161540-cf85. Order 4a1d, beed, cf85.
 - 16:20Z: node 2 cleared for checks again (agent healthy on 1253f09ec).
 - 16:24Z: MERGED T757 edb0883b8 (4a1d); main 56b7e4f7c. Next beed, cf85.
+- 16:30Z: ci24 b31e538ea node2 r20261002-162031-a7ad; combined hedge 6bff4847c node1 r20261002-162138-cc34. Friction asks posted (steward, infra); #826 APPROVE. Trains via --prepare from now.

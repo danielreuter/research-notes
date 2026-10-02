@@ -361,3 +361,8 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 01:30Z: T745 42d7c299f (50bcd0178 + #745) slot b r20261002-012524-1050; cancelled 3d87. Order b533, 1050, #722 pin on 42d7c299f.
 - 01:36Z: 7b3e bundles not uploaded (>256MiB undeclared). Re-export with --declared-output export/*: r20261002-013330-8cff slot c. #722 merged on line tip in /tmp/wt722 as bb2680947 (not pushed).
 - 01:38Z: plan: pin commit on af5570eca, merge into b74c88c1e (#740 #736 #744), check that tip.
+- 02:05Z: MERGED T728 ee6294533 (b533); main 35d7c7b3f. Pin fed6da99a (8cff). Top b1bf0915b slot c r20261002-020141-31a1. Order 1050, 31a1.
+- 02:10Z: TTOP changes guarantees (verity, nci, network_warden pins; #736 Facts.lean) -> per root, re-run with send: r20261002-020513-d553 slot c (cancelled 31a1).
+- 02:12Z: HOLD TTOP merge: #722 12 new guarantees need top-level record of Daniel 5:00 PM approval (asked top); 18 TC = --moved; #744 reviewed by network accounting.
+- 02:14Z: root asked Daniel directly re #722 12 guarantees; no ask-daniel from me. Hold TTOP until root relays top-level record (or @top records first).
+- 02:16Z: top recorded Daniel approval of #722 12 guarantees (p1790906922954909). TTOP hold released; merge on d553 pass.

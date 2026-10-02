@@ -48,7 +48,6 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
-- **Memory accounting's honest-latency soak, 04:45–14:45Z** (vLLM on GPU 7, responder on cores 80–93; infra, `note:20261002T0510Z-notice-from-infra-verity-pool-off-80-93`). The fill loop carries `FILL_VERITY_CPU_SET=48-79,94-95` until infra's root timer `vy-fill-cpu-revert` respawns the old loop at 14:45Z. Don't touch the loop before then: a changed pane makes the timer leave it alone, and the revert becomes mine. Until 14:45Z, launch the hourly backup as `-- taskset -c 48-79,94-95 nice -n 19 bash /workspace/pouw/infra/bin/backup.sh`.
 - **Timers:** from 16:14Z `subscribe_timer` returns `invalid_argument` for every new timer. Only the recurring ticks remain (alerts at :02/:17/:32/:47, hourly at :05), plus the two final-backup one-shots on 7 Oct.
 - **Pearl-C4's verify re-run** (bc-e8ffd7f2): 48–91 now that window 4's verify is done, or 0–47 at nice 19 with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`). No request yet.
 - **Inbox on every alerts tick** (from 13:05Z): `~/node2-ops/inbox.sh` lists the notes added on origin since the acked commit that are in `lanes/node2-ops/` or name node2-ops, and `inbox.sh --ack` advances it. I missed pouw-node2's 12:41Z ask for 25 min because the alerts tick read only `alerts.jsonl`.
@@ -70,6 +69,13 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 15:09Z hourly (14Z): GPU busy 10.3% (0.83 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7 until 14:45Z; their vLLM e2e series follows from 15:01Z. Leased-idle 0.17 GPU-h (bc-15ada664).
+    - **Why below 80%:** nothing else was queued, so 7.0 GPU-h sat free. CPU 0–127 at 6.4%.
+    - **Disk** at 39%.
+    - **The soak window closed as planned.** `vy-fill-cpu-revert` respawned the loop at 14:44:59Z (runner pid 1966482) with `FILL_VERITY_LEND=0` only, so the Verity CPU pool is back on 48–95. The runner is still #778 (`62bdf53d`). The `fill/max-min` soak line has expired by its own end time.
+    - **Backup:** `r20261002-150534-69d1`, unpinned again, packed (542 units, 21.2 GB, 40 large units left out); its custody upload is pending. The 14Z backup `r20261002-140533-e474` is preserved.
+    - **This VM's GitHub credential for `danielreuter/verity` is rejected** since about 15:05Z: `gh` returns HTTP 401, and `git ls-remote origin` fails with "Authentication failed". The notes repo (its own token), ssh to node 2 and `research run` still work. It blocks only #494's check and pushes to my PR branches (#701). I'll retry at 16:05Z.
+    - **Checks:** daemons and `status.md` (15:04Z) are fine. The 14:12Z alert is node 1's. #494 couldn't be checked (closed at 14:05Z).
 - 2026-10-02 15:05Z alerts tick: cluster-build's watch of `vy-cluster-agent` has ended (`note:20261002T1500Z-handoff-from-cluster-build-agent-watch-ended`): `91af9a6bf`, 20 h clean, 73 grants today at 0 s lag. The open items are my rollback drill and infra's re-pin. I proposed doing them in one restart at infra's time (`note:20261002T1505Z-reply-from-node2-ops-drill-and-repin-one-restart`), without the obsolete fill_runner roll back and forward. I won't stop the agent before infra names a time.
 - 2026-10-02 14:09Z hourly (13Z): GPU busy 16.6% (1.33 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7, plus bc-698052e1's `-r2` Commits until about 13:30Z. Leased-idle 0.72 GPU-h (bc-698052e1 0.56, bc-15ada664 0.16).
     - **Why below 80%:** nothing else was queued, so 5.95 GPU-h sat free. CPU 0–127 at 7.9%.

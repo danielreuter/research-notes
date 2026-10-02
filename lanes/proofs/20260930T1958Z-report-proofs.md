@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 1af06f14 (03:05Z) [open] 8:15 PM PDT: Daniel's overnight ask (dot-product panel + vLLM-weighted panel, dense and MoE, by 7 AM PDT). Launched vllm-overhead-dense (Llama-3.1-8B) and vllm-overhead-moe (Qwen3-30B-A3B); red-team granted bf16-hill's --zk levers
 CHECKPOINT 25599ef6 (03:00Z) [open] 8:00 PM PDT: #752 ready and checking in 98fd; draft #757 (hidden outputs); zk-all-cells staging K=2048/4096 on node 1
 CHECKPOINT 1d23a2c4 (02:42Z) [open] 7:50 PM PDT: Daniel's two-hour ask (private values e2e, overheads at every GEMM dtype and K). Launched zk-all-cells (--zk + M0 at the 12 FP cells) and registered-gemm-e2e (one cell, registered weights); asked infra to hold the core narrowing to 10:30 PM PDT
 CHECKPOINT b9918ce4 (02:30Z) [open] 7:32 PM PDT: #723 and #727 in ci's train prep (206b4520a, needs send); node 1 57% disk, GPUs idle; answered lean on open Flock Lean work

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:45Z) [open] 02:45Z: #721 and #752 statement reviews approved; infra's #719/#753-#756 ready for ci's queue; three trains checking on node 1
 CHECKPOINT none (02:30Z) [open] 02:30Z: inbox empty; #753/#754 credentials+guard fixes up awaiting check; #748 stacked in next train; lean reviews #752/#721 waiting on token retry
 CHECKPOINT none (02:15Z) [open] 6 PRs landed since 5 PM; Lean train checking; #718/#720/#725 ready
 CHECKPOINT none (02:00Z) [open] one-check train pending #722 re-export; evening set due 8 PM

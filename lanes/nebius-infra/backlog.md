@@ -16,6 +16,35 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 07:30Z Oct 2 (12:30 AM PDT Oct 2)
+
+- **Slot `d` is out again** since 12:22 AM PDT. A `research run` session on node 1 is held to cores 0–127 (`AllowedCPUs` on
+  `user.slice` and `system.slice`, set with `systemctl set-property` at 11:39 PM PDT Sep 30). So `slot.py`'s affinity call
+  onto 128–159 failed with "Invalid argument", killing c37e, 5fc6 and 2ac5.
+  - I removed `d` from `locks/slots` and `check-slots` (backups `*.bak-20261002T0722Z`) and disabled the watcher
+    (`slot_d_waiter.sh.disabled-20261002T0722Z`).
+  - I hold `check-d.lock` (pid 3423154, `flock … sleep`) so checks already waiting with `d` in their list can't take it.
+    Release it once no waiter in `check-line/` is older than 07:22Z.
+  - I told the research coordinator directly.
+- **The fix is in #789**, now at `35beb61c9` and re-marked ready: `slot.py` skips any slot outside `os.sched_getaffinity(0)`,
+  and a test fails without that filter. I told @ci.
+- **Re-adding `d` needs @infra's yes** to `systemctl set-property user.slice AllowedCPUs=0-159`, and the same for
+  `system.slice`. Then one check is run on `d` by hand, and `d` goes back only after it passes. Asked at 12:25 AM PDT.
+
+## State at 07:20Z Oct 2 (12:20 AM PDT Oct 2)
+
+- **Slot `d 128-159` is live** since 11:58 PM PDT, in `locks/slots` and `check-slots`, so node 1 has 4 check slots. I told the
+  research coordinator and @ci that the lander needs no change.
+- **It sat free with 9 checks in the line.** `slot.py` read the slots file once, before waiting, and the head of the line was
+  a priority train ticket from 11:56 PM PDT, older than `d`. That clears when `a`–`c` frees.
+  - The fix is [#789](https://github.com/danielreuter/verity/pull/789), stacked on #783: every retry rereads the slots file.
+    It's marked ready at `3b1da247a`, and I told the research coordinator and @ci.
+- #783 is reviewed and approved on @infra's behalf; I posted it to the research coordinator because I found no review-ask
+  thread. #767 at `90b6cc699` and #780 at `e02e4359d` are open in the queue.
+- Node 1: disk at 55%, inodes at 39%, the pacer's cap at 1,326 GB, and 2 Commits in flight. A second full `du` is running
+  into `/tmp/du-snap/all-*` (the first was at 06:45Z); compare them next pass.
+- Latest hourly utilization: `art:b5609bef810c9dfb06e141b04ac31e01ec93194fccb8cf53f80fafd68dd222f2` (12:00 AM PDT).
+
 ## State at 06:50Z Oct 2 (11:50 PM PDT Oct 1)
 
 - **Correction to the 06:35Z block:** the non-bundle growth is *not* mostly circuits' run dirs. Two `du -d 2` snapshots 10 min
@@ -352,7 +381,8 @@ NUMA nodes are 0–95 and 96–191. Hyperthread siblings are adjacent pairs, so 
 | 64–95 | merge-train check slot `check-b` | the same with `check-b.lock`, `64-95` |
 | 8–95, shared | **short lane checks** (a circuit-check rerun, one suite: minutes), which never wait on a train: `check-s1`, `check-s2` on the train slots' CPUs at `nice 10` (10:15Z) | `flock /workspace/research/locks/check-s1.lock nice -n 10 taskset -c 8-95 <cmd>` (or `check-s2`); `check_slot.sh --short <cmd>` once `infra/nebius` has `fb923c3a`; `/workspace/research/check-slots` = `32-63 64-95 8-31` |
 | 96–127 | **node 1's dispatcher's Kueue tasks** (Builds, replays, Commits) | `VY_DISPATCH_CPUS=96-127` in `/workspace/jobs/dispatch/dispatch.env` (#745) |
-| 128–191 | **`provers` tasks** (proofs' prover-benches) | `VY_PROVER_CPUS=128-191` in `dispatch.env`. Planned: 160–191, with 128–159 becoming check slot `d` (see below) |
+| 128–159 | unassigned. Check slot `d` was tried and removed (2 Oct 07:22Z): host sessions are limited to 0–127 | `user.slice`/`system.slice` `AllowedCPUs=0-127`; widening is @infra's call |
+| 160–191 | **`provers` tasks** (proofs' prover-benches) | `VY_PROVER_CPUS=160-191` in `dispatch.env` (since 05:35Z Oct 2) |
 
 - The dispatcher pins its pods to 96–159. Kueue pods from other submitters aren't pinned and can burst onto any core. Pinned results outside the quiet hour carry `ov.noisy=true`.
 - `flock-v2-design` shares M0's range by arrangement with M0, or runs unpinned with `ov.noisy=true`.

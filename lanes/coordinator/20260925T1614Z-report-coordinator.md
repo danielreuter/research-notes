@@ -392,3 +392,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-02T21:11Z: #852 (two-stage exfiltration, Daniel's top priority; lean + red-team grants) conflicts #850 in FlockSoundness.lean imports. Trains: on #820 train 074925421 (node1 c249) + alone on main d03a0fee6 (node2 3de7), both --agreement. #850 (4ef1) will need restack after #852.
 - 2026-10-02T21:14Z: (root) #850 restacked by hand on #852 train: 3f86ffebc (import conflict resolved, both kept), --agreement node2 r20261002-211158-3fe6; cancelled 4ef1; told @proofs.
 - 2026-10-02T21:43Z: MERGED #820 (T820 7c92e6454, c228) -> main 3d724751b. Cancelled hedge 3de7 (obsolete; it held node2's only slot ahead of #850's 3fe6). #852 via c249 (node1, past lean-audit).
+- 2026-10-02T21:46Z: #856 (draw-words; lean + red-team grants) stacked on #850 train: a2c202084, --agreement node1 r20261002-214236-ce78.

@@ -37,6 +37,11 @@ Only with no open files (`lsof +D`), and only at `nice 19 ionice -c3`:
   and content copies (`<id16>`, aged by the newest `by-pod/*` file naming them) that no live pod names. A copy without
   `.copied` is kept. The pass renames each copy into `jobs/src/.trash`, re-checks, and puts back anything named since.
   `sweep.sh` runs it on node 1 only (`node-sweep.sh --jobs-src`).
+- on node 1, the Lean dependencies a failed audit leaves in a source tree: `.lake/packages`, and only that, of the verifier's
+  three Lake packages (`backends/flock/verifier/lean`, its `level3` and `soundness`), at any age, in a tree nothing live
+  names (Daniel's ruling on card `23a10e51`, `yes_any_age`, 3:33 PM PDT 2 Oct). The rest of the tree stays under the 6 h
+  rule. Each is renamed aside, the tree re-checked, and put back if named. `sweep.sh` runs it on node 1 only
+  (`node-sweep.sh --lake`).
 
 Every deletion is logged in §4 (path, size, age). Slack hears of it only if it frees over 50 GB.
 
@@ -448,6 +453,12 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     - `2e635be2` and `62e3c42b`, with files outside their commits;
     - `778c10d8` and `pytest-3524`, both held by pid 258335.
   - Node 2 kept 31 trees. No `STUCK` lines.
+- 22:45–22:50Z (3:45–3:50 PM PDT), node 1 Lean dependencies (card `23a10e51`, `yes_any_age`), one-off run before the
+  sweep had the pass: 2 entries, 339,812 files, 20.4 GB together.
+  - `30104b9b…/backends/flock/verifier/lean/soundness/.lake/packages` (tree 3.5 h old);
+  - `9830f7c3…/backends/flock/verifier/lean/soundness/.lake/packages` (tree 3.7 h old).
+  - Kept: `f3b03c6c` and `25db730b`, both named by live processes.
+  - After: node 1 `/workspace` is at 53% space and 42% inodes (8.52M).
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -516,6 +527,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     (#approvals `1790978211.656329`). Options: `yes_any_age`, which I recommend; `yes_now_only`; and `no_wait`, the default
     at the 4:00 PM PDT (23:00Z) deadline. A button decision fires no thread event, so each tick polls
     `ask-daniel status 23a10e51-…`.
+  - **Resolved.** Daniel chose `yes_any_age` at 3:33 PM PDT (22:33Z, by button). The rule is now in §1, and `sweep.sh`
+    runs `--lake` on node 1. First run 22:47Z: 20.4 GB (§4). @proofs' fix (a) would still stop the buildup at its source.
+
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
   deployed it on both nodes; wrote this policy; sent handoffs to node2-ops and nebius-infra. Armed the timer
@@ -933,3 +947,8 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   flat since 19:42Z. No reply from @proofs. No action.
 - 21:33Z tick (exit 1): the HARD line again (607k/h, 10.5 h). Node 1 is at 10.06M inodes (49%): +670k since the 20:26Z
   trough, and +200k over 2 h against 19:42Z. No reply from @proofs. No action.
+- 21:55Z tick (exit 1): the HARD line again, with the rate putting 65% inodes about 1.5 h away; sent card `23a10e51` early
+  (§5). 22:11Z and 22:23Z ticks: card pending, no action. 22:45Z tick: exit 0, but the card came back `yes_any_age`
+  (3:33 PM PDT). Deleted two unheld trees' soundness `.lake/packages`, 20.4 GB (§4), and added the rule to §1 and a
+  `--lake` pass to `node-sweep.sh`, which `sweep.sh` runs on node 1. The pass's dry run at 22:58Z kept the two trees
+  that hold `.lake/packages` (`71361228`, `f3b03c6c`), both named by live audits. No Slack post (under 50 GB).

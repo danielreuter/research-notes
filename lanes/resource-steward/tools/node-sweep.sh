@@ -1,6 +1,6 @@
 #!/bin/bash
 # The resource steward's delete-without-asking sweep, run ON a node as root (`sudo nice -n 19 ionice -c3 node-sweep.sh`).
-# Usage: node-sweep.sh [--dry-run] [--src-age-h H] [--approved FILE] [--jobs-src]. Per the policy in lanes/resource-steward/*-report-resource-steward.md:
+# Usage: node-sweep.sh [--dry-run] [--src-age-h H] [--approved FILE] [--jobs-src] [--lake]. Per the policy in lanes/resource-steward/*-report-resource-steward.md:
 #  - /workspace/research/src/<sha> trees whose directory is older than H h (default 24), unless something live names the sha
 #    (REFS_PY: a request not yet finished or refused whose runner is alive or not yet launched, a Kueue workload or pod not finished, a
 #    fill job queued or running, any process's cwd, root, open files, maps, argv or environment), and unless the tree holds
@@ -10,6 +10,8 @@
 #    commit may go) skips only the age and EXTRA_PY checks;
 #  - src/.trash/ entries an interrupted sweep left (decided already; nothing executes from there);
 #  - check scratch untouched for 2 h and not held open: /tmp/pytest-of-research/pytest-*, <verity-check cache>/lean-audit-scratch-*;
+#  - only with --lake, the Lean dependencies (.lake/packages) a failed audit left in a source tree nothing live names, at any
+#    age (that section);
 #  - only with --jobs-src, infra's job trees in /workspace/jobs/src older than H h (see that section).
 # Prints "deleted PATH files=N mb=M age=Xh" or "kept PATH: why" per candidate, each line first appended, stamped, to $LOG (not
 # in a dry run), and goes on to the end when its ssh drops (SIGPIPE ignored), so $LOG is the record of what it did.
@@ -17,8 +19,8 @@
 # environment.
 [ "$(id -u)" = 0 ] || { echo "node-sweep: needs root to read every process" >&2; exit 2; }
 exec 9>/run/lock/resource-steward-sweep.lock; flock -n 9 || { echo "node-sweep: another sweep is running" >&2; exit 2; }
-DRY=0; AGE_H=24; APPROVED=; JOBS=0
-while [ $# -gt 0 ]; do case $1 in --dry-run) DRY=1;; --src-age-h) AGE_H=$2; shift;; --jobs-src) JOBS=1;;
+DRY=0; AGE_H=24; APPROVED=; JOBS=0; LAKE=0
+while [ $# -gt 0 ]; do case $1 in --dry-run) DRY=1;; --src-age-h) AGE_H=$2; shift;; --jobs-src) JOBS=1;; --lake) LAKE=1;;
   --approved) APPROVED=$(tr -s ' \n' ',,' < "$2") || exit 2; shift;; *) echo "unknown $1" >&2; exit 2;; esac; shift; done
 approved() { [[ ,$APPROVED, == *,$1,* ]]; }
 R=/workspace/research; SRC=$R/src; TRASH=$SRC/.trash; now=$(date +%s); T=$(mktemp -d); trap 'rm -rf $T' EXIT; trap '' PIPE
@@ -164,6 +166,38 @@ if [ -s $T/scr ]; then
   for d in $(cat $T/scr); do
     r=$(named "$d" $T/held); [ -n "$r" ] && { say "kept $d: $r"; continue; }
     gone "$d" $(age_h "$d") "$d"
+  done
+fi
+
+# Lean dependencies in source trees (Daniel's card 23a10e51, 3:33 PM PDT 2 Oct, at any age): WarmDeps.take moves or copies
+# check's Lean packages into a tree's .lake/packages, and a failed audit never gives them back; the next run on the tree drops
+# them before its own take. Only .lake/packages of the verifier's three Lake packages goes, only in a tree nothing live names
+# (REFS_PY, by sha); each is renamed aside, the tree checked once more, put back if named, and deleted.
+LK="backends/flock/verifier/lean backends/flock/verifier/lean/level3 backends/flock/verifier/lean/soundness"
+[ $LAKE = 1 ] && [ $DRY = 0 ] && for p in $SRC/*/backends/flock/verifier/lean{,/level3,/soundness}/.lake/packages.rs-trash-*; do
+  [ -d "$p" ] && gone "$p" $(age_h "$p") "$p (left by an interrupted sweep)"; done
+: > $T/lk
+[ $LAKE = 1 ] && for d in $SRC/*/; do d=${d%/}; s=${d##*/}
+  [[ $s =~ ^[0-9a-f]{40}$ ]] || continue
+  for k in $LK; do [ -d $d/$k/.lake/packages ] && [ ! -L $d/$k/.lake/packages ] && { echo $s >> $T/lk; break; }; done
+done
+if [ -s $T/lk ]; then
+  held $T/lk > $T/held
+  grep -q '^FAILED' $T/held && { echo "node-sweep: $(grep '^FAILED' $T/held | head -1); no Lean dependencies deleted" >&2; exit 2; }
+  for s in $(cat $T/lk); do
+    r=$(named $s $T/held); [ -n "$r" ] && { say "kept $SRC/$s/**/.lake/packages: $r"; continue; }
+    for k in $LK; do p=$SRC/$s/$k/.lake/packages
+      [ -d $p ] && [ ! -L $p ] || continue
+      a=$(age_h $SRC/$s)
+      [ $DRY = 1 ] && { gone $p $a "$p"; continue; }
+      mv -T $p $p.rs-trash-$now || { say "kept $p: rename failed"; continue; }
+      echo $s > $T/lk1; held $T/lk1 > $T/held2; r=$(named $s $T/held2)
+      if [ -n "$r" ] || grep -q '^FAILED' $T/held2; then
+        mv -T $p.rs-trash-$now $p && say "kept $p: named after rename: ${r:-scan failed}" || say "STUCK $p.rs-trash-$now: named after rename (${r:-scan failed}) and could not be put back"
+        continue
+      fi
+      gone $p.rs-trash-$now $a "$p"
+    done
   done
 fi
 

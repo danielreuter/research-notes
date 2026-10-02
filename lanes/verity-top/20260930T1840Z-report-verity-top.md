@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:24Z) [open] 18:24Z: #695 landed (main 41455f5d0), key rotation unblocked; train f35952cce (9 PRs) awaits slot; #845 fixes flaky research-suite read guard
 CHECKPOINT none (18:08Z) [open] 18:08Z: #840 and #844 live (node-2 stale plans stay on node 1; gemma2 B8 lease 570->155 s); train 83701a356 awaits slot
 CHECKPOINT none (17:51Z) [open] 17:51Z: ci's 24 landed (main d407f982e); next train 83701a356 (#695 #839 #838 #826 #833 #834 #837); soak rerun running; partitioning statements approved
 CHECKPOINT none (17:34Z) [open] 17:34Z: #828 final docs head, red-team carry pending; ci line ba751b1ce/a4f10fe62 awaiting slot; #841 queue-status fix

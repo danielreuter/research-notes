@@ -393,3 +393,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-02T21:14Z: (root) #850 restacked by hand on #852 train: 3f86ffebc (import conflict resolved, both kept), --agreement node2 r20261002-211158-3fe6; cancelled 4ef1; told @proofs.
 - 2026-10-02T21:43Z: MERGED #820 (T820 7c92e6454, c228) -> main 3d724751b. Cancelled hedge 3de7 (obsolete; it held node2's only slot ahead of #850's 3fe6). #852 via c249 (node1, past lean-audit).
 - 2026-10-02T21:46Z: #856 (draw-words; lean + red-team grants) stacked on #850 train: a2c202084, --agreement node1 r20261002-214236-ce78.
+- 2026-10-02T21:51Z: #849 (row-seg; red-team grant, no pin moves) stacked on #856 train: ad431245a, --agreement node1, r20261002-214937-4567.
+- 2026-10-02T21:54Z: #857 (plays-coin; changed records, lean read --update 749c; red-team grant) stacked on #849 train: 042b6f167 (import conflict w/ #856 resolved, both kept), --agreement node1 r20261002-215219-1e84.

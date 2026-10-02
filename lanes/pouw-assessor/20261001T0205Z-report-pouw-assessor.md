@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (18:46Z) [open] 11:46 AM PDT: no new asks. Ratings stand. Main a2d9b48ba, no protocols/pouw change since d407f982e; PoUW policy c7f178e8; PR #838 (f00ed7349) not on main; verifier branch cd080d44d. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (18:25Z) [open] 11:25 AM PDT: no new asks. Ratings stand. Main 41455f5d0, PoUW policy c7f178e8; PR #838 (f00ed7349) still queued, not on main; verifier branch cd080d44d. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (18:03Z) [open] 11:03 AM PDT: no new asks. Ratings stand. Main d407f982e, PoUW policy c7f178e8 (NCP-only change; M5 records byte-identical). PR #838 (f00ed7349, additive) queued in train 83701a356, not on main; verifier branch still cd080d44d. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (17:42Z) [open] 10:42 AM PDT: no new asks. Ratings stand. PR #838 (f00ed7349) read 17:31Z: additive only (new DeviceCapRev1Gamma.lean, 11 new pins, 742 total; d545bc2a GO note 20261002T1723Z), no M5/fp4 record touched; not on main yet. Main d407f982e (ci's 24-PR train) changes protocols/pouw for NCP only (new ShiftBy24Admissible pin; Guarantees.NCP and Protocol.NCP digests); no pin removed, no Pearl-C4 record moved. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).

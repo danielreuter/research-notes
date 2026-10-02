@@ -39,9 +39,9 @@ GRANT for c0 at `cursor/bf16-hill-zk-fixabc0-1d95` @ `90422b85ece827d2209bd26553
   `zk_constraints` use `zk_c0(st)`, which is `&st.c0_identity`. Under M0, `sverify::verify_extra(&st.r1cs, &st.c0_identity, …)`
   (since `750e344fd`) uses it too. Mixing the two in one process could only read the same value. Nothing from the prover
   reaches the cell, because it is computed from the verifier's own statement.
-- **It fails closed.** If `c0_is_identity()` panics inside `get_or_init`, the cell stays empty (`OnceLock` doesn't
-  poison), and the session's `catch_unwind` refuses. `FC_ZK_C0_EACH` only swaps in a fresh cell per replay, so the same
-  pure function is recomputed; it changes nothing that is absorbed.
+- **A panic caches nothing.** If `c0_is_identity()` panics inside `get_or_init`, the cell stays empty (`OnceLock` doesn't
+  poison), so no value is cached. `FC_ZK_C0_EACH` only swaps in a fresh cell per replay, so the same pure function is
+  recomputed; it changes nothing that is absorbed.
 - **A+B doesn't interact with it.** `pad_at` and `comb_partial` run after the gate, and neither reads or writes `r1cs` or
   the cell.
 

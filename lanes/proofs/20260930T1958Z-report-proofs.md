@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (09:48Z) [open] hedge+T701b merged (main 9699b2f28); #801 re-reviewed at cf7641033, red-team carry asked, posted ready; #792/#793/#757 main merges running; #802 queued (worker busy); #806 after #792
 CHECKPOINT none (09:23Z) [open] 2:23 AM PDT: #806 statement-reviewed (grant at 0162b6d64), red team running; #807 core API approved; vLLM rows: MoE NO-GRANT (tiled GEMMs, re-measure drafted), dense CONDITIONAL (step 8 + zkaudit); follow-ups wait on running workers
 CHECKPOINT cc21a7d94 (08:54Z) [open] 1:58 AM PDT: Qwen3-30B-A3B row final 78,443x --zk / 54,193x M0 (x1.45, 94.2% measured); zkaudit + red-team verdict on both vLLM rows due 3:15
 CHECKPOINT cc21a7d94 (08:49Z) [open] 1:55 AM PDT: #801 red-team GRANT, ready + queued, lander told; F1-F3 to e2e-integrate; #802 waits on trains + trim + red-team

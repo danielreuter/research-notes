@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (16:37Z) [open] 9:37 AM PDT: no new asks. Ratings stand. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Main 56b7e4f7c, no PoUW change; cap branch baf5a0f06 not on main. Watching 2f661c92 eps candidates, row-seg lane.
 CHECKPOINT fbce5a2f4 (16:16Z) [open] 9:16 AM PDT: no new asks. Ratings stand. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Main 1253f09ec, no PoUW change; cap branch baf5a0f06 not on main. Watching 2f661c92 eps candidates, row-seg lane.
 CHECKPOINT fbce5a2f4 (15:55Z) [open] 8:55 AM PDT: no new asks. Ratings stand. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Main 1253f09ec, no PoUW change; cap branch baf5a0f06 not on main. Watching 2f661c92 eps candidates, row-seg lane.
 CHECKPOINT fbce5a2f4 (15:33Z) [open] 8:33 AM PDT: no new asks. Ratings stand. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Main 1253f09ec, no PoUW change; cap branch baf5a0f06 not on main. Watching 2f661c92 eps candidates, row-seg lane.

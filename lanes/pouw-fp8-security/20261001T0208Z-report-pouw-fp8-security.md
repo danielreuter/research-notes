@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT 56b7e4f7c (17:03Z) [open] 10:1x AM PDT: on compute accounting's 9:46 AM PDT order. Task 1 (verifier cap): ρ is now the device record's (Device.cap; sm120 1/1,000, H100 and Pearl-C4 1/400) on cursor/fp8-v1-cap1000-verifier-cb26, uncommitted; the pearl-c tests pass. Next: PROTOCOL.md, pearlc_arm, price_twins, suites. Task 2 (served honest rejection at 1/1,000) not started. CPU only, 0 GPU-h; no job running.
 CHECKPOINT 3ae34fb00 (01:09Z) [open] bitsets DONE (r20261001-225552-a4a7, 01:09Z): 88 of 88 units compressed, preserved and deleted, every transpose and round-trip check passed, 704.0 GiB raw -> 74.7 GiB zstd -3; final manifest art:02f6ec7202dd80d370b720fcb9103fa115d556beaf50de6b5f41ff1dba12319b; node 2 df 36%; fix2 cancel-pair@flat@1-4 untouched, cancel-pair@t4@1-4 symlinks now dangle; job key removed from node 2
 CHECKPOINT 3ae34fb00 (00:45Z) [open] bitsets r20261001-225552-a4a7 running; near-cap@2 deferred, none failed
 CHECKPOINT 3ae34fb00 (00:15Z) [open] bitsets r20261001-225552-a4a7 running; near-cap@2 deferred, none failed

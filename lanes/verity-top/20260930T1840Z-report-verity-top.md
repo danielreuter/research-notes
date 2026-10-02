@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:11Z) [open] 22:11Z: #852 two-stage exfiltration landed (main 0817f3a95); ci train b95a4c323 (10 PRs); lander's flock trains #850 #856 #849 #857 then #858; stochastic TP2 rows running
 CHECKPOINT none (21:54Z) [open] 21:54Z: main 3d724751b (#820 landed); next train 2aa2c15dc (+ FP8 #853, #847); proofs train #852, #850, #856, #849 in check; #857, #858 under review
 CHECKPOINT none (21:38Z) [open] 21:38Z: #852+#850 train check on node 2; #856 granted (lean + red team), needs check; train 4e25f690c queued; explorer on v1h
 CHECKPOINT none (21:21Z) [open] 21:21Z: #852 + #850 train check on node 2; train 4e25f690c queued; soak stall = fence breach, kernel core isolation now required; TP Commits to get GPU lease

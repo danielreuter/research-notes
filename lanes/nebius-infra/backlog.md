@@ -13,6 +13,23 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 02:45Z Oct 2 (7:45 PM PDT Oct 1)
+
+- **A 4th check slot, due after 10:30 PM PDT (05:30Z).** Trains wait 25+ minutes for node 1's 3 slots (`c 8-31`, `a 32-63`,
+  `b 64-95`).
+  - Over the last 12 hours the slots averaged 36 of 88 cores busy (90th percentile 65). Builds and replays averaged 15 of 32,
+    peaking at 32. Provers averaged 8 of 64 cores, peaking at 21. Checks use 5–41 GB of RAM each.
+  - Plan: slot `d 128-159` from provers' range, with provers narrowed to 160–191. Builds and replays keep 96–127.
+  - @proofs asked to hold until 10:30 PM PDT, because Daniel asked for 24 timed `--zk` points that need all of 128–191.
+- Steps on the first pass after 05:30Z:
+  1. Set `VY_PROVER_CPUS=160-191` in `dispatch.env` and restart the dispatcher (tmux `node1-dispatch`, as research).
+  2. Wait until no running provers pod is pinned to 128–159.
+  3. Append `d 128-159` to `/workspace/research/locks/slots`, and add ` 128-159` to the first line of
+     `/workspace/research/check-slots`.
+  4. Post in the disk thread that `d` is live.
+- `slot.py` checks pick up `d` by themselves. The lander that flocks `check-a.lock` with its own `taskset` needs `d` added to
+  its list; I asked @ci. `check_slot.sh` names slots a–d, so 4 is its ceiling without a code change.
+
 ## State at 02:32Z Oct 2 (7:32 PM PDT Oct 1)
 
 - **Node 1's dispatcher was redeployed from `main` at 7:27 PM PDT.** It's `main` at `63ce2ea1d`, which carries #732, #745 and
@@ -198,8 +215,8 @@ NUMA nodes are 0–95 and 96–191. Hyperthread siblings are adjacent pairs, so 
 | 32–63 | merge-train check slot `check-a` | `flock /workspace/research/locks/check-a.lock taskset -c 32-63 env UV_PYTHON=3.14.7 … check.py`, no `gpu-lease` |
 | 64–95 | merge-train check slot `check-b` | the same with `check-b.lock`, `64-95` |
 | 8–95, shared | **short lane checks** (a circuit-check rerun, one suite: minutes), which never wait on a train: `check-s1`, `check-s2` on the train slots' CPUs at `nice 10` (10:15Z) | `flock /workspace/research/locks/check-s1.lock nice -n 10 taskset -c 8-95 <cmd>` (or `check-s2`); `check_slot.sh --short <cmd>` once `infra/nebius` has `fb923c3a`; `/workspace/research/check-slots` = `32-63 64-95 8-31` |
-| 96–159 | **node 1's dispatcher's Kueue tasks** (kueue-fold, since 2:42 PM PDT; jobs submitted earlier keep 96–127) | `dispatch.py` `VY_DISPATCH_CPUS=96-159` (`taskset`) |
-| 160–191 | Build benches (`build_bench.py`) and M0's pinned prover benches, one bench at a time, in the quiet hour or for re-measures | `taskset -c 160-191` |
+| 96–127 | **node 1's dispatcher's Kueue tasks** (Builds, replays, Commits) | `VY_DISPATCH_CPUS=96-127` in `/workspace/jobs/dispatch/dispatch.env` (#745) |
+| 128–191 | **`provers` tasks** (proofs' prover-benches) | `VY_PROVER_CPUS=128-191` in `dispatch.env`. Planned: 160–191, with 128–159 becoming check slot `d` (see below) |
 
 - The dispatcher pins its pods to 96–159. Kueue pods from other submitters aren't pinned and can burst onto any core. Pinned results outside the quiet hour carry `ov.noisy=true`.
 - `flock-v2-design` shares M0's range by arrangement with M0, or runs unpinned with `ov.noisy=true`.

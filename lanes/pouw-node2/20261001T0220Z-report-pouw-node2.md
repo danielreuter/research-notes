@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (18:15Z) [open] A 18:14Z poll: node2-ops 1808Z: soak rerun on GPU 7; a PoUW served_debit.py runs outside fill on cores 85,91-93 since 17:34Z (not mine); still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (17:55Z) [open] A 17:54Z poll: no new notes; still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (17:32Z) [open] A 17:32Z poll: redteam 1723Z: PR #838 (v1 cap 1/1,000) records GO, not merged, no panel change asked; still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (17:10Z) [open] A 17:10Z poll: node2-ops 1708Z: memory accounting's soak rerun holds GPU 7 and cores 116-123 to 21:00Z; nothing for me; still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f

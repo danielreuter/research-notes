@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:44Z) [open] 22:44Z: node 1 refilled (7 qwen3 TP1 leased, qwen3-14b TP2 queued); TP2 top-p=1 Commit fails (unbound sampler ids), held; Lean landing order set with #846 last
 CHECKPOINT none (22:27Z) [open] 22:27Z: main 0817f3a95; flock trains #850 #856 #849 #857 #858 #860 queued; #861 #862 in red team; ci train b95a4c323
 CHECKPOINT none (22:11Z) [open] 22:11Z: #852 two-stage exfiltration landed (main 0817f3a95); ci train b95a4c323 (10 PRs); lander's flock trains #850 #856 #849 #857 then #858; stochastic TP2 rows running
 CHECKPOINT none (21:54Z) [open] 21:54Z: main 3d724751b (#820 landed); next train 2aa2c15dc (+ FP8 #853, #847); proofs train #852, #850, #856, #849 in check; #857, #858 under review

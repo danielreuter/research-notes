@@ -16,6 +16,37 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 11:52Z Oct 2 (4:52 AM PDT Oct 2), steward pass
+
+- **A check got onto slot `d` during the lend:** `r20261002-104712-e2ef`, at about 11:45Z. Its pre-#789 `slot.py` read the slots
+  file once, at 10:48Z, before the `windows=` was added at 10:59Z. Left running; I told @proofs.
+- **The head of the line (pid 3558373, from 10:48Z, no reread) has the same blind spot.** So I queued a holder:
+  - pid 333071, `flock -o -w 11501 check-d.lock`, which ends at 15:00Z. Its pid is in `slot-d-lend/d-holder.pid`, and it logs to
+    `slot-d-lend/log`.
+  - It takes `d` the moment `e2ef` ends and releases it by itself at 15:00Z. `/proc/locks` shows it queued behind 3555784.
+- **Both nodes:** node 1's GPUs are idle, with 1 Commit in flight, replays being submitted, and the ready queue empty. Node 2 has
+  1 GPU busy, and its fill queue is empty.
+- #819 is open at `906215a04`, in the queue.
+- Latest hourly: `art:c66263bcfccafc9b20000beb0102115338f692d58ed4e32a0e2b780744fc0a91`. Idle since Sep 30 05:16Z:
+  - Node 1: 315 of 434 GPU-h.
+  - Node 2: 246 of 427 GPU-h.
+- **Before 13:30Z:** add an Oct 1–2 overnight section to `utilization-summary.md`.
+
+## State at 11:47Z Oct 2 (4:47 AM PDT Oct 2)
+
+- **[#819](https://github.com/danielreuter/verity/pull/819)** (`cursor/dispatch-reread-env-e910`, `906215a04`), at root's ask: the
+  dispatcher loop runs each tick as a fresh `loop --once` process from `CALLER_ENV`, the environment captured before
+  `load_settings`. So it reads `dispatch.env` as it is now, and removed keys drop out.
+  - Test: `test_nebius_dispatch_settings.py`. It fails against main's loop and against a loop that passes its loaded `os.environ`.
+  - `suites.py --quick` passes (22 suites).
+  - It's marked ready. I told the research coordinator directly, and @ci in the disk thread.
+- **When it lands:**
+  1. Back up node 1's `/workspace/jobs/dispatch/infra/nebius/dispatch.py` (identical to main now), and install the merged file.
+  2. Restart the loop once with `restart_loop.sh`.
+  3. Check that the next prover's `taskset` matches `dispatch.env`.
+  4. Then drop the restart step from `/home/research/slot-d-lend/revert.sh`; it's only needed while the old loop runs.
+  - If it hasn't landed by 15:00Z, the revert's restart is what moves provers back to 160-191.
+
 ## State at 11:20Z Oct 2 (4:20 AM PDT Oct 2), steward pass
 
 - **Slot `d`'s cores are lent to provers until 15:00Z.** Someone posting as @infra set this up at 11:01Z, at @proofs' ask (thread

@@ -387,3 +387,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 04:50Z: T751 391009b6a (7cb0e4968 + #751 + #767@a8fa60289) slot b r20261002-044616-9ba7; cancelled 7422. #767 needs ready label at a8fa.
 - 04:52Z: @lean down tonight (Daniel 04:45Z): accept handoffs naming the package coordinator as statement reviewer, without @lean.
 - 04:54Z: root conditions on overnight Lean rule: reviewer != author of changed statements; PR description names reviewer and says they read --update output (each changed signature + definition). Hold handoffs missing either.
+- 05:03Z: T771 16010eccf (391009b6a + #771, send) queued slot a r20261002-050050-9cae. Order 7c05, 9ba7, 9cae.
+- 05:08Z: MERGED T761 1d7009e9e (7c05); main b8c9dd478. Cancelled 9ba7 (subset of 9cae). Slot b held by lane run r20261002-040109-a7ed (asked infra). Next: 9cae.

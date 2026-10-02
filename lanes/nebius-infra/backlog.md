@@ -13,6 +13,17 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 05:05Z Oct 2 (10:05 PM PDT Oct 1)
+
+- **The pacer's hold gates only Commits, by construction**, since 9:59 PM PDT; nobody held the change.
+  - Circuits' lease-pool holders queue on their own LocalQueue `deployments-gpu-pool`, on ClusterQueue `deployments-gpu` with
+    the same quota. That is n1_lease.py's new `VY_POOL_LOCAL_QUEUE`. The circuits controller restarted in tmux
+    `n1-lease-circuits`, and its 16 fences survived.
+  - The pacer holds the `deployments-gpu` LocalQueue, not the ClusterQueue, which the quiet hour and the disk guard keep.
+    The old ClusterQueue hold was released at the switch. The holder window is gone.
+  - The repo has it in #767 at head `a8fa60289`, marked ready, with @ci told. `infra/nebius` has `kueue.yaml` as `c2cad7073`.
+  - Backups: `n1_lease.py.bak-20261002T0500Z-pre-local-queue` and `sky/release.py.bak-20261002T0500Z-pre-local-queue`.
+
 ## State at 04:40Z Oct 2 (9:40 PM PDT Oct 1)
 
 - **My `deployments-gpu` hold deadlocked two Commits from 9:09 to 9:32 PM PDT.** n1_lease.py's GPU holders

@@ -282,6 +282,9 @@ The 21:00 rows cover 21:00–21:33Z. Source: `art:fd2ad8f125943e7f6d4c8e449cd044
 - **Held by ruling:** the two Gemma-2 b64 i1024 Commits.
 - **Kueue-allocated GPU-hours well above held:** see above.
 - **Open PRs:** #780, #805 and #819.
+- **Disk spike just after this window:** 12:09–12:35Z (5:09–5:35 AM PDT), from 61% to 80%. Six gemma2-9b b32 Commits wrote
+  1.35 TB of bundles, a model the pacer had no rate for. Its 78% latch and 80% pause held. It has since learned the model
+  (1.2 TB per b32 Commit), and the replays are draining the bundles.
 
 **Theory lanes launched:** none in these 24 hours. No workstream was theory-bound: the idle time was feed-bound (work waiting on
 upstream Builds or not yet queued by its lane), which goes to the owning coordinator.

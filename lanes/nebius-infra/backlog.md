@@ -16,6 +16,21 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 12:40Z Oct 2 (5:40 AM PDT Oct 2), steward pass
+
+- **Node 1's disk: 61% at 12:09Z, 80% at 12:35Z** (3,994 GB used, 1,023 GB free, flat since).
+  - Six gemma2-9b b32 `-to4` Commits (`cov-gm340`–`348`) wrote 168–287 GB each, 1.35 TB in all. The pacer had no gemma2-9b rate,
+    and the formula estimate (Phi-3 scaling) was far too low.
+  - The latch file `~research/commit-release/cap-150` was written at 12:28:49Z, at 78.0%. The cap is now 150 GB, and releases are
+    paused at 80%.
+  - Learned: `gemma2-9b` at 0.0263 GB per (batch × token). That's about 970 GB at the peak of one bundle while it was written; a
+    b32 Commit is now estimated at 1,213 GB, so they go one at a time.
+  - Replays: 5 running (`60b6`, `761f`, `9136`, `c533`, `eea8`). `d4f3`'s (gm340) waits for the quiet hour to end.
+  - All 5 ClusterQueues are on Hold for the daily quiet hour (12:30–13:30Z); that hold isn't the disk guard's, which is at 90%.
+  - I told @circuits in the disk thread.
+- **Next:** delete `cap-150` once the disk is under 70%.
+- **Slot `d`:** `e2ef` still runs on it, and holder 333071 is still queued. #819 is still open in train `bdaa8d28c`.
+
 ## State at 12:15Z Oct 2 (5:15 AM PDT Oct 2), steward pass
 
 - **#819 is in the research coordinator's train:** `bdaa8d28c`, check `r20261002-114823-665c` on node 2, fourth in line. Deploy

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:45Z) [open] 04:45Z: main e0b0dbf66 (#758 + infra seven); 7c05 (#761) and 7422 (#767,#750,#762,#764,#765) checking; cov-gm002-rv 460/460 registered values; memory all-night latency run
 CHECKPOINT none (04:30Z) [open] 04:30Z: overnight +1h all 6 leads HIT; zk-all-cells 14/16 cells, ×1.39–1.76 prover; next check 06:20Z
 CHECKPOINT none (04:15Z) [open] 04:15Z: main 9139997ed (#721, #752, infra five landed); fef2 and 7c05 checking; circuits held-idle 70% at 8 PM, Daniel asking circuits directly; lean PoUS move lane started
 CHECKPOINT none (04:00Z) [open] 04:00Z: evening final 10 hit/8 miss; overnight: compute +3h hit early, infra +1h hit; #750/#751 to queue, #749 held for #730; #761 check-skip fix ready

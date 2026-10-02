@@ -390,3 +390,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 05:03Z: T771 16010eccf (391009b6a + #771, send) queued slot a r20261002-050050-9cae. Order 7c05, 9ba7, 9cae.
 - 05:08Z: MERGED T761 1d7009e9e (7c05); main b8c9dd478. Cancelled 9ba7 (subset of 9cae). Slot b held by lane run r20261002-040109-a7ed (asked infra). Next: 9cae.
 - 05:12Z: lander on slot.py (launchv NEBIUS_SLOT=slot); asked infra for requester in slot.py --status. Corrected proofs (#757 check was via slot.py).
+- 05:25Z: PR #773 train.sh + --record --agreement (ready). Store copy of launchers: internal/lanes/coordinator/tools/.

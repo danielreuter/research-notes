@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:08Z) [open] 16:08Z: FP8 cap card posted (default 1/1,000 at 3 PM PT); #806 in check behind #757; circuits held-idle fix in progress
 CHECKPOINT none (15:50Z) [open] 15:49Z: ci line daa389882 (24 PRs) awaits lander; #793 prepped; SiluMul_v2 check rows passing
 CHECKPOINT none (15:31Z) [open] 15:31Z: #806 scoped to non-ZK (docs-only fix), red team checking; overhead reporting prefs saved; soak plots live
 CHECKPOINT none (15:13Z) [open] 15:13Z: soak plots live; #806 pulled from train pending final_c' scoping; six SiluMul_v2 check rows leased

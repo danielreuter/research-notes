@@ -503,6 +503,15 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   start no new `boolean-replay` on node 1 until one finishes, and check that the queued replays fit. Thread
   `1790873900.706599` (`sub_0bac0d2b`).
   - **Resolved by events, with no reply:** node 1 had 84% of RAM available at 15:00Z 2 Oct.
+- Node 1 Lean `.lake/packages` left in source trees by @proofs' failed ad-hoc soundness audits (asked 19:41Z 2 Oct,
+  #agent-coordination `1790970086.305519`, `sub_5972153b`).
+  - The scripts are `{dzl,hid,hx,pc,pe,po,pu,zx}_audit.py`. `WarmDeps.take` moves or copies check's Lean dependencies into
+    the tree, and a failed audit doesn't give them back. Each leaves 170k–320k files (about 12 GB) until the 6 h tree rule.
+  - At 19:47Z, 6 finished trees with no holder held 1.32M of these files: `30104b9b`, `49bdd98c`, `5671e75d`, `74ab1ba4`,
+    `9830f7c3` and `f9f85f34`.
+  - The ask: (a) the scripts delete `.lake/packages` after a failed audit, or (b) a yes for me to delete that directory,
+    and only it, in finished, unheld trees younger than 6 h.
+  - Escalation: if node 1 inodes reach 65% (13.4M) before an answer, a blocking #ask-daniel card for (b).
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
   deployed it on both nodes; wrote this policy; sent handoffs to node2-ops and nebius-infra. Armed the timer

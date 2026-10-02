@@ -439,3 +439,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 12:58Z: T-infra4 b16c86d6a (#788 #782 #798 #821) node1 r20261002-125629-c25e. #808 pending label.
 - 13:15Z: T808 f95e701de node2 r20261002-131213-e5b4. Order c25e, e5b4.
 - 13:24Z: T824 2f5787e59 node1 r20261002-132105-4f0d. Order c25e, e5b4, 4f0d.
+- 13:50Z: MERGED f95e701de (e5b4); main 818a4689e; cancelled c25e; push guard installed (core.hooksPath). #798 #808 need retarget. Next 4f0d.

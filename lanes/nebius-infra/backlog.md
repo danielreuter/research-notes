@@ -16,6 +16,15 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 13:43Z Oct 2 (6:43 AM PDT Oct 2), steward pass
+
+- **The quiet hour and the disk guard both let go at 13:30Z.** Every ClusterQueue is at `None`, and the guard's `held` is empty.
+- **Node 1:** the pacer has 4 in flight against a 541 GB projection and a 1,301 GB cap. Disk at 55%. GPUs are filling as those
+  Commits start.
+- **Node 2:** 1 GPU busy, and the fill queue is empty.
+- **#824 is in the research coordinator's train:** `2f5787e59`, check `r20261002-132105-4f0d` on node 1, third in line. Deploy
+  once it lands.
+
 ## State at 13:25Z Oct 2 (6:25 AM PDT Oct 2), steward pass
 
 - **Node 1 recovered.** Replays drained the bundles from 1,437 to 182 GB, and the disk is at 54%.

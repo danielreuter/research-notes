@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:08Z) [open] 18:08Z: #840 and #844 live (node-2 stale plans stay on node 1; gemma2 B8 lease 570->155 s); train 83701a356 awaits slot
 CHECKPOINT none (17:51Z) [open] 17:51Z: ci's 24 landed (main d407f982e); next train 83701a356 (#695 #839 #838 #826 #833 #834 #837); soak rerun running; partitioning statements approved
 CHECKPOINT none (17:34Z) [open] 17:34Z: #828 final docs head, red-team carry pending; ci line ba751b1ce/a4f10fe62 awaiting slot; #841 queue-status fix
 CHECKPOINT none (17:16Z) [open] 17:16Z: #793 landed (main 5a5ebbbae), --zk has verdict of record; #828 red-team granted; queue-status credential friction sent to infra

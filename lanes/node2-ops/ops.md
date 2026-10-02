@@ -68,6 +68,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 00:08Z hourly (23Z): GPU busy 6.4% (0.51 of 8.00 GPU-h, all useful).
+    - **Why below 80%:** little GPU work was queued: bc-698052e1's Commits (0.65 GPU-h of them leased-idle) and one 10-min PoUS job (bc-f118526f). 6.76 GPU-h sat free, with lease waiters for 20.3 min. CPU 0–127 at 8.7%.
+    - **Disk** fell to 41% (2.0 TB) as the replays cleared their bundles.
+    - **Backup:** `r20261002-000556-a56c` packed (519 units, 40 large units left out); its custody upload is pending.
+    - **Checks:** daemons and `status.md` (00:05Z) are fine, and the loop runs on `FILL_VERITY_LEND=0` alone. The new infra alerts (23:13Z, 23:30Z) are node 1's. #494 is still closed.
 - 2026-10-01 23:18Z alerts tick: two more `gpu-idle-in-lease` alerts, for bc-698052e1's Commits on GPUs 7 and 6 at 0.0%. It's the pattern logged at 23:03Z, so nothing new to do. Backup `r20261001-230613-c160` is preserved. Watermark advanced to 23:15:00Z.
 - 2026-10-01 23:08Z hourly (22Z): GPU busy 8.0% (0.64 of 8.00 GPU-h, all useful): Pearl-C4's row 16 re-time 0.36 (2.7 min timed), Commits active 0.28.
     - **Commits' idle time:** bc-698052e1's Commits held 1.64 GPU-h, and 1.36 of it was idle (83%).

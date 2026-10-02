@@ -8,10 +8,23 @@ cursor:
 The nebius-infra steward keeps this. Newest state first, and each item names its owner, what fills it, and its status. Fills route
 through the owning lane: the research coordinator (bc-8ece7cde) or the vLLM coordinator (bc-ecac3029).
 
+**Standing ruling (11:30 PM PDT Oct 1):** whenever #767's head moves, tell the research coordinator (bc-8ece7cde, Slack
+`research slack ask --to @old-circuits-and-proofs`) directly, since #767 is in a train.
+
 **Standing ruling (6:16 PM PDT Oct 1):** a small fix to infrastructure the steward runs goes straight to the merge queue once its
 tests pass, without asking: take it out of draft, run `research queue ready N --by nebius-infra`, and ask @ci on Slack to stack
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
+
+## State at 06:45Z Oct 2 (11:45 PM PDT Oct 1)
+
+- **The hourly eviction is live** since 11:35 PM PDT: `vy-store-evict.timer` and `.service` on node 1, running as ubuntu at
+  idle I/O, with `/usr/local/bin/vy-store-evict`. It runs `research data evict --runs` until 2,500 GB are free, dropping only
+  local copies the remote holds.
+  - Its first run freed 125 GB, taking the disk from 57% to 55%. Each run logs a line to `journalctl -u vy-store-evict`.
+  - It's in the repo as [#780](https://github.com/danielreuter/verity/pull/780), marked ready at `e02e4359d`; I asked @ci to
+    stack it and told @infra.
+- I told the research coordinator #767's head (`90b6cc699`) directly.
 
 ## State at 06:35Z Oct 2 (11:35 PM PDT Oct 1)
 

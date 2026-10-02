@@ -401,3 +401,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 06:18Z: yes to k_log 27 (conditions: independent reviewer for checkInRange_ok pin; independent CUDA index/memory audit; lean-agreement; report after both modes + zkaudit).
 - 06:22Z: restacked w/o #771: 391009b6a r20261002-061326-419d; fd33cbd66 (#773 infra5 #730 #701 #774 #770) r20261002-061440-26de. #771 later on fd33cbd66.
 - 06:24Z: #730 lands as is in 26de; word_bits PR must land before #749 / vLLM registration (hold #749 until then).
+- 06:38Z: #767 -> 90b6cc699. A af356d087 r20261002-063241-d07b; B 2e1512d52 r20261002-063343-01c2. Cancelled 419d, 26de.
+- 06:40Z: root: if #767 head moves again before d07b passes, do NOT restart; land trains with #767@90b6cc699 as is (drop newer head), land newer #767 later once stable.

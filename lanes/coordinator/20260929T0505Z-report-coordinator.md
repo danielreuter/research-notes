@@ -422,3 +422,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 08:55Z: #801 held for PR-description line (reviewer read --update output).
 - 09:18Z: T701b d90bc8e85 (hedge + revert-revert + #701@a6d71c7c5 + #767@42b47d190) node2 r20261002-091225-004b. Order 6142, 004b.
 - 09:45Z: MERGED hedge b0bae1b87 (6142) + d90bc8e85 (004b); main 9699b2f28; 21 PRs merged. #771 needs retarget; #780 new head 02849d996.
+- 09:53Z: T801 1d6eff60f (main + #801) node2 r20261002-094946-70bf.

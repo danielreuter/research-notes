@@ -13,6 +13,17 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 02:32Z Oct 2 (7:32 PM PDT Oct 1)
+
+- **Node 1's dispatcher was redeployed from `main` at 7:27 PM PDT.** It's `main` at `63ce2ea1d`, which carries #732, #745 and
+  #746, plus #713's `dispatch.py` changes. #713 adds the pack-pod fit check, live since 1:09 PM PDT and still unmerged.
+  - The previous copy is `dispatch.py.bak-20261002T0230Z-pre-main`. Settings come from `dispatch.env`, unchanged.
+  - The loop runs as `python -u dispatch.py loop --every 60 | tee -a /workspace/jobs/dispatch/loop.log`, in tmux
+    `node1-dispatch` as research.
+  - The ticks at 7:28 and 7:29 PM PDT succeeded. Root asked for the redeploy, and I told @circuits.
+- I asked @circuits to have the hiding-commitments worker submit through the dispatcher's ready files instead of creating a
+  chain's later Jobs itself.
+
 ## State at 02:25Z Oct 2 (7:25 PM PDT Oct 1)
 
 - Since 10:16 PM PDT Sep 29, node 1 has been 4.4% GPU-busy (15.6 of 355.6 GPU-hours) and node 2 27.8% (96.7 of 347.9)

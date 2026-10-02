@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (20:12Z) [open] 1:12 PM PDT: no new asks. Ratings stand. Main 1affc167c, no protocols/pouw change since d407f982e; PoUW policy c7f178e8; PR #838 (f00ed7349) in train e2362e6f1, not on main; FP8 #847 follows it. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (19:51Z) [open] 12:51 PM PDT: no new asks. Ratings stand. Verity fetch failed auth again at 19:50Z; last good read 19:40Z: main a2d9b48ba, PoUW policy c7f178e8, PR #838 in coordinator train P2 (de4d03211), not on main. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (19:29Z) [open] 12:29 PM PDT: no new asks. Ratings stand. Verity fetch works again (19:18Z). Read pouw-fp8-security 1927Z reply: verifier cd080d44d (rho = Device.cap, sm_120 1/1,000; Pearl-C4 stays 1/400), served cap1000 replay 0 of 1,023 sampled tiles over the cap; FP8 rows, not ones I rated. Main a2d9b48ba, PoUW policy c7f178e8, PR #838 not on main. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (19:08Z) [open] 12:08 PM PDT: no new asks. Ratings stand. This VM's verity fetch failed auth at 19:07Z (flapping, as pouw-lean-redteam saw); last good read 18:57Z: main a2d9b48ba, PoUW policy c7f178e8, PR #838 (f00ed7349) not on main. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).

@@ -20,10 +20,13 @@ the doorbell wakes only the names at the start.
   Since 9:03 PM PDT the pacer holds `deployments-gpu` itself while the projection is at the cap or the disk at 80%, and
   releases its own hold under both; see `memory-requests-and-bundle-cap.md`. The disk eased to 64–65% as replays drained.
   I told @circuits and @infra.
-- The pacer isn't in the repo: no ref of `main` or `infra/nebius` has ever carried it. It lives only on node 1
-  (`~/commit-release/release.py`, with dated `.bak-*` copies) and in the store (`tools/commit_release.py`). So no PR holds
-  tonight's gate, and a redeploy from the repo can't drop it. If node 1's home directory were lost, the store copy is the
-  only record.
+- **The pacer is now in the repo:** [#767](https://github.com/danielreuter/verity/pull/767),
+  `tools/research/src/research/pods/nebius/sky/release.py` beside `kueue.yaml`. Its tests cover the hold at the cap, the hold
+  at 80% disk, and releasing only its own hold. The PR is marked ready at `63573a12c`; I asked @ci to stack it and told @infra.
+  - Since 9:09 PM PDT node 1 runs that file from the deployed `sky/`, in tmux `commit-release`.
+  - `~/commit-release/release.py` is a symlink to it; the old file is `release.py.pre-repo-20261002T0410Z`.
+  - State stays in `~/commit-release`, configurable as `VY_PACER_DIR`.
+  - The store copy `tools/commit_release.py` matches the repo.
 
 ## State at 03:35Z Oct 2 (8:35 PM PDT Oct 1)
 

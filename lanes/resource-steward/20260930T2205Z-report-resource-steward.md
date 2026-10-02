@@ -618,3 +618,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 23:49Z (4:49 PM PDT) tick (exit 1): node 1 HARD at 994k/h (80% in 6.4 h), measured from the 22:43Z reading just
   after the 22:16Z sweep. 10.09M inodes (50%): two live scratch trees (`83udayo7`, `puyaflbo`, about 320k each, written
   this minute), `jobs/src` at 836 copies. Space back to 51–52% (2,578 GB). Nothing deletable; no action, no Slack.
+- 00:11Z (5:11 PM PDT) tick (exit 1): node 1 HARD at 729k/h (8.6 h). 10.16M inodes (50%): one live scratch tree
+  (`27_slr0l`, 321k, written 00:09Z), `jobs/src` at 839 copies. Space 56% (2,770 GB). No action; the 00:30Z sweep is next.

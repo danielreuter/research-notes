@@ -404,3 +404,6 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 06:38Z: #767 -> 90b6cc699. A af356d087 r20261002-063241-d07b; B 2e1512d52 r20261002-063343-01c2. Cancelled 419d, 26de.
 - 06:40Z: root: if #767 head moves again before d07b passes, do NOT restart; land trains with #767@90b6cc699 as is (drop newer head), land newer #767 later once stable.
 - 06:44Z: #771 fixed at 5df12f85f (slow test passes in full-suite process); awaiting circuits vLLM grant. #781 ready (granted). Stack both on 2e1512d52.
+- 06:47Z: d07b, 01c2 queued in slot.py line behind lane checks e44d 788e c6c7; asked infra re slot d (not in slots file). #771 grant pending.
+- 06:58Z: PR #783 slot.py --priority (stacked on #773); asked infra review; next train.
+- 07:02Z: confirmed #771 quarantine-in-test deviation; #771@4663a5bb7 pending --fresh pass + vLLM grant. k_log27 conditions accepted (zk-k32k). word_bits PR building ahead of #749.

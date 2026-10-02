@@ -16,6 +16,23 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 06:50Z Oct 2 (11:50 PM PDT Oct 1)
+
+- **Correction to the 06:35Z block:** the non-bundle growth is *not* mostly circuits' run dirs. Two `du -d 2` snapshots 10 min
+  apart (06:12Z and 06:22Z) showed:
+  - `/workspace/jobs/runs` grew from 446 to 447 GB, about 6 GB/h, not about 68 as I claimed;
+  - `/workspace/research/cache/verity-check` grew from 45 to 65 GB, from `lean-audit-scratch-*` dirs of 13–20 GB each, one
+    per running Lean audit and none older than 30 min, so transient;
+  - `/workspace/jobs/src` shrank from 91 to 19 GB, a cleanup.
+  - `hf` (847 GB of models) wasn't in those snapshots.
+  - I told @circuits and @infra that no change is needed on circuits' side.
+- A full `du -x -d 2 /workspace` is running into `/tmp/du-snap/all-*`. Next: a second one about an hour later, then the
+  diff, before asking anyone for anything.
+- Learned estimates so far, in GB per batch × token: danube3-500m 0.0018, pleias-350m 0.0021, qwen3-06b 0.0035. So qwen3-06b
+  b32 is now about 161 GB, against 480.
+- Slot `d` is still waiting on 1 prover pod. Node 1 has no Commit in flight or waiting except the keep-list ones, and its
+  GPUs are idle on Build supply.
+
 ## State at 06:45Z Oct 2 (11:45 PM PDT Oct 1)
 
 - **The hourly eviction is live** since 11:35 PM PDT: `vy-store-evict.timer` and `.service` on node 1, running as ubuntu at

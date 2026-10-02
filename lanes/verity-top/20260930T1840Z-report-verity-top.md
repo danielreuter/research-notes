@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:01Z) [open] 14:01Z main 818a4689e; 4f0d checking, 02145af4c proposed; Pearl-C4 row units prove at K up to 1024; custody fix #826
 CHECKPOINT none (13:44Z) [open] 13:44Z trains with #805/#808/Lean stack checking on both nodes; flaky vllm test flagged; Commits flowing
 CHECKPOINT none (13:27Z) [open] 13:26Z node 1 disk back to 54%, Commits releasing; soak clean 8.7M answers
 CHECKPOINT none (13:10Z) [open] 13:09Z node 1 disk 80% pausing Commits, asked infra to land #805; Lean stack ready for ci's train

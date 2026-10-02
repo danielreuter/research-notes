@@ -68,6 +68,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 16:14Z hourly (15Z): GPU busy 6.8% (0.55 of 8.00 GPU-h, all useful).
+    - **Why below 80%:** nothing else was queued, and I drained node 2 from 15:36Z for the agent restart. Free 6.56 GPU-h. Leased-idle 0.90 GPU-h, 0.81 of it Commit `gm176`'s two 0% leases.
+    - **New from infra at 16:07:57Z:** `fill/keep-free` holds GPU 7 for memory accounting's honest-latency run until 19:20Z (Slack `1790957051.914609`). The fill loop was respawned with `FILL_VERITY_LEND=0 FILL_CPU_SET=96-115`, so other CPU fill is off 116–127.
+    - **Backup:** `r20261002-161253-4f31`, on 48–79,94–95 at nice 19 while that run lasts. The 15Z backup `r20261002-150534-69d1` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (16:09Z). The agent is on `1253f09ec`. #494 is still closed.
 - 2026-10-02 16:15Z alerts (the 15:47Z and 16:02Z ticks): my watermark had stuck at 00:40:06Z, so I went through all 39 alerts since then.
     - 21 `gpu-idle-in-lease` are bc-698052e1's Commits (the known waster in the hourlies).
     - The `fill-failed` alerts are hourly repeats of four failures:

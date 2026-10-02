@@ -68,6 +68,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 18:08Z hourly (17Z): GPU busy 12.4% (0.99 of 8.00 GPU-h, all useful): memory accounting's soak rerun on GPU 7.
+    - **Why below 80%:** nothing else was queued, so 7.0 GPU-h sat free. CPU 0–127 was at 26.7%: the rerun's server on 116–123, plus PoUW's `served_debit.py` (outside fill, on 85 and 91–93 since 17:34Z).
+    - **The rerun:** it exited "more" (rc 99) after 10.7 min at 17:05:54Z and restarted. Fill cleared one `scope-residue` (`gpu-lease-3090890`).
+    - **Backup:** `r20261002-180625-bbd8`, on 48–79,94–95 at nice 19 while the fence holds (until 21:00Z). The 17Z backup `r20261002-170639-49df` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (18:04Z). The agent is on `1253f09ec` (no restarts). No windows are booked. #494 is still closed.
 - 2026-10-02 17:08Z hourly (16Z): GPU busy 3.6% (0.29 of 8.00 GPU-h, all useful).
     - **Why below 80%:** nothing else was queued, so 7.59 GPU-h sat free. Leased-idle was 0.11 GPU-h.
     - **Memory accounting's series is stopped by them, not me.** Someone touched `vllm-e2e-series.STOP` at 16:09:48Z, 5 min after I removed it. The copy I queued ran clean (rc 0, 892/900, 16:22:59Z) and didn't renew.

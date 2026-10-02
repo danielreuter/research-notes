@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:37Z) [open] 10:37Z overnight set closed 13 HIT/5 MISS, summary sent to Daniel; #801 and #811 checking
 CHECKPOINT none (10:20Z) [open] 10:20Z memory +7h HIT; PoUS explorer v1d live; starting +7h goal check
 CHECKPOINT none (10:02Z) [open] 10:02Z nodes match main except open-PR files; #801 checking alone on node 2; +7h check at 10:20Z
 CHECKPOINT none (09:45Z) [open] 09:45Z two trains landed, main 9699b2f28; next train 3aec5d573 proposed; soak healthy

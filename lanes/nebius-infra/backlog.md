@@ -16,6 +16,19 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 12:15Z Oct 2 (5:15 AM PDT Oct 2), steward pass
+
+- **#819 is in the research coordinator's train:** `bdaa8d28c`, check `r20261002-114823-665c` on node 2, fourth in line. Deploy
+  once `665c` lands.
+- **Node 1:** 6 Commits in flight from the Builds that finished. Disk at 61%; the cap is 1,133 GB against a 1,061 GB projection.
+  Node 2's GPUs are all idle.
+- **Slot `d`:** `e2ef` still runs on it, and the steward holder (pid 333071) is queued behind it. The 10:48Z head waiter took
+  slot `a`.
+- **`utilization-summary.md` is finalized for the last 24 hours** (to 12:11Z), from
+  `art:e928a60a5356cb83407ca00ad60900ec44c91b853023d30672279ecae768d932`:
+  - Node 1: 166 of 192 GPU-h idle.
+  - Node 2: 158 of 191 GPU-h idle.
+
 ## State at 11:52Z Oct 2 (4:52 AM PDT Oct 2), steward pass
 
 - **A check got onto slot `d` during the lend:** `r20261002-104712-e2ef`, at about 11:45Z. Its pre-#789 `slot.py` read the slots

@@ -434,3 +434,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 11:36Z: T814 ac382ff27 node2 r20261002-113043-aabc. #757 out (content conflicts with #730/#811); asked proofs. Order 1456, fc09, 5d0f, aabc.
 - 11:46Z: T792 a6d946c94 (+#814 +#802 +#792) node2 r20261002-114047-9c1a; cancelled aabc. Order 1456, fc09, 5d0f, 9c1a.
 - 11:52Z: T819 bdaa8d28c (+#819) node2 r20261002-114823-665c; cancelled 9c1a. Order 1456, fc09, 5d0f, 665c.
+- 12:12Z: MERGED b2c6023dc (1456) + 128394600 (fc09); main b16313242; warning lifted. Next 5d0f, 665c.

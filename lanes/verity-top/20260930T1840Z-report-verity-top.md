@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (08:51Z) [open] 08:51Z NCI throttling theorem proved (lean); trains eb44 and hedge racing; soak healthy
 CHECKPOINT none (08:31Z) [open] 08:31Z inbox checked; trains b9fe/16f7 still checking; soak healthy
 CHECKPOINT none (08:12Z) [open] 08:12Z inbox checked; worker-VM secrets card open for Daniel; trains b9fe/16f7 running
 CHECKPOINT none (07:54Z) [open] 07:54Z inbox empty; round-8 interviews answered; soak running; +7h check timer at 10:20Z

@@ -354,3 +354,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 00:46Z: HOLD #736 merge until Daniel card p1790901892770689 decided (defaults yes 9:00 PM PDT = 04:00Z); before landing confirm --moved compares statement + definitions read; if yes AGENTS.md Lean line updated in same PR. infra #739 = repo tests in preflight (next train).
 - 00:49Z: --moved confirmed statement+definitions term-by-term; #736 + #740 held for card, land together.
 - 00:51Z: Daniel yes on #736 (pure-rename pins skip reviewer). Land #736+#740 with AGENTS.md Lean line in "guarantee" terminology (lean to update; #740 may carry Glossary Guarantee/Assumption + pinned-theorem rename). Stack after #722 pin.
+- 01:12Z: a693 failed (unknown tool lean-export; --tool check preflight refuses). Relaunched no --tool: r20261002-010927-7b3e slot c.

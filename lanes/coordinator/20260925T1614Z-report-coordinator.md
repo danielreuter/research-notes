@@ -380,3 +380,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-02T17:05Z: MERGED #793 (--zk final_c' fix; T793 4394c78cf, cf85 incl. lean-agreement) -> main. --zk embargo lifted. cc34 (combined) + 6c2b (#695) still ff. a7ad passed but superseded by cc34.
 - 2026-10-02T17:40Z: MERGED combined train 6bff4847c (cc34, lean-agreement passed; @ci's 24 + #806/#793 line) -> main d407f982e; #826 still open (head 406045eb7 has 1 later commit). Tool-fix train 280ebe483 (#826 #836 #837 #839 on #695 train) launched node 2. 6c2b (#695) at lean-suites.
 - 2026-10-02T18:11Z: MERGED #695 (Nebius key one line; T695 bb4ed6605, 6c2b) -> main. Tool-fix train 3d38 (#826 #836 #837 #839) still ff, at pytest.
+- 2026-10-02T18:44Z: MERGED tool-fix train 280ebe483 (#826 #836 #837 #839; 3d38) -> main. Merge queue empty of ready trains.
+- 2026-10-02T19:25Z: mirror degraded: store mount slow (red-team find 82 s; rules stage 1511 s -> forward starved, rc 124 since 18:42Z). pass.sh: rules timeout = left/3, on timeout withhold red-team lanes (fail-closed) and forward the rest. Merge queue: tool-fix train landed 18:44Z (main a2d9b48ba).

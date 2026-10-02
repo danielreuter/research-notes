@@ -16,6 +16,35 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 19:17Z Oct 2 (12:17 PM PDT Oct 2), steward pass
+
+- Dispatcher and pacer are clean on the `a2d9b48ba` code: no `tick failed` or `item-failed` in the pane.
+- **Both nodes are idle with nothing queued:**
+  - Node 1: 0 Commits in flight, CPU 23%, disk 54%, and nobody waiting for a check slot.
+  - Node 2: 1 GPU busy, and the fill queue is empty.
+- Latest hourly: `art:6d5d3e931d51da431de8c47da87a0cf585041f1e998a25a38208dba254019707`.
+
+## State at 18:48Z Oct 2 (11:48 AM PDT Oct 2): tool-fix train `a2d9b48ba` deployed on node 1
+
+- **#839's three node files** are installed from `a2d9b48ba` at 18:45:12Z: `dispatch.py`, `sky/release.py` and
+  `sky/commit_pack.py`. Each live copy had equalled the pre-train main. Backups: `*.bak-20261002T1845Z-pre-839`.
+  - **Dispatcher:** no restart needed (#819 runs each tick fresh). Clean ticks at 18:45:44Z and 18:46:46Z, and no `item-failed`.
+  - **Pacer:** tmux `commit-release` restarted after a tick and has run since 18:45:38Z. The mirror
+    `/workspace/jobs/dispatch/bundle-sizes.json` (mode 664) is identical to `~research/commit-release/bundle-sizes.json`.
+  - **Pack pilot:** new pack pods read the new `commit_pack.py`.
+- **Nothing else to deploy on node 1:**
+  - `slot.py` runs from each check's own tree.
+  - #836 (`research` CLI BLAS caps), #826 (custody) and #837 (`research merge`) are tool code that each run or client ships
+    itself.
+
+## State at 18:45Z Oct 2 (11:45 AM PDT Oct 2), steward pass
+
+- **#695 merged at 18:10:42Z.** Main contains `4e18ac694`, and `nebius_auth` reads `NEBIUS_SA_PRIVATE_KEY_B64`, falling back to
+  the old multi-line `NEBIUS_SA_PRIVATE_KEY` while `_B64` is unset. I told root, so root can ask Daniel to rotate the key.
+  - Daniel's part: store the new key as `NEBIUS_SA_PRIVATE_KEY_B64` (`base64 -w0 key.pem`) and delete `NEBIUS_SA_PRIVATE_KEY`.
+  - Nothing to deploy on the nodes: `common.sh` runs from the checkout that runs `launch.sh` and `teardown.sh`.
+- #839 is still open and ready.
+
 ## State at 18:12Z Oct 2 (11:12 AM PDT Oct 2), steward pass
 
 - **#695 is not in main yet.** Its combined train `bb4ed6605` passed (`r20261002-164824-6c2b`, done rc 0 at 17:42Z). Before it

@@ -355,6 +355,20 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     names, and it stops if `kubectl` fails. Dry run on node 1 at 03:26Z: 811 entries (164 content copies and 647 per-pod
     copies), 3.94M files, 72.9 GB. No live pod's copy was among them, checked separately against the 45 live pods. The
     card is still pending; the flag is not run until Daniel answers.
+- Node 1 runs without custody (@infra, asked 05:48Z 2 Oct, #agent-coordination `1790920126.275509`, `sub_89635e42`).
+  - 13 failed run dirs in `/workspace/research/runs`, about 2.8 GB. None has `.custody`, and each runner's last line is
+    `custody: publishing the attempt…`.
+  - Twelve are `check` runs on slots check-a/b/c, cancelled with SIGTERM (rc 143, UNKNOWN_SIGNAL): r20261001-180819-abf7,
+    r20261001-183932-4cf9, r20261001-190541-260b, r20261001-212749-07d3, r20261002-011832-62a7, r20261002-012152-3d87,
+    r20261002-020141-31a1, r20261002-024708-71e2, r20261002-032418-5560, r20261002-043450-b030, r20261002-043811-6aa7
+    and r20261002-044148-7422. The thirteenth, r20260930-080414-bae0, is a 9.5 GiB Lean soundness build (UNKNOWN_EXIT).
+    Its runner got SIGTERM during the upload.
+  - For r20261002-044148-7422, the ssh session's scope ended 8 s after the SIGTERM (04:44:57Z) with no systemd kill.
+    `requests/<id>/custody/cred.json` is still there, so `runner_publish`'s `finally` never ran: something SIGKILLs the
+    runner after a cancel. Node 1's logind has KillUserProcesses=no, `mem_guard` is the laptop's, and `node_ops`' guard
+    is node 2's.
+  - The ask: find the killer, and publish the runs (`research data custody <id> --publish`) or label them. Nothing is
+    touched. `--publish` also evicts the run dir's files of 1 MiB and more, so it is the owner's to run.
 - Node 1 RAM (@circuits, asked 17:00Z): about 405 GB available. Circuits' three `boolean-replay` runs outside Kubernetes
   hold 800 GB of `/workspace/ramlock` reservations, while vllm-epoch-run replays are still queued in Kueue. The ask:
   start no new `boolean-replay` on node 1 until one finishes, and check that the queued replays fit. Thread
@@ -689,3 +703,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   scratch (`/tmp/pytest-of-research/pytest-2835` and `-2836`, about 25k files changed in the hour) plus k3s and
   `~/.cache/verity`. Pytest rotates these itself, keeping the newest three, and root fell from 683k to 594k inodes (2%) by
   04:24Z. Nothing to delete; no action, no Slack.
+- 04:40Z to 05:22Z ticks: exit 0. 05:44Z tick (exit 1): node 1 had 12 finished runs over 1 h without custody (13 by
+  05:48Z). All are failed runs whose runner died during custody, 12 of them cancelled `check` runs. Sent to @infra with
+  the evidence (§5). Nothing deleted.

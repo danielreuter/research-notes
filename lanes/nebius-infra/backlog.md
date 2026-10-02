@@ -16,6 +16,38 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 13:25Z Oct 2 (6:25 AM PDT Oct 2), steward pass
+
+- **Node 1 recovered.** Replays drained the bundles from 1,437 to 182 GB, and the disk is at 54%.
+  - `cap-150` is gone; someone else deleted it. The pacer's cap is 1,316 GB, with 2 Commits in flight.
+  - Circuits says the pacing is fine. `gm343-to4` was llama32-3b, and no gemma2-9b b32 row is queued.
+- **Holds:** every ClusterQueue is on Hold for the quiet hour, until 13:30Z.
+  - The disk guard has also held `provers` and `backfill` since 12:31Z (80%; `/var/lib/vy-disk-guard/held`).
+  - It releases them itself on its first check after the quiet hour, since the disk is under 75%.
+- **Slot `d`:** `e2ef` finished. Holder 333071 now holds `check-d.lock` and lets go at 15:00Z.
+- #824 is open in the queue. Latest hourly: `art:76124ad90524d77a4218bc4b88beebd7b591b61d6dff8174465fac9ff212749a`.
+
+## State at 13:25Z Oct 2 (6:25 AM PDT Oct 2)
+
+- **Correction to 12:40Z:** the six `-to4` Commits weren't gemma2-9b.
+  - `gm340`–`342` are qwen25-3b b32, at 168–175 GB each. `gm346`–`348` are yi15-6b b32, at 274–287 GB each.
+  - Only `gm347` went through the pacer's release, estimated at 205 GB. Kueue admitted the other five on arrival through the open
+    gate; for example, `gm340` was created and admitted at 12:00:00Z.
+  - The gemma2-9b rate came from `cov-gm138-r2` (b8, estimated at 76 GB).
+  - I corrected it to @circuits.
+- **[#824](https://github.com/danielreuter/verity/pull/824)** (`cursor/pacer-probe-unmeasured-e910`, `9d48127bd`), at root's ask:
+  - `sized(row)` means a learned rate, or a row of `HIDDEN_X_LAYERS`.
+  - A model without one has one Commit unfinished at a time.
+  - While one is admitted, the gate holds the LocalQueue.
+  - Two tests; removing either half fails both. The `research` and `repository` suites pass (`--quick`).
+  - Marked ready. I told the research coordinator directly, and @ci in the disk thread.
+  - When it lands: back up `sky/release.py`, install the merged file, and restart tmux `commit-release` between ticks.
+- **#819 merged at 12:39:40Z and is live.** Someone else installed `dispatch.py` at 12:59Z and restarted the loop with
+  `restart_loop.sh` at about 13:00Z. Its per-tick child is `dispatch.py loop --once`, with no `VY_PROVER_CPUS` in its environment.
+  - The restart step is out of `slot-d-lend/revert.sh`; it's back to its author's version. My version is in
+    `revert.sh.bak-20261002T1320Z-with-restart`.
+- `cap-150` is still in place, since the disk is at 80%. Delete it once the disk is under 70%.
+
 ## State at 12:40Z Oct 2 (5:40 AM PDT Oct 2), steward pass
 
 - **Node 1's disk: 61% at 12:09Z, 80% at 12:35Z** (3,994 GB used, 1,023 GB free, flat since).

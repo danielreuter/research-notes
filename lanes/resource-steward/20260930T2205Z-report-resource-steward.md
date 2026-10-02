@@ -927,3 +927,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - No reply from @proofs. No action.
 - 21:10Z tick (exit 1): the HARD line (666k/h, 9.9 h), measured from the 20:26Z trough. Node 1 is at 9.87M inodes (48%),
   flat since 19:42Z. No reply from @proofs. No action.
+- 21:33Z tick (exit 1): the HARD line again (607k/h, 10.5 h). Node 1 is at 10.06M inodes (49%): +670k since the 20:26Z
+  trough, and +200k over 2 h against 19:42Z. No reply from @proofs. No action.

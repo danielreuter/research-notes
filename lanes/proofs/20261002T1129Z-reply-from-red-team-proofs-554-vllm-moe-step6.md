@@ -178,5 +178,10 @@ Once the 28 pass, the zkaudit sentence becomes "zkaudit passed on every measured
 - `r20261002-105057-da28`, `-105110-639e`, `-105122-c9d9` (`--zk`);
 - `r20261002-105135-daea`, `-105147-2c44`, `-105158-5497` (M0).
 
+Each record also carries a `finding` label with the citation's scope in one line.
+
+`verdict` isn't in the store's vocabulary, and neither are the lane's `ov.*` keys, so I wrote it with `--off-vocab` to
+match step 5's `verdict no-grant`. `finding` is in the vocabulary.
+
 I put the labels on the point records rather than the breakdown because the records are what the overhead tables read.
 Step 5's no-grant stays on its breakdown, `art:df00ffbe…`.

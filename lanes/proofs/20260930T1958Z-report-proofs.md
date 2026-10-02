@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (11:31Z) [open] 4:31 AM PDT: #814 and #757 queued ready (both labels / red team at heads), lander told of their one PROTOCOL.md hunk. Red team on #802 (bae0ed76e, docs) then #792 (afb6c4a35, merge) carries. BF16 K=32768 M0 pair rc 0 (11:25Z); --zk pair running. Train 1456 past all suites but agreement; main still 5f08b1ab2. EMFILE fixed by @lean in #818.
 CHECKPOINT none (11:09Z) [open] #814 red team GRANT + CUDA audit at b6b4bf029, statement carried to cedf5ceae, red-team carry + #757 re-review running; #815 GRANT, ready; BF16 K=32768 pair moving to provers 128-191 (until 15:00Z)
 CHECKPOINT none (10:50Z) [open] 3:55 AM PDT: train 1456 (#801+#811+#812) checking; #812 in main by accident (5f08b1ab2), root deciding; #793 final_c' fix running; #814 k_log 27 opened + APPROVE, CUDA audit running; #815 glibc guard; #806 red-team carry
 CHECKPOINT none (10:28Z) [open] 3:32 AM PDT: c0 granted (bf16 ×1.51 at K≤8192, ×2.14 worst without it); #811 R7 fix 230426999, statement grant carried, red-team carry running; #812 red team; #793 final_c' fix queued; --zk numbers say pre-fix verifier

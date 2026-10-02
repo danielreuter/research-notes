@@ -13,6 +13,18 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 04:10Z Oct 2 (9:10 PM PDT Oct 1)
+
+- **The pacer bypass is closed.** From 8:30 to 9:00 PM PDT `/workspace` went from 58% to 67%, about 860 GB/h. Kueue had
+  admitted 4 big Commits past the pacer, falcon3-1b b32 ×2 and yi15-6b b16 ×2, projecting 2.1 TB against the 1.2 TB cap.
+  Since 9:03 PM PDT the pacer holds `deployments-gpu` itself while the projection is at the cap or the disk at 80%, and
+  releases its own hold under both; see `memory-requests-and-bundle-cap.md`. The disk eased to 64–65% as replays drained.
+  I told @circuits and @infra.
+- The pacer isn't in the repo: no ref of `main` or `infra/nebius` has ever carried it. It lives only on node 1
+  (`~/commit-release/release.py`, with dated `.bak-*` copies) and in the store (`tools/commit_release.py`). So no PR holds
+  tonight's gate, and a redeploy from the repo can't drop it. If node 1's home directory were lost, the store copy is the
+  only record.
+
 ## State at 03:35Z Oct 2 (8:35 PM PDT Oct 1)
 
 - **@infra confirmed the slot plan** at 8:19 PM PDT, choosing option (b) of proofs' two. At 10:30 PM PDT `VY_PROVER_CPUS`

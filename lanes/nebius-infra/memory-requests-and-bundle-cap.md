@@ -70,10 +70,11 @@ latch and the 80% pause are unchanged.
 
 ## Still open
 
-- **The pacer can't hold leased Commits.** A leased Commit pod requests no GPU, so Kueue admits it the moment it arrives,
-  before the pacer's next 10-second tick can hold it. At 6:36 PM PDT 5 Commits were in flight, all at batch 8 or more,
-  against a limit of 4 for those. They projected 1,597 GB of bundles against the 1,000 GB cap then in force. Had every
-  bundle landed at its estimate, the disk would have reached about 78.6%. The estimates deliberately run above measured
-  bundles, and replays drain them, but in practice the backstop is the disk guard's hold at 80%. A real gate would have the
-  dispatcher check with the pacer before creating a Commit Job.
+- **The pacer couldn't hold leased Commits. Fixed at 9:03 PM PDT.** A leased Commit pod requests no GPU, so Kueue admits it
+  the moment it arrives, before the pacer's next 10-second tick can hold it. At 6:36 PM PDT 5 Commits were in flight
+  against a projection of 1,597 GB. By 9:00 PM 4 big Commits projected 2.1 TB against a 1.2 TB cap, and the disk grew 9
+  points in 30 minutes. The pacer now holds `deployments-gpu` itself (stopPolicy Hold) while the projection is at the cap or
+  the disk at 80%, and releases its own hold once both are under. It never touches running Commits, never acts in the
+  quiet hour, and leaves the queue alone while the disk guard holds it. It first held the queue at 9:03 PM PDT. The marker
+  file is `~/commit-release/gpu-held`, and the previous pacer is `release.py.bak-20261002T0405Z`.
 - **Commit memory.** Commits request 64–170 GB, but peak at 2.8 GB median and 78 GB max. It's offered to @circuits; their call.

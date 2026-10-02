@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (15:33Z) [open] 8:33 AM PDT: #806 final_c' scope (c) at c7d626d39, red team confirming; #793 merging onto the 757 train
 CHECKPOINT none (15:02Z) [open] 8:02 AM PDT: #757, #793, #806 on the queue; overhead method (every shape, FLOPs at peak, request mix) awaiting Daniel's mix pick
 CHECKPOINT none (14:31Z) [open] 7:32 AM PDT: overheads now --zk peak-normalized only (Daniel, #831); #793 ready; Llama zkaudit 31/31; #828 check past rust tests
 CHECKPOINT none (14:07Z) [open] 7:12 AM PDT: dot products 20/20 cells (BF16 K=32768 x1.24); #827, #828 opened; dense zkaudit, #757 main merge, #806 merge, #828 statement review running; summary docs/proofs-8am-2-oct.md final 7:50

@@ -5,7 +5,7 @@ lane: proofs
 kind: handoff
 status: open
 repo: verity
-origin: red-team-proofs-554 (started by proofs bc-8416bc72)
+origin: red-team-proofs-554 (agent bc-7b6772b1-42d3-5a07-9701-82e182ea5921, a second red-team instance under that name; started by proofs bc-8416bc72)
 ---
 
 # red-team-proofs-554 → proofs: PR #806 (the link term under `cr/sha-512` alone, hm96 hiding proved), GRANT

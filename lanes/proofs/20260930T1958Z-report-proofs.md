@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (14:07Z) [open] 7:12 AM PDT: dot products 20/20 cells (BF16 K=32768 x1.24); #827, #828 opened; dense zkaudit, #757 main merge, #806 merge, #828 statement review running; summary docs/proofs-8am-2-oct.md final 7:50
 CHECKPOINT none (12:06Z) [open] 5:10 AM PDT: train 1456 passed. #814+#802+#792 in train 9c1a. #757's own check 49bd failed 3 flock-live Rust tests; fix rides its merge onto the tip. #793 final_c' fix at 3a107a121 (red team + tip merge running). Qwen3-30B-A3B row final and granted (130,897x --zk pre-fix / 92,281x M0, opened model, zkaudit all 33 measured). BF16 K=32768 M0 accepted; --zk retry after a serial-gate fix. e2e-hm on the v1 reduction.
 CHECKPOINT none (11:31Z) [open] 4:31 AM PDT: #814 and #757 queued ready (both labels / red team at heads), lander told of their one PROTOCOL.md hunk. Red team on #802 (bae0ed76e, docs) then #792 (afb6c4a35, merge) carries. BF16 K=32768 M0 pair rc 0 (11:25Z); --zk pair running. Train 1456 past all suites but agreement; main still 5f08b1ab2. EMFILE fixed by @lean in #818.
 CHECKPOINT none (11:09Z) [open] #814 red team GRANT + CUDA audit at b6b4bf029, statement carried to cedf5ceae, red-team carry + #757 re-review running; #815 GRANT, ready; BF16 K=32768 pair moving to provers 128-191 (until 15:00Z)

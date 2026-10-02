@@ -3,7 +3,7 @@ id: 20261002T1231Z-alert-node1-disk-guard-hold
 campaign: nebius-monitoring
 lane: resource-steward
 kind: finding
-status: open
+status: done
 repo: danielreuter/verity
 origin: vy-disk-guard on vy-nebius-1 (pods/nebius/sky/disk_guard.sh)
 ---

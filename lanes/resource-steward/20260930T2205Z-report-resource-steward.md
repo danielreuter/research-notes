@@ -845,3 +845,13 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     1 point, so they cannot reach 75%.
   - Told @infra once (`1790946352.748309`): the cause, the latch, and that a failed replay keeps its bundle. Watch that the
     bundles go.
+- 13:12Z tick: exit 0. 13:35Z (6:35 AM PDT) tick (exit 1):
+  - **Space resolved.** The replays deleted their bundles, so node 1's `/workspace` was 56.8% at 13:13Z and 54.6% at 13:35Z.
+    vy-disk-guard released provers and backfill (`note:20261002T1330Z-alert-node1-disk-guard-release`). Someone removed the
+    pacer's `cap-150` latch: its cap is 1,277 GB again, with 182 GB of bundles and four Commits in flight.
+  - **Inodes: no action.** The new line was "n1: HARD /workspace gaining 1,837,752 inodes/h: 80% of inodes in 4.5 h". It
+    measures from the 13:13Z trough (7.50M) to 8.18M (39.8%). Since 09:11Z the count has swung between 7.5M and 9.0M with
+    no net growth, as Lean scratch trees come and go.
+  - Two Lean scratch trees are live (`_muahpo_` and `tfxi9_53`, 320k files each, held as cwd). `l00nalfw` (264k) has no
+    holder, but files in it changed within 2 h, so it isn't deletable yet; the 18:30Z sweep will take it if it stays idle.
+  - Both guard notes are set to done. No Slack.

@@ -13,6 +13,15 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 03:05Z Oct 2 (8:05 PM PDT Oct 1)
+
+- Since 10:16 PM PDT Sep 29, node 1 has been 4.4% GPU-busy (16.0 of 364.1 GPU-hours) and node 2 27.4% (97.9 of 356.6)
+  (`art:06ae12704ec1a3ffdf273397cb5ab4015d897a0d4e0959a904ee185fc361207c`, 7:46 PM PDT).
+- `/workspace` went from 57% to 62% between 7:30 and 8:00 PM PDT, about 200 GB of it outside counted bundles. The writers
+  are two big Commits, cov rows at llama32-3b b16 and falcon3-1b b32, each writing about 20 GB/min, most of it not kept.
+  The pacer's cap followed the disk down to 1,169 GB.
+- The dispatcher ticks fine, all 3 check slots are busy, no lease pool is blocked, and nobody has replied about slot `d`.
+
 ## State at 02:45Z Oct 2 (7:45 PM PDT Oct 1)
 
 - **A 4th check slot, due after 10:30 PM PDT (05:30Z).** Trains wait 25+ minutes for node 1's 3 slots (`c 8-31`, `a 32-63`,

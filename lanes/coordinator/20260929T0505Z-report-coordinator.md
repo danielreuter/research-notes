@@ -380,3 +380,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 04:08Z: decided #751 guard producer-side (doc §4 q3); asked proofs for registry tables test + PROTOCOL §5.3 sentence in #751. No Daniel escalation.
 - 04:03Z: MERGED T752 1992d95c5 (98fd); main 9139997ed. Next fef2. Slot a free.
 - 04:08Z: T761 1d7009e9e slot a (send) r20261002-040535-7c05. Order fef2, 7c05.
+- 04:34Z: MERGED T759 fbd4a7966 (fef2); main e0b0dbf66. Next 7c05. Slot b free.

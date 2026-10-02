@@ -27,6 +27,10 @@ the doorbell wakes only the names at the start.
   - `~/commit-release/release.py` is a symlink to it; the old file is `release.py.pre-repo-20261002T0410Z`.
   - State stays in `~/commit-release`, configurable as `VY_PACER_DIR`.
   - The store copy `tools/commit_release.py` matches the repo.
+  - Root's refinement, added at 9:15 PM PDT; the head is now `9372a3ccc`, marked ready, and @ci was told. The hold opens only
+    when the admitted Commits' projection plus the next Commit's fits under the cap: the next released or waiting one, else
+    the largest admitted. With none in flight the gate opens and one Commit goes even over the cap, outside the 78% latch.
+    Node 1 runs it; the previous file is `sky/release.py.bak-20261002T0418Z-pre-next-fits`.
 
 ## State at 03:35Z Oct 2 (8:35 PM PDT Oct 1)
 

@@ -41,7 +41,8 @@ What the pinned statements say, and that it matches the worker's report:
 `TabZK` bundles `hpos`, `hL`, `hδ` and the schedule shape as fields, so every instance proves them; `M1` adds δ ≥ 7/16,
 which with `hδ` needs rate ≤ 1/8 (`relUDR_ge_m1`). Non-vacuous as stated.
 
-Limits a citation must carry (none blocks the grant; all are in the report's "Open guarantees"):
+Limits a citation must carry (none blocks the grant; 1–4 are in the report's "Open guarantees", 5 was not: see the
+correction at the end):
 1. **The live verifier does not run this protocol yet**: it never absorbs `final_c'` (zk_veil.rs:1128), so a prover
    re-solves it after γ. The Lean protocol fixes it before γ. These theorems describe the live `--zk` verifier only
    after #793's fix (@old-circuits-and-proofs' ruling, Slack `1790935865.805159`); until then nothing calls `--zk` sound.
@@ -56,3 +57,11 @@ rows are the live verifier's rows (zk_veil.rs, flock-circuit.rs `zk_constraints`
 γ count (`nA + 3`) matches `cons.len()`.
 
 Grant: `pr:812@7e1ed4faf70a702371f82c81666508d45697b9d8 grant statement-reviewer` (PR #812).
+
+**Correction (3:40 AM PDT), after the red team's Finding 1** (`note:red-team-proofs-554/20261002T1033Z-reply-from-red-team-proofs-554-pr812-zk-session`):
+limit 5 was not in the "Open guarantees" list, so "all are in the list" was wrong. #812's body now has it as item 7: a
+citation of `miss(K) + 2^-203 + δ_link` also carries that every planned table meets `TabZK.M1` (m ∈ {25, 26, 27},
+`InRange` shape: kLog ≤ 27, nRegions ≤ 1024, mPts ≤ 64; two extra lanes per rep, 168 queries, N + 3 ≤ 2^13, δ ≥ 7/16),
+and no Lean term instantiates `TabZK.M1` at the live layout. The red team's arithmetic (Finding 2) says the live layout
+meets it with 8 pads per rep to spare (s ≤ 312 of 320, N = 4096). `Session.lean`'s header gets the item at the branch's
+next commit. The grant stands.

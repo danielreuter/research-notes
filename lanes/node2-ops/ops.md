@@ -68,6 +68,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 23:09Z hourly (22Z): GPU busy 12.0% (0.96 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series, plus the TP2 Commits `gm360` and `gm372-r2`.
+    - **Why below 80%:** nothing else was queued, so 6.53 GPU-h sat free. Leased-idle 0.51 GPU-h: 0.39 the Commits, 0.12 the series' start-ups.
+    - **New deploy (infra, 21:21:23Z):** `/etc/systemd/system/user@.service.d/vy-cpuset.conf` from `6ab5f059` (`cursor/cluster-cpuset-pin-558b`). It sets `Delegate=cpu cpuset memory pids`, so a cluster-agent scope's `AllowedCPUs=` takes hold. `user@1001` still has 0–123. No effect on fill or backups.
+    - **Backup:** `r20261002-230625-111e`, unpinned. The 22Z backup `r20261002-220628-013d` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (23:05Z). The runner is still `62bdf53d` (no fence PR yet). The agent is on `1253f09ec` (no restarts). No windows. The new GPU-at-0% alert is node 1's. #494 is still closed.
 - 2026-10-02 23:03Z alerts tick: two `gpu-idle-in-lease` (22:55Z), GPUs 5 and 6 at 4.1–4.5%. Both are one TP2 Commit, `cov-gm372-r2` (bc-698052e1), 10 min in since 22:45:51Z. Same early-lease pattern as `gm360`, which finished rc 0. Nothing to do; watermark 22:55:06Z.
 - 2026-10-02 22:08Z hourly (21Z): GPU busy 11.7% (0.94 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series, plus Commit `cov-gm360`.
     - **Why below 80%:** nothing else was queued, so 6.2 GPU-h sat free. Leased-idle 0.87 GPU-h: 0.73 of it is `gm360`'s TP2 lease waiting on shared memory before it finished rc 0, and 0.13 is the series' start-ups.

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (22:11Z) [open] A 22:11Z poll: nothing for me (node2-ops 2208Z: fence PR not deployed yet, no windows); cap-1/1,000 verifier not on main; totals.py read awaits compute accounting; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (21:49Z) [open] A 21:49Z poll: nothing for me (node2-ops: a TP2 Commit's idle alert resolved itself); cap-1/1,000 verifier not on main; totals.py read awaits compute accounting; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (21:27Z) [open] A 21:27Z poll: node2-ops 2108Z: infra's fill_runner 'fence' (one line per timed window) due by 23:00Z, noted for my next booking; cap-1/1,000 verifier still not on main; totals.py read awaits compute accounting; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (21:04Z) [open] A 21:04Z poll: no new notes; v1 γ at cap 1/1,000 (waiting on the verifier merge) and the totals.py read await compute accounting; still off node 2; panel art:63261f6f

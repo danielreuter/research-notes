@@ -68,6 +68,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 19:09Z hourly (18Z): GPU busy 12.5% (1.00 of 8.00 GPU-h, all useful): memory accounting's soak rerun on GPU 7.
+    - **Why below 80%:** nothing else was queued for a GPU, so 7.0 GPU-h sat free.
+    - **CPU 0–127 at 37.2%:** PoUW's Pearl-C `served_debit.py`, 47 processes at nice 19 from 18:17Z, in the agent-placed scope `cluster-r20261002-173355-4eef`. 46 are on 48–95; the launcher is on 0–91. Clear of the rerun's 116–123 fence.
+    - **Backup:** `r20261002-190654-2736`, on 48–79,94–95 at nice 19 (sharing those cores with served_debit). The 18Z backup `r20261002-180625-bbd8` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (19:05Z). The agent is on `1253f09ec` (no restarts). No windows. The new infra alerts are node 1's. #494 is still closed.
 - 2026-10-02 18:08Z hourly (17Z): GPU busy 12.4% (0.99 of 8.00 GPU-h, all useful): memory accounting's soak rerun on GPU 7.
     - **Why below 80%:** nothing else was queued, so 7.0 GPU-h sat free. CPU 0–127 was at 26.7%: the rerun's server on 116–123, plus PoUW's `served_debit.py` (outside fill, on 85 and 91–93 since 17:34Z).
     - **The rerun:** it exited "more" (rc 99) after 10.7 min at 17:05:54Z and restarted. Fill cleared one `scope-residue` (`gpu-lease-3090890`).

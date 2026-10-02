@@ -205,3 +205,7 @@ pod's own custody key.
 | Worker VMs recording checks and pushing to the store | Later, by 09:00Z through top: the same missing secrets. Letting nodes mint custody keys puts a long-lived R2 key on them, a credentials call; recommend keys stay off the nodes. To merge, a ready PR needs only the lander's train check |
 | Slot line with no names or ETA | Yes, infra, by 10:00Z: name the checks ahead and how long each slot has been held (on #782). At 07:57Z node 1 had 8 waiting for 3 slots, about 35 min a check |
 | `research msg read --as NAME --since TS` | Yes, infra, by 10:00Z |
+
+- 09:22Z delivered (round 8): `research inspect|status|fetch RUN` for a run another VM launched, #808 (queued ready; told
+  compute-accounting and proofs in the round's thread). Also #795 (`msg read --as NAME --since TS`), #798 (slot wait line names
+  holders and waiters ahead).

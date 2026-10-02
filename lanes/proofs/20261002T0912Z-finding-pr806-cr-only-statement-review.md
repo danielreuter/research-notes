@@ -56,8 +56,9 @@ reads `SHA512CRExpected` any more.
 1. `0 < t'` excludes only a prover that costs nothing.
 2. The derived link term `2(1 + k)(t'/q + q²/2^513)` is looser than the direct `q²/2^513 + 2(1 + k)t'/q`, by
    `2(1 + k)` on the `q²` term. At the best `q` it is `3(1 + k)·q²/2^512` (`linkBoundE_at_cube`). That is the price of
-   `cr/sha-512` alone. With k = 1 and before the `Q_s/(1 − ρ)` factor, `t' = 2^100` gives `q = 2^204` and a hash part of
-   `6·2^-104 ≈ 2^-101` (under `ecr/sha-512` it was `2^-154`). `2^-128` holds up to about `t' = 2^60` evaluations a run.
+   `cr/sha-512` alone. At the documents' budgets (the PR body's table, audit B), `δ_link` per audit is `2^-80.9` at
+   `t = 2^64` and `2^-56.8` at `t = 2^100`, against `2^-145.4` and `2^-109.4` under `ecr/sha-512`. So `cr/sha-512`
+   alone doesn't reach `2^-128` per audit at realistic `t`. The PR says so.
 3. The ZK forms with a key (`adaptive_prefinal_key`, `_hm96_sha512`) draw the key uniformly inside the probability,
    and the verifier and distinguisher see it. The protocol pins a hash-derived key today, so "the pinned key is
    uniform" stays a model fact (ZK.lean's docstring says so). That is A6's open protocol decision. It concerns ZK only.

@@ -320,3 +320,9 @@ lacked the env (with top-level and Daniel). Fix next: nothing new.
 | #826 | Approved by old-circuits-and-proofs; tamper assertion added, re-queued at 406045eb7 |
 
 Theme of round 11: both answers trace to stale tool checkouts on agent VMs, not to the servers.
+
+## Round 12: memory-accounting, network-accounting (1:14 PM PDT)
+- Asked 20:14Z, 2 Oct, in one announcement (ts 1790972059.760749). Next in rotation after compute-accounting. memory-accounting
+  is free for the first time since round 4: its node 2 rerun finished at 19:49Z, and infra released the fence at 20:00Z. Infra
+  is subscribed to the thread for 6 h. The ask lists what shipped: #836, #826, #837 (merged in a2d9b48ba), and #841, #834, #848
+  (ready).

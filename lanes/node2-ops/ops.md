@@ -68,6 +68,9 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 21:33Z alerts tick: one `gpu-idle-in-lease` (21:30Z), GPU 5 at 6.9%. It's bc-698052e1's TP2 Commit `cov-gm360` (`gpus=2`, since 21:20:12Z).
+    - Not the stale-plan rebuild. Its `commit.log` repeats vLLM's "No available shared memory broadcast block found in 60 seconds" from 21:30Z, so one TP rank is busy or stuck.
+    - `n2_commit.sh` sends it to node 1 after two stops. I'll watch for repeat alerts. Watermark 21:30:06Z.
 - 2026-10-02 21:08Z hourly (20Z): GPU busy 11.0% (0.88 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series.
     - **Why below 80%:** nothing else was queued anywhere (infra's backlog: all 16 GPUs idle), so 7.0 GPU-h sat free. Leased-idle was 0.12 GPU-h (the series' start-ups).
     - **Coming from infra:** a PR by 23:00Z adding `fill_runner.py fence`, one line in node 2's fill dir per timed window (from memory accounting's interview, round 12). When it's deployed, I'll check the runner's sha and env.

@@ -431,3 +431,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 11:10Z: PR #816 pre-push guard (research merge --guard-push), asked infra review.
 - 11:22Z: #816 fixed cd164bc2f (tip-only, sh prefilter). T6 128394600 node2 r20261002-110551-fc09. Order 1456, fc09.
 - 11:25Z: T816 778c10d89 (fc09 + #815 + #816) node1 r20261002-111129-5d0f. Order 1456, fc09, 5d0f.
+- 11:36Z: T814 ac382ff27 node2 r20261002-113043-aabc. #757 out (content conflicts with #730/#811); asked proofs. Order 1456, fc09, 5d0f, aabc.

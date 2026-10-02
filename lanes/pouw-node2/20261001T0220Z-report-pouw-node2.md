@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (16:26Z) [open] A 16:26Z poll: node2-ops 1606Z: node 2's cluster agent healthy on main 1253f09ec, drill passed, node 2 checks can resume; no 'back' from infra for me; still off node 2; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (16:05Z) [open] A 16:04Z poll: infra active again (daily wasters 1604Z) but no 'back'; node2-ops' agent restart pending; nothing for me; still off node 2; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (15:57Z) [open] A 15:56Z poll: node2-ops draining node 2 for the cluster-agent drill and re-pin (vLLM series paused, check 9160 cancelled); nothing for me; still off node 2; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (15:34Z) [open] A 15:34Z poll: soak closed, fill back on 48-95 (14:44:59Z); node2-ops to restart vy-cluster-agent (drill + re-pin to main) once node 2 is empty, node 2 checks held till then; infra's agent quiet overnight, so its 'back' may not come; still off node 2; panel art:63261f6f

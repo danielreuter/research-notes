@@ -408,3 +408,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 06:58Z: PR #783 slot.py --priority (stacked on #773); asked infra review; next train.
 - 07:02Z: confirmed #771 quarantine-in-test deviation; #771@4663a5bb7 pending --fresh pass + vLLM grant. k_log27 conditions accepted (zk-k32k). word_bits PR building ahead of #749.
 - 07:08Z: T783 e12c7e8d6 (2e1512d52 + #783 + #781) r20261002-065550-0bb8, priority ticket live; cancelled d07b, 01c2. Root rule: if a lane check waits >1h behind trains, cap trains at 2 slots.
+- 07:14Z: T771 75458a38f r20261002-071030-2ac5 (priority). #776 needs PROTOCOL.md trim (131,968 > cap); asked proofs.
+- 07:22Z: new cancel method (TERM workload pgid only): /tmp/cancel.sh (+store tools/cancel.sh; k12.sh removed). Slot d broken: runner affinity 0-127 vs d 128-159 -> sched_setaffinity EINVAL (2ac5 died). Told infra. Cancelled 0bb8 (#730 KeyError with #761).

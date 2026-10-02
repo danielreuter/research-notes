@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (19:08Z) [open] 12:08 PM PDT: no new asks. Ratings stand. This VM's verity fetch failed auth at 19:07Z (flapping, as pouw-lean-redteam saw); last good read 18:57Z: main a2d9b48ba, PoUW policy c7f178e8, PR #838 (f00ed7349) not on main. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (18:46Z) [open] 11:46 AM PDT: no new asks. Ratings stand. Main a2d9b48ba, no protocols/pouw change since d407f982e; PoUW policy c7f178e8; PR #838 (f00ed7349) not on main; verifier branch cd080d44d. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (18:25Z) [open] 11:25 AM PDT: no new asks. Ratings stand. Main 41455f5d0, PoUW policy c7f178e8; PR #838 (f00ed7349) still queued, not on main; verifier branch cd080d44d. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (18:03Z) [open] 11:03 AM PDT: no new asks. Ratings stand. Main d407f982e, PoUW policy c7f178e8 (NCP-only change; M5 records byte-identical). PR #838 (f00ed7349, additive) queued in train 83701a356, not on main; verifier branch still cd080d44d. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).

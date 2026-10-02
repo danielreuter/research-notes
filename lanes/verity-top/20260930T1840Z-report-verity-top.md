@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:16Z) [open] 17:16Z: #793 landed (main 5a5ebbbae), --zk has verdict of record; #828 red-team granted; queue-status credential friction sent to infra
 CHECKPOINT none (16:59Z) [open] 16:59Z: #806 landed (main 0177f6e56); FP8 cap 1/1,000 approved, #838 stacked; SiluMul_v2 9/9 pass, #820 prepping; #840 node-2 idle fix queued; quiet-post routing fix #835
 CHECKPOINT none (16:42Z) [open] 16:42Z: trains a7ad (ci 24, node 2) and cc34 hedge (node 1) checking; #695 queued ahead of key rotation; TP2 test row approved on idle node 1
 CHECKPOINT none (16:25Z) [open] 16:25Z: #757 landed (main 56b7e4f7c); ci's 24 checking on node 2 plus combined hedge on node 1; partitioning Lean workstream starting

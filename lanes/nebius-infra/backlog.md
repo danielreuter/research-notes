@@ -8,6 +8,46 @@ cursor:
 The nebius-infra steward keeps this. Newest state first, and each item names its owner, what fills it, and its status. Fills route
 through the owning lane: the research coordinator (bc-8ece7cde) or the vLLM coordinator (bc-ecac3029).
 
+## State at 00:10Z Oct 2 (5:10 PM PDT Oct 1)
+
+- `deployments-cpu` still borrows up to 384Gi (no flip-flop).
+- **The dispatcher failed every tick from 2:42 to 5:05 PM PDT.** `cov-gm390`'s Commit Job was created by another path at 2:38
+  PM PDT, before its Build's end was routed. From then on, each tick's `kubectl create` of that Job raised AlreadyExists and
+  aborted the tick before the Build got its `verity.dev/seen` label, about 140 times. Everything after it was skipped:
+  - two finished Builds' Commits (cov-gm183 since 3:19 PM, cov-gm297 since 4:58 PM);
+  - cov-gm390's replay;
+  - two item ends;
+  - the pack, node-2 spill and ready-item steps, while node 2 sat idle.
+- At 5:05 PM PDT I labelled the Build Job `seen=1` by hand, which is what the tick would have done. The next tick submitted
+  all of the above, plus two new Builds. The fix is [#732](https://github.com/danielreuter/verity/pull/732): `submit()` counts
+  an existing Job of the same item, task and try as submitted. Node 1 runs an older, unmerged copy of `dispatch.py`, so it
+  gets the fix only when redeployed. I told @infra and @circuits in the disk thread.
+- 5:15 PM PDT: #732 is out of draft, marked ready at `d7110aa31` (`research queue ready 732`), and @ci was asked on Slack to
+  stack it. The steward's relay (`tools/alert_pull.sh`) now does two more things:
+  - it posts the redeploy ask to @circuits once, when #732 merges (`/tmp/merge-watch.tsv`);
+  - it reads the dispatcher's ticks from its tmux pane (`tools/dispatch_ticks.py`), because `loop.log` has been silent since
+    1:10 PM PDT. It posts one line to @circuits and @infra, at most once an hour, when 5 or more ticks fail in a row. It also
+    posts when the ticks are unreadable or absent for 10 minutes on 3 checks in a row, so it doesn't fail open.
+- Otherwise node 1's GPUs are idle by design. Circuits' late-lease Commits hold a GPU only for their 2–4 min GPU work pair,
+  then finish on CPU. The two held Commits (cov-n050-2, cov-n051-2) are batch-64 Gemma-2 rows on circuits' keep list.
+
+## State at 23:35Z (4:35 PM PDT)
+
+- Since 10:16 PM PDT Sep 29, node 1 has been 4.4% GPU-busy (14.7 of 334.8 GPU-hours) and node 2 29.1% (95.4 of 327.2)
+  (`art:48a5ab1757c60b5a6d4268f7177219e0b5429c581297354e9682bd40c994d7e2`).
+- At 4:31 PM PDT node 1 had 7 of 8 GPUs empty. The chain started with `deployments-cpu`, at its memory limit (128Gi of
+  borrowing, 637 GB booked), where 3 replays and a Build waited with 1.29 TB of RAM free. Because the replays waited, 743 GB of
+  bundles stayed on disk, which held the Commit pacer at its 1 TB cap (2 Commits held, 1 in flight). @infra's 9:59 AM PDT
+  raise to 256Gi had reverted itself at 10:14 AM PDT when `provers` admitted a workload, and circuits' 11:00 AM ask to size it
+  again went unanswered.
+- At 4:34 PM PDT I raised the limit to 384Gi, live and on `infra/nebius` (`49f235f8b`), and told @infra and @circuits in
+  circuits' thread. Kueue admitted all 4 at once. The cohort's 1,664Gi nominal stays under node 1's 1,716 GiB, and Commits
+  (600) reclaim from borrowing Builds (500) but not replays (600). To revert, set it back to 128Gi.
+- At 4:37 PM PDT the limit is still 384Gi. @infra's `cpu-borrow-watch` on node 1 exited after its 10:14 AM PDT revert, and its
+  tmux pane now only runs `sleep 86400`. Root's instruction: check the limit on every pass. If it's back at 128Gi, don't
+  re-apply it; ask @infra on Slack to retire or adjust the revert rule under Daniel's 12:12 PM PDT one-pool ruling, and tell
+  root. The hourly drift check would also flag a revert, because live Kueue would then differ from `infra/nebius`.
+
 ## State at 23:10Z (4:10 PM PDT)
 
 - Node 1 was 0% GPU-busy from 3:00 to 4:00 PM PDT, because both of its lease pools were blocked. `gpu_stray.py` wrote `blocked`

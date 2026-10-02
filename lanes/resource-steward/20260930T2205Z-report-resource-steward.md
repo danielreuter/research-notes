@@ -512,6 +512,10 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - The ask: (a) the scripts delete `.lake/packages` after a failed audit, or (b) a yes for me to delete that directory,
     and only it, in finished, unheld trees younger than 6 h.
   - Escalation: if node 1 inodes reach 65% (13.4M) before an answer, a blocking #ask-daniel card for (b).
+  - Sent early, at 21:56Z: the rate rose again, putting 65% about 1.5 h away. The card is `23a10e51-148c-486e-97cd-27e458ef3086`
+    (#approvals `1790978211.656329`). Options: `yes_any_age`, which I recommend; `yes_now_only`; and `no_wait`, the default
+    at the 4:00 PM PDT (23:00Z) deadline. A button decision fires no thread event, so each tick polls
+    `ask-daniel status 23a10e51-…`.
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
   deployed it on both nodes; wrote this policy; sent handoffs to node2-ops and nebius-infra. Armed the timer

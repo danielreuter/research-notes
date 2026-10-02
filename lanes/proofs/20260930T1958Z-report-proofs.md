@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (21:10Z) [open] #852 two-stage exfiltration ready for lander; #850 training; #846 fix on main in progress; zk-link on compiled ε_ks
 CHECKPOINT a2d9b48ba (20:38Z) [open] #828 ready for lander; #850 @lean granted, red team reviewing; #849 open; ts-exfil (two-stage exfiltration, Daniel top priority) running
 CHECKPOINT a2d9b48ba (19:43Z) [open] 7b labels done; partition-exfil proved ExfiltrationOptimum + RefinementRule (9830f7c3d); infra may clear failed audit trees' .lake/packages; #828 waits on the --update printout
 CHECKPOINT a2d9b48ba (19:21Z) [open] #846 opened (public ports), red team asked; #843 ready; #828 preflight OOM, rerun pending; TS0 to @lean; 7b is the MoE --zk lead

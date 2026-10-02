@@ -367,3 +367,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 02:14Z: root asked Daniel directly re #722 12 guarantees; no ask-daniel from me. Hold TTOP until root relays top-level record (or @top records first).
 - 02:16Z: top recorded Daniel approval of #722 12 guarantees (p1790906922954909). TTOP hold released; merge on d553 pass.
 - 02:18Z: MERGED T745 42d7c299f (1050); main 63ce2ea1d. Next: d553 (TTOP).
+- 02:24Z: TCOM 703806227 (#718 #720 #725) slot b r20261002-022225-9ab6; after d553.
+- 02:31Z: T723 206b4520a (#748 #727 #723, send) slot a r20261002-022906-b9dd. Order d553, 9ab6, b9dd.

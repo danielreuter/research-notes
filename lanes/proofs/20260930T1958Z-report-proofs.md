@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (04:01Z) [open] 9:00 PM PDT: #723/#727 merged; #750+#751 ready (design owner approved #751; required REGISTRY test + §5.3 sentence in the follow-up PR); #749 held for #730 binding; #757 granted with 5 conditions (worker on them); zk-all-cells through K=8192 FP; vLLM cut3 running both models.
 CHECKPOINT none (03:31Z) [open] 8:30 PM PDT: evening set 3/3 HIT; overnight floors to top. zk-all-cells K=4096 FP points landing; bf16-hill on fixes A+B (zk verdict 6.3 s -> ~0.3 s projected); flock-zk-verify-lean launched (Lean has no --zk statement); node 2 granted for untimed work; console panels live, awaiting mode/ov.* fields.
 CHECKPOINT 1af06f14 (03:05Z) [open] 8:15 PM PDT: Daniel's overnight ask (dot-product panel + vLLM-weighted panel, dense and MoE, by 7 AM PDT). Launched vllm-overhead-dense (Llama-3.1-8B) and vllm-overhead-moe (Qwen3-30B-A3B); red-team granted bf16-hill's --zk levers
 CHECKPOINT 25599ef6 (03:00Z) [open] 8:00 PM PDT: #752 ready and checking in 98fd; draft #757 (hidden outputs); zk-all-cells staging K=2048/4096 on node 1

@@ -70,6 +70,12 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 08:09Z hourly (07Z): GPU busy 11.0% (0.88 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7, one long chunk since 06:47:40Z. Leased-idle 0.12 GPU-h (bc-15ada664).
+    - **Why below 80%:** nothing else was queued for a GPU, so 7.0 GPU-h sat free. CPU 0–127 at 13.2%: proofs' `zkk32k-stage-bf16-k32768` CPU jobs.
+    - **Fill's failed count went from 29 to 30:** proofs' `zkk32k-stage-bf16-k32768.sh` failed with rc 1 after 10.5 min (07:40:47Z, 36 GB peak, empty log). It wasn't the node's doing: its owner (bc-973b1d5f) re-queued it at 07:49Z as `-b` on a newer commit (`558eb183c`, adds `MAX_ANDS`).
+    - **Disk** at 37%.
+    - **Backup:** `r20261002-080635-8145` packed on 48–79,94–95 at nice 19 (542 units, 20.0 GB, 40 large units left out); its custody upload is pending. The 07Z backup `r20261002-070709-59a6` is preserved.
+    - **Checks:** daemons and `status.md` (08:05Z) are fine. The runner is still #778 (`62bdf53d`, up since 06:28:18Z) with `FILL_VERITY_CPU_SET=48-79,94-95`. The new infra notes (interviews round 8, nebius-infra backlog) have nothing for node-2 ops. #494 is still closed.
 - 2026-10-02 07:10Z hourly (06Z): GPU busy 12.0% (0.96 of 8.00 GPU-h, all useful): bc-698052e1's Commits (gm337–339) and memory accounting's honest-latency soak on GPU 7. Leased-idle 1.45 GPU-h (bc-698052e1 1.30, bc-15ada664 0.15).
     - **Why below 80%:** no other GPU work was queued, so 5.59 GPU-h sat free. The Commits again held their GPUs mostly idle (1.30 GPU-h). CPU 0–127 at 6.2%: 1 kueue-fold Build.
     - **Disk** at 37%.

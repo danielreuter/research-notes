@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT 3ae34fb00 (00:45Z) [open] bitsets r20261001-225552-a4a7 running; near-cap@2 deferred, none failed
 CHECKPOINT 3ae34fb00 (00:15Z) [open] bitsets r20261001-225552-a4a7 running; near-cap@2 deferred, none failed
 CHECKPOINT 3ae34fb00 (23:45Z) [open] bitsets r20261001-225552-a4a7: 43 of 88 done, near-cap@2 deferred (raw kept, rechecked at run end), none failed; df 45%
 CHECKPOINT 3ae34fb00 (23:15Z) [open] bitsets r20261001-225552-a4a7: 41 of 88 done, none deferred or failed; df 50%

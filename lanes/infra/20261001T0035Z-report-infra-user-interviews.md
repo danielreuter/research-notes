@@ -239,3 +239,8 @@ and a supported read-only way to fetch art ids.
 - Store files: #810 (stacked on #799, queued ready). The `store-fetch` dispatch template takes full art ids into
   `/workspace/jobs/store-fetch/<NAME>/<hex>/` through a scratch store it removes, reading the remote with the pods' Secret only.
   Smoke run on node 1: 2 artifacts, 8 files, about 10 s.
+
+## Round 10: old-circuits-and-proofs, circuits (5:09 AM PDT)
+- Asked 12:09Z, 2 Oct, in one announcement (ts 1790942941.230899). The rotation wraps to old-circuits-and-proofs and circuits
+  again; memory-accounting is skipped a second time (its node 2 soak window runs to 14:45Z). The ask lists what shipped since
+  their round 7: the relay's identity refresh (#813, live), and #788, #782, #798, #808, #790, #777 (queued ready).

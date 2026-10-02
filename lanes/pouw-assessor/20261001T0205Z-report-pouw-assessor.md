@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (22:31Z) [open] 3:31 PM PDT: no new asks. Ratings stand. Read d545bc2a GO on #853 (FADD-8 twin at 1/1,000, cc me; 8 new pins, all 732 base pins byte-identical, so M5 records unmoved). Main 0817f3a95 (no change under protocols/pouw), PoUW policy 437224e7; #847 and #853 not on main yet. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (22:09Z) [open] 3:09 PM PDT: no new asks. Ratings stand. Main 0817f3a95 (train T852, proofs; no change under protocols/pouw), PoUW policy 437224e7. Next train 2aa2c15dc carries FP8 #847 (verifier cap) and #853 (FADD-8 price twin at 1/1,000, d545bc2a reviews); I will diff protocols/pouw when it lands. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (21:48Z) [open] 2:48 PM PDT: no new asks. Ratings stand. Main 3d724751b (train T820, #820 SiluMul_v2; no change under protocols/pouw since 27c5889ba), PoUW policy 437224e7; FP8 #847 (verifier cap) not on main yet. #849 sha512/row-seg/v1 granted by red-team-proofs-849 (not PoUW). Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (21:27Z) [open] 2:27 PM PDT: no new asks. Ratings stand. Main 27c5889ba (fetch ok 21:27Z; 21:16Z fetch failed), PoUW policy 437224e7; FP8 #847 (verifier cap) not on main yet. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).

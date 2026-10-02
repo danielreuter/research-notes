@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (07:40Z) [open] A 07:40Z poll: no new notes; still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (07:20Z) [open] A 07:20Z poll: nothing for me (node2-ops 0710Z: fill runner now #778 via research deploy, soak gets one long chunk; disk 37%); still off node 2, no 'back'; asked compute accounting for a pinned read-only totals.py read; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (07:00Z) [open] A 07:00Z poll: no new notes; still off node 2, no 'back'; soak holds GPU 7 and 80-93 until 14:45Z; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (06:40Z) [open] A 06:40Z poll: no new notes; still off node 2, no 'back'; soak holds GPU 7 and 80-93 until 14:45Z; panel art:63261f6f

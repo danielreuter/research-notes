@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (03:45Z) [open] 03:45Z: main b710820ac (Lean, comms, #748/#727/#723 landed); 98fd and fef2 checking; #757 red-team granted w/ conditions; infra fixing check's silent Lean skips
 CHECKPOINT none (03:30Z) [open] 03:30Z: evening set closed 10 hit/6 miss (circuits pending), overnight set recorded; b9dd passed; ci VM lost store secrets, infra proxying writes
 CHECKPOINT none (03:15Z) [open] 03:15Z: evening-set verdicts in from compute, ci, infra, proofs; waiting circuits, memory; close at 03:20Z; steward jobs/src card routed to infra
 CHECKPOINT none (03:00Z) [open] 03:00Z: #757 hidden outputs passed check (draft, red-team next); #721 queued; infra train 98fd checking with agreement

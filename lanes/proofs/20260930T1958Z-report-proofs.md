@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT b9918ce4 (02:30Z) [open] 7:32 PM PDT: #723 and #727 in ci's train prep (206b4520a, needs send); node 1 57% disk, GPUs idle; answered lean on open Flock Lean work
 CHECKPOINT cfc2ea64 (02:24Z) [open] 7:24 PM PDT: #723 and #727 ready for a train; drafts #749-#752 opened with checks passing; --zk/M0 at K=4096 down to x1.88 pending red-team; Lemma A and C proved (#752), pins with @lean
 CHECKPOINT 600491fc (02:18Z) [open] 7:20 PM PDT: #717 merged. --zk at 4/4 BF16 cells (5.0-7.5x M0), levers running. #730 registered values: red-team GRANT for merge, soundness theorems in progress. #723: L1 fix granted, needs re-check. Launched flock-hidden-gather and flock-pouw-pieces. Answered circuits (#734 OK, overlap, gather), compute-accounting (PoUW needs), lean, infra.
 CHECKPOINT 0a4cec68 (23:36Z) [open] 4:33 PM PDT: Daniel ruled that gelu_tanh_bf16 and tanh_rn are values (hidden); he takes the cost unless it's a bottleneck. @circuits' hold is off. My estimate: 1.5-2.3x the whole proof on Gemma-2-2B, at most 6.4x. bf16-hill's --zk jobs are running; node 1 is at 59% disk.

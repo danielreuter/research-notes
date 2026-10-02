@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (12:53Z) [open] 12:53Z main d2b4a6d83 (665c landed); line empty, ci reconciling ready marks with owners
 CHECKPOINT none (12:36Z) [open] 12:36Z #793 (final_c' fix + Lean verify --zk) red-team approved; trains 5d0f, 665c pending; laptop recovered
 CHECKPOINT none (12:19Z) [open] 12:19Z main b16313242, 9 PRs landed incl #807 #747 #779; next 5d0f (#815, #816) then 665c
 CHECKPOINT none (12:02Z) [open] 12:02Z main still 5f08b1ab2 for ~75 min; 14 PRs in line behind 1456; watch after 12:10Z hold

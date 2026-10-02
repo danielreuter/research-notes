@@ -16,6 +16,18 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 10:40Z Oct 2 (3:40 AM PDT Oct 2), steward pass
+
+- **#767, #783 and #789 merged at 09:40:58Z.** Node 1's live `sky/release.py` matches main. #780 and circuits' #805 are still
+  open.
+- **All 16 GPUs are idle, with nothing queued.**
+  - Node 1: the dispatcher's ready queue is empty, and 7 Builds run on CPU. Bundles are down to 2 GB (from 306), and the disk is
+    at 54%.
+  - Node 2: the PoUS soak ended, and the fill queue is empty.
+  - I told the research coordinator once that the queues are open.
+- The 4 checks in slots, and the 7 in the line, predate #789's merge. The first check of main to take `d` is the end-to-end
+  confirmation.
+
 ## State at 10:20Z Oct 2 (3:20 AM PDT Oct 2), steward pass
 
 - **Node 1, all 8 GPUs idle, between waves:**

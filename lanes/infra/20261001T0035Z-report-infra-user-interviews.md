@@ -168,3 +168,7 @@ cancelling queued checks by killing runner pids over ssh; reading slot ownership
 | Cheap repository tests failing late | Yes, infra, done: PR #739 runs all of `tests/test_repository.py` (~2 s) in check's preflight |
 | Slot holders view | Yes, infra, by 06:00Z: read-only `tools/check/slot.py --status` (holder pid, command, start, blocking windows) |
 | `research run cancel` with Lean scratch cleanup | Later, infra: scoped once #708 lands, after tonight's goals |
+
+**Delivered, 00:49-00:55Z:** `tools/check/slot.py --status` (PR #741, owed 06:00Z); the hourly per-node preflight probe for
+network-accounting's round 6 ask (PR #742, tmux `preflight-probe`; first pass passed on both nodes). Every round 6 and 7 yes is
+now delivered; the open items are the "later"s (`research run cancel` after #708, per-phase held-idle).

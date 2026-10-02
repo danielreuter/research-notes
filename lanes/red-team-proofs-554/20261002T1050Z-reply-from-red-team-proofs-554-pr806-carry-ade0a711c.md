@@ -92,8 +92,8 @@ The fold is four commits after the merge: `a90af99f4` (F3), `8f0a6067b` (F2), `8
     | C | `t·2^-209.4` | `2^-123.5` | −70.2 |
     | D | `t·2^-206.4` | `2^-120.5` | −67.2 |
 
-    Audit B's other columns (−80.9, −56.9, −50.2 at `t = 2^64`, `2^100`, `2^110`) agree within rounding of the
-    unrounded −209.4x.
+    Audit B's other columns (−80.9, −56.9, −50.2 at `t = 2^64`, `2^100`, `2^110`) are exact for the unrounded
+    exponent. With `Q_s = 2^24` the record's is `48 − log₂e − 256 = −209.443`, so the strict one is −123.525.
 
 ## 2. The merge `19494d6a5`
 

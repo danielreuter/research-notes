@@ -350,3 +350,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 00:45Z: mirror fix landed (forward/reverse create-only; edits via edits.py, CONFLICT/HELD logged); PAUSE_FORWARD removed. Recovery: restored 35 lines in 11 files (notes a24bfc68 + 534d4036 placement fix below front matter). Left out: 102 rewritten-hunk lines, 3 commits of stale instructions (f7c38f2d STOP, 7eb4a4e2 HOLD, e91e4462 push ask), 57 store-origin lines. Listing ~/cloud-mirror/recover-dropped-lines.dry-20261002T0020Z.txt.
 - 00:30Z: MERGED T717 4ddd7a5a3 (a235); main 20235b3e9. T732 b59b4a886 slot b r20261002-002608-d1d0. #722 awaits pin. Answered infra interview r7.
 - 00:32Z: #722 pin: export run r20261002-002942-a693 (3044a24e6, slot c, /tmp/launch-export.sh). Then --pin, commit on 3044a24e6, check.
+- 00:42Z: T728 ee6294533 queued slot a r20261002-004009-b533. #722 tip now 2fc8b8507 (pin goes there).

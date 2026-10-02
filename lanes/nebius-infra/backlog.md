@@ -8,6 +8,19 @@ cursor:
 The nebius-infra steward keeps this. Newest state first, and each item names its owner, what fills it, and its status. Fills route
 through the owning lane: the research coordinator (bc-8ece7cde) or the vLLM coordinator (bc-ecac3029).
 
+## State at 00:45Z Oct 2 (5:45 PM PDT Oct 1)
+
+- Since 10:16 PM PDT Sep 29, node 1 has been 4.4% GPU-busy (15.2 of 347.5 GPU-hours) and node 2 28.2% (95.9 of 339.8)
+  (`art:49d408d5a71fb8b6b22548c5a9f91f29962a641a94428d8fee46e41feb7c60b8`). The 5:25 PM PDT hourly collection failed on a
+  one-off ssh error (exit 255), and the rerun at 5:42 PM worked.
+- The limit is still 384Gi, the drift check shows live Kueue matching `infra/nebius`, the dispatcher's ticks succeed, and #732
+  is open, not yet merged.
+- `deployments-cpu` is full again at 849 of 864Gi, with 4 Builds and 2 replays pending, while node 1 has 1.18 TB of RAM free.
+  I'm not raising the limit further. The cohort has 1,365 of its 1,664Gi booked, so 128Gi more borrowing would leave room
+  for only about one more 170 GB Commit before Commits start evicting borrowing Builds, which restart from scratch. The
+  pacer allows 6 Commits in flight. The lasting fix is right-sizing requests: booked memory is about 2.5× what's in use
+  (539 GB). That's backlog item 2, memory per class, owned by epoch-run and resource-steward.
+
 ## State at 00:10Z Oct 2 (5:10 PM PDT Oct 1)
 
 - `deployments-cpu` still borrows up to 384Gi (no flip-flop).

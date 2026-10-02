@@ -325,6 +325,11 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   than 6 h and named by no Running or Pending pod (about 2.5M inodes). Nothing is deleted.
   `note:20261001T1015Z-ask-from-resource-steward-jobs-src-copies-unreaped` asks infra to approve adding them to the sweep
   and to point `prover-bench` and `prover-dev` at `job_tree.sh`.
+  - 01:46Z 2 Oct: 872 copies with 4.23M inodes (41% of node 1's used inodes), up 1.07M since 10:15Z, about 69k/h. By
+    prefix: `nd-proofs-bf16-hi` 193, `nd-proofs-flock-f` 126, `nd-backend-sweep` 107, `nd-assumption-swe` 101. The note
+    is still `open` with no reply. Node 1 sits near 10.1M between scratch bursts, and the bursts reach 2.3M (three
+    770k audits), so at 69k/h node 1 crosses 80% around 4 Oct 12:00Z, before the nodes stop. If infra is still silent
+    at the 2 Oct 15:00Z daily summary, the deletion goes to Daniel as a blocking `#ask-daniel` card.
 - Node 1 RAM (@circuits, asked 17:00Z): about 405 GB available. Circuits' three `boolean-replay` runs outside Kubernetes
   hold 800 GB of `/workspace/ramlock` reservations, while vllm-epoch-run replays are still queued in Kueue. The ask:
   start no new `boolean-replay` on node 1 until one finishes, and check that the queued replays fit. Thread
@@ -636,3 +641,8 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   (`27_slr0l`, 321k, written 00:09Z), `jobs/src` at 839 copies. Space 56% (2,770 GB). No action; the 00:30Z sweep is next.
 - 00:32Z (5:32 PM PDT) tick: exit 0. Scheduled sweep 00:32–00:40Z: 17 entries, 19.1 GB (§4); no Slack (under 50 GB).
   Node 2 `/workspace` is down to 38%. `jobs/src` on node 1 reached 850 copies, about 11 more an hour.
+- 00:53–01:15Z ticks: exit 0.
+- 01:34Z (6:34 PM PDT) tick (exit 1): node 1 HARD at 1.19M/h (80% in 5.1 h), measured over the 20 min from 01:15Z, so
+  mostly the live scratch tree `y16o44cs` (321k, written 01:34Z). 10.41M inodes (51%), 58 source trees, space 60%
+  (2,992 GB). `jobs/src` reached 872 copies and 4.23M inodes (§5, with the projection and the escalation date). Nothing
+  deletable; no action, no Slack.

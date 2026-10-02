@@ -407,3 +407,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 06:47Z: d07b, 01c2 queued in slot.py line behind lane checks e44d 788e c6c7; asked infra re slot d (not in slots file). #771 grant pending.
 - 06:58Z: PR #783 slot.py --priority (stacked on #773); asked infra review; next train.
 - 07:02Z: confirmed #771 quarantine-in-test deviation; #771@4663a5bb7 pending --fresh pass + vLLM grant. k_log27 conditions accepted (zk-k32k). word_bits PR building ahead of #749.
+- 07:08Z: T783 e12c7e8d6 (2e1512d52 + #783 + #781) r20261002-065550-0bb8, priority ticket live; cancelled d07b, 01c2. Root rule: if a lane check waits >1h behind trains, cap trains at 2 slots.

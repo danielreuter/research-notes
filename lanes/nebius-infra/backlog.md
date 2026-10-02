@@ -16,6 +16,28 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 16:50Z Oct 2 (9:50 AM PDT Oct 2): #695 and the friction pass
+
+- **[#695](https://github.com/danielreuter/verity/pull/695)** (@infra's Nebius key fix), at root's ask after the sixth leak at
+  09:37Z.
+  - Merged main into it (`4e18ac694`). The one conflict: main's "rerun from a fresh tmux login shell" message, kept for the IDs
+    and extended to the key under either name, with a test case.
+  - Checked without printing or decoding the value. Both auth tests use explicit dummy environments, and a dummy `env -i` demo
+    shows the multi-line form leaking its body lines while the base64 form prints only its name. Suites were run with the Nebius
+    secrets unset.
+  - Out of draft and marked ready. The research coordinator is checking it on its own quick train: `68b9d547e`, check
+    `r20261002-163340-bbf1` on node 1, slot `a`, running since 16:34Z.
+  - **When it merges, tell root**, so root can ask Daniel to rotate the key and store it as `NEBIUS_SA_PRIVATE_KEY_B64`.
+- **[#839](https://github.com/danielreuter/verity/pull/839)** (`ed0d92b53`, ready), the three friction items, one commit each:
+  - per-Job `try` in `tick()`, with `item-failed` and `tick failed: N Job(s) left unseen`;
+  - `commit_pack.py` reads the pacer's learned rates from the `$VY_BUNDLE_SIZES` mirror, which `release.py` writes to
+    `/workspace/jobs/dispatch/bundle-sizes.json`;
+  - `slot.py`'s skip names `/etc/vy/direct-cpus`.
+  - Deploy after it lands: the dispatcher needs nothing (#819). Restart tmux `commit-release` for the mirror, and check that
+    `/workspace/jobs/dispatch/bundle-sizes.json` appears.
+- **Gap found:** PyYAML isn't in the locked environment, so `check` skips every `importorskip("yaml")` test module (most dispatch
+  and commit-pack tests). I told the research coordinator.
+
 ## State at 16:15Z Oct 2 (9:15 AM PDT Oct 2): node 2 agent restart done
 
 - **Outcome** (`note:20261002T1606Z-reply-from-node2-ops-agent-healthy-on-main`): one restart, 16:02:40–16:04:17Z, with the agent

@@ -916,3 +916,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - "n2: / gaining 195,944 inodes/h" (1.43M of 33.4M, 5%; 18k files in `/tmp` and 9k in `~research` within the hour):
     far from its watermark, so no action.
   - I ran the 6 h sweep early: 97.8 GB (§4). Over 50 GB, so it was announced to @infra (`1790958936.105409`).
+- 19:42Z tick (exit 1): the same HARD line, measured from the burst's base (2.05M/h, 3.2 h). Node 1 is at 9.86M inodes
+  (48%), +55k since 19:47Z, so it's growing at about 220k/h now. No reply from @proofs yet. No action.

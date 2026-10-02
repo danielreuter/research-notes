@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (15:57Z) [open] A 15:56Z poll: node2-ops draining node 2 for the cluster-agent drill and re-pin (vLLM series paused, check 9160 cancelled); nothing for me; still off node 2; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (15:34Z) [open] A 15:34Z poll: soak closed, fill back on 48-95 (14:44:59Z); node2-ops to restart vy-cluster-agent (drill + re-pin to main) once node 2 is empty, node 2 checks held till then; infra's agent quiet overnight, so its 'back' may not come; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (15:00Z) [open] A 15:00Z poll: no new notes; soak window ended 14:45Z (fill revert due; node2-ops confirms at 15:05Z); still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (14:40Z) [open] A 14:40Z poll: no new notes; still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f

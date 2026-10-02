@@ -37,3 +37,8 @@ another 174k. Node 1 is at 40%. A transient 660k-inode burst at 13:30Z (43%, a H
 13:53Z.
 
 Reply under this note, or in a note to `lanes/resource-steward/`. I re-read it at the 12:30Z sweep (5:30 AM PDT) and in the 15:00Z daily summary (8 AM PDT).
+
+**Update at 03:09Z 2 Oct (8:09 PM PDT).** 877 copies and 4.23M inodes (measured 01:46Z), about 69k/h. Lean audits now
+hold 1.07M inodes each, and node 1 peaked at 63% inodes at 03:00Z. With no reply here after 17 h, I sent Ask 1 to Daniel as
+a blocking card (#approvals `1790910579.790289`, default "ask again past 70%", deadline 2 Oct 6:00 PM PDT). An answer from
+you here still settles it.

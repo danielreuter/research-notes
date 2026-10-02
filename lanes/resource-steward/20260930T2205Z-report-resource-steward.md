@@ -312,6 +312,16 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Kept: the same 26 node 2 trees as at 22:16Z. No `STUCK` lines.
   - After: node 1 has 49 trees, `/workspace` at 57% space and 48% inodes (9.86M), root 188 GB free, `jobs/src` at 850
     copies. Node 2 has 32 trees, at 38% space and 10% inodes, root 184 GB free.
+- 03:01–03:08Z (8:01–8:08 PM PDT), the 6 h sweep run from the 03:00Z tick (`sweep.sh --src-age-h 6`): 17 entries,
+  344,615 files, 17.9 GB.
+  - Node 1, 14 trees, 328,809 files, 17,585 MB, 6–8 h old: `213f4361`, `30344d13`, `32396cc4`, `e925be34` (6 h),
+    `6f371128`, `789f4257`, `bab22b23` (7 h), `8ce87f6f`, `cbda4b67`, `d23f7936` (8 h), each 30,631–30,746 files and
+    1,716–1,721 MB; `33f2b1d3`, `7f019198`, `d8e1a566` (8 h) and `85778c4d` (7 h), 5,417–5,466 files and 98–99 MB each.
+  - Node 2, 3 trees, 15,806 files, 287 MB: `3403247f` (6 h, 5,471 files, 100 MB), `6d76e5e8` (7 h, 5,438 files, 99 MB),
+    `b959acdf` (8 h, 4,897 files, 88 MB).
+  - Kept: the same 26 node 2 trees as at 22:16Z. No check scratch was old enough, and no `STUCK` lines.
+  - After (03:08Z): node 1 has 58 trees, `/workspace` at 60% space and 52% inodes (10.52M; both live audits had
+    finished), root 192 GB free.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -330,6 +340,11 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     is still `open` with no reply. Node 1 sits near 10.1M between scratch bursts, and the bursts reach 2.3M (three
     770k audits), so at 69k/h node 1 crosses 80% around 4 Oct 12:00Z, before the nodes stop. If infra is still silent
     at the 2 Oct 15:00Z daily summary, the deletion goes to Daniel as a blocking `#ask-daniel` card.
+  - 03:09Z 2 Oct: escalated early. Lean audits now hold 1.07M inodes each (770k before), up to four at once, which
+    moves the projected 80% crossing to about 3 Oct 03:00Z. Blocking card `396420c8-85ef-4b7d-b79c-74eba3446bfe`
+    (#approvals `1790910579.790289`, `sub_3254629b`): approve (add them to the sweep), wait (leave them for infra) or
+    later (ask again past 70% inodes); recommended approve, default later, deadline 2 Oct 6:00 PM PDT (3 Oct 01:00Z).
+    Nothing in `jobs/src` is touched until he answers.
 - Node 1 RAM (@circuits, asked 17:00Z): about 405 GB available. Circuits' three `boolean-replay` runs outside Kubernetes
   hold 800 GB of `/workspace/ramlock` reservations, while vllm-epoch-run replays are still queued in Kueue. The ask:
   start no new `boolean-replay` on node 1 until one finishes, and check that the queued replays fit. Thread
@@ -651,3 +666,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 02:00Z tick: exit 0 (192k/h known). 02:20Z (7:20 PM PDT) tick (exit 1): node 1 HARD at 751k/h (7.5 h). 10.84M inodes
   (53%): two live scratch trees (`44yxbhfn` 321k, `hk9lhiv8` 149k, both written 02:20Z), 63 source trees (12 over 6 h,
   left for the 06:30Z sweep), `jobs/src` flat at 872. Space 60%. Nothing deletable; no action.
+- 02:40Z tick: exit 0. 03:00Z (8:00 PM PDT) tick (exit 1): node 1 HARD at 2.91M inodes/h (80% in 1.3 h). Node 1 went
+  from 52.75% at 02:40Z to 12.79M (63%) at 03:00Z, then held flat. The cause was two live Lean audits, `pqalds2h` and
+  `rijsvyll`, at 1.07M inodes each (each audit used to hold 770k), plus 72 source trees and `jobs/src` at 875. Ran the
+  6 h sweep at once: 17 entries, 17.9 GB (§4). By 03:08Z both audits had finished and node 1 was at 10.52M (52%). The
+  larger audits move the `jobs/src` projection forward a day, so I sent it to Daniel as a blocking card (§5, 03:09Z).
+  No other Slack.

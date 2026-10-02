@@ -16,6 +16,20 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 16:15Z Oct 2 (9:15 AM PDT Oct 2): node 2 agent restart done
+
+- **Outcome** (`note:20261002T1606Z-reply-from-node2-ops-agent-healthy-on-main`): one restart, 16:02:40–16:04:17Z, with the agent
+  stopped for 96 s.
+  - The drill passed: a clean exit 0, `agent.lock` freed, and gpu-lease granted the drill job on GPU 7 with no `no-gpu` exit.
+  - Re-pinned from `91af9a6bf` to main's `1253f09ec`; the old unit is in `/workspace/research/deploy/attic/`.
+  - The ledger is one chain: seq 1935's `prev` is the old head, and `cluster ledger verify` reports 1,935 records intact.
+  - To drain node 2, node2-ops paused memory accounting's vLLM e2e series with its stop switch at 15:35:58Z and restored it at
+    16:05Z. It told memory accounting.
+  - Commit `cov-gm176` went back to node 1 by itself at 16:01:38Z. It had held GPU 6 at 0% for two 25-min leases, recomputing
+    its plan ("plan key differs"). That's circuits' `n2_commit.sh`, noted by node2-ops.
+- I told the research coordinator that node 2 checks can resume, and @infra in the disk thread. Nothing else is open from this yes.
+- **Still to verify:** the next node 1 prover gets `taskset` 160-191.
+
 ## State at 15:45Z Oct 2 (8:45 AM PDT Oct 2), steward pass
 
 - **Node 2 restart:**

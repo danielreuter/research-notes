@@ -447,3 +447,6 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 15:12Z: no new checks on node 2 after 9160 finishes until steward says vy-cluster-agent healthy (drill). Use node 1.
 - 15:35Z: research cancel 9160 (rc 143); told steward node 2 has no check (runner publishing custody). No node-2 launches until agent healthy.
 - 15:52Z: #806 cleared (case c, scoped wording, red-team carried). T806 f76d9e0cc node1 r20261002-154805-beed. Order 4a1d, beed.
+- 16:19Z: T793 4394c78cf (+#793 zk fix) node1 r20261002-161540-cf85. Order 4a1d, beed, cf85.
+- 16:20Z: node 2 cleared for checks again (agent healthy on 1253f09ec).
+- 16:24Z: MERGED T757 edb0883b8 (4a1d); main 56b7e4f7c. Next beed, cf85.

@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (04:36Z) [open] 0436Z this VM's GitHub token for danielreuter/verity is invalid (fetch and gh both fail auth since about 04:35Z), and the local origin/main ref is stale. I'll watch for the cap branch landing through the notes (the notes token still works). Otherwise quiet; nothing open for me.
 CHECKPOINT none (20:33Z) [open] 2033Z quiet since 19:16Z; what's left waits on Daniel (the cap branch's 11 pins, any statement review after his rulings). I keep polling every 10 min but checkpoint only on change from here.
 CHECKPOINT none (20:11Z) [open] 2011Z poll: quiet. The cap branch still waits on Daniel. No review is open.
 CHECKPOINT none (19:49Z) [open] 1949Z poll: quiet since 19:16Z. The cap branch still waits on Daniel. No review is open.

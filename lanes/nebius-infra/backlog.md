@@ -16,6 +16,20 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 17:37Z Oct 2 (10:37 AM PDT Oct 2), steward pass
+
+- **#695** is still open. The coordinator cancelled its quick train at 16:48Z as superseded (#806 had landed) and rebuilt it as
+  `bb4ed6605` (`cursor/train-prep-695-on-combined-f628`). That check is `r20261002-164824-6c2b` on node 1, slot `a`, still
+  running at 17:35Z. Tell root the moment #695 merges.
+- **#839** is open and ready.
+- **Confirmed:** the first prover after the 15:00Z revert (`nd-proofs-vllm-mo-f6e0641252`) runs on `taskset -c 160-191`.
+- **Circuits fixed the `cov-gm176` lease waste in #840:** `submit` checks the plan's code key, and a stale row stays on node 1 and
+  derives its plans before taking a GPU.
+- **Both nodes:**
+  - Node 1 has 0 Commits in flight, CPU at 12%, and disk at 54%; nothing is queued.
+  - Node 2 has 1 GPU busy, a PoUS soak rerun.
+- Latest hourly: `art:c6ce73624458625b57f414664eed6515254f826c022774d9a86c901b7a11df55`.
+
 ## State at 16:50Z Oct 2 (9:50 AM PDT Oct 2): #695 and the friction pass
 
 - **[#695](https://github.com/danielreuter/verity/pull/695)** (@infra's Nebius key fix), at root's ask after the sixth leak at

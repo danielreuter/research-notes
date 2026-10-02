@@ -70,6 +70,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 12:09Z hourly (11Z): GPU busy 11.3% (0.90 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7, plus bc-698052e1's Commits gm138-r2 (19.5 min, then its replay, 11 min on CPU) and gm343-to4. Leased-idle 0.82 GPU-h (bc-698052e1 0.66, bc-15ada664 0.16).
+    - **Why below 80%:** nothing else was queued, so 6.28 GPU-h sat free. Most of the leased-idle time was gm343-to4. Twice it held GPU 5 for 13.4 min at 8–10% busy and ended with SIGTERM (rc 143, which fill files as "preempted"). On the third start its `n2_commit.sh` sent it to node 1 ("stopped 2 times on node 2"), so the owner's script handled it. CPU 0–127 at 19.5%.
+    - **Disk** at 38%.
+    - **Backup:** `r20261002-120529-6ffb` packed on 48–79,94–95 at nice 19 (542 units, 20.4 GB, 40 large units left out); its custody upload is pending. The 11Z backup `r20261002-110528-f913` is preserved.
+    - **Checks:** daemons and `status.md` (12:04Z) are fine. The runner is still #778 with `FILL_VERITY_CPU_SET=48-79,94-95`. The 11:29Z alert is node 1's. #494 is still closed.
 - 2026-10-02 11:09Z hourly (10Z): GPU busy 10.6% (0.85 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7 alone. Leased-idle 0.15 GPU-h (bc-15ada664).
     - **Why below 80%:** nothing else was queued, so 7.0 GPU-h sat free. CPU 0–127 at 2.6%.
     - **Disk** at 38%.

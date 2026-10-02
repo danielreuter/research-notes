@@ -925,3 +925,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Four of the earlier `.lake` trees are gone (`74ab1ba4`, `f9f85f34`, `00649cea`, `6dd2ee91`). Ten trees hold
     `.lake/packages`, seven of them unheld.
   - No reply from @proofs. No action.
+- 21:10Z tick (exit 1): the HARD line (666k/h, 9.9 h), measured from the 20:26Z trough. Node 1 is at 9.87M inodes (48%),
+  flat since 19:42Z. No reply from @proofs. No action.

@@ -68,6 +68,12 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 17:08Z hourly (16Z): GPU busy 3.6% (0.29 of 8.00 GPU-h, all useful).
+    - **Why below 80%:** nothing else was queued, so 7.59 GPU-h sat free. Leased-idle was 0.11 GPU-h.
+    - **Memory accounting's series is stopped by them, not me.** Someone touched `vllm-e2e-series.STOP` at 16:09:48Z, 5 min after I removed it. The copy I queued ran clean (rc 0, 892/900, 16:22:59Z) and didn't renew.
+    - **GPU 7:** infra handed it to their pinned honest-latency rerun (`pous-soak-rerun-d3d8f4c3`, since 16:55Z). That rerun's fence is cores 116–123 until 21:00Z, and `fill/keep-free` is empty again.
+    - **Backup:** `r20261002-170639-49df`, on 48–79,94–95 at nice 19 while the fence holds. The 16Z backup `r20261002-161253-4f31` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (17:04Z). The agent is on `1253f09ec` (no restarts). The new infra notes are node 1's. #494 is still closed.
 - 2026-10-02 16:14Z hourly (15Z): GPU busy 6.8% (0.55 of 8.00 GPU-h, all useful).
     - **Why below 80%:** nothing else was queued, and I drained node 2 from 15:36Z for the agent restart. Free 6.56 GPU-h. Leased-idle 0.90 GPU-h, 0.81 of it Commit `gm176`'s two 0% leases.
     - **New from infra at 16:07:57Z:** `fill/keep-free` holds GPU 7 for memory accounting's honest-latency run until 19:20Z (Slack `1790957051.914609`). The fill loop was respawned with `FILL_VERITY_LEND=0 FILL_CPU_SET=96-115`, so other CPU fill is off 116–127.

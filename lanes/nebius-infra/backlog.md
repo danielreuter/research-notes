@@ -16,6 +16,20 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 09:45Z Oct 2 (2:45 AM PDT Oct 2), steward pass
+
+- **Correction to 09:12Z:** the two `gemma2-2b` b64 i1024 Commits (`cov-n051-2`, `cov-n050-2`) aren't waiting on the disk
+  cap. The pacer's `kept()` holds them: it never releases b64+, and the top-level ruled at 1:30 AM PDT that Gemma-2 at b16+
+  with i1024 stays held. #805 won't release them. I corrected it to @circuits in the disk thread.
+- **Node 1:** GPUs are 0–6% busy.
+  - 2 Commits in flight, 4 provers, and 14 Builds and replays on CPU. The dispatcher's ready queue is empty.
+  - GPU work is waiting on the CPU Builds upstream, not on a limit.
+  - Disk at 58%; the cap is 1,204 GB against a 525 GB projection.
+- **Node 2:** one PoUS soak on GPU 7, and the fill queue is empty.
+- **The steward loop paused, then resumed.** Its log stopped at 09:18Z, and its `sleep` reads as started at 09:38Z, which fits a VM
+  suspension of about 20 minutes. Nothing needed restarting; the next tick runs the hourly utilization put.
+- All 4 check slots are busy, with 7 checks in the line.
+
 ## State at 09:12Z Oct 2 (2:12 AM PDT Oct 2), steward pass
 
 - **The pacer's batch-8+ limit is 6** (was 4), which @circuits okayed at 2:04 AM PDT. It's live on node 1 since 09:08:41Z

@@ -16,6 +16,25 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 07:50Z Oct 2 (12:50 AM PDT Oct 2)
+
+- **The host cpuset was widened to 0–159** at 12:37 AM PDT, per root: `systemctl set-property user.slice AllowedCPUs=0-159`,
+  and the same for `system.slice`.
+  - Old value: `AllowedCPUs=0-127` on both, set at 11:39 PM PDT Sep 30. The old drop-ins are in `/var/backups/vy-allowedcpus/`.
+    Roll back with `set-property … AllowedCPUs=0-127`.
+  - No running pod was pinned onto 128–159 at the time. The running checks kept their pinning (8–31, 32–63, 64–95), and a
+    new ssh session gets 0–159.
+- **My mistake, fixed at 12:29 AM PDT:** the 05:35Z narrowing of provers never reached the dispatcher loop. Its pane shell
+  exported `VY_PROVER_CPUS=128-191` (and the other `dispatch.env` keys), which override `dispatch.env`. The loop was
+  restarted after `unset VY_PROVER_CPUS VY_DISPATCH_CPUS VY_DISPATCH_DEPTH VY_LEASE_HOSTDIRS PACK_COMMITS PACK_PODS`, and now
+  reads 160–191.
+- **Slot `d` test:** `r20261002-074151-42ac` checks main `b8c9dd478` through
+  `research run --tool check -- env CHECK_SLOTS=/workspace/research/locks-dtest/slots python3 tools/check/slot.py -- …`, with
+  its own lock dir. It has been pinned to 128–159 since 12:42 AM PDT.
+  - `/workspace/research/locks/slot_d_retest.sh` (pid 3917596) re-adds `d` to `locks/slots` and `check-slots` and kills the
+    `check-d.lock` holder (pid 3423154) only on `done`/`rc 0`. The marker is `slot-d-readded`, or `slot-d-test-failed`.
+  - Next pass: read the marker, post that `d` is back or stays out, and tell the research coordinator directly.
+
 ## State at 07:30Z Oct 2 (12:30 AM PDT Oct 2)
 
 - **Slot `d` is out again** since 12:22 AM PDT. A `research run` session on node 1 is held to cores 0–127 (`AllowedCPUs` on
@@ -381,7 +400,7 @@ NUMA nodes are 0–95 and 96–191. Hyperthread siblings are adjacent pairs, so 
 | 64–95 | merge-train check slot `check-b` | the same with `check-b.lock`, `64-95` |
 | 8–95, shared | **short lane checks** (a circuit-check rerun, one suite: minutes), which never wait on a train: `check-s1`, `check-s2` on the train slots' CPUs at `nice 10` (10:15Z) | `flock /workspace/research/locks/check-s1.lock nice -n 10 taskset -c 8-95 <cmd>` (or `check-s2`); `check_slot.sh --short <cmd>` once `infra/nebius` has `fb923c3a`; `/workspace/research/check-slots` = `32-63 64-95 8-31` |
 | 96–127 | **node 1's dispatcher's Kueue tasks** (Builds, replays, Commits) | `VY_DISPATCH_CPUS=96-127` in `/workspace/jobs/dispatch/dispatch.env` (#745) |
-| 128–159 | unassigned. Check slot `d` was tried and removed (2 Oct 07:22Z): host sessions are limited to 0–127 | `user.slice`/`system.slice` `AllowedCPUs=0-127`; widening is @infra's call |
+| 128–159 | check slot `d`, being tested (2 Oct 07:42Z); host sessions may use 0–159 since 07:37Z | `user.slice`/`system.slice` `AllowedCPUs=0-159` (was 0-127) |
 | 160–191 | **`provers` tasks** (proofs' prover-benches) | `VY_PROVER_CPUS=160-191` in `dispatch.env` (since 05:35Z Oct 2) |
 
 - The dispatcher pins its pods to 96–159. Kueue pods from other submitters aren't pinned and can burst onto any core. Pinned results outside the quiet hour carry `ov.noisy=true`.

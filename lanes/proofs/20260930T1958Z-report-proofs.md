@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (17:09Z) [open] 17:09Z: #806 and #793 on main (5a5ebbbae), --zk sound for the fixed verifier; Qwen3-30B-A3B --zk re-time on main running (vllm-overhead-moe); #828 text round + red team at 67cd3195d; partition-optimum Phase 1, row-seg stage 2, flock-public-ports running
 CHECKPOINT none (16:29Z) [open] 16:30Z wake: trains beed (#806) and cf85 (#793) checking on node 1; #828 merged main + 757 composition (67cd3195d), audit and statement review pending; partition-optimum Phase 1, row-seg stage 2 and flock-public-ports workers running; node 1 idle, disk 57%
 CHECKPOINT none (15:33Z) [open] 8:33 AM PDT: #806 final_c' scope (c) at c7d626d39, red team confirming; #793 merging onto the 757 train
 CHECKPOINT none (15:02Z) [open] 8:02 AM PDT: #757, #793, #806 on the queue; overhead method (every shape, FLOPs at peak, request mix) awaiting Daniel's mix pick

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:24Z) [open] 06:24Z: +3h check: compute, memory, circuits HIT; proofs, infra, ci pending; soak 492k answers 0 wrong; next check 10:20Z
 CHECKPOINT none (06:06Z) [open] 06:06Z: five trains queued incl. #774 (6c52); #770 ready, ci asked to batch it; PoUW anchors to public input region (flock-public-ports)
 CHECKPOINT none (05:49Z) [open] 05:49Z: main b8c9dd478; four trains queued (9cae, 51e4, f38a, 7b26); #774 awaiting infra inputs fix; PoUW Pc4 row unit proved under --zk (art:93c3f76c)
 CHECKPOINT none (05:32Z) [open] 05:32Z: node 1 GPUs idle, circuits feed Build-limited (13 Builds running); proofs fixed e2e workers' store path; trains checking

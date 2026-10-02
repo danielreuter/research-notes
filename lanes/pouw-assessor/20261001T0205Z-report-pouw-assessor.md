@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (17:20Z) [open] 10:20 AM PDT: no new asks. Ratings stand. Read cursor/fp8-v1-cap1000-verifier-cb26 (cd080d44d, unmerged): sm120 Pearl-C cap rho 1/1,000 from the device record; Pearl-C4 keeps CAP (1/400), no Lean or pin change, so no Pearl-C4 rating moves. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Main 5a5ebbbae; cap branch baf5a0f06 not on main.
 CHECKPOINT fbce5a2f4 (16:59Z) [open] 9:58 AM PDT: no new asks. Ratings stand. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Main 0177f6e56, no PoUW change; cap branch baf5a0f06 not on main. Watching row-leaf card (10 AM), 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (16:37Z) [open] 9:37 AM PDT: no new asks. Ratings stand. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Main 56b7e4f7c, no PoUW change; cap branch baf5a0f06 not on main. Watching 2f661c92 eps candidates, row-seg lane.
 CHECKPOINT fbce5a2f4 (16:16Z) [open] 9:16 AM PDT: no new asks. Ratings stand. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Main 1253f09ec, no PoUW change; cap branch baf5a0f06 not on main. Watching 2f661c92 eps candidates, row-seg lane.

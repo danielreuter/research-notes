@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (17:32Z) [open] A 17:32Z poll: redteam 1723Z: PR #838 (v1 cap 1/1,000) records GO, not merged, no panel change asked; still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (17:10Z) [open] A 17:10Z poll: node2-ops 1708Z: memory accounting's soak rerun holds GPU 7 and cores 116-123 to 21:00Z; nothing for me; still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (16:48Z) [open] A 16:48Z poll: nothing for me (infra interviews rounds 10-11 only); still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (16:26Z) [open] A 16:26Z poll: node2-ops 1606Z: node 2's cluster agent healthy on main 1253f09ec, drill passed, node 2 checks can resume; no 'back' from infra for me; still off node 2; totals.py read awaits compute accounting's yes; panel art:63261f6f

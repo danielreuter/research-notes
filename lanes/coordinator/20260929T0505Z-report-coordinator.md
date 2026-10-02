@@ -396,3 +396,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 05:39Z: T730 597e355d5 (ff108ac24 + #730@51b2f5586) via train.sh r20261002-053548-f38a. Order 9cae, 51e4, f38a.
 - 05:49Z: T701 2d037c573 via train.sh r20261002-054607-7b26. Order 9cae, 51e4, f38a, 7b26.
 - 05:52Z: design ruling: zero-salt public-input port OK only for verifier-recomputed public values (Pearl-C4 anchors); recorded in constant-api-public.md §4 q4.
+- 06:05Z: T774 60ba6c09e via train.sh r20261002-060233-6c52. Order 9cae, 51e4, f38a, 7b26, 6c52.

@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (10:05Z) [open] 3:05 AM PDT: no new asks. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Watching cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (09:44Z) [open] 2:43 AM PDT: no new asks. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Watching cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (09:21Z) [open] 2:21 AM PDT: no new asks. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Watching cap branch 49d46c651, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (09:00Z) [open] 2:00 AM PDT: no new asks. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Watching cap branch 49d46c651, 2f661c92 eps candidates.

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:45Z) [open] one-check train of 8 PRs pending #722 re-export; ci token recovered
 CHECKPOINT none (01:30Z) [open] #743/#745/#746 line checking; evening set due 8 PM
 CHECKPOINT none (01:22Z) [open] trains on node 1; ci GitHub token rejected, lander covering; PoUS band d=0 screens
 CHECKPOINT none (01:04Z) [open] #736 yes; guarantee term rollout with lean; P2 efficiency track sweep

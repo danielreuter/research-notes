@@ -8,6 +8,20 @@ cursor:
 The nebius-infra steward keeps this. Newest state first, and each item names its owner, what fills it, and its status. Fills route
 through the owning lane: the research coordinator (bc-8ece7cde) or the vLLM coordinator (bc-ecac3029).
 
+## State at 01:20Z Oct 2 (6:20 PM PDT Oct 1)
+
+- The circuits lease pool was blocked twice, at 5:49 and 5:58 PM PDT. Both strays were circuits' hiding-commitments retries
+  (cov-hide-gm392-b and -b2) on a tree without `gpu_lease.py`, submitted through lease-pilot scripts that circuits has since
+  guarded. The relay's new check posted both to @infra within a minute. Circuits cleared the pool at 5:58 and 6:09 PM.
+- **Circuits' Commits leasing from proofs' pool, found and fixed.** Five rows whose Build was moved to node 2 (cov-gm290,
+  gm291, gm295, gm302 and f6f9d7d87d's) had their Commits submitted by `n2_build.sh`'s hand-back. It runs `dispatch.py submit
+  --task 1` over ssh without `VY_LEASE_HOSTDIRS`, so the Commits fell back to `/run/gpu-lease`. The fix is
+  [#746](https://github.com/danielreuter/verity/pull/746), still a draft: `dispatch.py` defaults the variable to
+  `deployments-gpu=/run/gpu-lease-circuits` for every caller. I patched the same default into node 1's deployed copy at
+  6:14 PM PDT (backup `dispatch.py.bak-20261002T0120Z`). The loop wasn't restarted, since it already has the variable. The
+  relay's redeploy ask for #732 now tells circuits to keep this default.
+- Those moved Builds' node-1 Jobs are deleted when they move, so their hand-back can't cause the AlreadyExists stall.
+
 ## State at 00:45Z Oct 2 (5:45 PM PDT Oct 1)
 
 - Since 10:16 PM PDT Sep 29, node 1 has been 4.4% GPU-busy (15.2 of 347.5 GPU-hours) and node 2 28.2% (95.9 of 339.8)

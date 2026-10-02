@@ -648,3 +648,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   deletable; no action, no Slack.
 - 01:47Z (6:47 PM PDT) tick (exit 1): node 1 at 192k inodes/h, over the 100k/h line but no longer HARD. It is the
   01:34Z growth (scratch, source trees between sweeps, `jobs/src`). Nothing deletable; no action.
+- 02:00Z tick: exit 0 (192k/h known). 02:20Z (7:20 PM PDT) tick (exit 1): node 1 HARD at 751k/h (7.5 h). 10.84M inodes
+  (53%): two live scratch trees (`44yxbhfn` 321k, `hk9lhiv8` 149k, both written 02:20Z), 63 source trees (none 6 h old
+  yet), `jobs/src` flat at 872. Space 60%. Nothing deletable; no action.

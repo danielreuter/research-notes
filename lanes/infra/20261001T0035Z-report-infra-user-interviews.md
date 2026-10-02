@@ -209,3 +209,9 @@ pod's own custody key.
 - 09:22Z delivered (round 8): `research inspect|status|fetch RUN` for a run another VM launched, #808 (queued ready; told
   compute-accounting and proofs in the round's thread). Also #795 (`msg read --as NAME --since TS`), #798 (slot wait line names
   holders and waiters ahead).
+
+## Round 9: network-accounting, console (2:26 AM PDT)
+- Asked 09:26Z, 2 Oct, in one announcement (ts 1790933203.799969). The 08:14Z timer reached infra at 09:25Z. Next in rotation
+  after compute-accounting: memory-accounting skipped (its node 2 soak window runs to 14:45Z), so network-accounting and console.
+  The ask lists what shipped since their round 6: the control-pod contract (#735), the preflight probe (#742), and #808, #795,
+  #798, #805 (queued ready).

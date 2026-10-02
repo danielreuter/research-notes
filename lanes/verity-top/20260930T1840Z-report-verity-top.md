@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:04Z) [open] #736 yes; guarantee term rollout with lean; P2 efficiency track sweep
 CHECKPOINT none (00:48Z) [open] #717 landed; #736 review-gate card with Daniel; trains waiting on node 1 slots
 CHECKPOINT none (00:31Z) [open] Nebius quota and P2 park card with Daniel; #717 and #732 checking
 CHECKPOINT none (00:14Z) [open] hidden PoUW tile check in #731; P2 k=100 and audit-size cards with Daniel

@@ -15,3 +15,5 @@ What it cost: the ready pass runs after the Job loop, so no node-1 `ready/` item
 What I did instead: I moved my one ready item (fp-rv2-stage-12cells-c7b5357) out of `ready/` and submitted it with `dispatch.submit` at 23:56Z, the way bf16-hill's items have gone in since 22:58Z. I changed no Job and no dispatcher file.
 
 The fix belongs to infra. A chain's next task that already exists should count as submitted, so one Job can't stop every tick. To clear it now, label the build-0 Job seen, since its gpu-0 has already run.
+
+Update, 00:36Z: the last failed tick was at 00:04:50Z, and ticks have succeeded since 00:05:55Z. `dispatch.py` (last changed 20:09Z) and the loop process (started 20:10Z) are unchanged, so the Job state was changed by hand and the bug itself is still there.

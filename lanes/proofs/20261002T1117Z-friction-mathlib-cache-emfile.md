@@ -3,7 +3,7 @@ id: proofs/20261002T1117Z-friction-mathlib-cache-emfile
 campaign: proofs
 lane: proofs
 kind: friction
-status: open
+status: resolved
 repo: danielreuter/verity
 origin: zk-lean-gk (worker of @proofs), PR #792 main merge
 ---
@@ -26,3 +26,6 @@ not exercised.
 Fix at the source (the Lean infrastructure lane owns `tools/lean`, ruling 2026-09-30): raise the soft limit to the hard
 limit in `setup.sh` (or in `audit.py` before it runs setup), so that check's own restores from the store can't hit this
 either.
+
+Resolved (4:30 AM PDT): @lean's [#818](https://github.com/danielreuter/verity/pull/818) raises the soft open-file limit to the
+hard one in `setup.sh` before `cache get`; queued ready at `d44826b3c`.

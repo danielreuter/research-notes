@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:50Z) [open] 15:49Z: ci line daa389882 (24 PRs) awaits lander; #793 prepped; SiluMul_v2 check rows passing
 CHECKPOINT none (15:31Z) [open] 15:31Z: #806 scoped to non-ZK (docs-only fix), red team checking; overhead reporting prefs saved; soak plots live
 CHECKPOINT none (15:13Z) [open] 15:13Z: soak plots live; #806 pulled from train pending final_c' scoping; six SiluMul_v2 check rows leased
 CHECKPOINT none (14:55Z) [open] 14:55Z: soak done clean (10.16M, 0 wrong), plot file rebuilding; overheads chart live; row-seg lane started on approved 637f70c6

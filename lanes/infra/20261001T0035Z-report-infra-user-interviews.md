@@ -153,3 +153,18 @@ Daniel's. Fix next: a VM bootstrap that clones notes and pushes with the token.
 | Deactivating workloads for Kueue quota | No longer needed: holders request only their GPU since 23:09Z (#724) |
 | Commit phases by hand | Later: a per-phase split in held-idle-hourly once circuits names where the phase timestamps are |
 | Dispatcher failing 2:42–5:05 PM | Context: #732 is on ci's next train |
+
+**Delivered, 00:40Z:** the alert relay is live (PR #738, tmux `n1-alerts` on infra's VM). Posts go in #agent-coordination,
+not #agent-alerts, because only there do they ring the owner's doorbell (told circuits and proofs, 1790901690.784619).
+
+**old-circuits-and-proofs (00:26Z):** Cost: train checks that failed on cheap repository tests (wall-clock, markdown size
+caps) after 30-50 min of slot time, three trains today. Worked around: running those two test files before launch;
+cancelling queued checks by killing runner pids over ssh; reading slot ownership with fuser on the lock files. Fix next:
+`research run cancel <id>` that also cleans check's Lean scratch (with #708), plus a `research slots` view.
+
+**Triage for old-circuits-and-proofs, posted 00:45Z (1790901907.617489):**
+| Item | Call |
+|---|---|
+| Cheap repository tests failing late | Yes, infra, done: PR #739 runs all of `tests/test_repository.py` (~2 s) in check's preflight |
+| Slot holders view | Yes, infra, by 06:00Z: read-only `tools/check/slot.py --status` (holder pid, command, start, blocking windows) |
+| `research run cancel` with Lean scratch cleanup | Later, infra: scoped once #708 lands, after tonight's goals |

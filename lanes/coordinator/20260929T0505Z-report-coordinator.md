@@ -410,3 +410,6 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 07:08Z: T783 e12c7e8d6 (2e1512d52 + #783 + #781) r20261002-065550-0bb8, priority ticket live; cancelled d07b, 01c2. Root rule: if a lane check waits >1h behind trains, cap trains at 2 slots.
 - 07:14Z: T771 75458a38f r20261002-071030-2ac5 (priority). #776 needs PROTOCOL.md trim (131,968 > cap); asked proofs.
 - 07:22Z: new cancel method (TERM workload pgid only): /tmp/cancel.sh (+store tools/cancel.sh; k12.sh removed). Slot d broken: runner affinity 0-127 vs d 128-159 -> sched_setaffinity EINVAL (2ac5 died). Told infra. Cancelled 0bb8 (#730 KeyError with #761).
+- 07:27Z: T-no730 316ec452e r20261002-071648-c37e (20 PRs). #730 fix + #776 trim on top later.
+- 07:33Z: c37e, 5fc6 DIED on slot d (affinity EINVAL). Urgent ask infra to remove d. Holding relaunch.
+- 07:36Z: root: relaunch 6b3d704c8 as soon as steward confirms slot d is out.

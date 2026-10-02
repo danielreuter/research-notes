@@ -2,9 +2,10 @@
 lane: pouw-fp8-security
 kind: report
 created: 2026-10-01T02:08Z
-status: open
+status: blocked
 ---
 
+CHECKPOINT 8d9ee3a4c (23:16Z) [blocked] 4:16 PM: #854 fix committed locally at 8d9ee3a4c (bench 507 pass, --quick 22/22); git push failed on credentials (Invalid username or token); stopped per order, compute accounting told
 CHECKPOINT 8d9ee3a4c (22:52Z) [open] 3:52 PM: #854 branch: merged fp8-credit-rev1 (03a362995), served_debit's share_rev1 second subtraction dropped (8d9ee3a4c, tile_numbers + tests); replay re-judged: decode 511/511, prefill 512/512, no change (art:a081b5a7); suites running, not pushed yet
 CHECKPOINT 8533e73d8 (22:43Z) [open] 3:43 PM: fp8-credit-rev1 done at 8533e73d8: --quick 22/22 pass, verity-pouw 348, bench 504; report sent to compute accounting. Inbox's 3 Oct 1 handoffs are stale (fresh clone), all acted on in earlier sessions
 CHECKPOINT 8533e73d8 (22:26Z) [open] 3:26 PM: cursor/fp8-credit-rev1-cb26 at 8533e73d8 (stacked on aff57f53a): credit_of/wref/tile debit are rev1's; 20 pinned twins + 4 H100 rev1 pins equal the Lean's exactly; served replay re-judged at rev1, no verdict change (art:83145ce8); verity-pouw and verity-pouw-benchmarks pass; --quick running

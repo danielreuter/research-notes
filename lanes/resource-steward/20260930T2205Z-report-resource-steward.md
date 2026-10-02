@@ -466,6 +466,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   hold 800 GB of `/workspace/ramlock` reservations, while vllm-epoch-run replays are still queued in Kueue. The ask:
   start no new `boolean-replay` on node 1 until one finishes, and check that the queued replays fit. Thread
   `1790873900.706599` (`sub_0bac0d2b`).
+  - **Resolved by events, with no reply:** node 1 had 84% of RAM available at 15:00Z 2 Oct.
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
   deployed it on both nodes; wrote this policy; sent handoffs to node2-ops and nebius-infra. Armed the timer
@@ -855,3 +856,12 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Two Lean scratch trees are live (`_muahpo_` and `tfxi9_53`, 320k files each, held as cwd). `l00nalfw` (264k) has no
     holder, but files in it changed within 2 h, so it isn't deletable yet; the 18:30Z sweep will take it if it stays idle.
   - Both guard notes are set to done. No Slack.
+- 13:51Z, 14:05Z, 14:28Z and 14:51Z ticks: exit 0.
+- 15:00Z (8 AM PDT) daily summary, posted in #agent-coordination (`1790953318.199389`):
+  - Node 1: 51% space, 37% inodes, root 192 GB free, RAM 84% available. Node 2: 38% space, 11% inodes, root 180 GB free,
+    RAM 98% available.
+  - Deleted in 24 h: 365 GB in 11 sweeps.
+  - Waiting: node2-ops on node 2's 13 custody-less runs, @infra on node 1's cancelled check runs, and PR #708 (still a
+    draft). PR #759 has merged.
+  - Trends: node 1 space peaked at 80.5% from the b32 bundles; inodes peaked at 62% at 03:00Z and now swing with Lean
+    scratch; node 1 RAM bottomed at 12% at 17:25Z yesterday.

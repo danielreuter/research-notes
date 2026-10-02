@@ -829,3 +829,19 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 12:28Z tick: exit 0. 12:30Z scheduled sweep (exit 1): 108 entries, 12.6 GB, mostly `jobs/src` (§4). The 22 node 1
   source trees over 6 h were all held by one misfired `slot.py --status` waiting in the check line, which frees them when
   it fails at its slot. No Slack.
+- 12:50Z (5:50 AM PDT) tick (exit 1): **node 1 `/workspace` at 80.5%**, up from 57% at 12:06Z, plus vy-disk-guard's note
+  `note:20261002T1231Z-alert-node1-disk-guard-hold`, which says provers and backfill are held until usage is under 75%.
+  - The writer is six b32 vLLM Commits in campaign `overnight-sep30`. Their sealed replay bundles hold 1.35 TB, 166–285 GB each:
+    `jobs/cov/cov-gm34{0,1,2}-to4` (qwen25-3b) and `cov-gm34{6,7,8}-to4` (yi15-6b). `jobs/cov` is 1.8 TB in all and
+    `jobs/runs` is 548 GB.
+  - Infra's pacer `release.py` projected 889 GB with five of them in flight (11:59Z) and they landed at 1,437 GB. It has
+    since learned both models' GB per batch×token (`~/commit-release/bundle-sizes.json`).
+  - At 78% it wrote its `cap-150` latch (12:28Z), and it pauses at 80%. Waiting until the latch file is removed:
+    `cov-gm343-to4` (llama32-3b b32, estimated about 245 GB), `cov-n050-2` and `cov-n051-2` (gemma2-2b b64).
+  - Five CPU replays are running (`vllm.replay`, 60–70 GB RSS each, 1.25 TB RAM available), and gm340's replay is queued
+    in `deployments-cpu`. Each replay deletes its bundle once the slim keep checks out. Last cycle, 502 GB cleared from
+    10:00 to 10:40Z.
+  - Nothing is deletable under §1. Bundles are @circuits'. The regenerable caches on `/workspace` total about 49 GB, under
+    1 point, so they cannot reach 75%.
+  - Told @infra once (`1790946352.748309`): the cause, the latch, and that a failed replay keeps its bundle. Watch that the
+    bundles go.

@@ -428,3 +428,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 10:47Z: T812 b2c6023dc (+#811 +#812) r20261002-104324-1456 (cancelled d1d5). Order 70bf, 1456.
 - 10:52Z: INCIDENT: 5f08b1ab2 (9699b2f28 + #812, clean, unchecked) reached main by my push: a failed worktree add let `git merge` run in /workspace. research merge then refused 1d6eff60f. b2c6023dc (1456) is tree-identical with new main and contains it. Asked root: keep and verify with 1456, or revert.
 - 10:58Z: root: keep 5f08b1ab2; if 1456 fails on #812 files, revert to 9699b2f28 tree and re-land; lift warning on pass. Consider pre-push guard PR.
+- 11:10Z: PR #816 pre-push guard (research merge --guard-push), asked infra review.

@@ -68,6 +68,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 05:09Z hourly (04Z): GPU busy 20.8% (1.66 of 8.00 GPU-h, all useful): memory accounting's PoUS jobs and two of bc-698052e1's Commits (gm319, gm328). Leased-idle 0.75 GPU-h (bc-698052e1 0.41, bc-15ada664 0.34).
+    - **Why below 80%:** no other GPU work was queued, so 5.59 GPU-h sat free. CPU 0–127 at 6.4%: 1 kueue-fold Build and proofs' `zkk32k-stage-e4m3`.
+    - **Disk** at 37%.
+    - **Backup:** `r20261002-050536-e6ec` packed (541 units, 20.3 GB, 40 large units left out); its custody upload is pending. The 04Z backup `r20261002-040544-d66f` is preserved.
+    - **Checks:** daemons and `status.md` (05:04Z) are fine. The new nebius-infra backlog entries (the pacer's `deployments-gpu` hold, #767) and the 04:14Z GPU-idle alert are about node 1. #494 is still closed.
 - 2026-10-02 04:08Z hourly (03Z): GPU busy 15.9% (1.27 of 8.00 GPU-h, all useful): memory accounting's PoUS jobs (vLLM e2e series, lf-d0-384k and lf-d0-64k), leased-idle 0.27 GPU-h (bc-15ada664).
     - **Why below 80%:** no other GPU work was queued, so 6.46 GPU-h sat free. CPU 0–127 at 7.9%: 3 kueue-fold Builds.
     - **Disk** at 36%.

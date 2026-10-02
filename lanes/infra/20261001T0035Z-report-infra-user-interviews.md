@@ -286,8 +286,21 @@ work, gaps between leases) next to each hourly held-idle reading.
 | gm-feed's guard as a policy setting | Noted: circuits' own; nothing for infra |
 | Per-phase held-idle breakdown | Yes, infra, by 17:00Z: phases from circuits' script into each `held-idle-hourly.jsonl` line (`verity_console.py`), quoted by the relay |
 
+**Delivered 16:27Z (1790958459.972789):** #833, live on node 1's console at 16:23Z. From 16Z, each node 1 circuits line carries
+`phases_gpu_h` (leases; build, warm-up, digests, work, other; `outside_leases`), following `hi-lease.py` but counting every
+`stage.commit` attempt. gm191 and gm192 matched `hi-lease.py` to the second. The panel has a column for it, and the relay's alert
+quotes it. Gaps between leases stay on the "lease pool, not leased" line; overlapping Commits are not in it. The first pass refused
+the panel (note over the site's 500 characters), fixed two minutes later. circuits' questions 1 and 2 (row stage, why a row isn't
+moving) are still open for `cluster status` or the console.
+
 ## Round 11: proofs, compute-accounting (9:11 AM PDT)
 - Asked 16:11Z, 2 Oct, in one announcement (ts 1790957471.665809). Next in rotation after circuits. memory-accounting is skipped a
   third time, because it is mid-run in an infra fence on node 2 (GPU 7 and CPUs 116-123, to 19:20Z). Its 16:04Z ask
   (1790957051.914609) stands in for its answers: the fence is yes, done at 16:08Z; the page-allocator sysctl is later, after the
   corrected run. The ask lists what shipped since round 8: #808, #798, #821 (merged), #795, #823, #825 (in the train), #826, #829 (ready).
+
+**compute-accounting (16:12Z, ts 1790957546.594879):** Cost: little since round 8; the custody false negative (#826) was the one
+infra item. Worked around: its VM's Shell sessions lost their injected secrets at 02:10Z, so every Slack, store and ssh call goes
+through a fresh `tmux ... bash -l` script writing to a file (it took that for the VM, not infra); the inbox footer's `research msg
+read` said "unknown command 'msg'" because its checkout was 759 commits behind main (its own; updated). Fix next: an unknown
+command should say how far the checkout is behind origin/main. Started: #834.

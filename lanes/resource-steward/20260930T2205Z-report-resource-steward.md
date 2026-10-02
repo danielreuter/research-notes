@@ -807,3 +807,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   was four Lean audits starting together on slots check-a to check-d, all written within the last 3 min, from a base of
   7.68M (37%) at 10:53Z. Node 1 is at 8.56M (42%). Four full audits (about 1.07M each) would reach about 12.9M (63%).
   Nothing is idle or deletable, so no action and no Slack.
+- 11:28Z and 11:44Z ticks: exit 0. 12:06Z (5:06 AM PDT) tick (exit 1): node 1 HARD at 761k inodes/h (80% in 10.3 h), at
+  8.61M (42%). There are four Lean scratch trees, all 13–27 min old. `l00nalfw` has no process in it and was last
+  written 14 min ago. Nothing is deletable yet, so no action and no Slack; the 12:30Z sweep is next.

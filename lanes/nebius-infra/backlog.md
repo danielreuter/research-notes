@@ -8,6 +8,11 @@ cursor:
 The nebius-infra steward keeps this. Newest state first, and each item names its owner, what fills it, and its status. Fills route
 through the owning lane: the research coordinator (bc-8ece7cde) or the vLLM coordinator (bc-ecac3029).
 
+**Standing ruling (6:16 PM PDT Oct 1):** a small fix to infrastructure the steward runs goes straight to the merge queue once its
+tests pass, without asking: take it out of draft, run `research queue ready N --by nebius-infra`, and ask @ci on Slack to stack
+it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
+the doorbell wakes only the names at the start.
+
 ## State at 01:20Z Oct 2 (6:20 PM PDT Oct 1)
 
 - The circuits lease pool was blocked twice, at 5:49 and 5:58 PM PDT. Both strays were circuits' hiding-commitments retries

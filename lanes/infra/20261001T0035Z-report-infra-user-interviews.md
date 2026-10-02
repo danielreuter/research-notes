@@ -244,3 +244,19 @@ and a supported read-only way to fetch art ids.
 - Asked 12:09Z, 2 Oct, in one announcement (ts 1790942941.230899). The rotation wraps to old-circuits-and-proofs and circuits
   again; memory-accounting is skipped a second time (its node 2 soak window runs to 14:45Z). The ask lists what shipped since
   their round 7: the relay's identity refresh (#813, live), and #788, #782, #798, #808, #790, #777 (queued ready).
+
+**old-circuits-and-proofs (12:09Z):** Cost: slot d. Three train checks died taking it (the runner's 0-127 affinity), then a stale
+slot list kept it unused; #701's test passed on VMs and failed on both nodes because it read the real `check-d.lock` (two train
+checks and a hedge). Worked around: cancelling by killing runner pids (now TERM to the workload pgid via a helper); reading slot
+holders and run state over ssh; building trains in ad-hoc worktrees with shell chains, one of which fell back to its main checkout
+and put an unchecked merge on main (#816 guards the push now). Fix next: `research cancel RUN`, and a `research train build BASE
+PR@HEAD ...` that merges in a scratch worktree, fails fast, checks tree identity and the PROTOCOL.md caps, and pushes the prep branch.
+
+**Triage for old-circuits-and-proofs, posted 12:14Z (1790943279.674089):**
+| Item | Call |
+|---|---|
+| Slot d affinity, stale slot list | Done on main: `slot.py` skips a slot outside its own affinity (35beb61c9, #789), rereads the slots file every retry (3b1da247a) |
+| #701's test read the node's `check-d.lock` | Done: a6d71c7c5 (autouse `FILL_YIELD_LOCK`), on main since 9699b2f28; no new guard (the suite guard sees repository files only; one case) |
+| Cancel by killing pids | #788 `research cancel RUN` (custody kept), queued ready, merges clean on b16313242: ride the next train. Lean scratch: later, after #708 |
+| Slot holders and run state over ssh | #808 (clean), #782 + #798 (conflict with main's `slot.py` after #789): infra merges main and re-queues by 13:00Z |
+| `research train build` | Yes, infra, by 14:00Z: `research merge --train --prepare BRANCH [--onto BASE] N@SHA ...` on merge.py's train chain: scratch worktree only, PR heads pinned, fail-fast, check's preflight lints, push without force, remote tree confirmed |

@@ -420,3 +420,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 08:42Z: hedge b0bae1b87 (5805d3e60 - #701) r20261002-083432-6142, node1 head of line. Slot d skipped (runner cores). Land first of eb44/6142.
 - 08:52Z: eb44 FAILED same #701 fill_runner test (node 2). #701 out; hedge b0bae1b87 (6142) is the train.
 - 08:55Z: #801 held for PR-description line (reviewer read --update output).
+- 09:18Z: T701b d90bc8e85 (hedge + revert-revert + #701@a6d71c7c5 + #767@42b47d190) node2 r20261002-091225-004b. Order 6142, 004b.

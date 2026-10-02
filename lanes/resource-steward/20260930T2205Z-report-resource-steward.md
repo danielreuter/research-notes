@@ -412,6 +412,27 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     command and queued in the check line (4th of 6 at 12:35Z, asleep since 11:46Z). When it reaches a slot, its
     `execvpe` of a mode-644 `slot.py` fails, so it frees the slot at once and the trees go to the next sweep. Not killed
     and not chased. Node 2 kept 32 trees. No `STUCK` lines.
+- 16:31–16:39Z (9:31–9:39 AM PDT), the 6 h sweep run early from the 16:30Z tick's HARD line (`sweep.sh --src-age-h 6`,
+  `--jobs-src` on node 1): 93 entries, 1,815,336 files, 97.8 GB.
+  - Node 1, 55 source trees, 1,259,730 files, 69,781 MB, 6–12 h old (100–1,973 MB each). They include the 22 that pid
+    311605 held at 12:30Z; that process is gone.
+  - Node 1, Lean scratch `lean-audit-scratch-l00nalfw`: 264,113 files, 15,788 MB. Its last write was 11:46Z, it had no
+    holder, and the sweep logged its age as 4 h.
+  - Node 1 `jobs/src`, 20 per-pod copies, 106,816 files, 2,427 MB: 7 `nd-proofs-vllm-mo-*`, 6 `nd-proofs-bf16-hi-*`, 6
+    `nd-proofs-vllm-de-*` and 1 `nd-proofs-zk-k32k-*`.
+  - Node 1 `jobs/src`, 8 content copies, 48,740 files, 1,255 MB, 155–159 MB each: `26ee256636842ae0` (8 h),
+    `73eaa2fc015b7b97` (6 h), `97233be997eb99af` (6 h), `9ad3c39ef8f5356f` (8 h), `afe333b4be1da59f` (8 h),
+    `b8e90534be588837` (8 h), `c6145b6ca80831f2` (9 h) and `e9a9222ae542a489` (7 h).
+  - Node 1, check scratch under `/tmp/pytest-of-research`: `pytest-3525` (342 files, 4 MB), `-3528` (17,466 files,
+    2,921 MB), `-3555` (16,980 files, 295 MB), all 4 h old, and `-3714` (1,031 files, 6 MB, 2 h).
+  - Node 2, 5 source trees, 100,118 files, 5,267 MB: `1d6eff60` (6 h, 1,620 MB), `5805d3e6` (8 h, 1,733 MB), `91af9a6b`
+    (38 h, 84 MB), `9699b2f2` (6 h, 101 MB) and `d90bc8e8` (7 h, 1,729 MB).
+  - Kept on node 1:
+    - `pytest-3524`, open in pid 258335;
+    - `2e635be2`, with 1 file outside its commit (`lean-audit.json` modified);
+    - `62e3c42b`, with 419 files outside its commit (`flock/`).
+  - Node 2 kept 31 trees. No `STUCK` lines.
+  - After: node 1 `/workspace` is at 54% space and 40% inodes (8.14M; 8.95M before).
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -865,3 +886,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     draft). PR #759 has merged.
   - Trends: node 1 space peaked at 80.5% from the b32 bundles; inodes peaked at 62% at 03:00Z and now swing with Lean
     scratch; node 1 RAM bottomed at 12% at 17:25Z yesterday.
+- 15:13Z, 15:36Z, 15:43Z and 16:06Z ticks: exit 0. 16:30Z (9:30 AM PDT) tick (exit 1):
+  - "n1: HARD /workspace gaining 684,096 inodes/h: 80% of inodes in 11.0 h" (8.95M, 44%). The rate came from two live Lean
+    audits: `pjkrkl94` (796k files, 32 processes) and `2lxjwvns` (322k, 3 processes).
+  - "n2: / gaining 195,944 inodes/h" (1.43M of 33.4M, 5%; 18k files in `/tmp` and 9k in `~research` within the hour):
+    far from its watermark, so no action.
+  - I ran the 6 h sweep early: 97.8 GB (§4). Over 50 GB, so it was announced to @infra (`1790958936.105409`).

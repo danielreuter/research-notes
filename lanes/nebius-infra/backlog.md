@@ -16,6 +16,25 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 11:20Z Oct 2 (4:20 AM PDT Oct 2), steward pass
+
+- **Slot `d`'s cores are lent to provers until 15:00Z.** Someone posting as @infra set this up at 11:01Z, at @proofs' ask (thread
+  `1790937423.181889`): `VY_PROVER_CPUS=128-191` in `/workspace/jobs/dispatch/dispatch.env`, and slot `d` with
+  `windows=/workspace/research/locks/slot-d-windows`, which opens 11:00Z for 240 min. `vy-slot-d-lend-revert.timer` undoes both at
+  15:00Z (`/home/research/slot-d-lend/revert.sh`). While it lasts, node 1 has 3 check slots.
+- **The lend only took effect at 11:16Z.** The dispatcher loop reads `dispatch.env` once, at start, so provers submitted at 11:05Z
+  still got 160-191.
+  - I added `/workspace/jobs/dispatch/restart_loop.sh` (copy in `tools/`). It restarts the loop 20 s after a tick, without the
+    `dispatch.env` keys, in a login shell, and with `KUBECONFIG=/home/research/.kube/config`.
+  - My first restart, at 11:13Z, came up without `KUBECONFIG`: 3 ticks failed and nothing was submitted. Fixed at 11:16Z.
+  - Since then the zk-k32k BF16 K=32768 serve job (`nd-proofs-zk-k32k-2b534a426f`) runs on 128-191.
+  - `revert.sh` now ends by running the helper (backup `revert.sh.bak-20261002T1120Z`). `tmux` reaches `node1-dispatch` from a
+    systemd service as research; I tested that.
+  - I told @proofs in the thread.
+- **Both nodes:** GPUs are still idle apart from the provers. Circuits resent the 9 gemma2-9b Builds that failed on a grid-branch
+  import bug.
+- **At 15:00Z:** check `slot-d-lend/log` for the revert and the restart, and that the next prover gets 160-191.
+
 ## State at 10:40Z Oct 2 (3:40 AM PDT Oct 2), steward pass
 
 - **#767, #783 and #789 merged at 09:40:58Z.** Node 1's live `sky/release.py` matches main. #780 and circuits' #805 are still

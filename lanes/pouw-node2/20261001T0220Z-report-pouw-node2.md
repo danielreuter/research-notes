@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (21:27Z) [open] A 21:27Z poll: node2-ops 2108Z: infra's fill_runner 'fence' (one line per timed window) due by 23:00Z, noted for my next booking; cap-1/1,000 verifier still not on main; totals.py read awaits compute accounting; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (21:04Z) [open] A 21:04Z poll: no new notes; v1 γ at cap 1/1,000 (waiting on the verifier merge) and the totals.py read await compute accounting; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (20:54Z) [open] A 20:53Z poll: redteam 2041Z: #838 on main (27c5889ba), v1 at cap 1/1,000 citable (γ 0.36949% / 0.35973%); the cap-1/1,000 Python verifier isn't on main, so panel v1 γ stays 0.005191 until compute accounting says; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (20:35Z) [open] A 20:34Z poll: nothing for me (infra interviews round 12 only); v1 γ at cap 1/1,000 and the totals.py read await compute accounting; still off node 2; panel art:63261f6f

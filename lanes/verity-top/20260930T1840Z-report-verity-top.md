@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:50Z) [open] 23:50Z: main 6080aa798; #859 re-pinned ready; FP8 chain #853 #847 #865 #854 ready; #862/#867 re-audit running; qwen3 rows passing
 CHECKPOINT none (23:33Z) [open] 23:33Z: main 6080aa798 (#857 landed); lander has ci train f2051e37c and Lean-conflict check #868; #849 fix, #858/#860/#861 queued
 CHECKPOINT none (23:17Z) [open] 23:17Z: main 8d5ab5afa; ci train 9c42913b1; #866 zk view red-team granted; TP2 top-p=1 failure is B8 only; qwen3 rows in Build
 CHECKPOINT none (23:00Z) [open] 23:00Z: main 8d5ab5afa (#850, #856 landed); ci train 9c42913b1; #857 check on node 2; #849 ExecDelta fix in progress; FP8 #865 exact Python/Lean agreement

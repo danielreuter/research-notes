@@ -366,3 +366,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 02:12Z: HOLD TTOP merge: #722 12 new guarantees need top-level record of Daniel 5:00 PM approval (asked top); 18 TC = --moved; #744 reviewed by network accounting.
 - 02:14Z: root asked Daniel directly re #722 12 guarantees; no ask-daniel from me. Hold TTOP until root relays top-level record (or @top records first).
 - 02:16Z: top recorded Daniel approval of #722 12 guarantees (p1790906922954909). TTOP hold released; merge on d553 pass.
+- 02:18Z: MERGED T745 42d7c299f (1050); main 63ce2ea1d. Next: d553 (TTOP).

@@ -16,6 +16,18 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 08:58Z Oct 2 (1:58 AM PDT Oct 2), steward pass
+
+- **Node 1:** 4 Commits in flight, all batch 32, with GPUs filling as their pods start (4–32% at 08:52Z). 2 provers started
+  at 08:50Z. Disk at 56%, and the cap is 1,251 GB against a 747 GB projection.
+  - **What binds:** the pacer's batch-8+ limit of 4 (circuits, 6:09 PM PDT), not the disk. All 3 waiting Commits are batch 32–64.
+  - I asked @circuits whether to raise it to 6. It stays at 4 until they answer.
+- **Node 2:** one PoUS soak on GPU 7 (2 h so far). The fill queue is empty, so the other 7 GPUs have no work queued.
+- **Totals since Sep 30 05:16Z:**
+  - Node 1: 295 of 413 GPU-h idle.
+  - Node 2: 228 of 406 GPU-h idle.
+- Latest hourly: `art:9b793a6870582d0d667b00af5bed5b933468b52b353a8279fdac36d6db744d7e`.
+
 ## State at 08:50Z Oct 2 (1:50 AM PDT Oct 2)
 
 - **Slot `d` is live again**, so node 1 has 4 check slots. `r20261002-074151-42ac` passed on 128–159, and the watcher re-added

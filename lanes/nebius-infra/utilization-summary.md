@@ -241,5 +241,9 @@ The 21:00 rows cover 21:00–21:33Z. Source: `art:fd2ad8f125943e7f6d4c8e449cd044
   - `art:cec8591ae06e2bf396a9574143e6e7d872efd4a190d1dd8230409fa954e13ce2`
   - `art:463ce38085e75dffcf35b3b4efa473a69cd5c25cc5979df8f03259dc797bcf40`
   - `art:4d533cde834684fa505032853396bb9171b36cb3b9ebcaddb288a54f66e248f1`
+  - `art:9b793a6870582d0d667b00af5bed5b933468b52b353a8279fdac36d6db744d7e` (1:20 AM PDT Oct 2, the latest)
+- **Running totals, Sep 30 05:16Z to 08:55Z Oct 2** (`util_collect.py`, not stored):
+  - Node 1: 413 GPU-h observed, 118 held or busy, 17 busy, 295 idle.
+  - Node 2: 406 GPU-h observed, 178 held or busy, 104 busy, 228 idle.
 - **Working files in this folder:** `backlog.md` (the CPU map and fills), and `tools/` (`channel_sync.py`, `util_collect.py`,
   `drift_check.py`).

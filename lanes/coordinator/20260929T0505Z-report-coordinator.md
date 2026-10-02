@@ -371,3 +371,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 02:31Z: T723 206b4520a (#748 #727 #723, send) slot a r20261002-022906-b9dd. Order d553, 9ab6, b9dd.
 - 02:39Z: constant-api-public.md §4 q3: noted #751 plan (verity/operations v1, PrimitiveDefinition.tables, strict refuses). #749/#750/#751 to be called ready together, stacked on 206b4520a.
 - 02:47Z: slot policy (b): trains flock a/b only; launchv refuses c (SLOT_C_OK=1 override). d553 on c grandfathered. #755 #756 next train.
+- 02:50Z: T721 794de4ee9 (send) queued slot a r20261002-024708-71e2; lean approved #721 pins. Order d553, 9ab6, b9dd, 71e2. Add slot d (check-d.lock, 128-159) after 05:30Z.

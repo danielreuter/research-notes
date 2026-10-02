@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:40Z) [open] 18:40Z: node 1 idle since 17:30Z, top approved the 11 phi4 TP2 rows unleased; train f35952cce awaits slot
 CHECKPOINT none (18:24Z) [open] 18:24Z: #695 landed (main 41455f5d0), key rotation unblocked; train f35952cce (9 PRs) awaits slot; #845 fixes flaky research-suite read guard
 CHECKPOINT none (18:08Z) [open] 18:08Z: #840 and #844 live (node-2 stale plans stay on node 1; gemma2 B8 lease 570->155 s); train 83701a356 awaits slot
 CHECKPOINT none (17:51Z) [open] 17:51Z: ci's 24 landed (main d407f982e); next train 83701a356 (#695 #839 #838 #826 #833 #834 #837); soak rerun running; partitioning statements approved

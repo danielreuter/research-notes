@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:02Z) [open] 10:02Z nodes match main except open-PR files; #801 checking alone on node 2; +7h check at 10:20Z
 CHECKPOINT none (09:45Z) [open] 09:45Z two trains landed, main 9699b2f28; next train 3aec5d573 proposed; soak healthy
 CHECKPOINT none (09:27Z) [open] 09:27Z hedge train passed check, awaiting lander; infra fixes queued; soak healthy
 CHECKPOINT none (09:10Z) [open] 09:10Z Lean PRs #779/#803/#804 queued; node 1 load high (94-146), panels still publishing

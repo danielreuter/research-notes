@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (12:19Z) [open] 12:19Z main b16313242, 9 PRs landed incl #807 #747 #779; next 5d0f (#815, #816) then 665c
 CHECKPOINT none (12:02Z) [open] 12:02Z main still 5f08b1ab2 for ~75 min; 14 PRs in line behind 1456; watch after 12:10Z hold
 CHECKPOINT none (11:45Z) [open] 11:45Z train 9c1a (#814/#802/#792) checking; #757 needs second merge with #802 (Tags.lean); Qwen3 row zkaudit all pass
 CHECKPOINT none (11:28Z) [open] 11:28Z trains 1456/fc09/5d0f checking before 12:10Z hold; soak clean at 6.1M answers

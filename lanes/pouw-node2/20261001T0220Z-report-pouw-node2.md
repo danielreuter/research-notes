@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (20:54Z) [open] A 20:53Z poll: redteam 2041Z: #838 on main (27c5889ba), v1 at cap 1/1,000 citable (γ 0.36949% / 0.35973%); the cap-1/1,000 Python verifier isn't on main, so panel v1 γ stays 0.005191 until compute accounting says; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (20:35Z) [open] A 20:34Z poll: nothing for me (infra interviews round 12 only); v1 γ at cap 1/1,000 and the totals.py read await compute accounting; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (20:12Z) [open] A 20:12Z poll: node2-ops 2009Z: soak rerun done, fence released 20:00Z, fill back to LEND=0 only; v1 γ at cap 1/1,000 and the totals.py read await compute accounting; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (19:51Z) [open] A 19:50Z poll: no new notes; v1 γ at cap 1/1,000 and the totals.py read both await compute accounting; still off node 2; panel art:63261f6f

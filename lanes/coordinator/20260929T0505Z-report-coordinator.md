@@ -376,3 +376,6 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 03:27Z: b9dd PASSED (merge after d553, 9ab6). T758 9c447115b queued slot b r20261002-032418-5560.
 - 03:33Z: MERGED TTOP b1bf0915b (d553), TCOM 703806227 (9ab6), T723 206b4520a (b9dd); main b710820ac. #722 #740 #736 #744 #718 #720 #725 #748 #727 #723 merged. Next 98fd, 5560.
 - 03:43Z: cancelled 5560; T759 fbd4a7966 slot b r20261002-034035-fef2. Order 98fd, fef2.
+- 04:02Z: reviewed #751 APPROVE (notes: undeclared tables test; decoded-program guard / verifier-side digest matching or doc). #750+#751 to stack on 9c447115b (ci).
+- 04:08Z: decided #751 guard producer-side (doc §4 q3); asked proofs for registry tables test + PROTOCOL §5.3 sentence in #751. No Daniel escalation.
+- 04:03Z: MERGED T752 1992d95c5 (98fd); main 9139997ed. Next fef2. Slot a free.

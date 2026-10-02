@@ -142,3 +142,25 @@ Remarks, none needing a change:
 - Without `ldd` the job rebuilds every run, which fails safe.
 - A localized `ldd` message could miss the match, but the binary would then fail loudly when it runs.
 - glibc isn't in the build key, so jobs alternating between environments may rebuild back and forth. That costs time only.
+
+## Addendum 11:13 UTC: #814 grant carried to `cedf5ceaee7a560ddde24e62955d22c54ed13f99`
+
+The GRANT carries from `b6b4bf029` to `cedf5ceae`, the merge of main `5f08b1ab2`. The branch's delta over main touches the
+same 13 files, and 10 of them are line for line its delta over `b8c9dd478`. The other three:
+- `lean-audit.json`: proofs checked it.
+- `pod/74-gemm-hill.sh` and `pod/gemm_hill.py`: main's text, including the DTYPE rows, PREFLIGHT, `fill` and `CASE_MIB`,
+  with exactly #814's three changes added (32768 in the K list, `MAX_ANDS`, `INSTANCES[32768] = 256`).
+  - `INSTANCES` applies only to BF16 (`defs`), and `subcircuit()` builds its id from K, so K = 32768 needs no census row.
+
+The merge leaves `backends/flock/cuda/`, the patches and `live/src/gpu_circuit.rs` alone, so the CUDA audit stands. Main's
+`circuit.py` doesn't touch k_log next to `K_MAX`. Main's `circuit.rs` adds one k_log-dependent line,
+`MAX_COMPS = 1 << (IN_RANGE_K_LOG - 10)`: a bit row's compression cap, which becomes 2^17 at the merge.
+
+**F4 (non-blocking).** Lean's `HmRow.MAX_COMPS` is still `2 ^ 16`, and its docstring says "(2^26)". So at `cedf5ceae`,
+Rust's first check admits a port of 2^16–2^17 compressions that Lean's refuses.
+- No verdict changes. Rust refuses every such statement later: `per_vu[sha512x3]` must be ⌈Σcomps / 3⌉, the range must
+  hold `g × per_vu` slots, and those slots must fit the block.
+- The `sha512x3` slot is at least 2^13 bits (`unit_log` comes from the net's rows, and it has 3 × 1536 input bits). So a
+  2^27 block caps a port at 3 × 2^14 = 49,152 compressions, below both caps.
+- Fix: Lean `MAX_COMPS := 2 ^ 17` with "(2^27)" in its docstring. No `lean-audit.json` mentions `MAX_COMPS`, so no pin
+  moves. Pinning Rust's cap at `1 << 16` works too.

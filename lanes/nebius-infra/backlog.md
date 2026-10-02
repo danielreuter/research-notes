@@ -13,6 +13,21 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 06:15Z Oct 2 (11:15 PM PDT Oct 1)
+
+- Slot `d` is still waiting: the waiter reports 1 running pod pinned onto 128–159, probably the prover-d pod running since
+  9:13 PM PDT.
+- **The pacer's cap is shrinking** with everything on `/workspace` that isn't a bundle: about 3.03 TB at 11:07 PM PDT against
+  2.64 TB at 6:37 PM, roughly 87 GB/h. The cap went from 1,402 GB to 1,013 GB, and at this rate it reaches 0 in about 12 h,
+  after which Commits stop.
+  - The pacer holds `deployments-gpu` for `cov-gm437`, the next eligible Commit, whose estimate doesn't fit. All 8 GPUs on
+    node 1 are idle.
+  - A quick `du` timed out after `hf` (847 GB of models). A full `du -d 2` of jobs, research, verity-guest, cp and pouw is
+    running on node 1 into `/tmp/du-snap/`. Next pass: compare it with a second snapshot to find the growers, then route
+    the cleanup to their owner.
+- Since 10:16 PM PDT Sep 29, node 1 has been 4.3% GPU-busy (16.5 of 387.5 GPU-hours) and node 2 26.7% (101.5 of 379.9)
+  (`art:3136fbeb12c14b63a25dc36ff29c3b6170fcd9dba00ec8e48988ac235041e76f`, 10:41 PM PDT).
+
 ## State at 05:40Z Oct 2 (10:40 PM PDT Oct 1)
 
 - **Slot `d` is on its way.** `VY_PROVER_CPUS` is 160–191 in `dispatch.env` since 10:35 PM PDT; the backup is

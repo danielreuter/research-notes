@@ -399,3 +399,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 06:05Z: T774 60ba6c09e via train.sh r20261002-060233-6c52. Order 9cae, 51e4, f38a, 7b26, 6c52.
 - 06:15Z: 9cae + 51e4 FAILED: #771 test_declared_tables (9 undeclared, e.g. GeluErfBf16_v1; test slow). Cancelled f38a 7b26 6c52; removed 3 orphan scratch. Asked proofs to fix #771, ci to restack (or drop #771).
 - 06:18Z: yes to k_log 27 (conditions: independent reviewer for checkInRange_ok pin; independent CUDA index/memory audit; lean-agreement; report after both modes + zkaudit).
+- 06:22Z: restacked w/o #771: 391009b6a r20261002-061326-419d; fd33cbd66 (#773 infra5 #730 #701 #774 #770) r20261002-061440-26de. #771 later on fd33cbd66.
+- 06:24Z: #730 lands as is in 26de; word_bits PR must land before #749 / vLLM registration (hold #749 until then).

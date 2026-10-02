@@ -285,3 +285,9 @@ work, gaps between leases) next to each hourly held-idle reading.
 | `queue status` needs git credentials on agent VMs | Later: it clones and fetches PR heads; worker-VM credentials are with top-level. #823 names the no-store-remote case |
 | gm-feed's guard as a policy setting | Noted: circuits' own; nothing for infra |
 | Per-phase held-idle breakdown | Yes, infra, by 17:00Z: phases from circuits' script into each `held-idle-hourly.jsonl` line (`verity_console.py`), quoted by the relay |
+
+## Round 11: proofs, compute-accounting (9:11 AM PDT)
+- Asked 16:11Z, 2 Oct, in one announcement (ts 1790957471.665809). Next in rotation after circuits. memory-accounting is skipped a
+  third time, because it is mid-run in an infra fence on node 2 (GPU 7 and CPUs 116-123, to 19:20Z). Its 16:04Z ask
+  (1790957051.914609) stands in for its answers: the fence is yes, done at 16:08Z; the page-allocator sysctl is later, after the
+  corrected run. The ask lists what shipped since round 8: #808, #798, #821 (merged), #795, #823, #825 (in the train), #826, #829 (ready).

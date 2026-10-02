@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:42Z) [open] 16:42Z: trains a7ad (ci 24, node 2) and cc34 hedge (node 1) checking; #695 queued ahead of key rotation; TP2 test row approved on idle node 1
 CHECKPOINT none (16:25Z) [open] 16:25Z: #757 landed (main 56b7e4f7c); ci's 24 checking on node 2 plus combined hedge on node 1; partitioning Lean workstream starting
 CHECKPOINT none (16:08Z) [open] 16:08Z: FP8 cap card posted (default 1/1,000 at 3 PM PT); #806 in check behind #757; circuits held-idle fix in progress
 CHECKPOINT none (15:50Z) [open] 15:49Z: ci line daa389882 (24 PRs) awaits lander; #793 prepped; SiluMul_v2 check rows passing

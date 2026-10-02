@@ -48,3 +48,5 @@ docstring and the message, and nothing else. The proof is the same case split.
   the merged `lean-audit.json` is the per-key union, this review carries; if a record moves, it needs a re-read.
 
 Grant: `pr:814@b6b4bf0290a71c5a9d6397bbe35a60abb8c54f72 grant statement-reviewer` ([#814](https://github.com/danielreuter/verity/pull/814)).
+
+**Carried to `cedf5ceae` (4:10 AM PDT).** Main merge of `5f08b1ab2` (main `9699b2f28` + #812). Every `lean-audit.json` at the head equals the per-key union of `b6b4bf029` and `5f08b1ab2` over base `b8c9dd478` (checked key by key: verifier 2 + 42 changed keys, level3 0 + 12, soundness 0 + 376, no conflict), and the branch's `.lean` delta over main is line for line its delta over the base. Plain audits pass on the verifier (17 pins) and `soundness/` (244 pins); no record moved. Red team granted the CUDA audit at `b6b4bf029` (`note:proofs/20261002T1059Z-reply-from-red-team-proofs-554-pr814-pr815`). Label at `pr:814@cedf5ceaee7a560ddde24e62955d22c54ed13f99`.

@@ -13,6 +13,18 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 04:40Z Oct 2 (9:40 PM PDT Oct 1)
+
+- **My `deployments-gpu` hold deadlocked two Commits from 9:09 to 9:32 PM PDT.** n1_lease.py's GPU holders
+  (`gpu-pool-circuits-*`) queue in `deployments-gpu`, so the hold kept them out, and two admitted Commits waited for a lease
+  with all 8 GPUs empty. Their projection then kept the hold on.
+  - Fixed at 9:32 PM PDT: a pending pool holder opens the gate until it's admitted. Both Commits got their GPUs (0 and 7).
+  - #767's head is now `2f96d7c57`, marked ready, with a test. Node 1 runs it, and I told @ci, @circuits and @infra.
+  - The previous file is `sky/release.py.bak-20261002T0435Z-pre-holders`.
+- `/workspace` is at 60%, and the pacer's cap at 1,194 GB.
+- Since 10:16 PM PDT Sep 29, node 1 has been 4.3% GPU-busy (16.4 of 377.2 GPU-hours) and node 2 27.1% (100.1 of 369.7)
+  (`art:5b20bce7f316b8281eac3dff62fe79afa860ca89c78f4aaea7d1ff9e2aec4e9a`, 9:24 PM PDT).
+
 ## State at 04:10Z Oct 2 (9:10 PM PDT Oct 1)
 
 - **The pacer bypass is closed.** From 8:30 to 9:00 PM PDT `/workspace` went from 58% to 67%, about 860 GB/h. Kueue had

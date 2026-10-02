@@ -381,3 +381,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 04:03Z: MERGED T752 1992d95c5 (98fd); main 9139997ed. Next fef2. Slot a free.
 - 04:08Z: T761 1d7009e9e slot a (send) r20261002-040535-7c05. Order fef2, 7c05.
 - 04:34Z: MERGED T759 fbd4a7966 (fef2); main e0b0dbf66. Next 7c05. Slot b free.
+- 04:38Z: T750 0619e7b2a (1d7009e9e + #767 + #750, send) slot b r20261002-043450-b030. #751 out: needs vLLM grant (circuits) + followups PR/ready (proofs). Order 7c05, b030.
+- 04:42Z: #767 -> 2f96d7c57; T750b 009b32020 slot b r20261002-043811-6aa7 (cancelled b030). Watch for newer #767 head.

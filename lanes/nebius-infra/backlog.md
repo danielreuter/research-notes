@@ -16,6 +16,17 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 09:12Z Oct 2 (2:12 AM PDT Oct 2), steward pass
+
+- **The pacer's batch-8+ limit is 6** (was 4), which @circuits okayed at 2:04 AM PDT. It's live on node 1 since 09:08:41Z
+  (backup `sky/release.py.bak-20261002T0910Z-pre-big6`), and in #767 at `42b47d190`, re-marked ready. I told the research
+  coordinator directly, and @ci and @circuits in the disk thread.
+- **Commits:** 1 in flight. The two `gemma2-2b` b64 Commits now wait on the disk cap, about 37 GB short (687 + 585 GB against
+  1,235 GB).
+  - Circuits' #805 (queued) makes `evict --runs` see run outputs, about 453 GB on node 1, which raises the cap once it lands.
+- **Slot `d` works end to end:** `r20261002-070557-a8e6` passed on it (rc 0, 08:44–09:02Z), and `r20261002-071347-cf2b` took
+  it next. A check running #789's code hasn't taken `d` yet.
+
 ## State at 08:58Z Oct 2 (1:58 AM PDT Oct 2), steward pass
 
 - **Node 1:** 4 Commits in flight, all batch 32, with GPUs filling as their pods start (4–32% at 08:52Z). 2 provers started

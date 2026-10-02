@@ -52,7 +52,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - **Timers:** from 16:14Z `subscribe_timer` returns `invalid_argument` for every new timer. Only the recurring ticks remain (alerts at :02/:17/:32/:47, hourly at :05), plus the two final-backup one-shots on 7 Oct.
 - **Pearl-C4's verify re-run** (bc-e8ffd7f2): 48–91 now that window 4's verify is done, or 0–47 at nice 19 with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`). No request yet.
 - **Inbox on every alerts tick** (from 13:05Z): `~/node2-ops/inbox.sh` lists the notes added on origin since the acked commit that are in `lanes/node2-ops/` or name node2-ops, and `inbox.sh --ack` advances it. I missed pouw-node2's 12:41Z ask for 25 min because the alerts tick read only `alerts.jsonl`.
-- **Rollback drill + infra's re-pin of `vy-cluster-agent` to `ef6a3e748`, in one restart** (cluster-build, `note:20261001T1300Z-handoff-from-cluster-build-canary-verdict-pointer`; the canary verdict is in, inside the spread). Proposed for after 16:30Z, the end of the last window (`note:20261001T1315Z-handoff-from-node2-ops-fill-runner-keep-free-waiters-676`).
+- **Rollback drill + infra's re-pin of `vy-cluster-agent` to main, in one restart** (cluster-build, `note:20261001T1300Z-handoff-from-cluster-build-canary-verdict-pointer`; its watch ended at 15:00Z on 2 Oct). Proposed to infra on 2 Oct at 15:05Z (`note:20261002T1505Z-reply-from-node2-ops-drill-and-repin-one-restart`): `touch live/STOP`, check the fallback grants, then infra re-pins and restarts. Waiting for infra's time; don't stop the agent without it.
 
 - **Overnight allowed set adds `pn2h-*`** (owner proofs-n2-hill bc-f0eeea0e, proofs' yes; `note:20261001T0735Z-handoff-from-proofs-n2-hill-pn2h-yes`, `note:20261001T0802Z-ask-from-proofs-allow-pn2h-in-overnight-gate`), until 17:00Z: GPU points through `vy-provers` on 128–191, each names its question, none placed from 20 min before a window. Never sweep them.
 - **Overnight allowed set adds memory accounting's `pous-dsweep-*` and `pous-climb-*`** (bc-15ada664), until 17:00Z: top-level 07:41Z, infra says the d-sweep can go through the fill queue (`note:20261001T0752Z-handoff-from-infra-gpu7-and-quiet-cores-live`). GPU 7 is theirs directly (`fill/keep-free`).
@@ -70,6 +70,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 15:05Z alerts tick: cluster-build's watch of `vy-cluster-agent` has ended (`note:20261002T1500Z-handoff-from-cluster-build-agent-watch-ended`): `91af9a6bf`, 20 h clean, 73 grants today at 0 s lag. The open items are my rollback drill and infra's re-pin. I proposed doing them in one restart at infra's time (`note:20261002T1505Z-reply-from-node2-ops-drill-and-repin-one-restart`), without the obsolete fill_runner roll back and forward. I won't stop the agent before infra names a time.
 - 2026-10-02 14:09Z hourly (13Z): GPU busy 16.6% (1.33 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7, plus bc-698052e1's `-r2` Commits until about 13:30Z. Leased-idle 0.72 GPU-h (bc-698052e1 0.56, bc-15ada664 0.16).
     - **Why below 80%:** nothing else was queued, so 5.95 GPU-h sat free. CPU 0–127 at 7.9%.
     - **Disk** at 38%.

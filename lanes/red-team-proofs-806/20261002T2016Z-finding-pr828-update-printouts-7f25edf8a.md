@@ -63,8 +63,9 @@ changed soundness definitions, and run 1's 2 changed definitions.
 
   Each new field adds to what these structures conclude, and is proved from an executable refusal. No headline takes
   either structure as a hypothesis.
-- **`Flock.Draw.workTableOfJson` and `FlockSoundness.Refine.Frame`.** `git diff main 7f25edf8a` is empty for
-  `Flock/Draw.lean` and `Refine/Frames.lean`. I confirm the coordinator's reason: they print `changed` because the
+- **`Flock.Draw.workTableOfJson` and `FlockSoundness.Refine.Frame`.** `git diff a2d9b48ba 7f25edf8a` is empty for
+  `Flock/Draw.lean` and `Refine/Frames.lean`. `a2d9b48ba` is main, as run 2's `description.txt` names it, and the diff
+  against the merge base `56b7e4f7c` is empty too. I confirm the coordinator's reason: they print `changed` because the
   head-only pins read more of their generated constants.
 
 ## One non-blocking printer note

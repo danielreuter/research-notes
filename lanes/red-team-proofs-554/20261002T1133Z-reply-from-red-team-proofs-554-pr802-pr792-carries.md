@@ -62,7 +62,7 @@ This carries my `note:proofs/20261002T0745Z-reply-from-red-team-proofs-554-pr792
 
 **Outside the conflict, the merge is a clean union.** The branch touches 10 files. For 9 of them, the delta over main
 (`9699b2f28..afb6c4a35`) matches the delta over the base (`b8c9dd478..8f6d69538`) line for line. The 9 are
-`FlockSoundness.lean`, the `ZK/GK/` sources and `lean-audit.json`. The only file that differs is
+`FlockSoundness.lean`, `ZK/GK.lean` and the five `ZK/GK/` sources, the soundness `README.md` and `lean-audit.json`. The only file that differs is
 `soundness/ASSUMPTIONS.md`, the one conflict.
 
 **The conflict resolution says what I granted.**

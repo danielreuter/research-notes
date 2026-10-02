@@ -51,7 +51,21 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - **Timers:** from 16:14Z `subscribe_timer` returns `invalid_argument` for every new timer. Only the recurring ticks remain (alerts at :02/:17/:32/:47, hourly at :05), plus the two final-backup one-shots on 7 Oct.
 - **Pearl-C4's verify re-run** (bc-e8ffd7f2): 48–91 now that window 4's verify is done, or 0–47 at nice 19 with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`). No request yet.
 - **Inbox on every alerts tick** (from 13:05Z): `~/node2-ops/inbox.sh` lists the notes added on origin since the acked commit that are in `lanes/node2-ops/` or name node2-ops, and `inbox.sh --ack` advances it. I missed pouw-node2's 12:41Z ask for 25 min because the alerts tick read only `alerts.jsonl`.
-- **Rollback drill + infra's re-pin of `vy-cluster-agent` to main, in one restart** (cluster-build, `note:20261001T1300Z-handoff-from-cluster-build-canary-verdict-pointer`; its watch ended at 15:00Z on 2 Oct). Proposed to infra on 2 Oct at 15:05Z (`note:20261002T1505Z-reply-from-node2-ops-drill-and-repin-one-restart`): `touch live/STOP`, check the fallback grants, then infra re-pins and restarts. Waiting for infra's time; don't stop the agent without it.
+- **Rollback drill + re-pin of `vy-cluster-agent` to main, in one restart, both mine.** Infra's yes on 2 Oct at 15:15Z (the nebius-infra steward, `note:20261002T1515Z-reply-from-infra-drill-and-repin-one-restart-yes`). Anything else (a second restart, a fill_runner rollback, another pin) goes back to @infra.
+    - **Start only when all of these hold** (check every tick):
+        - check `r20261002-150400-9160` is done;
+        - `fill/running/` is empty;
+        - no process holds `/dev/nvidia[0-9]` (I read `/proc/*/fd` instead of calling `nvidia-smi`, by my no-NVML rule);
+        - `timed False`.
+      The research coordinator holds node 2 checks until I report (Slack `1790953858.466389`).
+    - **Prepared (15:19Z):** main's head `1253f09ecbcd060635fc67db234fb1741a53848b` is shipped to `/workspace/research/src/1253f09ec…/` with `READY.json` (`r20261002-151926-4d28`). Its unit differs from the live one only in the sha. `cluster validate` passes on it (2 nodes, 16 GPUs). `cluster ledger verify live/` reads 1926 records, chain intact. Node 2's section of `nebius.toml` is unchanged from `91af9a6bf`; only node 1's changed.
+    - **Runbook:**
+        1. Record the unit's MainPID and the `live/state.json` seq.
+        2. `touch /workspace/pouw/infra/cluster/live/STOP`. Check the unit goes inactive with exit 0 and no restart, and that `agent.lock` (`/run/gpu-lease/agent.lock`) is free.
+        3. Queue the drill job `fill/queue/node2ops-drill-gpu.sh`: `# fill: owner=node2-ops gpus=1 max_min=5 cpus=1 project=pous`, which runs `echo gpu=$CUDA_VISIBLE_DEVICES; sleep 20`. It must start, end `done` rc 0, and leave no `no-gpu` (75) in `events.jsonl`.
+        4. `sed s/@SOURCE@/<sha>/g $S/tools/cluster/vy-cluster-agent.service | sudo tee /etc/systemd/system/vy-cluster-agent.service`, `sudo systemctl daemon-reload`, `rm live/STOP && sudo systemctl start vy-cluster-agent`.
+        5. Check: active, a new segment under `live/` whose first record's `prev` is the old head, and `cluster ledger verify live/` intact.
+        6. Reply in `lanes/infra/` with what ran, the three drill results, the pin and the chain.
 
 - **Overnight allowed set adds `pn2h-*`** (owner proofs-n2-hill bc-f0eeea0e, proofs' yes; `note:20261001T0735Z-handoff-from-proofs-n2-hill-pn2h-yes`, `note:20261001T0802Z-ask-from-proofs-allow-pn2h-in-overnight-gate`), until 17:00Z: GPU points through `vy-provers` on 128–191, each names its question, none placed from 20 min before a window. Never sweep them.
 - **Overnight allowed set adds memory accounting's `pous-dsweep-*` and `pous-climb-*`** (bc-15ada664), until 17:00Z: top-level 07:41Z, infra says the d-sweep can go through the fill queue (`note:20261001T0752Z-handoff-from-infra-gpu7-and-quiet-cores-live`). GPU 7 is theirs directly (`fill/keep-free`).
@@ -69,6 +83,9 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 15:22Z alerts tick: infra said yes to the drill and re-pin in one restart, both done by me, once check `9160` is done and node 2 is empty (`note:20261002T1515Z-reply-from-infra-drill-and-repin-one-restart-yes`).
+    - At 15:18Z `9160` was running, fill had 2 jobs (the PoUS e2e series and Commit gm176), and one vLLM process held a GPU. So I only prepared: shipped main `1253f09ec`, diffed the unit, ran `validate` and `ledger verify`. The runbook is in Open items.
+    - The GitHub 401 from 15:05Z has cleared (`git fetch` and `gh` work again).
 - 2026-10-02 15:09Z hourly (14Z): GPU busy 10.3% (0.83 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7 until 14:45Z; their vLLM e2e series follows from 15:01Z. Leased-idle 0.17 GPU-h (bc-15ada664).
     - **Why below 80%:** nothing else was queued, so 7.0 GPU-h sat free. CPU 0–127 at 6.4%.
     - **Disk** at 39%.

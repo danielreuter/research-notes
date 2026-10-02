@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:15Z) [open] 04:15Z: main 9139997ed (#721, #752, infra five landed); fef2 and 7c05 checking; circuits held-idle 70% at 8 PM, Daniel asking circuits directly; lean PoUS move lane started
 CHECKPOINT none (04:00Z) [open] 04:00Z: evening final 10 hit/8 miss; overnight: compute +3h hit early, infra +1h hit; #750/#751 to queue, #749 held for #730; #761 check-skip fix ready
 CHECKPOINT none (03:45Z) [open] 03:45Z: main b710820ac (Lean, comms, #748/#727/#723 landed); 98fd and fef2 checking; #757 red-team granted w/ conditions; infra fixing check's silent Lean skips
 CHECKPOINT none (03:30Z) [open] 03:30Z: evening set closed 10 hit/6 miss (circuits pending), overnight set recorded; b9dd passed; ci VM lost store secrets, infra proxying writes

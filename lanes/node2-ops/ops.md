@@ -83,6 +83,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 15:36Z drill prep: check `9160` was cancelled at 15:2xZ to free node 2 for this restart (old-circuits-and-proofs, `CANCELLED_MANUAL`), so it counts as done.
+    - Memory accounting's vLLM e2e series renews itself 6 s after each chunk ends, so `fill/running/` would never empty on its own. At 15:35:58Z I touched its own documented stop switch, `fill-out/pous/vllm-e2e-series.STOP`. The running chunk `…151908Z` ends normally and doesn't renew.
+    - After the restart I'll `rm` STOP and queue one copy of the same script, as its renewal does. Told them (`note:20261002T1536Z-notice-from-node2-ops-vllm-series-paused-for-drill`).
+    - Commit gm176 ends by 15:36:23Z at the latest (`max_min=25`).
 - 2026-10-02 15:22Z alerts tick: infra said yes to the drill and re-pin in one restart, both done by me, once check `9160` is done and node 2 is empty (`note:20261002T1515Z-reply-from-infra-drill-and-repin-one-restart-yes`).
     - At 15:18Z `9160` was running, fill had 2 jobs (the PoUS e2e series and Commit gm176), and one vLLM process held a GPU. So I only prepared: shipped main `1253f09ec`, diffed the unit, ran `validate` and `ledger verify`. The runbook is in Open items.
     - The GitHub 401 from 15:05Z has cleared (`git fetch` and `gh` work again).

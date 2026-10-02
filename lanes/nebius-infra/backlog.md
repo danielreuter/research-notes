@@ -13,6 +13,13 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 03:35Z Oct 2 (8:35 PM PDT Oct 1)
+
+- **@infra confirmed the slot plan** at 8:19 PM PDT, choosing option (b) of proofs' two. At 10:30 PM PDT `VY_PROVER_CPUS`
+  narrows to 160–191 and slot `d 128-159` follows, as planned. Until 7 AM PDT, proofs may run up to 4 untimed GPU fill jobs
+  on node 2. Node 2 already shows 5 GPUs in use.
+- Node 1: `/workspace` at 58%, the pacer's cap at 1,265 GB with 3 Commits in flight, and the dispatcher ticking.
+
 ## State at 03:05Z Oct 2 (8:05 PM PDT Oct 1)
 
 - Since 10:16 PM PDT Sep 29, node 1 has been 4.4% GPU-busy (16.0 of 364.1 GPU-hours) and node 2 27.4% (97.9 of 356.6)

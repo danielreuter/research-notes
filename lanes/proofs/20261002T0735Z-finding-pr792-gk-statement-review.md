@@ -37,3 +37,5 @@ Open (not blockers for these statements, but blockers for an end-to-end `--zk` t
    V* chooses those coins. So either the prover refuses degenerate coins before it sends the rewinds' views, or a lemma
    shows such coins can't occur. Which one holds needs checking against `flock-circuit --zk` and `live/PROTOCOL.md` §9.
    `hinner` is the honest witness's completeness.
+
+**Carried to `afb6c4a35` (4:22 AM PDT).** Merge of main `9699b2f28` onto `8f6d69538` (no rebase). Every `lean-audit.json` at the head is the per-key union over base `b8c9dd478` (soundness 127 + 111 changed keys, the both-touched `pins` lists their sorted union; verifier 0 + 42; level3 0 + 12), and the branch's `.lean` delta over main is line for line its delta over the base. Plain audit PASS (13,053 declarations, 236 pins, `r20261002-105108-9161`), file byte-identical. Label at `pr:792@afb6c4a35b58128f54fa3c83b1f65fa7c1a10fe5`. Main's `5f08b1ab2` (#812) conflicts with this head only in `FlockSoundness.lean`'s imports (keep both).

@@ -215,3 +215,19 @@ pod's own custody key.
   after compute-accounting: memory-accounting skipped (its node 2 soak window runs to 14:45Z), so network-accounting and console.
   The ask lists what shipped since their round 6: the control-pod contract (#735), the preflight probe (#742), and #808, #795,
   #798, #805 (queued ready).
+
+**network-accounting (09:27Z):** nothing new; paused since round 6, its only work one statement review (#744) with no servers.
+
+**console (09:27Z):** Cost: getting evidence-store files onto its machine (the laptop has no R2 remote, node 1's research user
+no store remote; the pous-explorer data took three round trips). Worked around: Vercel production deploys from a git-archive
+copy on Daniel's laptop failed "Not authorized" until `--scope compute-6da2eae4`. Fix next: node 1's load (94-146 tonight)
+stretched the console's publish pass from 15 s to 80 s (timeout 240); a reserved core or priority for verity-console.service,
+and a supported read-only way to fetch art ids.
+
+**Triage, posted 09:31Z (1790933499.970139):**
+| Item | Call |
+|---|---|
+| network-accounting | Nothing new (1 quiet round for it) |
+| Store files onto console's machine | Yes, infra, by 12:00Z: a `store-fetch` dispatch template on node 1 (like #799's store-push), the pods' own R2 Secret, art ids into a dir console reads |
+| Vercel `--scope` | No infra change: console's deploy step; put the scope in its command or pin orgId in `.vercel/project.json` |
+| Console pass slowed by node 1's load | Yes, infra, by 11:00Z: drop-in `AllowedCPUs=0-7` (no slot or pod uses them) + CPU/IO weight; unit files from the `infra/nebius` branch into `research deploy`. Measured 09:30Z: 15 s wall, 8.7 s CPU at load 48 |

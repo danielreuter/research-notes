@@ -351,3 +351,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 00:30Z: MERGED T717 4ddd7a5a3 (a235); main 20235b3e9. T732 b59b4a886 slot b r20261002-002608-d1d0. #722 awaits pin. Answered infra interview r7.
 - 00:32Z: #722 pin: export run r20261002-002942-a693 (3044a24e6, slot c, /tmp/launch-export.sh). Then --pin, commit on 3044a24e6, check.
 - 00:42Z: T728 ee6294533 queued slot a r20261002-004009-b533. #722 tip now 2fc8b8507 (pin goes there).
+- 00:46Z: HOLD #736 merge until Daniel card p1790901892770689 decided (defaults yes 9:00 PM PDT = 04:00Z); before landing confirm --moved compares statement + definitions read; if yes AGENTS.md Lean line updated in same PR. infra #739 = repo tests in preflight (next train).
+- 00:49Z: --moved confirmed statement+definitions term-by-term; #736 + #740 held for card, land together.

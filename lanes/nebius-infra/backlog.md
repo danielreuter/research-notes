@@ -16,6 +16,28 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 14:30Z Oct 2 (7:30 AM PDT Oct 2), steward pass
+
+- **CPU quota was capping Commits on node 1.** `deployments-gpu` had 24 vCPU nominal plus 8 borrowing, fully used. Leased Commits
+  request no GPU but up to 16 vCPU each, so only two fit.
+  - `cov-gm192` (gemma2-9b b8, released at 14:13Z) sat `Pending` on "insufficient unused quota for cpu… 16 more needed", with
+    8 GPUs idle and about 124 vCPU of unused nominal quota in the cohort.
+  - Live at 14:25Z: the CPU `borrowingLimit` went from 8 to 72, and `cov-gm192` was admitted at once. Backup on node 1:
+    `/tmp/cq-deployments-gpu.bak-20261002T1425Z.yaml`.
+  - `infra/nebius` `e35d87346`; the drift check reads live and `infra/nebius` as the same.
+  - [#830](https://github.com/danielreuter/verity/pull/830) (`1217592f7`, ready) syncs main's `sky/kueue.yaml` to `infra/nebius`.
+    Main had also missed the 2 Oct memory moves.
+  - I told the research coordinator directly, and @circuits and @ci in the disk thread.
+- **Correction (14:35Z): the "GPU idle while work is waiting" alert was real, not false.**
+  - Kueue's `pendingWorkloads`, which is `vy_exporter.py`'s `vy_queue_pending`, already leaves out deactivated workloads. Live
+    now: the 2 held Gemma-2 Commits are unadmitted, and `deployments-gpu` reports pending 0.
+  - Prometheus: `vy_queue_pending{deployments-gpu}` was 2–3 from 13:20 to 13:55Z, while the queue's CPU use was 20 and then 32 of 32.
+    `sum(vy_ready_jobs)` was 0 throughout.
+  - So the 13:52Z alert counted 2 active Commits waiting on CPU quota, the cap raised at 14:25Z. No exporter change is needed. I
+    told root.
+- **#824** is in train `2f5787e59`. #819 is live.
+- **Slot `d`:** holder 333071 has it until 15:00Z.
+
 ## State at 13:43Z Oct 2 (6:43 AM PDT Oct 2), steward pass
 
 - **The quiet hour and the disk guard both let go at 13:30Z.** Every ClusterQueue is at `None`, and the guard's `held` is empty.

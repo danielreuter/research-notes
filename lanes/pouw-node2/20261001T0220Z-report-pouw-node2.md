@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (19:51Z) [open] A 19:50Z poll: no new notes; v1 γ at cap 1/1,000 and the totals.py read both await compute accounting; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (19:29Z) [open] A 19:28Z poll: FP8 security 1927Z: cap 1/1,000 verifier on cd080d44d (unmerged), served tiles 0/1,023 over cap; its note says the panel gives v1..-h3 γ 0.003695, but the panel (art:63261f6f) holds 0.005191 at ρ 1/400; left unchanged, told compute accounting; served_debit.py on node 2 was theirs (agent-placed); still off node 2
 CHECKPOINT fbce5a2f4 (19:07Z) [open] A 19:07Z poll: nothing for me (a node-1 GPU-idle alert only); still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (18:45Z) [open] A 18:44Z poll: no new notes; still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (11:11Z) [open] 11:11Z main-push guard #816 fixed and approved by infra; gemma2-9b Builds rerunning; relay 401 fixed
 CHECKPOINT none (10:54Z) [open] 10:54Z main moved outside merge (5f08b1ab2, +#812); guard #816 held by ci for train fast-forward bug
 CHECKPOINT none (10:37Z) [open] 10:37Z overnight set closed 13 HIT/5 MISS, summary sent to Daniel; #801 and #811 checking
 CHECKPOINT none (10:20Z) [open] 10:20Z memory +7h HIT; PoUS explorer v1d live; starting +7h goal check

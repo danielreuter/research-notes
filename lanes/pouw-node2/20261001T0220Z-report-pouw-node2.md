@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (23:15Z) [open] A 23:15Z poll: nothing new for pouw-node2; node2-ops 23:09Z: node 2 GPU busy 12% (22Z), daemons up, runner still 62bdf53d so infra's fence PR (due 23:00Z) hasn't landed, no windows; cd080d44d still not on main (main at 6080aa798); panel art:63261f6f unchanged; still off node 2, totals.py read awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (22:54Z) [open] A 22:54Z poll: redteam 2235Z closes the 1/400 gamma flag (panel's 0.5191% is the in-loop twin 0.51908%, the larger one; no fix); 1/1,000 value stays pending cd080d44d (still not on main), likely 0.36949% by the same larger-twin rule; infra 2241Z alert is vy-nebius-1, not node 2; panel art:63261f6f unchanged; still off node 2, totals.py read awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (22:33Z) [open] A 22:32Z poll: redteam 2222Z: PR #853 (FADD-8 twin at cap 1/1,000) GO, unmerged; its pinned 1/400 gamma is 0.51861% vs the panel's 0.5191% for v1, flagged to compute accounting; cap-1/1,000 verifier not on main; still off node 2; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (22:11Z) [open] A 22:11Z poll: nothing for me (node2-ops 2208Z: fence PR not deployed yet, no windows); cap-1/1,000 verifier not on main; totals.py read awaits compute accounting; still off node 2; panel art:63261f6f

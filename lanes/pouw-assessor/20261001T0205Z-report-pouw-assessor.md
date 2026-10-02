@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (13:26Z) [open] 6:26 AM PDT: no new asks. Ratings stand. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Watching cap branch baf5a0f06, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (13:04Z) [open] 6:04 AM PDT: no new asks. Ratings stand. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Watching cap branch baf5a0f06, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (12:43Z) [open] 5:43 AM PDT: no new asks. Ratings stand after PR #779. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt). Watching cap branch baf5a0f06, 2f661c92 eps candidates.
 CHECKPOINT fbce5a2f4 (12:22Z) [open] 5:23 AM PDT: read note:20261002T1217Z-reply-from-d545bc2a (PR #779, main b16313242, policy f8dda35b): 66 M5 records byte-identical, so my C on tt-out/fp4-sm120 and the Llama-8B/Pearl-C4 rows stand; the FreeConstants gap is a sanity-pin issue, no rating moves. Cap branch now baf5a0f06 (policy = 49d46c651), not on main. Store still unmounted; 2 ledger lines pending.

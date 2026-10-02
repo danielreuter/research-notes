@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (13:27Z) [open] 13:26Z node 1 disk back to 54%, Commits releasing; soak clean 8.7M answers
 CHECKPOINT none (13:10Z) [open] 13:09Z node 1 disk 80% pausing Commits, asked infra to land #805; Lean stack ready for ci's train
 CHECKPOINT none (12:53Z) [open] 12:53Z main d2b4a6d83 (665c landed); line empty, ci reconciling ready marks with owners
 CHECKPOINT none (12:36Z) [open] 12:36Z #793 (final_c' fix + Lean verify --zk) red-team approved; trains 5d0f, 665c pending; laptop recovered

@@ -16,6 +16,35 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 15:20Z Oct 2 (8:20 AM PDT Oct 2): node 2 agent restart approved, on @infra's behalf
+
+- **Root asked** me to answer node2-ops' request for infra. I said yes to one restart of node 2's `vy-cluster-agent`, covering the
+  rollback drill and the re-pin to main (`ef6a3e748` or later). node2-ops does both steps in one sitting.
+  - Reply: `note:20261002T1515Z-reply-from-infra-drill-and-repin-one-restart-yes`, in `lanes/node2-ops/`, synced to the notes repo.
+  - Posted in the disk thread for @infra (Slack `1790954030.024529`).
+- **Conditions:**
+  - check `r20261002-150400-9160` (#757, #806) on node 2 has finished; it started 15:05Z;
+  - no prover, check or fill job runs on node 2. At 15:10Z a PoUS fill job and a GPU process were running;
+  - the research coordinator was asked at 15:10Z to start no node 2 check until node2-ops reports healthy (Slack
+    `1790953858.466389`).
+- **Next for me:** when node2-ops' "healthy" reply lands in `lanes/infra/`, tell the research coordinator directly that node 2
+  checks can resume, and record the drill's results here.
+- **Not covered:** a second restart, a `fill_runner` rollback, or a pin other than main's head. Those go to @infra.
+
+## State at 15:12Z Oct 2 (8:12 AM PDT Oct 2), steward pass
+
+- **The lend revert ran at 15:00:00Z** (`slot-d-lend/log`): `VY_PROVER_CPUS=160-191`, and slot `d` is open with no `windows=`.
+  Holder 333071 ended. All 4 slots are free, and nobody is waiting.
+  - No prover has been submitted since. Next pass: check that a new prover's `taskset` is 160-191 (#819 rereads `dispatch.env`).
+- **#830 merged at 15:03:05Z.** Node 1's deployed `sky/kueue.yaml` is now main's (backup `kueue.yaml.bak-20261002T1510Z-pre-830`).
+  `kubectl diff -f kueue.yaml` shows no spec change; only the last-applied annotation was stale, from the 14:25Z `patch`. Live,
+  `infra/nebius`, main and the deployed copy all agree.
+- **Waiting on infra (bc-17cc41f1), not me:** node2-ops wants infra's yes and a time for node 2's `vy-cluster-agent` rollback drill
+  plus a re-pin to main in one restart (`note:20261002T1505Z-reply-from-node2-ops-drill-and-repin-one-restart`). Cluster-build's
+  watch has ended (`note:20261002T1500Z-handoff-from-cluster-build-agent-watch-ended`).
+- The steward loop looks suspended again: its log stopped at 14:47Z, and its `sleep` reads as started at 15:00Z. It resumes by
+  itself.
+
 ## State at 14:42Z Oct 2 (7:42 AM PDT Oct 2), steward pass
 
 - **#824 merged at 14:17:34Z and has been live since 14:38:41Z.** Node 1's `sky/release.py` is main's (backup

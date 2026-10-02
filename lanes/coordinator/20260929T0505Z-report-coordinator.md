@@ -442,3 +442,6 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 13:50Z: MERGED f95e701de (e5b4); main 818a4689e; cancelled c25e; push guard installed (core.hooksPath). #798 #808 need retarget. Next 4f0d.
 - 14:20Z: MERGED T824 2f5787e59 (4f0d); main 5cc17c9e4. Line empty.
 - 14:24Z: T830 f3e66f3d4 node2 r20261002-142145-d407.
+- 15:06Z: MERGED #830 (main 1253f09ec). T757-806 a4bce7200 node2 r20261002-150400-9160.
+- 15:10Z: HOLD #806 merge (root): needs PR statement on final_c (a/b/c) + red-team confirm, and no "--zk sound" wording until #793. #757-only train edb0883b8 node1 r20261002-150659-4a1d. 9160 continues. circuits: yes to 6 more qwen3 rows.
+- 15:12Z: no new checks on node 2 after 9160 finishes until steward says vy-cluster-agent healthy (drill). Use node 1.

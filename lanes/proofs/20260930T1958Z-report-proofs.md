@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (05:40Z) [open] 10:46 PM: e2e findings: verifier doesn't pin sha512x3/hm96 nets (hHm false as is; launched verifier-hm-pin bc-d3259f45); headline must move to the salted session (e2e-exec owns). #730 trimmed under the PROTOCOL.md cap (51b2f5586), in train f38a.
 CHECKPOINT none (05:27Z) [open] 10:33 PM PDT: nine e2e workers (one per open guarantee + --zk session soundness + M0 live-os coins) coordinating in #agent-coordination 1790918245.593149; #730 ready with red-team's conditions, with the lander; zk-protocol-text and zk-all-cells done
 CHECKPOINT none (04:01Z) [open] 9:00 PM PDT: #723/#727 merged; #750+#751 ready (design owner approved #751; required REGISTRY test + §5.3 sentence in the follow-up PR); #749 held for #730 binding; #757 granted with 5 conditions (worker on them); zk-all-cells through K=8192 FP; vLLM cut3 running both models.
 CHECKPOINT none (03:31Z) [open] 8:30 PM PDT: evening set 3/3 HIT; overnight floors to top. zk-all-cells K=4096 FP points landing; bf16-hill on fixes A+B (zk verdict 6.3 s -> ~0.3 s projected); flock-zk-verify-lean launched (Lean has no --zk statement); node 2 granted for untimed work; console panels live, awaiting mode/ov.* fields.

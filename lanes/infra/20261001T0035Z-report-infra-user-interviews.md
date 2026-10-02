@@ -231,3 +231,11 @@ and a supported read-only way to fetch art ids.
 | Store files onto console's machine | Yes, infra, by 12:00Z: a `store-fetch` dispatch template on node 1 (like #799's store-push), the pods' own R2 Secret, art ids into a dir console reads |
 | Vercel `--scope` | No infra change: console's deploy step; put the scope in its command or pin orgId in `.vercel/project.json` |
 | Console pass slowed by node 1's load | Yes, infra, by 11:00Z: drop-in `AllowedCPUs=0-7` (no slot or pod uses them) + CPU/IO weight; unit files from the `infra/nebius` branch into `research deploy`. Measured 09:30Z: 15 s wall, 8.7 s CPU at load 48 |
+
+**Delivered 09:51Z (reply ts 1790934642.423509):**
+- Console pass: #809 (stacked on #777, queued ready). `verity-console.service` runs on cores 0-7 with CPU/IO weight 1000. Both
+  units are in `deploy.toml`, and `research deploy install` reloads systemd after a changed unit. Installed on node 1 via
+  `research deploy` at 09:39Z. Passes since: 13.8 s and 14.3 s at load 70-220 (before: 15-80 s, one 145 s at 08:10Z).
+- Store files: #810 (stacked on #799, queued ready). The `store-fetch` dispatch template takes full art ids into
+  `/workspace/jobs/store-fetch/<NAME>/<hex>/` through a scratch store it removes, reading the remote with the pods' Secret only.
+  Smoke run on node 1: 2 artifacts, 8 files, about 10 s.

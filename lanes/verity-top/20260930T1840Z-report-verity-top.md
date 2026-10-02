@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:17Z) [open] 07:17Z: soak 1.13M answers 0 wrong, single job to 14:40Z; trains 0bb8 (#781) then 2ac5 (#771); circuits' lazy table operand worker started
 CHECKPOINT none (07:00Z) [open] 07:00Z: +3h: 4 HIT (compute, memory, circuits, infra), proofs MISS 2/4, ci pending; #779 PoUW Lean move approved by compute; #784 vLLM test hang fix ready
 CHECKPOINT none (06:42Z) [open] 06:42Z: +3h: compute, memory, circuits, infra HIT; proofs, ci pending; retention pilot final 0.27 TiB unowned, 0 deletes; soak job cap lifted to 14:45Z via #778
 CHECKPOINT none (06:24Z) [open] 06:24Z: +3h check: compute, memory, circuits HIT; proofs, infra, ci pending; soak 492k answers 0 wrong; next check 10:20Z

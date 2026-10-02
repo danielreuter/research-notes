@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:21Z) [open] 21:21Z: #852 + #850 train check on node 2; train 4e25f690c queued; soak stall = fence breach, kernel core isolation now required; TP Commits to get GPU lease
 CHECKPOINT none (21:04Z) [open] 21:04Z: two-stage exfiltration Lean #852 granted (lean + red team), needs check; #850 check on node 2; train 5b7757da4 queued; #846 fix in progress
 CHECKPOINT none (20:46Z) [open] 20:46Z: main 27c5889ba (#828, #838); #850 in train (check on node 2); #846 fixing Setup.lean; soak rerun reported to Daniel; greedy TP2 rows running on node 1
 CHECKPOINT none (20:31Z) [open] 20:31Z: next train 18a25f0e3 (8 PRs incl #848); partitioning Lean proved in draft #850; two-stage exfiltration Lean top priority (ts-exfil); TP2 seed fix confirmed, staging fix under test

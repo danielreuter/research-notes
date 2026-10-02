@@ -5,6 +5,10 @@
 # process's argv carries a sha. Every line is appended, stamped, to ~/resource-steward/deletions.log. A dropped ssh doesn't stop the node's
 # sweep; its own record is the node's ~/resource-steward/node-sweep.log. Exit 0: nothing deleted; 1: something was deleted or
 # is stuck (stdout lists it, for the report's Deletions section); 2: a node could not be swept, or its ssh dropped.
+# Node 1 also sweeps infra's /workspace/jobs/src (--jobs-src), which Daniel approved on 2 Oct (report §5).
+# The body is one function, called on the last line: bash parses all of it before running, so editing this file during a
+# sweep cannot change what that sweep runs.
+main() {
 K=~/.ssh/research_key; S=~/resource-steward; H=$(dirname "$(readlink -f "$0")"); rc=0; mkdir -p $S
 NS=$H/node-sweep.sh; [ -f $NS ] || NS=~/.research/notes/lanes/resource-steward/tools/node-sweep.sh
 SSH=(ssh -i $K -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ServerAliveCountMax=20)
@@ -28,6 +32,8 @@ sweep() {  # host node
   [ $r -ne 0 ] && { echo "$2: FAILED node-sweep rc=$r"; rc=2; return; }
   printf '%s\n' "$o" | grep -qE '^(deleted|STUCK)' && [ $rc = 0 ] && rc=1
 }
-sweep 81.85.2.165 n1 "${ARGS[*]}"
+sweep 81.85.2.165 n1 "${ARGS[*]} --jobs-src"
 sweep 81.85.2.121 n2 "${ARGS[*]}"
 exit $rc
+}
+main "$@"

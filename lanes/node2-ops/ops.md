@@ -69,6 +69,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 06:09Z hourly (05Z): GPU busy 11.9% (0.96 of 8.00 GPU-h, all useful): bc-698052e1's Commits (gm319, gm328, gm331, gm333, then gm337–339) and memory accounting's PoUS jobs, with the honest-latency soak from 05:52Z. Leased-idle 1.70 GPU-h (bc-698052e1 1.54, bc-15ada664 0.16).
+    - **Why below 80%:** no other GPU work was queued, so 5.35 GPU-h sat free. The Commits held their GPUs mostly idle (1.54 of the 1.70 leased-idle), infra's known #2 waster. CPU 0–127 at 5.5%: 1 kueue-fold Build.
+    - **Disk** at 37%.
+    - **Backup:** `r20261002-060527-35e8` packed on 48–79,94–95 at nice 19 (542 units, 19.8 GB, 40 large units left out); its custody upload is pending. The 05Z backup `r20261002-050536-e6ec` is preserved.
+    - **Checks:** daemons and `status.md` (06:04Z) are fine. The fill loop still carries `FILL_VERITY_CPU_SET=48-79,94-95`. Nebius-infra's slot-`d` entry (`VY_PROVER_CPUS` 160–191) is about node 1. #494 is still closed.
 - 2026-10-02 05:20Z alerts tick: infra's notice (`note:20261002T0510Z-notice-from-infra-verity-pool-off-80-93`) moves the Verity CPU pool off cores 80–93 for memory accounting's soak, 04:45–14:45Z. Checked read-only:
     - The runner (pid 3649474, restarted 05:09:38Z, jobs adopted) carries `FILL_VERITY_LEND=0 FILL_VERITY_CPU_SET=48-79,94-95`.
     - `cov-gm334`'s processes are pinned to 48–79,94–95. `zkk32k-stage-e4m3` had already finished (it is in `fill/done/`).

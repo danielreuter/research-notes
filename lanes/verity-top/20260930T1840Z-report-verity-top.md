@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:42Z) [open] 06:42Z: +3h: compute, memory, circuits, infra HIT; proofs, ci pending; retention pilot final 0.27 TiB unowned, 0 deletes; soak job cap lifted to 14:45Z via #778
 CHECKPOINT none (06:24Z) [open] 06:24Z: +3h check: compute, memory, circuits HIT; proofs, infra, ci pending; soak 492k answers 0 wrong; next check 10:20Z
 CHECKPOINT none (06:06Z) [open] 06:06Z: five trains queued incl. #774 (6c52); #770 ready, ci asked to batch it; PoUW anchors to public input region (flock-public-ports)
 CHECKPOINT none (05:49Z) [open] 05:49Z: main b8c9dd478; four trains queued (9cae, 51e4, f38a, 7b26); #774 awaiting infra inputs fix; PoUW Pc4 row unit proved under --zk (art:93c3f76c)

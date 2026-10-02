@@ -345,6 +345,16 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     (#approvals `1790910579.790289`, `sub_3254629b`): approve (add them to the sweep), wait (leave them for infra) or
     later (ask again past 70% inodes); recommended approve, default later, deadline 2 Oct 6:00 PM PDT (3 Oct 01:00Z).
     Nothing in `jobs/src` is touched until he answers.
+  - 03:17Z 2 Oct: infra replied in the card thread: *Safe: yes*, recommends approve, with two rules. (1) Age a content
+    copy by the newest `by-pod/*` file naming it. (2) If the re-check after the trash rename finds a live pod naming
+    it, rename it back. At 03:24Z infra opened the source fix, verity #759: `prover-bench`, `prover-dev` and
+    `port-capture` delete their per-pod copy when `research run` exits. Old copies and preempted pods' leftovers still
+    fall to the sweep.
+  - 03:50Z 2 Oct: `node-sweep.sh --jobs-src` implements both rules and is off unless the flag is given. It keeps
+    content copies without `.copied` and anything a live pod, a by-pod file written since the rename, or a process
+    names, and it stops if `kubectl` fails. Dry run on node 1 at 03:26Z: 811 entries (164 content copies and 647 per-pod
+    copies), 3.94M files, 72.9 GB. No live pod's copy was among them, checked separately against the 45 live pods. The
+    card is still pending; the flag is not run until Daniel answers.
 - Node 1 RAM (@circuits, asked 17:00Z): about 405 GB available. Circuits' three `boolean-replay` runs outside Kubernetes
   hold 800 GB of `/workspace/ramlock` reservations, while vllm-epoch-run replays are still queued in Kueue. The ask:
   start no new `boolean-replay` on node 1 until one finishes, and check that the queued replays fit. Thread
@@ -672,3 +682,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   6 h sweep at once: 17 entries, 17.9 GB (§4). By 03:08Z both audits had finished and node 1 was at 10.52M (52%). The
   larger audits move the `jobs/src` projection forward a day, so I sent it to Daniel as a blocking card (§5, 03:09Z).
   No other Slack.
+- 03:20Z tick: exit 0. Infra answered the card thread (§5, 03:17Z) and opened verity #759. I added `--jobs-src` to
+  `node-sweep.sh` (off by default) and dry-ran it on node 1: 811 entries, 72.9 GB, no live pod's copy among them (§5,
+  03:50Z). Nothing deleted; the card is still pending. Node 1 at 10.74M inodes (53%). No Slack.

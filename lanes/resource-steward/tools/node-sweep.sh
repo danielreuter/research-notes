@@ -1,6 +1,6 @@
 #!/bin/bash
 # The resource steward's delete-without-asking sweep, run ON a node as root (`sudo nice -n 19 ionice -c3 node-sweep.sh`).
-# Usage: node-sweep.sh [--dry-run] [--src-age-h H] [--approved FILE]. Per the policy in lanes/resource-steward/*-report-resource-steward.md:
+# Usage: node-sweep.sh [--dry-run] [--src-age-h H] [--approved FILE] [--jobs-src]. Per the policy in lanes/resource-steward/*-report-resource-steward.md:
 #  - /workspace/research/src/<sha> trees whose directory is older than H h (default 24), unless something live names the sha
 #    (REFS_PY: a request not yet finished or refused whose runner is alive or not yet launched, a Kueue workload or pod not finished, a
 #    fill job queued or running, any process's cwd, root, open files, maps, argv or environment), and unless the tree holds
@@ -9,15 +9,16 @@
 #    names them now, and deleted. A tree listed in the --approved FILE (shas, whose owners have said their files outside the
 #    commit may go) skips only the age and EXTRA_PY checks;
 #  - src/.trash/ entries an interrupted sweep left (decided already; nothing executes from there);
-#  - check scratch untouched for 2 h and not held open: /tmp/pytest-of-research/pytest-*, <verity-check cache>/lean-audit-scratch-*.
+#  - check scratch untouched for 2 h and not held open: /tmp/pytest-of-research/pytest-*, <verity-check cache>/lean-audit-scratch-*;
+#  - only with --jobs-src, infra's job trees in /workspace/jobs/src older than H h (see that section).
 # Prints "deleted PATH files=N mb=M age=Xh" or "kept PATH: why" per candidate, each line first appended, stamped, to $LOG (not
 # in a dry run), and goes on to the end when its ssh drops (SIGPIPE ignored), so $LOG is the record of what it did.
 # Exit 0, or 2 if not root or already running. Patterns go through files, so no scanner process carries one in its argv or
 # environment.
 [ "$(id -u)" = 0 ] || { echo "node-sweep: needs root to read every process" >&2; exit 2; }
 exec 9>/run/lock/resource-steward-sweep.lock; flock -n 9 || { echo "node-sweep: another sweep is running" >&2; exit 2; }
-DRY=0; AGE_H=24; APPROVED=
-while [ $# -gt 0 ]; do case $1 in --dry-run) DRY=1;; --src-age-h) AGE_H=$2; shift;;
+DRY=0; AGE_H=24; APPROVED=; JOBS=0
+while [ $# -gt 0 ]; do case $1 in --dry-run) DRY=1;; --src-age-h) AGE_H=$2; shift;; --jobs-src) JOBS=1;;
   --approved) APPROVED=$(tr -s ' \n' ',,' < "$2") || exit 2; shift;; *) echo "unknown $1" >&2; exit 2;; esac; shift; done
 approved() { [[ ,$APPROVED, == *,$1,* ]]; }
 R=/workspace/research; SRC=$R/src; TRASH=$SRC/.trash; now=$(date +%s); T=$(mktemp -d); trap 'rm -rf $T' EXIT; trap '' PIPE
@@ -164,5 +165,86 @@ if [ -s $T/scr ]; then
     r=$(named "$d" $T/held); [ -n "$r" ] && { say "kept $d: $r"; continue; }
     gone "$d" $(age_h "$d") "$d"
   done
+fi
+
+# Infra's job trees in /workspace/jobs/src, only with --jobs-src: a per-pod copy (<hostname> or pod-<hostname>, made fresh at
+# pod start and read by nothing after its pod ends) whose pod is not live, and a content copy (<id16>, job_tree.sh, shared by
+# every job of that content) that no live pod's by-pod/<hostname> names. Each must be older than H h; a content copy is aged
+# by the newest by-pod file naming it, since a reused copy keeps its mtime, and one without .copied is left to job_tree.sh,
+# which remakes it. The ones that pass are renamed into jobs/src/.trash, checked once more (live pods, by-pod files written
+# since the renames, processes), put back if anything names them now, and deleted.
+# JOBS_PY H 0 lists "cand NAME AGE_H" and "kept NAME: why"; JOBS_PY H SINCE reads names on stdin and prints "named NAME why".
+JOBS_PY='
+import json, os, re, subprocess, sys, time
+J = "/workspace/jobs/src"; H = float(sys.argv[1]); since = float(sys.argv[2]); now = time.time()
+out = subprocess.run(["k3s", "kubectl", "get", "pods", "-A", "-o", "json"], capture_output=True, text=True)
+if out.returncode: print("FAILED kubectl get pods"); sys.exit(0)
+live = {o["metadata"]["name"] for o in json.loads(out.stdout)["items"] if o.get("status", {}).get("phase") not in ("Succeeded", "Failed")}
+newest, by_live, by_since = {}, {}, {}
+for pod in os.listdir(J + "/by-pod"):
+    f = f"{J}/by-pod/{pod}"
+    try: path, mt = open(f).read().strip(), os.stat(f).st_mtime
+    except OSError: continue
+    if os.path.dirname(path) != J: continue
+    e = os.path.basename(path); newest[e] = max(newest.get(e, 0), mt)
+    if pod in live: by_live.setdefault(e, []).append(pod)
+    if mt >= since: by_since.setdefault(e, []).append(pod)
+def mtime(p):  # cp -a gives a fresh copy the mtime of its source, and its own ctime
+    try: st = os.stat(p); return max(st.st_mtime, st.st_ctime)
+    except OSError: return 0
+def why(e):
+    if re.fullmatch("[0-9a-f]{16}", e):
+        if e in by_live: return "by-pod of live pod " + by_live[e][0]
+        if since and e in by_since: return "by-pod written since the rename: " + by_since[e][0]
+        return ""
+    host = e[4:] if e.startswith("pod-") else e
+    return "live pod " + host if host in live or e in live else ""
+if since:
+    for e in sys.stdin.read().split():
+        w = why(e)
+        if w: print("named", e, w)
+    sys.exit(0)
+for e in sorted(os.listdir(J)):
+    p = f"{J}/{e}"
+    if e == "by-pod" or e.startswith(".") or ".partial." in e or os.path.islink(p) or not os.path.isdir(p): continue
+    t = mtime(p)
+    if re.fullmatch("[0-9a-f]{16}", e):
+        if not os.path.exists(p + "/.copied"): print("kept", e + ": no .copied, so job_tree.sh may be remaking it"); continue
+        t = max(t, mtime(p + "/.copied"), newest.get(e, 0))
+    age = (now - t) / 3600
+    if age < H: continue
+    w = why(e)
+    if w: print("kept", e + ":", w); continue
+    print("cand", e, int(age))
+'
+J=/workspace/jobs/src; JT=$J/.trash
+if [ $JOBS = 1 ] && [ -d $J/by-pod ]; then
+  [ $DRY = 0 ] && for t in $JT/*; do [ -d "$t" ] || continue; gone "$t" $(age_h "$t") "$t (left by an interrupted sweep)"; done
+  python3 -c "$JOBS_PY" $AGE_H 0 > $T/jobs
+  grep -q '^FAILED' $T/jobs && { echo "node-sweep: $(grep '^FAILED' $T/jobs | head -1); no job tree deleted" >&2; exit 2; }
+  sed -n 's/^kept //p' $T/jobs | while read -r line; do say "kept $J/$line"; done
+  awk -v j=$J '$1=="cand"{print j"/"$2}' $T/jobs > $T/jpats
+  if [ -s $T/jpats ]; then
+    held $T/jpats > $T/held
+    grep -q '^FAILED' $T/held && { echo "node-sweep: $(grep '^FAILED' $T/held | head -1); no job tree deleted" >&2; exit 2; }
+    : > $T/jmoved; t0=$(date +%s)
+    while read -r _ e a; do
+      r=$(named $J/$e $T/held); [ -n "$r" ] && { say "kept $J/$e: $r"; continue; }
+      [ $DRY = 1 ] && { gone $J/$e $a "$J/$e"; continue; }
+      mkdir -p $JT; mv -T $J/$e $JT/$e && echo "$e $a" >> $T/jmoved || say "kept $J/$e: rename failed"
+    done < <(grep '^cand ' $T/jobs)
+    if [ -s $T/jmoved ]; then
+      cut -d' ' -f1 $T/jmoved > $T/jnames; { sed "s|^|$J/|" $T/jnames; sed "s|^|$JT/|" $T/jnames; } > $T/jpats2
+      held $T/jpats2 > $T/held2; python3 -c "$JOBS_PY" $AGE_H $t0 < $T/jnames > $T/jre
+      while read -r e a; do
+        r=$(echo $(named $J/$e $T/held2) $(named $JT/$e $T/held2) $(awk -v e=$e '$1=="named" && $2==e {$1=$2=""; print}' $T/jre))
+        if [ -n "$r" ] || grep -q '^FAILED' $T/held2 $T/jre; then
+          mv -T $JT/$e $J/$e && say "kept $J/$e: named after rename: ${r:-scan failed}" || say "STUCK $JT/$e: named after rename (${r:-scan failed}) and could not be put back"
+          continue
+        fi
+        gone $JT/$e $a "$J/$e"
+      done < $T/jmoved
+    fi
+  fi
 fi
 exit 0

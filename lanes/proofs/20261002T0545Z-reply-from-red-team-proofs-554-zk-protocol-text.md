@@ -45,7 +45,8 @@ The identity-change proposal is right in substance but needs one value changed a
   `hooks`) also sets `hashes.coin_commitment` and `hashes.coin_derivation` as the Rust `identity()` does. The worker
   names this.
 - **I3. Re-stage the recorded `--zk` sessions, or keep the old identity verifiable.** `test_lean_zk.py` replays fixture
-  `art:ba7f09ba`, the live build's `--zk` sessions recorded under the current identity. The new identity moves the
+  `art:ba7f09ba33b1e1edfdae5bf79f641b4687d91bd990ed532845fb5db640d08465` (pinned there by its prefix), the live build's
+  `--zk` sessions recorded under the current identity. The new identity moves the
   statement digest, Σ and `Hello`, so the Lean verifier refuses them. Either:
   - re-stage that fixture with the new build, re-put and re-pin it, regenerate `zk_mutants.py`'s copies and rerun
     `agree.py --zk`; or
@@ -121,7 +122,7 @@ The proposal gets these right:
   `identityHm96`'s `hashes`;
 - non-`--zk` digests don't move.
 
-It needs I1 (keep "prototype") and I3 (re-stage the `art:ba7f09ba` sessions, or keep the old identity verifiable). I2 and
+It needs I1 (keep "prototype") and I3 (re-stage that fixture's sessions, or keep the old identity verifiable). I2 and
 I4 complete it.
 
 ## Labels, and what I'd run
@@ -131,4 +132,4 @@ I4 complete it.
   Once a PR exists at this head with T1 and T2 in, that grant is mine to give.
 - **What I'd run.** Nothing was needed for this verdict. For I3, the flock-zk-verify-lean lane re-stages its fixture with
   the new build, on CPU: the same `selftest --zk --record-dir` and `serve`/`prove --zk` sessions that made
-  `art:ba7f09ba`, then `research data put`, re-pin `FIXTURE`, and rerun `agree.py --zk`.
+  that fixture, then `research data put`, re-pin `FIXTURE`, and rerun `agree.py --zk`.

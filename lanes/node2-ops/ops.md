@@ -68,6 +68,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 22:08Z hourly (21Z): GPU busy 11.7% (0.94 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series, plus Commit `cov-gm360`.
+    - **Why below 80%:** nothing else was queued, so 6.2 GPU-h sat free. Leased-idle 0.87 GPU-h: 0.73 of it is `gm360`'s TP2 lease waiting on shared memory before it finished rc 0, and 0.13 is the series' start-ups.
+    - **Backup:** `r20261002-220628-013d`, unpinned. The 21Z backup `r20261002-210626-5502` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (22:04Z). The runner is still `62bdf53d` (#778; infra's fence PR isn't deployed). The agent is on `1253f09ec` (no restarts). No windows. The new GPU-at-0% alert is node 1's. #494 is still closed.
 - 2026-10-02 21:48Z alerts tick: one `gpu-idle-in-lease` (21:35Z), `cov-gm360`'s other GPU (6) at 0.2%. It resolved itself: the Commit ended rc 0 at 21:44:44Z (24.5 min), and its replay ended rc 0 at 21:46:04Z. So the shared-memory waits were slow work, not a hang. Watermark 21:35:06Z.
 - 2026-10-02 21:33Z alerts tick: one `gpu-idle-in-lease` (21:30Z), GPU 5 at 6.9%. It's bc-698052e1's TP2 Commit `cov-gm360` (`gpus=2`, since 21:20:12Z).
     - Not the stale-plan rebuild. Its `commit.log` repeats vLLM's "No available shared memory broadcast block found in 60 seconds" from 21:30Z, so one TP rank is busy or stuck.

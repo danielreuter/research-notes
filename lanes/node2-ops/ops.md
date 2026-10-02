@@ -68,6 +68,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 20:09Z hourly (19Z): GPU busy 11.5% (0.92 of 8.00 GPU-h, all useful): memory accounting's soak rerun until 19:49Z, then their vLLM e2e series.
+    - **Why below 80%:** nothing else was queued, so 7.0 GPU-h sat free. Leased-idle was 0.08 GPU-h (the series' start-up).
+    - **Infra released the rerun's fence at 20:00Z** (`soak-rerun/FENCE.released-20261002T2000Z`, `fill/keep-free` gone). They respawned the fill loop at 20:00:52Z with `FILL_VERITY_LEND=0` only. The series was restarted then.
+    - **Backup:** `r20261002-200646-96f1`, unpinned again. The 19Z backup `r20261002-190654-2736` is preserved. PoUW's `served_debit` run has ended.
+    - **Checks:** daemons are up, and `status.md` was fresh (20:04Z). The agent is on `1253f09ec` (no restarts). No windows. #494 is still closed.
 - 2026-10-02 20:03Z alerts tick: one `gpu-idle-in-lease` (19:55Z), GPU 7 at 3.5%, 6 min into memory accounting's lease. Their soak rerun ended rc 0 at 19:49:34Z (163.7 min), and they restarted their own vLLM e2e series at 19:49:32Z (`…194932Z`). The alert is its vLLM start-up. Nothing to do; watermark 19:55:06Z.
 - 2026-10-02 19:09Z hourly (18Z): GPU busy 12.5% (1.00 of 8.00 GPU-h, all useful): memory accounting's soak rerun on GPU 7.
     - **Why below 80%:** nothing else was queued for a GPU, so 7.0 GPU-h sat free.

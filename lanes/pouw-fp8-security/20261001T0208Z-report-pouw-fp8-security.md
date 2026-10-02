@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT 8d9ee3a4c (22:52Z) [open] 3:52 PM: #854 branch: merged fp8-credit-rev1 (03a362995), served_debit's share_rev1 second subtraction dropped (8d9ee3a4c, tile_numbers + tests); replay re-judged: decode 511/511, prefill 512/512, no change (art:a081b5a7); suites running, not pushed yet
 CHECKPOINT 8533e73d8 (22:43Z) [open] 3:43 PM: fp8-credit-rev1 done at 8533e73d8: --quick 22/22 pass, verity-pouw 348, bench 504; report sent to compute accounting. Inbox's 3 Oct 1 handoffs are stale (fresh clone), all acted on in earlier sessions
 CHECKPOINT 8533e73d8 (22:26Z) [open] 3:26 PM: cursor/fp8-credit-rev1-cb26 at 8533e73d8 (stacked on aff57f53a): credit_of/wref/tile debit are rev1's; 20 pinned twins + 4 H100 rev1 pins equal the Lean's exactly; served replay re-judged at rev1, no verdict change (art:83145ce8); verity-pouw and verity-pouw-benchmarks pass; --quick running
 CHECKPOINT cd080d44d (19:23Z) [open] 12:28 PM PDT: both tasks of compute accounting's 9:46 AM PDT order done. Verifier cursor/fp8-v1-cap1000-verifier-cb26 @ cd080d44d (rho = Device.cap, sm_120 1/1,000). Served table art:dc6ba8a608a3fa215bbc5c0049fbb16dffe83b0b073d5425a1baf8929668d710: 0 of 1,023 sampled served Llama-3.1-8B tiles over 1/1,000, worst 0.051 of the cap (r20261002-173355-4eef). Reply note:20261002T1927Z-reply-from-4323a347-fp8-v1-cap1000-verifier-and-served. No job of mine running; 0 GPU-h.

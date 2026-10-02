@@ -918,3 +918,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - I ran the 6 h sweep early: 97.8 GB (§4). Over 50 GB, so it was announced to @infra (`1790958936.105409`).
 - 19:42Z tick (exit 1): the same HARD line, measured from the burst's base (2.05M/h, 3.2 h). Node 1 is at 9.86M inodes
   (48%), +55k since 19:47Z, so it's growing at about 220k/h now. No reply from @proofs yet. No action.
+- 20:04Z tick (exit 1): the HARD line again (1.48M/h, 4.3 h). Node 1 is at 10.13M inodes (50%), +274k in 22 min, about
+  750k/h. At that rate the 65% card trigger is about 4.4 h away. No reply from @proofs. No action.

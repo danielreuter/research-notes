@@ -68,6 +68,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 03:08Z hourly (02Z): GPU busy 10.1% (0.81 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series on GPU 7 (leased-idle 0.19).
+    - **Why below 80%:** no other GPU work was queued, so 7.0 GPU-h sat free. CPU 0–127 at 8.7%: 6 kueue-fold Builds, 2 queued.
+    - **Disk** at 38%.
+    - **Backup:** `r20261002-030541-f1c3` packed (531 units, 40 large units left out); its custody upload is pending.
+    - **Checks:** daemons and `status.md` (03:05Z) are fine. Nebius-infra's memory-request and bundle-cap change (`lanes/nebius-infra/memory-requests-and-bundle-cap.md`) is for node 1. The 02:04Z alert is node 1's. #494 is still closed.
 - 2026-10-02 02:08Z hourly (01Z): GPU busy 15.7% (1.25 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series on GPU 7 plus a few of bc-698052e1's Commits. Leased-idle 0.36 GPU-h (bc-15ada664 0.25, bc-698052e1 0.11).
     - **Why below 80%:** no other GPU work was queued, so 6.39 GPU-h sat free. CPU 0–127 at 10.5%: 6 kueue-fold Builds, 7 CPU jobs queued.
     - **Disk** at 37%.

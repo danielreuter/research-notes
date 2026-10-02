@@ -16,6 +16,23 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 10:20Z Oct 2 (3:20 AM PDT Oct 2), steward pass
+
+- **Node 1, all 8 GPUs idle, between waves:**
+  - No Commit in flight. The dispatcher's ready queue is empty. 7 Builds started 09:38–09:53Z; their Commits follow.
+  - The two Gemma-2 b64 Commits stay held by ruling.
+  - CPU is 17–28% busy, at load 72.
+- **Failures in the last 39 `vllm-epoch-run` jobs: 12.**
+  - 9 `cov-gm34x` Builds exited with rc 10 (08:06–08:56Z). Their owner re-ran them as `-to4` items, which are running now with no
+    deadline.
+  - 7 `qwen3-30b-a3b` b8 `-to4` Builds were ended on purpose at 10:08Z: someone set each Job's `activeDeadlineSeconds` to 1.
+    Not mine to chase.
+- **Node 2:** one PoUS soak on GPU 7, and the fill queue is empty.
+- **Slots:** all 4 are busy, with 8 checks in the line. `d` is held by `r20261002-082647-af3d`, whose code is from before #789.
+- Latest hourly: `art:4fcccbc1f4027956cce78e2529ea465979079c912cff815862635d27e921b0f1` (09:48Z tick). Idle since Sep 30 05:16Z:
+  - Node 1: 301 of 420 GPU-h.
+  - Node 2: 233 of 413 GPU-h.
+
 ## State at 09:45Z Oct 2 (2:45 AM PDT Oct 2), steward pass
 
 - **Correction to 09:12Z:** the two `gemma2-2b` b64 i1024 Commits (`cov-n051-2`, `cov-n050-2`) aren't waiting on the disk

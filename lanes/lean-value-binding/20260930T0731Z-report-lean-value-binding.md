@@ -14,3 +14,4 @@ CHECKPOINT 618ec5a5 (08:56Z) [open] READY #511 (r20260930-082244-13e3 PASS, 148 
 CHECKPOINT 618ec5a5 (08:34Z) [open] WAITING r20260930-082244-13e3 (#511) and r20260930-082800-6e87 (#513) on vy-nebius-1, check after 09:05Z; agent bc-a84aadb3; next: labels + merge requests
 CHECKPOINT 618ec5a5 (08:07Z) [open] #511 (6 knowledge pins) open @618ec5a5, recorded audit r20260930-080414-bae0 in flight; Binding/ builds 0 sorry, --update with 11 new pins running
 CHECKPOINT f0da69ad (07:31Z) [open] started (agent bc-a84aadb3); branch cursor/lean-knowledge-pins-8d81: pin 5 knowledge theorems; then FlockSoundness/Binding; status in store internal/lanes/lean-value-binding/status.md
+CHECKPOINT 55115141 (11:46Z) [open] #526 new head 04b94af7 (with #521 4e4ee3e4); push 401 -> bundle artifacts/cursor-lean-per-prover-cr-8d81-04b94af7.bundle (sha256 59436f70) for root; combined red-team request sent; recorded audits r20260930-113409-9f35 (#513), r20260930-114448-9445 (#526)

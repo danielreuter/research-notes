@@ -30,6 +30,8 @@ CHECKPOINT none (18:38Z) [open] closing morning set: verdicts in from proofs, ci
 CHECKPOINT none (18:22Z) [open] all 12 leads on Slack handles; 11:30 closure next: trains landing ~11:40-12:30, held-idle and node 2 cutover misses
 CHECKPOINT none (18:06Z) [open] handles live for all 10 cloud leads; console pending Daniel's alternative; held-idle 10:00 miss pushed to circuits
 CHECKPOINT 2026-10-01T17:50Z open: inbox empty; node 2 cutover 11:50; held-idle 11:00 hour at risk (leases idle in engine startup, circuits adding compile cache + late lease); lean owns guarantee review, @lean handle up.
+CHECKPOINT none (04:20Z) [open] 9:20 PM PDT: T4B landed (#303, #598 slim); C3 and T621 checking; 58 open PRs; quota cutover plan with Daniel
+CHECKPOINT 2026-10-01T17:17Z open: inbox empty; node 2 cutover underway (10:15); GPU lease live on grid Commits; server-side @lane router relayed to console.
 
 CHECKPOINT 2026-10-01T17:33Z open: inbox empty; served window 4 running; node 2 cutover called off 10:21, rescheduling; 16 PRs open, train 1f2011900 still checking; comms reshaping to research msg.
 

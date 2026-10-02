@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:31Z) [open] 20:31Z: next train 18a25f0e3 (8 PRs incl #848); partitioning Lean proved in draft #850; two-stage exfiltration Lean top priority (ts-exfil); TP2 seed fix confirmed, staging fix under test
 CHECKPOINT none (20:14Z) [open] 20:14Z: main 1affc167c (#843 #835 #840 #844 #832); next train ed7ad28f8 (#838 #833 #834 #820 #841 #842 #845); #828 with statement reviewer
 CHECKPOINT none (19:59Z) [open] 19:59Z: train e2362e6f1 (11 PRs) with lander; FP8 #847 ready after #838; served FP8 0/1023 tiles over cap; TP2 fix in progress
 CHECKPOINT none (19:43Z) [open] 19:43Z: #841 #842 #845 ready; attention flake is torch AMX, fix #848 in quick tier; #820/#844 conflict resolution staged

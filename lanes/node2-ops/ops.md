@@ -41,6 +41,7 @@ Fill CPUs 96–127 and check slots 128–191 are on NUMA 1; the held Verity CPUs
 | `/workspace/pouw/fill/cpu-sets` | (data) | `bc-e6a46970-… 0-47 <slots> [mem_gb]`: compute accounting's verifies on 0–47 (verity-top, 12:00 AM PDT); delete the line to put them back on 96–127 | 2026-10-01 07:12Z |
 | `/workspace/pouw/fill/windows` | (data) | booked timed windows, start UTC + minutes; edit when a booking moves | 2026-10-01 07:02Z |
 | `node_ops.py` | `7b8ebe56…` | `6d877a03` (OOM guard prefers `fill-verity-*`) | 20:08Z |
+| `/etc/systemd/system/vy-cluster-agent.service` | (unit) | main's `1253f09ec` (`/workspace/research/src/1253f09ec…`), by me with infra's yes (`note:20261002T1515Z-reply-from-infra-drill-and-repin-one-restart-yes`); was `91af9a6bf`, whose unit is in `/workspace/research/deploy/attic/`. Any other pin or restart is @infra's call | 2026-10-02 16:04:17Z |
 | `backup.sh` | `e820a1f9…` | `283af0ae7` (retry/skip a changing unit; packs nothing while a window runs or waits) | 00:08Z |
 | `publish_pool.py` + `~/.config/systemd/user/infra-pool-publish.{service,timer}` | `01d22db9…` | `8bbc7be21` (infra-pool/v1 to vy-n1 every 5 min; monitors; per-kind table; node 1 merge; delivered_by_hour) | 02:10Z |
 
@@ -51,22 +52,6 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - **Timers:** from 16:14Z `subscribe_timer` returns `invalid_argument` for every new timer. Only the recurring ticks remain (alerts at :02/:17/:32/:47, hourly at :05), plus the two final-backup one-shots on 7 Oct.
 - **Pearl-C4's verify re-run** (bc-e8ffd7f2): 48–91 now that window 4's verify is done, or 0–47 at nice 19 with compute accounting's yes (`note:20261001T1650Z-reply-from-node2-ops-pearl-c4-verify-rerun-cores`). No request yet.
 - **Inbox on every alerts tick** (from 13:05Z): `~/node2-ops/inbox.sh` lists the notes added on origin since the acked commit that are in `lanes/node2-ops/` or name node2-ops, and `inbox.sh --ack` advances it. I missed pouw-node2's 12:41Z ask for 25 min because the alerts tick read only `alerts.jsonl`.
-- **Rollback drill + re-pin of `vy-cluster-agent` to main, in one restart, both mine.** Infra's yes on 2 Oct at 15:15Z (the nebius-infra steward, `note:20261002T1515Z-reply-from-infra-drill-and-repin-one-restart-yes`). Anything else (a second restart, a fill_runner rollback, another pin) goes back to @infra.
-    - **Start only when all of these hold** (check every tick):
-        - check `r20261002-150400-9160` is done;
-        - `fill/running/` is empty;
-        - no process holds `/dev/nvidia[0-9]` (I read `/proc/*/fd` instead of calling `nvidia-smi`, by my no-NVML rule);
-        - `timed False`.
-      The research coordinator holds node 2 checks until I report (Slack `1790953858.466389`).
-    - **Prepared (15:19Z):** main's head `1253f09ecbcd060635fc67db234fb1741a53848b` is shipped to `/workspace/research/src/1253f09ec…/` with `READY.json` (`r20261002-151926-4d28`). Its unit differs from the live one only in the sha. `cluster validate` passes on it (2 nodes, 16 GPUs). `cluster ledger verify live/` reads 1926 records, chain intact. Node 2's section of `nebius.toml` is unchanged from `91af9a6bf`; only node 1's changed.
-    - **Runbook:**
-        1. Record the unit's MainPID and the `live/state.json` seq.
-        2. `touch /workspace/pouw/infra/cluster/live/STOP`. Check the unit goes inactive with exit 0 and no restart, and that `agent.lock` (`/run/gpu-lease/agent.lock`) is free.
-        3. Queue the drill job `fill/queue/node2ops-drill-gpu.sh`: `# fill: owner=node2-ops gpus=1 max_min=5 cpus=1 project=pous`, which runs `echo gpu=$CUDA_VISIBLE_DEVICES; sleep 20`. It must start, end `done` rc 0, and leave no `no-gpu` (75) in `events.jsonl`.
-        4. `sed s/@SOURCE@/<sha>/g $S/tools/cluster/vy-cluster-agent.service | sudo tee /etc/systemd/system/vy-cluster-agent.service`, `sudo systemctl daemon-reload`, `rm live/STOP && sudo systemctl start vy-cluster-agent`.
-        5. Check: active, a new segment under `live/` whose first record's `prev` is the old head, and `cluster ledger verify live/` intact.
-        6. Reply in `lanes/infra/` with what ran, the three drill results, the pin and the chain.
-
 - **Overnight allowed set adds `pn2h-*`** (owner proofs-n2-hill bc-f0eeea0e, proofs' yes; `note:20261001T0735Z-handoff-from-proofs-n2-hill-pn2h-yes`, `note:20261001T0802Z-ask-from-proofs-allow-pn2h-in-overnight-gate`), until 17:00Z: GPU points through `vy-provers` on 128–191, each names its question, none placed from 20 min before a window. Never sweep them.
 - **Overnight allowed set adds memory accounting's `pous-dsweep-*` and `pous-climb-*`** (bc-15ada664), until 17:00Z: top-level 07:41Z, infra says the d-sweep can go through the fill queue (`note:20261001T0752Z-handoff-from-infra-gpu7-and-quiet-cores-live`). GPU 7 is theirs directly (`fill/keep-free`).
 - **Where node-2 items go (compute accounting, 09:17Z; bc-2aa33ad8 has stopped):** PoUW's are filed in `lanes/accounting` for their owners: bc-c066b30c (`pouw-node2`: timed windows, fill, GPU 0's verifies), bc-e8ffd7f2 (`pouw-fp4`: FP4 jobs), bc-c62f9726 (`pouw-served`: served jobs). PoUS's go to memory accounting, bc-15ada664 (`lanes/memory-accounting`).
@@ -83,6 +68,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 16:06Z: the drill and the re-pin are done, in one restart, 16:02:40–16:04:17Z (`note:20261002T1606Z-reply-from-node2-ops-agent-healthy-on-main`).
+    - Node 2 was empty from 16:01:57Z. gm176 went back to node 1 after its second 25-min stop, both spent at 0% GPU recomputing its plan.
+    - Drill: the agent exited 0 with no restart, `agent.lock` was free, and the drill job got GPU 7 from gpu-lease and ended rc 0, with no 75.
+    - Pin: active on `1253f09ec`, pid 2749731. The new segment `20261002T160417Z` opens at seq 1935 with `prev` = the old head. `ledger verify`: 1935 records, intact.
+    - At 16:05:00Z I removed the series' STOP and queued one identical copy; it started at 16:05:09Z, the first grant through the new agent.
 - 2026-10-02 15:36Z drill prep: check `9160` was cancelled at 15:2xZ to free node 2 for this restart (old-circuits-and-proofs, `CANCELLED_MANUAL`), so it counts as done.
     - Memory accounting's vLLM e2e series renews itself 6 s after each chunk ends, so `fill/running/` would never empty on its own. At 15:35:58Z I touched its own documented stop switch, `fill-out/pous/vllm-e2e-series.STOP`. The running chunk `…151908Z` ends normally and doesn't renew.
     - After the restart I'll `rm` STOP and queue one copy of the same script, as its renewal does. Told them (`note:20261002T1536Z-notice-from-node2-ops-vllm-series-paused-for-drill`).

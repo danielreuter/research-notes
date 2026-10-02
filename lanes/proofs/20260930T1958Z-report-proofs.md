@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 600491fc (02:18Z) [open] 7:20 PM PDT: #717 merged. --zk at 4/4 BF16 cells (5.0-7.5x M0), levers running. #730 registered values: red-team GRANT for merge, soundness theorems in progress. #723: L1 fix granted, needs re-check. Launched flock-hidden-gather and flock-pouw-pieces. Answered circuits (#734 OK, overlap, gather), compute-accounting (PoUW needs), lean, infra.
 CHECKPOINT 0a4cec68 (23:36Z) [open] 4:33 PM PDT: Daniel ruled that gelu_tanh_bf16 and tanh_rn are values (hidden); he takes the cost unless it's a bottleneck. @circuits' hold is off. My estimate: 1.5-2.3x the whole proof on Gemma-2-2B, at most 6.4x. bf16-hill's --zk jobs are running; node 1 is at 59% disk.
 CHECKPOINT none (23:01Z) [open] 4:00 PM PDT: bf16-hill's first --zk points are submitted (K=16384, K=8192); the other seven value-hiding workers are still running. Proofs' lease pool, blocked by a circuits stray since 2:48 PM, was cleared at 3:56 PM. @circuits and @compute-accounting took vLLM's and PoUW's hiding work.
 CHECKPOINT none (22:31Z) [open] 3:30 PM PDT: value hiding is Daniel's top priority (yes to all three at 3:06 PM PDT). Eight proofs workers run: --zk at the BF16 cells, the ZK Lean proof, hidden statement outputs, registered commitments, private-index read pricing, C-Flock constants as inputs, IR registered inputs, the ruling's record. The rule went to @circuits, @compute-accounting, @top, @lean and @old-circuits-and-proofs (now the constant design's owner). #717 granted by red-team and ready in the queue.

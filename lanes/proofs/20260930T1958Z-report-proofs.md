@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT cc21a7d94 (08:02Z) [open] 1:03 AM PDT wake: no new mail; trains b9fe/16f7 running; #786 check a8e6 running; #792/#793 wait on main
 CHECKPOINT none (07:36Z) [open] #730 fixed (d9f804670) and #776 trimmed (694e21e3f), both on the lander's trains b9fe/16f7; #792 (Theorem GK) opened, statement review APPROVE, red-team asked; public-input anchors ruled unchecked on the live --zk path until Lean verify --zk takes --public-inputs
 CHECKPOINT none (07:12Z) [open] 12:13 AM PDT: #771 fixed (4663a5bb7, suite 35/35, granted, ready); #776 ready (red-team GRANT); #786 opened (zk text, check a8e6); k_log 27 yes -> zk-k32k; word_bits -> registered-values; Keccak pieces -> flock-pouw-pieces; +3h MISS 2/4 posted
 CHECKPOINT none (06:09Z) [open] 11:24 PM: hZero proved (e2e-zero, on placed+aliased); placed/aliased/layout/exec pieces landing; M0 FC_COINS=os accepted by flock-verify. K=32768 FP cells done (--zk x1.35-1.58); BF16 K=32768 awaits a yes on k_log 27.

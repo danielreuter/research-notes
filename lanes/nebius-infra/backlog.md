@@ -13,6 +13,26 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 06:35Z Oct 2 (11:35 PM PDT Oct 1)
+
+- **The cap was binding before the disk because the estimates ran 4–9x high.**
+  - The formula sized every model it doesn't list as Phi-3-mini. qwen3-06b and r1-distill-qwen-15b b32 bundles came in at 51
+    and 107 GB against 480 each.
+  - Unfinished bundles already counted only what was left to write, and bundles on disk cancel out of the release test, so
+    the estimates were the cause.
+  - Since 11:25 PM PDT the pacer learns each model's size from the Commits it watches succeed: the largest written ×1.25, in
+    `~/commit-release/bundle-sizes.json`, tracked in `bundle-track.json`. That's #767 at `90b6cc699`, marked ready, with @ci
+    told. The previous file is `sky/release.py.bak-20261002T0625Z-pre-learn`.
+- **Non-bundle growth, about 87 GB/h, is mostly circuits' run directories.** `/workspace/jobs/runs` gained 409 runs in 6 h at
+  about 1 GB each (Build `outputs/build`, replay `replay_slim_p0`). Only 7 of its 2,936 run dirs are preserved on the
+  remote, so they can't be safely evicted. I asked @circuits to push them (`research data push --pending`) or drop what
+  finished chains don't need.
+- **Pruned 184.6 GB** of local blobs in `/workspace/jobs/store` whose artifacts are preserved on the remote, oldest first. I
+  used `research data evict --target-free-gb 2500`, run as ubuntu (which owns the blobs), with the shipped tool
+  `/workspace/research/tool/e1e97b1dec5f6d11`. Disk went from 57% to 54% and the cap from 1,120 to 1,291 GB. About 120 GB
+  more is evictable. I suggested to @infra an hourly `evict` on node 1, at a free-space mark of its choosing.
+- Second `du -d 2` snapshot running in `/tmp/du-snap/` on node 1; compare next pass with the 06:12Z one.
+
 ## State at 06:15Z Oct 2 (11:15 PM PDT Oct 1)
 
 - Slot `d` is still waiting: the waiter reports 1 running pod pinned onto 128–159, probably the prover-d pod running since

@@ -183,3 +183,19 @@ minute (the console's `node1-owners`). Node 2 counts leased minus useful from PO
 2. **n2-commits (circuits' bc-698052e1), `verity-commit`** on node 2: 9.2 idle of 9.7 GPU-h leased, 5% useful, plus 0.44 of 0.45
    in `cov-g217-proof`.
 3. **proofs, `backend-sweep`** on node 1: 7.8 idle of 8.4 GPU-h held, 7% busy. Proofs' node 1 kinds total 28.9 idle GPU-h.
+
+## Daily top 3 GPU wasters, Oct 2 (posted 9:04 AM PDT, ts 1790957048.288709)
+
+Idle GPU-hours over the 24 h to 16:00Z, timed leases left out. Node 1: held minus busy from DCGM's one reading a minute, by pod
+kind from Prometheus (each GPU's series is doubled there, so halved; that matches the console's `held-idle-hourly` lane totals).
+Node 2: leased minus useful (`nodes.n2.kinds`).
+
+1. **circuits, `vllm-epoch-run`** on node 1: 22.6 idle of 25.6 GPU-h held, 12% busy (Oct 1: 74.5 of 81.5). 15.3 in the lease
+   pool's holders (`gpu-pool-circuits`, 134 pods; 4.7 of it unleased), 7.3 in whole-GPU `nd-vllm-epoch-run-*-gpu-0` (59 pods).
+   Moved-back Commits keep their lease since 14:32Z (#829); gemma2-9b's instrumented phase goes to the commit-lease worker.
+2. **proofs, `prover-b` pods** on node 1: 18.6 idle of 20.1, 8% busy (Oct 1: 28.9 idle). bf16-hill 8.2 (127 pods), vllm-de 5.3,
+   vllm-mo 2.3, zk-k32k 1.4, zk-cell 1.2. Suggested: lease the GPU for the prover's GPU phase only.
+3. **n2-commits (circuits' bc-698052e1), `verity-commit`** on node 2: 8.8 idle of 10.6 leased, 17% useful, 51 leases (Oct 1:
+   9.2 of 9.7).
+
+Next: circuits' `commit-pack` on node 1, 5.8 idle of 5.9. Node 1 48.1 idle of 53.9 held; node 2 18.0 of 32.8 (5.4 timed, by design).

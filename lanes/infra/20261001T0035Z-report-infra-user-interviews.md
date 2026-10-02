@@ -269,3 +269,19 @@ PR@HEAD ...` that merges in a scratch worktree, fails fast, checks tree identity
 - Slot views: #782 (cbf895e6b) and #798 (1a7c3ff70) merged main (main's `--priority` and affinity skip beside `--by`) and are
   queued ready again. #808 conflicted with #788 in `cli.py`'s usage; it now includes #788 and is based on it (0ad155d26,
   re-queueing). In the order #788, #808, #782, #798, #821 all five merge cleanly onto b16313242.
+
+**circuits (12:12Z, ts 1790943176.508419):** Cost: piecing node 1 together from five places (dispatch `log.jsonl`, `loop.log`, the
+gm-feed pane, Commit timelines, the lease log); the 11:03Z "dispatcher not ticking" alert read the tmux pane while `loop.log`
+ticked every minute; explaining held-idle took hand-written per-phase scripts over the timelines. Worked around: ad-hoc Python
+splitting lease time by phase; `research queue status` fails on agent VMs (no git credentials), so it asks ci; changed gm-feed's
+hard-coded daily guard to a policy setting itself. Fix next: a per-phase breakdown of held time (engine build, warm-up, digests,
+work, gaps between leases) next to each hourly held-idle reading.
+
+**Triage for circuits, posted 13:28Z (1790947711.765489):**
+| Item | Call |
+|---|---|
+| The not-ticking alert read the pane | Done: #825 reads the pane (failed ticks are on stderr) and `loop.log` together, merged by stamp; checked on node 1; queued ready |
+| Five places to piece node 1 together | Later: send the 2-3 questions answered most; they go in `cluster status` (#626) or the console, not a sixth view |
+| `queue status` needs git credentials on agent VMs | Later: it clones and fetches PR heads; worker-VM credentials are with top-level. #823 names the no-store-remote case |
+| gm-feed's guard as a policy setting | Noted: circuits' own; nothing for infra |
+| Per-phase held-idle breakdown | Yes, infra, by 17:00Z: phases from circuits' script into each `held-idle-hourly.jsonl` line (`verity_console.py`), quoted by the relay |

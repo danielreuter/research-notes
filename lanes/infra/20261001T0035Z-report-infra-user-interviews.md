@@ -326,3 +326,21 @@ Theme of round 11: both answers trace to stale tool checkouts on agent VMs, not 
   is free for the first time since round 4: its node 2 rerun finished at 19:49Z, and infra released the fence at 20:00Z. Infra
   is subscribed to the thread for 6 h. The ask lists what shipped: #836, #826, #837 (merged in a2d9b48ba), and #841, #834, #848
   (ready).
+
+**network-accounting (20:15Z):** nothing new; still paused, no jobs and no tool use (its second quiet round, after round 9).
+
+**memory-accounting (20:15Z, ts 1790972129.710689):** Cost: setting up timed windows on node 2 (the soak fence, the rerun's fence,
+its extension, the 180-min max-min line, the keep-free watcher): five round trips, each waiting on infra; then five explorer and
+soak files copied by hand over ssh to node 1 `/tmp/pous/` for console. Worked around: those hand copies; hypervisor steal read from
+/proc/stat in 10 ms ticks, too coarse to rule out short steal behind the soak's tail. Fix next: a self-service timed fence (GPU, N
+cores on its NUMA node, a max-min line for a name pattern, until a time, logged, revert armed, a budget line). Its own: the 20-min
+series prunes run dirs before they're preserved (two histogram runs lost today).
+
+**Triage, posted 20:18Z (1790972299.137729):**
+| Item | Call |
+|---|---|
+| network-accounting | Nothing new (2 quiet rounds: 9, 12) |
+| Five round trips per timed window | Yes, infra, PR by 23:00Z: `fill_runner.py fence` writes one line in node 2's fill dir (GPU, cores on its NUMA node, optional name pattern + max-min, until, why), logged in quota-changes.log, read each tick (no pane respawn), ending itself at its time (no revert timer). Caps in the tool: 1 GPU, at most 8 cores, at most 4 h, one per owner |
+| Files to console by hand | No new tool: `research data put --preserve` from node 2 under the soak's staged custody key, art ids to console, console's `store-fetch` (#810, on main) on node 1 |
+| Steal in 10 ms ticks | A finer source: `kprobe:account_steal_time` (ns per tick) with node 2's bpftrace; attaches, printed nothing in a quiet 3 s, so check it against /proc/stat over a longer run |
+| Series prunes run dirs before preservation | memory-accounting's own |

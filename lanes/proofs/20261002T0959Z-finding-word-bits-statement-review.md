@@ -33,3 +33,5 @@ package (PASS with replay, 4890 declarations, 17 pins) and FlockSoundness (PASS 
   review; I re-label at it.
 
 PR [#811](https://github.com/danielreuter/verity/pull/811). Grant `statement-reviewer` at `pr:811@717c813b1`.
+
+**Carried to `2304269996b0` (3:30 AM PDT).** Main merge `3d35e50c7`, PROTOCOL.md trim `88c6276bd` and the R7 integer-type fix `230426999` (Python and README only). Every `lean-audit.json` at the head equals the per-key union of main and `717c813b1` over base `d9f804670` (checked key by key, all seven changed files), so no record moved. Label at `pr:811@2304269996b01535a280804c12bb5f0946b401cd`.

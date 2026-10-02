@@ -32,6 +32,11 @@ Only with no open files (`lsof +D`), and only at `nice 19 ionice -c3`:
   (§2) checks every request not yet finished (a dead runner's doesn't count), Kueue workloads and pods not finished, fill
   jobs queued or running, and every process's cwd, root, open files, maps, argv and environment. A tree whose ship is reused
   keeps its first mtime, so its age is from when it was shipped; a deleted tree is re-shipped from the node's bare repo.
+- node 1's infra job trees in `/workspace/jobs/src` older than 6 h (Daniel's ruling on card `396420c8`, 8:59 PM PDT 1 Oct,
+  with infra's two rules). This covers per-pod copies (`<hostname>`, `pod-<hostname>`, `*-head`) whose pod is not live,
+  and content copies (`<id16>`, aged by the newest `by-pod/*` file naming them) that no live pod names. A copy without
+  `.copied` is kept. The pass renames each copy into `jobs/src/.trash`, re-checks, and puts back anything named since.
+  `sweep.sh` runs it on node 1 only (`node-sweep.sh --jobs-src`).
 
 Every deletion is logged in §4 (path, size, age). Slack hears of it only if it frees over 50 GB.
 
@@ -322,6 +327,28 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Kept: the same 26 node 2 trees as at 22:16Z. No check scratch was old enough, and no `STUCK` lines.
   - After (03:08Z): node 1 has 58 trees, `/workspace` at 60% space and 52% inodes (10.52M; both live audits had
     finished), root 192 GB free.
+- 06:09Z (11:09 PM PDT), the 6 h sweep run early from the 06:07Z tick's HARD line (`sweep.sh --src-age-h 6`): node 1
+  only, 26 trees, 606,594 files, 32.1 GB. Node 2 was not swept: I edited `sweep.sh` while it ran, bash read a fragment
+  (`ntf: command not found`) and stopped on a syntax error. `sweep.sh` now runs as one function, so a later edit cannot
+  reach a running sweep.
+  - 14 trees 6 h old: `4ddd7a5a`, `9e2ca94d`, `a72455b8`, `aa2dd5dc`, `d9c5b0f3`, `fc9b4029` (30,686–30,768 files,
+    1,719–1,722 MB each), `210d32e1` (25,066 files, 1,079 MB), `cb3bd6c6` (25,195 files, 1,213 MB), and `06fa0be0`,
+    `2f6d09ac`, `455a0104`, `4f96f82a`, `73041968`, `998ac159` (5,457–5,472 files, 99–100 MB each).
+  - 7 h: `50fdfe55`, `51069d4a`, `68f4f081` (30,700–30,714 files, 1,719–1,720 MB), `7af1b472` (27,357 files, 1,596 MB),
+    `3cd1e329` (5,474 files, 100 MB). 8 h: `0bacf0ca`, `402c53cb`, `524c1282`, `d93e796e`, `e823817d` (30,677–30,780
+    files, 1,717–1,722 MB), `18e9fbe1` (29,866 files, 1,680 MB). 9 h: `53eb34e8` (30,716 files, 1,719 MB).
+  - Kept: `62e3c42b` (419 files outside its commit). Node 1 went from 59% to 55% inodes (11.25M).
+- 06:16–06:23Z (11:16–11:23 PM PDT), the first sweep with `jobs/src` (`sweep.sh --src-age-h 6`, `--jobs-src` on node
+  1): 841 entries, 4,146,357 files, 79.1 GB.
+  - Node 1 `jobs/src`, 836 entries, 4,071,533 files, 75,455 MB, 6–41 h old: 665 per-pod copies (3,187,404 files,
+    57,384 MB; `nd-proofs-bf16-hi-*`, `nd-proofs-flock-f-*`, `nd-assumption-swe-*`, `nd-backend-sweep-*` and the Sep 30
+    `*-head` ones) and 171 content copies (884,129 files, 18,071 MB). The per-entry lines are in node 1's
+    `~/resource-steward/node-sweep.log` and this VM's `~/resource-steward/deletions.log`. Nothing was put back, nothing
+    `STUCK`. Afterwards all 14 live pods with a `by-pod` file still had their copy, with `.copied`.
+  - Node 1 source trees: `3e44638d` (6 h, 27,357 files, 1,596 MB) and `d2b57788` (6 h, 30,775 files, 1,722 MB).
+  - Node 2 source trees: `3ae34fb0` (7 h, 5,438 files, 99 MB), `97e90885` (8 h, 5,782 files, 105 MB), `fa3c22ed` (7 h,
+    5,472 files, 100 MB). Kept: the same 26 node 2 trees.
+  - After: node 1 `/workspace` at 36% inodes (7.40M), `jobs/src` down to 175 entries.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -355,6 +382,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     names, and it stops if `kubectl` fails. Dry run on node 1 at 03:26Z: 811 entries (164 content copies and 647 per-pod
     copies), 3.94M files, 72.9 GB. No live pod's copy was among them, checked separately against the 45 live pods. The
     card is still pending; the flag is not run until Daniel answers.
+  - **Resolved.** Daniel chose *Yes: add them to my sweep* at 8:59 PM PDT 1 Oct (03:59Z, by button, so the thread
+    subscription never fired; I read it at 06:12Z). The rule is now in §1, and `sweep.sh` runs `--jobs-src` on node 1. First
+    run 06:16Z: 836 entries, 75.5 GB (§4).
 - Node 1 runs without custody (@infra, asked 05:48Z 2 Oct, #agent-coordination `1790920126.275509`, `sub_89635e42`).
   - 13 failed run dirs in `/workspace/research/runs`, about 2.8 GB. None has `.custody`, and each runner's last line is
     `custody: publishing the attempt…`.
@@ -706,3 +736,8 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 04:40Z to 05:22Z ticks: exit 0. 05:44Z tick (exit 1): node 1 had 12 finished runs over 1 h without custody (13 by
   05:48Z). All are failed runs whose runner died during custody, 12 of them cancelled `check` runs. Sent to @infra with
   the evidence (§5). Nothing deleted.
+- 06:07Z (11:07 PM PDT) tick (exit 1): node 1 HARD at 862k inodes/h (80% in 5.0 h), at 12.17M (59%). The jump came from
+  three live Lean audits' scratch, on top of `jobs/src`, which reached 1,003 entries (43 an hour). Ran the 6 h sweep at
+  once: 26 trees, 32.1 GB (§4, 06:09Z). The card status then read *approve* (Daniel, 8:59 PM PDT), so I put `--jobs-src`
+  into `sweep.sh` for node 1 and ran it: 841 entries, 79.1 GB (§4, 06:16Z). Node 1 is at 36% inodes (7.40M) and 57% space.
+  Posted to @infra, since the total is over 50 GB.

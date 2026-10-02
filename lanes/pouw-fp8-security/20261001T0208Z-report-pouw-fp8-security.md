@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT cd080d44d (18:55Z) [open] 11:55 AM PDT: served replay r20261002-173355-4eef: decode done (0 of 511 over 1/1,000, worst 0.051 of the cap); prefill 226/512, worst share 0.0048%, ETA ~19:12Z. CPU only, 0 GPU-h.
 CHECKPOINT cd080d44d (18:34Z) [open] 11:35 AM PDT: served replay r20261002-173355-4eef: decode pass done, 0 of 511 sampled tiles over 1/1,000 (of 2,064,384), worst share 0.0051% (0.051 of the cap, m=32 k=4096 n=6144), 0 opening failures; prefill 49/512, ETA ~19:25Z. CPU only, 0 GPU-h.
 CHECKPOINT cd080d44d (18:09Z) [open] served replay r20261002-173355-4eef (CPU, node2 48-95): decode 276/511 tiles, all accepted, worst debit 0.0039% of credit (0.039 of the 1/1000 cap); prefill 512 next, ETA ~19:40Z
 CHECKPOINT cd080d44d (17:46Z) [open] 10:47 AM PDT. Task 1: cursor/fp8-v1-cap1000-verifier-cb26 @ cd080d44d; pouw suites and the full suites.py --quick pass (22 of 22); panel lines.json v1/-h1/-h2/-h3 γ now 0.003695 (cap 1/1,000, #838's loop pins). Task 2: replay r20261002-173355-4eef on the queue's cores 48-95 (44 CPUs): 1,023 tiles of served window 5's Llama-3.1-8B passes; 44 done, all accepted at 1/1,000, worst 0.035 of the cap; ETA ~19:10Z. Cancelled my r20261002-173047-deea and -172745-9118: my inner taskset put them on cores 96-123 (friction note 20261002T1742Z). 0 GPU-h.

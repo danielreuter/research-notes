@@ -103,3 +103,6 @@ the 17:21Z, 17:27Z, 18:05Z, 18:07Z and 17:22Z replies, and `note:20260930T1856Z-
 - 11:00 AM PDT: `vy-cluster-agent` was stopped for node 2's /workspace quota cutover and restarted at 10:21 AM PDT. It is still on
   `91af9a6bf` (not re-pinned) and continued the chain in segment `20261001T172118Z`; the previous run did 276 grants in 15 h at 0 s
   lag, with 0 safety divergences. The drill and re-pin are still pending with node2-ops.
+- 8:00 AM PDT 2 Oct: watch ended. `vy-cluster-agent` on `91af9a6bf` has run cleanly for 20 h through the quota cutover restarts
+  and the first daily roll: 73 grants today, all at 0 s lag, 0 safety divergences. Open, with their owners: node2-ops' rollback
+  drill, and infra's re-pin to main (`ef6a3e748` or later).

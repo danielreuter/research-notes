@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT 3ae34fb00 (00:15Z) [open] bitsets r20261001-225552-a4a7 running; near-cap@2 deferred, none failed
 CHECKPOINT 3ae34fb00 (23:45Z) [open] bitsets r20261001-225552-a4a7: 43 of 88 done, near-cap@2 deferred (raw kept, rechecked at run end), none failed; df 45%
 CHECKPOINT 3ae34fb00 (23:15Z) [open] bitsets r20261001-225552-a4a7: 41 of 88 done, none deferred or failed; df 50%
 CHECKPOINT 3ae34fb00 (22:57Z) [open] bitsets: relaunched as r20261001-225552-a4a7 on 3ae34fb00 (a unit whose read-back fails twice is deferred, raw kept, and rechecked at run end). The slow R2 reads were transient, not bad objects: pm1-r64@1's hot blob now fetches in 4.8 s and the unit passed in 60 s. 32 of 88 done, 0 failed outstanding except pm1-r64@2 (queued for retry); df 50%

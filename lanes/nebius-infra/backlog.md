@@ -13,6 +13,17 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 01:35Z Oct 2 (6:35 PM PDT Oct 1)
+
+- #732 merged at 6:21 PM PDT; #746 is ready and with @ci. The relay sends the redeploy ask to @circuits once both have
+  merged.
+- The live `VY_LEASE_HOSTDIRS` default works: all 4 leased `deployments-gpu` Commit Jobs created since 6:14 PM PDT mount
+  `/run/gpu-lease-circuits`.
+- On node 1, 7 of 8 GPUs are empty, `provers` admits nothing, and `deployments-cpu` has 6 Builds and replays pending on its
+  384Gi limit. The pacer projects 947 of its 1,000 GB cap, with 479 GB of bundles waiting for replay. So Commits are limited
+  by how fast replays clear bundles and by Build quota, both already recorded at 00:45Z. Node 2 is running on 3 GPUs.
+  `/workspace` is at 58%.
+
 ## State at 01:20Z Oct 2 (6:20 PM PDT Oct 1)
 
 - The circuits lease pool was blocked twice, at 5:49 and 5:58 PM PDT. Both strays were circuits' hiding-commitments retries

@@ -359,3 +359,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 01:24Z: MERGED T732 b59b4a886 (d1d0); main e43f30d1d. Stacked #746: 50bcd0178 slot b r20261002-012152-3d87 (cancelled 62a7). Order b533, 3d87, #722 pin on 50bcd0178.
 - 01:26Z: ci token expired: sent broker install (verity-github.py, sha 34ea37fb…) — no Daniel needed; escalate to ask-daniel only if install fails. I stack trains meanwhile.
 - 01:30Z: T745 42d7c299f (50bcd0178 + #745) slot b r20261002-012524-1050; cancelled 3d87. Order b533, 1050, #722 pin on 42d7c299f.
+- 01:36Z: 7b3e bundles not uploaded (>256MiB undeclared). Re-export with --declared-output export/*: r20261002-013330-8cff slot c. #722 merged on line tip in /tmp/wt722 as bb2680947 (not pushed).
+- 01:38Z: plan: pin commit on af5570eca, merge into b74c88c1e (#740 #736 #744), check that tip.

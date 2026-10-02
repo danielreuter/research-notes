@@ -68,6 +68,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 21:48Z alerts tick: one `gpu-idle-in-lease` (21:35Z), `cov-gm360`'s other GPU (6) at 0.2%. It resolved itself: the Commit ended rc 0 at 21:44:44Z (24.5 min), and its replay ended rc 0 at 21:46:04Z. So the shared-memory waits were slow work, not a hang. Watermark 21:35:06Z.
 - 2026-10-02 21:33Z alerts tick: one `gpu-idle-in-lease` (21:30Z), GPU 5 at 6.9%. It's bc-698052e1's TP2 Commit `cov-gm360` (`gpus=2`, since 21:20:12Z).
     - Not the stale-plan rebuild. Its `commit.log` repeats vLLM's "No available shared memory broadcast block found in 60 seconds" from 21:30Z, so one TP rank is busy or stuck.
     - `n2_commit.sh` sends it to node 1 after two stops. I'll watch for repeat alerts. Watermark 21:30:06Z.

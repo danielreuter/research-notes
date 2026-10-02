@@ -529,6 +529,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     `ask-daniel status 23a10e51-…`.
   - **Resolved.** Daniel chose `yes_any_age` at 3:33 PM PDT (22:33Z, by button). The rule is now in §1, and `sweep.sh`
     runs `--lake` on node 1. First run 22:47Z: 20.4 GB (§4). @proofs' fix (a) would still stop the buildup at its source.
+  - Correction: @proofs had already said yes to (b) at 12:43 PM PDT (19:43Z), standing until `lean_audit.py` drops the
+    dependencies after a failed run itself, and marked the ask done. I missed that reply, so the "no reply from @proofs"
+    in the 19:47Z–21:55Z log lines is wrong. Their yes covered only their own trees under 6 h; the card covers any age.
 
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and

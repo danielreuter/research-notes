@@ -179,3 +179,29 @@ now delivered; the open items are the "later"s (`research run cancel` after #708
   answers may be short). The ask lists what shipped since round 7 so it doesn't come back: `research cancel` (#788, round 7's
   "later" for old-circuits-and-proofs, without the Lean scratch cleanup), `slot.py --status` who-asked (#782), node 2's uv
   (#785), the gpu_stray race (#790), node 2's slot `d` back in use, and `research deploy` (#777).
+
+**compute-accounting (07:50Z):** Cost: shells on its VM lost the injected secrets during the night, so about 40 ssh, store
+and Slack calls went through a polled tmux login shell (8-25 s each). Worked around: reading run dirs over ssh because
+`research status` and `inspect` don't find a run launched from another VM; storing a log as `evidence/v1` after a warning on
+`log/v1`; grep on node 2 (no rg); `suites.py --quick` at 21/22 until #733. Fix next: `research status` and `inspect` resolve
+any run id from the store or the node, whichever VM launched it.
+
+**proofs (07:51Z):** Cost: worker VMs can't record a check or push to the store (no R2 endpoint or bucket, no machines), so
+every worker check and fixture push goes back through proofs (a 109 MB fixture sat in one worker's local store); shells
+also lose their secrets. Worked around: `research fetch RUN`, or reading stderr.log over ssh, to see where a check is (the slot
+line said "3-4 check(s) ahead in line" for 45 min, with no names and no ETA); `vmsg.py read --since --json` plus a
+filter, because `research msg read --as` refuses `--since`. Fix next: let any worker VM record a check and push to the
+store, either by giving worker VMs the R2 settings and machines, or by having `check --record --on POD COMMIT` use the
+pod's own custody key.
+
+**Triage, posted 07:58Z (1790927901.722399):**
+| Item | Call |
+|---|---|
+| Shells losing injected secrets (both) | No: the Cursor platform; #753 makes the tools say so. Context: the `tmux wait-for` one-liner avoids polling |
+| `research status` / `inspect RUN` for a run launched from another VM (both) | Yes, infra, by 11:00Z: find it on the registered machines or in the store, then fetch as `status --refresh` does |
+| Kind for a plain log | No change: `evidence/v1` is the documented kind for logs and verdicts |
+| rg on the nodes | Yes, infra, done: installed on both nodes, #794 adds it to vm_setup.sh |
+| `suites.py --quick` 21/22 | Context: #733 is in the lander's train 6b3d704c8 (check r20261002-072246-b9fe) |
+| Worker VMs recording checks and pushing to the store | Later, by 09:00Z through top: the same missing secrets. Letting nodes mint custody keys puts a long-lived R2 key on them, a credentials call; recommend keys stay off the nodes. To merge, a ready PR needs only the lander's train check |
+| Slot line with no names or ETA | Yes, infra, by 10:00Z: name the checks ahead and how long each slot has been held (on #782). At 07:57Z node 1 had 8 waiting for 3 slots, about 35 min a check |
+| `research msg read --as NAME --since TS` | Yes, infra, by 10:00Z |

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:46Z) [open] 20:46Z: main 27c5889ba (#828, #838); #850 in train (check on node 2); #846 fixing Setup.lean; soak rerun reported to Daniel; greedy TP2 rows running on node 1
 CHECKPOINT none (20:31Z) [open] 20:31Z: next train 18a25f0e3 (8 PRs incl #848); partitioning Lean proved in draft #850; two-stage exfiltration Lean top priority (ts-exfil); TP2 seed fix confirmed, staging fix under test
 CHECKPOINT none (20:14Z) [open] 20:14Z: main 1affc167c (#843 #835 #840 #844 #832); next train ed7ad28f8 (#838 #833 #834 #820 #841 #842 #845); #828 with statement reviewer
 CHECKPOINT none (19:59Z) [open] 19:59Z: train e2362e6f1 (11 PRs) with lander; FP8 #847 ready after #838; served FP8 0/1023 tiles over cap; TP2 fix in progress

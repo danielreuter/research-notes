@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT cd080d44d (19:23Z) [open] 12:28 PM PDT: both tasks of compute accounting's 9:46 AM PDT order done. Verifier cursor/fp8-v1-cap1000-verifier-cb26 @ cd080d44d (rho = Device.cap, sm_120 1/1,000). Served table art:dc6ba8a608a3fa215bbc5c0049fbb16dffe83b0b073d5425a1baf8929668d710: 0 of 1,023 sampled served Llama-3.1-8B tiles over 1/1,000, worst 0.051 of the cap (r20261002-173355-4eef). Reply note:20261002T1927Z-reply-from-4323a347-fp8-v1-cap1000-verifier-and-served. No job of mine running; 0 GPU-h.
 CHECKPOINT cd080d44d (18:55Z) [open] 11:55 AM PDT: served replay r20261002-173355-4eef: decode done (0 of 511 over 1/1,000, worst 0.051 of the cap); prefill 226/512, worst share 0.0048%, ETA ~19:12Z. CPU only, 0 GPU-h.
 CHECKPOINT cd080d44d (18:34Z) [open] 11:35 AM PDT: served replay r20261002-173355-4eef: decode pass done, 0 of 511 sampled tiles over 1/1,000 (of 2,064,384), worst share 0.0051% (0.051 of the cap, m=32 k=4096 n=6144), 0 opening failures; prefill 49/512, ETA ~19:25Z. CPU only, 0 GPU-h.
 CHECKPOINT cd080d44d (18:09Z) [open] served replay r20261002-173355-4eef (CPU, node2 48-95): decode 276/511 tiles, all accepted, worst debit 0.0039% of credit (0.039 of the 1/1000 cap); prefill 512 next, ETA ~19:40Z

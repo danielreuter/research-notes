@@ -68,6 +68,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 23:03Z alerts tick: two `gpu-idle-in-lease` (22:55Z), GPUs 5 and 6 at 4.1–4.5%. Both are one TP2 Commit, `cov-gm372-r2` (bc-698052e1), 10 min in since 22:45:51Z. Same early-lease pattern as `gm360`, which finished rc 0. Nothing to do; watermark 22:55:06Z.
 - 2026-10-02 22:08Z hourly (21Z): GPU busy 11.7% (0.94 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series, plus Commit `cov-gm360`.
     - **Why below 80%:** nothing else was queued, so 6.2 GPU-h sat free. Leased-idle 0.87 GPU-h: 0.73 of it is `gm360`'s TP2 lease waiting on shared memory before it finished rc 0, and 0.13 is the series' start-ups.
     - **Backup:** `r20261002-220628-013d`, unpinned. The 21Z backup `r20261002-210626-5502` is preserved.

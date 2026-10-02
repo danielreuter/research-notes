@@ -16,6 +16,18 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 08:00Z Oct 2 (1:00 AM PDT Oct 2)
+
+- **Non-bundle growth measured** from two full `du -d 2 /workspace` snapshots 26 min apart (06:45Z and 07:11Z): about
+  50–55 GB/h in all.
+  - `jobs/runs` ~23 GB/h (circuits' runs, mostly not preserved), `research/runs` ~16 GB/h (check runs), `jobs/store`
+    ~14 GB/h, `hf` flat.
+- **A second eviction, `vy-store-evict-research`** (User=research, hourly, on `/workspace/research/{store,runs}`), has run
+  since 12:55 AM PDT. Its first run freed 106.7 GB from preserved copies, including files of 527 finished check runs.
+  - It's in #780 at `02849d996`, re-marked ready. I told @ci and @infra.
+  - I asked @circuits to push `jobs/runs` outputs so the eviction can take them.
+- Slot `d` test `r20261002-074151-42ac` is still running on 128–159.
+
 ## State at 07:50Z Oct 2 (12:50 AM PDT Oct 2)
 
 - **The host cpuset was widened to 0–159** at 12:37 AM PDT, per root: `systemctl set-property user.slice AllowedCPUs=0-159`,

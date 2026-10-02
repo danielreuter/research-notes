@@ -68,6 +68,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 20:03Z alerts tick: one `gpu-idle-in-lease` (19:55Z), GPU 7 at 3.5%, 6 min into memory accounting's lease. Their soak rerun ended rc 0 at 19:49:34Z (163.7 min), and they restarted their own vLLM e2e series at 19:49:32Z (`…194932Z`). The alert is its vLLM start-up. Nothing to do; watermark 19:55:06Z.
 - 2026-10-02 19:09Z hourly (18Z): GPU busy 12.5% (1.00 of 8.00 GPU-h, all useful): memory accounting's soak rerun on GPU 7.
     - **Why below 80%:** nothing else was queued for a GPU, so 7.0 GPU-h sat free.
     - **CPU 0–127 at 37.2%:** PoUW's Pearl-C `served_debit.py`, 47 processes at nice 19 from 18:17Z, in the agent-placed scope `cluster-r20261002-173355-4eef`. 46 are on 48–95; the launcher is on 0–91. Clear of the rerun's 116–123 fence.

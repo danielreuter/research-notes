@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (08:31Z) [open] 08:31Z inbox checked; trains b9fe/16f7 still checking; soak healthy
 CHECKPOINT none (08:12Z) [open] 08:12Z inbox checked; worker-VM secrets card open for Daniel; trains b9fe/16f7 running
 CHECKPOINT none (07:54Z) [open] 07:54Z inbox empty; round-8 interviews answered; soak running; +7h check timer at 10:20Z
 CHECKPOINT none (07:36Z) [open] 07:36Z: #791 shiftBy24 guarantee approved by compute; train c37e (#781, #784, #771) checking; infra #790 stray-probe fix live; soak healthy

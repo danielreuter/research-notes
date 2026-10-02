@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (09:20Z) [open] A 09:20Z poll: nothing for me (node2-ops 0909Z: disk 37%, soak on GPU 7); still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (09:00Z) [open] A 09:00Z poll: no new notes; still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (08:40Z) [open] A 08:40Z poll: no new notes; still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (08:20Z) [open] A 08:20Z poll: nothing for me (node2-ops 0809Z: disk 37%, soak on GPU 7); still off node 2, no 'back'; totals.py read awaits compute accounting's yes; panel art:63261f6f

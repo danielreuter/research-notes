@@ -16,6 +16,24 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 08:50Z Oct 2 (1:50 AM PDT Oct 2)
+
+- **Slot `d` is live again**, so node 1 has 4 check slots. `r20261002-074151-42ac` passed on 128–159, and the watcher re-added
+  `d` at 1:18 AM PDT.
+- **Two things kept checks off it:**
+  - The watcher killed the `flock` parent (3423154), but its `sleep` child (3423156) kept `check-d.lock`. `flock` without `-o`
+    hands the locked descriptor to the child. I released it at 1:44 AM PDT, and the head of the line, `r20261002-070557-a8e6`,
+    took `d` within a minute.
+  - `research run` starts every direct run on `/etc/vy/direct-cpus` (`remote.direct_cpus`), which said `0-95`. #789's guard
+    compares a slot's cores with `os.sched_getaffinity(0)`, so it skipped `d` on the hedge train (`r20261002-083432-6142`).
+- **Node change:** `/etc/vy/direct-cpus` is now `0-95,128-159`; 96–127 stays the dispatcher's. Backup:
+  `/var/backups/vy-allowedcpus/direct-cpus.20261002T0845Z`. A fresh run, `r20261002-084614-911c`, starts on those 128 cores, and
+  #789's `usable()` there lists c, a, b and d.
+- **Rule for the CPU map:** `direct-cpus` must cover every check slot's cores, or #789's guard skips that slot.
+- I told the research coordinator directly, and told @infra and @ci in the disk thread (the lander needs no change).
+- #701's fill-runner failure is not from the cpuset: root dropped that question at 1:48 AM PDT, since the test also failed on
+  node 2.
+
 ## State at 08:00Z Oct 2 (1:00 AM PDT Oct 2)
 
 - **Non-bundle growth measured** from two full `du -d 2 /workspace` snapshots 26 min apart (06:45Z and 07:11Z): about

@@ -373,3 +373,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 02:47Z: slot policy (b): trains flock a/b only; launchv refuses c (SLOT_C_OK=1 override). d553 on c grandfathered. #755 #756 next train.
 - 02:50Z: T721 794de4ee9 (send) queued slot a r20261002-024708-71e2; lean approved #721 pins. Order d553, 9ab6, b9dd, 71e2. Add slot d (check-d.lock, 128-159) after 05:30Z.
 - 02:56Z: cancelled 71e2 (queued); T752 1992d95c5 (send) slot a r20261002-025326-98fd. Order d553, 9ab6, b9dd, 98fd.
+- 03:27Z: b9dd PASSED (merge after d553, 9ab6). T758 9c447115b queued slot b r20261002-032418-5560.
+- 03:33Z: MERGED TTOP b1bf0915b (d553), TCOM 703806227 (9ab6), T723 206b4520a (b9dd); main b710820ac. #722 #740 #736 #744 #718 #720 #725 #748 #727 #723 merged. Next 98fd, 5560.

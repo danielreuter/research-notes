@@ -298,6 +298,20 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Kept, 26 node 2 trees: as at 20:08Z, plus `bb934d59` (no `READY.json`; sixteen such now).
   - After: node 1 has 35 trees, `/workspace` at 47% space and 45% inodes (9.20M; 10.03M at 22:15Z), root 190 GB free.
     Node 2 has 32 trees, at 44% space and 10% inodes, root 187 GB free.
+- 00:32–00:40Z (5:32–5:40 PM PDT), the scheduled 6 h sweep (`sweep.sh --src-age-h 6`): 17 entries, 321,234 files,
+  19.1 GB.
+  - Node 1, 13 trees, 291,687 files, 15,628 MB, 6–8 h old: `1f201190` (7 h, 30,759 files, 1,721 MB), `5fd4715d` (8 h,
+    28,124 files, 1,627 MB), `6a0818b8` (29,693 files, 1,675 MB), `7597f7db` (8 h, 28,093 files, 1,626 MB), `8ceb3a47`
+    (8 h, 30,606 files, 1,714 MB), `9890ad47` (5,441 files, 99 MB), `9cf20f6f` (30,707 files, 1,719 MB), `b455b194` (8 h,
+    5,417 files, 98 MB), `c2ba8c7f` (7 h, 30,692 files, 1,719 MB), `c3624304` (30,674 files, 1,718 MB), `e06d821c`
+    (30,623 files, 1,715 MB), `ec6db628` (7 h, 5,441 files, 99 MB), `fb524e14` (8 h, 5,417 files, 98 MB); the rest 6 h.
+  - Node 1, check scratch, 18,352 files, 3,244 MB, both 2 h old: `/tmp/pytest-of-research/pytest-2207` (17,040 files,
+    3,236 MB) and `pytest-2227` (1,312 files, 8 MB). No orphaned Lean scratch this time.
+  - Node 2, 2 trees, 11,195 files, 204 MB: `9cf20f6f` (7 h, 5,456 files, 99 MB) and `cd884174` (6 h, 5,739 files,
+    105 MB).
+  - Kept: the same 26 node 2 trees as at 22:16Z. No `STUCK` lines.
+  - After: node 1 has 49 trees, `/workspace` at 57% space and 48% inodes (9.86M), root 188 GB free, `jobs/src` at 850
+    copies. Node 2 has 32 trees, at 38% space and 10% inodes, root 184 GB free.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -620,3 +634,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   this minute), `jobs/src` at 836 copies. Space back to 51–52% (2,578 GB). Nothing deletable; no action, no Slack.
 - 00:11Z (5:11 PM PDT) tick (exit 1): node 1 HARD at 729k/h (8.6 h). 10.16M inodes (50%): one live scratch tree
   (`27_slr0l`, 321k, written 00:09Z), `jobs/src` at 839 copies. Space 56% (2,770 GB). No action; the 00:30Z sweep is next.
+- 00:32Z (5:32 PM PDT) tick: exit 0. Scheduled sweep 00:32–00:40Z: 17 entries, 19.1 GB (§4); no Slack (under 50 GB).
+  Node 2 `/workspace` is down to 38%. `jobs/src` on node 1 reached 850 copies, about 11 more an hour.

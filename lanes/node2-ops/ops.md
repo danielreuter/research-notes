@@ -70,6 +70,12 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 13:09Z hourly (12Z): GPU busy 18.7% (1.50 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7, plus bc-698052e1's `-r2` Commits (gm148, gm228, gm227 from 12:43Z). Leased-idle 1.26 GPU-h (bc-698052e1 1.17, bc-15ada664 0.08).
+    - **Why below 80%:** nothing else was queued, so 5.25 GPU-h sat free. The Commits held their GPUs mostly idle again (1.17 GPU-h). CPU 0–127 at 9.9%: proofs' `zkk32k-stage-bf16-k32768-gate`.
+    - **Disk** at 38%.
+    - **Backup:** `r20261002-130534-4541` packed on 48–79,94–95 at nice 19 (542 units, 20.5 GB, 40 large units left out); its custody upload is pending. The 12Z backup `r20261002-120529-6ffb` is preserved.
+    - **Checks:** daemons and `status.md` (13:04Z) are fine. The runner is still #778 with `FILL_VERITY_CPU_SET=48-79,94-95`. Nebius-infra's #819 deploy is node 1's `dispatch.py`. The 12:31Z disk-guard alert is node 1's (80%). #494 is still closed.
+    - **Next:** at 14:45Z infra's `vy-fill-cpu-revert` respawns the fill loop without `FILL_VERITY_CPU_SET`, and the `fill/max-min` soak line expires. At the 15:05Z hourly, confirm the pane is back to `FILL_VERITY_LEND=0` only and launch the backup unpinned again.
 - 2026-10-02 12:09Z hourly (11Z): GPU busy 11.3% (0.90 of 8.00 GPU-h, all useful): memory accounting's honest-latency soak on GPU 7, plus bc-698052e1's Commits gm138-r2 (19.5 min, then its replay, 11 min on CPU) and gm343-to4. Leased-idle 0.82 GPU-h (bc-698052e1 0.66, bc-15ada664 0.16).
     - **Why below 80%:** nothing else was queued, so 6.28 GPU-h sat free. Most of the leased-idle time was gm343-to4. Twice it held GPU 5 for 13.4 min at 8–10% busy and ended with SIGTERM (rc 143, which fill files as "preempted"). On the third start its `n2_commit.sh` sent it to node 1 ("stopped 2 times on node 2"), so the owner's script handled it. CPU 0–127 at 19.5%.
     - **Disk** at 38%.

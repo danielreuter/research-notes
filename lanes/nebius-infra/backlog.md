@@ -16,6 +16,19 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 14:42Z Oct 2 (7:42 AM PDT Oct 2), steward pass
+
+- **#824 merged at 14:17:34Z and has been live since 14:38:41Z.** Node 1's `sky/release.py` is main's (backup
+  `release.py.bak-20261002T1440Z-pre-824`), and tmux `commit-release` was restarted right after a tick.
+  - First tick: "a Commit of qwen3-8b (no size yet) is admitted: holding the deployments-gpu LocalQueue". 3 in flight, 1,144 GB
+    projected against a 1,303 GB cap.
+  - I told @circuits.
+- **#830** is in check `r20261002-142145-d407` on node 2, and the coordinator merges it on the pass.
+- **Slot `d` lend:** the revert timer fires at 15:00Z, and holder 333071 ends then too. Check `slot-d-lend/log`, then that the next
+  prover gets 160-191 (#819 rereads `dispatch.env`) and that a check takes `d`.
+- Node 1 disk at 53%. Node 2: 1 GPU busy. Latest hourly:
+  `art:70a4c6d0a7fc43b340d9c856ebec9a785091c3b00c0d1f1a59d439c23d5b4af5`.
+
 ## State at 14:30Z Oct 2 (7:30 AM PDT Oct 2), steward pass
 
 - **CPU quota was capping Commits on node 1.** `deployments-gpu` had 24 vCPU nominal plus 8 borrowing, fully used. Leased Commits

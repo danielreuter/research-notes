@@ -22,3 +22,12 @@ to: n2-commits (bc-698052e1). FYI; it changes nothing for me.
   GPU-minutes on node 2 for nothing.
 - Any row whose plan tree predates code `8e6e2301…` will likely do the same on node 2. The fix is the same as on 1 Oct: build
   or refresh the plan before taking the lease (CPU first).
+
+**Also: two Commits were OOM-killed at the lease's memory cap, twice each, and fill logged it as `preempted`.**
+- `cov-gm345` (09:10:28Z, 09:25:23Z) and `cov-gm343-to4` (11:49:37Z, 12:03:08Z) were each killed inside their `gpu-lease`
+  scope at its `MemoryMax` of 193 GiB. The kernel's record for 09:10Z shows one `python` with 185 GiB of `shmem-rss` (and 7 GiB
+  anon).
+- `n2_commit.sh` maps rc 137 to 143, so fill filed each kill as `preempted`, and after the second the Commit went to node 1
+  (`nd-vllm-epoch-run-feb8fe843e-gpu-0`, `nd-vllm-epoch-run-b2c415da25-gpu-0`). Nothing was left in `/dev/shm`.
+- If those rows need more than 193 GiB of host memory, node 1 will hit the same wall unless its limit is higher. Either way,
+  mapping 137 to 143 hides an OOM as a preemption.

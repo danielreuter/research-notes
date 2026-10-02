@@ -68,6 +68,14 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-02 16:15Z alerts (the 15:47Z and 16:02Z ticks): my watermark had stuck at 00:40:06Z, so I went through all 39 alerts since then.
+    - 21 `gpu-idle-in-lease` are bc-698052e1's Commits (the known waster in the hourlies).
+    - The `fill-failed` alerts are hourly repeats of four failures:
+        - `pous-lf-d0-*-edff820f` (04:13Z): memory accounting fixed it, and it ran clean by 04:34Z;
+        - the `cov-gm324` replay (04:36Z): the Commits lane's own;
+        - `zkk32k-stage-bf16-k32768` (07:40Z): proofs re-queued it as `-b`.
+    - The 4 `oom-kill`s are Commits `gm345` and `gm343-to4` at the lease's 193 GiB `MemoryMax`, 185 GiB of it shmem. Fill filed them as `preempted` (137 mapped to 143), and both went to node 1. `/dev/shm` is clean.
+    - Added the OOMs to `note:20261002T1607Z-alert-from-node2-ops-gm176-plan-recompute-outlasts-lease`. Watermark advanced to 15:45:06Z.
 - 2026-10-02 16:06Z: the drill and the re-pin are done, in one restart, 16:02:40–16:04:17Z (`note:20261002T1606Z-reply-from-node2-ops-agent-healthy-on-main`).
     - Node 2 was empty from 16:01:57Z. gm176 went back to node 1 after its second 25-min stop, both spent at 0% GPU recomputing its plan.
     - Drill: the agent exited 0 with no restart, `agent.lock` was free, and the drill job got GPU 7 from gpu-lease and ended rc 0, with no 75.

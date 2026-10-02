@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:55Z) [open] 14:55Z: soak done clean (10.16M, 0 wrong), plot file rebuilding; overheads chart live; row-seg lane started on approved 637f70c6
 CHECKPOINT none (14:38Z) [open] 14:38Z: inbox empty; #828 refused by red team, reworking; proofs chart with console by 8 AM PDT; cards 637f70c6 (17Z) and VM secrets open
 CHECKPOINT none (14:20Z) [open] 14:20Z Daniel up, checking leads directly; lease fix #829 live; #793 F1-F4 fixed awaiting grant carry; PoUW row-leaf card due 17:00Z
 CHECKPOINT none (14:01Z) [open] 14:01Z main 818a4689e; 4f0d checking, 02145af4c proposed; Pearl-C4 row units prove at K up to 1024; custody fix #826

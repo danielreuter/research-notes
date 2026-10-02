@@ -750,3 +750,11 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   into `sweep.sh` for node 1 and ran it: 841 entries, 79.1 GB (§4, 06:16Z). Node 1 is at 36% inodes (7.40M) and 57% space.
   Posted to @infra, since the total is over 50 GB.
 - 06:30Z scheduled sweep (exit 1): 6 entries, 2.2 GB, on node 1 (§4). No Slack.
+- 06:31Z to 07:25Z ticks: exit 0. 07:49Z (12:49 AM PDT) tick (exit 1), two lines:
+  - Node 1 HARD at 1.81M inodes/h (80% in 4.1 h). The rate's base came just after the 06:23Z sweep (7.40M). Node 1 is
+    at 9.02M (44%), with five Lean scratch trees. Four check slots hold locks (a, b, c, and a `check-d` added at 07:22Z),
+    but only two trees have a process working in them. `ju7dx3l8` was last written about 06:18Z and passes the 2 h rule
+    at about 08:18Z, so a one-off timer runs the sweep at 08:20Z. Headroom to 80% is 7.4M, more than five full audits.
+  - Node 2 root gaining 761k inodes/h: one live audit's scratch in `~/.cache/verity-check` (14 processes in it) and
+    pytest garbage that was already gone. Root is at 1.40M inodes (5%) and 158 GB free. No action.
+  No Slack.

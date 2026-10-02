@@ -350,6 +350,14 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     5,472 files, 100 MB). Kept: the same 26 node 2 trees.
   - After: node 1 `/workspace` at 36% inodes (7.40M), `jobs/src` down to 175 entries.
 
+- 06:30–06:33Z (11:30–11:33 PM PDT), the scheduled 6 h sweep (`sweep.sh --src-age-h 6`, `--jobs-src` on node 1): 6
+  entries, 55,814 files, 2.2 GB, all on node 1 and all 6 h old.
+  - Source tree `7392c51c` (30,748 files, 1,721 MB).
+  - `jobs/src`: content copy `21e1a5a3ab7af866` (5,446 files, 99 MB), and per-pod copies
+    `nd-circuits-ed4f8b2204-prover-d-0-dq67n` (5,484 files, 100 MB), `nd-proofs-bf16-hi-0a8d1797a7-prover-b-0-s787j`,
+    `-29417a4eac-prover-b-0-nc7cg` and `-7dd07e18c4-prover-b-0-gqgxf` (4,700–4,718 files, 84 MB each).
+  - Kept: `62e3c42b` on node 1 and the same 26 node 2 trees. No `STUCK` lines.
+
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
   - three are node2-ops' hourly backups that stalled in multipart custody: `r20260930-081105-b32f` (17 GB),
@@ -741,3 +749,4 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   once: 26 trees, 32.1 GB (§4, 06:09Z). The card status then read *approve* (Daniel, 8:59 PM PDT), so I put `--jobs-src`
   into `sweep.sh` for node 1 and ran it: 841 entries, 79.1 GB (§4, 06:16Z). Node 1 is at 36% inodes (7.40M) and 57% space.
   Posted to @infra, since the total is over 50 GB.
+- 06:30Z scheduled sweep (exit 1): 6 entries, 2.2 GB, on node 1 (§4). No Slack.

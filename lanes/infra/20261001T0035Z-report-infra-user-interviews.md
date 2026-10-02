@@ -133,3 +133,8 @@ Daniel's. Fix next: a VM bootstrap that clones notes and pushes with the token.
 | Preflight drift probe | Yes, infra, by 06:00Z: hourly check preflight on node 1 and node 2, alerting in #agent-alerts |
 | Stale Slack registry | Done: comms' routing registry |
 | Slow `data preserved` | Later: send the command if one target is slow or it times out again |
+
+## Round 7: old-circuits-and-proofs, circuits (5:22 PM PDT)
+- Asked 00:23Z, 2 Oct, in one announcement (ts 1790900589.720389). Next in rotation after console; the rotation wraps to
+  circuits. Neither was in a timed window or an incident. The ask lists what was fixed since round 6 (#724, #729, #733), so
+  those don't come back as answers.

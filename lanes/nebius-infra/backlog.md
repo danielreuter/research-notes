@@ -13,6 +13,27 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 02:25Z Oct 2 (7:25 PM PDT Oct 1)
+
+- Since 10:16 PM PDT Sep 29, node 1 has been 4.4% GPU-busy (15.6 of 355.6 GPU-hours) and node 2 27.8% (96.7 of 347.9)
+  (`art:75742f63c00a0d224ad68b268f97ff63cf441901e2a59882dc5f05024a5e1115`, 6:41 PM PDT).
+- #732 and #746 merged, at 6:21 and 7:09 PM PDT. The relay asked @circuits to redeploy node 1's `dispatch.py` from main at
+  7:10 PM.
+- **The dispatcher stalled again from 6:55 to 7:20 PM PDT, 26 failed ticks.** `cov-hide-gm392-c`'s replay Job was created
+  out of band at 6:54 PM, so routing its Commit's end hit AlreadyExists. The relay alerted @circuits and @infra at 7:00 PM
+  (5 failed ticks). At 7:20 PM I labelled the Commit Job `seen=1`, and the next tick submitted two replays and a Commit.
+  Until node 1 runs #732, each out-of-band submission of a chain's next task can stall it again.
+- Node 1 has no GPU in use. 2 Commits are admitted, `deployments-cpu` has 17 admitted and none pending, and the pacer's cap
+  is 1,332 GB. `/workspace` is at 60%. Node 2 is idle.
+
+## State at 02:20Z Oct 2 (7:20 PM PDT Oct 1)
+
+- Backlog item 2 (memory per class) and the bundle cap are done; see `memory-requests-and-bundle-cap.md`.
+  - gm-feed's Build and replay requests now come from measured peaks plus a margin (applied 7:15 PM PDT).
+  - 160Gi of guaranteed memory moved from the GPU queue to the CPU queue (`19003d0c1`).
+  - The pacer's cap follows the disk: 1,335 GB at 7:16 PM PDT.
+- Still open: leased Commits bypass the pacer, because Kueue admits them before its tick can hold them.
+
 ## State at 01:35Z Oct 2 (6:35 PM PDT Oct 1)
 
 - #732 merged at 6:21 PM PDT; #746 is ready and with @ci. The relay sends the redeploy ask to @circuits once both have

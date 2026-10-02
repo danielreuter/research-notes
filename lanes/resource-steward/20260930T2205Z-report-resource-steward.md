@@ -373,8 +373,29 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     5,873 files, 111 MB). And 24 per-pod copies, 113,949 files, 2,032 MB, 6–7 h old: `nd-circuits-c240fe2a0b-prover-d-0-z7mbg`
     (5,490 files, 100 MB) and 23 `nd-proofs-bf16-hi-*-prover-b-0-*` (4,700–4,718 files, 84 MB each).
   - Node 2, 2 source trees, 10,953 files, 200 MB: `20235b3e` (7 h) and `e43f30d1` (6 h), 100 MB each.
-  - Kept: `62e3c42b` on node 1 and the same 26 trees on node 2. No `STUCK` lines.
+  - Kept: `62e3c42b` on node 1 and 28 trees on node 2. No `STUCK` lines.
   - After: node 1 at 8.15M inodes (40%), with four Lean scratch trees, one of them live.
+
+- 09:55–09:59Z (2:55–2:59 AM PDT), the 6 h sweep run early from the 09:53Z tick's HARD line (`sweep.sh --src-age-h 6`):
+  59 entries, 1,151,203 files, 70.4 GB.
+  - Node 1, three idle Lean scratch trees with no process in them, 640,638 files, 37,985 MB:
+    `lean-audit-scratch-_647d3r9` (last written 159 min before, 319,367 files, 18,558 MB), `ju7dx3l8` (202 min, 320,928
+    files, 19,420 MB) and `ig8jestc` (135 min, 343 files, 7 MB). Verity #708, which stops a cancel orphaning them, is still
+    a draft.
+  - Node 1 check scratch, 42,279 files, 14,434 MB: `/tmp/pytest-of-research/pytest-3028` (3 h, 17,325 files, 3,118 MB),
+    `-3029` (3 h, 7,041 files, 5,292 MB), `-3030` (3 h, 17,355 files, 2,920 MB), `-3108` (2 h, 305 files, 1,601 MB) and
+    `-3149` (2 h, 253 files, 1,503 MB).
+  - Node 1, 12 source trees, 268,472 files, 14,178 MB. 6 h: `10b608cb`, `1992d95c`, `986b3513`, `b8a769d1`, `fbd4a796`
+    (30,699–30,873 files, 1,718–1,724 MB each), and `4468f3cb`, `63ce2ea1`, `9c447115` (5,480–5,541 files, 100–101 MB
+    each). 7 h: `206b4520`, `70380622`, `b1bf0915` (30,851–30,865 files, 1,724 MB each) and `794de4ee` (5,534 files,
+    100 MB).
+  - Node 1 `jobs/src`, 38 per-pod copies, 194,334 files, 3,693 MB, 6–7 h old: 28 `nd-proofs-zk-cell-*` (5,084–5,106 files,
+    92 MB each), 7 `nd-proofs-vllm-de-*`/`-vllm-mo-*` (4,673–5,871 files, 83–150 MB) and 3 `nd-proofs-bf16-hi-*` (4,700
+    files, 84 MB each).
+  - Node 2: source tree `63ce2ea1` (6 h, 5,480 files, 100 MB).
+  - Kept: `62e3c42b` on node 1 and 29 trees on node 2. The new one is `f6173040` (no `.git`, and the bare repo lacks its
+    commit). No `STUCK` lines.
+  - After: node 1 at 8.21M inodes (40%), with three live Lean audits.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -778,3 +799,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   No Slack.
 - 08:14Z tick: exit 0. 08:21Z one-off sweep (exit 1): 50 entries, 26.9 GB (§4). `ju7dx3l8` is still under 2 h untouched
   and is left to the 12:30Z sweep. Node 1 is at 8.15M inodes (40%), which closes the 07:49Z HARD line. No Slack.
+- 08:36Z to 09:35Z ticks: exit 0. 09:53Z (2:53 AM PDT) tick (exit 1): node 1 HARD at 1.36M inodes/h (80% in 5.5 h), at
+  9.02M (44%). There were six Lean scratch trees: three live audits, and three idle 135–202 min with no process in them.
+  Ran the sweep at once: 59 entries, 70.4 GB (§4). Node 1 is down to 8.21M (40%). Posted to @infra, since the total is
+  over 50 GB.

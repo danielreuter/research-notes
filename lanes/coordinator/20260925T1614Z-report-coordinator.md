@@ -390,3 +390,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-02T20:44Z: #820 restacked (0f6cff9bd, has #844) -> train 7c92e6454 on main 27c5889ba, node 1.
 - 2026-10-02T20:45Z: #850 (partitioning; lean statement grant + red-team grant) stacked on #820 train as f92b0a40f, --agreement, node 2, r20261002-204249-4ef1.
 - 2026-10-02T21:11Z: #852 (two-stage exfiltration, Daniel's top priority; lean + red-team grants) conflicts #850 in FlockSoundness.lean imports. Trains: on #820 train 074925421 (node1 c249) + alone on main d03a0fee6 (node2 3de7), both --agreement. #850 (4ef1) will need restack after #852.
+- 2026-10-02T21:14Z: (root) #850 restacked by hand on #852 train: 3f86ffebc (import conflict resolved, both kept), --agreement node2 r20261002-211158-3fe6; cancelled 4ef1; told @proofs.

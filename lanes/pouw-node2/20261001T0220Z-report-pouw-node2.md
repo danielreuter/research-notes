@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (00:55Z) [open] A 00:54Z poll: nothing for me (node2-ops 0048Z: one vLLM start-up idle alert, fine); still off node 2, no 'back'; pous/* panels wait on the pous-panels key; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (00:34Z) [open] A 00:34Z poll: no new notes for me (steward restored one mirror-dropped line in this report; checkpoints intact); still off node 2, no 'back'; pous/* panels wait on the pous-panels key; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (00:14Z) [open] A 00:13Z poll: bc-26712550 released; the 11 pous/* panels are mine once Daniel signs in for the pous-panels key (waiting on that); node2-ops: disk 41%; still off node 2, no 'back'; panel art:63261f6f
 CHECKPOINT fbce5a2f4 (23:52Z) [open] A 23:52Z poll: no new notes for me; still off node 2, no 'back'; GPU 0 totals wait; panel art:63261f6f

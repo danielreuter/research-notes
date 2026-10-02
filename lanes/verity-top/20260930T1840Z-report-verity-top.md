@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:51Z) [open] 17:51Z: ci's 24 landed (main d407f982e); next train 83701a356 (#695 #839 #838 #826 #833 #834 #837); soak rerun running; partitioning statements approved
 CHECKPOINT none (17:34Z) [open] 17:34Z: #828 final docs head, red-team carry pending; ci line ba751b1ce/a4f10fe62 awaiting slot; #841 queue-status fix
 CHECKPOINT none (17:16Z) [open] 17:16Z: #793 landed (main 5a5ebbbae), --zk has verdict of record; #828 red-team granted; queue-status credential friction sent to infra
 CHECKPOINT none (16:59Z) [open] 16:59Z: #806 landed (main 0177f6e56); FP8 cap 1/1,000 approved, #838 stacked; SiluMul_v2 9/9 pass, #820 prepping; #840 node-2 idle fix queued; quiet-post routing fix #835

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:00Z) [open] 23:00Z: main 8d5ab5afa (#850, #856 landed); ci train 9c42913b1; #857 check on node 2; #849 ExecDelta fix in progress; FP8 #865 exact Python/Lean agreement
 CHECKPOINT none (22:44Z) [open] 22:44Z: node 1 refilled (7 qwen3 TP1 leased, qwen3-14b TP2 queued); TP2 top-p=1 Commit fails (unbound sampler ids), held; Lean landing order set with #846 last
 CHECKPOINT none (22:27Z) [open] 22:27Z: main 0817f3a95; flock trains #850 #856 #849 #857 #858 #860 queued; #861 #862 in red team; ci train b95a4c323
 CHECKPOINT none (22:11Z) [open] 22:11Z: #852 two-stage exfiltration landed (main 0817f3a95); ci train b95a4c323 (10 PRs); lander's flock trains #850 #856 #849 #857 then #858; stochastic TP2 rows running

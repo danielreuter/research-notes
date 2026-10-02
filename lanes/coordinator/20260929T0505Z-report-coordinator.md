@@ -424,3 +424,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 09:45Z: MERGED hedge b0bae1b87 (6142) + d90bc8e85 (004b); main 9699b2f28; 21 PRs merged. #771 needs retarget; #780 new head 02849d996.
 - 09:53Z: T801 1d6eff60f (main + #801) node2 r20261002-094946-70bf.
 - 10:14Z: YES to --zk soundness fix (final_c not absorbed) on #793: red test first, fix in Rust+Lean+PROTOCOL, re-pin upstream if needed, red team; no --zk soundness claims until merged.
+- 10:36Z: T811 8da0d0906 (T801 + #811) node1 r20261002-103231-d1d5. Order 70bf, d1d5.

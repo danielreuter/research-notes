@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (08:12Z) [open] 08:12Z inbox checked; worker-VM secrets card open for Daniel; trains b9fe/16f7 running
 CHECKPOINT none (07:54Z) [open] 07:54Z inbox empty; round-8 interviews answered; soak running; +7h check timer at 10:20Z
 CHECKPOINT none (07:36Z) [open] 07:36Z: #791 shiftBy24 guarantee approved by compute; train c37e (#781, #784, #771) checking; infra #790 stray-probe fix live; soak healthy
 CHECKPOINT none (07:17Z) [open] 07:17Z: soak 1.13M answers 0 wrong, single job to 14:40Z; trains 0bb8 (#781) then 2ac5 (#771); circuits' lazy table operand worker started

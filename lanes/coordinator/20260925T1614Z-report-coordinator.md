@@ -421,3 +421,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T03:48Z: #849 (0cf85a388; 7 records moved, lean read printouts) stacked at chain end: 3ee940be0 node1 r20261003-034558-5cc9 --agreement.
 - 2026-10-03T04:13Z: MERGED ci line 86883ca78 (#868 + 16 PRs) + #869 #875 via 3933 (a48e9f581, incl. lean-agreement) -> main a0063d9fe. 7c9c/69ae obsolete. #849 5cc9 FAILED flock-rust-tests: circuit.rs:3255-3256 test Port{.. v2} (from #871) lacks #849's segs -> @proofs. Chain: 19ba (#871/883), 3bf1 (#876/877) running.
 - 2026-10-03T04:43Z: MERGED #871 #883 #876 #877 via 3bf1 (ff8f8b2c5, incl. lean-agreement) -> main. Left: #849 fix (67927b081+), #846 last.
+- 2026-10-03T05:05Z: #889 (follow-exec; 3 lean-audit.json only) on main as 1c9b45f6f node1 r20261003-050139-a773 --agreement.

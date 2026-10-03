@@ -486,3 +486,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T16:53Z: #947 (lean_slot.py; tools/check only, no Lean key change) on main bd39c135c node1 r20261003-165003-60bd. #948 after 08:00Z.
 - 2026-10-03T17:15Z: MERGED #947 (60bd) -> main.
 - 2026-10-03T17:20Z: node1 Lean audit cap live: check pool 2 + audit pool 2. Trains at/after 0d4e61d5d: at most 2 concurrent cold Lean audits; extra checks wait at lean-audit step.
+- 2026-10-03T17:45Z: ci line: guards 21ae24644 node1 7272 (no agreement); full 1d06cc083 (15 PRs) node1 113d --agreement; e75c dup cancelled. Before merge: check Lean PRs' grants (#929, #903, #919, ...).
+- 2026-10-03T17:50Z: ci line Lean PRs all granted + update lines: #919 #903 #929 #923. 7272/113d running.
+- 2026-10-03T17:52Z: #960 (verdicts.py race fix) on full line: 803d31b52 node1 --agreement.

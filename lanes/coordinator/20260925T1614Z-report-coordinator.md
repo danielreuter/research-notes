@@ -410,3 +410,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T01:44Z: MERGED Lean stack b6966185f (#862 #858 #860 #861 #863; check 7c0e incl. lean-agreement) -> main 10d8faa87. Cancelled a538 (redundant). #866 bb85 running (ff). Next: #849 rebuild, #867, #846 last; #877 held for --moved exemption.
 - 2026-10-03T02:15Z: MERGED #866 (bb85 incl. lean-agreement) -> main. Remaining: #849 rebuild, #867, #846 last; #877 held.
 - 2026-10-03T02:19Z: #877 exemption done (d5550ba7e: --moved verdict via lean_review label + tests). Train #876+#877 7d11650d8 node1.
+- 2026-10-03T02:21Z: #867 (DecodeZLJ; grants + --update line) trains: on #876/877 df29da520 node1 5057; alone on main d297d7e66 node2 0a9e; both --agreement.

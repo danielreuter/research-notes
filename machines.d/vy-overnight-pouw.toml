@@ -1,0 +1,6 @@
+# machine vy-overnight-pouw: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "whjf1l1itjag09"
+project = "verity"
+registered_by = "cursor"
+registered_at = "2026-10-03T05:57Z"

@@ -439,3 +439,10 @@ Triage:
 - Found while waiting: #925's train failed on node 1 because a research test imported dispatch.py without a root and loaded the
   dispatcher's real dispatch.env into its xdist worker; #931 isolates it (red-team granted). Machine-local state reaching tests is
   the same class as the conftest's other redirects.
+
+## Round 17: memory-accounting, proofs (9:57 AM PDT)
+- Asked 16:57Z, 3 Oct, in one announcement (ts 1791046667.838829); the 16:00Z timer fired late, during node placement work.
+  memory-accounting, owed since round 15, goes first; circuits, next in rotation after old-circuits-and-proofs, was skipped
+  because its node 2 window runs the 235B Match to 18:00Z and its Commit after, so proofs takes its place. Rounds 14-16 each
+  brought new items, so the timer stays on. The ask lists #888, #911, #931 (merged), #916, #918, #930, #932 (ready or in ci's
+  train), #936, #942, #944 (quick tier) and proofs' #947 slots file on node 1. Infra is subscribed to the thread.

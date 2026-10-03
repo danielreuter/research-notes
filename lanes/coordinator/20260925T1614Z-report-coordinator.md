@@ -483,3 +483,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T16:08Z: MERGED #909 #907 (e806 incl. lean-agreement) -> main. 67c8, d37b, e3d1 past lean-audit.
 - 2026-10-03T16:33Z: label-fallback ruling recorded note:verity-top-20261003T1630Z-rulings-3-oct (also: PoUW may import sampled proofs; D=0 pin approved). HOLD circuits' label-fallback PR until it adds the friction SKILL.md line. Proofs taking Lean audit cap (lean-slots lane, draft by 20:00Z).
 - 2026-10-03T16:46Z: MERGED #846 #906 #922 #927 via e3d1 (6a9e848ba, incl. lean-agreement) -> main.
+- 2026-10-03T16:53Z: #947 (lean_slot.py; tools/check only, no Lean key change) on main bd39c135c node1 r20261003-165003-60bd. #948 after 08:00Z.

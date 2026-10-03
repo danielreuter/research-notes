@@ -1000,3 +1000,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   peaked at 553 GB with none in flight. Nothing deletable. No action.
 - 02:46Z tick (exit 1): the HARD line (1.32M/h, 4.8 h) from the 01:32Z trough. Node 1 is at 10.06M inodes (49%), down from
   10.17M; three audit scratch dirs and `c2928e6e`'s `.lake/packages` are live. Space 64%. No action.
+- 03:49Z tick (exit 1): the HARD line (985k/h, 6.8 h) from a trough. Node 1 is at 9.79M inodes (48%), inside the swing;
+  its three audit scratch dirs are under 30 min old and both trees with `.lake/packages` are named by live audits.
+  Space 55%. No action.

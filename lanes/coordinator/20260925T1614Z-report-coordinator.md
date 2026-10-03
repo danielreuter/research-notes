@@ -415,3 +415,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T02:47Z: running: 3bef (#876/877) pytest done; 0a9e (#867 main) past lean-audit; 5057, 7c9c, 69ae in progress. Mirror ok 02:41Z.
 - 2026-10-03T03:12Z: MERGED #867 (0a9e incl. lean-agreement) -> main 11d75fc58 (kept #869/#875 chain). #876/877 3bef & 5057 passed but superseded; restacked on #875 as f6c7a9707, node2 r20261003-030801-94eb. 7c9c (#869), 69ae (#875) past lean-audit.
 - 2026-10-03T03:15Z: top's 01:02Z ruling (missed): ci's line first. ci 86883ca78 started node1 r20261003-031207-ae14 --agreement; cancelled 94eb (#876/877) and 0537 (relaunched w/ agreement). #876/877 next on infra's #841.
+- 2026-10-03T03:25Z: per top's ruling ci lands first; proofs stacked on ci 86883ca78: +#869+#875 a48e9f581 node2 3933; +#871+#883 e2466e98a node1 19ba; both --agreement. 7c9c/69ae (869/875 on old main) kept only as fallback if ci fails.

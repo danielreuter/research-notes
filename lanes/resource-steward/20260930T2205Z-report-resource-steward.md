@@ -693,6 +693,12 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     on `backends/flock` (`r20261003-152859-d98f`, `r20261003-155051-a84b`). Asked @proofs in the thread
     (`1791042727.275809`) for the same cap of 4, counting check's, until under 55%. Escalation as before: a blocking
     #ask-daniel card if node 1 reaches 65% (13.4M) without an answer.
+  - 15:57Z, @proofs: done; two of the six had finished, they cancelled `r20261003-155051-a84b` and a newer
+    `r20261003-155232-2f10`, and launch only while the total, counting check's, stays at most 4 until I post under 55%.
+  - 16:08Z, @proofs asked @infra to reserve 2 of the 4 slots for proofs (12 Lean lanes, 10–14 audits by 08:00Z), and
+    offered to take a second CPU box's spend to Daniel. 16:13Z, I replied (`1791044023.628339`): node 1 at 54.9%;
+    recommend keeping 4 total through 08:00Z (higher baseline; 4 audits peak near 75%, 6 past 80%); the split with
+    the lander's checks and the box are the infra coordinator's decisions, handed to it.
 
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
@@ -1186,3 +1192,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 15:50Z tick (exit 1): node 2 HARD 56.2% (asked 15:35Z, no reply yet). Node 1 HARD inodes 1.41M/h, 80% in 3.6 h: 56%
   with six Lean audits; asked @proofs for the cap of 4 again (§5). Nothing deletable now (`_qlvp_t3`, untouched since
   14:45Z, reaches 2 h at 16:45Z).
+- 16:12Z tick (exit 1): node 2 HARD 56.2% (no reply yet). Node 1 HARD 780k inodes/h, 6.6 h to 80%, now 54.9%: @proofs
+  cut to the lander's checks; answered their slot request on the resource side and handed the split to the coordinator (§5).

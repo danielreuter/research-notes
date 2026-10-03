@@ -5,6 +5,8 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (22:58Z) [open] 23:05Z: architecture-hiding proposal draft 1 in store docs/hiding-model-architectures.md (recursion sound without FS but out per audit; library blocks + hidden Merkle reads per unit, 2.8-10x); six rulings asked of Daniel. Audit 3abe (zk-regvals) running; lp-composed and rec-sound running.
+CHECKPOINT none (22:46Z) [open] 22:50Z: Daniel: recursion first, both tracks. Track 2: arch-recursion (pricing) and rec-sound (composition theorem) running; proposal by 01:00Z. Track 1: lp-composed resumed with the ligBytes ruling. Audits: HJ custody, HJR and treecoin PASS (records committed), pad40 and everycoin FAIL only on the Composed sorries; zk-regvals audit 3abe running. #999 held.
 CHECKPOINT none (22:14Z) [open] 22:15Z: architecture-hiding proposal lanes running (due 01:00Z); pc-unitwrong/pc-leafbinds corrected two private-circuit hypotheses; 5 audits relaunched (remote rejects --detach); zk-pubin freeze due 02:00Z
 CHECKPOINT none (21:45Z) [open] 21:45Z: new cloud lanes pc-leafbinds, pc-unitwrong, zk-pubin (L8 public-input soundness; freeze Oct 4 02:00Z); pc-instance on #999; audits 81e8 (pad40), e1be (HJ custody) queued; #987 check ed37 running
 CHECKPOINT none (21:18Z) [open] 21:15Z: #996 (soundH, lean GO) and #999 (private circuit + wiring) opened; pc-interp and zk-reg done (audits 2475, 8dfa PASS); #987 check ed37 and #982 suites running

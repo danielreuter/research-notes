@@ -558,6 +558,12 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     `lean-audit.json` files), `62e3c42b` (419 files outside its commit), `778c10d8` and `pytest-3524` (pid 258335), and
     `.lake/packages` of live audits. No `STUCK` lines.
   - After: node 1 at 57% space and 43% inodes (8.84M); node 2 at 54.4% space (flat near 54.6% since 11:54Z).
+- 12:51–12:55Z 3 Oct (5:51–5:55 AM PDT), the queued 12:30Z sweep timer, `sweep.sh --src-age-h 6`: saved 1
+  lean-audit.json file as `art:da1775f34e73f0cc009e297d640adc2e586b304a3e532b3b2688dc5cdb0cdf95`; 7 entries, 68,458
+  files, 5,170 MB, all source trees 6 h old.
+  - Node 1: `c2c8597d` (owner-approved, 10,570 files, 2,767 MB), `c79b82b9` (1,875 MB), `249cf97f` (106 MB), `258522c7`
+    (103 MB), `25a1953e` (105 MB), `3b7e9bb0` (107 MB).
+  - Node 2: `3b7e9bb0` (5,950 files, 107 MB).
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -1133,3 +1139,4 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   notes d6550f47) and re-ran: 17 files saved, 220.4 GB deleted over both runs (§4). Announced to @infra (over 50 GB).
   The 12:30Z sweep timer did fire, delivered 12:37:29Z behind that turn. The #agent-alerts channel subscription is gone
   and I can't re-create it (Task subagent), so ticks read the channel by hand until the parent subscribes for me.
+- 12:51Z, the queued 12:30Z sweep timer: exit 1, 7 entries, 5,170 MB (§4). Under 50 GB, no Slack.

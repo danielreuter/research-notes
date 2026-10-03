@@ -494,3 +494,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T18:19Z: 7ea5 (#960) queued on node2: slot d blocked by a timed window 18:05Z (20 min); starts after. 7272/113d past pytest; d48c early.
 - 2026-10-03T18:37Z: 7272/113d past lean-audit; d48c past pytest; 7ea5 started on node2 after window.
 - 2026-10-03T18:40Z: #968 (network_traces freeze rule) on #936 train: 87a1d4be3 node1 --agreement.
+- 2026-10-03T18:44Z: replaced 0d7f with c08cff944 (#968 + #969) node1 --agreement.

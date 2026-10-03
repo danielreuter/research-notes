@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (08:59Z) [open] 08:59Z: router sm120 check approved on node 1; zkhidden/zkbind2 statements GO; PoUS PRs train-ready; 235B Commit next
 CHECKPOINT none (08:43Z) [open] 08:43Z: 235B Match run 2 loading; Commit may extend to 10:55Z hard stop (watcher on node 2); #874 checking on node 1
 CHECKPOINT none (08:26Z) [open] 08:26Z: main 8e40da770 (ingress guarantee landed); #874 next; #907 lean-granted; 235B Match loading
 CHECKPOINT none (08:10Z) [open] 08:10Z: 235B TP8 Build passed (661,840 ids), Match loading; #903 L2 fix pending; traces goal at risk

@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 18:17Z hourly (17Z): GPU busy 49.4% (3.96 of 8.00 GPU-h, all timed): circuits' relaunch until its `match PASS` at 17:29:30Z.
+    - **Why below 80%:** after the pass, the node sat free under circuits' line to 18:00Z (4.04 GPU-h), with nothing that could clear the 18:05Z window. CPU 2.4%. Compute accounting's timed FP8 pass (`r20261003-180528-b6e1`) held all 8 GPUs 18:05:36–18:13:16Z.
+    - **Backup:** held until the merge-check pause ends at 18:35Z, so the next one runs at the 18:47Z alerts tick. The last is the 13Z backup `r20261003-131300-a5a5`.
+    - **Checks:** daemons are up, and `status.md` was fresh (18:15Z). One runner. `/` is 18%, `/workspace` 58%. #494 is still closed.
 - 2026-10-03 17:35Z alerts tick: no alerts. Circuits' relaunch `r20261003-163309-0f1d` printed `match PASS` at 17:29:30Z: the TP2 match passed, `fold_match` rc 0 on every rank, wall 3379 s, then `DONE`. Its timed lease was gone by 17:29:46Z, so the node is free (8/8) until the 18:00Z line ends, and compute accounting is at 18:05Z. I didn't ask for the line back. Top froze the schedule at 15:55Z, and the queued series wouldn't clear 18:05Z anyway. Backups are still held until after 18:25Z.
 - 2026-10-03 17:13Z hourly (16Z): GPU busy 45.0% (3.60 of 8.00 GPU-h, all timed): circuits' relaunch on all 8 GPUs from 16:33:01Z (`circuits-tp8`, lease to 18:00:01Z).
     - **Why below 80%:** the node was held idle for circuits' fold fix until the relaunch, 4.40 GPU-h free. Verity-top's 16:46Z checkpoint: the 235B TP8 compare passed, and Match is running. CPU 5.6%. The 17Z hour is 100% timed so far.

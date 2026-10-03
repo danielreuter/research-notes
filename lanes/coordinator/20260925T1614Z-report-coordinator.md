@@ -430,3 +430,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T06:10Z: #849 (4ab923274) stacked on #889/#874/#891 tip: 6960530d9 node1 r20261003-060819-2fa2 --agreement.
 - 2026-10-03T06:17Z: running ff3c a92d 2fa2 (node1), 86e3 (ci, node2).
 - 2026-10-03T06:20Z: held #889 (ff3c passed) so ci 86e3 stays landable (top's ruling). Proofs line on ci 6d90b821d: +#889+#874+#849 155f858c8 node1 r20261003-061637-f9db --agreement. #891 conflicts #892 in friction/SKILL.md (non-import) -> restack after #892.
+- 2026-10-03T06:23Z: top corrected (no ci-first ruling; Lean priority): MERGED #889 (ff3c) -> main 3b7e9bb00. Cancelled 86e3 (ci) and f9db. Running a92d (#874/#891), 2fa2 (#849). Asked @ci for tip on 3b7e9bb00.

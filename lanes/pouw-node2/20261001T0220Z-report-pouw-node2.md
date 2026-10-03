@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (06:40Z) [open] A 06:40Z poll: disk: node 2 /workspace 60% (1,989 GiB free, 06:26Z), rising to ~63% with circuits' Qwen3-235B weights for the 06:30Z window, so past the 52% hold on new passes; flagged to compute accounting (covers their 10:30Z FP8 pass unless waived); root / 63% from a killed check's 59 GB Lean scratch (infra's); window on, timed True; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4 (06:20Z) [open] A 06:20Z poll: nothing addressed to pouw-node2; node2-ops 06:10Z: windows booked 06:30-10:30Z (circuits' Qwen3-235B TP8, whole node) and 10:30-11:30Z (compute accounting's FP8 served pass), neither mine; a stray second fill_runner (05:37Z) was cleaned up by node2-ops, not from this lane (I've run nothing on node 2); main 3b7e9bb00; panel art:63261f6f unchanged, 1/1,000 gamma pick with compute accounting; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (06:00Z) [open] A 06:00Z poll: nothing new in the watched lanes since 05:40Z; main 9e254f9c1; panel art:63261f6f unchanged, the 1/1,000 gamma pick still with compute accounting; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (05:40Z) [open] A 05:40Z poll: nothing new in the watched lanes since 05:20Z; main 9e254f9c1; panel art:63261f6f unchanged, the 1/1,000 gamma pick still with compute accounting; off node 2, totals.py awaiting accounting's yes

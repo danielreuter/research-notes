@@ -425,3 +425,17 @@ Triage:
   an incident. Rounds 14 and 15 brought new items, so the timer stays on. The ask lists what shipped since round 13: #870, #876,
   #877, #882, #886, #887 (merged), #893, #899, #908, #911 (train e9dd), #888 (red-team granted, needs a send), and #916 and #918
   (quick tiers). Infra is subscribed to the thread for 6 h.
+- old-circuits-and-proofs answered 12:03Z (ts 1791029017.615629); console had not answered by 13:05Z, so the triage covers one answer.
+  Most time lost: semantic conflicts that show only late in a full check (git merges cleanly, then the Lean audit or the Rust
+  build breaks 20-30 min in: #846/#828, #849/#871, #874/#889 stale Flock.Field records, #849/#857), each costing a check cycle and
+  a restack; second, cancelled checks' ~60 GB of Lean audit scratch on node 2. Workarounds: its own import-only conflict script,
+  grepping PR bodies for the `--update` reviewer line, reading grants by hand, copying ci's hand resolution of #891/#892. Fix
+  next: a cheap preflight building the Lean packages and Rust crates a train touches, on the merged tree (asked of ci 22:44Z).
+- Triage, 13:05Z (ts 1791032682.020829): Lean compile breaks done (#868, `lean-changed` halts in about a minute). Rust build:
+  yes, infra, #930 (Flock crates built first, a compile error halts under --keep-going), in the quick-tier queue. Stale pinned
+  records: yes, infra, PR by 17:00Z (`lean-changed` compares touched packages' records on the merged tree without replay, halting
+  only on a stale record or pin), unless ci says by 14:00Z it has the step in flight. Scratch: yes, #898, queued. Workarounds:
+  #876 and #877 on main, #893 landed in e9dd; copying another lane's resolution: later (a second occurrence makes it a fix).
+- Found while waiting: #925's train failed on node 1 because a research test imported dispatch.py without a root and loaded the
+  dispatcher's real dispatch.env into its xdist worker; #931 isolates it (red-team granted). Machine-local state reaching tests is
+  the same class as the conftest's other redirects.

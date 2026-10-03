@@ -433,3 +433,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T06:23Z: top corrected (no ci-first ruling; Lean priority): MERGED #889 (ff3c) -> main 3b7e9bb00. Cancelled 86e3 (ci) and f9db. Running a92d (#874/#891), 2fa2 (#849). Asked @ci for tip on 3b7e9bb00.
 - 2026-10-03T06:38Z: a92d FAILED lean-audit (#874 + #889: stale Flock.Field pins) -> @proofs; cancelled 2fa2. ci 8eb1f3eed (+#894) node1 r20261003-063432-58e0 --agreement (node2 refused: cache disk 93<111 GB -> @infra).
 - 2026-10-03T06:40Z: (root) #891 rides on ci line: 61b4b7a62 (8eb1f3eed + #891, SKILL.md = ci's 25bba6504 resolution, all 5 #891 lines present) node1 r20261003-063700-a5e9 --agreement.
+- 2026-10-03T06:43Z: #891 head fd5dc11c9 = tree-identical to my 61b4b7a62 (cde37eba); at a5e9 pass, merge fd5dc11c9 if research merge accepts tree match, else 61b4b7a62.
+- 2026-10-03T06:55Z: node2 disk freed (213 GB). Cause: my cancels (94eb, 86e3) SIGTERMed lean_audit.py before cleanup -> 59+61 GB scratch left; #898 fixes. Until it lands, cancelled checks can leak ~60 GB each.

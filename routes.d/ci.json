@@ -1,11 +1,12 @@
 {
   "schema": "verity/slack-route/v1",
   "name": "ci",
-  "holder": "bc-7ff3de9e-dd31-5d7f-9e53-265bfba177d0",
+  "holder": "bc-81ff5c35-39a9-5232-a6b5-8e933b944292",
   "channel": "C0C5RCXL66N",
   "inbox_ts": "1790877427.413399",
-  "opened": "2026-10-01T20:10Z",
+  "opened": "2026-10-03T18:34Z",
   "closed": null,
   "forward_to": null,
-  "remit": "CI: shepherds open PRs to a passing check and into the merge trains."
+  "remit": "CI: shepherds open PRs to a passing check and into the merge trains.",
+  "succeeds": "bc-7ff3de9e-dd31-5d7f-9e53-265bfba177d0"
 }

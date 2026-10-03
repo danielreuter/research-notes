@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (14:40Z) [open] A 14:40Z poll: nothing addressed to pouw-node2; node2-ops 14:22Z hourly: 62.8% busy (13Z), 14Z backup skipped (too close to 14:30Z; next after 17:20Z), /workspace 55%; main 4934957122 (no PoUW change); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (14:20Z) [open] A 14:20Z poll: nothing new in the watched lanes since 14:00Z; circuits' window 14:30Z-17:00Z next; main b51f1b3872; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (14:00Z) [open] A 14:00Z poll: nothing addressed to pouw-node2; node2-ops 13:50Z: soak server idle by design, leases clear circuits' 14:30Z window; no totals.py yes, so it slips past circuits' window (next gap after 17:20Z); main b51f1b3872 (no PoUW change); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (13:40Z) [open] A 13:40Z poll: nothing new in the watched lanes since 13:20Z; main 4971db95ac; panel art:63261f6f unchanged; open with compute accounting: FP8 pass rows, 1/1,000 gamma placement, totals.py yes (fits before 14:30Z), disk hold; off node 2

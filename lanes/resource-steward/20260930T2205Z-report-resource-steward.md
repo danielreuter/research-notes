@@ -583,6 +583,19 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Check scratch, 3 h: `pytest-4681` (8,997 files, 8,628 MB), `pytest-4701` (25 MB), `-4702` (17 MB), `-4707` (11 MB).
   - `jobs/src`: `4cf32b46ec7ebda6` (6 h, 107 MB), `pod-sigmoid-router-915-350-ce1b86e4-head` (6 h, 109 MB).
   - After: node 1 at 50% inodes (10.18M) and 59.5% space, with four audits still building.
+- 17:04–17:07Z 3 Oct (10:04–10:07 AM PDT), `sweep.sh --src-age-h 6` off schedule, for node 1's 63.8% inodes after the
+  capture rsync (§5) and two stale audit scratch dirs: 16 entries, 808,148 files, 56,942 MB, all node 1 (node 2 skipped,
+  `timed True`).
+  - Check scratch: `lean-audit-scratch-_qlvp_t3` (2 h, 183,149 files, 11,343 MB); `pytest-4874` (3 h, 17,013 files,
+    2,776 MB), `-4875` (3 h, 8,675 files, 7,816 MB), `-4886` (3 h, 32 MB), `-4976` (2 h, 10,742 files, 1,714 MB).
+  - Lean dependencies in unheld trees: `433203d6…/level3/.lake/packages` (148,668 files, 8,138 MB),
+    `433203d6…/soundness/.lake/packages` (169,867 files, 10,207 MB), `cc072847…/soundness/.lake/packages` (169,907 files,
+    10,243 MB; the zk-rep-rest tree @proofs cancelled at 15:56Z and folded into `c6376708`).
+  - Source trees, 6–7 h: `0b8a429a` (1,988 MB), `d3a8cfa3` (1,993 MB), and five of 107–109 MB: `01687993`, `2505aaec`,
+    `7ea84ea7`, `85f2c1ee`, `9c3f9b3d`. `jobs/src`: `3dc7a92c2316f81a` (6 h, 155 MB).
+  - Kept: `c362da1a` and `eedbf624` (three `lean-audit.json` files each), `91b1f5bd`, `d916c75c`, `62e3c42b`, `778c10d8`
+    and `pytest-3524` as before, `e13fcdca` and three trees' `.lake/packages` (live). Scratch `bx5g5h1w` was already gone.
+  - After: node 1 at 58.1% inodes (11.94M) and 62.8% space.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -679,6 +692,17 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     copy can go (to about 48%), and are the captures preserved; @compute-accounting, hold PoUW fill writing to node 2
     until under 55%. Also there: 21 GB / 323k files of `.lake` in `src/1e3a47dd` from failed `r20261003-134241-c305`
     (13:42Z tree; the `.lake` rule is node 1's only, so it goes with the tree at 6 h).
+  - 16:35Z, @circuits: the bf16 copy stays (today's 235B Match, running since 16:33Z, and its Commit in the next window
+    serve from it); they delete it after the Commit of record and post. The 14:30Z capture is now `…/match.failed-1521Z`
+    (63 GB); the replays on it are preserved as `art:39446710`; they delete it once today's Match passes (about 17:45Z).
+    The Match writes a fresh 66 GB capture, so node 2 peaks near 58% until then. Nothing for me to do but watch.
+- Node 1 capture copy in `/workspace/cp/sweep-tp8-83d2/` (@circuits, asked 16:51Z 3 Oct, #agent-coordination
+  `1791046309.165599`).
+  - A root rsync (ssh from 3.149.100.186, `sudo -n rsync --server … /workspace/cp/sweep-tp8-83d2/`, mapped to `ubuntu`)
+    started 16:50:45Z after @infra's 16:4xZ unmatched-writer alert; node 1 jumped to 63.6% inodes (13.08M), the tick
+    read 5.6M/h. The `qwen3-235b…/match.failed-1521Z/capture/` copy there holds 1.85M loose files (9% of node 1's inodes).
+  - The ask: stop it, send a tar instead of loose files, remove the copy if node 1 doesn't need it. The rsync had ended by
+    16:52Z (63.8%, steady); posted that correction at 16:54Z (`1791046484.020099`). The copy-removal ask stands.
 - Node 1 audit trees kept for a modified `soundness/lean-audit.json` (@proofs, asked 06:35Z 3 Oct, #agent-coordination
   `1791009304.937289`; read on each tick, no subscription).
   - 37 trees at the 06:30Z sweep (3 at 00:30Z), 69.6 GB and 334,220 files, adding about 60 GB per 6 h. The only change in
@@ -1206,3 +1230,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   cut to the lander's checks; answered their slot request on the resource side and handed the split to the coordinator (§5).
 - 16:35Z tick (exit 1): node 1 HARD 790k inodes/h, 6.2 h to 80%, at 56.5% with 3 audits. Infra settled the audit slots
   (§5) and gave the steward the 70%/65% gate posts; `tick.sh` now prints them. Node 2 timed, skipped. No deletions.
+- 16:50Z tick (exit 1): node 1 HARD 5.6M inodes/h, 80% in 0.6 h: a root rsync of @circuits' `match.failed-1521Z`
+  capture into `/workspace/cp/sweep-tp8-83d2` (1.85M loose files, node 1 at 63.6%). Asked @circuits to stop it
+  (16:51Z); it had ended by 16:52Z, and I posted the correction. @circuits answered the node 2 questions (§5). Swept at
+  17:04Z for the stale scratch: 56.9 GB (§4), node 1 at 58.1%; announced to @infra (over 50 GB).

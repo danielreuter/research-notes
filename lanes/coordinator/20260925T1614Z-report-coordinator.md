@@ -492,3 +492,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T17:50Z: (root) moved #960 train 803d31b52 from node1 (feda cancelled pre-Lean) to node2 r20261003-174723-7ea5 --agreement. Node2 open since 17:30Z; cold audits go there when node1's 2 check slots are held.
 - 2026-10-03T18:12Z: #936 (gpu-lease preemptible) on #960: 71813db18 node1 r20261003-180919-d48c --agreement. Chain: 7272 (guards) / 113d (full) -> 7ea5 (#960, node2) -> d48c (#936).
 - 2026-10-03T18:19Z: 7ea5 (#960) queued on node2: slot d blocked by a timed window 18:05Z (20 min); starts after. 7272/113d past pytest; d48c early.
+- 2026-10-03T18:37Z: 7272/113d past lean-audit; d48c past pytest; 7ea5 started on node2 after window.
+- 2026-10-03T18:40Z: #968 (network_traces freeze rule) on #936 train: 87a1d4be3 node1 --agreement.

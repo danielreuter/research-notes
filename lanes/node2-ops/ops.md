@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 08:14Z hourly (07Z): GPU busy 100% (8.00 of 8.00 GPU-h, all timed): circuits' Qwen3-235B-A22B TP8 window (`circuits-tp8`, lease 06:30:09Z–10:30:09Z, `tp8-83d2/runner.sh` on CPUs 48–123). CPU 40.6% steady. `sm_weighted 0.0` only means the sampler takes no GPU readings during a timed window.
+    - The sampler's `lease_waiters` shows `gpu-lease 8 --wait --max-min 240`, but that's circuits' own lease (pid 1938431, its argv still says `--wait`), not a waiter. The fill runner's `waiters()` is lock-based and doesn't count it.
+    - The 10:30Z window is now 30 min (compute accounting's FP8 served pass, lease capped at 20 min).
+    - **Backup:** none during the window. **Checks:** daemons are up, and `status.md` was fresh (08:10Z). One runner (`df9b8baa`), no new deploys. The agent is on `1253f09ec` (no restarts). `/` is 15%, `/workspace` 58%. The new GPU-at-0% alert (07:13Z) is node 1's. #494 is still closed.
 - 2026-10-03 07:12Z hourly (06Z): GPU busy 50.3% (4.03 of 8.00 GPU-h, all useful): 3.98 of it timed, circuits' Qwen3-235B-A22B TP8 window on all 8 GPUs from 06:30Z.
     - **Why below 80%:** fill drained for the window. 3.96 GPU-h sat free from about 06:00Z to 06:30Z (waiting 32 min). CPU 46.1% (65.4% by `/proc/stat`): the window's host side, plus the weight download and the `check` before it.
     - **Backup:** none, the window is on (`timed True`). They resume after 11:30Z. The 06Z backup `r20261003-060931-29eb` is the last.

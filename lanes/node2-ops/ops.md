@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 09:25Z hourly (08Z): GPU busy 100% (8.00 of 8.00 GPU-h, all timed): circuits' Qwen3-235B-A22B TP8 window. CPU 38.7%.
+    - **Window change:** circuits' first lease ended at about 09:12Z (2h42m), and the 8 GPUs sat free 09:12–09:17Z (0.6 GPU-h; fill stayed out, since the queued series doesn't clear the windows). At 09:17:07Z the same runner took all 8 again, `--max-min 97` (pid 2234251, `who=research`), so its lease runs until 10:54:07Z. That's 24 min into compute accounting's `10:30Z 30` window.
+    - Handed to infra (`note:20261003T0925Z-alert-from-node2-ops-tp8-relaunch-runs-into-1030z-window`), who booked both; I touched nothing.
+    - **Backup:** none during the window. **Checks:** daemons are up, and `status.md` was fresh (09:17Z). One runner (`df9b8baa`), no new deploys. The agent is on `1253f09ec` (no restarts). `/` is 15%, `/workspace` 58%. #494 is still closed.
 - 2026-10-03 08:14Z hourly (07Z): GPU busy 100% (8.00 of 8.00 GPU-h, all timed): circuits' Qwen3-235B-A22B TP8 window (`circuits-tp8`, lease 06:30:09Z–10:30:09Z, `tp8-83d2/runner.sh` on CPUs 48–123). CPU 40.6% steady. `sm_weighted 0.0` only means the sampler takes no GPU readings during a timed window.
     - The sampler's `lease_waiters` shows `gpu-lease 8 --wait --max-min 240`, but that's circuits' own lease (pid 1938431, its argv still says `--wait`), not a waiter. The fill runner's `waiters()` is lock-based and doesn't count it.
     - The 10:30Z window is now 30 min (compute accounting's FP8 served pass, lease capped at 20 min).

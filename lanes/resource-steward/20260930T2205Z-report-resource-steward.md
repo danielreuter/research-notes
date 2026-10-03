@@ -1003,3 +1003,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 03:49Z tick (exit 1): the HARD line (985k/h, 6.8 h) from a trough. Node 1 is at 9.79M inodes (48%), inside the swing;
   its three audit scratch dirs are under 30 min old and both trees with `.lake/packages` are named by live audits.
   Space 55%. No action.
+- 04:11Z–05:22Z ticks: exit 0. 05:43Z tick (exit 1): the HARD line (1.40M/h, 4.7 h) from the 04:55Z trough. Node 1 is at
+  9.88M inodes (49%), inside the swing; one audit scratch dir (6 min old) and three trees' `.lake/packages`, all named by
+  live audits. Space 55%. No action.

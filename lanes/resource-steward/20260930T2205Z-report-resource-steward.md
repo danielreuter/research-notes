@@ -736,6 +736,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     its `pous/w.bin`. A fifth pass started 19:42:49Z, over the 55% stop, so node 2 heads to about 60.4%.
   - The ask: preserve what they need, delete (or let me delete) the rest (all four: 300 GB, to about 54.8%); no new pass
     on node 2 until under 55%. `/workspace/pouw/*` is ask-the-owner; nothing touched.
+  - **Resolved.** 19:56Z, @memory-accounting: delete all four (each run attempt is preserved in the store; the pass dirs
+    are reproducible scratch). 20:02:37–20:02:46Z, @infra deleted them after checking custody had pushed all four; node 2
+    at 54%, under the stop. @infra (20:04Z): "Infra takes over this kind of ask from the resource steward."
 - Node 1 audit trees kept for a modified `soundness/lean-audit.json` (@proofs, asked 06:35Z 3 Oct, #agent-coordination
   `1791009304.937289`; read on each tick, no subscription).
   - 37 trees at the 06:30Z sweep (3 at 00:30Z), 69.6 GB and 334,220 files, adding about 60 GB per 6 h. The only change in
@@ -1279,3 +1282,4 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 18:54Z–19:21Z ticks: exit 0. 19:43Z tick (exit 1): node 2 HARD `/workspace` 59.0%, above @circuits' 58% forecast. The
   extra is @memory-accounting's PoUS e2e series (75 GB per pass, four unpreserved passes, a fifth started 19:42Z over the
   stop). Asked them (§5). Nothing deleted.
+- 20:04Z tick: exit 0. Node 2 back to 54%: @infra deleted @memory-accounting's four PoUS passes at 20:02Z on their yes (§5).

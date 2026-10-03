@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (11:00Z) [open] A 11:00Z poll: nothing new in the watched lanes since 10:40Z; no word on the 10:30Z pass; panel art:63261f6f unchanged; open with compute accounting: 1/1,000 gamma placement, totals.py yes, disk hold; off node 2
 CHECKPOINT fbce5a2f4c (10:40Z) [open] A 10:40Z poll: nothing new in the watched lanes since 10:20Z (no node2-ops line on whether the 10:30Z pass started); panel art:63261f6f unchanged; if the pass ran, its rows go on after its verify; off node 2
 CHECKPOINT fbce5a2f4c (10:20Z) [open] A 10:20Z poll: node2-ops 10:12Z: /workspace down to 53% (still just over the 52% hold), circuits' line cut to 09:40Z, 10:30Z window clear, backup ran between windows; no READY/BLOCKED for the 10:30Z pass in lanes/accounting as of 10:20Z (theirs; flagged); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (10:00Z) [open] A 10:00Z poll: nothing addressed to pouw-node2; node2-ops 09:56Z: fill running short jobs that clear the 10:30Z window (series lease to 10:10Z); compute accounting's 10:30Z pass not handed to me, so its READY/BLOCKED (due 10:10Z) is theirs; disk hold question still open; main 9c3f9b3d1d (no PoUW/core change); panel art:63261f6f unchanged; off node 2

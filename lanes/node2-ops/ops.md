@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 15:20Z hourly (14Z): GPU busy 57.2% (4.57 of 8.00 GPU-h, all useful): 4.00 timed (circuits' Match then Commit on all 8 GPUs, `circuits-tp8` lease 14:30:01Z–17:00:01Z), plus 0.57 of memory accounting's series and soak before 14:30Z.
+    - **Why below 80%:** the run-up to the window. From 14:00Z fill held everything that couldn't clear 14:30Z (series `…141820Z` is still queued), and the ad-hoc runs had ended, so 3.27 GPU-h sat free. Leased-idle 0.16 GPU-h. CPU 18.9%. The 15Z hour so far is 100% timed.
+    - **Backup:** held for the window (15Z, and 16Z next). The last is `r20261003-131300-a5a5` (preserved).
+    - **Checks:** daemons are up, and `status.md` was fresh (15:17Z). One runner. `/` is 13%, `/workspace` 57%. #494 is still closed.
 - 2026-10-03 14:22Z hourly (13Z): GPU busy 62.8% (5.02 of 8.00 GPU-h, all useful): ad-hoc `adhoc:ubuntu` runs on GPUs 0–3 (from 13:01Z), memory accounting's series (GPU 6) and soak server (GPU 7).
     - **Why below 80%:** no fill backlog. GPUs 4–5 had no lease all hour (2.39 GPU-h free). Leased-idle 0.59 GPU-h, mostly the soak server's idle arms (0.55). CPU 31.8%.
     - **Backup:** I skipped the 14Z backup. This tick fired at 14:20Z, and a backup with custody takes up to about 8 min, so it could run into circuits' 14:30Z window. The 13Z backup `r20261003-131300-a5a5` is preserved. The next backup runs after compute accounting's 17:00–17:20Z window (the 15Z and 16Z backups are held for the window).

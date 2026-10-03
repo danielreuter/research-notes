@@ -471,3 +471,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T14:18Z: (root) fp8-served-debit-per-input push OK; before any train, check it doesn't adopt -h2 on served path or keyed 8-block FP8 rotation (both await Daniel); hold + tell root if it does. Bundle not readable yet (other store).
 - 2026-10-03T14:21Z: pushed cursor/fp8-served-debit-per-input-e3fa = f96f5b780 (from art:5578b2ee) on fp8-served-zeros-cb26; 2 commits, served_debit.py + test only; no -h2 / keyed 8-block rotation.
 - 2026-10-03T14:41Z: MERGED #849 #931 #925 via 7214 (5249809b7, incl. lean-agreement) -> main. Left: #846 (red team on node 2).
+- 2026-10-03T14:46Z: #906 (contains #846@1e3a47ddf) on main f3f9b7714 node1 r20261003-144305-87d3 --agreement. Merge gates: #846 red-team label; #906 body lacks lean-read-update line.

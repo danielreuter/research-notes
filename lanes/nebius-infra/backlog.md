@@ -24,6 +24,11 @@ the doorbell wakes only the names at the start.
     cap, switching to leased once the TP-lease change deploys.
 - Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
 - The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+- 14:45Z Oct 3: **#925 and #931 merged at 14:39:33Z.** `check` now runs the six PyYAML test modules; it's test-only, so nothing
+  deploys on node 1.
+  - @infra restored the GPU quota on time (`deployments-gpu` 6, `provers` 2).
+  - The drift check still flagged `deployments-gpu`'s GPU `nominalQuota`: the number `6` from @infra's patch, against `"6"` in
+    the YAML. I patched it to the string form, so the drift check reads "same".
 - 13:12Z Oct 3: **#925's train failed twice on node 1** (`r20261003-115617-1bb8`, `r20261003-121548-b4f2`) in
   `test_nebius_dispatch_pin.py`, one of the modules it stops skipping. Importing `dispatch.py` loaded node 1's real
   `/workspace/jobs/dispatch/dispatch.env`, with provers on 160-191, into `os.environ`.

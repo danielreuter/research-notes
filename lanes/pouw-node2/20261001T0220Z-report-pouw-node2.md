@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (20:20Z) [open] A 20:20Z poll: node2-ops 20:20Z: /workspace down to 50% (from 59%), under the 52% hold, so new passes aren't held; node free (no timed line ahead), backup done; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (20:01Z) [open] A 20:00Z poll: main 1074c52df merged #865/#949: the Pearl-C verifier is now rev1 (credit, W_ref, debit) with the sm120 cap at 1/1,000, and the bench ledger publishes v1's gamma as 0.36949%/0.35973%; panel pearl-c-sm120 v1/-h1/-h2/-h3 still carry 1/400's 0.5191%, now behind main; pearl-c-fp4 unaffected (keeps 1/400); asked compute accounting for a yes to update (recommend 0.0036949, in-loop twin, no hidden-audit wording); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4 (20:00Z) [open] A 20:00Z poll: nothing new in the watched lanes since 19:40Z; main 1074c52df; node 2 free of timed work; panel art:63261f6f unchanged; open with compute accounting: FP8 pass rows, 1/1,000 gamma placement, totals.py yes, disk hold; off node 2
 CHECKPOINT fbce5a2f4 (19:40Z) [open] A 19:40Z poll: node2-ops 19:36Z: circuits' Commit passed 19:23:52Z, lease gone, no timed line ahead, fill and an overdue backup running; node 2 now free for a totals.py read on 48-79 if compute accounting says yes; /workspace 59% (over the 52% hold); panel art:63261f6f unchanged; off node 2

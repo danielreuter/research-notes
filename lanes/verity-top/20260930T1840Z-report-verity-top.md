@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (12:59Z) [open] 12:59Z: #925+#888 checking (b4f2); #849 red team ETA 13:05Z, #846 13:45Z; soak v2 running; 30B Commit rerun 13:30Z; scorer +7h at 13:00Z
 CHECKPOINT none (12:44Z) [open] 12:44Z: #925+#888 checking (b4f2); #849+#846 awaits red team (confirming it runs); #905 merging main; composed headline coinedOf link due 15:30Z
 CHECKPOINT none (12:28Z) [open] 12:28Z: main 4284becdb; #925+#888 checking (b4f2), #849+#846 tip 9d57c0211 awaits red team; runsZC_live statement go, proof target 14:00Z
 CHECKPOINT none (12:12Z) [open] 12:12Z: proofs lead restarted after 07:40Z hang (#849 grants first); infra four checking e9dd; traces 5 chunks to 13:00Z; 30B Commit rerun 13:30Z

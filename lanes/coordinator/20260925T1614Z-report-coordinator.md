@@ -444,3 +444,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T08:11Z: MERGED ac2879043 (ci line #882 #892 #880 #881 #890 #885 #886 #887 + #894 + #891 content + #897; 3522 incl. lean-agreement) -> main 8e40da770. #891 PR still OPEN (head fd5dc11c9 not ancestor; content identical). b379 (#874) running; olean mismatch not repeated.
 - 2026-10-03T08:43Z: MERGED #874 (b379 incl. lean-agreement) -> main. Left: #849, #846.
 - 2026-10-03T08:57Z: band train (#904 incl #901 + #902 python) 18bf12e0c node1 r20261003-085445-a1dc --agreement. #896 held: body lacks 'read --update' line + needs lean relabel at restacked head.
+- 2026-10-03T09:08Z: (top) node2 closed to checks through 14:30Z (FP8 timed 10:30-11:00/11:25, PoUS soak 11:00-14:30) unless infra confirms untouched cores. Node1 only.

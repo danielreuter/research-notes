@@ -406,3 +406,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T00:50Z: #862 (DecodeZL, 5 new pins) checking 831229b46 node1 c52f --agreement; held for body's --update line + order OK.
 - 2026-10-03T00:56Z: stack on #862 (c52f): #858 bcb797e37 ff62, #860 bd12472d6 881a, #861 ed872b361 a538, #863 b6966185f 7c0e(node2), #866 c6d754799 bb85; all --agreement; imports auto-resolved (/tmp/stack-imports.sh, copy in tools/). Merges held for --update reviewer lines (858 has no reviewer line).
 - 2026-10-03T01:09Z: stack running: c52f(#862) ff62(#858) 881a(#860) a538(#861) 7c0e(#863 node2) in progress; bb85(#866) waiting for a node1 slot. All bodies complete.
+- 2026-10-03T01:42Z: root: #876 OK; #877 held until --moved-only records exempt from statement-reviewer grant (+ test); asked @infra. Description reviewer line stays a hand check.
+- 2026-10-03T01:44Z: MERGED Lean stack b6966185f (#862 #858 #860 #861 #863; check 7c0e incl. lean-agreement) -> main 10d8faa87. Cancelled a538 (redundant). #866 bb85 running (ff). Next: #849 rebuild, #867, #846 last; #877 held for --moved exemption.

@@ -492,6 +492,23 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   `91b1f5bd…/backends/flock/verifier/lean/soundness/.lake/packages` (tree 0.4 h old, no holder, renamed aside and
   re-checked), 169,906 files, 10,200 MB. Kept: `12ca48ac`, `36fefbba`, `d5222d09`, `f877eeba`, all named by live audits.
   After: node 1 at 10.30M inodes (51%).
+- 06:30–06:34Z 3 Oct (11:30–11:34 PM PDT 2 Oct), the scheduled 6 h sweep (`sweep.sh --src-age-h 6`; `--jobs-src --lake` on
+  node 1; node 2 skipped, `timed True`): 33 entries, 596,477 files, 49.3 GB, all node 1.
+  - 25 source trees, 6–11 h old, 383,113 files, 37,959 MB:
+    - five of about 104 MB: `1affc167` (10 h), `a2d9b48b` (11 h), `27c5889b` (9 h), `5e06dbdf` (7 h), `6080aa79` (6 h);
+    - twenty of 1.3–2.1 GB: `00649cea` (10 h), `9830f7c3` (11 h), `30104b9b` (11 h), `a2c20208` (8 h), `4990fba7` (9 h),
+      `6feaf76f` (11 h), `4913535b` (8 h), `b882fe0e` (8 h), `0e05d10d` (9 h), `07492542` (9 h), `40857864` (11 h),
+      `c226dead` (7 h), `042b6f16` (8 h), `7c92e645` (9 h), `ad431245` (8 h), `de4d0321` (11 h), `ec55da64` (6 h),
+      `f3b03c6c` (7 h), `4ed9cb72` (6 h), `2dcb1e70` (7 h, 2,067 MB).
+  - Lean dependencies: `12ca48ac…/backends/flock/verifier/lean/soundness/.lake/packages` (tree 0 h), 169,907 files,
+    10,242 MB.
+  - `jobs/src`, 7 content copies of 151–177 MB, 43,457 files, 1,102 MB: `0ba80c152397d2b2` (11 h), `57f964043c34b725`
+    (8 h), `899f6b8d3087f100` (7 h), `8af12498c8732c25` (6 h), `aafd1caea6743987` (6 h), `bb6f373f30415011` (6 h),
+    `fb9efde2312d4f22` (9 h).
+  - Kept: 37 trees whose only change is `soundness/lean-audit.json` (69.6 GB, 334,220 files; §5), `62e3c42b` (419 files
+    outside its commit), `778c10d8` and `pytest-3524` (pid 258335), and `.lake/packages` in `8fda15f3`, `9e056a2d`,
+    `a2706805` (live audits). No `STUCK` lines.
+  - After: node 1 `/workspace` at 60% space and 50% inodes (10.20M).
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -574,6 +591,12 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - The ask: @circuits, which copy can go after the window (the bf16 one alone brings node 2 under 55%);
     @compute-accounting, no new PoUW fill writing to disk beyond the booked pass until under 55%. Weights are
     ask-the-owner (§1), so nothing is touched. 1.9 TB free, so the windows aren't at risk.
+- Node 1 audit trees kept for a modified `soundness/lean-audit.json` (@proofs, asked 06:35Z 3 Oct, #agent-coordination
+  `1791009304.937289`; read on each tick, no subscription).
+  - 37 trees at the 06:30Z sweep (3 at 00:30Z), 69.6 GB and 334,220 files, adding about 60 GB per 6 h. The only change in
+    each is the audit's `--update` record (e.g. `2e635be2`: +623/−17 lines).
+  - Options: (a) delete them under the 6 h rule; (b) save each modified `lean-audit.json` to the store first, then delete;
+    (c) keep them. Nothing is touched until @proofs answers.
 
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
@@ -1022,3 +1045,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 06:24Z tick (exit 1): node 2 HARD `/workspace` 59.4% (62% by 06:29Z), from the Qwen3-235B weight fetches for the
   06:30Z window (§5). Asked @circuits and @compute-accounting (`1791009002.870499`); nothing deleted. Node 1's HARD inode
   line: 10.3M (51%), no unheld `.lake/packages`. From 06:30Z node 2 is `timed` until 11:30Z, so nothing runs there.
+- 06:30Z sweep (exit 1): node 1 only (node 2 `timed True`), 33 entries, 49.3 GB (§4); no Slack post (under 50 GB). Asked
+  @proofs about the 37 trees kept for a modified `lean-audit.json` (`1791009304.937289`, §5). No `STUCK` lines.

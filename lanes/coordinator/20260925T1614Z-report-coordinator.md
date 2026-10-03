@@ -448,3 +448,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T09:15Z: a1dc (band) running; awaiting #849/#846/#896 ready words.
 - 2026-10-03T09:18Z: #896 (body fixed, lean relabel at 34c9847cb) stacked on band train: 0b8a429ad (import lines resolved) node1 r20261003-091600-4816 --agreement.
 - 2026-10-03T09:49Z: MERGED #904 #901 #902 #896 via 4816 (0b8a429ad, incl. lean-agreement) -> main.
+- 2026-10-03T10:05Z: idle; awaiting #849/#846 ready words.
+- 2026-10-03T10:08Z: (top) node2 closed to checks until 17:00Z (soak to 14:30, circuits 235B 14:30-17:00). Node1 only.

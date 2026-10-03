@@ -349,3 +349,22 @@ series prunes run dirs before they're preserved (two histogram runs lost today).
 - Asked 00:04Z, 3 Oct, in one announcement (ts 1790985851.399969). Next in rotation after network-accounting. The ask lists what
   shipped since console's round 9 and old-circuits-and-proofs' round 10: #809, #810, #788, #808, #782, #798, #821, #837 (merged),
   and #833, #842, #841, #834, #845, #848, #851, #855 (ready).
+
+**old-circuits-and-proofs (00:05Z, ts 1790985899.609539):** Cost: node 2's one check slot (d): a hedge it no longer needed held it,
+and #850's check waited behind it for about 30 min ("every check slot is taken"); a slow store mount (a find over 51 red-team
+notes took 82 s) starved the notes mirror's forward copy for about an hour. Worked around: polled each run's stderr over ssh,
+cancelled stale hedges by hand, guessed Slack handles (@vllm doesn't exist). Fix next: tell the requester who holds the slot after
+about 5 min of waiting, or show the waiting queue in `slot.py --status`; a second check slot on node 2.
+
+**console (00:05Z, ts 1790985917.391189):** Cost: a 07:59 AM PDT `store-fetch` of art:b393611b (the soak file) exited 0 with no file
+for that id in the dest dir and no error. Worked around: scp from node 1's /tmp/pous/ (memory-accounting's mode-644 copies), checked
+against the owner's sha256. Fix next: store-fetch exits nonzero naming each id it couldn't fetch, and prints each path it wrote.
+
+**Triage, posted 00:14Z (1790986461.784219):**
+| Item | Call |
+|---|---|
+| store-fetch said nothing about what it wrote (console) | Yes, done: #870, `fetched.tsv` per file (art id, path, sha256), `<id> - not fetched` and exit 1 naming them; live on node 1 (smoke rc 1, both lines right), queued ready. The 07:59 fetch had landed: rc 0 at 15:03:53Z, `console-20261002T150153/b393611b…/pous-soak-v1.json` from 15:02:54Z, sha256 b6181905… |
+| Check behind a stale hedge (old-circuits-and-proofs) | No new alert: line 2 of a waiting check's stderr names the holder (run, tree, who, age), `slot.py --status` lists holders and waiters (#782, #798), `research fetch RUN --all` brings stderr.log; a 5-min ping fires on every queued check |
+| Second check slot on node 2 | No: node 1 has four (three free at 00:08Z); node 2's other cores are the queue's share, fill's and the provers' |
+| Slow store mount | Not infra's if it's /cursor/stores (the platform's, round 1); asked which mount otherwise |
+| Guessed handles | `research msg handles` lists each handle's scope |

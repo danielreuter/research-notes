@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (11:56Z) [open] 11:56Z: #914 on main d3750e9ad; infra four checking (e9dd), #888 granted next; #923 L6 lean-granted; #849 awaiting proofs
 CHECKPOINT none (11:41Z) [open] 11:41Z: merges blocked on #849 grants (fallback 81e515216 ready); #905 both grants, pin pending; 30B Commit rerun on slot c by exception
 CHECKPOINT none (11:25Z) [open] 11:25Z: infra 5-PR train handed to lander (slot b), 30B gate on node 1 until 12:28Z, soak v2 re-validating
 CHECKPOINT none (11:09Z) [open] 11:09Z: inbox empty; #905 frozen+lean-granted at 3a724cda7, #914+#849 check 73b3 running on node 1, traces CPU-set fix asked of infra

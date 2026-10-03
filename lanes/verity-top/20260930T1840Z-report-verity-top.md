@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (08:26Z) [open] 08:26Z: main 8e40da770 (ingress guarantee landed); #874 next; #907 lean-granted; 235B Match loading
 CHECKPOINT none (08:10Z) [open] 08:10Z: 235B TP8 Build passed (661,840 ids), Match loading; #903 L2 fix pending; traces goal at risk
 CHECKPOINT none (07:54Z) [open] 07:54Z: 235B Build in step 2; composed --zk headline statement accepted, 3 sorrys left; merges queued on node 1
 CHECKPOINT none (07:38Z) [open] 07:38Z: #874 re-granted and stacked (7ed2d3f85) behind node 1's ci-line check; #907 private-circuit theorems proved; 235B Build running

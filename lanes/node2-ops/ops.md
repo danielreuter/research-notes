@@ -69,6 +69,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 11:20Z alerts tick: one `gpu-idle-in-lease` (11:05Z), GPU 6 at 0.0%, memory accounting's series `…100440Z`, 5 min into its lease (since 11:00:04Z). It's the series' usual start-up, the same as at 09:45Z: GPU 6 is at 100% util with 96.6 GiB in use by 11:18Z. Its lease (to 11:30Z) clears the 14:30Z window. Watermark 11:05:06Z.
 - 2026-10-03 11:20Z hourly (10Z): GPU busy 6.6% (0.53 of 8.00 GPU-h, all useful): memory accounting's series to 10:04Z, and compute accounting's timed FP8 pass, which held the node only 10:41:31–10:44:11Z (0.36 GPU-h).
     - **Why below 80%:** the GPU backlog was dry. The only queued GPU job, memory accounting's next series (about 25 min), was held because it couldn't clear the 10:30Z window, and it started at 11:00:02Z. 7.44 GPU-h sat free. CPU 23.3%. At 10:55Z memory accounting fenced GPU 7 (CPUs 116–123) for `pous-soak-v2-srv-*` with `fill_runner.py fence`, so fill keeps it free.
     - **Backup:** `r20261003-111657-9538` (unpinned, no window until 14:30Z). The 10Z backup `r20261003-100950-4635` is preserved. New windows: circuits 14:30Z for 150 min (no merge checks, cores 48–123 for circuits only) and compute accounting 17:00Z for 30 min. So the 14Z backup runs at 14:05Z, the 15Z and 16Z backups are held, and the 17Z backup runs after 17:30Z.

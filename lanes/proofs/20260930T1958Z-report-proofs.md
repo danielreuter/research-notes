@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (17:46Z) [open] zk_session_sound audited sorry-free (1343); integration audit d8bd running; zk-reg lane started for objective 2's registered reads; pc-interp accepted by @lean
 CHECKPOINT none (17:15Z) [open] zk_rep_accepts audited (35b6 PASS); zk-sound-land audit 1343 running toward zk_session_sound's grant; #929 ready-to-train; RecordCustodyZK accepted (live-verifier); pc-instance granted (conditional), audit 10b5
 CHECKPOINT none (16:43Z) [open] zk_rep_accepts audit relaunched (35b6) after infra-only FAIL; zerocheck completeness proved (zk-cz); proofs at 2/2 node-1 audit slots
 CHECKPOINT none (16:18Z) [open] zk_rep_accepts proved (zk-exec c6376708d); zk_session_sound path sorry-free pending zk-sound-land audit; 15 lanes on objectives 1+2, tracker internal/proofs/lanes.md; r_j=1 ruling asked of lean

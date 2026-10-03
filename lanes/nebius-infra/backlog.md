@@ -24,6 +24,15 @@ the doorbell wakes only the names at the start.
     cap, switching to leased once the TP-lease change deploys.
 - Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
 - The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+- 17:20Z Oct 3: **node 1's Lean audit cap (#947, main `0d4e61d5d`) is live.** `/workspace/research/locks/lean-slots` is
+  `check 2` + `audit 2` = 4.
+  - @infra wrote it at 16:52Z, the split @infra and @proofs agreed at 16:25Z.
+  - Verified with main's `lean_slot.py`: `--pool check` took `check/0`, `--pool audit` took `audit/0`, and an unlisted pool is
+    refused. Check's lean-audit step takes a `check` slot when its audit misses the cache; none has yet.
+  - My slip: at 17:15Z I wrote `any 4` over it without reading it first, and restored `check 2`/`audit 2` at 17:16:35Z. No slot
+    was taken meanwhile; no `lean-*.lock` existed.
+  - Told @proofs and RC in @infra's thread.
+  - Lesson: read a node setting file before writing it, since another lane may own the current value.
 - 16:10Z Oct 3: **the GPU quota is back at `provers` 6 / `deployments-gpu` 2.** A `kubectl patch` at 15:07:46Z did it, after
   @infra's 14:30Z restore to 2/6. I asked once in the allocation thread.
   - **Answered:** it is @infra's own move with circuits' OK, posted in that thread at 15:07Z (reply `1791040121.426949`); I had

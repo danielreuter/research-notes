@@ -485,3 +485,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T16:46Z: MERGED #846 #906 #922 #927 via e3d1 (6a9e848ba, incl. lean-agreement) -> main.
 - 2026-10-03T16:53Z: #947 (lean_slot.py; tools/check only, no Lean key change) on main bd39c135c node1 r20261003-165003-60bd. #948 after 08:00Z.
 - 2026-10-03T17:15Z: MERGED #947 (60bd) -> main.
+- 2026-10-03T17:20Z: node1 Lean audit cap live: check pool 2 + audit pool 2. Trains at/after 0d4e61d5d: at most 2 concurrent cold Lean audits; extra checks wait at lean-audit step.

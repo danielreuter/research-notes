@@ -524,6 +524,40 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Source trees, 6 h: `831229b4` (1,873 MB), `bcb797e3` (1,874 MB), `bd12472d` (1,986 MB), `ed872b36` (1,988 MB).
   - Lean dependencies: `d916c75c…/soundness/.lake/packages` (169,907 files, 10,242 MB).
   - After: node 1 at 62% space and 65% inodes (13.33M), still rising with six audits running (§5).
+- 12:37–12:50Z 3 Oct (5:37–5:50 AM PDT), `sweep.sh --src-age-h 6` run by hand (no 12:30Z sweep timer arrived), twice:
+  103 entries, 2,574,100 files, 220.4 GB (node 1 192.0 GB, node 2 28.3 GB).
+  - First run (exit 2, the lean-audit.json listing failed, §6): 83 entries, 2,348,395 files, 171,169 MB.
+    - Node 1, 13 source trees of 105–108 MB: `07fee93b` (6 h), `10d8faa8` (10 h), `11d75fc5` (9 h), `28609c5d` (6 h),
+      `41990358` (6 h), `42399b27` (6 h), `4e3e4d3b` (6 h), `9e254f9c` (6 h), `a0063d9f` (8 h), `a4cdb12b` (6 h),
+      `a7770e6f` (6 h), `af15e667` (6 h), `ed3efd4e` (6 h).
+    - Node 1, 29 source trees of 1.8–4.4 GB: `05946bc5` (6 h), `0c64f614` (9 h), `155f858c` (6 h), `1a31d9d8` (10 h),
+      `1c9b45f6` (7 h), `24f19e9e` (7 h), `2658fb24` (6 h), `36fefbba` (6 h), `3a870dac` (9 h), `3ee940be` (8 h, 4,378 MB),
+      `5cb29b49` (10 h), `6960530d` (6 h), `7d11650d` (10 h), `86883ca7` (9 h), `8eb1f3ee` (6 h), `9e056a2d` (6 h),
+      `a6ed6fac` (6 h), `b5b620ca` (6 h), `c2928e6e` (9 h), `c6d75479` (11 h), `ca1f89d2` (6 h), `cef9de32` (10 h),
+      `df29da52` (10 h), `e0908365` (10 h), `e19faf1d` (8 h), `e2466e98` (9 h), `f3abd2db` (7 h), `fd683e15` (9 h),
+      `ff8f8b2c` (9 h). The 42 trees: 732,130 files, 64,960 MB.
+    - Node 1 check scratch: `lean-audit-scratch-4vqe68io` (6 h, 322,869 files, 20,256 MB), `-84rle7z8` (6 h, 166,918
+      files, 10,418 MB), `-d5c3cja_` (7 h, 327,718 files, 23,801 MB); `pytest-4455` (36 MB), `pytest-4486` (2,669 MB).
+    - Node 1 Lean dependencies: `.lake/packages` of `112f5fae` and `fe26a0fe` (trees 5 h), 169,907 files and 10,242 MB
+      each.
+    - Node 1 `jobs/src`: `0dfa9b305dd6f294` (11 h, 151 MB), `d2d73a7c7d66b0d2` (10 h, 177 MB).
+    - Node 2 (`timed False`), 25 source trees, 6–17 h old, 437,862 files, 24,883 MB: `10d8faa8`, `11d75fc5`, `1affc167`,
+      `27c5889b`, `33f2655d`, `37119111`, `3f86ffeb`, `6080aa79`, `60d0cc13`, `62c36693`, `6d90b821`, `6e0ac248`,
+      `7b56c5e8`, `81ad6803`, `8eb1f3ee`, `9e254f9c`, `a0063d9f`, `a2d9b48b`, `a48e9f58`, `b6966185`, `b9a7eb78`,
+      `d03a0fee`, `d297d7e6`, `f6c7a970`, `f92b0a40`.
+    - Node 2 check scratch: `pytest-349` (12 h, 1,635 MB), `pytest-374` (9 h, 1,635 MB), and `pytest-413`, `-416`,
+      `-422`, `-423`, `-424` (6 h, 64 MB together).
+  - Second run, after the fix (exit 1): saved 17 lean-audit.json files as
+    `art:29da7b99b12f8e161c4f556b74762b5a7c0ac32a1024019d6ba4e2ec4a98d78e`; 20 entries, 225,705 files, 49,190 MB.
+    - Node 1, owner-approved (option (b)), 177,889 files, 44,360 MB: `079e5d14` (9 h), `1199b006` (11 h), `12ca48ac`
+      (6 h), `14d8dabd` (11 h), `2ebd4677` (10 h), `6e66b005` (6 h), `7eb1e479` (11 h), `817e77ca` (10 h), `8e9f4eb1`
+      (6 h), `8fda15f3` (6 h), `a2706805` (6 h), `aec327ce` (7 h), `b8f38adf` (7 h), `cc6f064b` (6 h), `d5222d09` (7 h),
+      `e77d4e25` (6 h), `f877eeba` (6 h).
+    - Source trees, 6 h: node 1 `5366d2d6` (2,731 MB), `61b4b7a6` (1,992 MB); node 2 `afb4369c` (107 MB).
+  - Kept on node 1: `91b1f5bd` and `d916c75c` (modified `Defs.lean` and `Headline.lean`), `eedbf624` (three
+    `lean-audit.json` files), `62e3c42b` (419 files outside its commit), `778c10d8` and `pytest-3524` (pid 258335), and
+    `.lake/packages` of live audits. No `STUCK` lines.
+  - After: node 1 at 57% space and 43% inodes (8.84M); node 2 at 54.4% space (flat near 54.6% since 11:54Z).
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -1093,3 +1127,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   (`timed False`, 8/8 GPUs free, 2 GPU jobs queued); both `jobs/hf` Qwen3-235B copies remain. Nudged @circuits in the
   thread about the FP8 copy (223 GB, to about 53%). Nothing deleted.
 - 09:32Z tick: exit 0. @circuits removed the FP8 copy (09:22Z), node 2 at 53% (§5).
+- 09:54Z–12:13Z ticks: exit 0. 12:36Z tick: no 12:30Z sweep timer had arrived, so I ran `sweep.sh --src-age-h 6` by
+  hand. It exited 2: the lean-audit.json listing on node 1 returned the status of its last tree's test, so a
+  non-qualifying last tree read as a failed ssh and none were approved. Fixed (`exit 0` at the end of the remote script,
+  notes 87e6a799) and re-ran: 17 files saved, 220.4 GB deleted over both runs (§4). Announced to @infra (over 50 GB).

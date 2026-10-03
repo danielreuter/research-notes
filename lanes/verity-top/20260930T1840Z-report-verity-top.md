@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:50Z) [open] 19:50Z: lander has #949+#865+#854+#944 tip; Lean cache plan awaiting Daniel; 235B Commit to ~20:08Z
 CHECKPOINT none (19:34Z) [open] 19:34Z: #949 with lander; Lean cache plan awaiting Daniel; 235B Commit on node 2 to ~20:08Z
 CHECKPOINT none (19:17Z) [open] 19:17Z: 20-PR train landed (main 153dcf7b1); next #949 then #865+#854; 235B Commit running to 20:08Z; Lean cache-first direction with Daniel
 CHECKPOINT none (19:00Z) [open] 19:00Z: train tip 10aaecc64 (20 PRs) checking on node 1 (r20261003-184726-14d2); #949 lean-granted, resolving prose conflict; 235B Commit window

@@ -474,3 +474,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T14:46Z: #906 (contains #846@1e3a47ddf) on main f3f9b7714 node1 r20261003-144305-87d3 --agreement. Merge gates: #846 red-team label; #906 body lacks lean-read-update line.
 - 2026-10-03T14:55Z: (top) cancelled 87d3; a26d7e0f1 (#903+#919) REFUSED preflight: pouw lean manifest 1317e14549f1 unpinned in lean-deps.json -> top/ci need pin. Will run with agreement (lean-audit.json changes).
 - 2026-10-03T14:55Z: #909+#907 on main 8beba6d9a node1 r20261003-145201-e806 --agreement. Held: bodies lack 'lean read --update' lines; #907 body says needs fresh --update (stale vs #889).
+- 2026-10-03T15:11Z: e806 (#909+#907, bodies cleared) running; a26d7e0f1 awaits pouw lean pin; #846+#906 await red-team-846 (~16:00Z).
+- 2026-10-03T15:15Z: #846 red-team in; #906 (+#846) stacked on #909/#907 (8beba6d9a) as 921d9caec node1 r20261003-151229-67c8 --agreement.

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:06Z) [open] 10:06Z: main 9c3f9b3d1 (PoUS 91 pins); 235B needs Match+Commit after 14:30Z; node 2 to FP8 pass 10:30Z then soak 11:00Z; traces ~5 GPU-h
 CHECKPOINT none (09:50Z) [open] 09:50Z: #891 closed (landed by tree); 235B Commit to ~10:05Z; #905 freezing with D_late<=12; regression-gate question queued for Daniel
 CHECKPOINT none (09:34Z) [open] 09:34Z: 235B Match timed out (re-run after 14:30Z), Commit to ~10:05Z; router GO on sm120; PoUS band check passed; open PRs 37
 CHECKPOINT none (09:16Z) [open] 09:16Z: main c627160ae (#874 landed); #903 lean-granted; PoUS band train checking; HBM on node 1 GPU 0; K=4096 staging ~09:30Z

@@ -69,6 +69,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 09:56Z alerts tick: one `gpu-idle-in-lease` (09:45Z), GPU 6 at 0.0%, memory accounting's vLLM e2e series `…055948Z`, 5 min into its lease (since 09:40:02Z). It's the first series run after the window: the successor the orphan had blocked, now running from the queue as it should. The series prints its result only at the end, so this is its usual start-up. Its lease (to 10:10Z) clears the 10:30Z window. Also ran: `pous-soak-v2-dry-…061727Z` on GPU 7, rc 0 in 3.3 min. Watermark 09:45:06Z.
 - 2026-10-03 09:40Z alerts tick: no alerts. Circuits' relaunched TP8 lease ended after 19m46s (about 09:37Z), so the 10:30Z overlap is gone, and I updated the infra note. Node free (8/8, `timed False`). Fill holds its 2 queued GPU jobs, since neither clears the 10:30Z window.
 - 2026-10-03 09:25Z hourly (08Z): GPU busy 100% (8.00 of 8.00 GPU-h, all timed): circuits' Qwen3-235B-A22B TP8 window. CPU 38.7%.
     - **Window change:** circuits' first lease ended at about 09:12Z (2h42m), and the 8 GPUs sat free 09:12–09:17Z (0.6 GPU-h; fill stayed out, since the queued series doesn't clear the windows). At 09:17:07Z the same runner took all 8 again, `--max-min 97` (pid 2234251, `who=research`), so its lease runs until 10:54:07Z. That's 24 min into compute accounting's `10:30Z 30` window.

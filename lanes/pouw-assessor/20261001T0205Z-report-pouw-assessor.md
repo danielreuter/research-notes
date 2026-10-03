@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (21:37Z) [open] 2:37 PM PDT: no new asks. Ratings stand. Main 4cd36e9f1 (no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400, 64 | m; policy 650df0bd, 793 pins. HiddenTile/HonestCap unrated (open obligation; ε art pending). Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (21:16Z) [open] 2:16 PM PDT: no new asks. Ratings stand. Main 4cd36e9f1 (train T963; no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400, 64 | m; policy 650df0bd, 793 pins. HiddenTile/HonestCap unrated (open obligation; ε art pending). Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (20:55Z) [open] 1:55 PM PDT: no new asks. Ratings stand. Main a24f92db2 (#944 #941; no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400, 64 | m; policy 650df0bd, 793 pins. HiddenTile/HonestCap unrated (open obligation; ε art pending). Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (20:34Z) [open] 1:34 PM PDT: no new asks. Ratings stand. Main 1074c52df (no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400, 64 | m; policy 650df0bd, 793 pins. HiddenTile/HonestCap unrated (open obligation; ε art pending). Project store still unmounted, so ledger-2156Z/2230Z stay held.

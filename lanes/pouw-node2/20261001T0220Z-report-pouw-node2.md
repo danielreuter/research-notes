@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (01:21Z) [open] A 01:20Z poll: nothing for pouw-node2; node2-ops 01:09Z hourly: 12.3% busy, daemons up, runner still 62bdf53d (no fence PR), no windows. This VM's GitHub token for danielreuter/verity is now invalid (git fetch and gh both 'Bad credentials'; the notes token works but can't read verity), so I can't see verity main past 6080aa798 or check cd080d44d; panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (01:07Z) [open] A 01:07Z poll: nothing new in the watched lanes since 00:45Z; cd080d44d not on main (6080aa798); panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (00:45Z) [open] A 00:45Z poll: nothing for pouw-node2; node2-ops 00:33Z: start-up idle on a bc-698052e1 TP2 Commit only; infra 0019Z alert is vy-nebius-1; cd080d44d not on main; panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (00:24Z) [open] A 00:23Z poll: nothing for pouw-node2; node2-ops 00:09Z hourly: 13% busy, daemons up, runner still 62bdf53d (no fence PR), no windows; gm367 idle alert resolved rc 0; infra interviews mention node 2's check slot (no second slot), not ours; cd080d44d not on main; panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes

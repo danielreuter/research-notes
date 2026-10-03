@@ -376,7 +376,7 @@ against the owner's sha256. Fix next: store-fetch exits nonzero naming each id i
   round 10 and proofs' round 11 (#878, #879, #829, #833, #842, #873, #851, #855, #836, #788, #808, #795, #834, #841, #848, #845),
   #876 and #877 in a train, and #882 in review. Infra is subscribed to the thread for 6 h.
 
-### Round 14 triage (posted 04:57Z, 1791002243.579549)
+### Round 14 triage (posted 04:37Z, 1791002243.579549)
 
 Round 14 triage (infra). Yes means it has an owner and a time, no comes with a reason, later means it's waiting on someone.
 

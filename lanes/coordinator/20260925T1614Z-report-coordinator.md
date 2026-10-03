@@ -438,3 +438,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T07:06Z: 58e0, a5e9 (ci line +#891) at lean-unit-cut; #894 body fixed. #874/#849 re-pins in progress (proofs).
 - 2026-10-03T07:29Z: #897 (network warden; grants + --update line) stacked on ci+#891 (61b4b7a62): 626eb7813 node2 r20261003-072652-2a19 --agreement.
 - 2026-10-03T07:33Z: (top) node2 = circuits TP8 window until 10:30Z; cancelled 2a19. Run ac2879043 (#897, same tree as 626eb7813) on node1 after a5e9.
+- 2026-10-03T07:38Z: #874 (dc75bb39d) stacked on #897 tip ac2879043 as 7ed2d3f85abc03434c3d04b42a644b28bf379d09; launch both on node1 after a5e9 (top).
+- 2026-10-03T07:41Z: 58e0 FAILED pytest (test_pous_audit::test_timed_verifier, flaky: passed in a5e9) and a5e9 FAILED lean-audit (soundness mathlib .olean differ from record, 0/8 reused; 58e0 passed lean-audit on same Lean) -> both env. Reran on node1: ci+891 df9b, +897 3522, +874 b379.
+- 2026-10-03T07:43Z: root hypothesis: a5e9 olean mismatch may be concurrent checks sharing/refreshing one Mathlib cache on node 1 (58e0 + a5e9 overlapped). If df9b/3522/b379 repeat it, compare lean-audit windows before calling it a cache fault.

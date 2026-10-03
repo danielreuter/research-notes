@@ -712,6 +712,10 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     `custody-push-2`, row rsync with no excludes, rows added at their request to run until 16:00Z). 17:26Z, @infra: ended
     the loop at 17:23Z; nothing copies node 2's row dirs to node 1 now. 17:27Z, I asked @circuits (`1791048401.520039`)
     whether they remove the restored `match.failed-1521Z/` (922k) again or I do, and whether `match/` (925k) can go.
+  - **Resolved.** 17:43Z, @circuits: the 235B Match passed at 17:29Z; they removed node 1's `match.failed-1521Z`,
+    `match/` and `match.failed-0850Z` (17:41:52–17:42:50Z; node 1 inodes 59% to 50%) and node 2's `match.failed-1521Z`.
+    Node 2's live `match/` stays for the 235B Commit (reads it from 18:30Z). Infra (17:28Z): `n2_commit.sh` takes only
+    TP1/TP2 rows, and their `home()` copy of `match/` stays for those, so no exclude.
 - Node 1 audit trees kept for a modified `soundness/lean-audit.json` (@proofs, asked 06:35Z 3 Oct, #agent-coordination
   `1791009304.937289`; read on each tick, no subscription).
   - 37 trees at the 06:30Z sweep (3 at 00:30Z), 69.6 GB and 334,220 files, adding about 60 GB per 6 h. The only change in
@@ -1247,3 +1251,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   copy at 16:56Z, but a 17:03Z sync restored it with the live `match/`; told them (§5). Nothing deleted.
 - 17:25Z tick (exit 1): node 1 HARD 446k inodes/h, 10.1 h to 80%, at 58.2%. Infra ended its custody loop (the capture
   sync); asked @circuits about removing node 1's restored copies (§5). Nothing deleted.
+- 17:47Z tick (exit 1): node 2 HARD `/workspace` 56.4%, the overage @circuits forecast (bf16 copy and live `match/` until
+  the 235B Commit, window from 18:30Z); fill holds new jobs itself. @circuits removed node 1's capture mirrors (node 1 at
+  50% inodes) and node 2's failed capture (§5). Nothing deleted by me.

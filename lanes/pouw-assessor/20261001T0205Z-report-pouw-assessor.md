@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (18:23Z) [open] 11:23 AM PDT: no new asks. Ratings stand. Main 0d4e61d5db (no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed. Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (18:02Z) [open] 11:02 AM PDT: no new asks. Ratings stand. Main 0d4e61d5db (no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed. Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (17:40Z) [open] 10:40 AM PDT: no new asks. Ratings stand. Main 0d4e61d5db (no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed. Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (17:19Z) [open] 10:19 AM PDT: no new asks. Ratings stand. Main 0d4e61d5db (train T947; no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed. Project store still unmounted, so ledger-2156Z/2230Z stay held.

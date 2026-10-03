@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (12:12Z) [open] 12:12Z: proofs lead restarted after 07:40Z hang (#849 grants first); infra four checking e9dd; traces 5 chunks to 13:00Z; 30B Commit rerun 13:30Z
 CHECKPOINT none (11:56Z) [open] 11:56Z: #914 on main d3750e9ad; infra four checking (e9dd), #888 granted next; #923 L6 lean-granted; #849 awaiting proofs
 CHECKPOINT none (11:41Z) [open] 11:41Z: merges blocked on #849 grants (fallback 81e515216 ready); #905 both grants, pin pending; 30B Commit rerun on slot c by exception
 CHECKPOINT none (11:25Z) [open] 11:25Z: infra 5-PR train handed to lander (slot b), 30B gate on node 1 until 12:28Z, soak v2 re-validating

@@ -7,7 +7,8 @@ cursor:
 
 **Final, 14:00Z** (first finalized 12:40Z; the table now runs to 13:59Z). Steward: nebius-infra (bc-fd19a2fe).
 
-**Latest:** the section "Last 24 hours, to 12:11Z Oct 2", finalized at 5:15 AM PDT Oct 2, covers Oct 1–2.
+**Latest:** the section "Next 24 hours, to 11:39Z Oct 3", finalized at 4:45 AM PDT Oct 3, covers Oct 2–3. The one before it,
+"Last 24 hours, to 12:11Z Oct 2", covers Oct 1–2.
 
 **Sources:**
 - node 1: Prometheus (DCGM GPU and node-exporter host metrics, 1 min) and Kueue's `vy-usage` queue samples (5 min);
@@ -292,8 +293,71 @@ The 21:00 rows cover 21:00–21:33Z. Source: `art:fd2ad8f125943e7f6d4c8e449cd044
 **Theory lanes launched:** none in these 24 hours. No workstream was theory-bound: the idle time was feed-bound (work waiting on
 upstream Builds or not yet queued by its lane), which goes to the owning coordinator.
 
+## Next 24 hours, to 11:39Z Oct 3 (5:11 AM PDT Oct 2 – 4:39 AM PDT Oct 3; finalized 4:45 AM PDT)
+
+| Server | Hours (UTC) | GPU-h | Kueue-allocated | held or busy | busy | idle | CPU busy | RAM peak |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| vy-nebius-1 | Oct 2 12:11–16:00 (5:11–9 AM PDT) | 30.5 | 4.3 | 2.8 | 0.32 | 27.8 | 22% | 1574 GiB |
+| vy-nebius-1 | Oct 2 16:00–20:00 (9 AM–1 PM PDT) | 32.0 | 2.1 | 1.5 | 0.32 | 30.5 | 24% | 507 GiB |
+| vy-nebius-1 | Oct 2 20:00–24:00 (1–5 PM PDT) | 32.0 | 4.5 | 4.0 | 0.57 | 28.0 | 18% | 559 GiB |
+| vy-nebius-1 | Oct 3 00:00–04:00 (5–9 PM PDT) | 32.0 | 2.3 | 2.1 | 0.42 | 29.9 | 23% | 768 GiB |
+| vy-nebius-1 | Oct 3 04:00–08:00 (9 PM–1 AM PDT) | 32.0 | 4.6 | 4.3 | 2.73 | 27.7 | 27% | 924 GiB |
+| vy-nebius-1 | Oct 3 08:00–11:39 (1–4:39 AM PDT) | 29.3 | 11.9 | 10.9 | 8.83 | 18.4 | 17% | 1423 GiB |
+| **vy-nebius-1** | **window** | **187.9** | **29.8** | **25.6** | **13.18** | **162.2** | **22%** | **1574 GiB** |
+| vy-nebius-2 | Oct 2 12:11–16:00 (5:11–9 AM PDT) | 30.5 | – | 7.0 | 3.30 | 23.5 | 5% | 273 GiB |
+| vy-nebius-2 | Oct 2 16:00–20:00 (9 AM–1 PM PDT) | 32.0 | – | 3.4 | 3.17 | 28.6 | 15% | 154 GiB |
+| vy-nebius-2 | Oct 2 20:00–24:00 (1–5 PM PDT) | 32.0 | – | 6.1 | 3.52 | 25.9 | 6% | 399 GiB |
+| vy-nebius-2 | Oct 3 00:00–04:00 (5–9 PM PDT) | 32.0 | – | 9.0 | 3.61 | 23.0 | 4% | 400 GiB |
+| vy-nebius-2 | Oct 3 04:00–08:00 (9 PM–1 AM PDT) | 32.0 | – | 14.4 | 1.82 | 17.6 | 23% | 214 GiB |
+| vy-nebius-2 | Oct 3 08:00–11:39 (1–4:39 AM PDT) | 29.3 | – | 14.6 | 1.01 | 14.8 | 29% | 573 GiB |
+| **vy-nebius-2** | **window** | **187.9** | **–** | **54.4** | **16.44** | **133.4** | **14%** | **573 GiB** |
+
+**GPU-hours used and idle:**
+- Node 1: 26 of 188 GPU-h held or busy, and 162 idle (86%).
+  - Kueue allocated 30 GPU-h, now close to what was held (26). The day before, it allocated more than twice what was held.
+  - The last block was the busiest: 11 of 29 GPU-h held, and 9 busy. That came from @infra's temporary move of 2 GPUs of quota
+    to `provers` (09:08Z to 14:30Z), for memory accounting's HBM check and network accounting's seeds.
+- Node 2: 54 of 188 GPU-h held or busy, and 133 idle (71%). Its CPUs were 86% idle.
+
+**Top inefficiencies found, and what was done:**
+1. **The disk filled from Commits of unmeasured models.** Six b32 qwen25-3b and yi15-6b Commits took node 1 from 61% to 80% in
+   26 min; five were admitted on arrival through the pacer's open gate. #824: one Commit at a time of a model the pacer has no
+   size for, with its LocalQueue held while it runs. Live 14:38Z.
+2. **CPU quota capped Commits at two.** Leased Commits request up to 16 vCPU each; `deployments-gpu` had 24 plus 8. Its borrowing
+   went to 72 vCPU (live 14:25Z), and #830 brought main's `kueue.yaml` in line.
+3. **Settings changes never reached the dispatcher loop.** #819: each tick runs fresh. Live about 13:00Z, and confirmed by a
+   prover on 160–191 after the 15:00Z revert.
+4. **Friction pass (#839, live 18:45Z):**
+   - one Job's error no longer stops a tick;
+   - the pack pilot uses the pacer's learned bundle sizes;
+   - `slot.py`'s skip names `/etc/vy/direct-cpus`.
+5. **Slot `d` sat idle, then was lent to provers.**
+   - It was blocked by `direct-cpus` and an orphaned lock; I fixed both.
+   - A pre-#789 check leaked onto the lent cores; a time-bounded lock holder kept the rest off until 15:00Z.
+6. **Circuits' fixes for its own Commits:**
+   - A node 2 Commit held a GPU at 0% for two 25-min leases while recomputing its plan; fixed in #840.
+   - Overlapping leased Commits pinned more memory than they requested, so circuits is sizing those requests to the real pool.
+7. **Node 2's root disk filled with Lean audit scratch, so it refused checks.** @infra freed it to 213 GB at about 06:52Z
+   (node2-ops' machine).
+8. **The Nebius key leaked a sixth time.** #695 merged at 18:10Z: the key is now read from one line of base64. Daniel's rotation
+   is pending.
+
+**Still open:**
+- **Feed-bound:** most hours had nothing queued for either node's GPUs. The phi4 and qwen3 TP2 rows came back only once circuits
+  had fixed its TP2 staging bug. `gm364` waits on the B8 top-p=1 fix.
+- **Node 1's research area swings** about 300 GB an hour (checks' runs and scratch) between cleanups, so the disk moves between
+  54% and 64% and the pacer's cap with it.
+- **`jobs/cov`** held about 570 GB beyond the bundles the pacer counts (02:40Z).
+- **PyYAML isn't in the locked environment,** so `check` skips most dispatch and commit-pack tests.
+- **node2-ops has no Slack handle;** asked of @infra.
+
+**Theory lanes launched:** none. The idle time was feed-bound or waiting on fixes in the owning lanes (TP2 staging, B8 top-p=1),
+not on open questions.
+
 ## Evidence
 
+- `art:716bbdff08031a6615b0640838fe3a7c5d77eee1a0e403b938d1075314596962`: 12:11Z Oct 2 – 11:39Z Oct 3, both servers, the source
+  of the next-24-hours table.
 - `art:e928a60a5356cb83407ca00ad60900ec44c91b853023d30672279ecae768d932`: 12:10Z Oct 1 – 12:11Z Oct 2, both servers, the
   source of the last-24-hours table.
 - `art:916bf70f2ab32cb41d983d4508bd747059bebd497d8bcf74afc2b0724862db32`: 05:16Z Sep 30 – 04:41Z Oct 1, both servers, the source of the evening table.

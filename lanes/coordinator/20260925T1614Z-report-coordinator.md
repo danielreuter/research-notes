@@ -455,3 +455,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T11:13Z: fallback #914 alone (no Lean changes in merged diff; ready=true) bfdf51245 node1 r20261003-110946-40fe. d3a8cfa3e (73b3, +#849) held: #849@50c4ee9a4 has no grants, no reply yet.
 - 2026-10-03T11:27Z: (top) ci 2fc0e0ae7 (on d3a8cfa3e, no #888: no red-team grant) node1 r20261003-112421-c26c --agreement. Stack blocked on #849 grants.
 - 2026-10-03T11:30Z: (root) ci tip without #849: #914 fallback + #893 #899 #908 #911 = 130922dbf node1 r20261003-112704-e9dd --agreement. Lines: with #849 (73b3 -> c26c) vs without (40fe -> e9dd); drop the loser.
+- 2026-10-03T11:44Z: MERGED #914 (40fe incl. lean-agreement) -> main d3750e9ad. Cancelled c26c (with #849, ungranted). e9dd (ci tip without #849) ff, running. 73b3 passed but obsolete.

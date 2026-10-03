@@ -69,6 +69,9 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 23:23Z hourly (22Z): GPU busy 86.0% (6.88 of 8.00 GPU-h, all useful), above the 80% bar. Memory accounting's four series (`series`, `s2`–`s4`) and its ad-hoc runs, `research` and `adhoc:ubuntu` runs, with `gpu-lease` waiters all hour. Leased-idle 0.75 (the series' vLLM start-ups 0.60). CPU 20.6%.
+    - **Backup:** `r20261003-232205-3cde`. The 22Z backup `r20261003-221000-393a` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (23:21Z). One runner. `/` is 18%, `/workspace` 49%. #494 is still closed.
 - 2026-10-03 23:19Z alerts tick: four `gpu-idle-in-lease` (23:10Z), GPUs 2, 3, 5 and 6 at 5–9%, `circuits-tp4`, 6 min into a 4-GPU lease (since 23:04:18Z). It was a short TP4 run: about 60 GiB loaded per GPU by 23:07Z, one compute burst at 23:09Z, and the lease released by 23:11:26Z. About 0.47 GPU-h, mostly model load. It's over, so I'm not relaying it. Watermark 23:10:06Z.
 - 2026-10-03 22:34Z alerts tick: one `gpu-idle-in-lease` (22:20Z), GPU 1 at 0.0%, memory accounting's series `…213812Z`, 7 min into its lease (since 22:13:15Z). That's vLLM start-up: GPU 1 was at 100% with 72 GiB in use by 22:32Z. Memory accounting now runs four series side by side (`series`, `s2`, `s3`, `s4`) on GPUs 1, 4, 6 and 7. The first `s2` finished rc 0 in 17.5 min and renewed itself. Expected, so I'm not relaying it. Watermark 22:20:05Z.
 - 2026-10-03 22:11Z hourly (21Z): GPU busy 89.4% (7.15 of 8.00 GPU-h, all useful). That's above the 80% bar: `research`, `adhoc:ubuntu` and memory accounting's ad-hoc runs filled all 8 GPUs, with `gpu-lease` waiters all hour (3–8 at a time). Leased-idle 0.50 (`research` 0.28). CPU 17.8%.

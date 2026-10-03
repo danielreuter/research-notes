@@ -508,3 +508,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T20:42Z: ROOT RULING: when a PR has no --update run and the statement reviewer read the pin + definitions from source and diffed against lean-audit.json, that satisfies the reviewer-read rule (body must say so); otherwise the rule stands. #941 merges on 6176 pass + body line.
 - 2026-10-03T20:46Z: MERGED #944 #941 via 6176 (381ad1994, incl. lean-agreement) -> main. #963 2f39 next.
 - 2026-10-03T21:14Z: MERGED #963 (2f39) -> main. Idle; next: PoUS five (#934 #935 #972 #952 #959) when labelled.
+- 2026-10-03T21:40Z: idle; awaiting PoUS five tip, circuits trains.
+- 2026-10-03T21:43Z: ci tip a30e48653 (#934 #935 #926 #958; no Lean pins) node1.

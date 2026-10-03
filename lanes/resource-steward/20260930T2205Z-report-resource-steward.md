@@ -994,3 +994,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   Node 1 is at 10.17M inodes (50%), the top of the swing, with three audits running: their trees' `.lake/packages`
   (`2ebd4677`, `5cb29b49`, `e0908365`) and two `lean-audit-scratch` dirs are all live. Space is 64%; Commit bundles
   peaked at 553 GB with none in flight. Nothing deletable. No action.
+- 02:46Z tick (exit 1): the HARD line (1.32M/h, 4.8 h) from the 01:32Z trough. Node 1 is at 10.06M inodes (49%), down from
+  10.17M; three audit scratch dirs and `c2928e6e`'s `.lake/packages` are live. Space 64%. No action.

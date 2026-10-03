@@ -5,6 +5,9 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (07:10Z) [open] restacks of #874/#849/#846 running; 8 Lean lanes running; inode cap honored
+CHECKPOINT none (06:44Z) [open] #889 landed; restacking #874/#849 after stale records; items 5-9 proved, 16 near; private-circuit lanes started
+CHECKPOINT none (06:06Z) [open] Lean push: train #889+#874+#891 in check; items 5-9 reviewed (8-9 proved); g-check + tablesAtZK_live; zkhidden/composed freezing
 CHECKPOINT e259af141 (05:05Z) [open] #871/#883 landed; #889 training; #849/#846/zk-link running
 CHECKPOINT e259af141 (04:13Z) [open] #869/#875 landed; #849 fix in progress; #846 to redo off bad tip
 CHECKPOINT e259af141 (03:38Z) [open] four PRs queued behind ci's line; follow-exec and PoUW anchors in progress

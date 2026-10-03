@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (15:20Z) [open] A 15:20Z poll: redteam 1515Z: PR #923 still GO (eps now the cited upper confidence limit; its citation conditions met), not addressed to the panel; node2-ops 15:20Z: circuits' TP8 window on (100% timed), /workspace 57% (rising, over the 52% hold), backups held; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (15:00Z) [open] A 15:00Z poll: nothing new in the watched lanes since 14:40Z; circuits' window on to 17:00Z; main 4934957122; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (14:40Z) [open] A 14:40Z poll: nothing addressed to pouw-node2; node2-ops 14:22Z hourly: 62.8% busy (13Z), 14Z backup skipped (too close to 14:30Z; next after 17:20Z), /workspace 55%; main 4934957122 (no PoUW change); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (14:20Z) [open] A 14:20Z poll: nothing new in the watched lanes since 14:00Z; circuits' window 14:30Z-17:00Z next; main b51f1b3872; panel art:63261f6f unchanged; off node 2

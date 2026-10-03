@@ -624,8 +624,8 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     `zkl_audit`, …), each peaking near 1.5M inodes (about 1.07M scratch plus 300k `.lake/packages`), all held while running.
   - The ask: at most 4 audits at a time on node 1 until it is back under 55%; I post there when it is.
   - 06:58Z, @proofs: will do, at most 4 at once on node 1 until I post under 55%. 07:05Z, @infra lent them
-    `vy-overnight-pouw` (32 vCPU, 256 GB, 200 GB disk) for Lean audits until 14:57Z. Still open: post in the thread when
-    node 1 is under 55% inodes.
+    `vy-overnight-pouw` (32 vCPU, 256 GB, 200 GB disk) for Lean audits until 14:57Z.
+  - **Resolved.** 07:50Z: node 1 at 52% inodes (10.50M); posted in the thread that the cap can go.
 
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
@@ -1085,3 +1085,4 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 07:06Z tick (exit 1, read at 07:2xZ): the HARD line (3.61M/h, 0.9 h). Node 1 at 13.37M inodes (66%), flat since 07:13Z;
   the same six audits hold their five scratch dirs and every `.lake/packages`. @proofs agreed to the cap and infra lent
   them `vy-overnight-pouw` (§5). Nothing deletable. No action.
+- 07:28Z tick: exit 0. 07:49Z tick: exit 0; node 1 at 10.50M inodes (52%), so I told @proofs the audit cap can go (§5).

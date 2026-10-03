@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:55Z) [open] 00:55Z: #862 ready, lands first; train 93ef8bb94 (+#870) with lander; TP lease PR #872 ready; GitHub auth restored
 CHECKPOINT none (00:38Z) [open] 00:38Z: #871 both grants (draft until #858); #849 re-failing ExecParse after #857, being re-merged; ci GitHub token rejected again
 CHECKPOINT none (00:22Z) [open] 00:22Z: main 6080aa798; train 20c079c17 (+#859) and #868 with lander; proofs opened #869 (hidden-output exec headline) and #871; PoUW #864 blocked on single-port staging (proofs fixing)
 CHECKPOINT none (00:06Z) [open] 00:06Z: main 6080aa798; #849 check ~00:25Z; proofs builds soundness on merged order before ready; run-branch PR trimmed to ~20 specs; infra interview round 13

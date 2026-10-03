@@ -688,6 +688,11 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - 06:58Z, @proofs: will do, at most 4 at once on node 1 until I post under 55%. 07:05Z, @infra lent them
     `vy-overnight-pouw` (32 vCPU, 256 GB, 200 GB disk) for Lean audits until 14:57Z.
   - **Resolved.** 07:50Z: node 1 at 52% inodes (10.50M); posted in the thread that the cap can go.
+  - **Reopened** 15:55Z: 56% inodes (11.37M; 51% at 15:12Z), about 1.4M/h, six audits again: three `check` runs (trees
+    `921d9cae`, `d2d32873`, `6a9e848b`), `r20261003-152421-a7fe` (`13d5f813`), and two `audit.py --build --update` runs
+    on `backends/flock` (`r20261003-152859-d98f`, `r20261003-155051-a84b`). Asked @proofs in the thread
+    (`1791042727.275809`) for the same cap of 4, counting check's, until under 55%. Escalation as before: a blocking
+    #ask-daniel card if node 1 reaches 65% (13.4M) without an answer.
 
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
@@ -1178,3 +1183,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 15:28Z tick (exit 1): node 2 HARD `/workspace` 56.2% >= 55%, from @circuits' TP8 captures (66 GB since 14:15Z in
   `/workspace/cp/sweep-tp8-83d2`). Asked @circuits (bf16 copy, captures) and @compute-accounting (hold fill) in the node 2
   thread (§5). Nothing deleted: captures and weights are ask-the-owner.
+- 15:50Z tick (exit 1): node 2 HARD 56.2% (asked 15:35Z, no reply yet). Node 1 HARD inodes 1.41M/h, 80% in 3.6 h: 56%
+  with six Lean audits; asked @proofs for the cap of 4 again (§5). Nothing deletable now (`_qlvp_t3`, untouched since
+  14:45Z, reaches 2 h at 16:45Z).

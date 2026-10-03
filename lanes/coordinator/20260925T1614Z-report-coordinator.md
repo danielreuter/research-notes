@@ -425,3 +425,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T05:14Z: #889 a773 past rust tests. Open non-draft: #885 #881 #880 (ci/circuits; not handed to me), #849 #846 (proofs, pending).
 - 2026-10-03T05:37Z: #874 (changed records; grants + --update line) + #891 (friction SKILL.md, draft, docs) stacked on #889: 24f19e9ec node1 r20261003-053450-3f94 --agreement.
 - 2026-10-03T05:46Z: a773 (#889) past lean-audit; 3f94 (#874/#891) early.
+- 2026-10-03T05:57Z: #889 moved to 157830cfe (record limit 4 MiB); cancelled a773/3f94; restacked: #889 05946bc54 ff3c, +#874+#891 2658fb24f a92d; node1 --agreement.
+- 2026-10-03T06:00Z: (top) ci 6d90b821d (#882 #892 #880 #881 #890 #885) node2 r20261003-055703-86e3 --agreement.

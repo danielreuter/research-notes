@@ -408,3 +408,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T01:09Z: stack running: c52f(#862) ff62(#858) 881a(#860) a538(#861) 7c0e(#863 node2) in progress; bb85(#866) waiting for a node1 slot. All bodies complete.
 - 2026-10-03T01:42Z: root: #876 OK; #877 held until --moved-only records exempt from statement-reviewer grant (+ test); asked @infra. Description reviewer line stays a hand check.
 - 2026-10-03T01:44Z: MERGED Lean stack b6966185f (#862 #858 #860 #861 #863; check 7c0e incl. lean-agreement) -> main 10d8faa87. Cancelled a538 (redundant). #866 bb85 running (ff). Next: #849 rebuild, #867, #846 last; #877 held for --moved exemption.
+- 2026-10-03T02:15Z: MERGED #866 (bb85 incl. lean-agreement) -> main. Remaining: #849 rebuild, #867, #846 last; #877 held.
+- 2026-10-03T02:19Z: #877 exemption done (d5550ba7e: --moved verdict via lean_review label + tests). Train #876+#877 7d11650d8 node1.

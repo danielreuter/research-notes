@@ -417,3 +417,11 @@ Triage:
 - *Stage line in `research status`: later*, after the secrets PR.
 - *Named `--queue` timing kind: no*, `--queue --quiet` already is it (timed job, node kept quiet; non-preemptible is the default;
   `--gpus N` is exclusive), owner-only; on another lane's node infra books the window.
+
+## Round 16: console, old-circuits-and-proofs (5:02 AM PDT)
+- Asked 12:02Z, 3 Oct, in one announcement (ts 1791028961.909359). memory-accounting, owed this round since round 15, was skipped
+  again: its PoUS soak v2 (a timed latency audit on node 2, GPU 7 and cores 116-123, 11:00-14:30Z) is running. It goes first in
+  round 17. console and old-circuits-and-proofs are next in rotation after network-accounting; neither is in a timed window or
+  an incident. Rounds 14 and 15 brought new items, so the timer stays on. The ask lists what shipped since round 13: #870, #876,
+  #877, #882, #886, #887 (merged), #893, #899, #908, #911 (train e9dd), #888 (red-team granted, needs a send), and #916 and #918
+  (quick tiers). Infra is subscribed to the thread for 6 h.

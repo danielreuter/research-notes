@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 22:11Z hourly (21Z): GPU busy 89.4% (7.15 of 8.00 GPU-h, all useful). That's above the 80% bar: `research`, `adhoc:ubuntu` and memory accounting's ad-hoc runs filled all 8 GPUs, with `gpu-lease` waiters all hour (3–8 at a time). Leased-idle 0.50 (`research` 0.28). CPU 17.8%.
+    - **Fill:** 4 GPU jobs queued: memory accounting's series `…213812Z` and `s2`/`s3`/`s4 …214534Z`. They yield to the waiters, as designed.
+    - **Backup:** `r20261003-221000-393a`. The 21Z backup `r20261003-211400-7547` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (22:09Z). One runner. `/` is 18%, `/workspace` 48%. #494 is still closed.
 - 2026-10-03 21:15Z hourly (20Z): GPU busy 21.2% (1.69 of 8.00 GPU-h, all useful): memory accounting's series on GPU 7, then from about 20:44Z `research` runs on GPUs 0 and 3–6.
     - **Why below 80%:** no backlog until the 20:44Z runs, so 6.03 GPU-h sat free. Leased-idle 0.28 (series start-up 0.15, `research` 0.13). CPU 4.8%. The 21Z hour is at 81.6% so far: 0/8 free, with one `gpu-lease` waiter, and memory accounting's ad-hoc runs on GPUs 1–2 since 21:09Z.
     - **Backup:** `r20261003-211400-7547`. The 20Z backup `r20261003-201833-9a25` is preserved.

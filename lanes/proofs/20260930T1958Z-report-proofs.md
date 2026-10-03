@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (20:50Z) [open] 1:50 PM PDT: audits 95a6 (J/HJ) and 06de (soundR) PASS, records committed, printouts to @lean; 4 new cloud Lean lanes (pad40, HJR, tree-coin hybrid, every-coin ZK); #979 restacking for ci; #987 A6 tree coins in review
 CHECKPOINT none (20:13Z) [open] 1:10 PM PDT: #979 lean GRANT at a42727424, red team started; flock-verify registered output reads lane started for compute accounting (PR by Oct 4 08:00Z), L8 design pending their answers; audits 95a6 (J/HJ) and 06de (soundR) running
 CHECKPOINT none (17:46Z) [open] zk_session_sound audited sorry-free (1343); integration audit d8bd running; zk-reg lane started for objective 2's registered reads; pc-interp accepted by @lean
 CHECKPOINT none (17:15Z) [open] zk_rep_accepts audited (35b6 PASS); zk-sound-land audit 1343 running toward zk_session_sound's grant; #929 ready-to-train; RecordCustodyZK accepted (live-verifier); pc-instance granted (conditional), audit 10b5

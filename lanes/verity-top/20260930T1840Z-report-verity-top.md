@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:54Z) [open] 07:54Z: 235B Build in step 2; composed --zk headline statement accepted, 3 sorrys left; merges queued on node 1
 CHECKPOINT none (07:38Z) [open] 07:38Z: #874 re-granted and stacked (7ed2d3f85) behind node 1's ci-line check; #907 private-circuit theorems proved; 235B Build running
 CHECKPOINT none (07:22Z) [open] 07:22Z: 14B TP8 Commit go, 235B Build running; #903/#906/#897 in review; inbox empty
 CHECKPOINT none (07:05Z) [open] +1h 12/20 hit; PoUW #903 30 pins to lean+red team; node2 custody push live; Qwen3-235B window running

@@ -611,6 +611,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - 06:32Z, @circuits: a third copy, theirs, `/workspace/hf/hub/models--Qwen--Qwen3-235B-A22B-FP8` (239 GB), had no
     holder, and they deleted it themselves (58%). The `jobs/hf` FP8 copy goes after their smoke (about 53%); the bf16
     copy stays until their replay. Read on the 06:45Z tick; nothing more needed from them.
+  - **Resolved.** 09:22Z, @circuits deleted the `jobs/hf` FP8 copy after their smoke; node 2 at 53%. The bf16 copy
+    (441 GB) stays until their replay. Correction to my 09:16Z nudge: the window hadn't ended; their Match failed, its
+    watcher released the lease at 09:12Z, and they re-leased all 8 GPUs at 09:17Z.
 - Node 1 audit trees kept for a modified `soundness/lean-audit.json` (@proofs, asked 06:35Z 3 Oct, #agent-coordination
   `1791009304.937289`; read on each tick, no subscription).
   - 37 trees at the 06:30Z sweep (3 at 00:30Z), 69.6 GB and 334,220 files, adding about 60 GB per 6 h. The only change in
@@ -1089,3 +1092,4 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 08:10Z–08:54Z ticks: exit 0. 09:16Z tick (exit 1): node 2 HARD `/workspace` 57.4% (58%). Circuits' window ended early
   (`timed False`, 8/8 GPUs free, 2 GPU jobs queued); both `jobs/hf` Qwen3-235B copies remain. Nudged @circuits in the
   thread about the FP8 copy (223 GB, to about 53%). Nothing deleted.
+- 09:32Z tick: exit 0. @circuits removed the FP8 copy (09:22Z), node 2 at 53% (§5).

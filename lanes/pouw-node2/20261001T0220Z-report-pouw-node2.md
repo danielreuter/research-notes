@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (23:00Z) [open] A 23:00Z poll: nothing new in the watched lanes since 22:40Z; main c2b05d137; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (22:40Z) [open] A 22:40Z poll: nothing addressed to pouw-node2; node2-ops 22:34Z: start-up idle only, memory accounting running four series side by side; main c2b05d137 (no PoUW change); panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (22:20Z) [open] A 22:20Z poll: nothing addressed to pouw-node2; node2-ops 22:11Z: node 2 89.4% busy (21Z), 3-8 gpu-lease waiters, 4 fill jobs queued, /workspace 48%; main 48e5f250d (no PoUW change); panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (22:00Z) [open] A 22:00Z poll: redteam 2141Z on #983 (pc8Sem credits a rho-overflow row pc8 refuses; gamma-safe, no pin changes) is for l3-tilecheck and lean, not the panel; main 4cd36e9f1; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2

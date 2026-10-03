@@ -423,3 +423,80 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T04:43Z: MERGED #871 #883 #876 #877 via 3bf1 (ff8f8b2c5, incl. lean-agreement) -> main. Left: #849 fix (67927b081+), #846 last.
 - 2026-10-03T05:05Z: #889 (follow-exec; 3 lean-audit.json only) on main as 1c9b45f6f node1 r20261003-050139-a773 --agreement.
 - 2026-10-03T05:14Z: #889 a773 past rust tests. Open non-draft: #885 #881 #880 (ci/circuits; not handed to me), #849 #846 (proofs, pending).
+- 2026-10-03T05:37Z: #874 (changed records; grants + --update line) + #891 (friction SKILL.md, draft, docs) stacked on #889: 24f19e9ec node1 r20261003-053450-3f94 --agreement.
+- 2026-10-03T05:46Z: a773 (#889) past lean-audit; 3f94 (#874/#891) early.
+- 2026-10-03T05:57Z: #889 moved to 157830cfe (record limit 4 MiB); cancelled a773/3f94; restacked: #889 05946bc54 ff3c, +#874+#891 2658fb24f a92d; node1 --agreement.
+- 2026-10-03T06:00Z: (top) ci 6d90b821d (#882 #892 #880 #881 #890 #885) node2 r20261003-055703-86e3 --agreement.
+- 2026-10-03T06:10Z: #849 (4ab923274) stacked on #889/#874/#891 tip: 6960530d9 node1 r20261003-060819-2fa2 --agreement.
+- 2026-10-03T06:17Z: running ff3c a92d 2fa2 (node1), 86e3 (ci, node2).
+- 2026-10-03T06:20Z: held #889 (ff3c passed) so ci 86e3 stays landable (top's ruling). Proofs line on ci 6d90b821d: +#889+#874+#849 155f858c8 node1 r20261003-061637-f9db --agreement. #891 conflicts #892 in friction/SKILL.md (non-import) -> restack after #892.
+- 2026-10-03T06:23Z: top corrected (no ci-first ruling; Lean priority): MERGED #889 (ff3c) -> main 3b7e9bb00. Cancelled 86e3 (ci) and f9db. Running a92d (#874/#891), 2fa2 (#849). Asked @ci for tip on 3b7e9bb00.
+- 2026-10-03T06:38Z: a92d FAILED lean-audit (#874 + #889: stale Flock.Field pins) -> @proofs; cancelled 2fa2. ci 8eb1f3eed (+#894) node1 r20261003-063432-58e0 --agreement (node2 refused: cache disk 93<111 GB -> @infra).
+- 2026-10-03T06:40Z: (root) #891 rides on ci line: 61b4b7a62 (8eb1f3eed + #891, SKILL.md = ci's 25bba6504 resolution, all 5 #891 lines present) node1 r20261003-063700-a5e9 --agreement.
+- 2026-10-03T06:43Z: #891 head fd5dc11c9 = tree-identical to my 61b4b7a62 (cde37eba); at a5e9 pass, merge fd5dc11c9 if research merge accepts tree match, else 61b4b7a62.
+- 2026-10-03T06:55Z: node2 disk freed (213 GB). Cause: my cancels (94eb, 86e3) SIGTERMed lean_audit.py before cleanup -> 59+61 GB scratch left; #898 fixes. Until it lands, cancelled checks can leak ~60 GB each.
+- 2026-10-03T07:06Z: 58e0, a5e9 (ci line +#891) at lean-unit-cut; #894 body fixed. #874/#849 re-pins in progress (proofs).
+- 2026-10-03T07:29Z: #897 (network warden; grants + --update line) stacked on ci+#891 (61b4b7a62): 626eb7813 node2 r20261003-072652-2a19 --agreement.
+- 2026-10-03T07:33Z: (top) node2 = circuits TP8 window until 10:30Z; cancelled 2a19. Run ac2879043 (#897, same tree as 626eb7813) on node1 after a5e9.
+- 2026-10-03T07:38Z: #874 (dc75bb39d) stacked on #897 tip ac2879043 as 7ed2d3f85abc03434c3d04b42a644b28bf379d09; launch both on node1 after a5e9 (top).
+- 2026-10-03T07:41Z: 58e0 FAILED pytest (test_pous_audit::test_timed_verifier, flaky: passed in a5e9) and a5e9 FAILED lean-audit (soundness mathlib .olean differ from record, 0/8 reused; 58e0 passed lean-audit on same Lean) -> both env. Reran on node1: ci+891 df9b, +897 3522, +874 b379.
+- 2026-10-03T07:43Z: root hypothesis: a5e9 olean mismatch may be concurrent checks sharing/refreshing one Mathlib cache on node 1 (58e0 + a5e9 overlapped). If df9b/3522/b379 repeat it, compare lean-audit windows before calling it a cache fault.
+- 2026-10-03T08:11Z: MERGED ac2879043 (ci line #882 #892 #880 #881 #890 #885 #886 #887 + #894 + #891 content + #897; 3522 incl. lean-agreement) -> main 8e40da770. #891 PR still OPEN (head fd5dc11c9 not ancestor; content identical). b379 (#874) running; olean mismatch not repeated.
+- 2026-10-03T08:43Z: MERGED #874 (b379 incl. lean-agreement) -> main. Left: #849, #846.
+- 2026-10-03T08:57Z: band train (#904 incl #901 + #902 python) 18bf12e0c node1 r20261003-085445-a1dc --agreement. #896 held: body lacks 'read --update' line + needs lean relabel at restacked head.
+- 2026-10-03T09:08Z: (top) node2 closed to checks through 14:30Z (FP8 timed 10:30-11:00/11:25, PoUS soak 11:00-14:30) unless infra confirms untouched cores. Node1 only.
+- 2026-10-03T09:15Z: a1dc (band) running; awaiting #849/#846/#896 ready words.
+- 2026-10-03T09:18Z: #896 (body fixed, lean relabel at 34c9847cb) stacked on band train: 0b8a429ad (import lines resolved) node1 r20261003-091600-4816 --agreement.
+- 2026-10-03T09:49Z: MERGED #904 #901 #902 #896 via 4816 (0b8a429ad, incl. lean-agreement) -> main.
+- 2026-10-03T10:05Z: idle; awaiting #849/#846 ready words.
+- 2026-10-03T10:08Z: (top) node2 closed to checks until 17:00Z (soak to 14:30, circuits 235B 14:30-17:00). Node1 only.
+- 2026-10-03T10:38Z: (top) ci d3a8cfa3e (#914 + #849@50c4ee9a4) node1 r20261003-103549-73b3 --agreement.
+- 2026-10-03T10:40Z: #849@50c4ee9a4 has NO grant labels; asked @proofs before merging d3a8cfa3e.
+- 2026-10-03T11:13Z: fallback #914 alone (no Lean changes in merged diff; ready=true) bfdf51245 node1 r20261003-110946-40fe. d3a8cfa3e (73b3, +#849) held: #849@50c4ee9a4 has no grants, no reply yet.
+- 2026-10-03T11:27Z: (top) ci 2fc0e0ae7 (on d3a8cfa3e, no #888: no red-team grant) node1 r20261003-112421-c26c --agreement. Stack blocked on #849 grants.
+- 2026-10-03T11:30Z: (root) ci tip without #849: #914 fallback + #893 #899 #908 #911 = 130922dbf node1 r20261003-112704-e9dd --agreement. Lines: with #849 (73b3 -> c26c) vs without (40fe -> e9dd); drop the loser.
+- 2026-10-03T11:44Z: MERGED #914 (40fe incl. lean-agreement) -> main d3750e9ad. Cancelled c26c (with #849, ungranted). e9dd (ci tip without #849) ff, running. 73b3 passed but obsolete.
+- 2026-10-03T11:58Z: #925 (pyyaml dev dep) stacked on ci tip 130922dbf: e4b08b3c3 node1 r20261003-115617-1bb8.
+- 2026-10-03T12:14Z: MERGED ci tip 130922dbf (#893 #899 #908 #911; e9dd incl. lean-agreement) -> main. #925 1bb8 next. #849/#846 await lean re-review + fresh red team.
+- 2026-10-03T12:18Z: (top) bb11c1f57 (#925 + #888, red-team grant 11:51Z) node1 r20261003-121548-b4f2 --agreement; 1bb8 fallback.
+- 2026-10-03T12:29Z: #905 conflicts with main (pous docs, SecurityProofs.lean, TRUSTED.sha256) -> memory-accounting to restack.
+- 2026-10-03T12:48Z: 1bb8 + b4f2 FAILED pytest: test_nebius_dispatch_pin::test_a_provers_task_runs_on_the_prover_slices (unskipped by #925; passes on VM, fails on node1 -> host-dependent) -> steward. #888 behind it.
+- 2026-10-03T12:50Z: #888 alone on main 1a40cdcb5 node1 r20261003-124541-6b77 --agreement (unblocked from #925).
+- 2026-10-03T13:17Z: MERGED #888 (6b77 incl. lean-agreement) -> main. #905 new head 7cc18a443 (await word). #925 unchanged (test fix pending). #849 red team ETA 13:05Z.
+- 2026-10-03T13:20Z: #905 @7cc18a443 (clean on main, no grants yet) speculative 8ab4e821f node1 r20261003-131641-c382 --agreement; merge only with both grants at head.
+- 2026-10-03T13:23Z: (root) #931 (test isolation fix, red-team grant, no ready label yet) + #925 = 80f94a26a node1 r20261003-131931-8512; merge when #931 ready.
+- 2026-10-03T13:40Z: #849-only on main 4971db95a: bda5bcac4 node1 r20261003-133727-7110 --agreement; merge when pr:849 red-team label lands. #846 next (~14:30Z).
+- 2026-10-03T13:50Z: MERGED #905 (c382 incl. lean-agreement; grants at 7cc18a443) -> main b51f1b387. Cancelled 7110, 8512. Restacked: #849 15795e6a3 2bcd; +#931+#925 5249809b7 7214; node1 --agreement. Merge gates: #849 red-team label; #931 ready label.
+- 2026-10-03T14:06Z: 2bcd/7214 running; awaiting #849 red-team, #931 ready.
+- 2026-10-03T14:18Z: (root) fp8-served-debit-per-input push OK; before any train, check it doesn't adopt -h2 on served path or keyed 8-block FP8 rotation (both await Daniel); hold + tell root if it does. Bundle not readable yet (other store).
+- 2026-10-03T14:21Z: pushed cursor/fp8-served-debit-per-input-e3fa = f96f5b780 (from art:5578b2ee) on fp8-served-zeros-cb26; 2 commits, served_debit.py + test only; no -h2 / keyed 8-block rotation.
+- 2026-10-03T14:41Z: MERGED #849 #931 #925 via 7214 (5249809b7, incl. lean-agreement) -> main. Left: #846 (red team on node 2).
+- 2026-10-03T14:46Z: #906 (contains #846@1e3a47ddf) on main f3f9b7714 node1 r20261003-144305-87d3 --agreement. Merge gates: #846 red-team label; #906 body lacks lean-read-update line.
+- 2026-10-03T14:55Z: (top) cancelled 87d3; a26d7e0f1 (#903+#919) REFUSED preflight: pouw lean manifest 1317e14549f1 unpinned in lean-deps.json -> top/ci need pin. Will run with agreement (lean-audit.json changes).
+- 2026-10-03T14:55Z: #909+#907 on main 8beba6d9a node1 r20261003-145201-e806 --agreement. Held: bodies lack 'lean read --update' lines; #907 body says needs fresh --update (stale vs #889).
+- 2026-10-03T15:11Z: e806 (#909+#907, bodies cleared) running; a26d7e0f1 awaits pouw lean pin; #846+#906 await red-team-846 (~16:00Z).
+- 2026-10-03T15:15Z: #846 red-team in; #906 (+#846) stacked on #909/#907 (8beba6d9a) as 921d9caec node1 r20261003-151229-67c8 --agreement.
+- 2026-10-03T15:18Z: (top) d2d32873f (ci: #906 on #909/#907 = same tree as my 921d9caec, + #922 traces, ready, no Lean) node1 r20261003-151436-d37b --agreement. Node2 off-limits until 17:30Z.
+- 2026-10-03T15:20Z: #927 (grants + update line) stacked on d2d32873f: 6a9e848ba node1 r20261003-151717-e3d1 --agreement. Chain: e806 -> 67c8 -> d37b -> e3d1.
+- 2026-10-03T15:37Z: (root) circuits' node2 window ended early (8 GPUs idle per node2-ops). If node1 slots tight, confirm with @top/@infra then use node2 for checks before 17:30Z.
+- 2026-10-03T15:48Z: chain running: e806 past lean-audit; 67c8, d37b, e3d1 in progress.
+- 2026-10-03T16:08Z: MERGED #909 #907 (e806 incl. lean-agreement) -> main. 67c8, d37b, e3d1 past lean-audit.
+- 2026-10-03T16:33Z: label-fallback ruling recorded note:verity-top-20261003T1630Z-rulings-3-oct (also: PoUW may import sampled proofs; D=0 pin approved). HOLD circuits' label-fallback PR until it adds the friction SKILL.md line. Proofs taking Lean audit cap (lean-slots lane, draft by 20:00Z).
+- 2026-10-03T16:46Z: MERGED #846 #906 #922 #927 via e3d1 (6a9e848ba, incl. lean-agreement) -> main.
+- 2026-10-03T16:53Z: #947 (lean_slot.py; tools/check only, no Lean key change) on main bd39c135c node1 r20261003-165003-60bd. #948 after 08:00Z.
+- 2026-10-03T17:15Z: MERGED #947 (60bd) -> main.
+- 2026-10-03T17:20Z: node1 Lean audit cap live: check pool 2 + audit pool 2. Trains at/after 0d4e61d5d: at most 2 concurrent cold Lean audits; extra checks wait at lean-audit step.
+- 2026-10-03T17:45Z: ci line: guards 21ae24644 node1 7272 (no agreement); full 1d06cc083 (15 PRs) node1 113d --agreement; e75c dup cancelled. Before merge: check Lean PRs' grants (#929, #903, #919, ...).
+- 2026-10-03T17:50Z: ci line Lean PRs all granted + update lines: #919 #903 #929 #923. 7272/113d running.
+- 2026-10-03T17:52Z: #960 (verdicts.py race fix) on full line: 803d31b52 node1 --agreement.
+- 2026-10-03T17:50Z: (root) moved #960 train 803d31b52 from node1 (feda cancelled pre-Lean) to node2 r20261003-174723-7ea5 --agreement. Node2 open since 17:30Z; cold audits go there when node1's 2 check slots are held.
+- 2026-10-03T18:12Z: #936 (gpu-lease preemptible) on #960: 71813db18 node1 r20261003-180919-d48c --agreement. Chain: 7272 (guards) / 113d (full) -> 7ea5 (#960, node2) -> d48c (#936).
+- 2026-10-03T18:19Z: 7ea5 (#960) queued on node2: slot d blocked by a timed window 18:05Z (20 min); starts after. 7272/113d past pytest; d48c early.
+- 2026-10-03T18:37Z: 7272/113d past lean-audit; d48c past pytest; 7ea5 started on node2 after window.
+- 2026-10-03T18:40Z: #968 (network_traces freeze rule) on #936 train: 87a1d4be3 node1 --agreement.
+- 2026-10-03T18:44Z: replaced 0d7f with c08cff944 (#968 + #969) node1 --agreement.
+- 2026-10-03T18:50Z: replaced 2f49 with 10aaecc64 (+#942) node1 --agreement.
+- 2026-10-03T18:59Z: #949 conflicts w/ ci tip in network_warden/PROTOCOL.md -> network-accounting to restack.
+- 2026-10-03T19:07Z: #949 tip 0c2de8a49 (on 10aaecc64) node1 --agreement; merge needs labels at 9bc057d98.
+- 2026-10-03T19:15Z: #865 #854 (no -h2/rotation; checked) on #949 tip: a42c5eaf3 node1 --agreement.
+- 2026-10-03T19:20Z: MERGED ci line 10aaecc64 (20 PRs: #924 #940 #919 #903 #898 #932 #930 #918 #933 #916 #946 #929 #923 #951 #956 #960 #936 #968 #969 #942; 14d2 incl. lean-agreement) -> main 153dcf7b1. #919/#923 OPEN only because based on feature branches (heads in main). Cancelled 7ea5. Next: #949 (2fb8), #865 #854 (f5cb).

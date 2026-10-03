@@ -24,6 +24,54 @@ the doorbell wakes only the names at the start.
     cap, switching to leased once the TP-lease change deploys.
 - Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
 - The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+- 17:20Z Oct 3: **node 1's Lean audit cap (#947, main `0d4e61d5d`) is live.** `/workspace/research/locks/lean-slots` is
+  `check 2` + `audit 2` = 4.
+  - @infra wrote it at 16:52Z, the split @infra and @proofs agreed at 16:25Z.
+  - Verified with main's `lean_slot.py`: `--pool check` took `check/0`, `--pool audit` took `audit/0`, and an unlisted pool is
+    refused. Check's lean-audit step takes a `check` slot when its audit misses the cache.
+  - Confirmed with real checks at 17:45Z: `check/0` and `check/1` are held by two checks' Lean audits (trees `21ae2464…` and
+    `1d06cc08…`), taken at 17:40Z and 17:41Z.
+  - My slip: at 17:15Z I wrote `any 4` over it without reading it first, and restored `check 2`/`audit 2` at 17:16:35Z. No slot
+    was taken meanwhile; no `lean-*.lock` existed.
+  - Told @proofs and RC in @infra's thread.
+  - Lesson: read a node setting file before writing it, since another lane may own the current value.
+- 16:10Z Oct 3: **the GPU quota is back at `provers` 6 / `deployments-gpu` 2.** A `kubectl patch` at 15:07:46Z did it, after
+  @infra's 14:30Z restore to 2/6. I asked once in the allocation thread.
+  - **Answered:** it is @infra's own move with circuits' OK, posted in that thread at 15:07Z (reply `1791040121.426949`); I had
+    missed it.
+  - A timer on node 1 reverts it at 10:30Z Sun Oct 4. The drift check's "DIFFER" is expected until then.
+- 14:45Z Oct 3: **#925 and #931 merged at 14:39:33Z.** `check` now runs the six PyYAML test modules; it's test-only, so nothing
+  deploys on node 1.
+  - @infra restored the GPU quota on time (`deployments-gpu` 6, `provers` 2).
+  - The drift check still flagged `deployments-gpu`'s GPU `nominalQuota`: the number `6` from @infra's patch, against `"6"` in
+    the YAML. I patched it to the string form, so the drift check reads "same".
+- 13:12Z Oct 3: **#925's train failed twice on node 1** (`r20261003-115617-1bb8`, `r20261003-121548-b4f2`) in
+  `test_nebius_dispatch_pin.py`, one of the modules it stops skipping. Importing `dispatch.py` loaded node 1's real
+  `/workspace/jobs/dispatch/dispatch.env`, with provers on 160-191, into `os.environ`.
+  - @infra fixed it in [#931](https://github.com/danielreuter/verity/pull/931): `conftest.py` points `VY_DISPATCH_ROOT` at an
+    absent dir. RC stacks #925 on it, and #925's head stays `d6a77c1e6`.
+  - It's the same class of host leak as #701 and the bundle-sizes one; #925 surfaced it, as intended.
+- 11:55Z Oct 3: **[#925](https://github.com/danielreuter/verity/pull/925)** (`d6a77c1e6`, ready) puts `pyyaml>=6` in the root
+  dev group, so `check` runs the 6 Nebius test modules that skipped on `importorskip("yaml")` (81 tests, all pass). `research`
+  stays stdlib-only; `uv lock` adds only `pyyaml 6.0.3`. The research and repository suites pass (research: 2 skipped, was 8).
+  I told RC directly, and @ci in the disk thread. The next `check` reruns every suite once, since `uv.lock` is an input of all.
+- 10:20Z Oct 3: the drift check reports node 1's live Kueue differs from `infra/nebius` (GPU nominal quotas). It's intentional
+  and temporary. @infra's agent moved 2 GPUs from `deployments-gpu` to `provers` at 09:08Z for memory accounting's HBM check and
+  network accounting's seeds (6/2 to 4/4; 3/5 at 09:14Z; `kubectl patch` back to 4/4 at 09:59:56Z). It will put them back at
+  14:30Z (Slack `1791018655.389699`). Leave `kueue.yaml` alone; after 14:30Z, check the drift line is "same".
+  - Update: at 10:37Z @infra raised `provers` to 6 (`deployments-gpu` 2), for network accounting's 5 concurrent trace chunks,
+    still until 14:30Z (Slack `1791023955.632189`).
+  - The #925 and #931 train's check `8512` was cancelled at 13:45Z (#905 landed) and restacked by RC. #931 still needs its
+    author's ready label.
+- 07:25Z Oct 3: node 1's `research` area swings: about 733 GB at 06:10Z, about 1,030 GB, then shrinking (-44 GiB in 2.5 min, at
+  985 GB). Check runs and scratch build up between the hourly `vy-store-evict-research` passes (:50) and the cleanups, so the
+  disk moves between 54% and 64% and the pacer's cap with it (649 GB at the peak). The latch is at 78%, so no action; watch it.
+  On node 2 the same kind of scratch filled `/` (two Lean audit trees of about 60 GB each); @infra freed it to 213 GB at about
+  06:52Z.
+- 06:10Z Oct 3: node 1's disk went from 54% to 60% between 05:35 and 06:05Z, roughly 300 GB, and none of it was bundles (2 GB).
+  - `research` is now about 733 GB: `runs` 364, `src` 194, `trees` 84. It was 854 GB a few minutes earlier and is shrinking about
+    16 GiB/min, so it's being cleaned up.
+  - The pacer's cap fell to 819 GB as designed. Nothing is growing now (`jobs` and `hf` are flat). No action.
 - 02:40Z Oct 3: node 1's disk reached 64% with no Commit in flight, while 3 replays wrote. It's falling again (-9 GiB in 2 min).
   `jobs/cov` is 1,124 GB, against 553 GB of bundles the pacer counts, so about 570 GB is kept replay output or leaves. Worth
   asking circuits whether that can be preserved and evicted if the disk climbs. Latest hourly:

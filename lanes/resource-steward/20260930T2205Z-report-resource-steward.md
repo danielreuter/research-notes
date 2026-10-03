@@ -986,3 +986,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   them once their audits end. No action.
 - 00:30Z sweep (exit 1): 56 entries, 73.0 GB (§4), the first with the `--lake` pass, which kept two trees running audits
   hold. Over 50 GB, so one announce to @infra (`1790987721.907389`). No `STUCK` lines.
+- 00:32Z and 00:53Z ticks: exit 0. 01:15Z tick (exit 1): the HARD line (2.19M/h, 3.3 h), measured from the 00:36Z trough.
+  Node 1 is at 9.23M inodes (45%), inside the swing; the one tree with `.lake/packages` (`7eb1e479`) is named by a live
+  audit. Space rose from 52% (23:28Z) to 60%: vLLM Commit bundles at 422 GB, which the pacer projects to peak at 749 GB
+  (about 67%) and caps below its 80% pause. No action.

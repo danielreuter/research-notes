@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (21:40Z) [open] A 21:40Z poll: nothing new in the watched lanes since 21:20Z; main 4cd36e9f1; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (21:20Z) [open] A 21:20Z poll: nothing addressed to pouw-node2; node2-ops 21:15Z: node 2 now full (0/8 free, one waiter), /workspace 48%; main 4cd36e9f1 (no PoUW change); panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (21:00Z) [open] A 21:00Z poll: nothing new in the watched lanes since 20:40Z; main a24f92db2 (#941 #944); panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (20:40Z) [open] A 20:40Z poll: nothing addressed to pouw-node2 (only a notes-sync recovery commit touching an infra note); main 1074c52df; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (11:20Z) [open] A 11:20Z poll: node2-ops 11:20Z: compute accounting's FP8 pass held node 2 only 10:41:31-10:44:11Z; panel rows wait for its run id and verify; new windows circuits 14:30Z (150 min) and compute accounting 17:00Z (30 min); /workspace 55% (over the 52% hold); first fence in use (memory accounting, GPU 7); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (11:00Z) [open] A 11:00Z poll: nothing new in the watched lanes since 10:40Z; no word on the 10:30Z pass; panel art:63261f6f unchanged; open with compute accounting: 1/1,000 gamma placement, totals.py yes, disk hold; off node 2
 CHECKPOINT fbce5a2f4c (10:40Z) [open] A 10:40Z poll: nothing new in the watched lanes since 10:20Z (no node2-ops line on whether the 10:30Z pass started); panel art:63261f6f unchanged; if the pass ran, its rows go on after its verify; off node 2
 CHECKPOINT fbce5a2f4c (10:20Z) [open] A 10:20Z poll: node2-ops 10:12Z: /workspace down to 53% (still just over the 52% hold), circuits' line cut to 09:40Z, 10:30Z window clear, backup ran between windows; no READY/BLOCKED for the 10:30Z pass in lanes/accounting as of 10:20Z (theirs; flagged); panel art:63261f6f unchanged; off node 2

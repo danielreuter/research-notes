@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (18:00Z) [open] A 18:00Z poll: nothing new in the watched lanes since 17:40Z (no READY/BLOCKED for the 18:05Z pass in lanes/accounting); main 0d4e61d5db; panel art:63261f6f unchanged; rows from that pass go on after its verify, on compute accounting's word; off node 2
 CHECKPOINT fbce5a2f4c (17:40Z) [open] A 17:40Z poll: node2-ops 17:35Z: circuits' relaunch passed (match PASS 17:29:30Z), lease gone, node free until compute accounting's 18:05Z pass (its READY/BLOCKED, due 17:45Z, is theirs); infra 1709Z alert is vy-nebius-1; verity fetch auth failing intermittently (main last 0d4e61d5db); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (17:20Z) [open] A 17:20Z poll: node2-ops 17:13Z: circuits relaunched 16:33Z (lease to 18:00:01Z), its 235B compare passed and Match is running; compute accounting 18:05-18:25Z unchanged; /workspace 58%; main 0d4e61d5db (no PoUW change); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (17:00Z) [open] A 17:00Z poll: nothing addressed to pouw-node2 (infra interviews: circuits' 235B Match runs to 18:00Z, Commit after); FP8 pass still 18:05Z; verity fetch auth failed again (main last 465bfe118e); panel art:63261f6f unchanged; off node 2

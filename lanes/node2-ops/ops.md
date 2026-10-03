@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 20:20Z hourly (19Z): GPU busy 46.7% (3.73 of 8.00 GPU-h, all useful): 3.22 timed (circuits' Commit to 19:24:16Z), plus 0.51 of memory accounting's series.
+    - **Why below 80%:** after the Commit there was no backlog beyond memory accounting's one-GPU series, so 4.18 GPU-h sat free. Leased-idle 0.09. CPU 5.3%.
+    - **Backup:** `r20261003-201833-9a25` (unpinned, no line ahead). The 19:32Z backup `r20261003-193226-7e09` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (20:17Z). One runner. `/` is 18%, and `/workspace` is down to 50% from 59%. `gh` returned 401 on #494, the same transient as at 06:08Z.
 - 2026-10-03 19:36Z alerts tick: no alerts. Circuits' 235B Commit `r20261003-183009-8f18` printed `commit PASS` at 19:23:52Z (rc 0, wall 3221 s, then `DONE`), and its timed lease was gone by 19:24:16Z, 45 min before its 20:09Z bound. Fill started series `…141820Z`, which had been queued since 14:18Z. No line is ahead, so I launched the overdue backup `r20261003-193226-7e09` (unpinned); the last was the 13Z backup. That makes my 18:38Z infra note moot.
 - 2026-10-03 19:33Z hourly (18Z): GPU busy 62.5% (5.00 of 8.00 GPU-h, all timed): compute accounting's FP8 pass 18:05:36–18:13:16Z and circuits' Commit from 18:30:09Z.
     - **Why below 80%:** the gaps between the bookings (18:00–18:05Z, 18:13–18:30Z) left 3.00 GPU-h free. The queued series couldn't clear the 18:05Z/18:25Z lines, and then the Commit's timed lease blocked it. CPU 9.6%. The 19Z hour is 100% timed so far.

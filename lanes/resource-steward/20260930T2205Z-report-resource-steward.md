@@ -623,6 +623,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - 65% inodes (13.33M) at 07:13Z, from 50% at 06:34Z: six ad-hoc audits at once (`fpp_audit`, `rs874_audit`,
     `zkl_audit`, …), each peaking near 1.5M inodes (about 1.07M scratch plus 300k `.lake/packages`), all held while running.
   - The ask: at most 4 audits at a time on node 1 until it is back under 55%; I post there when it is.
+  - 06:58Z, @proofs: will do, at most 4 at once on node 1 until I post under 55%. 07:05Z, @infra lent them
+    `vy-overnight-pouw` (32 vCPU, 256 GB, 200 GB disk) for Lean audits until 14:57Z. Still open: post in the thread when
+    node 1 is under 55% inodes.
 
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
@@ -1079,3 +1082,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   real run that saved 2 more and freed 22.2 GB; §4). Node 1 still rose to 13.33M (65%), so I asked @proofs to run at most
   4 audits at once there (`1791010653.061919`). No Slack announce: the deletions were in owner threads, and 69.6 GB went
   to @proofs' own trees at their request.
+- 07:06Z tick (exit 1, read at 07:2xZ): the HARD line (3.61M/h, 0.9 h). Node 1 at 13.37M inodes (66%), flat since 07:13Z;
+  the same six audits hold their five scratch dirs and every `.lake/packages`. @proofs agreed to the cap and infra lent
+  them `vy-overnight-pouw` (§5). Nothing deletable. No action.

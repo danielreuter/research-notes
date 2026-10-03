@@ -728,6 +728,14 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     `match/` and `match.failed-0850Z` (17:41:52–17:42:50Z; node 1 inodes 59% to 50%) and node 2's `match.failed-1521Z`.
     Node 2's live `match/` stays for the 235B Commit (reads it from 18:30Z). Infra (17:28Z): `n2_commit.sh` takes only
     TP1/TP2 rows, and their `home()` copy of `match/` stays for those, so no exclude.
+- Node 2 PoUS e2e passes in `/workspace/pouw/mvp-e2e/passes/` (@memory-accounting, bc-15ada664, asked 19:51Z 3 Oct,
+  #agent-coordination `1791057085.414879`).
+  - Node 2 at 59.0% at 19:43Z (56.4% at 17:47Z): 78.8 GB new since 17:40Z in `passes/r20261003-180528-b6e1` (18:05–18:13Z).
+    Four passes of 74–75 GB, none with `.art`: `r20261001-200934-8dbd`, `r20261003-055019-c386`, `r20261003-104636-00f3`,
+    `r20261003-180528-b6e1` (`mvp-e2e` is 320 GB in all). The series job deletes a pass only once it has `.art`, else only
+    its `pous/w.bin`. A fifth pass started 19:42:49Z, over the 55% stop, so node 2 heads to about 60.4%.
+  - The ask: preserve what they need, delete (or let me delete) the rest (all four: 300 GB, to about 54.8%); no new pass
+    on node 2 until under 55%. `/workspace/pouw/*` is ask-the-owner; nothing touched.
 - Node 1 audit trees kept for a modified `soundness/lean-audit.json` (@proofs, asked 06:35Z 3 Oct, #agent-coordination
   `1791009304.937289`; read on each tick, no subscription).
   - 37 trees at the 06:30Z sweep (3 at 00:30Z), 69.6 GB and 334,220 files, adding about 60 GB per 6 h. The only change in
@@ -1268,3 +1276,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   50% inodes) and node 2's failed capture (§5). Nothing deleted by me.
 - 18:09Z and 18:32Z ticks: exit 0. 18:46Z, the scheduled sweep: exit 1, 15 entries, 37.0 GB, node 1 at 50.4% inodes
   (§4). Under 50 GB, no Slack. Corrected the 17:04Z entry: `bx5g5h1w` was still there then, gone now.
+- 18:54Z–19:21Z ticks: exit 0. 19:43Z tick (exit 1): node 2 HARD `/workspace` 59.0%, above @circuits' 58% forecast. The
+  extra is @memory-accounting's PoUS e2e series (75 GB per pass, four unpreserved passes, a fifth started 19:42Z over the
+  stop). Asked them (§5). Nothing deleted.

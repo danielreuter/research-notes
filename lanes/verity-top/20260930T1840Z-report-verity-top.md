@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:18Z) [open] 02:18Z: Daniel on Slack thread 1790993029.653519; security-status Notion page in progress (bc-6fff0a15); #867 granted; ci train c9c869268 next node
 CHECKPOINT none (02:00Z) [open] 02:00Z: node 1 pacer hold fixed 01:49Z (TP rows sized 0 GB); gm363-l given 90 min on node 2; main 10d8faa87
 CHECKPOINT none (01:44Z) [open] 01:44Z: main 10d8faa87 (#862 #858 #860 #861 #863 landed); infra on pacer hold + node-2 25-min Commit limit; ci train 5f157c807 next node
 CHECKPOINT none (01:27Z) [open] 01:27Z: #875 hidden decoder draft (lean ok); PoUW blocked on 9 lowerings + Keccak OOM; node 1 GPUs waiting on pacer hold

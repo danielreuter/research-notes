@@ -955,3 +955,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   (3:33 PM PDT). Deleted two unheld trees' soundness `.lake/packages`, 20.4 GB (§4), and added the rule to §1 and a
   `--lake` pass to `node-sweep.sh`, which `sweep.sh` runs on node 1. The pass's dry run at 22:58Z kept the two trees
   that hold `.lake/packages` (`71361228`, `f3b03c6c`), both named by live audits. No Slack post (under 50 GB).
+- 23:06Z, 23:28Z and 23:49Z ticks: exit 0. 00:10Z tick (exit 1): the HARD line (2.04M/h, 3.6 h), measured from the 23:15Z
+  trough (40.0%). Node 1 is at 9.01M inodes (44%), inside today's 8.3–10.1M swing. The two trees holding `.lake/packages`
+  (`4ed9cb72`, `e29e8592`) are both named by live audits, so nothing is deletable; the 00:30Z sweep's `--lake` pass takes
+  them once their audits end. No action.

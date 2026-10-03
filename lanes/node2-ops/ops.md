@@ -69,6 +69,9 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 06:25Z alerts tick: `disk` `/` 63% full (92 GiB free, 06:07Z), the first root alert.
+    - **What's on root:** 120 GB is `~/.cache/verity-check/lean-audit-scratch-*`. The live check (`r20261003-055703-86e3`) has 61 GB. 59 GB (`azkehmu9`) is left from `r20261003-030801-94eb`, a `check` stopped by SIGTERM (rc 143) at 03:10:58Z, whose `finally` never ran. The Qwen3-235B download writes to `/workspace` (2.3 TB free), not root.
+    - **Not deleted:** that scratch holds the warm Lake dependencies `WarmDeps` moved into it. Handed to infra (`note:20261003T0625Z-alert-from-node2-ops-killed-check-left-59g-on-root`); I'll delete it or move the dependencies back on their word. Watermark 06:07:09Z.
 - 2026-10-03 06:12Z hourly (05Z): GPU busy 13.1% (1.05 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series, plus short leases by bc-4323a347 and `adhoc:network-accounting`.
     - **Why below 80%:** nothing else was queued, so 6.64 GPU-h sat free. Leased-idle 0.31 GPU-h: the series 0.12, bc-4323a347 0.10, network accounting 0.10. Waiters 12.2 min.
     - **CPU:** 19.6% by `/proc/stat` (57.9% so far in 06Z): a `check` run (`r20261003-055703-86e3`, its Lean audit), the Qwen3-235B weight download (`curl`, tmux `qwen3-235b-download`, for the 06:30Z window) and a Pearl-C `verify_run.py`.

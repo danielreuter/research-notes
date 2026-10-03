@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (16:40Z) [open] A 16:40Z poll: nothing new in the watched lanes since 16:20Z; verity fetch ok, main 465bfe118e (#907 #909, nothing under protocols/pouw); node 2 schedule frozen (circuits to 18:00Z, FP8 pass 18:05Z); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (16:20Z) [open] A 16:20Z poll: node2-ops 16:16Z: top froze node 2's schedule at 15:55Z (circuits to 18:00Z hard stop, FP8 pass 18:05Z), node idle; /workspace 57%, resource-steward now chasing it with circuits and compute accounting (matches my 52% flag); verity fetch auth failing intermittently (main last 4934957122); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (16:00Z) [open] A 16:00Z poll: node2-ops 15:56Z: circuits' line extended to 18:00Z (reverts to 17:00Z if the fold fix isn't proven by 16:15Z); compute accounting's pass moved to 18:05Z (20 min); merge checks off node 2 18:25-18:35Z; node idle meanwhile; verity fetch ok again (main 4934957122); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (15:40Z) [open] A 15:40Z poll: node2-ops 1528Z: circuits' run stopped 15:21Z (MATCH FAIL), node free but its line holds to 17:00Z, asked infra to shorten (not mine); compute accounting's 17:00Z line unaffected; verity git fetch auth failed again this poll (main last seen 4934957122); panel art:63261f6f unchanged; off node 2

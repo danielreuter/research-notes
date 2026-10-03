@@ -69,6 +69,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 07:12Z hourly (06Z): GPU busy 50.3% (4.03 of 8.00 GPU-h, all useful): 3.98 of it timed, circuits' Qwen3-235B-A22B TP8 window on all 8 GPUs from 06:30Z.
+    - **Why below 80%:** fill drained for the window. 3.96 GPU-h sat free from about 06:00Z to 06:30Z (waiting 32 min). CPU 46.1% (65.4% by `/proc/stat`): the window's host side, plus the weight download and the `check` before it.
+    - **Backup:** none, the window is on (`timed True`). They resume after 11:30Z. The 06Z backup `r20261003-060931-29eb` is the last.
+    - **Disk:** `/` is now 15% used (213 GB free). Both `lean-audit-scratch-*` dirs are gone, the leftover `azkehmu9` too, with no note about it yet. `/workspace` is 58%.
+    - **Checks:** daemons are up, and `status.md` was fresh (07:09Z). One runner (`df9b8baa`), no new deploys. The agent is on `1253f09ec` (no restarts). `gh` works again: #494 is still closed.
 - 2026-10-03 06:33Z alerts tick: `disk` `/workspace` 60% full (1,989 GiB free, 06:26Z), up from 54% at 06:17Z. That's circuits' Qwen3-235B-A22B weights (118 shards, about 470 GB) landing in `/workspace/jobs/hf` for the window, so it should level off near 63%. Nothing to do. The window is on (`timed True`, 0/8 free, 2 GPU jobs queued). Watermark 06:26:30Z.
 - 2026-10-03 06:25Z alerts tick: `disk` `/` 63% full (92 GiB free, 06:07Z), the first root alert.
     - **What's on root:** 120 GB is `~/.cache/verity-check/lean-audit-scratch-*`. The live check (`r20261003-055703-86e3`) has 61 GB. 59 GB (`azkehmu9`) is left from `r20261003-030801-94eb`, a `check` stopped by SIGTERM (rc 143) at 03:10:58Z, whose `finally` never ran. The Qwen3-235B download writes to `/workspace` (2.3 TB free), not root.

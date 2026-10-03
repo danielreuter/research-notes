@@ -459,3 +459,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T11:58Z: #925 (pyyaml dev dep) stacked on ci tip 130922dbf: e4b08b3c3 node1 r20261003-115617-1bb8.
 - 2026-10-03T12:14Z: MERGED ci tip 130922dbf (#893 #899 #908 #911; e9dd incl. lean-agreement) -> main. #925 1bb8 next. #849/#846 await lean re-review + fresh red team.
 - 2026-10-03T12:18Z: (top) bb11c1f57 (#925 + #888, red-team grant 11:51Z) node1 r20261003-121548-b4f2 --agreement; 1bb8 fallback.
+- 2026-10-03T12:29Z: #905 conflicts with main (pous docs, SecurityProofs.lean, TRUSTED.sha256) -> memory-accounting to restack.

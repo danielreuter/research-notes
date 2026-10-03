@@ -24,6 +24,9 @@ the doorbell wakes only the names at the start.
     cap, switching to leased once the TP-lease change deploys.
 - Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
 - The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+- 16:10Z Oct 3: **the GPU quota is back at `provers` 6 / `deployments-gpu` 2.** A `kubectl patch` at 15:07:46Z did it, after
+  @infra's 14:30Z restore to 2/6, and I found no post. I asked once in @infra's allocation thread (`1791023852.626629`) who made
+  it and until when, and left it. The drift check flags it until then.
 - 14:45Z Oct 3: **#925 and #931 merged at 14:39:33Z.** `check` now runs the six PyYAML test modules; it's test-only, so nothing
   deploys on node 1.
   - @infra restored the GPU quota on time (`deployments-gpu` 6, `provers` 2).

@@ -489,3 +489,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T17:45Z: ci line: guards 21ae24644 node1 7272 (no agreement); full 1d06cc083 (15 PRs) node1 113d --agreement; e75c dup cancelled. Before merge: check Lean PRs' grants (#929, #903, #919, ...).
 - 2026-10-03T17:50Z: ci line Lean PRs all granted + update lines: #919 #903 #929 #923. 7272/113d running.
 - 2026-10-03T17:52Z: #960 (verdicts.py race fix) on full line: 803d31b52 node1 --agreement.
+- 2026-10-03T17:50Z: (root) moved #960 train 803d31b52 from node1 (feda cancelled pre-Lean) to node2 r20261003-174723-7ea5 --agreement. Node2 open since 17:30Z; cold audits go there when node1's 2 check slots are held.
+- 2026-10-03T18:12Z: #936 (gpu-lease preemptible) on #960: 71813db18 node1 r20261003-180919-d48c --agreement. Chain: 7272 (guards) / 113d (full) -> 7ea5 (#960, node2) -> d48c (#936).

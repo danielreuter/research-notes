@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 10:12Z hourly (09Z): GPU busy 56.7% (4.54 of 8.00 GPU-h, all useful): 4.34 timed (circuits' TP8 to about 09:12Z, its relaunch 09:17–09:37Z), plus 0.20 of memory accounting's series and soak dry-run from 09:40Z.
+    - **Why below 80%:** the window ended early. 3.28 GPU-h sat free after 09:37Z, because fill only starts jobs that clear the 10:30Z window. Leased-idle 0.19 GPU-h, the series' start-up. CPU 28.8%. Infra has shortened circuits' line to `06:30Z 190` (to 09:40Z).
+    - **Backup:** `r20261003-100950-4635`, unpinned, between the windows (backups run 2–3 min). The 06Z backup `r20261003-060931-29eb` is preserved. The next waits for the 10:30Z window to end.
+    - **Checks:** daemons are up, and `status.md` was fresh (10:07Z). One runner (`df9b8baa`), no new deploys. The agent is on `1253f09ec` (no restarts). `/` is 15%, `/workspace` 53%. #494 is still closed.
 - 2026-10-03 09:56Z alerts tick: one `gpu-idle-in-lease` (09:45Z), GPU 6 at 0.0%, memory accounting's vLLM e2e series `…055948Z`, 5 min into its lease (since 09:40:02Z). It's the first series run after the window: the successor the orphan had blocked, now running from the queue as it should. The series prints its result only at the end, so this is its usual start-up. Its lease (to 10:10Z) clears the 10:30Z window. Also ran: `pous-soak-v2-dry-…061727Z` on GPU 7, rc 0 in 3.3 min. Watermark 09:45:06Z.
 - 2026-10-03 09:40Z alerts tick: no alerts. Circuits' relaunched TP8 lease ended after 19m46s (about 09:37Z), so the 10:30Z overlap is gone, and I updated the infra note. Node free (8/8, `timed False`). Fill holds its 2 queued GPU jobs, since neither clears the 10:30Z window.
 - 2026-10-03 09:25Z hourly (08Z): GPU busy 100% (8.00 of 8.00 GPU-h, all timed): circuits' Qwen3-235B-A22B TP8 window. CPU 38.7%.

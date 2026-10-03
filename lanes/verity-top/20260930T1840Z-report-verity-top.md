@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:39Z) [open] 10:39Z: #914+#849 check 73b3 on node 1 (#849 needs grant relabel); FP8 pass missed 10:30Z start; node-1 GPUs lent to traces
 CHECKPOINT none (10:22Z) [open] 10:22Z: 235B window booked node 2 14:30-17:00Z; #914+#849 tip d3a8cfa3e with lander; FP8 pass 10:30Z; 35 PRs open
 CHECKPOINT none (10:06Z) [open] 10:06Z: main 9c3f9b3d1 (PoUS 91 pins); 235B needs Match+Commit after 14:30Z; node 2 to FP8 pass 10:30Z then soak 11:00Z; traces ~5 GPU-h
 CHECKPOINT none (09:50Z) [open] 09:50Z: #891 closed (landed by tree); 235B Commit to ~10:05Z; #905 freezing with D_late<=12; regression-gate question queued for Daniel

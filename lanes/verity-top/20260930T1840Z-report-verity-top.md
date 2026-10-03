@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:17Z) [open] 3 checks running (Lean train + #849 node1, six-PR line node2); ingress proved #894; zk binding proved; private-circuit lanes started; goal scorer live
 CHECKPOINT none (06:01Z) [open] both trains running (node1 #889+#874+#891, node2 six PRs); overnight goals 7/8 filed; Nebius US read-only validation with infra
 CHECKPOINT none (05:45Z) [open] Lean push lanes running (sampled ZK, PoUW, PoUS); GLM-5.3 needs H200 access from Daniel
 CHECKPOINT none (05:30Z) [open] Daniel approved overnight A-G (H no); Lean security proofs top priority; leads dispatched

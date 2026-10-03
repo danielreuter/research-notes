@@ -1131,3 +1131,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   hand. It exited 2: the lean-audit.json listing on node 1 returned the status of its last tree's test, so a
   non-qualifying last tree read as a failed ssh and none were approved. Fixed (`exit 0` at the end of the remote script,
   notes 87e6a799) and re-ran: 17 files saved, 220.4 GB deleted over both runs (§4). Announced to @infra (over 50 GB).
+  The 12:30Z sweep timer did fire, delivered 12:37:29Z behind that turn. The #agent-alerts channel subscription is gone
+  and I can't re-create it (Task subagent), so ticks read the channel by hand until the parent subscribes for me.

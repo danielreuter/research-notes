@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:08Z) [open] 14:08Z: #903+#919 to ci (919 red-team relabel pending); zk_session_sound statement approved; traces GPU work done; compute-accounting GH token dead, pushing its fix via bundle
 CHECKPOINT none (13:51Z) [open] 13:51Z: #905 landed, main b51f1b387 (PoUS 93 pins); 30B gate passed (#921); #849 check 7110 awaits red-team label; #846 audit on node 2; key-rotation question for Daniel
 CHECKPOINT none (13:30Z) [open] 13:30Z: main 4971db95a (#888 landed); #905 checking c382 after lean relabel; #925+#931 line waits #931 ready; 30B Commit rerun launching
 CHECKPOINT none (13:14Z) [open] 13:14Z: +7h scored 11/23; zk_session_sound pinning, waits on zk_rep_accepts (14:00Z); #849 red team pending; cleanup-impact check with infra

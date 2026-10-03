@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (08:20Z) [open] A 08:20Z poll: nothing addressed to pouw-node2; node2-ops 08:14Z: 100% busy (circuits' TP8 window to 10:30Z), the 10:30Z window cut to 30 min (compute accounting's FP8 pass, 20-min lease), /workspace 58% (past the 52% hold, flagged), one runner; main 8e40da770 (verity.ml.boolean scalar, no PoUW); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4 (08:00Z) [open] A 08:00Z poll: nothing new in the watched lanes since 07:40Z; circuits' window on until 10:30Z; disk hold, 1/1,000 gamma placement and totals.py still with compute accounting; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4 (07:43Z) [open] A 07:40Z poll: redteam 0721Z on PR #903 (unmerged): L1 GO settles the panel's per-tile 1/1,000 twin as 0.36949%; L2 NO-GO means no 'under the hidden audit' wording for C-Flock; L4 means per-layout pins aren't a served pass's gamma; noted for the panel basis, edit still waits on compute accounting; infra 0713Z alert is vy-nebius-1; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4 (07:20Z) [open] A 07:20Z poll: node2-ops 07:12Z hourly: circuits' Qwen3-235B window on (50.3% busy in 06Z), root / back to 15% (both Lean scratch dirs gone), /workspace 58% (still past the 52% hold; flag with compute accounting); one runner df9b8baa; panel art:63261f6f unchanged, 1/1,000 gamma pick with compute accounting; off node 2

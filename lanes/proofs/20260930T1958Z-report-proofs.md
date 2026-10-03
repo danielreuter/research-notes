@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (14:47Z) [open] 906 granted (lean+red team) at 15b099b0d, lander checking; 846 red-team audit soundness running node 2 ETA 16:00Z; 927 stack restacking onto 906; typed-pow2 PR in progress (bc-30d7a9e2)
 CHECKPOINT none (14:09Z) [open] 849 red-team grant on store (13:47Z), posted to lander; 846 audit running node 2; zk_session_sound statement GO, grant waits on zk_rep_accepts
 CHECKPOINT cc21a7d94 (12:23Z) [open] 5:25 AM PDT: back after the hang. Opened #909, #927, #928, #929 and #926. lean granted six heads. Red teams are running on #849/#846, #909/#907 and the #927 stack. #906 is restacking on 9d57c0211. The --zk sorrys are with lp-composed and zk-exec.
 CHECKPOINT none (07:10Z) [open] restacks of #874/#849/#846 running; 8 Lean lanes running; inode cap honored

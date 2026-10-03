@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (10:20Z) [open] A 10:20Z poll: node2-ops 10:12Z: /workspace down to 53% (still just over the 52% hold), circuits' line cut to 09:40Z, 10:30Z window clear, backup ran between windows; no READY/BLOCKED for the 10:30Z pass in lanes/accounting as of 10:20Z (theirs; flagged); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (10:00Z) [open] A 10:00Z poll: nothing addressed to pouw-node2; node2-ops 09:56Z: fill running short jobs that clear the 10:30Z window (series lease to 10:10Z); compute accounting's 10:30Z pass not handed to me, so its READY/BLOCKED (due 10:10Z) is theirs; disk hold question still open; main 9c3f9b3d1d (no PoUW/core change); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (09:40Z) [open] A 09:40Z poll: the 10:30Z overlap is gone: circuits' TP8 relaunch ended ~09:37Z, node 2 free (8/8, timed False), fill holding for the window (node2-ops 09:40Z); disk hold (/workspace 58% > 52%) still the open question for compute accounting's 10:30Z pass; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (09:20Z) [open] A 09:20Z poll: node2-ops 0925Z: circuits' relaunched TP8 lease (09:17Z, all 8 GPUs) runs to 10:54Z, 24 min into compute accounting's 10:30Z window; flagged to compute accounting (options: circuits ends by 10:30Z, or move the line to 10:55Z); disk hold still applies to that pass; redteam 0914Z: PR #903 L2 fix GO, hidden-audit gamma for C-Flock still conditional; panel art:63261f6f unchanged; off node 2

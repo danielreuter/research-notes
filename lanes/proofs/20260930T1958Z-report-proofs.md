@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (15:38Z) [open] coinedOf defined + coinedOf_setup proved (ae6104bf3); lp-composed carving innerOf for a second lane; lander chain e806/67c8/d37b/e3d1 running
 CHECKPOINT none (15:13Z) [open] 846 + 909 + 907 + 906 all doubly granted; lander checking 906 and 909+907; 927 re-granted by lean at b6c56ae26, scoped red-team re-review running; 928/929 restack in progress; node 2 freed
 CHECKPOINT none (14:47Z) [open] 906 granted (lean+red team) at 15b099b0d, lander checking; 846 red-team audit soundness running node 2 ETA 16:00Z; 927 stack restacking onto 906; typed-pow2 PR in progress (bc-30d7a9e2)
 CHECKPOINT none (14:09Z) [open] 849 red-team grant on store (13:47Z), posted to lander; 846 audit running node 2; zk_session_sound statement GO, grant waits on zk_rep_accepts

@@ -403,3 +403,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T00:03Z: #849 435a running; awaiting @proofs ready words (#858 #860 #861 #863 #866 #849 #862 #867, #846 last).
 - 2026-10-03T00:15Z: infra round 13: node 1 has 4 check slots (c 8-31, a 32-63, b 64-95, d 128-159), node 2 only d -> prefer --on vy-nebius-1 for trains; slot.py --status / research fetch RUN --all show waiters.
 - 2026-10-03T00:37Z: #849 435a FAILED lean-audit (ExecParse.lean:220, likely vs #857 on main 6080aa798) -> @proofs.
+- 2026-10-03T00:50Z: #862 (DecodeZL, 5 new pins) checking 831229b46 node1 c52f --agreement; held for body's --update line + order OK.
+- 2026-10-03T00:56Z: stack on #862 (c52f): #858 bcb797e37 ff62, #860 bd12472d6 881a, #861 ed872b361 a538, #863 b6966185f 7c0e(node2), #866 c6d754799 bb85; all --agreement; imports auto-resolved (/tmp/stack-imports.sh, copy in tools/). Merges held for --update reviewer lines (858 has no reviewer line).

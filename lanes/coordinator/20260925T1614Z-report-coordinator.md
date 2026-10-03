@@ -501,3 +501,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T19:15Z: #865 #854 (no -h2/rotation; checked) on #949 tip: a42c5eaf3 node1 --agreement.
 - 2026-10-03T19:20Z: MERGED ci line 10aaecc64 (20 PRs: #924 #940 #919 #903 #898 #932 #930 #918 #933 #916 #946 #929 #923 #951 #956 #960 #936 #968 #969 #942; 14d2 incl. lean-agreement) -> main 153dcf7b1. #919/#923 OPEN only because based on feature branches (heads in main). Cancelled 7ea5. Next: #949 (2fb8), #865 #854 (f5cb).
 - 2026-10-03T19:55Z: MERGED #949 #865 #854 via f5cb (a42c5eaf3, incl. lean-agreement) -> main 1074c52df. #854 OPEN (base cursor/fp8-credit-rev1-cb26; content landed). #944 db4fb6a29 node1 r20261003-194859-af82.
+- 2026-10-03T20:08Z: af82 (#944) running.

@@ -446,3 +446,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T08:57Z: band train (#904 incl #901 + #902 python) 18bf12e0c node1 r20261003-085445-a1dc --agreement. #896 held: body lacks 'read --update' line + needs lean relabel at restacked head.
 - 2026-10-03T09:08Z: (top) node2 closed to checks through 14:30Z (FP8 timed 10:30-11:00/11:25, PoUS soak 11:00-14:30) unless infra confirms untouched cores. Node1 only.
 - 2026-10-03T09:15Z: a1dc (band) running; awaiting #849/#846/#896 ready words.
+- 2026-10-03T09:18Z: #896 (body fixed, lean relabel at 34c9847cb) stacked on band train: 0b8a429ad (import lines resolved) node1 r20261003-091600-4816 --agreement.

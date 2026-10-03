@@ -24,6 +24,10 @@ the doorbell wakes only the names at the start.
     cap, switching to leased once the TP-lease change deploys.
 - Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
 - The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+- 11:55Z Oct 3: **[#925](https://github.com/danielreuter/verity/pull/925)** (`d6a77c1e6`, ready) puts `pyyaml>=6` in the root
+  dev group, so `check` runs the 6 Nebius test modules that skipped on `importorskip("yaml")` (81 tests, all pass). `research`
+  stays stdlib-only; `uv lock` adds only `pyyaml 6.0.3`. The research and repository suites pass (research: 2 skipped, was 8).
+  I told RC directly, and @ci in the disk thread. The next `check` reruns every suite once, since `uv.lock` is an input of all.
 - 10:20Z Oct 3: the drift check reports node 1's live Kueue differs from `infra/nebius` (GPU nominal quotas). It's intentional
   and temporary. @infra's agent moved 2 GPUs from `deployments-gpu` to `provers` at 09:08Z for memory accounting's HBM check and
   network accounting's seeds (6/2 to 4/4; 3/5 at 09:14Z; `kubectl patch` back to 4/4 at 09:59:56Z). It will put them back at

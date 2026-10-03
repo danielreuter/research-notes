@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:58Z) [open] 23:58Z broker 33/33 pass; #928/#979/#1019 granted; recursion proved (unpinned); merge backlog bottleneck, #989 first
 CHECKPOINT none (23:39Z) [open] 23:39Z broker tally nearly complete; FP8 table final ~02:00Z; 23:56Z batch #912/#917/#982
 CHECKPOINT none (23:20Z) [open] 23:20Z GitHub broker rollout 9/10 leads pass; tip f67740858 checking; Lean env build passed, fresh-VM gate pending activation
 CHECKPOINT none (23:00Z) [open] 23:00Z #994 granted, 22:50Z tip with ci; FP8 table due now; private-circuit doc 01:00Z

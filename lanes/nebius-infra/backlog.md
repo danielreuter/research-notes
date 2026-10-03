@@ -24,6 +24,11 @@ the doorbell wakes only the names at the start.
     cap, switching to leased once the TP-lease change deploys.
 - Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
 - The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+- 07:25Z Oct 3: node 1's `research` area swings: about 733 GB at 06:10Z, about 1,030 GB, then shrinking (-44 GiB in 2.5 min, at
+  985 GB). Check runs and scratch build up between the hourly `vy-store-evict-research` passes (:50) and the cleanups, so the
+  disk moves between 54% and 64% and the pacer's cap with it (649 GB at the peak). The latch is at 78%, so no action; watch it.
+  On node 2 the same kind of scratch filled `/` (two Lean audit trees of about 60 GB each); @infra freed it to 213 GB at about
+  06:52Z.
 - 06:10Z Oct 3: node 1's disk went from 54% to 60% between 05:35 and 06:05Z, roughly 300 GB, and none of it was bundles (2 GB).
   - `research` is now about 733 GB: `runs` 364, `src` 194, `trees` 84. It was 854 GB a few minutes earlier and is shrinking about
     16 GiB/min, so it's being cleaned up.

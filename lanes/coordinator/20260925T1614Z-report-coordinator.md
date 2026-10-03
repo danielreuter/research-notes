@@ -436,3 +436,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T06:43Z: #891 head fd5dc11c9 = tree-identical to my 61b4b7a62 (cde37eba); at a5e9 pass, merge fd5dc11c9 if research merge accepts tree match, else 61b4b7a62.
 - 2026-10-03T06:55Z: node2 disk freed (213 GB). Cause: my cancels (94eb, 86e3) SIGTERMed lean_audit.py before cleanup -> 59+61 GB scratch left; #898 fixes. Until it lands, cancelled checks can leak ~60 GB each.
 - 2026-10-03T07:06Z: 58e0, a5e9 (ci line +#891) at lean-unit-cut; #894 body fixed. #874/#849 re-pins in progress (proofs).
+- 2026-10-03T07:29Z: #897 (network warden; grants + --update line) stacked on ci+#891 (61b4b7a62): 626eb7813 node2 r20261003-072652-2a19 --agreement.
+- 2026-10-03T07:33Z: (top) node2 = circuits TP8 window until 10:30Z; cancelled 2a19. Run ac2879043 (#897, same tree as 626eb7813) on node1 after a5e9.

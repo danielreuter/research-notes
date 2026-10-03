@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:27Z) [open] 01:27Z: #875 hidden decoder draft (lean ok); PoUW blocked on 9 lowerings + Keccak OOM; node 1 GPUs waiting on pacer hold
 CHECKPOINT none (01:11Z) [open] 01:11Z: proofs train (#862 + 5) checking; ci train 93ef8bb94 next free node; #874 zk compiled-session draft; secrets card defaulted to no change
 CHECKPOINT none (00:55Z) [open] 00:55Z: #862 ready, lands first; train 93ef8bb94 (+#870) with lander; TP lease PR #872 ready; GitHub auth restored
 CHECKPOINT none (00:38Z) [open] 00:38Z: #871 both grants (draft until #858); #849 re-failing ExecParse after #857, being re-merged; ci GitHub token rejected again

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (02:00Z) [open] A 02:00Z poll: nothing for pouw-node2; main moved to 10d8faa87 (Lean stack #858 #860-#863: flock soundness Tables/ZkCoins/ZkExec/Hidden/DecodeZL), no PoUW verifier or cap change, cd080d44d not on main; infra 0148Z alert is a vy-nebius-1 pod; panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (01:40Z) [open] A 01:40Z poll: nothing for pouw-node2; GitHub access to verity is back (fetch ok), main still 6080aa798, cd080d44d not on main; node2-ops 01:33Z: start-up idle on three bc-698052e1 TP2 Commits only; panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (01:21Z) [open] A 01:20Z poll: nothing for pouw-node2; node2-ops 01:09Z hourly: 12.3% busy, daemons up, runner still 62bdf53d (no fence PR), no windows. This VM's GitHub token for danielreuter/verity is now invalid (git fetch and gh both 'Bad credentials'; the notes token works but can't read verity), so I can't see verity main past 6080aa798 or check cd080d44d; panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (01:07Z) [open] A 01:07Z poll: nothing new in the watched lanes since 00:45Z; cd080d44d not on main (6080aa798); panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes

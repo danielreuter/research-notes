@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (16:00Z) [open] A 16:00Z poll: node2-ops 15:56Z: circuits' line extended to 18:00Z (reverts to 17:00Z if the fold fix isn't proven by 16:15Z); compute accounting's pass moved to 18:05Z (20 min); merge checks off node 2 18:25-18:35Z; node idle meanwhile; verity fetch ok again (main 4934957122); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (15:40Z) [open] A 15:40Z poll: node2-ops 1528Z: circuits' run stopped 15:21Z (MATCH FAIL), node free but its line holds to 17:00Z, asked infra to shorten (not mine); compute accounting's 17:00Z line unaffected; verity git fetch auth failed again this poll (main last seen 4934957122); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (15:20Z) [open] A 15:20Z poll: redteam 1515Z: PR #923 still GO (eps now the cited upper confidence limit; its citation conditions met), not addressed to the panel; node2-ops 15:20Z: circuits' TP8 window on (100% timed), /workspace 57% (rising, over the 52% hold), backups held; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (15:00Z) [open] A 15:00Z poll: nothing new in the watched lanes since 14:40Z; circuits' window on to 17:00Z; main 4934957122; panel art:63261f6f unchanged; off node 2

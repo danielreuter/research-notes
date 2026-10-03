@@ -68,6 +68,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 04:08Z hourly (03Z): GPU busy 10.6% (0.85 of 8.00 GPU-h, all useful): only memory accounting's vLLM e2e series (four runs, each rc 0 in 17.9 min).
+    - **Why below 80%:** nothing else was queued, so 7.00 GPU-h sat free. Leased-idle 0.15 GPU-h, all the series' start-ups. CPU 6.1% (9.0% by `/proc/stat`), none of it fill jobs.
+    - **Backup:** `r20261003-040636-3b78`, unpinned. The 03Z backup `r20261003-030606-43f0` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (04:05Z). The runner is still `62bdf53d`, no deploys since 01:56Z. The agent is on `1253f09ec` (no restarts). No windows. No new notes in the lanes I skim. #494 is still closed.
 - 2026-10-03 03:08Z hourly (02Z): GPU busy 11.1% (0.89 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series, plus `cov-gm363-l`'s Commit (rc 0 at 02:10:43Z, 27.4 min in its 90-min lease) and replay (rc 0).
     - **Why below 80%:** nothing else was queued, so 6.64 GPU-h sat free. Leased-idle 0.47 GPU-h: 0.36 the Commits', 0.11 the series'. CPU 2.7%.
     - **Backup:** `r20261003-030606-43f0`, unpinned. The 02Z backup `r20261003-020625-2b1a` is preserved.

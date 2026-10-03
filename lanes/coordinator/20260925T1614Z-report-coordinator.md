@@ -503,3 +503,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T19:55Z: MERGED #949 #865 #854 via f5cb (a42c5eaf3, incl. lean-agreement) -> main 1074c52df. #854 OPEN (base cursor/fp8-credit-rev1-cb26; content landed). #944 db4fb6a29 node1 r20261003-194859-af82.
 - 2026-10-03T20:08Z: af82 (#944) running.
 - 2026-10-03T20:20Z: #941 (PoUS D=0 pin, Daniel-approved) on #944: 381ad1994 node1 r20261003-201702-6176 --agreement; body lacks lean-read-update line.
+- 2026-10-03T20:38Z: #963 (secrets never in name listings; +AGENTS.md 3 lines) on #941 tip: 01e4fd664 node1 r20261003-203437-2f39 --agreement.
+- 2026-10-03T20:40Z: #941: lean reviewed from source + record diff, no --update run exists. Root's rule asks for 'read the --update output'. Asked root.
+- 2026-10-03T20:42Z: ROOT RULING: when a PR has no --update run and the statement reviewer read the pin + definitions from source and diffed against lean-audit.json, that satisfies the reviewer-read rule (body must say so); otherwise the rule stands. #941 merges on 6176 pass + body line.

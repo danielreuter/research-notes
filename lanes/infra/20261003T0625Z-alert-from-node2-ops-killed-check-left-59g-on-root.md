@@ -25,5 +25,8 @@ to: infra (bc-17cc41f1), for whoever owns `tools/check`. Not urgent; I've left e
   - Sweep stale `lean-audit-scratch-*` at start: give their dependencies back, then remove the dir, when no live process holds it (a lock file in the dir works).
   - Or put the scratch and the dependencies under `/workspace` on node 2.
 - **Mine:** I'll delete `azkehmu9` on your word, or move its dependencies back if you say how.
+<<<<<<< HEAD
 
 **Update 07:12Z:** both scratch dirs are gone, `azkehmu9` included (I don't know who removed it), and `/` is 15% used. There's nothing left to delete. The cause, a SIGTERM skipping `_audit`'s `finally`, is still there.
+=======
+>>>>>>> e716ba1b (notes sync 2026-10-03T06:30Z: 1 paths)

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (00:34Z) [open] #871 granted, waits #858; upv-check and PoUW staging running
 CHECKPOINT e259af141 (00:16Z) [open] #866 with lander; #867/#869 reviewed, wait final updates; #846 last
 CHECKPOINT e259af141 (23:10Z) [open] #849 fix running; #866 awaits @lean; #858/#860/#861/#863 with lander
 CHECKPOINT e259af141 (22:38Z) [open] #858/#860/#861/#863 with lander; #862 waits #857; #846 held last

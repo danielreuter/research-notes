@@ -476,3 +476,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T14:55Z: #909+#907 on main 8beba6d9a node1 r20261003-145201-e806 --agreement. Held: bodies lack 'lean read --update' lines; #907 body says needs fresh --update (stale vs #889).
 - 2026-10-03T15:11Z: e806 (#909+#907, bodies cleared) running; a26d7e0f1 awaits pouw lean pin; #846+#906 await red-team-846 (~16:00Z).
 - 2026-10-03T15:15Z: #846 red-team in; #906 (+#846) stacked on #909/#907 (8beba6d9a) as 921d9caec node1 r20261003-151229-67c8 --agreement.
+- 2026-10-03T15:18Z: (top) d2d32873f (ci: #906 on #909/#907 = same tree as my 921d9caec, + #922 traces, ready, no Lean) node1 r20261003-151436-d37b --agreement. Node2 off-limits until 17:30Z.
+- 2026-10-03T15:20Z: #927 (grants + update line) stacked on d2d32873f: 6a9e848ba node1 r20261003-151717-e3d1 --agreement. Chain: e806 -> 67c8 -> d37b -> e3d1.

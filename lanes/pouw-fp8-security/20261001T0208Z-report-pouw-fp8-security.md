@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT b959acdf0 (08:30Z) [open] 1:30 AM PDT: Qwen3-8B decode replay done: 512/512 accepted at 1/1,000, 0 over, worst 0.163 of the cap (m32 gate_up, k 4096), 4 later +0 promotions (4 tiles). Both replays on prefill now; resumed verify r20261003-080819-0ad8 running (controls REJECT).
 CHECKPOINT b959acdf0 (08:08Z) [open] 1:09 AM PDT: Qwen3 served run r20261003-055019-c386's verify: prefill and decode processes vanished at 08:04:49-51Z with no verdict, traceback or OOM (cgroup oom_kill 0, no guard alert); controls had already REJECTed. Cause unknown, looks like an external SIGKILL. Verify resumed as r20261003-080819-0ad8 (48-123, exit codes now logged). Replays unaffected.
 CHECKPOINT b9a7eb784 (08:03Z) [open] 1:04 AM PDT: Llama re-replay decode done: 511/511 accepted at 1/1,000, 0 over, worst 0.0514 of the cap, 1 later +0 promotion (1 tile); prefill running. Qwen3-8B decode replay 416/512, worst so far 0.163 of the cap. Qwen3 reference verify (prefill, decode) still running under contention; controls REJECT.
 CHECKPOINT b9a7eb784 (07:12Z) [open] 12:13 AM PDT: Qwen3-8B reference verify still running on 48-123 (controls REJECT as expected; prefill/decode pending), contended with the two served_debit replays on the queue's 48-95 (3x slower than alone). Llama replay re-measures the same tiles with identical debits; 1 later +0 promotion in its first 164 decode tiles. ETA for both tables about 3 AM PDT.

@@ -459,6 +459,31 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - `9830f7c3…/backends/flock/verifier/lean/soundness/.lake/packages` (tree 3.7 h old).
   - Kept: `f3b03c6c` and `25db730b`, both named by live processes.
   - After: node 1 `/workspace` is at 53% space and 42% inodes (8.52M).
+- 00:30–00:34Z 3 Oct (5:30–5:34 PM PDT 2 Oct), the scheduled 6 h sweep (`sweep.sh --src-age-h 6`; `--jobs-src --lake` on
+  node 1): 56 entries, 949,931 files, 73.0 GB.
+  - Node 1, 36 source trees, 6–11 h old, 704,298 files, 39,551 MB:
+    - fifteen of 90–145 MB: `1253f09e` (9 h), `16e549a2` (9 h), `41455f5d` (6 h), `4e618a81` (7 h), `4eb1bbca` (10 h),
+      `4f710212` (8 h), `56b7e4f7` (8 h), `5a5ebbba` (7 h), `6b38ad15` (11 h), `7f25edf8` (7 h), `818a4689` (10 h),
+      `89af272a` (8 h, 90 MB), `8f5c4f75` (10 h, 145 MB), `b1631324` (8 h), `d2b4a6d8` (11 h);
+    - twenty-one of 1.4–2.1 GB: `2f5787e5` (11 h), `3e073b1f` (10 h), `4394c78c` (8 h), `5e5e6d55` (10 h), `68b9d547` (7 h),
+      `69823423` (11 h), `6bff4847` (8 h), `6c9ea8a3` (7 h), `736bcd61` (11 h), `8752529f` (11 h), `893d153c` (10 h),
+      `920f388a` (6 h), `9d79e54a` (10 h), `b16c86d6` (11 h), `bb4ed660` (7 h), `cf855fa1` (7 h), `d5311b9f` (10 h),
+      `da5e049d` (11 h), `edb0883b` (9 h), `f679a534` (10 h), `f76d9e0c` (8 h).
+  - Node 1, check scratch: `/tmp/pytest-of-research/pytest-3848` (7 h, 7,811 files, 6,857 MB) and `-3874` (7 h, 2 files).
+  - Node 1 `jobs/src`, 5 content copies of 155 MB, 30,303 files together: `02afcbaf91343b5f` (7 h), `774e1e89bdd886b3`
+    (10 h), `ccdb062b3acb9d6b` (7 h), `e4d63efe2e44e55c` (9 h), `f2c8cd85d00a701b` (7 h).
+  - Node 2, 11 source trees, 6–11 h old, 189,447 files, 10,004 MB: `280ebe48` (6 h, 1,979 MB), `a4bce720` (9 h, 1,971 MB),
+    `b31e538e` (8 h, 1,976 MB), `f3e66f3d` (10 h, 1,732 MB), `f95e701d` (11 h, 1,732 MB), and about 100 MB each
+    `41455f5d`, `56b7e4f7`, `5a5ebbba`, `818a4689`, `d2b4a6d8`, `e19032bd`.
+  - Node 2, check scratch: `/tmp/pytest-of-research/pytest-303` (3 h, 9,031 files, 7,948 MB) and `-324` (2 h, 9,039
+    files, 7,855 MB).
+  - Kept on node 1:
+    - `2e635be2`, `74ab1ba4` and `f9f85f34`, each with a modified `lean-audit.json`; `62e3c42b`, with 419 files outside its
+      commit (`flock/`);
+    - `778c10d8` and `pytest-3524`, held by pid 258335;
+    - `.lake/packages` in `10a56faa` and `74303bce`, named by running audits (r20261003-001349-5989, r20261003-002041-1949).
+  - Node 2 kept 32 trees. No `STUCK` lines.
+  - After: node 1 `/workspace` is at 56% space and 41% inodes (8.33M; 9.01M at 00:10Z).
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -959,3 +984,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   trough (40.0%). Node 1 is at 9.01M inodes (44%), inside today's 8.3–10.1M swing. The two trees holding `.lake/packages`
   (`4ed9cb72`, `e29e8592`) are both named by live audits, so nothing is deletable; the 00:30Z sweep's `--lake` pass takes
   them once their audits end. No action.
+- 00:30Z sweep (exit 1): 56 entries, 73.0 GB (§4), the first with the `--lake` pass, which kept two trees running audits
+  hold. Over 50 GB, so one announce to @infra (`1790987721.907389`). No `STUCK` lines.

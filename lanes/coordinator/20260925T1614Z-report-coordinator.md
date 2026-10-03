@@ -479,3 +479,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T15:18Z: (top) d2d32873f (ci: #906 on #909/#907 = same tree as my 921d9caec, + #922 traces, ready, no Lean) node1 r20261003-151436-d37b --agreement. Node2 off-limits until 17:30Z.
 - 2026-10-03T15:20Z: #927 (grants + update line) stacked on d2d32873f: 6a9e848ba node1 r20261003-151717-e3d1 --agreement. Chain: e806 -> 67c8 -> d37b -> e3d1.
 - 2026-10-03T15:37Z: (root) circuits' node2 window ended early (8 GPUs idle per node2-ops). If node1 slots tight, confirm with @top/@infra then use node2 for checks before 17:30Z.
+- 2026-10-03T15:48Z: chain running: e806 past lean-audit; 67c8, d37b, e3d1 in progress.

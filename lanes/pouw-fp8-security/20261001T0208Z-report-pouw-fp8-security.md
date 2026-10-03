@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT none (13:28Z) [open] 6:29 AM PDT: done. Qwen3-8B reference verify r20261003-080819-0ad8: prefill ACCEPT, decode ACCEPT (3 + 2,118 exclusion tiles, 13:27Z), controls REJECT. Tables: Qwen3 art:0653fd1ff0bd6d6ffe1df3db1d49d5766b32a81f0f337c1439d6cf5daff00d9e, Llama art:5076b0f3e5617a0d69e77216f6caa2a84a5eb20c882b116ccb2db04b28d9db45. Reported to compute accounting.
 CHECKPOINT none (13:27Z) [open] 6:27 AM PDT: Qwen3 decode verify still running (all 48 workers busy); bounded at 14:20Z.
 CHECKPOINT none (12:56Z) [open] 5:57 AM PDT: Qwen3 decode verify (2,121 tiles, 434k core-s so far) can't make my own 13:30Z VERIFY_UNTIL; its timeout process is stopped and a detached resumer on node 2 continues it when the verify exits or at 14:20Z (nodes ours until 14:30Z).
 CHECKPOINT none (12:27Z) [open] 5:28 AM PDT: Qwen3 reference verify: prefill ACCEPT at 11:44Z (3 drawn + 151 exclusion tiles), both controls REJECT; decode still running (about 360k core-s so far, ETA before 13:30Z).

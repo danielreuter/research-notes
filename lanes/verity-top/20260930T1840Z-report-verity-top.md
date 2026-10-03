@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:45Z) [open] 21:45Z: main 4cd36e9f1 (#963); next tip a30e48653 with lander; Lean cache client passes, publisher race fix pending
 CHECKPOINT none (21:27Z) [open] 21:27Z: Lean cache smoke tests all pass; #963 checking; PoUS five + #926 + #958 batching; steward retiring
 CHECKPOINT none (21:08Z) [open] 21:07Z: Lean cache provisioned; #963 checking; FP8 passes re-running; private-circuit wiring fix under way (decision 4 with Daniel)
 CHECKPOINT none (20:48Z) [open] 20:48Z: main a24f92db2 (#944,#941); full-speed push on; Lean cache token setup in progress (Daniel's browser agent)

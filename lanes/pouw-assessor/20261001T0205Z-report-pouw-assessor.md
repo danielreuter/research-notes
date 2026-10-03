@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (04:36Z) [open] 9:36 PM PDT: no new asks. Ratings stand. Main a0063d9fe (unchanged; #854 and #865 not landed). PoUW policy 7eb625fc, 751 pins. Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (04:16Z) [open] 9:16 PM PDT: no new asks. #847 and #853 landed on main a0063d9fe. Pearl-C4 keeps cap = CAP (1/400, pearl_c4.py). lean-audit.json has only additions (0 lines removed), so every fp4/M5 record is byte-identical. PoUW policy is now 7eb625fc with 751 pins (was 437224e7 with 743; the +8 are #853 FADD-8 twin pins). Ratings stand. #854 and #865 are not landed yet. Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (03:52Z) [open] 8:52 PM PDT: no new asks. Ratings stand. Main 11d75fc58 (no change under protocols/pouw since 27c5889ba), PoUW policy 437224e7; FP8 chain #853 #847 #865 #854 not on main yet. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (03:30Z) [open] 8:30 PM PDT: no new asks. Ratings stand. Main 11d75fc58 (train T867, flock Lean; no change under protocols/pouw since 27c5889ba), PoUW policy 437224e7; FP8 chain #853 #847 #865 #854 not on main yet. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).

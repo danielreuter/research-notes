@@ -428,3 +428,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T05:57Z: #889 moved to 157830cfe (record limit 4 MiB); cancelled a773/3f94; restacked: #889 05946bc54 ff3c, +#874+#891 2658fb24f a92d; node1 --agreement.
 - 2026-10-03T06:00Z: (top) ci 6d90b821d (#882 #892 #880 #881 #890 #885) node2 r20261003-055703-86e3 --agreement.
 - 2026-10-03T06:10Z: #849 (4ab923274) stacked on #889/#874/#891 tip: 6960530d9 node1 r20261003-060819-2fa2 --agreement.
+- 2026-10-03T06:17Z: running ff3c a92d 2fa2 (node1), 86e3 (ci, node2).
+- 2026-10-03T06:20Z: held #889 (ff3c passed) so ci 86e3 stays landable (top's ruling). Proofs line on ci 6d90b821d: +#889+#874+#849 155f858c8 node1 r20261003-061637-f9db --agreement. #891 conflicts #892 in friction/SKILL.md (non-import) -> restack after #892.

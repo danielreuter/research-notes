@@ -412,3 +412,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T02:19Z: #877 exemption done (d5550ba7e: --moved verdict via lean_review label + tests). Train #876+#877 7d11650d8 node1.
 - 2026-10-03T02:21Z: #867 (DecodeZLJ; grants + --update line) trains: on #876/877 df29da520 node1 5057; alone on main d297d7e66 node2 0a9e; both --agreement.
 - 2026-10-03T02:44Z: #869 0c64f614f (on #867-on-main) node1 7c9c; #875 fd683e150 (on #869) node1 69ae; both --agreement; bodies OK.
+- 2026-10-03T02:47Z: running: 3bef (#876/877) pytest done; 0a9e (#867 main) past lean-audit; 5057, 7c9c, 69ae in progress. Mirror ok 02:41Z.

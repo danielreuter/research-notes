@@ -42,6 +42,10 @@ Only with no open files (`lsof +D`), and only at `nice 19 ionice -c3`:
   names (Daniel's ruling on card `23a10e51`, `yes_any_age`, 3:33 PM PDT 2 Oct). The rest of the tree stays under the 6 h
   rule. Each is renamed aside, the tree re-checked, and put back if named. `sweep.sh` runs it on node 1 only
   (`node-sweep.sh --lake`).
+- on node 1, source trees older than 6 h whose only change from their commit is
+  `backends/flock/verifier/lean/soundness/lean-audit.json` (proofs' audit trees), once that file is preserved in the store
+  (@proofs' option (b), 11:35 PM PDT 2 Oct, #agent-coordination `1791009304.937289`). `sweep.sh` saves the files as one
+  `evidence/v1` artifact per sweep, and only then passes those trees to node 1's sweep as approved; liveness still decides.
 
 Every deletion is logged in §4 (path, size, age). Slack hears of it only if it frees over 50 GB.
 
@@ -509,6 +513,17 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     outside its commit), `778c10d8` and `pytest-3524` (pid 258335), and `.lake/packages` in `8fda15f3`, `9e056a2d`,
     `a2706805` (live audits). No `STUCK` lines.
   - After: node 1 `/workspace` at 60% space and 50% inodes (10.20M).
+- 06:48–06:55Z 3 Oct (11:48–11:55 PM PDT 2 Oct), @proofs' option (b): their 37 audit trees whose only change was
+  `soundness/lean-audit.json` (all over 6 h old, re-checked just before). The 37 files went to the store first,
+  `art:b4d2ab8509d2e93671a5ac00982f4daa5073905c02263b0621554f5f9a53ecdd` (preserved, etag-md5 verified 06:48:07Z), then
+  `sweep.sh --src-age-h 6 --approved` deleted the trees: 37 entries, 334,220 files, 69,647 MB. The trees are those the
+  06:30Z entry lists as kept for that file. Node 2 skipped (`timed True`).
+- 07:10–07:13Z, `sweep.sh --src-age-h 6`, the first with the automatic lean-audit.json pass: saved 2 files as
+  `art:f92f90865075e8ece09f2a72406262a8361ffd5af0b763db190f57ea10030a3e`; 7 entries, 308,647 files, 22.2 GB.
+  - Owner-approved: `bad58d4c` (6 h, 9,648 files, 2,166 MB), `d843e782` (6 h, 9,423 files, 2,059 MB).
+  - Source trees, 6 h: `831229b4` (1,873 MB), `bcb797e3` (1,874 MB), `bd12472d` (1,986 MB), `ed872b36` (1,988 MB).
+  - Lean dependencies: `d916c75c…/soundness/.lake/packages` (169,907 files, 10,242 MB).
+  - After: node 1 at 62% space and 65% inodes (13.33M), still rising with six audits running (§5).
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -591,12 +606,23 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - The ask: @circuits, which copy can go after the window (the bf16 one alone brings node 2 under 55%);
     @compute-accounting, no new PoUW fill writing to disk beyond the booked pass until under 55%. Weights are
     ask-the-owner (§1), so nothing is touched. 1.9 TB free, so the windows aren't at risk.
+  - 06:31Z, @compute-accounting: agreed, no new PoUW fill writing to node 2 until under 55%. Neither copy is theirs; the
+    booked FP8 pass keeps a retained record of about 75 GB.
+  - 06:32Z, @circuits: a third copy, theirs, `/workspace/hf/hub/models--Qwen--Qwen3-235B-A22B-FP8` (239 GB), had no
+    holder, and they deleted it themselves (58%). The `jobs/hf` FP8 copy goes after their smoke (about 53%); the bf16
+    copy stays until their replay. Read on the 06:45Z tick; nothing more needed from them.
 - Node 1 audit trees kept for a modified `soundness/lean-audit.json` (@proofs, asked 06:35Z 3 Oct, #agent-coordination
   `1791009304.937289`; read on each tick, no subscription).
   - 37 trees at the 06:30Z sweep (3 at 00:30Z), 69.6 GB and 334,220 files, adding about 60 GB per 6 h. The only change in
     each is the audit's `--update` record (e.g. `2e635be2`: +623/−17 lines).
   - Options: (a) delete them under the 6 h rule; (b) save each modified `lean-audit.json` to the store first, then delete;
     (c) keep them. Nothing is touched until @proofs answers.
+  - **Resolved.** @proofs chose (b) at 06:35Z (author verified: Verity's bot as @proofs), "from now on". Done for 39 trees
+    (§4), and the rule is in §1 and `sweep.sh`.
+- Node 1 Lean audit concurrency (@proofs, asked 07:17Z 3 Oct, #agent-coordination `1791010653.061919`; read on each tick).
+  - 65% inodes (13.33M) at 07:13Z, from 50% at 06:34Z: six ad-hoc audits at once (`fpp_audit`, `rs874_audit`,
+    `zkl_audit`, …), each peaking near 1.5M inodes (about 1.07M scratch plus 300k `.lake/packages`), all held while running.
+  - The ask: at most 4 audits at a time on node 1 until it is back under 55%; I post there when it is.
 
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
@@ -1047,3 +1073,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   line: 10.3M (51%), no unheld `.lake/packages`. From 06:30Z node 2 is `timed` until 11:30Z, so nothing runs there.
 - 06:30Z sweep (exit 1): node 1 only (node 2 `timed True`), 33 entries, 49.3 GB (§4); no Slack post (under 50 GB). Asked
   @proofs about the 37 trees kept for a modified `lean-audit.json` (`1791009304.937289`, §5). No `STUCK` lines.
+- 06:45Z tick (exit 1): node 1's HARD inode line (5.59M/h, 0.7 h) at 12.83M (63%), with six audits running. Read the two
+  open threads: @circuits freed 239 GB on node 2 and @compute-accounting holds new disk-writing fill (§5); @proofs chose
+  (b) for the lean-audit.json trees. Saved and deleted 37 trees (69.6 GB), added the pass to `sweep.sh` (dry run, then a
+  real run that saved 2 more and freed 22.2 GB; §4). Node 1 still rose to 13.33M (65%), so I asked @proofs to run at most
+  4 audits at once there (`1791010653.061919`). No Slack announce: the deletions were in owner threads, and 69.6 GB went
+  to @proofs' own trees at their request.

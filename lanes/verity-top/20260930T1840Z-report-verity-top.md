@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:44Z) [open] 14:44Z: main 493495712 (#849,#931,#925); #906 fully granted, train next; soak v2 0 wrong; 235B Match running on node 2; morning summary sent
 CHECKPOINT none (14:26Z) [open] 14:26Z: f96f5b780 pushed by lander; #923 red-team medium finding (eps) being fixed; #906 re-granted, #927-929 restacking under ruling G as written; 4436 moved to node-2 cores 0-47 for the 235B window
 CHECKPOINT none (14:08Z) [open] 14:08Z: #903+#919 to ci (919 red-team relabel pending); zk_session_sound statement approved; traces GPU work done; compute-accounting GH token dead, pushing its fix via bundle
 CHECKPOINT none (13:51Z) [open] 13:51Z: #905 landed, main b51f1b387 (PoUS 93 pins); 30B gate passed (#921); #849 check 7110 awaits red-team label; #846 audit on node 2; key-rotation question for Daniel

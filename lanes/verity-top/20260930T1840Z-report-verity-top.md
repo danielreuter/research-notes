@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:09Z) [open] 04:09Z: lander chain ae14 -> proofs batches -> #849 -> #882 running; main 11d75fc58; PoUW anchors on #846 public ports in progress
 CHECKPOINT none (03:53Z) [open] 03:53Z: gm364 first leased TP2 row passed; #849 with lander; #885 core PoUW pieces ready; PoUW anchors switching to #846 public ports (zero-salt +88% kept as fallback)
 CHECKPOINT none (03:37Z) [open] 03:37Z: PoUW Pc4RowA stages+verifies; anchors ruled known-salt now, public regions asked of Daniel; ci train ae14 checking; #877 reconciled
 CHECKPOINT none (03:20Z) [open] 03:20Z: ci train 86883ca78 checking (ae14); #871+#883 granted; #884 PoUW lowerings open; audit blind spot on Flock.HmRow/Stmt assigned to proofs

@@ -484,6 +484,10 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     - `.lake/packages` in `10a56faa` and `74303bce`, named by running audits (r20261003-001349-5989, r20261003-002041-1949).
   - Node 2 kept 32 trees. No `STUCK` lines.
   - After: node 1 `/workspace` is at 56% space and 41% inodes (8.33M; 9.01M at 00:10Z).
+- 03:40Z 3 Oct (8:40 PM PDT 2 Oct), from the 03:28Z tick, node 2 check scratch on the root disk:
+  `/home/research/.cache/verity-check/lean-audit-scratch-yylcugsj` (3 h untouched, no holder, renamed aside and
+  re-checked), 319,675 files, 18,566 MB. Node 2's root went from 114 GB to 130 GB free. Two live audits' scratch
+  (`azkehmu9` at 59.6 GB, `ofap1bjq` at 20.1 GB) stay.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:

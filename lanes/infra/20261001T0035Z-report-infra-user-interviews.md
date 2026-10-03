@@ -368,3 +368,10 @@ against the owner's sha256. Fix next: store-fetch exits nonzero naming each id i
 | Second check slot on node 2 | No: node 1 has four (three free at 00:08Z); node 2's other cores are the queue's share, fill's and the provers' |
 | Slow store mount | Not infra's if it's /cursor/stores (the platform's, round 1); asked which mount otherwise |
 | Guessed handles | `research msg handles` lists each handle's scope |
+
+## Round 14: circuits, proofs (9:10 PM PDT)
+- Asked 04:10Z, 3 Oct, in one announcement (ts 1791000638.190359). Next in rotation after old-circuits-and-proofs. Neither is in a
+  timed window; circuits' 00Z GPU incident (the pacer hold, node 2's 25-min Commit limit) was fixed at 01:49Z and 01:58Z and it
+  holds no node 1 GPUs. Rounds 11-13 each brought new items, so the timer stays on. The ask lists what merged since circuits'
+  round 10 and proofs' round 11 (#878, #879, #829, #833, #842, #873, #851, #855, #836, #788, #808, #795, #834, #841, #848, #845),
+  #876 and #877 in a train, and #882 in review. Infra is subscribed to the thread for 6 h.

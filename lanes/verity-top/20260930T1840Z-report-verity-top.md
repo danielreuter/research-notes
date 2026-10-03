@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (13:14Z) [open] 13:14Z: +7h scored 11/23; zk_session_sound pinning, waits on zk_rep_accepts (14:00Z); #849 red team pending; cleanup-impact check with infra
 CHECKPOINT none (12:59Z) [open] 12:59Z: #925+#888 checking (b4f2); #849 red team ETA 13:05Z, #846 13:45Z; soak v2 running; 30B Commit rerun 13:30Z; scorer +7h at 13:00Z
 CHECKPOINT none (12:44Z) [open] 12:44Z: #925+#888 checking (b4f2); #849+#846 awaits red team (confirming it runs); #905 merging main; composed headline coinedOf link due 15:30Z
 CHECKPOINT none (12:28Z) [open] 12:28Z: main 4284becdb; #925+#888 checking (b4f2), #849+#846 tip 9d57c0211 awaits red team; runsZC_live statement go, proof target 14:00Z

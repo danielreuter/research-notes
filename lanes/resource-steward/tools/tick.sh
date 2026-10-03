@@ -7,6 +7,7 @@
 #    status, as during a cutover, skips it).
 # 2. new *alert* notes in lanes/{infra,node2-ops,resource-steward}/ since the last tick: every one in resource-steward/, and
 #    the others only when their name is about disk, RAM, inodes, OOM or space.
+# 3. node 1's Lean audit gate (to 08:00Z 4 Oct): one line when its inodes pass 70% and one when back under 65%.
 K=~/.ssh/research_key; rc=0; S=~/resource-steward; mkdir -p $S
 out=""
 probe() {  # host node precheck
@@ -35,4 +36,17 @@ for f in $N/lanes/resource-steward/*alert* $N/lanes/infra/*alert* $N/lanes/node2
   case "$f" in */resource-steward/*) ;; *) echo "$b" | grep -qiE 'disk|ram|mem|inode|oom|space|cache' || continue;; esac
   echo "alert note: ${f#$N/}"; rc=1
 done
+# Node 1's Lean audit gate (infra, #agent-coordination thread 1791010653.061919, 16:25Z 3 Oct, until 08:00Z 4 Oct): past
+# 70% inodes, new audits on both sides wait; back under 65%, they resume. The steward posts each change in that thread.
+G=$S/audit-gate
+if [ $now -lt $(date -d 2026-10-04T08:00Z +%s) ]; then
+  ip=$(timeout 30 ssh -i $K -o BatchMode=yes -o ConnectTimeout=15 research@81.85.2.165 'df --output=iused,itotal /workspace | tail -1' 2>/dev/null \
+       | awk 'NF==2 && $2>0 {printf "%.2f", 100*$1/$2}')
+  if [ -z "$ip" ]; then echo "n1: FAILED audit-gate inode read"; rc=1
+  elif [ ! -f $G ] && awk -v p=$ip 'BEGIN{exit !(p>70)}'; then touch $G; rc=1
+    echo "n1: AUDIT GATE closed: /workspace inodes $ip% > 70%; post the wait line in the audit thread"
+  elif [ -f $G ] && awk -v p=$ip 'BEGIN{exit !(p<65)}'; then rm -f $G; rc=1
+    echo "n1: AUDIT GATE open: /workspace inodes $ip% < 65%; post the resume line in the audit thread"
+  fi
+fi
 exit $rc

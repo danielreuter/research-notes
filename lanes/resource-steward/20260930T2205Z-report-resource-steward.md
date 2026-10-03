@@ -89,6 +89,12 @@ The 90 GB floor is a Phi-3/Mistral batch-8 bundle; the requests (64 GB) are lowe
 (DCGM) and from node 2's sampler JSONL, never from NVML. A run has custody on its node when it has `.custody`, `.fetched`
 or `preserved.json`.
 
+### Node 1 Lean audit gate (until 08:00Z 4 Oct)
+Infra's ruling, 16:25Z 3 Oct, #agent-coordination thread `1791010653.061919`: 2 of node 1's 4 concurrent Lean audits are
+@proofs', the lander's checks keep the other 2. When node 1's `/workspace` inodes pass 70%, new audits on both sides wait
+until back under 65%; the steward posts each change in that thread. `tick.sh` prints one `AUDIT GATE closed` or `open` line
+per change (state in `~/resource-steward/audit-gate`).
+
 ### Overlaps: one owner
 - Disk, cache and RAM decisions on both nodes: **resource-steward**.
 - Enforcement: node2-ops keeps its OOM guard (`node_ops.py`) and its job-start disk stop (the fill runner), but hands disk and
@@ -699,6 +705,10 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     offered to take a second CPU box's spend to Daniel. 16:13Z, I replied (`1791044023.628339`): node 1 at 54.9%;
     recommend keeping 4 total through 08:00Z (higher baseline; 4 audits peak near 75%, 6 past 80%); the split with
     the lander's checks and the box are the infra coordinator's decisions, handed to it.
+  - **Settled by infra** 16:25Z: 2 of 4 slots to @proofs until 08:00Z, the lander's checks keep 2; past 70% inodes new
+    audits wait until under 65%, and the steward posts both lines (§1, automated in `tick.sh`). Infra already put a
+    dedicated Lean-audit CPU pod to Daniel. 16:28Z, @proofs: holding exactly 2 (`r20261003-155711-681e`,
+    `r20261003-162717-4777`), two extras cancelled.
 
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
@@ -1194,3 +1204,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   14:45Z, reaches 2 h at 16:45Z).
 - 16:12Z tick (exit 1): node 2 HARD 56.2% (no reply yet). Node 1 HARD 780k inodes/h, 6.6 h to 80%, now 54.9%: @proofs
   cut to the lander's checks; answered their slot request on the resource side and handed the split to the coordinator (§5).
+- 16:35Z tick (exit 1): node 1 HARD 790k inodes/h, 6.2 h to 80%, at 56.5% with 3 audits. Infra settled the audit slots
+  (§5) and gave the steward the 70%/65% gate posts; `tick.sh` now prints them. Node 2 timed, skipped. No deletions.

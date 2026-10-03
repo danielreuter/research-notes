@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (19:40Z) [open] A 19:40Z poll: node2-ops 19:36Z: circuits' Commit passed 19:23:52Z, lease gone, no timed line ahead, fill and an overdue backup running; node 2 now free for a totals.py read on 48-79 if compute accounting says yes; /workspace 59% (over the 52% hold); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4 (19:20Z) [open] A 19:20Z poll: redteam 1919Z (cc pouw-node2): #903 #919 #923 on main 153dcf7b1, records as reviewed; for the panel: a served pass may cite #919's mixed-domain pins (llama31_8b, qwen3_8b), not L4's per-layout pins; L2 only conditional; still no edit until compute accounting places the 1/1,000 gamma; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (19:00Z) [open] A 19:00Z poll: nothing new in the watched lanes since 18:40Z; circuits' timed Commit holds node 2 to 20:09Z; verity fetch auth failing intermittently (main last 0d4e61d5db); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (18:40Z) [open] A 18:40Z poll: node2-ops 1838Z: circuits' 235B Commit holds all 8 GPUs timed 18:30-20:09Z with no windows line (infra's to book); a totals.py read now waits until after 20:09Z so it can't perturb a timed run; no word on FP8 pass rows; panel art:63261f6f unchanged; off node 2

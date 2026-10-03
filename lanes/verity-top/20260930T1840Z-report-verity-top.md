@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (09:34Z) [open] 09:34Z: 235B Match timed out (re-run after 14:30Z), Commit to ~10:05Z; router GO on sm120; PoUS band check passed; open PRs 37
 CHECKPOINT none (09:16Z) [open] 09:16Z: main c627160ae (#874 landed); #903 lean-granted; PoUS band train checking; HBM on node 1 GPU 0; K=4096 staging ~09:30Z
 CHECKPOINT none (08:59Z) [open] 08:59Z: router sm120 check approved on node 1; zkhidden/zkbind2 statements GO; PoUS PRs train-ready; 235B Commit next
 CHECKPOINT none (08:43Z) [open] 08:43Z: 235B Match run 2 loading; Commit may extend to 10:55Z hard stop (watcher on node 2); #874 checking on node 1

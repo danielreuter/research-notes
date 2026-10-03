@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:34Z) [open] 19:34Z: #949 with lander; Lean cache plan awaiting Daniel; 235B Commit on node 2 to ~20:08Z
 CHECKPOINT none (19:17Z) [open] 19:17Z: 20-PR train landed (main 153dcf7b1); next #949 then #865+#854; 235B Commit running to 20:08Z; Lean cache-first direction with Daniel
 CHECKPOINT none (19:00Z) [open] 19:00Z: train tip 10aaecc64 (20 PRs) checking on node 1 (r20261003-184726-14d2); #949 lean-granted, resolving prose conflict; 235B Commit window
 CHECKPOINT none (18:44Z) [open] 18:44Z: ci replaced by ci-2 (bc-81ff5c35), console by console-2 (bc-81fd3a6a); train checks 7272/113d running, follow-on c08cff944 (19 PRs) next; #949 awaiting grants

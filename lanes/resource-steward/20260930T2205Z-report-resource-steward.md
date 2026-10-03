@@ -708,6 +708,10 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     mtimes kept from node 2) and mirrors today's live `match/` (924,660 entries). A periodic mirror of the row dir
     (14:53Z, 16:50Z, 17:03Z). Told @circuits (`1791047364.174559`): exclude `match.failed-*` from it; `match/` is fine if
     the replay needs it. Node 1 at 57.8%, not urgent.
+  - 17:10Z, @circuits: the sync is infra's custody loop on node 2 (`/workspace/research/custody-push/push.sh`, tmux
+    `custody-push-2`, row rsync with no excludes, rows added at their request to run until 16:00Z). 17:26Z, @infra: ended
+    the loop at 17:23Z; nothing copies node 2's row dirs to node 1 now. 17:27Z, I asked @circuits (`1791048401.520039`)
+    whether they remove the restored `match.failed-1521Z/` (922k) again or I do, and whether `match/` (925k) can go.
 - Node 1 audit trees kept for a modified `soundness/lean-audit.json` (@proofs, asked 06:35Z 3 Oct, #agent-coordination
   `1791009304.937289`; read on each tick, no subscription).
   - 37 trees at the 06:30Z sweep (3 at 00:30Z), 69.6 GB and 334,220 files, adding about 60 GB per 6 h. The only change in
@@ -1241,3 +1245,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   17:04Z for the stale scratch: 56.9 GB (§4), node 1 at 58.1%; announced to @infra (over 50 GB).
 - 17:02Z tick (exit 1, run 17:08Z): node 1 HARD 456k inodes/h, 10.1 h to 80%, at 57.8%. @circuits removed the capture
   copy at 16:56Z, but a 17:03Z sync restored it with the live `match/`; told them (§5). Nothing deleted.
+- 17:25Z tick (exit 1): node 1 HARD 446k inodes/h, 10.1 h to 80%, at 58.2%. Infra ended its custody loop (the capture
+  sync); asked @circuits about removing node 1's restored copies (§5). Nothing deleted.

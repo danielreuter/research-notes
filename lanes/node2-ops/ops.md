@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 13:14Z hourly (12Z): GPU busy 55.2% (4.43 of 8.00 GPU-h, all useful): ad-hoc `adhoc:ubuntu` runs on GPUs 0–3 from 12:03Z, memory accounting's series (GPU 6) and soak server (GPU 7), and network accounting's ad-hoc run on GPU 3 until about 12:30Z.
+    - **Why below 80%:** no fill backlog. The queue was empty all hour, and GPUs 4–5 never had a lease (2.89 GPU-h free). Leased-idle 0.69 GPU-h, mostly the soak server's quiet stretches and the series' start-ups (0.57). CPU 37.3%.
+    - **Backup:** `r20261003-131300-a5a5` (unpinned, done before 14:30Z). The 12Z backup `r20261003-122144-3b13` is preserved. The next one is at 14:05Z, before circuits' 14:30Z window. The 15Z and 16Z backups are held.
+    - **Checks:** daemons are up, and `status.md` was fresh (13:11Z). One runner. `/` is 13%, `/workspace` 55%. #494 is still closed. Infra's 13:05Z triage (interviews report, `lanes/infra`) queued #898 for cancelled checks' Lean scratch on node 2, the leak behind 06:25Z's root alert.
 - 2026-10-03 12:22Z hourly (11Z): GPU busy 24.1% (1.93 of 8.00 GPU-h, all useful): memory accounting's series and soak on GPUs 6–7, and two ad-hoc network accounting runs on GPUs 1 and 3 from 11:30Z.
     - **Why below 80%:** no GPU backlog. Fill's queue was empty all hour, and 5.39 GPU-h sat free. Leased-idle 0.68 GPU-h, mostly the series' and soak's vLLM start-ups (0.63). CPU 27.7%. From 12:03Z ad-hoc runs (`adhoc:ubuntu`) hold GPUs 0–2, so 12Z is at 57% so far.
     - **Backup:** `r20261003-122144-3b13` (unpinned, the next window is 14:30Z). The 11Z backup `r20261003-111657-9538` is preserved. Compute accounting's 17:00Z line is now 20 min.

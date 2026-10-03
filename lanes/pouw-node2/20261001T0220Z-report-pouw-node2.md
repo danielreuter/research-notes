@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (09:00Z) [open] A 09:00Z poll: nothing new in the watched lanes since 08:40Z; main c627160ae5 (T874, nothing under protocols/pouw or core); circuits' window to 10:30Z; disk hold for the 10:30Z pass, 1/1,000 gamma placement and totals.py still with compute accounting; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4 (08:40Z) [open] A 08:40Z poll: nothing new in the watched lanes since 08:20Z; circuits' window to 10:30Z; disk hold for the 10:30Z pass, 1/1,000 gamma placement and totals.py still with compute accounting; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4 (08:20Z) [open] A 08:20Z poll: nothing addressed to pouw-node2; node2-ops 08:14Z: 100% busy (circuits' TP8 window to 10:30Z), the 10:30Z window cut to 30 min (compute accounting's FP8 pass, 20-min lease), /workspace 58% (past the 52% hold, flagged), one runner; main 8e40da770 (verity.ml.boolean scalar, no PoUW); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4 (08:00Z) [open] A 08:00Z poll: nothing new in the watched lanes since 07:40Z; circuits' window on until 10:30Z; disk hold, 1/1,000 gamma placement and totals.py still with compute accounting; panel art:63261f6f unchanged; off node 2

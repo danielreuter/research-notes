@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 18:38Z alerts tick: no alerts. Circuits' 235B Commit (`circuits-tp8-commit5.scope`, CPUs 80–91 and 124–191) took all 8 GPUs with a timed lease, 18:30:09Z–20:09:09Z. Verity-top's 18:10Z checkpoint scheduled it, but it has no `fill/windows` line.
+    - Fill holds (`timed True`), and so do backups: the next is after 20:09Z, and the last is the 13Z backup.
+    - Slot d (0–47) isn't paused by any line, so merge checks run beside it. One is running, `r20261003-174723-7ea5`, CPU-disjoint from the Commit.
+    - I told infra in case circuits wants the node quiet (`note:20261003T1838Z-alert-from-node2-ops-circuits-commit-lease-has-no-windows-line`).
 - 2026-10-03 18:17Z hourly (17Z): GPU busy 49.4% (3.96 of 8.00 GPU-h, all timed): circuits' relaunch until its `match PASS` at 17:29:30Z.
     - **Why below 80%:** after the pass, the node sat free under circuits' line to 18:00Z (4.04 GPU-h), with nothing that could clear the 18:05Z window. CPU 2.4%. Compute accounting's timed FP8 pass (`r20261003-180528-b6e1`) held all 8 GPUs 18:05:36–18:13:16Z.
     - **Backup:** held until the merge-check pause ends at 18:35Z, so the next one runs at the 18:47Z alerts tick. The last is the 13Z backup `r20261003-131300-a5a5`.

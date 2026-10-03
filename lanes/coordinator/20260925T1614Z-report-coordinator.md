@@ -468,3 +468,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T13:40Z: #849-only on main 4971db95a: bda5bcac4 node1 r20261003-133727-7110 --agreement; merge when pr:849 red-team label lands. #846 next (~14:30Z).
 - 2026-10-03T13:50Z: MERGED #905 (c382 incl. lean-agreement; grants at 7cc18a443) -> main b51f1b387. Cancelled 7110, 8512. Restacked: #849 15795e6a3 2bcd; +#931+#925 5249809b7 7214; node1 --agreement. Merge gates: #849 red-team label; #931 ready label.
 - 2026-10-03T14:06Z: 2bcd/7214 running; awaiting #849 red-team, #931 ready.
+- 2026-10-03T14:18Z: (root) fp8-served-debit-per-input push OK; before any train, check it doesn't adopt -h2 on served path or keyed 8-block FP8 rotation (both await Daniel); hold + tell root if it does. Bundle not readable yet (other store).
+- 2026-10-03T14:21Z: pushed cursor/fp8-served-debit-per-input-e3fa = f96f5b780 (from art:5578b2ee) on fp8-served-zeros-cb26; 2 commits, served_debit.py + test only; no -h2 / keyed 8-block rotation.

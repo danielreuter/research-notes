@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (03:20Z) [open] 03:20Z: ci train 86883ca78 checking (ae14); #871+#883 granted; #884 PoUW lowerings open; audit blind spot on Flock.HmRow/Stmt assigned to proofs
 CHECKPOINT none (03:04Z) [open] 03:04Z: #878/#879 ready with ci; infra isolating research tests from global git; #869+#875 with lander
 CHECKPOINT none (02:48Z) [open] 02:48Z: main a51328652 (#866); #869+#875 granted, with lander; #881 live, gm364 building; ci and lean VMs hit GitHub 401 again
 CHECKPOINT none (02:32Z) [open] 02:32Z: security-status Notion page published and lean-corrected; #881 B8 p1 fix deploying, gm364 next (first leased TP2 row); #867 granted

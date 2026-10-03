@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:42Z) [open] overnight approvals A-H sent to Daniel; awaiting reply
 CHECKPOINT none (04:25Z) [open] 04:25Z: main a0063d9fe (ci line, #869, #875); #871/#883 next; #849 Rust fix on train; follow-exec Flock-prefix update running
 CHECKPOINT none (04:09Z) [open] 04:09Z: lander chain ae14 -> proofs batches -> #849 -> #882 running; main 11d75fc58; PoUW anchors on #846 public ports in progress
 CHECKPOINT none (03:53Z) [open] 03:53Z: gm364 first leased TP2 row passed; #849 with lander; #885 core PoUW pieces ready; PoUW anchors switching to #846 public ports (zero-salt +88% kept as fallback)

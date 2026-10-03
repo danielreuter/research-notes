@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:27Z) [open] 18:27Z: train checks still running on node 1; #963 credential source fix drafted; ci GitHub restored; Lean naming (spec / proof check / spec lock) with Daniel
 CHECKPOINT none (18:10Z) [open] 18:10Z: train checks 7272/113d running on node 1, follow-on 71813db18 (#960, #936) handed; 235B Commit at 18:30Z; console route now console-2 bc-81fd3a6a
 CHECKPOINT none (17:54Z) [open] 17:54Z: 235B TP8 Match PASS; zk_session_soundH proved; train checks running on node 1; console replaced by console-2 (bc-81fd3a6a); 2nd Nebius key exposure, rotation tonight
 CHECKPOINT none (17:37Z) [open] 17:37Z: lean-server plan with Daniel; console shell broken, console-2 deploying router fix; lander idle on quiet-tagged train handoffs, ci re-nudging unquiet

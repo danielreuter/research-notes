@@ -68,6 +68,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 00:18Z alerts tick: two `gpu-idle-in-lease` (00:10Z), `cov-gm367`'s GPUs 5–6 at 0.0%, 10 min in. It resolved itself: the Commit ended rc 0 at 00:14:21Z (14.0 min), and its replay rc 0 at 00:14:51Z. Watermark 00:10:06Z.
 - 2026-10-03 00:09Z hourly (23Z): GPU busy 13.0% (1.04 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series, plus TP2 Commits.
     - **Why below 80%:** nothing else was queued, so 6.18 GPU-h sat free. Leased-idle 0.79 GPU-h: 0.68 the Commits' TP2 start-ups, 0.11 the series'.
     - **Backup:** `r20261003-000608-767a`, unpinned. The 23Z backup `r20261002-230625-111e` is preserved.

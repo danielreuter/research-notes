@@ -594,8 +594,20 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Source trees, 6–7 h: `0b8a429a` (1,988 MB), `d3a8cfa3` (1,993 MB), and five of 107–109 MB: `01687993`, `2505aaec`,
     `7ea84ea7`, `85f2c1ee`, `9c3f9b3d`. `jobs/src`: `3dc7a92c2316f81a` (6 h, 155 MB).
   - Kept: `c362da1a` and `eedbf624` (three `lean-audit.json` files each), `91b1f5bd`, `d916c75c`, `62e3c42b`, `778c10d8`
-    and `pytest-3524` as before, `e13fcdca` and three trees' `.lake/packages` (live). Scratch `bx5g5h1w` was already gone.
+    and `pytest-3524` as before, `e13fcdca` and three trees' `.lake/packages` (live). Scratch `bx5g5h1w` wasn't listed
+    either way (it went at 18:46Z).
   - After: node 1 at 58.1% inodes (11.94M) and 62.8% space.
+- 18:46–18:50Z 3 Oct (11:46–11:50 AM PDT), the scheduled 6 h sweep (`sweep.sh --src-age-h 6`; node 2 skipped,
+  `timed True`): saved 1 lean-audit.json file as
+  `art:43e78fec825b1efb23cd9aa9e25dd1139592fea227547e2b17747a6a90cc07df`; 15 entries, 668,708 files, 37,003 MB, all node 1.
+  - Check scratch: `lean-audit-scratch-bx5g5h1w` (3 h, 449,159 files, 25,141 MB).
+  - Source trees, 6–9 h: owner-approved `f87af6cf` (6,548 files, 229 MB); `130922db` (1,993 MB), `2fc0e0ae` (1,994 MB),
+    `bb11c1f5` (1,996 MB), `bfdf5124` (1,987 MB), `e4b08b3c` (1,996 MB), `92838ecf` (229 MB), and five of 107–109 MB:
+    `50c4ee9a`, `80eda6f6`, `a6392fbe`, `d3750e9a`, `e13fcdca` (9 h).
+  - Lean dependencies: `c6376708…/level3/.lake/packages` (11,999 files, 780 MB). `jobs/src`: `c4c2d2d5f584b917` (7 h,
+    119 MB).
+  - Kept: `c362da1a`, `eedbf624`, `91b1f5bd`, `d916c75c`, `62e3c42b`, `778c10d8` and `pytest-3524`, as at 17:04Z.
+  - After: node 1 at 50.4% inodes (10.37M) and 60.9% space.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
@@ -1254,3 +1266,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 17:47Z tick (exit 1): node 2 HARD `/workspace` 56.4%, the overage @circuits forecast (bf16 copy and live `match/` until
   the 235B Commit, window from 18:30Z); fill holds new jobs itself. @circuits removed node 1's capture mirrors (node 1 at
   50% inodes) and node 2's failed capture (§5). Nothing deleted by me.
+- 18:09Z and 18:32Z ticks: exit 0. 18:46Z, the scheduled sweep: exit 1, 15 entries, 37.0 GB, node 1 at 50.4% inodes
+  (§4). Under 50 GB, no Slack. Corrected the 17:04Z entry: `bx5g5h1w` was still there then, gone now.

@@ -450,3 +450,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T09:49Z: MERGED #904 #901 #902 #896 via 4816 (0b8a429ad, incl. lean-agreement) -> main.
 - 2026-10-03T10:05Z: idle; awaiting #849/#846 ready words.
 - 2026-10-03T10:08Z: (top) node2 closed to checks until 17:00Z (soak to 14:30, circuits 235B 14:30-17:00). Node1 only.
+- 2026-10-03T10:38Z: (top) ci d3a8cfa3e (#914 + #849@50c4ee9a4) node1 r20261003-103549-73b3 --agreement.
+- 2026-10-03T10:40Z: #849@50c4ee9a4 has NO grant labels; asked @proofs before merging d3a8cfa3e.

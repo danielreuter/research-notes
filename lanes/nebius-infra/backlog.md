@@ -24,6 +24,10 @@ the doorbell wakes only the names at the start.
     cap, switching to leased once the TP-lease change deploys.
 - Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
 - The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+- 10:20Z Oct 3: the drift check reports node 1's live Kueue differs from `infra/nebius` (GPU nominal quotas). It's intentional
+  and temporary. @infra's agent moved 2 GPUs from `deployments-gpu` to `provers` at 09:08Z for memory accounting's HBM check and
+  network accounting's seeds (6/2 to 4/4; 3/5 at 09:14Z; `kubectl patch` back to 4/4 at 09:59:56Z). It will put them back at
+  14:30Z (Slack `1791018655.389699`). Leave `kueue.yaml` alone; after 14:30Z, check the drift line is "same".
 - 07:25Z Oct 3: node 1's `research` area swings: about 733 GB at 06:10Z, about 1,030 GB, then shrinking (-44 GiB in 2.5 min, at
   985 GB). Check runs and scratch build up between the hourly `vy-store-evict-research` passes (:50) and the cleanups, so the
   disk moves between 54% and 64% and the pacer's cap with it (649 GB at the peak). The latch is at 78%, so no action; watch it.

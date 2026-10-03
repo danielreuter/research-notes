@@ -32,6 +32,7 @@ for d in /workspace/research/src/*/; do d=${d%/}; s=${d##*/}
   [ $(( (now - $(stat -c %Y $d)) / 3600 )) -ge $1 ] || continue
   [ "$(cd $d && GIT_OPTIONAL_LOCKS=0 git -c safe.directory='*' status --porcelain 2>/dev/null)" = " M $2" ] && echo $s
 done
+exit 0
 EOF
   n=$(grep -c . $T/la.shas); [ $n = 0 ] && return
   [ $DRY = 1 ] && { cp $T/la.shas $T/la.ok; echo "$2: would save $n lean-audit.json files to the store, then approve their trees"; return; }

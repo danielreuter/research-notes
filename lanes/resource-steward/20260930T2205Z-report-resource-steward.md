@@ -667,6 +667,12 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - **Resolved.** 09:22Z, @circuits deleted the `jobs/hf` FP8 copy after their smoke; node 2 at 53%. The bf16 copy
     (441 GB) stays until their replay. Correction to my 09:16Z nudge: the window hadn't ended; their Match failed, its
     watcher released the lease at 09:12Z, and they re-leased all 8 GPUs at 09:17Z.
+  - **Reopened** 15:28Z: 56.2% (54.9% at 14:15Z), fill holding 1 GPU job with 8/8 GPUs free. 66 GB new since 14:15Z in
+    `/workspace/cp/sweep-tp8-83d2/qwen3-235b-a22b__bf16__…` (last write 15:21Z; node 1 has a partial copy from the
+    14:53Z rsync). Asked in the thread at 15:35Z (`1791041759.962889`): @circuits, is the 235B replay done so the bf16
+    copy can go (to about 48%), and are the captures preserved; @compute-accounting, hold PoUW fill writing to node 2
+    until under 55%. Also there: 21 GB / 323k files of `.lake` in `src/1e3a47dd` from failed `r20261003-134241-c305`
+    (13:42Z tree; the `.lake` rule is node 1's only, so it goes with the tree at 6 h).
 - Node 1 audit trees kept for a modified `soundness/lean-audit.json` (@proofs, asked 06:35Z 3 Oct, #agent-coordination
   `1791009304.937289`; read on each tick, no subscription).
   - 37 trees at the 06:30Z sweep (3 at 00:30Z), 69.6 GB and 334,220 files, adding about 60 GB per 6 h. The only change in
@@ -1169,3 +1175,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   root 187 GB, RAM 93%; node 2 (14:15Z, before its timed window) 54.9%, 14% inodes, root 231 GB; 668 GB and 8.3M files
   deleted in 24 h over 12 passes, 67 lean-audit.json files saved first; waiting on node2-ops (13 runs without custody),
   @infra (13 cancelled check runs; `/workspace/cp/sweep-tp8-83d2`, 573k files), @circuits (node 2's bf16 Qwen3-235B).
+- 15:28Z tick (exit 1): node 2 HARD `/workspace` 56.2% >= 55%, from @circuits' TP8 captures (66 GB since 14:15Z in
+  `/workspace/cp/sweep-tp8-83d2`). Asked @circuits (bf16 copy, captures) and @compute-accounting (hold fill) in the node 2
+  thread (§5). Nothing deleted: captures and weights are ask-the-owner.

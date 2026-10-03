@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (17:15Z) [open] zk_rep_accepts audited (35b6 PASS); zk-sound-land audit 1343 running toward zk_session_sound's grant; #929 ready-to-train; RecordCustodyZK accepted (live-verifier); pc-instance granted (conditional), audit 10b5
 CHECKPOINT none (16:43Z) [open] zk_rep_accepts audit relaunched (35b6) after infra-only FAIL; zerocheck completeness proved (zk-cz); proofs at 2/2 node-1 audit slots
 CHECKPOINT none (16:18Z) [open] zk_rep_accepts proved (zk-exec c6376708d); zk_session_sound path sorry-free pending zk-sound-land audit; 15 lanes on objectives 1+2, tracker internal/proofs/lanes.md; r_j=1 ruling asked of lean
 CHECKPOINT none (15:38Z) [open] coinedOf defined + coinedOf_setup proved (ae6104bf3); lp-composed carving innerOf for a second lane; lander chain e806/67c8/d37b/e3d1 running

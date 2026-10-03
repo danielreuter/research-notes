@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (16:18Z) [open] zk_rep_accepts proved (zk-exec c6376708d); zk_session_sound path sorry-free pending zk-sound-land audit; 15 lanes on objectives 1+2, tracker internal/proofs/lanes.md; r_j=1 ruling asked of lean
 CHECKPOINT none (15:38Z) [open] coinedOf defined + coinedOf_setup proved (ae6104bf3); lp-composed carving innerOf for a second lane; lander chain e806/67c8/d37b/e3d1 running
 CHECKPOINT none (15:13Z) [open] 846 + 909 + 907 + 906 all doubly granted; lander checking 906 and 909+907; 927 re-granted by lean at b6c56ae26, scoped red-team re-review running; 928/929 restack in progress; node 2 freed
 CHECKPOINT none (14:47Z) [open] 906 granted (lean+red team) at 15b099b0d, lander checking; 846 red-team audit soundness running node 2 ETA 16:00Z; 927 stack restacking onto 906; typed-pow2 PR in progress (bc-30d7a9e2)

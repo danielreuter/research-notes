@@ -1140,3 +1140,8 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   The 12:30Z sweep timer did fire, delivered 12:37:29Z behind that turn. The #agent-alerts channel subscription is gone
   and I can't re-create it (Task subagent), so ticks read the channel by hand until the parent subscribes for me.
 - 12:51Z, the queued 12:30Z sweep timer: exit 1, 7 entries, 5,170 MB (§4). Under 50 GB, no Slack.
+- 12:43Z–13:48Z ticks: exit 0. 14:10Z tick (exit 1): node 2 `/workspace` gaining 850k inodes/h (11.7% to 13.2% in
+  22 min; 14% at 14:15Z), space 54.55% to 54.91%. Cause: run `r20261003-134241-c305` (started 13:42Z, `audit.py --build
+  --fresh` on the three verifier packages in `src/1e3a47dd`), whose soundness `.lake` reached 160k files and 20 GB. Its
+  command removes all three `.lake` on exit, and its scratch is on root (231 GB free). Live and self-cleaning: nothing
+  deleted, nobody asked. If it tips node 2 past 55% meanwhile, the fill runner holds new jobs until it exits.

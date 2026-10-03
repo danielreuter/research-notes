@@ -68,6 +68,9 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 02:10Z alerts tick: two `gpu-idle-in-lease` (01:50Z), GPUs 5–6 at 6.8–6.9%, the second attempt of bc-698052e1's TP2 Commit `cov-gm363-l` (phi4 B8 I1024 O128), 7 min into its lease.
+    - **What it's doing:** both attempts look the same. After `commit staging: window_mb=256 slots=8 retain=host bounded` (minute 1), the scope's memory climbs to 284 GiB by minute 16 (213 GiB of it shmem). The scope's cap is now 386 GiB, so this isn't the 193 GiB OOM. Then nothing more on stdout, while the two TP workers each run one core and the GPUs sit near 10%.
+    - **Why it isn't a loop:** the first attempt's lease was 25 min, and it was stopped (`max_min`) at 01:43:20Z. The second has `max_min=90` (lease `--max-min 90`), so its owner's long-row cap now covers it. Nothing to do; I'll check at the hourly that it ended. Watermark 01:50:01Z.
 - 2026-10-03 01:33Z alerts tick: six `gpu-idle-in-lease` (01:25Z and 01:30Z) at 1.1–4.2%, three bc-698052e1 TP2 Commits 7–8 min into their leases: `cov-gm363-l` on GPUs 5–6 (since 01:18:19Z), `cov-lw07-gm358` on 2–3 (01:21:19Z) and `cov-lw07-gm357` on 0–1 (01:22:19Z). Same start-up pattern as before, which the hourly counts as leased-idle. Nothing to do; watermark 01:30:06Z.
 - 2026-10-03 01:09Z hourly (00Z): GPU busy 12.3% (0.98 of 7.98 GPU-h, all useful): memory accounting's vLLM e2e series, plus TP2 Commits.
     - **Why below 80%:** nothing else was queued, so 5.02 GPU-h sat free. Leased-idle 1.98 GPU-h: 1.83 the Commits' TP2 leases (infra's known waster), 0.15 the series'. CPU 4.3%.

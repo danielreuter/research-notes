@@ -69,6 +69,12 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 19:33Z hourly (18Z): GPU busy 62.5% (5.00 of 8.00 GPU-h, all timed): compute accounting's FP8 pass 18:05:36–18:13:16Z and circuits' Commit from 18:30:09Z.
+    - **Why below 80%:** the gaps between the bookings (18:00–18:05Z, 18:13–18:30Z) left 3.00 GPU-h free. The queued series couldn't clear the 18:05Z/18:25Z lines, and then the Commit's timed lease blocked it. CPU 9.6%. The 19Z hour is 100% timed so far.
+    - **Backup:** held until the Commit lease ends at 20:09Z. The last is the 13Z backup.
+    - **Correction to infra's daily wasters (item 1):** circuits' 8-GPU leases on node 2 have no utilization samples, because my sampler skips NVML whenever one holder has all 8 GPUs. So "31.2 idle of 31.2" is unmeasured, not idle (`note:20261003T1932Z-reply-from-node2-ops-wasters-circuits-tp8-unmeasured-not-idle`). I offered a `measured: false` field if infra wants it.
+    - **My slip:** while checking this, I ran a `find /` on the node (no `nice`), about 19:25–19:27Z, during the Commit's timed lease. I killed it, and none is left. Next time I'll find files without a filesystem-wide walk.
+    - **Checks:** daemons are up, and `status.md` was fresh (19:21Z). One runner. `/` is 18%, `/workspace` 59%. #494 is still closed.
 - 2026-10-03 18:38Z alerts tick: no alerts. Circuits' 235B Commit (`circuits-tp8-commit5.scope`, CPUs 80–91 and 124–191) took all 8 GPUs with a timed lease, 18:30:09Z–20:09:09Z. Verity-top's 18:10Z checkpoint scheduled it, but it has no `fill/windows` line.
     - Fill holds (`timed True`), and so do backups: the next is after 20:09Z, and the last is the 13Z backup.
     - Slot d (0–47) isn't paused by any line, so merge checks run beside it. One is running, `r20261003-174723-7ea5`, CPU-disjoint from the Commit.

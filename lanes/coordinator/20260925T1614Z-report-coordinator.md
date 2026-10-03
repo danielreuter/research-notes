@@ -443,3 +443,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T07:43Z: root hypothesis: a5e9 olean mismatch may be concurrent checks sharing/refreshing one Mathlib cache on node 1 (58e0 + a5e9 overlapped). If df9b/3522/b379 repeat it, compare lean-audit windows before calling it a cache fault.
 - 2026-10-03T08:11Z: MERGED ac2879043 (ci line #882 #892 #880 #881 #890 #885 #886 #887 + #894 + #891 content + #897; 3522 incl. lean-agreement) -> main 8e40da770. #891 PR still OPEN (head fd5dc11c9 not ancestor; content identical). b379 (#874) running; olean mismatch not repeated.
 - 2026-10-03T08:43Z: MERGED #874 (b379 incl. lean-agreement) -> main. Left: #849, #846.
+- 2026-10-03T08:57Z: band train (#904 incl #901 + #902 python) 18bf12e0c node1 r20261003-085445-a1dc --agreement. #896 held: body lacks 'read --update' line + needs lean relabel at restacked head.

@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT b959acdf0 (09:35Z) [open] 2:35 AM PDT: replays on prefill (Llama past its k=14336 stratum), verify r20261003-080819-0ad8 running at nice 19. No new results.
 CHECKPOINT b959acdf0 (09:13Z) [open] 2:16 AM PDT: verify r20261003-080819-0ad8 reniced to 19 (it starved the nice-19 replays; Llama's queue timeout is 10:52Z). Qwen3-8B has 14x Llama's excluded rows (decode 2,226 vs 155: 0.38% of rows, 0.48% of MACs uncredited), so its verify checks ~2,230 tiles. Replays on prefill.
 CHECKPOINT b959acdf0 (08:30Z) [open] 1:30 AM PDT: Qwen3-8B decode replay done: 512/512 accepted at 1/1,000, 0 over, worst 0.163 of the cap (m32 gate_up, k 4096), 4 later +0 promotions (4 tiles). Both replays on prefill now; resumed verify r20261003-080819-0ad8 running (controls REJECT).
 CHECKPOINT b959acdf0 (08:08Z) [open] 1:09 AM PDT: Qwen3 served run r20261003-055019-c386's verify: prefill and decode processes vanished at 08:04:49-51Z with no verdict, traceback or OOM (cgroup oom_kill 0, no guard alert); controls had already REJECTed. Cause unknown, looks like an external SIGKILL. Verify resumed as r20261003-080819-0ad8 (48-123, exit codes now logged). Replays unaffected.

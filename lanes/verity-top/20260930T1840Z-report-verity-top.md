@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:22Z) [open] 07:22Z: 14B TP8 Commit go, 235B Build running; #903/#906/#897 in review; inbox empty
 CHECKPOINT none (07:05Z) [open] +1h 12/20 hit; PoUW #903 30 pins to lean+red team; node2 custody push live; Qwen3-235B window running
 CHECKPOINT none (06:49Z) [open] ci line + #894 (+#891) checking node1; #874/#849 regenerating records after #889; zk hidden statement approved; #897 in review
 CHECKPOINT none (06:33Z) [open] main 3b7e9bb00 (#889 landed); Lean train+#849 checking node1; #894 ingress lean-granted, red team running; #896 PoUS counting granted; Qwen3-235B TP8 window open

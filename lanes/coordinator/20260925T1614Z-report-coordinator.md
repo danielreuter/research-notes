@@ -511,3 +511,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T21:40Z: idle; awaiting PoUS five tip, circuits trains.
 - 2026-10-03T21:43Z: ci tip a30e48653 (#934 #935 #926 #958; no Lean pins) node1.
 - 2026-10-03T22:05Z: #972 #1005 on a30e48653: 4ae203e39 node1.
+- 2026-10-03T22:17Z: MERGED #934 #935 #926 #958 (c00b) -> main. 635c (#972 #1005) next.

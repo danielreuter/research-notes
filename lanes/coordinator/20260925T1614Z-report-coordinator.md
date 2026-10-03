@@ -514,3 +514,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T22:17Z: MERGED #934 #935 #926 #958 (c00b) -> main. 635c (#972 #1005) next.
 - 2026-10-03T22:32Z: #921 #943 (vllm, vllm-coordinator verdict) on 4ae203e39: 177b0b956 node1.
 - 2026-10-03T22:40Z: MERGED #972 #1005 (635c) -> main. f3b2 (#921 #943) next.
+- 2026-10-03T23:11Z: MERGED #921 #943 (f3b2) -> main. Idle; next circuits #910 #912 #917.

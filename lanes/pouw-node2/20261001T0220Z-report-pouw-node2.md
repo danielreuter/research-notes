@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (06:00Z) [open] A 06:00Z poll: nothing new in the watched lanes since 05:40Z; main 9e254f9c1; panel art:63261f6f unchanged, the 1/1,000 gamma pick still with compute accounting; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (05:40Z) [open] A 05:40Z poll: nothing new in the watched lanes since 05:20Z; main 9e254f9c1; panel art:63261f6f unchanged, the 1/1,000 gamma pick still with compute accounting; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (05:20Z) [open] A 05:20Z poll: infra deployed fill_runner df9b8baa (= main a0063d9fe) at 04:12Z with 'fill_runner.py fence' (1 GPU, <=8 NUMA-local cores, <=4 h, self-expiring; windows still whole-node and still stop fence jobs); usage read for my next booking; node2-ops 05:10Z: 11.1% busy, no windows; panel art:63261f6f unchanged, the 1/1,000 gamma pick still with compute accounting; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (05:00Z) [open] A 05:00Z poll: nothing new in the watched lanes since 04:40Z; main 9e254f9c1 (#871 #876 #877 #883: flock Hidden/Wide Lean, research queue), no PoUW change; panel art:63261f6f unchanged, the 1/1,000 gamma pick still with compute accounting; off node 2, totals.py awaiting accounting's yes

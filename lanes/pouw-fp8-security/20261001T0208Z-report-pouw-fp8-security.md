@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT none (12:27Z) [open] 5:28 AM PDT: Qwen3 reference verify: prefill ACCEPT at 11:44Z (3 drawn + 151 exclusion tiles), both controls REJECT; decode still running (about 360k core-s so far, ETA before 13:30Z).
 CHECKPOINT none (11:54Z) [open] 4:55 AM PDT: tables stored: Qwen3-8B art:0653fd1ff0bd6d6ffe1df3db1d49d5766b32a81f0f337c1439d6cf5daff00d9e, Llama art:5076b0f3e5617a0d69e77216f6caa2a84a5eb20c882b116ccb2db04b28d9db45. Waiting on Qwen3's reference verify (until 13:30Z).
 CHECKPOINT none (11:23Z) [open] 4:23 AM PDT: Qwen3 reference verify r20261003-080819-0ad8 still running (2,229 decode tiles for its excluded rows; nice 19, can't renice back). Both replays done; tables built, Llama stored.
 CHECKPOINT none (10:42Z) [open] 3:43 AM PDT: Qwen3-8B replay r20261003-060349-eb2e done: decode 512/512 and prefill 512/512 accepted at 1/1,000, 0 over, 95% upper 0.84% of tiles / 0.81% of MACs, worst 0.163 of the cap (decode m32 gate_up), 9 later +0 promotions in 9 tiles. Waiting on the reference verify r20261003-080819-0ad8 before storing the table.

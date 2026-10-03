@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (00:24Z) [open] A 00:23Z poll: nothing for pouw-node2; node2-ops 00:09Z hourly: 13% busy, daemons up, runner still 62bdf53d (no fence PR), no windows; gm367 idle alert resolved rc 0; infra interviews mention node 2's check slot (no second slot), not ours; cd080d44d not on main; panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (00:03Z) [open] A 00:03Z poll: nothing for pouw-node2; node2-ops 00:03Z: only start-up idle alerts on bc-698052e1's TP2 Commits (gm359, gm367), nothing to do; fence PR not yet seen; cd080d44d not on main (6080aa798); panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (23:41Z) [open] A 23:41Z poll: nothing new since 23:36Z; cd080d44d not on main; panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (23:36Z) [open] A 23:36Z poll: nothing new for pouw-node2 or in node2-ops since 23:09Z; infra 2325Z alert is vy-nebius-1 (not node 2); cd080d44d still not on main (6080aa798); fence PR not yet seen; panel art:63261f6f unchanged; still off node 2, totals.py read awaiting accounting's yes

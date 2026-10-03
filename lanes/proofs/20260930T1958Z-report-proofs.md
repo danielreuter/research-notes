@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (02:32Z) [open] #867 training; #849/#869/#871/#875 updates running; Daniel ZK status written
 CHECKPOINT e259af141 (01:42Z) [open] #875 HiddenDec opened; lean statements fine; awaiting #869, #849 fix, upv-check, zk-exec
 CHECKPOINT e259af141 (01:08Z) [open] #862 train checking; #874 waits row-order ruling
 CHECKPOINT e259af141 (00:34Z) [open] #871 granted, waits #858; upv-check and PoUW staging running

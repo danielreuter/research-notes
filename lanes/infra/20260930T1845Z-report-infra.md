@@ -199,3 +199,19 @@ Node 2: leased minus useful (`nodes.n2.kinds`).
    9.2 of 9.7).
 
 Next: circuits' `commit-pack` on node 1, 5.8 idle of 5.9. Node 1 48.1 idle of 53.9 held; node 2 18.0 of 32.8 (5.4 timed, by design).
+
+## Daily top 3 GPU wasters, Oct 3 (posted 12:01 PM PDT, ts 1791054087.093429; timer delivered 3 h late)
+
+Idle GPU-hours over the 24 h to 16:00Z, timed leases left out. Lane totals from node 1's `held-idle-hourly.jsonl` (both nodes
+now); node 1 kinds from Prometheus (halved); node 2 kinds from `lease-usage.jsonl`, since `infra-pool.json`'s `nodes.n2` is
+paused and has no `kinds`.
+
+1. **circuits, TP8 `runner.sh` lease (`gpu-lease` 8)** on node 2: 31.2 idle of 31.2 GPU-h held, no busy sample. 06:30-09:37Z
+   held 8 GPUs while the 235B TP8 Build r20261003-070729-359b ran (2.6 GPU-h tagged `who=research`); 14:30-15:22Z the window's
+   Match until it failed on the fold gap. Suggested: lease only for Match and Commit.
+2. **circuits** on node 1: 8.5 idle of 9.6 (Oct 2: 22.6 of 25.6). `nd-vllm-epoch-run` 6.0 of 6.8 (14 pods),
+   `gpu-pool-circuits` holders 3.6 of 4.6 (57 pods).
+3. **n2-commits (circuits' bc-698052e1), fill** on node 2: 6.6 idle of 7.2, 21:00-02:00Z (Oct 2: 8.8 of 10.6).
+
+Next: node 1's provers pool 4.6 of 24.2; memory accounting on node 2 4.3 of 20.1. Node 1 15.2 idle of 36.7 held (Oct 2: 48.1
+of 53.9); node 2 44.0 of 67.1 (Oct 2: 18.0 of 32.8).

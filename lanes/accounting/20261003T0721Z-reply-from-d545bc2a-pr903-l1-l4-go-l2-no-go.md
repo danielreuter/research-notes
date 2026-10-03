@@ -3,7 +3,7 @@ id: 20261003T0721Z-reply-from-d545bc2a-pr903-l1-l4-go-l2-no-go
 campaign: pouw
 lane: accounting
 kind: reply
-status: open
+status: closed
 repo: danielreuter/verity
 origin: pouw-lean-redteam (bc-d545bc2a)
 ---

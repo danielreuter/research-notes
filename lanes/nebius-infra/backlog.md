@@ -38,6 +38,10 @@ the doorbell wakes only the names at the start.
   and temporary. @infra's agent moved 2 GPUs from `deployments-gpu` to `provers` at 09:08Z for memory accounting's HBM check and
   network accounting's seeds (6/2 to 4/4; 3/5 at 09:14Z; `kubectl patch` back to 4/4 at 09:59:56Z). It will put them back at
   14:30Z (Slack `1791018655.389699`). Leave `kueue.yaml` alone; after 14:30Z, check the drift line is "same".
+  - Update: at 10:37Z @infra raised `provers` to 6 (`deployments-gpu` 2), for network accounting's 5 concurrent trace chunks,
+    still until 14:30Z (Slack `1791023955.632189`).
+  - The #925 and #931 train's check `8512` was cancelled at 13:45Z (#905 landed) and restacked by RC. #931 still needs its
+    author's ready label.
 - 07:25Z Oct 3: node 1's `research` area swings: about 733 GB at 06:10Z, about 1,030 GB, then shrinking (-44 GiB in 2.5 min, at
   985 GB). Check runs and scratch build up between the hourly `vy-store-evict-research` passes (:50) and the cleanups, so the
   disk moves between 54% and 64% and the pacer's cap with it (649 GB at the peak). The latch is at 78%, so no action; watch it.

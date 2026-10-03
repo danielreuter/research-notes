@@ -990,3 +990,7 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   Node 1 is at 9.23M inodes (45%), inside the swing; the one tree with `.lake/packages` (`7eb1e479`) is named by a live
   audit. Space rose from 52% (23:28Z) to 60%: vLLM Commit bundles at 422 GB, which the pacer projects to peak at 749 GB
   (about 67%) and caps below its 80% pause. No action.
+- 01:32Z, 01:42Z and 02:04Z ticks: exit 0. 02:25Z tick (exit 1): the HARD line (2.87M/h, 2.2 h) from the 01:32Z trough.
+  Node 1 is at 10.17M inodes (50%), the top of the swing, with three audits running: their trees' `.lake/packages`
+  (`2ebd4677`, `5cb29b49`, `e0908365`) and two `lean-audit-scratch` dirs are all live. Space is 64%; Commit bundles
+  peaked at 553 GB with none in flight. Nothing deletable. No action.

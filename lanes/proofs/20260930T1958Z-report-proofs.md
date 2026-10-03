@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (22:14Z) [open] 22:15Z: architecture-hiding proposal lanes running (due 01:00Z); pc-unitwrong/pc-leafbinds corrected two private-circuit hypotheses; 5 audits relaunched (remote rejects --detach); zk-pubin freeze due 02:00Z
 CHECKPOINT none (21:45Z) [open] 21:45Z: new cloud lanes pc-leafbinds, pc-unitwrong, zk-pubin (L8 public-input soundness; freeze Oct 4 02:00Z); pc-instance on #999; audits 81e8 (pad40), e1be (HJ custody) queued; #987 check ed37 running
 CHECKPOINT none (21:18Z) [open] 21:15Z: #996 (soundH, lean GO) and #999 (private circuit + wiring) opened; pc-interp and zk-reg done (audits 2475, 8dfa PASS); #987 check ed37 and #982 suites running
 CHECKPOINT none (20:50Z) [open] 1:50 PM PDT: audits 95a6 (J/HJ) and 06de (soundR) PASS, records committed, printouts to @lean; 4 new cloud Lean lanes (pad40, HJR, tree-coin hybrid, every-coin ZK); #979 restacking for ci; #987 A6 tree coins in review

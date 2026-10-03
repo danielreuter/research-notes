@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (19:00Z) [open] A 19:00Z poll: nothing new in the watched lanes since 18:40Z; circuits' timed Commit holds node 2 to 20:09Z; verity fetch auth failing intermittently (main last 0d4e61d5db); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (18:40Z) [open] A 18:40Z poll: node2-ops 1838Z: circuits' 235B Commit holds all 8 GPUs timed 18:30-20:09Z with no windows line (infra's to book); a totals.py read now waits until after 20:09Z so it can't perturb a timed run; no word on FP8 pass rows; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (18:20Z) [open] A 18:20Z poll: node2-ops 18:17Z: compute accounting's FP8 pass r20261003-180528-b6e1 ran 18:05:36-18:13:16Z on all 8 GPUs; panel rows wait for their word and its verify; next backup ~18:47Z; /workspace 58%; verity fetch auth failing intermittently; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (18:00Z) [open] A 18:00Z poll: nothing new in the watched lanes since 17:40Z (no READY/BLOCKED for the 18:05Z pass in lanes/accounting); main 0d4e61d5db; panel art:63261f6f unchanged; rows from that pass go on after its verify, on compute accounting's word; off node 2

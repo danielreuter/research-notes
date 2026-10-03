@@ -69,6 +69,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 11:35Z alerts tick: one `gpu-idle-in-lease` (11:30Z), GPU 6 at 0.0%, the next series run `…112103Z`, 9 min into its lease (since 11:21:07Z). It's start-up again: GPU 6 was at 100% with 72 GiB in use by 11:35Z. The earlier run `…100440Z` finished rc 0 in 21.1 min. Also running: memory accounting's `pous-soak-v2-dry-…111910Z` on fenced GPU 7, and two ad-hoc network accounting runs on GPUs 1 and 3 (`r20261003-113017-ed08`, `r20261003-113040-4e4e`, since about 11:30Z). Nothing to do. Watermark 11:30:06Z.
 - 2026-10-03 11:20Z alerts tick: one `gpu-idle-in-lease` (11:05Z), GPU 6 at 0.0%, memory accounting's series `…100440Z`, 5 min into its lease (since 11:00:04Z). It's the series' usual start-up, the same as at 09:45Z: GPU 6 is at 100% util with 96.6 GiB in use by 11:18Z. Its lease (to 11:30Z) clears the 14:30Z window. Watermark 11:05:06Z.
 - 2026-10-03 11:20Z hourly (10Z): GPU busy 6.6% (0.53 of 8.00 GPU-h, all useful): memory accounting's series to 10:04Z, and compute accounting's timed FP8 pass, which held the node only 10:41:31–10:44:11Z (0.36 GPU-h).
     - **Why below 80%:** the GPU backlog was dry. The only queued GPU job, memory accounting's next series (about 25 min), was held because it couldn't clear the 10:30Z window, and it started at 11:00:02Z. 7.44 GPU-h sat free. CPU 23.3%. At 10:55Z memory accounting fenced GPU 7 (CPUs 116–123) for `pous-soak-v2-srv-*` with `fill_runner.py fence`, so fill keeps it free.

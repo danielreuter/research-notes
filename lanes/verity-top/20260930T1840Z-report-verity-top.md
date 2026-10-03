@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:20Z) [open] 15:20Z: node 1 merge slots full (#909+#907, #846+#906, #922, #927); 235B capture near done on node 2; 30B backstop on node 1; trace campaign on 6 node-1 GPUs; GitHub auth worker started
 CHECKPOINT none (15:01Z) [open] 15:01Z: #909+#907 checking on main; #903+#919 wait on pouw pin run; #846+#906 wait on red-team-846 (~16:00Z); node-1 GPUs idle, offered to leads, circuits asked for 30B backstop; zk_session_sound waits on zk_rep_accepts + zk_lig_accepts
 CHECKPOINT none (14:44Z) [open] 14:44Z: main 493495712 (#849,#931,#925); #906 fully granted, train next; soak v2 0 wrong; 235B Match running on node 2; morning summary sent
 CHECKPOINT none (14:26Z) [open] 14:26Z: f96f5b780 pushed by lander; #923 red-team medium finding (eps) being fixed; #906 re-granted, #927-929 restacking under ruling G as written; 4436 moved to node-2 cores 0-47 for the 235B window

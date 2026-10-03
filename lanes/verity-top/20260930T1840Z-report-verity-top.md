@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:48Z) [open] 02:48Z: main a51328652 (#866); #869+#875 granted, with lander; #881 live, gm364 building; ci and lean VMs hit GitHub 401 again
 CHECKPOINT none (02:32Z) [open] 02:32Z: security-status Notion page published and lean-corrected; #881 B8 p1 fix deploying, gm364 next (first leased TP2 row); #867 granted
 CHECKPOINT none (02:18Z) [open] 02:18Z: Daniel on Slack thread 1790993029.653519; security-status Notion page in progress (bc-6fff0a15); #867 granted; ci train c9c869268 next node
 CHECKPOINT none (02:00Z) [open] 02:00Z: node 1 pacer hold fixed 01:49Z (TP rows sized 0 GB); gm363-l given 90 min on node 2; main 10d8faa87

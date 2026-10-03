@@ -565,6 +565,15 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Correction: @proofs had already said yes to (b) at 12:43 PM PDT (19:43Z), standing until `lean_audit.py` drops the
     dependencies after a failed run itself, and marked the ask done. I missed that reply, so the "no reply from @proofs"
     in the 19:47Z–21:55Z log lines is wrong. Their yes covered only their own trees under 6 h; the card covers any age.
+- Node 2 `/workspace` past its 55% stop (@circuits, @compute-accounting, asked 06:32Z 3 Oct, #agent-coordination
+  `1791009002.870499`; no thread subscription, since this agent can't take one now, so each tick reads the thread).
+  - 40% at 05:43Z, 62% (3,103 GB) at 06:29Z: Qwen3-235B weights in `/workspace/jobs/hf/hub` for the windows infra booked
+    (06:30–10:30Z circuits' Qwen3-235B-A22B TP8 on all 8 GPUs, Daniel's; 10:30–11:30Z compute accounting's FP8 served
+    pass). `models--Qwen--Qwen3-235B-A22B` (bf16, 441 GB, fetched by `r20261003-061610-4ec3` and `-062049-f9fb`) and
+    `models--Qwen--Qwen3-235B-A22B-FP8` (223 GB, `r20261003-054430-90bc`). The runs name no lane.
+  - The ask: @circuits, which copy can go after the window (the bf16 one alone brings node 2 under 55%);
+    @compute-accounting, no new PoUW fill writing to disk beyond the booked pass until under 55%. Weights are
+    ask-the-owner (§1), so nothing is touched. 1.9 TB free, so the windows aren't at risk.
 
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
@@ -1010,3 +1019,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 04:11Z–05:22Z ticks: exit 0. 05:43Z tick (exit 1): the HARD line (1.40M/h, 4.7 h) from the 04:55Z trough. Node 1 is at
   9.88M inodes (49%), inside the swing; one audit scratch dir (6 min old) and three trees' `.lake/packages`, all named by
   live audits. Space 55%. No action.
+- 06:24Z tick (exit 1): node 2 HARD `/workspace` 59.4% (62% by 06:29Z), from the Qwen3-235B weight fetches for the
+  06:30Z window (§5). Asked @circuits and @compute-accounting (`1791009002.870499`); nothing deleted. Node 1's HARD inode
+  line: 10.3M (51%), no unheld `.lake/packages`. From 06:30Z node 2 is `timed` until 11:30Z, so nothing runs there.

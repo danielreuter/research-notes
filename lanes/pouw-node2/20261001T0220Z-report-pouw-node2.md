@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (04:40Z) [open] A 04:40Z poll: nothing for pouw-node2 (infra interviews edits don't name node 2 or the panel); main a0063d9fe; panel art:63261f6f unchanged, the 1/1,000 gamma pick still with compute accounting; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (04:20Z) [open] A 04:20Z poll: cd080d44d/#853 now on main (a0063d9fe); redteam 0415Z: both 1/1,000 twins citable (in-loop #838 0.36949%/0.35973%, FADD-8 #853 0.36901%/0.35949%); panel pearl-c-sm120 v1/-h1/-h2/-h3 still carry the 1/400 in-loop 0.005191; left unchanged pending compute accounting's pick (recommend the larger in-loop twin, per the panel's rule, as the 1/1,000 value); node2-ops 04:08Z: 10.6% busy, runner still 62bdf53d, no windows; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (04:00Z) [open] A 04:00Z poll: nothing new in the watched lanes since 03:40Z; main 11d75fc58, cd080d44d not on main; panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes
 CHECKPOINT fbce5a2f4 (03:40Z) [open] A 03:40Z poll: nothing new in the watched lanes since 03:20Z; main 11d75fc58, cd080d44d not on main; panel art:63261f6f unchanged; off node 2, totals.py awaiting accounting's yes

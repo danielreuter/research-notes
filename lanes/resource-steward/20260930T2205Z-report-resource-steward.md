@@ -564,6 +564,19 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - Node 1: `c2c8597d` (owner-approved, 10,570 files, 2,767 MB), `c79b82b9` (1,875 MB), `249cf97f` (106 MB), `258522c7`
     (103 MB), `25a1953e` (105 MB), `3b7e9bb0` (107 MB).
   - Node 2: `3b7e9bb0` (5,950 files, 107 MB).
+- 15:08–15:14Z 3 Oct (8:08–8:14 AM PDT), `sweep.sh --src-age-h 6` off schedule for the node 1 inode HARD line (§6):
+  saved 10 lean-audit.json files as `art:e9b1112bce2179677d07b96b7955a0db46892cbe1f8177d5920031a1a8275ef0`; 38 entries,
+  365,552 files, 49,495 MB, all node 1 (node 2 skipped, `timed True`).
+  - Owner-approved (option (b)), 103,772 files, 26,380 MB: `0054fdf0` (7 h), `112f5fae` (8 h), `6cecee68` (7 h),
+    `a1af7e38` (6 h), `a699788f` (7 h), `c388bc50` (7 h), `dc1fab6d` (7 h), `eb4d8399` (7 h), `f19f2479` (8 h),
+    `fe26a0fe` (7 h).
+  - 22 source trees, 6–8 h old, 233,813 files, 14,218 MB: `18bf12e0`, `7ed2d3f8`, `4e6d66ba`, `ac287904` (1.9–2.0 GB
+    each); `97f280b8`, `fbaf57de` (2,412 MB each); and sixteen of 103–109 MB: `005f3421`, `0291752d`, `33a482f9`,
+    `620b3fb8`, `8c918640`, `917c1080`, `a25056d0`, `ac2ca4a4`, `b42f39f3`, `c627160a`, `ce4c7fbe`, `d32459c9`,
+    `d838771e`, `e6854f07`, `eee12188`, `fae8238b`.
+  - Check scratch, 3 h: `pytest-4681` (8,997 files, 8,628 MB), `pytest-4701` (25 MB), `-4702` (17 MB), `-4707` (11 MB).
+  - `jobs/src`: `4cf32b46ec7ebda6` (6 h, 107 MB), `pod-sigmoid-router-915-350-ce1b86e4-head` (6 h, 109 MB).
+  - After: node 1 at 50% inodes (10.18M) and 59.5% space, with four audits still building.
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:

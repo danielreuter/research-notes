@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (11:18Z) [open] 4:18 AM PDT: no new asks. Ratings stand. Main 9c3f9b3d1 (no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed. Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (10:56Z) [open] 3:56 AM PDT: no new asks. Ratings stand. Verity GitHub fetch flapping (auth failures at 10:03Z and 10:45Z, OK at 10:56Z). Main 9c3f9b3d1 (no change under protocols/pouw). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed. Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (10:35Z) [open] 3:35 AM PDT: no new asks. Ratings stand. Main 9c3f9b3d1 (no change under protocols/pouw). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed. Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (10:14Z) [open] 3:14 AM PDT: no new asks. Ratings stand. Verity GitHub fetch failed once at 10:03Z (auth), OK again at 10:13Z. Main 9c3f9b3d1 (no change under protocols/pouw). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed. Project store still unmounted, so ledger-2156Z/2230Z stay held.

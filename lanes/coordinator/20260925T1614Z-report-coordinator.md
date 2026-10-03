@@ -452,3 +452,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T10:08Z: (top) node2 closed to checks until 17:00Z (soak to 14:30, circuits 235B 14:30-17:00). Node1 only.
 - 2026-10-03T10:38Z: (top) ci d3a8cfa3e (#914 + #849@50c4ee9a4) node1 r20261003-103549-73b3 --agreement.
 - 2026-10-03T10:40Z: #849@50c4ee9a4 has NO grant labels; asked @proofs before merging d3a8cfa3e.
+- 2026-10-03T11:13Z: fallback #914 alone (no Lean changes in merged diff; ready=true) bfdf51245 node1 r20261003-110946-40fe. d3a8cfa3e (73b3, +#849) held: #849@50c4ee9a4 has no grants, no reply yet.

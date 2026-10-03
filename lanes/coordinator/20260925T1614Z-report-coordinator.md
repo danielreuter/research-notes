@@ -497,3 +497,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T18:44Z: replaced 0d7f with c08cff944 (#968 + #969) node1 --agreement.
 - 2026-10-03T18:50Z: replaced 2f49 with 10aaecc64 (+#942) node1 --agreement.
 - 2026-10-03T18:59Z: #949 conflicts w/ ci tip in network_warden/PROTOCOL.md -> network-accounting to restack.
+- 2026-10-03T19:07Z: #949 tip 0c2de8a49 (on 10aaecc64) node1 --agreement; merge needs labels at 9bc057d98.

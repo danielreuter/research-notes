@@ -69,6 +69,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 06:33Z alerts tick: `disk` `/workspace` 60% full (1,989 GiB free, 06:26Z), up from 54% at 06:17Z. That's circuits' Qwen3-235B-A22B weights (118 shards, about 470 GB) landing in `/workspace/jobs/hf` for the window, so it should level off near 63%. Nothing to do. The window is on (`timed True`, 0/8 free, 2 GPU jobs queued). Watermark 06:26:30Z.
 - 2026-10-03 06:25Z alerts tick: `disk` `/` 63% full (92 GiB free, 06:07Z), the first root alert.
     - **What's on root:** 120 GB is `~/.cache/verity-check/lean-audit-scratch-*`. The live check (`r20261003-055703-86e3`) has 61 GB. 59 GB (`azkehmu9`) is left from `r20261003-030801-94eb`, a `check` stopped by SIGTERM (rc 143) at 03:10:58Z, whose `finally` never ran. The Qwen3-235B download writes to `/workspace` (2.3 TB free), not root.
     - **Not deleted:** that scratch holds the warm Lake dependencies `WarmDeps` moved into it. Handed to infra (`note:20261003T0625Z-alert-from-node2-ops-killed-check-left-59g-on-root`); I'll delete it or move the dependencies back on their word. Watermark 06:07:09Z.

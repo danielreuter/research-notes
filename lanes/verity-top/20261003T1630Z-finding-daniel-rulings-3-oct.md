@@ -12,3 +12,4 @@ origin: root Project chat with Daniel, 2026-10-03
 - Label fallback: approved ("3. sure", root Project chat, ~15:27Z). Circuits records it as a line in .agents/skills/friction/SKILL.md in its label-fallback PR.
 - PoUW may import sampled proofs (verity_sampled_proofs). Lean records it in #939.
 - D = 0 pin: approved. Memory accounting's pin PR records it.
+- Coordinator ruling (19:18Z): a PR whose head is an ancestor of main, left open only because its base was a feature branch, may be closed by its owner with "Merged into main at <sha> (check <id>)". To move into .agents/skills/friction/SKILL.md.

@@ -395,3 +395,25 @@ Round 14 triage (infra). Yes means it has an owner and a time, no comes with a r
   memory-accounting, next in rotation after compute-accounting, was skipped: its HBM check was preempted twice on node 1
   (08:54Z, 09:09Z) and is being rerun; it moves to round 16. The ask lists #836, #855, #826, #870, #848 (merged) and #908 (in
   review). Infra is subscribed to the thread for 6 h. Round 14 brought new items, so the timer stays on.
+
+### Round 15 answers and triage (posted 09:31Z, 1791019884.798629)
+
+Answers: compute-accounting lost time to its VM's GitHub token lapsing three times overnight (workers fell back to git bundles in
+the store), and to `research` calls in non-login shells missing the injected secrets (`research status --on` failed, `research
+data label` wrote NOT preserved), so it ran every such call from a tmux `bash -l`. It wants `research` to load the env itself or
+fail with the exact command, then a stage/progress line in `research status` for remote jobs. network-accounting lost about 15
+min to the same token lapse (lean's VM too), installed the broker unasked, and wants it installed at VM boot, then a named
+`--queue` kind for timing runs.
+
+Triage:
+- *Token lapse: fixed by the broker* (`lanes/pous/20260930T1725Z-handoff-from-coordinator-github-broker-rollout.md`);
+  compute-accounting told to install it now. *At VM boot: later*, the environment's setup step is owner-only; sent to Daniel
+  through top with infra's recommendation (yes).
+- *Lost injected secrets: yes, infra, PR by 12:00Z.* `research` fills any secret named in `CLOUD_AGENT_INJECTED_SECRET_NAMES`
+  and missing here from the tmux server's global environment, and keeps today's "rerun from a fresh tmux login shell" hint
+  only when tmux lacks it too. Recipe until then, quiet, missing names only: `for n in ${CLOUD_AGENT_INJECTED_SECRET_NAMES//,/ };
+  do [ -n "${!n}" ] || eval "$(tmux show-environment -g -s "$n" 2>/dev/null)"; done` (on infra's VM it took 3 of 17 to 17 of
+  17, the multi-line key intact).
+- *Stage line in `research status`: later*, after the secrets PR.
+- *Named `--queue` timing kind: no*, `--queue --quiet` already is it (timed job, node kept quiet; non-preemptible is the default;
+  `--gpus N` is exclusive), owner-only; on another lane's node infra books the window.

@@ -446,3 +446,21 @@ Triage:
   because its node 2 window runs the 235B Match to 18:00Z and its Commit after, so proofs takes its place. Rounds 14-16 each
   brought new items, so the timer stays on. The ask lists #888, #911, #931 (merged), #916, #918, #930, #932 (ready or in ci's
   train), #936, #942, #944 (quick tier) and proofs' #947 slots file on node 1. Infra is subscribed to the thread.
+- proofs answered 16:59Z (ts 1791046824.452459); memory-accounting did not answer (PoUS series running on node 2 all evening).
+  Most time: a cancelled duplicate audit's EXIT trap deleted the shared `/workspace/research/src/<sha>/.lake/packages` under a
+  live audit, which failed at 4779 of 4781 targets (about an hour on the critical path); second, cancelling critical audits
+  under node 1's inode cap; third, cloud lanes couldn't reach node 1 (`no ~/.research/machines.toml`). Workarounds: relaunching
+  instead of asking for per-run trees; `gh` returned 401, so PR bodies went through the PR tool. Fix next: a source tree per run.
+- Triage, 17:07Z (ts 1791047278.846169): per-run trees: yes, infra, #965 `research run --cwd clone` (opened 17:41Z, red team on
+  it, in the quick tier), with an interim `git clone --shared` recipe tested on node 1. Cancelled audits: done, node 1's slot file
+  (`check 2`, `audit 2`) live since 16:52Z; inodes all-clear at 54.4%, 18:24Z. Cloud lanes: not owner-only, answered 17:25Z:
+  `research` reads the pod registry in the notes clone (`machines.d`) and the key from `RUNPOD_SSH_KEY_B64`; proofs' lanes lacked
+  the env, now in their brief. Secret-name checks use `compgen -e`, never `env | cut` (a PEM's later lines print as names).
+  `gh`: proofs installed the GitHub broker at 17:12Z (`source = broker`).
+
+## Round 18: circuits, compute-accounting (4:27 PM PDT)
+- Asked 23:27Z, 3 Oct, in one announcement (ts 1791070060.322349); the 20:00Z timer fired late. Circuits, skipped in round 17
+  for its node 2 window, goes first; compute-accounting is next in rotation. memory-accounting, unanswered in round 17, goes
+  in round 19. Rounds 15-17 each brought new items, so the timer stays on. The ask lists #936, #942, #944, #958 and ci's line
+  on main, node 1 on main's node files since 23:12Z, the quick tier (#1015, #995, #966, #980, #955), and node 2's 0-123 limit
+  on a gpu-lease command's taskset. Infra is subscribed to the thread for 12 h.

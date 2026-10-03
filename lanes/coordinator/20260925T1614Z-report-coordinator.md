@@ -423,3 +423,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T04:43Z: MERGED #871 #883 #876 #877 via 3bf1 (ff8f8b2c5, incl. lean-agreement) -> main. Left: #849 fix (67927b081+), #846 last.
 - 2026-10-03T05:05Z: #889 (follow-exec; 3 lean-audit.json only) on main as 1c9b45f6f node1 r20261003-050139-a773 --agreement.
 - 2026-10-03T05:14Z: #889 a773 past rust tests. Open non-draft: #885 #881 #880 (ci/circuits; not handed to me), #849 #846 (proofs, pending).
+- 2026-10-03T05:37Z: #874 (changed records; grants + --update line) + #891 (friction SKILL.md, draft, docs) stacked on #889: 24f19e9ec node1 r20261003-053450-3f94 --agreement.

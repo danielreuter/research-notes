@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT b9a7eb784 (06:15Z) [open] 11:16 PM PDT: Qwen3-8B served pass r20261003-055019-c386 done on GPU 0 (06:02Z, validation passed: arm gates, same commitment timed and eager); reference verify on 48-123 running (control REJECT so far). served_debit replays on the queue: Llama r20261003-055210-280b, Qwen3 r20261003-060349-eb2e (512 decode tiles in 8 strata). Zeros branch b9a7eb784: verity-pouw-benchmarks 507 passed.
 CHECKPOINT b9a7eb784 (05:52Z) [open] 10:53 PM PDT: Qwen3-8B (b968826d) smoke r20261003-054412-f7fa passed on node 2 GPU 0 (all gates, resident). Untimed completeness-only served pass r20261003-055019-c386 running on GPU 0 (one replica: prompts are seeded, a second replica repeats them). Zeros branch cursor/fp8-served-zeros-cb26 at b9a7eb784 pushed (per-tile atoms + later +0 promotions). Llama re-replay queued r20261003-055210-280b.
 CHECKPOINT 37119111e (05:40Z) [open] 10:40 PM: second-model served pass: Qwen3-8B (k 4,096/12,288; Qwen2.5-7B refused by the kernels' k%1024) staged on node 2 (r20261003-053858-7977, 16 GB); window 5's harness (b959acdf); window request sent to compute accounting; Llama's 73 GB pass still on node 2 for the later-promotion replay
 CHECKPOINT 8d9ee3a4c (23:16Z) [blocked] 4:16 PM: #854 fix committed locally at 8d9ee3a4c (bench 507 pass, --quick 22/22); git push failed on credentials (Invalid username or token); stopped per order, compute accounting told

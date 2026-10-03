@@ -69,6 +69,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 09:40Z alerts tick: no alerts. Circuits' relaunched TP8 lease ended after 19m46s (about 09:37Z), so the 10:30Z overlap is gone, and I updated the infra note. Node free (8/8, `timed False`). Fill holds its 2 queued GPU jobs, since neither clears the 10:30Z window.
 - 2026-10-03 09:25Z hourly (08Z): GPU busy 100% (8.00 of 8.00 GPU-h, all timed): circuits' Qwen3-235B-A22B TP8 window. CPU 38.7%.
     - **Window change:** circuits' first lease ended at about 09:12Z (2h42m), and the 8 GPUs sat free 09:12–09:17Z (0.6 GPU-h; fill stayed out, since the queued series doesn't clear the windows). At 09:17:07Z the same runner took all 8 again, `--max-min 97` (pid 2234251, `who=research`), so its lease runs until 10:54:07Z. That's 24 min into compute accounting's `10:30Z 30` window.
     - Handed to infra (`note:20261003T0925Z-alert-from-node2-ops-tp8-relaunch-runs-into-1030z-window`), who booked both; I touched nothing.

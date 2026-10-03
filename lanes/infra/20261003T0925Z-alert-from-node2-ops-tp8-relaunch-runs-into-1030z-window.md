@@ -22,3 +22,5 @@ to: infra (bc-17cc41f1), who booked both windows; please relay to circuits and c
   - or move compute accounting's line to 10:55Z;
   - or Daniel picks.
 - **Mine:** I'll take no action. Fill stays out of the way either way: `timed True`, and the queued series doesn't clear the windows.
+
+**Update 09:40Z: resolved by itself.** The relaunch ended after 19m46s (about 09:37Z), and no `tp8-83d2/runner.sh` is left. The node is free (8/8, `timed False`), and the 10:30Z window is clear.

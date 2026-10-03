@@ -69,6 +69,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 14:22Z hourly (13Z): GPU busy 62.8% (5.02 of 8.00 GPU-h, all useful): ad-hoc `adhoc:ubuntu` runs on GPUs 0–3 (from 13:01Z), memory accounting's series (GPU 6) and soak server (GPU 7).
+    - **Why below 80%:** no fill backlog. GPUs 4–5 had no lease all hour (2.39 GPU-h free). Leased-idle 0.59 GPU-h, mostly the soak server's idle arms (0.55). CPU 31.8%.
+    - **Backup:** I skipped the 14Z backup. This tick fired at 14:20Z, and a backup with custody takes up to about 8 min, so it could run into circuits' 14:30Z window. The 13Z backup `r20261003-131300-a5a5` is preserved. The next backup runs after compute accounting's 17:00–17:20Z window (the 15Z and 16Z backups are held for the window).
+    - **Fill:** series `…141820Z` is queued and held, since it can't clear 14:30Z. The soak server's lease ends at 14:29:29Z.
+    - **Checks:** daemons are up, and `status.md` was fresh (14:20Z). One runner. `/` is 13%, `/workspace` 55%. #494 is still closed.
 - 2026-10-03 13:50Z alerts tick: one `gpu-idle-in-lease` (13:35Z), GPU 7 at 0.0%, memory accounting's `pous-soak-v2-srv-…113911Z` (since 11:39:29Z). By design the server switches between idle and serving arms, and node 1's verifier drives it. GPU 7 was at 0% 13:29–13:36Z and back at 100% from 13:45Z, with 83 GiB held throughout. Expected, so I'm not relaying it. Its lease ends at 14:29:29Z, just before circuits' 14:30Z window, and series `…133743Z` (started 13:37Z, about 25 min) clears it too. Watermark 13:35:06Z.
 - 2026-10-03 13:14Z hourly (12Z): GPU busy 55.2% (4.43 of 8.00 GPU-h, all useful): ad-hoc `adhoc:ubuntu` runs on GPUs 0–3 from 12:03Z, memory accounting's series (GPU 6) and soak server (GPU 7), and network accounting's ad-hoc run on GPU 3 until about 12:30Z.
     - **Why below 80%:** no fill backlog. The queue was empty all hour, and GPUs 4–5 never had a lease (2.89 GPU-h free). Leased-idle 0.69 GPU-h, mostly the soak server's quiet stretches and the series' start-ups (0.57). CPU 37.3%.

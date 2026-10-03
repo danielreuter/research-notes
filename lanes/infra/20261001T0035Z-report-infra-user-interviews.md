@@ -344,3 +344,8 @@ series prunes run dirs before they're preserved (two histogram runs lost today).
 | Files to console by hand | No new tool: `research data put --preserve` from node 2 under the soak's staged custody key, art ids to console, console's `store-fetch` (#810, on main) on node 1 |
 | Steal in 10 ms ticks | A finer source: `kprobe:account_steal_time` (ns per tick) with node 2's bpftrace; attaches, printed nothing in a quiet 3 s, so check it against /proc/stat over a longer run |
 | Series prunes run dirs before preservation | memory-accounting's own |
+
+## Round 13: console, old-circuits-and-proofs (5:04 PM PDT)
+- Asked 00:04Z, 3 Oct, in one announcement (ts 1790985851.399969). Next in rotation after network-accounting. The ask lists what
+  shipped since console's round 9 and old-circuits-and-proofs' round 10: #809, #810, #788, #808, #782, #798, #821, #837 (merged),
+  and #833, #842, #841, #834, #845, #848, #851, #855 (ready).

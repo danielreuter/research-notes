@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (17:20Z) [open] A 17:20Z poll: node2-ops 17:13Z: circuits relaunched 16:33Z (lease to 18:00:01Z), its 235B compare passed and Match is running; compute accounting 18:05-18:25Z unchanged; /workspace 58%; main 0d4e61d5db (no PoUW change); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (17:00Z) [open] A 17:00Z poll: nothing addressed to pouw-node2 (infra interviews: circuits' 235B Match runs to 18:00Z, Commit after); FP8 pass still 18:05Z; verity fetch auth failed again (main last 465bfe118e); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (16:40Z) [open] A 16:40Z poll: nothing new in the watched lanes since 16:20Z; verity fetch ok, main 465bfe118e (#907 #909, nothing under protocols/pouw); node 2 schedule frozen (circuits to 18:00Z, FP8 pass 18:05Z); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (16:20Z) [open] A 16:20Z poll: node2-ops 16:16Z: top froze node 2's schedule at 15:55Z (circuits to 18:00Z hard stop, FP8 pass 18:05Z), node idle; /workspace 57%, resource-steward now chasing it with circuits and compute accounting (matches my 52% flag); verity fetch auth failing intermittently (main last 4934957122); panel art:63261f6f unchanged; off node 2

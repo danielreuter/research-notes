@@ -69,6 +69,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 13:50Z alerts tick: one `gpu-idle-in-lease` (13:35Z), GPU 7 at 0.0%, memory accounting's `pous-soak-v2-srv-…113911Z` (since 11:39:29Z). By design the server switches between idle and serving arms, and node 1's verifier drives it. GPU 7 was at 0% 13:29–13:36Z and back at 100% from 13:45Z, with 83 GiB held throughout. Expected, so I'm not relaying it. Its lease ends at 14:29:29Z, just before circuits' 14:30Z window, and series `…133743Z` (started 13:37Z, about 25 min) clears it too. Watermark 13:35:06Z.
 - 2026-10-03 13:14Z hourly (12Z): GPU busy 55.2% (4.43 of 8.00 GPU-h, all useful): ad-hoc `adhoc:ubuntu` runs on GPUs 0–3 from 12:03Z, memory accounting's series (GPU 6) and soak server (GPU 7), and network accounting's ad-hoc run on GPU 3 until about 12:30Z.
     - **Why below 80%:** no fill backlog. The queue was empty all hour, and GPUs 4–5 never had a lease (2.89 GPU-h free). Leased-idle 0.69 GPU-h, mostly the soak server's quiet stretches and the series' start-ups (0.57). CPU 37.3%.
     - **Backup:** `r20261003-131300-a5a5` (unpinned, done before 14:30Z). The 12Z backup `r20261003-122144-3b13` is preserved. The next one is at 14:05Z, before circuits' 14:30Z window. The 15Z and 16Z backups are held.

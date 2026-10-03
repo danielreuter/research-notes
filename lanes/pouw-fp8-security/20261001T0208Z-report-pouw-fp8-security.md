@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT none (10:34Z) [open] 3:36 AM PDT: Llama re-replay r20261003-055210-280b done: decode 511/511 and prefill 512/512 accepted at 1/1,000, 0 over, 95% upper 0.88% of tiles / 0.83% of MACs, worst 0.051 of the cap, 6 later +0 promotions in 6 tiles; table art:5076b0f3e5617a0d69e77216f6caa2a84a5eb20c882b116ccb2db04b28d9db45. Qwen3 prefill replay and its verify still running (verify paused 10:06-10:33Z so Llama beat its queue timeout).
 CHECKPOINT b959acdf0 (10:06Z) [open] 3:06 AM PDT: replays on prefill, Llama ahead of its 10:52Z timeout; verify running.
 CHECKPOINT b959acdf0 (09:35Z) [open] 2:35 AM PDT: replays on prefill (Llama past its k=14336 stratum), verify r20261003-080819-0ad8 running at nice 19. No new results.
 CHECKPOINT b959acdf0 (09:13Z) [open] 2:16 AM PDT: verify r20261003-080819-0ad8 reniced to 19 (it starved the nice-19 replays; Llama's queue timeout is 10:52Z). Qwen3-8B has 14x Llama's excluded rows (decode 2,226 vs 155: 0.38% of rows, 0.48% of MACs uncredited), so its verify checks ~2,230 tiles. Replays on prefill.

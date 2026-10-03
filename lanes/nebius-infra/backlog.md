@@ -24,6 +24,10 @@ the doorbell wakes only the names at the start.
     cap, switching to leased once the TP-lease change deploys.
 - Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
 - The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+- 02:40Z Oct 3: node 1's disk reached 64% with no Commit in flight, while 3 replays wrote. It's falling again (-9 GiB in 2 min).
+  `jobs/cov` is 1,124 GB, against 553 GB of bundles the pacer counts, so about 570 GB is kept replay output or leaves. Worth
+  asking circuits whether that can be preserved and evicted if the disk climbs. Latest hourly:
+  `art:335dbf600cd702bac28e96f7f239eeb71dee1484034cf3f270294e3a7d21c73b`.
 - 01:10Z Oct 3: node 1's disk went from 54% to 62% in 33 min (bundles 144 to 531 GB). The pacer has 2 in flight, projected at
   771 GB against a 1,206 GB cap, and holds `cov-gm190-rb` and `cov-gm175-rb` for room; the latch and pause are at 78% and 80%.
   The TP Commit lease has been live on node 1 since 00:30Z (circuits). Watch the disk next pass.

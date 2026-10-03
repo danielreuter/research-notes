@@ -481,3 +481,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T15:37Z: (root) circuits' node2 window ended early (8 GPUs idle per node2-ops). If node1 slots tight, confirm with @top/@infra then use node2 for checks before 17:30Z.
 - 2026-10-03T15:48Z: chain running: e806 past lean-audit; 67c8, d37b, e3d1 in progress.
 - 2026-10-03T16:08Z: MERGED #909 #907 (e806 incl. lean-agreement) -> main. 67c8, d37b, e3d1 past lean-audit.
+- 2026-10-03T16:33Z: label-fallback ruling recorded note:verity-top-20261003T1630Z-rulings-3-oct (also: PoUW may import sampled proofs; D=0 pin approved). HOLD circuits' label-fallback PR until it adds the friction SKILL.md line. Proofs taking Lean audit cap (lean-slots lane, draft by 20:00Z).

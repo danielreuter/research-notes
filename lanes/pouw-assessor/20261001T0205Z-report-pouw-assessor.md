@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (12:42Z) [open] 5:42 AM PDT: no new asks. Ratings stand. Verity GitHub fetch failed again at 12:42Z (auth; 5th since 10:03Z), so last good read of main is current: 4284becdb at 12:31Z (no change under protocols/pouw). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed as of that read. Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (12:21Z) [open] 5:21 AM PDT: no new asks. Ratings stand. Verity GitHub fetch flapping (auth failures 10:03Z, 10:45Z, 11:28Z, 12:10Z; OK at 12:21Z). Main 4284becdb (#893 #899 #908 #911; no change under protocols/pouw). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed. Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (12:00Z) [open] 5:00 AM PDT: no new asks. Ratings stand. Main d3750e9ad (train T914; no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed. Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (11:39Z) [open] 4:39 AM PDT: no new asks. Ratings stand. Verity GitHub fetch still flapping (auth failures 10:03Z, 10:45Z, 11:28Z; OK at 11:38Z). Main 9c3f9b3d1 (no change under protocols/pouw). Pearl-C4 cap = CAP 1/400; policy 7eb625fc, 751 pins. #854 and #865 not landed. Project store still unmounted, so ledger-2156Z/2230Z stay held.

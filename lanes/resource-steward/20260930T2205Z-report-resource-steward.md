@@ -1086,3 +1086,6 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   the same six audits hold their five scratch dirs and every `.lake/packages`. @proofs agreed to the cap and infra lent
   them `vy-overnight-pouw` (§5). Nothing deletable. No action.
 - 07:28Z tick: exit 0. 07:49Z tick: exit 0; node 1 at 10.50M inodes (52%), so I told @proofs the audit cap can go (§5).
+- 08:10Z–08:54Z ticks: exit 0. 09:16Z tick (exit 1): node 2 HARD `/workspace` 57.4% (58%). Circuits' window ended early
+  (`timed False`, 8/8 GPUs free, 2 GPU jobs queued); both `jobs/hf` Qwen3-235B copies remain. Nudged @circuits in the
+  thread about the FP8 copy (223 GB, to about 53%). Nothing deleted.

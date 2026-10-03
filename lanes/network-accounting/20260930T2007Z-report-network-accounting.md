@@ -2,9 +2,10 @@
 lane: network-accounting
 kind: report
 created: 2026-09-30T20:07Z
-status: blocked
+status: open
 ---
 
+CHECKPOINT cc21a7d94 (05:30Z) [open] UNPAUSED by Daniel 05:27Z for the Lean ingress bound (freeze for @lean's review, then prove) and vLLM per-token traces on idle GPUs. Workers bc-f95e6474 (Lean) and bc-dfe9ae4e (traces); asked infra for exclusive-GPU queue flags.
 CHECKPOINT cc21a7d94 (21:53Z) [blocked] PAUSED by Daniel 21:52Z (focus on circuits, proofs, compute accounting). #326 is merge-ready (check r20260930-211439-1879 passed, custody confirmed, note:20260930T2135Z-handoff-from-network-accounting-326-merge-ready). No workers, timers or pods. Restart: Daniel resumes, #326's train check fails, or A–C answered.
 CHECKPOINT cc21a7d94 (21:34Z) [open] #326 merge-ready: check r20260930-211439-1879 passed on vy-nebius-1 (head 629ec80e, contains main e15dc1ef); note:20260930T2135Z-handoff-from-network-accounting-326-merge-ready filed for the train; verdict posted in Slack. Data-movement table written.
 CHECKPOINT cc21a7d94 (21:15Z) [open] WAITING r20260930-211439-1879 on vy-nebius-1 (#326's check, head 629ec80e, contains main e15dc1ef), check after 21:30Z; agent bc-ecea50f6; next: merge-ready handoff to lanes/coordinator

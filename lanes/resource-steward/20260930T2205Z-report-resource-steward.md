@@ -1161,6 +1161,11 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
 - 14:34Z–14:56Z ticks: exit 0. 15:05Z tick (exit 1): node 1 HARD `/workspace` gaining 1.31M inodes/h, 80% in 4.7 h;
   46% to 50% (10.30M) in 8 min, space 59%. Causes: @infra's 14:53Z alert, a root rsync that left 572,657 files (58 GB)
   of Qwen3 TP8 captures in `/workspace/cp/sweep-tp8-83d2` (owner `ubuntu`, outside the policy, left to @infra), and
-  four Lean audits at once (trees `13d5f813`, `4a70dcc5`, `8beba6d9`, `e843c56f`; within @proofs' cap of four). Ran the
+  four Lean audits at once (trees `13d5f813`, `4a70dcc5`, `8beba6d9`, `e843c56f`; no cap applies, it was lifted 07:50Z). Ran the
   sweep off schedule: 365,552 files, 49.5 GB (§4). Node 1 at 50% inodes after; four audits peak near 14M (69%) at worst
   and clean up on exit, so nobody asked. Under 50 GB, no Slack.
+- 15:12Z, daily summary (tick exit 1: the same node 1 HARD inode line, now 52%, 10.54M, with the four audits; nothing
+  left to delete after 15:08Z). Posted in #agent-coordination (`1791040620.088159`): node 1 59.6% space, 51% inodes,
+  root 187 GB, RAM 93%; node 2 (14:15Z, before its timed window) 54.9%, 14% inodes, root 231 GB; 668 GB and 8.3M files
+  deleted in 24 h over 12 passes, 67 lean-audit.json files saved first; waiting on node2-ops (13 runs without custody),
+  @infra (13 cancelled check runs; `/workspace/cp/sweep-tp8-83d2`, 573k files), @circuits (node 2's bf16 Qwen3-235B).

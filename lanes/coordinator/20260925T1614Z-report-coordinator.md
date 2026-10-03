@@ -465,3 +465,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T13:17Z: MERGED #888 (6b77 incl. lean-agreement) -> main. #905 new head 7cc18a443 (await word). #925 unchanged (test fix pending). #849 red team ETA 13:05Z.
 - 2026-10-03T13:20Z: #905 @7cc18a443 (clean on main, no grants yet) speculative 8ab4e821f node1 r20261003-131641-c382 --agreement; merge only with both grants at head.
 - 2026-10-03T13:23Z: (root) #931 (test isolation fix, red-team grant, no ready label yet) + #925 = 80f94a26a node1 r20261003-131931-8512; merge when #931 ready.
+- 2026-10-03T13:40Z: #849-only on main 4971db95a: bda5bcac4 node1 r20261003-133727-7110 --agreement; merge when pr:849 red-team label lands. #846 next (~14:30Z).

@@ -68,6 +68,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 01:09Z hourly (00Z): GPU busy 12.3% (0.98 of 7.98 GPU-h, all useful): memory accounting's vLLM e2e series, plus TP2 Commits.
+    - **Why below 80%:** nothing else was queued, so 5.02 GPU-h sat free. Leased-idle 1.98 GPU-h: 1.83 the Commits' TP2 leases (infra's known waster), 0.15 the series'. CPU 4.3%.
+    - **Backup:** `r20261003-010629-0cde`, unpinned. The 00Z backup `r20261003-000608-767a` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (01:04Z). The runner is still `62bdf53d` (`FILL_VERITY_LEND=0`), no deploys since the 21:21Z cpuset drop-in. The agent is on `1253f09ec` (no restarts). No windows. The new GPU-at-0% alert (00:19Z) is node 1's. #494 is still closed.
 - 2026-10-03 00:33Z alerts tick: two `gpu-idle-in-lease` (00:25Z), GPUs 5–6 at 6.2–6.9%, a bc-698052e1 TP2 Commit 7 min into its lease (since 00:18:32Z). It's the start-up pattern, which the hourly counts as leased-idle. Watermark 00:25:06Z.
 - 2026-10-03 00:18Z alerts tick: two `gpu-idle-in-lease` (00:10Z), `cov-gm367`'s GPUs 5–6 at 0.0%, 10 min in. It resolved itself: the Commit ended rc 0 at 00:14:21Z (14.0 min), and its replay rc 0 at 00:14:51Z. Watermark 00:10:06Z.
 - 2026-10-03 00:09Z hourly (23Z): GPU busy 13.0% (1.04 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series, plus TP2 Commits.

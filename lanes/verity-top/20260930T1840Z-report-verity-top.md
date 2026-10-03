@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:08Z) [open] 21:07Z: Lean cache provisioned; #963 checking; FP8 passes re-running; private-circuit wiring fix under way (decision 4 with Daniel)
 CHECKPOINT none (20:48Z) [open] 20:48Z: main a24f92db2 (#944,#941); full-speed push on; Lean cache token setup in progress (Daniel's browser agent)
 CHECKPOINT none (20:29Z) [open] 20:29Z: #944+#941 checking (6176); #928/#979 need restack+regrant; Lean cache plan awaiting Daniel
 CHECKPOINT none (20:07Z) [open] 20:07Z: 235B TP8 Commit passed; main 1074c52df (#949,#865,#854); #944 checking; Lean cache plan awaiting Daniel

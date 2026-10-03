@@ -405,3 +405,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T00:37Z: #849 435a FAILED lean-audit (ExecParse.lean:220, likely vs #857 on main 6080aa798) -> @proofs.
 - 2026-10-03T00:50Z: #862 (DecodeZL, 5 new pins) checking 831229b46 node1 c52f --agreement; held for body's --update line + order OK.
 - 2026-10-03T00:56Z: stack on #862 (c52f): #858 bcb797e37 ff62, #860 bd12472d6 881a, #861 ed872b361 a538, #863 b6966185f 7c0e(node2), #866 c6d754799 bb85; all --agreement; imports auto-resolved (/tmp/stack-imports.sh, copy in tools/). Merges held for --update reviewer lines (858 has no reviewer line).
+- 2026-10-03T01:09Z: stack running: c52f(#862) ff62(#858) 881a(#860) a538(#861) 7c0e(#863 node2) in progress; bb85(#866) waiting for a node1 slot. All bodies complete.

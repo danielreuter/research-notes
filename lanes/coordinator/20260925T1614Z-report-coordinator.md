@@ -498,3 +498,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T18:50Z: replaced 2f49 with 10aaecc64 (+#942) node1 --agreement.
 - 2026-10-03T18:59Z: #949 conflicts w/ ci tip in network_warden/PROTOCOL.md -> network-accounting to restack.
 - 2026-10-03T19:07Z: #949 tip 0c2de8a49 (on 10aaecc64) node1 --agreement; merge needs labels at 9bc057d98.
+- 2026-10-03T19:15Z: #865 #854 (no -h2/rotation; checked) on #949 tip: a42c5eaf3 node1 --agreement.
+- 2026-10-03T19:20Z: MERGED ci line 10aaecc64 (20 PRs: #924 #940 #919 #903 #898 #932 #930 #918 #933 #916 #946 #929 #923 #951 #956 #960 #936 #968 #969 #942; 14d2 incl. lean-agreement) -> main 153dcf7b1. #919/#923 OPEN only because based on feature branches (heads in main). Cancelled 7ea5. Next: #949 (2fb8), #865 #854 (f5cb).

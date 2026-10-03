@@ -69,6 +69,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 15:28Z alerts tick: no alerts. Circuits' 14:30Z window ended at 15:21Z, 51 min into 150. Run `r20261003-143852-065f` hit `MATCH FAIL -> stop` at 15:21:37Z (the TP2 match passed, `fold_match` rc 1 on every rank), and the `circuits-tp8` lease was gone by 15:21:56Z. The node is free (8/8), but the `14:30Z 150` line holds fill to 17:00Z, so series `…141820Z` waits. I asked infra to shorten the line unless circuits relaunches (`note:20261003T1528Z-alert-from-node2-ops-circuits-1430z-window-ended-early`). Backups stay held while the line stands.
 - 2026-10-03 15:20Z hourly (14Z): GPU busy 57.2% (4.57 of 8.00 GPU-h, all useful): 4.00 timed (circuits' Match then Commit on all 8 GPUs, `circuits-tp8` lease 14:30:01Z–17:00:01Z), plus 0.57 of memory accounting's series and soak before 14:30Z.
     - **Why below 80%:** the run-up to the window. From 14:00Z fill held everything that couldn't clear 14:30Z (series `…141820Z` is still queued), and the ad-hoc runs had ended, so 3.27 GPU-h sat free. Leased-idle 0.16 GPU-h. CPU 18.9%. The 15Z hour so far is 100% timed.
     - **Backup:** held for the window (15Z, and 16Z next). The last is `r20261003-131300-a5a5` (preserved).

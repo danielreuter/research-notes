@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:49Z) [open] ci line + #894 (+#891) checking node1; #874/#849 regenerating records after #889; zk hidden statement approved; #897 in review
 CHECKPOINT none (06:33Z) [open] main 3b7e9bb00 (#889 landed); Lean train+#849 checking node1; #894 ingress lean-granted, red team running; #896 PoUS counting granted; Qwen3-235B TP8 window open
 CHECKPOINT none (06:17Z) [open] 3 checks running (Lean train + #849 node1, six-PR line node2); ingress proved #894; zk binding proved; private-circuit lanes started; goal scorer live
 CHECKPOINT none (06:01Z) [open] both trains running (node1 #889+#874+#891, node2 six PRs); overnight goals 7/8 filed; Nebius US read-only validation with infra

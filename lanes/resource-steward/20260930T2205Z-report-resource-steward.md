@@ -1145,3 +1145,9 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   --fresh` on the three verifier packages in `src/1e3a47dd`), whose soundness `.lake` reached 160k files and 20 GB. Its
   command removes all three `.lake` on exit, and its scratch is on root (231 GB free). Live and self-cleaning: nothing
   deleted, nobody asked. If it tips node 2 past 55% meanwhile, the fill runner holds new jobs until it exits.
+- 14:34Z–14:56Z ticks: exit 0. 15:05Z tick (exit 1): node 1 HARD `/workspace` gaining 1.31M inodes/h, 80% in 4.7 h;
+  46% to 50% (10.30M) in 8 min, space 59%. Causes: @infra's 14:53Z alert, a root rsync that left 572,657 files (58 GB)
+  of Qwen3 TP8 captures in `/workspace/cp/sweep-tp8-83d2` (owner `ubuntu`, outside the policy, left to @infra), and
+  four Lean audits at once (trees `13d5f813`, `4a70dcc5`, `8beba6d9`, `e843c56f`; within @proofs' cap of four). Ran the
+  sweep off schedule: 365,552 files, 49.5 GB (§4). Node 1 at 50% inodes after; four audits peak near 14M (69%) at worst
+  and clean up on exit, so nobody asked. Under 50 GB, no Slack.

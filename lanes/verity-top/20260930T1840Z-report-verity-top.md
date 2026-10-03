@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (11:25Z) [open] 11:25Z: infra 5-PR train handed to lander (slot b), 30B gate on node 1 until 12:28Z, soak v2 re-validating
 CHECKPOINT none (11:09Z) [open] 11:09Z: inbox empty; #905 frozen+lean-granted at 3a724cda7, #914+#849 check 73b3 running on node 1, traces CPU-set fix asked of infra
 CHECKPOINT none (10:53Z) [open] 10:54Z: FP8 timed pass moved to node 2 17:00Z; untimed on GPU 0; soak 11:00Z; 30B gate from 11:30Z on node 1; #914+#849 checking
 CHECKPOINT none (10:39Z) [open] 10:39Z: #914+#849 check 73b3 on node 1 (#849 needs grant relabel); FP8 pass missed 10:30Z start; node-1 GPUs lent to traces

@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT none (11:23Z) [open] 4:23 AM PDT: Qwen3 reference verify r20261003-080819-0ad8 still running (2,229 decode tiles for its excluded rows; nice 19, can't renice back). Both replays done; tables built, Llama stored.
 CHECKPOINT none (10:42Z) [open] 3:43 AM PDT: Qwen3-8B replay r20261003-060349-eb2e done: decode 512/512 and prefill 512/512 accepted at 1/1,000, 0 over, 95% upper 0.84% of tiles / 0.81% of MACs, worst 0.163 of the cap (decode m32 gate_up), 9 later +0 promotions in 9 tiles. Waiting on the reference verify r20261003-080819-0ad8 before storing the table.
 CHECKPOINT none (10:34Z) [open] 3:36 AM PDT: Llama re-replay r20261003-055210-280b done: decode 511/511 and prefill 512/512 accepted at 1/1,000, 0 over, 95% upper 0.88% of tiles / 0.83% of MACs, worst 0.051 of the cap, 6 later +0 promotions in 6 tiles; table art:5076b0f3e5617a0d69e77216f6caa2a84a5eb20c882b116ccb2db04b28d9db45. Qwen3 prefill replay and its verify still running (verify paused 10:06-10:33Z so Llama beat its queue timeout).
 CHECKPOINT b959acdf0 (10:06Z) [open] 3:06 AM PDT: replays on prefill, Llama ahead of its 10:52Z timeout; verify running.

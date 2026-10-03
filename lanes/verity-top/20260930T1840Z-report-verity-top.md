@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:00Z) [open] 23:00Z #994 granted, 22:50Z tip with ci; FP8 table due now; private-circuit doc 01:00Z
 CHECKPOINT none (22:41Z) [open] 22:41Z main 48e5f250d, tip 177b0b956 with lander; lean cache code done, timer gated; lean on statement reviews
 CHECKPOINT none (22:23Z) [open] 22:23Z deploy key skipped, TwoTierBandwidth dropped, private circuit: padded Boolean + Beneš routing, doc 01:00Z
 CHECKPOINT none (22:05Z) [open] 22:05Z Daniel: private-circuit topology must be hidden; proofs scoping hidden wiring by 01:00Z, pc-wire continues as binding-only fix

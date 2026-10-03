@@ -24,6 +24,8 @@ the doorbell wakes only the names at the start.
     cap, switching to leased once the TP-lease change deploys.
 - Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
 - The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+- 00:36Z Oct 3: the pacer has 4 in flight, all batch 8+, projected at 1,189 GB against a 1,297 GB cap, with 144 GB of bundles
+  on disk; the disk is at 54%. Latest hourly: `art:6e4ee310c5131f6813c2bd38dc7b09402800183969bbe8082f99790096d8acf4`.
 - 22:40Z: a TP2 Commit holds GPUs 2 and 3 (62 GB each), with 1 in flight. Latest hourly:
   `art:3553580273a6e527ad4feca55c9b8522c3352e31fe0536242413e797ffc16525`. The drift check is clean.
 

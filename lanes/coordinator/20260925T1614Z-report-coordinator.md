@@ -402,3 +402,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-02T23:53Z: cancelled #846 check 37c5 (@proofs: hold #846 last, after #858 #860 #861 #863 #866 #862 #867).
 - 2026-10-03T00:03Z: #849 435a running; awaiting @proofs ready words (#858 #860 #861 #863 #866 #849 #862 #867, #846 last).
 - 2026-10-03T00:15Z: infra round 13: node 1 has 4 check slots (c 8-31, a 32-63, b 64-95, d 128-159), node 2 only d -> prefer --on vy-nebius-1 for trains; slot.py --status / research fetch RUN --all show waiters.
+- 2026-10-03T00:37Z: #849 435a FAILED lean-audit (ExecParse.lean:220, likely vs #857 on main 6080aa798) -> @proofs.

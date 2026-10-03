@@ -68,6 +68,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 00:03Z alerts tick: four `gpu-idle-in-lease` (23:55Z and 00:00Z) at 1.7–9.7%, all TP2 Commits of bc-698052e1 in their first 7 min (leases from 23:48Z on GPUs 5–6 and 23:53Z on 2–3). Running now: `gm359` (since 23:53:29Z) and `gm367` (since 00:00:19Z). Same start-up pattern as `gm360` and `gm372-r2`, both rc 0. Nothing to do; watermark 00:00:06Z.
 - 2026-10-02 23:09Z hourly (22Z): GPU busy 12.0% (0.96 of 8.00 GPU-h, all useful): memory accounting's vLLM e2e series, plus the TP2 Commits `gm360` and `gm372-r2`.
     - **Why below 80%:** nothing else was queued, so 6.53 GPU-h sat free. Leased-idle 0.51 GPU-h: 0.39 the Commits, 0.12 the series' start-ups.
     - **New deploy (infra, 21:21:23Z):** `/etc/systemd/system/user@.service.d/vy-cpuset.conf` from `6ab5f059` (`cursor/cluster-cpuset-pin-558b`). It sets `Delegate=cpu cpuset memory pids`, so a cluster-agent scope's `AllowedCPUs=` takes hold. `user@1001` still has 0–123. No effect on fill or backups.

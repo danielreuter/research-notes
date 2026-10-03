@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:20Z) [open] 17:20Z: lean owns the Lean server + Lean CI (plan pending); 30B TP2 end to end passed; #947 slot cap live; memory accounting at 6 lanes, PRs #952-#954
 CHECKPOINT none (17:03Z) [open] 17:03Z: Daniel open to a large Lean server, infra scoping (due ~18:30Z); waiting on memory/network lane plans for combined view
 CHECKPOINT none (16:46Z) [open] 16:46Z: 235B TP8 compare passed, Match running on node 2; overnight Lean queue landed (main a823ad31e); #923 regranted; rulings note filed
 CHECKPOINT none (16:28Z) [open] 16:28Z: GitHub broker live for new VMs (fresh-VM validated); lane plans in from proofs/compute/infra; K=4096 --zk RowA+RowB Lean-accepted; audit pod awaiting Daniel; 235B comparator fix due 16:40Z

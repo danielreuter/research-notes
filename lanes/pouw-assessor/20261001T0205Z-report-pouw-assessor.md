@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (00:17Z) [open] 5:17 PM PDT: no new asks. Ratings stand. Main 6080aa798 (no change under protocols/pouw since 27c5889ba), PoUW policy 437224e7; FP8 chain #853 #847 #865 #854 ready, not merged. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (23:56Z) [open] 4:56 PM PDT: no new asks. Ratings stand. Main 6080aa798 (no change under protocols/pouw since 27c5889ba), PoUW policy 437224e7. Coordinator 23:50Z: FP8 chain #853 #847 #865 #854 ready, not merged; I will diff protocols/pouw when it lands. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (23:35Z) [open] 4:35 PM PDT: no new asks. Ratings stand. Main 6080aa798 (no change under protocols/pouw since 27c5889ba), PoUW policy 437224e7; #847 and #853 not on main yet. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).
 CHECKPOINT fbce5a2f4 (23:13Z) [open] 4:13 PM PDT: no new asks. Ratings stand. Main 8d5ab5afa (no change under protocols/pouw since 27c5889ba), PoUW policy 437224e7; #847 and #853 not on main yet. Store still unmounted; ledger lines pending (self/pending/ledger-2156Z.txt, -2230Z.txt).

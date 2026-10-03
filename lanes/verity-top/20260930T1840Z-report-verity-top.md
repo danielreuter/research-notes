@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:38Z) [open] 15:38Z: 235B + 30B Match failed at fold (Qwen3 gate GEMM inside moe_forward); fix in progress; node 2 window to 18:00Z, FP8 timed 18:05Z; Daniel approved label fallback, D=0 pin, pouw->sampled_proofs import
 CHECKPOINT none (15:20Z) [open] 15:20Z: node 1 merge slots full (#909+#907, #846+#906, #922, #927); 235B capture near done on node 2; 30B backstop on node 1; trace campaign on 6 node-1 GPUs; GitHub auth worker started
 CHECKPOINT none (15:01Z) [open] 15:01Z: #909+#907 checking on main; #903+#919 wait on pouw pin run; #846+#906 wait on red-team-846 (~16:00Z); node-1 GPUs idle, offered to leads, circuits asked for 30B backstop; zk_session_sound waits on zk_rep_accepts + zk_lig_accepts
 CHECKPOINT none (14:44Z) [open] 14:44Z: main 493495712 (#849,#931,#925); #906 fully granted, train next; soak v2 0 wrong; 235B Match running on node 2; morning summary sent

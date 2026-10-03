@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:23Z) [open] 22:23Z deploy key skipped, TwoTierBandwidth dropped, private circuit: padded Boolean + Beneš routing, doc 01:00Z
 CHECKPOINT none (22:05Z) [open] 22:05Z Daniel: private-circuit topology must be hidden; proofs scoping hidden wiring by 01:00Z, pc-wire continues as binding-only fix
 CHECKPOINT none (21:45Z) [open] 21:45Z: main 4cd36e9f1 (#963); next tip a30e48653 with lander; Lean cache client passes, publisher race fix pending
 CHECKPOINT none (21:27Z) [open] 21:27Z: Lean cache smoke tests all pass; #963 checking; PoUS five + #926 + #958 batching; steward retiring

@@ -413,3 +413,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T02:21Z: #867 (DecodeZLJ; grants + --update line) trains: on #876/877 df29da520 node1 5057; alone on main d297d7e66 node2 0a9e; both --agreement.
 - 2026-10-03T02:44Z: #869 0c64f614f (on #867-on-main) node1 7c9c; #875 fd683e150 (on #869) node1 69ae; both --agreement; bodies OK.
 - 2026-10-03T02:47Z: running: 3bef (#876/877) pytest done; 0a9e (#867 main) past lean-audit; 5057, 7c9c, 69ae in progress. Mirror ok 02:41Z.
+- 2026-10-03T03:12Z: MERGED #867 (0a9e incl. lean-agreement) -> main 11d75fc58 (kept #869/#875 chain). #876/877 3bef & 5057 passed but superseded; restacked on #875 as f6c7a9707, node2 r20261003-030801-94eb. 7c9c (#869), 69ae (#875) past lean-audit.
+- 2026-10-03T03:15Z: top's 01:02Z ruling (missed): ci's line first. ci 86883ca78 started node1 r20261003-031207-ae14 --agreement; cancelled 94eb (#876/877) and 0537 (relaunched w/ agreement). #876/877 next on infra's #841.

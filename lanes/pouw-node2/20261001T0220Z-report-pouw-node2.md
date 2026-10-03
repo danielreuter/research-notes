@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (12:20Z) [open] A 12:20Z poll: nothing addressed to pouw-node2; node2-ops 12:05Z: series start-up idle only; memory accounting's PoUS soak v2 on GPU 7 + cores 116-123 until 14:30Z (a totals.py read on 48-79 stays clear); main 4284becdbf, no PoUW change; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (12:00Z) [open] A 12:00Z poll: redteam 1152Z: PR #923 (L6 completeness, HonestTileCapRate) GO with citation conditions (sample > 0, named Served population, completeness only over Served); not addressed to the panel, noted for any future citation; node2-ops 11:50Z: start-up idle only; main d3750e9adc; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (11:40Z) [open] A 11:40Z poll: nothing addressed to pouw-node2; node2-ops 11:35Z: only series start-up idle, other lanes' jobs on GPUs 1, 3, 6, 7; panel art:63261f6f unchanged, FP8 pass rows wait for compute accounting's run id; off node 2
 CHECKPOINT fbce5a2f4c (11:20Z) [open] A 11:20Z poll: node2-ops 11:20Z: compute accounting's FP8 pass held node 2 only 10:41:31-10:44:11Z; panel rows wait for its run id and verify; new windows circuits 14:30Z (150 min) and compute accounting 17:00Z (30 min); /workspace 55% (over the 52% hold); first fence in use (memory accounting, GPU 7); panel art:63261f6f unchanged; off node 2

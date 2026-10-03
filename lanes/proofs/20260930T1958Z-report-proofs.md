@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT cc21a7d94 (12:23Z) [open] 5:25 AM PDT: back after the hang. Opened #909, #927, #928, #929 and #926. lean granted six heads. Red teams are running on #849/#846, #909/#907 and the #927 stack. #906 is restacking on 9d57c0211. The --zk sorrys are with lp-composed and zk-exec.
 CHECKPOINT none (07:10Z) [open] restacks of #874/#849/#846 running; 8 Lean lanes running; inode cap honored
 CHECKPOINT none (06:44Z) [open] #889 landed; restacking #874/#849 after stale records; items 5-9 proved, 16 near; private-circuit lanes started
 CHECKPOINT none (06:06Z) [open] Lean push: train #889+#874+#891 in check; items 5-9 reviewed (8-9 proved); g-check + tablesAtZK_live; zkhidden/composed freezing

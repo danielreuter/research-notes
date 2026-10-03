@@ -488,6 +488,10 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   `/home/research/.cache/verity-check/lean-audit-scratch-yylcugsj` (3 h untouched, no holder, renamed aside and
   re-checked), 319,675 files, 18,566 MB. Node 2's root went from 114 GB to 130 GB free. Two live audits' scratch
   (`azkehmu9` at 59.6 GB, `ofap1bjq` at 20.1 GB) stay.
+- 06:05Z 3 Oct (11:05 PM PDT 2 Oct), from the 06:03Z tick's HARD line, node 1 Lean dependencies (card `23a10e51`):
+  `91b1f5bd…/backends/flock/verifier/lean/soundness/.lake/packages` (tree 0.4 h old, no holder, renamed aside and
+  re-checked), 169,906 files, 10,200 MB. Kept: `12ca48ac`, `36fefbba`, `d5222d09`, `f877eeba`, all named by live audits.
+  After: node 1 at 10.30M inodes (51%).
 
 ## 5. Waiting on an owner
 - Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:

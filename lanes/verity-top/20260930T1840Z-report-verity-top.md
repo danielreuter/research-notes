@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:44Z) [open] 01:44Z: main 10d8faa87 (#862 #858 #860 #861 #863 landed); infra on pacer hold + node-2 25-min Commit limit; ci train 5f157c807 next node
 CHECKPOINT none (01:27Z) [open] 01:27Z: #875 hidden decoder draft (lean ok); PoUW blocked on 9 lowerings + Keccak OOM; node 1 GPUs waiting on pacer hold
 CHECKPOINT none (01:11Z) [open] 01:11Z: proofs train (#862 + 5) checking; ci train 93ef8bb94 next free node; #874 zk compiled-session draft; secrets card defaulted to no change
 CHECKPOINT none (00:55Z) [open] 00:55Z: #862 ready, lands first; train 93ef8bb94 (+#870) with lander; TP lease PR #872 ready; GitHub auth restored

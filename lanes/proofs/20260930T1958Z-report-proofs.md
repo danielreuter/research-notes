@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (05:05Z) [open] #871/#883 landed; #889 training; #849/#846/zk-link running
 CHECKPOINT e259af141 (04:13Z) [open] #869/#875 landed; #849 fix in progress; #846 to redo off bad tip
 CHECKPOINT e259af141 (03:38Z) [open] four PRs queued behind ci's line; follow-exec and PoUW anchors in progress
 CHECKPOINT e259af141 (02:32Z) [open] #867 training; #849/#869/#871/#875 updates running; Daniel ZK status written

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:00Z) [open] 19:00Z: train tip 10aaecc64 (20 PRs) checking on node 1 (r20261003-184726-14d2); #949 lean-granted, resolving prose conflict; 235B Commit window
 CHECKPOINT none (18:44Z) [open] 18:44Z: ci replaced by ci-2 (bc-81ff5c35), console by console-2 (bc-81fd3a6a); train checks 7272/113d running, follow-on c08cff944 (19 PRs) next; #949 awaiting grants
 CHECKPOINT none (18:27Z) [open] 18:27Z: train checks still running on node 1; #963 credential source fix drafted; ci GitHub restored; Lean naming (spec / proof check / spec lock) with Daniel
 CHECKPOINT none (18:10Z) [open] 18:10Z: train checks 7272/113d running on node 1, follow-on 71813db18 (#960, #936) handed; 235B Commit at 18:30Z; console route now console-2 bc-81fd3a6a

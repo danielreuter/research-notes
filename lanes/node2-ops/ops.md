@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 21:15Z hourly (20Z): GPU busy 21.2% (1.69 of 8.00 GPU-h, all useful): memory accounting's series on GPU 7, then from about 20:44Z `research` runs on GPUs 0 and 3–6.
+    - **Why below 80%:** no backlog until the 20:44Z runs, so 6.03 GPU-h sat free. Leased-idle 0.28 (series start-up 0.15, `research` 0.13). CPU 4.8%. The 21Z hour is at 81.6% so far: 0/8 free, with one `gpu-lease` waiter, and memory accounting's ad-hoc runs on GPUs 1–2 since 21:09Z.
+    - **Backup:** `r20261003-211400-7547`. The 20Z backup `r20261003-201833-9a25` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (21:13Z). One runner. `/` is 18%, `/workspace` 48%. #494 is still closed (`gh` works again). The notes' sync recovery (`7a0b85e6`) cleaned conflict markers out of my infra 06:25Z alert. No markers are left in my files.
 - 2026-10-03 20:20Z hourly (19Z): GPU busy 46.7% (3.73 of 8.00 GPU-h, all useful): 3.22 timed (circuits' Commit to 19:24:16Z), plus 0.51 of memory accounting's series.
     - **Why below 80%:** after the Commit there was no backlog beyond memory accounting's one-GPU series, so 4.18 GPU-h sat free. Leased-idle 0.09. CPU 5.3%.
     - **Backup:** `r20261003-201833-9a25` (unpinned, no line ahead). The 19:32Z backup `r20261003-193226-7e09` is preserved.

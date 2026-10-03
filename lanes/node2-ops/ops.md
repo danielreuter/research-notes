@@ -69,6 +69,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 22:34Z alerts tick: one `gpu-idle-in-lease` (22:20Z), GPU 1 at 0.0%, memory accounting's series `…213812Z`, 7 min into its lease (since 22:13:15Z). That's vLLM start-up: GPU 1 was at 100% with 72 GiB in use by 22:32Z. Memory accounting now runs four series side by side (`series`, `s2`, `s3`, `s4`) on GPUs 1, 4, 6 and 7. The first `s2` finished rc 0 in 17.5 min and renewed itself. Expected, so I'm not relaying it. Watermark 22:20:05Z.
 - 2026-10-03 22:11Z hourly (21Z): GPU busy 89.4% (7.15 of 8.00 GPU-h, all useful). That's above the 80% bar: `research`, `adhoc:ubuntu` and memory accounting's ad-hoc runs filled all 8 GPUs, with `gpu-lease` waiters all hour (3–8 at a time). Leased-idle 0.50 (`research` 0.28). CPU 17.8%.
     - **Fill:** 4 GPU jobs queued: memory accounting's series `…213812Z` and `s2`/`s3`/`s4 …214534Z`. They yield to the waiters, as designed.
     - **Backup:** `r20261003-221000-393a`. The 21Z backup `r20261003-211400-7547` is preserved.

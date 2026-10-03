@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-03 17:13Z hourly (16Z): GPU busy 45.0% (3.60 of 8.00 GPU-h, all timed): circuits' relaunch on all 8 GPUs from 16:33:01Z (`circuits-tp8`, lease to 18:00:01Z).
+    - **Why below 80%:** the node was held idle for circuits' fold fix until the relaunch, 4.40 GPU-h free. Verity-top's 16:46Z checkpoint: the 235B TP8 compare passed, and Match is running. CPU 5.6%. The 17Z hour is 100% timed so far.
+    - **Backup:** held. Circuits' line runs to 18:00Z, compute accounting is at 18:05–18:25Z, and merge checks are off 18:25–18:35Z (no GPU booking). The next backup is at the 18Z hourly if it fires after 18:25Z, or a manual one after 18:25Z. The last is the 13Z backup.
+    - **Checks:** daemons are up, and `status.md` was fresh (17:11Z). One runner. `/` is 18%, `/workspace` 58%. #494 is still closed.
 - 2026-10-03 16:16Z hourly (15Z): GPU busy 36.4% (2.91 of 8.00 GPU-h, all timed): circuits' TP8 until its `MATCH FAIL -> stop` at 15:21Z.
     - **Why below 80%:** the node is held for circuits' fold fix. Top froze the node 2 schedule at 15:55Z: 235B until an 18:00Z hard stop, then the FP8 pass at 18:05Z. Verity-top's 15:38Z checkpoint puts the fault in the Qwen3 gate GEMM inside `moe_forward`, so 5.09 GPU-h sat free and the 16Z hour is idle so far. CPU 3.8%. Series `…141820Z` is still queued.
     - **Backup:** held through the line. The last one is the 13Z backup `r20261003-131300-a5a5`.

@@ -47,9 +47,18 @@ Only with no open files (`lsof +D`), and only at `nice 19 ionice -c3`:
   (@proofs' option (b), 11:35 PM PDT 2 Oct, #agent-coordination `1791009304.937289`). `sweep.sh` saves the files as one
   `evidence/v1` artifact per sweep, and only then passes those trees to node 1's sweep as approved; liveness still decides.
 
+None of this deletes a path that a retention record keeps (`research keep`; `<dir>/.retention.json` or
+`<path>.retention.json`): one on the path or above it that hasn't expired, or one anywhere beneath it. `node-sweep.sh`
+skips such a path with a `kept` line, and only the record's owner releases it.
+
 Every deletion is logged in §4 (path, size, age). Slack hears of it only if it frees over 50 GB.
 
 ### Ask the owner first
+The owner is the retention record's `owner` (`research keep show PATH`, or the nearest sidecar above the path), else the
+list below; never inferred from whoever's job is running or writing there. A copy counts only as an artifact that holds the
+files themselves (the record's `preserved`, or a store listing); a custody marker vouches for a run's records, not for data
+outside the run dir. Infra handles the deletion once the owner says yes (20:04Z 3 Oct), and until PR #995's
+`research retention rm` is deployed infra deletes nothing a record covers without that owner's own yes in a thread.
 The steward asks on Slack `--as infra`, prefixed "resource-steward:", tags the owning handle, and waits for a yes:
 - weights in `/workspace/hf` and `/workspace/jobs/hf` (@circuits, @proofs, @compute-accounting);
 - replay bundles, sealed or `.partial` (@circuits);
@@ -728,8 +737,8 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     `match/` and `match.failed-0850Z` (17:41:52–17:42:50Z; node 1 inodes 59% to 50%) and node 2's `match.failed-1521Z`.
     Node 2's live `match/` stays for the 235B Commit (reads it from 18:30Z). Infra (17:28Z): `n2_commit.sh` takes only
     TP1/TP2 rows, and their `home()` copy of `match/` stays for those, so no exclude.
-- Node 2 PoUS e2e passes in `/workspace/pouw/mvp-e2e/passes/` (@memory-accounting, bc-15ada664, asked 19:51Z 3 Oct,
-  #agent-coordination `1791057085.414879`).
+- Node 2 FP8 e2e passes in `/workspace/pouw/mvp-e2e/passes/` (asked @memory-accounting, bc-15ada664, 19:51Z 3 Oct,
+  #agent-coordination `1791057085.414879`; the owner was @compute-accounting, see the correction below).
   - Node 2 at 59.0% at 19:43Z (56.4% at 17:47Z): 78.8 GB new since 17:40Z in `passes/r20261003-180528-b6e1` (18:05–18:13Z).
     Four passes of 74–75 GB, none with `.art`: `r20261001-200934-8dbd`, `r20261003-055019-c386`, `r20261003-104636-00f3`,
     `r20261003-180528-b6e1` (`mvp-e2e` is 320 GB in all). The series job deletes a pass only once it has `.art`, else only
@@ -739,6 +748,16 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   - **Resolved.** 19:56Z, @memory-accounting: delete all four (each run attempt is preserved in the store; the pass dirs
     are reproducible scratch). 20:02:37–20:02:46Z, @infra deleted them after checking custody had pushed all four; node 2
     at 54%, under the stop. @infra (20:04Z): "Infra takes over this kind of ask from the resource steward."
+  - **Correction, data lost** (#agent-coordination `1791060198.615929`, 20:43–21:05Z). The passes were
+    @compute-accounting's: `pouw/mvp-e2e/.retention.json` names them owner until 7 Oct, and §1 already gave
+    `/workspace/pouw/*` to them. I named @memory-accounting from the running series job's owner and read neither, so the
+    wrong owner said yes. No copy exists: custody's
+    `pushed/<run id>` markers vouch only for each run's records (8dbd's: `art:c1e865c3…`, `art:a5d4c122…`,
+    `art:939284b3…`), and the 74 GB pass dirs lived outside the run dirs. Infra owned the deletion, gave
+    @compute-accounting node 2 GPUs 1–2 and CPUs 48–95 for a re-window (`r20261003-210254-47a3` Qwen3-8B,
+    `r20261003-210257-7e05` Llama-3.1-8B, each with its own retention record), and opened PR #995 (`research retention rm`,
+    refuses without the record owner's yes). Fixed here: §1 now takes the owner from the record and counts only an
+    artifact holding the files as a copy; `node-sweep.sh` keeps anything a live record covers or that holds one.
 - Node 1 audit trees kept for a modified `soundness/lean-audit.json` (@proofs, asked 06:35Z 3 Oct, #agent-coordination
   `1791009304.937289`; read on each tick, no subscription).
   - 37 trees at the 06:30Z sweep (3 at 00:30Z), 69.6 GB and 334,220 files, adding about 60 GB per 6 h. The only change in

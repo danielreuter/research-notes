@@ -5,6 +5,6 @@ set -e
 for h in 81.85.2.165 81.85.2.121; do ssh-keygen -F $h >/dev/null || ssh-keyscan -t ed25519 $h 2>/dev/null >> ~/.ssh/known_hosts; done
 [ -d ~/.research/notes/.git ] || git clone -q https://github.com/danielreuter/research-notes ~/.research/notes
 command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sudo env UV_UNMANAGED_INSTALL=/usr/local/bin sh
-[ -d ~/wt/slack ] || { git -C /workspace fetch -q origin cursor/slack-coordination-6081 && git -C /workspace worktree add -q ~/wt/slack FETCH_HEAD; (cd ~/wt/slack && uv sync -q --all-packages --extra torch-cpu); }
+[ -d ~/wt/slack ] || { git -C /workspace fetch -q origin main && git -C /workspace worktree add -q ~/wt/slack FETCH_HEAD; (cd ~/wt/slack && uv sync -q --all-packages --extra torch-cpu); }
 mkdir -p ~/resource-steward && install -m 755 ~/.research/notes/lanes/resource-steward/tools/tick.sh ~/resource-steward/tick.sh
 echo ok

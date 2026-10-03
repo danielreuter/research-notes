@@ -13,6 +13,7 @@
 #  - only with --lake, the Lean dependencies (.lake/packages) a failed audit left in a source tree nothing live names, at any
 #    age (that section);
 #  - only with --jobs-src, infra's job trees in /workspace/jobs/src older than H h (see that section).
+# Nothing a retention record keeps is deleted, whatever the rules above say (retained(); only the record's owner releases it).
 # Prints "deleted PATH files=N mb=M age=Xh" or "kept PATH: why" per candidate, each line first appended, stamped, to $LOG (not
 # in a dry run), and goes on to the end when its ssh drops (SIGPIPE ignored), so $LOG is the record of what it did.
 # Exit 0, or 2 if not root or already running. Patterns go through files, so no scanner process carries one in its argv or
@@ -119,7 +120,32 @@ else:
         elif keep(f): extra.append(f)
 if extra: print(f"{len(extra)} file(s) outside the commit: " + ", ".join(extra[:3])); sys.exit(1)
 '
-gone() { local p=$1 n m; n=$(find "$p" -xdev 2>/dev/null | wc -l); m=$(du -sm --one-file-system "$p" 2>/dev/null | cut -f1)
+# A retention record (`research keep`: <dir>/.retention.json, or <path>.retention.json beside it) on a path or any directory
+# above it keeps the path until the record expires; one anywhere beneath it keeps it whole, expired or not; one that can't be
+# read, or an expiry that can't be parsed, keeps it. retained PATH prints why and returns 0 when a record keeps PATH.
+RET_PY='
+import datetime, json, os, sys, time
+a = os.path.abspath(sys.argv[1]); now = time.time()
+while True:
+    for rec in [os.path.join(a, ".retention.json")] + ([a + ".retention.json"] if a != "/" else []):
+        if not os.path.isfile(rec): continue
+        try: r = json.load(open(rec)); e = r.get("expires")
+        except Exception: print("unreadable retention record " + rec); sys.exit(0)
+        try:
+            t = None if e is None else datetime.datetime.fromisoformat(str(e).replace("Z", "+00:00"))
+            if t is not None and (t if t.tzinfo else t.replace(tzinfo=datetime.timezone.utc)).timestamp() <= now: continue
+        except ValueError: pass
+        print("retention record %s (owner %s, expires %s)" % (rec, r.get("owner"), e)); sys.exit(0)
+    if a == "/": break
+    a = os.path.dirname(a)
+'
+retained() { local w; w=$(python3 -c "$RET_PY" "$1" 2>&1) || w="could not read the retention records above it: $w"
+  [ -z "$w" ] && w=$(find "$1" -xdev -name '*.retention.json' -print -quit 2>/dev/null | sed 's/^/retention record beneath it: /')
+  [ -n "$w" ] && echo "$w"; }
+gone() { local p=$1 n m w
+  if w=$(retained "$p"); then
+    case $p in */.trash/*|*.rs-trash-*) say "STUCK $p: $w; left there for its owner";; *) say "kept $3: $w";; esac; return 0; fi
+  n=$(find "$p" -xdev 2>/dev/null | wc -l); m=$(du -sm --one-file-system "$p" 2>/dev/null | cut -f1)
   if [ $DRY = 1 ]; then say "would delete $3 files=$n mb=$m age=${2}h"; else rm -rf --one-file-system -- "$p" && say "deleted $3 files=$n mb=$m age=${2}h"; fi; }
 
 # what an interrupted sweep left in src/.trash
@@ -137,6 +163,7 @@ if [ -s $T/src ]; then
   : > $T/moved
   for s in $(cat $T/src); do
     r=$(named $s $T/held); [ -n "$r" ] && { say "kept $SRC/$s: $r"; continue; }
+    w=$(retained $SRC/$s) && { say "kept $SRC/$s: $w"; continue; }
     approved $s || x=$(cd /tmp && GIT_OPTIONAL_LOCKS=0 runuser -u research -- python3 -c "$EXTRA_PY" $SRC/$s 2>&1) || { say "kept $SRC/$s: ${x:-could not inspect}"; continue; }
     a=$(age_h $SRC/$s)
     [ $DRY = 1 ] && { gone $SRC/$s $a "$SRC/$s$(approved $s && echo ' (owner-approved)')"; continue; }
@@ -188,6 +215,7 @@ if [ -s $T/lk ]; then
     r=$(named $s $T/held); [ -n "$r" ] && { say "kept $SRC/$s/**/.lake/packages: $r"; continue; }
     for k in $LK; do p=$SRC/$s/$k/.lake/packages
       [ -d $p ] && [ ! -L $p ] || continue
+      w=$(retained $p) && { say "kept $p: $w"; continue; }
       a=$(age_h $SRC/$s)
       [ $DRY = 1 ] && { gone $p $a "$p"; continue; }
       mv -T $p $p.rs-trash-$now || { say "kept $p: rename failed"; continue; }
@@ -264,6 +292,7 @@ if [ $JOBS = 1 ] && [ -d $J/by-pod ]; then
     : > $T/jmoved; t0=$(date +%s)
     while read -r _ e a; do
       r=$(named $J/$e $T/held); [ -n "$r" ] && { say "kept $J/$e: $r"; continue; }
+      w=$(retained $J/$e) && { say "kept $J/$e: $w"; continue; }
       [ $DRY = 1 ] && { gone $J/$e $a "$J/$e"; continue; }
       mkdir -p $JT; mv -T $J/$e $JT/$e && echo "$e $a" >> $T/jmoved || say "kept $J/$e: rename failed"
     done < <(grep '^cand ' $T/jobs)

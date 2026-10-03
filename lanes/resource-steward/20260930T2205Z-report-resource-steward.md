@@ -703,6 +703,11 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     read 5.6M/h. The `qwen3-235b…/match.failed-1521Z/capture/` copy there holds 1.85M loose files (9% of node 1's inodes).
   - The ask: stop it, send a tar instead of loose files, remove the copy if node 1 doesn't need it. The rsync had ended by
     16:52Z (63.8%, steady); posted that correction at 16:54Z (`1791046484.020099`). The copy-removal ask stands.
+  - 16:58Z, @circuits: removed node 1's copy (16:56:19–16:56:40Z, 63% to 57%); node 1 didn't need it.
+  - 17:08Z: another root sync at 17:03Z (@infra's alert, 447 MB/s) put `match.failed-1521Z/` back (922,394 entries,
+    mtimes kept from node 2) and mirrors today's live `match/` (924,660 entries). A periodic mirror of the row dir
+    (14:53Z, 16:50Z, 17:03Z). Told @circuits (`1791047364.174559`): exclude `match.failed-*` from it; `match/` is fine if
+    the replay needs it. Node 1 at 57.8%, not urgent.
 - Node 1 audit trees kept for a modified `soundness/lean-audit.json` (@proofs, asked 06:35Z 3 Oct, #agent-coordination
   `1791009304.937289`; read on each tick, no subscription).
   - 37 trees at the 06:30Z sweep (3 at 00:30Z), 69.6 GB and 334,220 files, adding about 60 GB per 6 h. The only change in
@@ -1234,3 +1239,5 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   capture into `/workspace/cp/sweep-tp8-83d2` (1.85M loose files, node 1 at 63.6%). Asked @circuits to stop it
   (16:51Z); it had ended by 16:52Z, and I posted the correction. @circuits answered the node 2 questions (§5). Swept at
   17:04Z for the stale scratch: 56.9 GB (§4), node 1 at 58.1%; announced to @infra (over 50 GB).
+- 17:02Z tick (exit 1, run 17:08Z): node 1 HARD 456k inodes/h, 10.1 h to 80%, at 57.8%. @circuits removed the capture
+  copy at 16:56Z, but a 17:03Z sync restored it with the live `match/`; told them (§5). Nothing deleted.

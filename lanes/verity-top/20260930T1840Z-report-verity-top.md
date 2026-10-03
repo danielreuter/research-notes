@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:20Z) [open] 23:20Z GitHub broker rollout 9/10 leads pass; tip f67740858 checking; Lean env build passed, fresh-VM gate pending activation
 CHECKPOINT none (23:00Z) [open] 23:00Z #994 granted, 22:50Z tip with ci; FP8 table due now; private-circuit doc 01:00Z
 CHECKPOINT none (22:41Z) [open] 22:41Z main 48e5f250d, tip 177b0b956 with lander; lean cache code done, timer gated; lean on statement reviews
 CHECKPOINT none (22:23Z) [open] 22:23Z deploy key skipped, TwoTierBandwidth dropped, private circuit: padded Boolean + Beneš routing, doc 01:00Z

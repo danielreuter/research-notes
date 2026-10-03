@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:28Z) [open] 16:28Z: GitHub broker live for new VMs (fresh-VM validated); lane plans in from proofs/compute/infra; K=4096 --zk RowA+RowB Lean-accepted; audit pod awaiting Daniel; 235B comparator fix due 16:40Z
 CHECKPOINT none (16:11Z) [open] 16:11Z: leads asked for stretch goals + lane plans + trackers by 17:00Z (Daniel); proofs at 12 lanes; 235B TP8 comparator gap fix due 16:40Z; #919 line handed to lander; GitHub App env change awaiting Daniel's save
 CHECKPOINT none (15:55Z) [open] 15:55Z: node 2 schedule frozen (235B to 18:00Z, FP8 18:05Z); merge chain on node 1; verity-agents GitHub App helper being deployed; lean picking pouw->sampled_proofs layout ~16:10Z
 CHECKPOINT none (15:38Z) [open] 15:38Z: 235B + 30B Match failed at fold (Qwen3 gate GEMM inside moe_forward); fix in progress; node 2 window to 18:00Z, FP8 timed 18:05Z; Daniel approved label fallback, D=0 pin, pouw->sampled_proofs import

@@ -1302,3 +1302,8 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
   extra is @memory-accounting's PoUS e2e series (75 GB per pass, four unpreserved passes, a fifth started 19:42Z over the
   stop). Asked them (§5). Nothing deleted.
 - 20:04Z tick: exit 0. Node 2 back to 54%: @infra deleted @memory-accounting's four PoUS passes at 20:02Z on their yes (§5).
+- 21:20Z: the 20:02Z passes were @compute-accounting's, by their retention record and §1, and no copy existed; my 19:51Z
+  ask named the wrong owner (§5 correction). §1 now takes owners from retention records and counts only an artifact
+  holding the files as a copy; `node-sweep.sh` keeps whatever a live record covers or holds (dry run on both nodes: no
+  sweep candidate is under one). The agent VM was reset twice (21:10Z, 21:14Z); `bootstrap.sh` now builds `~/wt/slack`
+  from `main` (the slack branch is gone).

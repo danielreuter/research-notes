@@ -28,7 +28,9 @@ the doorbell wakes only the names at the start.
   `check 2` + `audit 2` = 4.
   - @infra wrote it at 16:52Z, the split @infra and @proofs agreed at 16:25Z.
   - Verified with main's `lean_slot.py`: `--pool check` took `check/0`, `--pool audit` took `audit/0`, and an unlisted pool is
-    refused. Check's lean-audit step takes a `check` slot when its audit misses the cache; none has yet.
+    refused. Check's lean-audit step takes a `check` slot when its audit misses the cache.
+  - Confirmed with real checks at 17:45Z: `check/0` and `check/1` are held by two checks' Lean audits (trees `21ae2464…` and
+    `1d06cc08…`), taken at 17:40Z and 17:41Z.
   - My slip: at 17:15Z I wrote `any 4` over it without reading it first, and restored `check 2`/`audit 2` at 17:16:35Z. No slot
     was taken meanwhile; no `lean-*.lock` existed.
   - Told @proofs and RC in @infra's thread.

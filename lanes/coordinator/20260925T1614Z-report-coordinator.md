@@ -462,3 +462,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T12:29Z: #905 conflicts with main (pous docs, SecurityProofs.lean, TRUSTED.sha256) -> memory-accounting to restack.
 - 2026-10-03T12:48Z: 1bb8 + b4f2 FAILED pytest: test_nebius_dispatch_pin::test_a_provers_task_runs_on_the_prover_slices (unskipped by #925; passes on VM, fails on node1 -> host-dependent) -> steward. #888 behind it.
 - 2026-10-03T12:50Z: #888 alone on main 1a40cdcb5 node1 r20261003-124541-6b77 --agreement (unblocked from #925).
+- 2026-10-03T13:17Z: MERGED #888 (6b77 incl. lean-agreement) -> main. #905 new head 7cc18a443 (await word). #925 unchanged (test fix pending). #849 red team ETA 13:05Z.
+- 2026-10-03T13:20Z: #905 @7cc18a443 (clean on main, no grants yet) speculative 8ab4e821f node1 r20261003-131641-c382 --agreement; merge only with both grants at head.
+- 2026-10-03T13:23Z: (root) #931 (test isolation fix, red-team grant, no ready label yet) + #925 = 80f94a26a node1 r20261003-131931-8512; merge when #931 ready.

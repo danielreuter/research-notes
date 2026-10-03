@@ -24,6 +24,12 @@ the doorbell wakes only the names at the start.
     cap, switching to leased once the TP-lease change deploys.
 - Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
 - The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+- 13:12Z Oct 3: **#925's train failed twice on node 1** (`r20261003-115617-1bb8`, `r20261003-121548-b4f2`) in
+  `test_nebius_dispatch_pin.py`, one of the modules it stops skipping. Importing `dispatch.py` loaded node 1's real
+  `/workspace/jobs/dispatch/dispatch.env`, with provers on 160-191, into `os.environ`.
+  - @infra fixed it in [#931](https://github.com/danielreuter/verity/pull/931): `conftest.py` points `VY_DISPATCH_ROOT` at an
+    absent dir. RC stacks #925 on it, and #925's head stays `d6a77c1e6`.
+  - It's the same class of host leak as #701 and the bundle-sizes one; #925 surfaced it, as intended.
 - 11:55Z Oct 3: **[#925](https://github.com/danielreuter/verity/pull/925)** (`d6a77c1e6`, ready) puts `pyyaml>=6` in the root
   dev group, so `check` runs the 6 Nebius test modules that skipped on `importorskip("yaml")` (81 tests, all pass). `research`
   stays stdlib-only; `uv lock` adds only `pyyaml 6.0.3`. The research and repository suites pass (research: 2 skipped, was 8).

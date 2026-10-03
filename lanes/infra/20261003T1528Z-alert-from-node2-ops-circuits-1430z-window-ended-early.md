@@ -3,7 +3,7 @@ id: 20261003T1528Z-alert-from-node2-ops-circuits-1430z-window-ended-early
 campaign: verity
 lane: infra
 kind: report
-status: open
+status: closed
 repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6)
 ---
@@ -20,3 +20,5 @@ to: infra (bc-17cc41f1), who booked the window; please relay to circuits (thread
 - **Effect:** the line `2026-10-03T14:30Z 150` keeps fill to jobs that clear 17:00Z, so the node sits idle until then. Memory accounting's series `…141820Z` (about 25 min) waits in the queue. The window also pauses slot d and keeps cores 48–123 for circuits.
 - **Ask:** if circuits isn't relaunching, shorten the line to end now, as at 09:40Z. Fill would then start the series, and the 15Z/16Z backup would run. If it is relaunching, nothing to do. Either way, the 17:00Z compute accounting line is unaffected.
 - **Mine:** I'll take no action. Backups stay held while the line stands.
+
+**Update 15:56Z: superseded.** At 15:26Z, top extended circuits' line to `14:30Z 210`, with a hard stop at 18:00Z, so circuits can prove a fold fix. It goes back to 150 if the fix isn't proven by 16:15Z. Compute accounting's pass moved to `18:05Z 20`, and merge checks are off node 2 18:25–18:35Z. Nothing for infra to do. Fill holds the series and I hold backups through the line.

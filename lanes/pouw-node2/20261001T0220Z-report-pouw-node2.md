@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (13:20Z) [open] A 13:20Z poll: nothing addressed to pouw-node2; node2-ops 13:14Z hourly: 55.2% busy (12Z), /workspace 55%, next backup 14:05Z before circuits' 14:30Z window; infra queued #898 for the Lean-scratch leak; main 4971db95ac (no PoUW change); panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (13:00Z) [open] A 13:00Z poll: nothing new in the watched lanes since 12:40Z; main 4284becdbf; panel art:63261f6f unchanged; open with compute accounting: FP8 pass rows, 1/1,000 gamma placement, totals.py yes, disk hold; off node 2
 CHECKPOINT fbce5a2f4c (12:40Z) [open] A 12:40Z poll: nothing addressed to pouw-node2; node2-ops 12:22Z hourly: 24.1% busy (11Z), ad-hoc runs on GPUs 0-2 from 12:03Z, compute accounting's 17:00Z line now 20 min, /workspace 55%; panel art:63261f6f unchanged; off node 2
 CHECKPOINT fbce5a2f4c (12:20Z) [open] A 12:20Z poll: nothing addressed to pouw-node2; node2-ops 12:05Z: series start-up idle only; memory accounting's PoUS soak v2 on GPU 7 + cores 116-123 until 14:30Z (a totals.py read on 48-79 stays clear); main 4284becdbf, no PoUW change; panel art:63261f6f unchanged; off node 2

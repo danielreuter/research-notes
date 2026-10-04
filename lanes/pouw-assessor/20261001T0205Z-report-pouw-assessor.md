@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (01:51Z) [open] 6:51 PM PDT: no new asks. Ratings stand. Main 43947f439 (#928 #979 #912 #982 #959, zk_session_sound): no change under protocols/pouw; policy 650df0bd, 793 pins; pearl_c4.py cap = CAP 1/400 and 64 | m domain unchanged. #983 still unmerged. Project store still unmounted; ledger-2156Z and ledger-2230Z held.
 CHECKPOINT fbce5a2f4 (01:30Z) [open] 6:30 PM PDT: no new asks. Ratings stand. Main 648e13f24 unchanged; policy 650df0bd, 793 pins; #983 still unmerged. Project store still unmounted; ledger-2156Z and ledger-2230Z held. Watching HonestCap art, HiddenTile discharge.
 CHECKPOINT fbce5a2f4 (01:09Z) [open] 6:09 PM PDT: no new asks. Ratings stand. Main 648e13f24 unchanged; policy 650df0bd, 793 pins. Noted note:20261004T0108Z-reply-from-d545bc2a-pr983-computeswords-hent-vacuous (NO-GO to cite #983 tileCheck8_computesWords: hent false on RowOK rows with a -0 entry); #983 unmerged, records equal main, not my rows. Project store still unmounted; ledger-2156Z and ledger-2230Z held.
 CHECKPOINT fbce5a2f4 (00:48Z) [open] 5:48 PM PDT: no new asks. Ratings stand. Main 648e13f24 unchanged (only identifier v1 under protocols/pouw since 1074c52df); policy 650df0bd, 793 pins. Noted pouw-lean-redteam 00:41Z on unmerged #983 (pc8 Row8OK/Line8OK review conditions); not my rows, nothing to rate until it lands. Project store still unmounted; ledger-2156Z and ledger-2230Z held.

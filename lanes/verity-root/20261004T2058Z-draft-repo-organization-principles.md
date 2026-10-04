@@ -55,7 +55,11 @@ can pick it up from here.
 - verity#1124, the ownership map: comms.
 - #1053's DM batching, then one lock reduction per package under the 2:03 PM PDT guarantee ruling.
 - `research replay` (infra), each area's replay-set labels, and two reruns at main (PoUW's approved).
-- Approaches: PoUS has 12 registered; the others are in progress. old-accounting relays the 44 `store:pous/` files.
+- Approaches: PoUS has 12 registered; the others are in progress. Done: old-accounting copied the 44 `store:pous/` files into the
+  notes, and all 129 registry cites now point at those notes (verity#1145 adds `--uncite` and takes `store:` out of `EVIDENCE_RE`).
+  Still to copy: the kernel pages the skill points at (gotchas, technique catalog, panel, the rtx-pro briefs), where compute-accounting decides.
+- Move maps (drafts, for owners to correct): `note:20261004T2125Z-draft-move-inventory`,
+  `note:20261004T2125Z-draft-move-map-backends-integrations-tools`, `note:20261004T2125Z-draft-move-map-protocols`; core's is in progress.
 - circuits splits its bindings and pins per Definition.
 
 *Fan-out* (Daniel, 2:21 PM PDT: finish in short serial time). Every lead launches workers on its pieces that don't wait

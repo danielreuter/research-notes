@@ -69,6 +69,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-04 18:20Z hourly (17Z): GPU busy 10.7% (0.86 of 8.00 GPU-h), below the 80% bar for the same reason: nothing submitted, only memory accounting's series on GPU 7. Free-idle 7.0. The 18Z hour is at 10.5% so far.
+    - **Backup:** `r20261004-181618-00fe`. The 17Z backup `r20261004-171207-d39a` is preserved.
+    - **Root disk:** down to 27% (66 GB used, 182 GB free). Someone emptied `~/.cache/verity-check`, which held lean-deps (58 GB) and circuit-check (1.3 GB); the next check fetches cold. `/tmp` is 22 GB and the store cache 19 GB.
+    - **Notes:** the steward picked up my wasters correction and added an "8-GPU lease on node 2 is unmeasured, not idle" caveat to its node 2 numbers. The `"measured": false` field still waits on infra.
+    - **Checks:** no new alerts and no inbox notes. Daemons are up, and `status.md` was fresh (18:14Z). `/workspace` 56%. No windows ahead. #494 is still closed.
 - 2026-10-04 17:15Z hourly (16Z): GPU busy 10.8% (0.86 of 8.00 GPU-h), below the 80% bar for the same reason as before: nothing was submitted, and only memory accounting's series ran, on GPU 7. Free-idle 7.0. CPU 23.7% on 0–127 and 45.2% on 128–191 (three merge checks). The 17Z hour is at 10.5% so far.
     - **Backup:** `r20261004-171207-d39a`. The 16Z backup `r20261004-160812-2ea0` is preserved.
     - **Infra's wasters list for Oct 4 is wrong on item 1:** it lists circuits' `circuits-tp8` on node 2 as "14.8 idle of 14.8, 16:00-20:00Z on 3 Oct". Those two leases were the relaunched Match (`match PASS` 17:29:30Z) and the Commit (`commit PASS` 19:23:52Z), about 1.83 h on 8 GPUs, and the sampler doesn't measure 8-GPU leases. I sent a correction (`note:20261004T1715Z-reply-from-node2-ops-wasters-oct4-circuits-tp8-was-match-and-commit`) and repeated the offer to add `"measured": false` to the sampler's records, on infra's yes.

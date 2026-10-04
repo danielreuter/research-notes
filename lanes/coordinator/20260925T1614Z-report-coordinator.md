@@ -598,3 +598,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T19:22Z: poll: f68a running.
 - 2026-10-04T19:40Z: NOTE: do not prune cursor/pouw-hash-sm120-9569 (Pearl-C4 build.sh fetches 71086532). Only prune train-prep-* whose tips are on main.
 - 2026-10-04T19:42Z: poll: f68a running.
+- 2026-10-04T19:58Z: ci follow-on afacde975 (20 PRs on 525e incl #1062 #1103 #1115 #1110) node1 r20261004-195506-2c85 --agreement.
+- 2026-10-04T20:02Z: poll.

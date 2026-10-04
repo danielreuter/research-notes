@@ -573,3 +573,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T15:58Z: swapped rider2 -> rider3 5f3661726 (+#971) node1 --agreement.
 - 2026-10-04T16:02Z: poll: b201, a604 running.
 - 2026-10-04T16:05Z: rider4 5eb7ab190 (+#1011 #1061 #1092) on 5f36 node1 --agreement.
+- 2026-10-04T16:08Z: swapped rider4 -> rider5 5e17c64de (+#1027) node1.
+- 2026-10-04T16:12Z: held rider6 bd025f58b (#1083 contains #964, top held #964 for red team); asked ci/top; e040 continues.
+- 2026-10-04T16:14Z: #964 has red-team now; rider6 bd025f58b node2 r20261004-160758-2f69 --agreement as next link.

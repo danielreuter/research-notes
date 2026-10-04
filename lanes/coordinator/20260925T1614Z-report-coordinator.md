@@ -617,3 +617,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T22:34Z: ci tip f2a07e5ae (be24 + #1119 #1137 #1130) node1 r20261004-223308-b355 --agreement.
 - 2026-10-04T22:41Z: poll: 1abb running (lean-suites passed), b355 running. main 9400e83d5.
 - 2026-10-04T23:02Z: merged be2452acd (14) → main 5049de02f; all MERGED. b355 (f2a07e5ae) running past lean-agreement.
+- 2026-10-04T23:18Z: ci tip 595fa006f (f2a0 + #1126 #1124) node1 r20261004-231709-2eff --agreement, parallel to b355.
+- 2026-10-04T23:21Z: poll: b355 running (lean-suites passed), 2eff running (agreement cached). main 5049de02f.

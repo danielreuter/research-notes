@@ -16,6 +16,30 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## Open asks
+
+1. **[@infra] Hourly eviction covers `/workspace/research/src`** (root, 04:02Z Oct 4; asked in the disk thread,
+   `1791086539.319899`).
+   - Use the same conditions as root's 03:48Z yes: the tree's commit is on origin; no running or queued run, check slot or
+     Lean slot uses it; no run record holds it as its source's only copy.
+   - Why: nothing prunes `src/`, check runs add up to 24 GB each, and node 1 lost about 300 GB in the hour to 03:11Z.
+     The one-off cleanup removed 205.6 GB+ (see "State at 04:02Z").
+   - Once it's on main, bump the `tool-1028.conf` pin on both `vy-store-evict` units. Then check one hourly run prunes
+     `src/` and leaves trees in use alone.
+   - Status: asked. Nothing is needed from me unless @infra declines.
+
+## State at 04:02Z Oct 4 (9:02 PM PDT Oct 3): @infra is cleaning up research/src
+
+- **@infra (bc-17cc41f1) is running `research retention rm`** as owner @infra, on root's yes relayed at 03:48Z. Root's three
+  conditions: the commit is on origin; no running or queued run or slot uses the tree; no run record holds it as its
+  source's only copy. Each decision is logged in `/workspace/research/retention/deletions.jsonl`.
+  - By 04:01Z it had deleted 69 trees (205.6 GB), all from my candidate list (`art:bd3cf373…`) and none from the 20 I
+    excluded. `research/src` is down from 201 trees to 170, and it is still running.
+  - Disk at 04:00Z: 67% (1,690 GiB free); the pacer's cap is back to 465 GB.
+- My 15-min disk watch stays through 04:15Z to confirm the end state, then comes off. The :00 and :30 passes keep checking.
+- Node 1 has 8 of 8 GPUs held (8 provers), and the dispatcher is clean. Node 2 has 7 of 8 held, with the fill runner
+  starting jobs.
+
 ## State at 03:30Z Oct 4 (8:30 PM PDT Oct 3): disk watch at root's ask
 
 - **Root's ask (03:17Z):** check node 1's disk every 15 min (timer `node1-disk-watch`, at :15 and :45, plus the :00 and :30

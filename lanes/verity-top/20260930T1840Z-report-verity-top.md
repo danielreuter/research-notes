@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (03:57Z) [open] 03:58Z: proofs stack 6dd3c93ba waits on check 11bc; #1030 lean-granted, red-team carry pending; FP8 table ~04:30Z
 CHECKPOINT none (03:39Z) [open] 03:39Z: inbox empty; main 59438bab7; #1057 GPU check on node 2 to ~04:25Z; FP8 final ~04:30Z
 CHECKPOINT none (03:21Z) [open] 03:21Z: inbox empty; main 59438bab7; proofs' Lean stack waits on reviewer lines; 101 open PRs
 CHECKPOINT none (03:03Z) [open] 03:03Z: inbox empty; main ec8ac91ae (12-PR backlog landed); #1028 then proofs' Lean stack checking; FP8 final ~04:30Z

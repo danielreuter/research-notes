@@ -39,6 +39,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 16:00Z Oct 4 (9:00 AM PDT), steward pass
+
+- **Node 1 disk is near the 72% nudge point:** 70.7% (1,471 GiB free) at 16:00Z, against 69.9% at 15:45Z; `research/src`
+  has 159 trees. At this rate it crosses 72% around 16:30Z. If the 16:15 or 16:30Z watch line flags disk-72 and #992 (still
+  open) isn't live, nudge @infra in the disk thread.
+- Node 1 GPUs: 4 of 8 held, all preemptible `pr-1057` runs started 15:49Z (GPUs 1, 3, 4 and 7; `provers` has 4 admitted).
+  GPUs 0, 2, 5 and 6 are idle. The pacer and dispatcher are ticking, and the dispatcher is clean.
+- Node 2: 1 of 8 GPUs held (a fill-runner job on GPU 7), and no queue.
+
 ## State at 15:30Z Oct 4 (8:30 AM PDT), steward pass
 
 - Node 1 (watch, no flags): disk 69.8% (1,515 GiB free), `research/src` 144 trees. The pacer and dispatcher are ticking,

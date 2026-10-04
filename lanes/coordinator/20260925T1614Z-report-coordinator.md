@@ -570,3 +570,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T15:42Z: poll: b201 running (lean-audit).
 - 2026-10-04T15:48Z: Daniel ruling 15:42Z (#1097): one soundness theorem, fail-closed verifier, one canonical I/O format; no new row shapes/input-group layouts/output placements in the verifier; ScopeG placement twins retired. Lander: flag any train PR adding verifier row shapes/placements.
 - 2026-10-04T15:55Z: rider2 cde1a9d88 (11 PRs on 10b0) node1 --agreement.
+- 2026-10-04T15:58Z: swapped rider2 -> rider3 5f3661726 (+#971) node1 --agreement.
+- 2026-10-04T16:02Z: poll: b201, a604 running.
+- 2026-10-04T16:05Z: rider4 5eb7ab190 (+#1011 #1061 #1092) on 5f36 node1 --agreement.

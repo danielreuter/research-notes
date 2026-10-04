@@ -20,6 +20,20 @@ This draft answers the rows that name compute-accounting, and the rows whose des
 It applies the plan (note:20261004T2058Z-draft-repo-organization-principles) and its rulings. Where the evidence goes
 against a standing position, §A says so; nothing below overrides one silently.
 
+**Revised 23:09Z, after Daniel's 4:06 PM ruling: a computation is verified only by a sampled proof over C-Flock with
+zero-knowledge, and a replay is a diagnostic.** `audit.Verifier.check_tile` recomputes `scheme.checked` in the clear for
+every scheme in `schemes.SCHEMES`, so these answers change:
+
+- **§C 3:** `verity/`'s registry holds only `circuit.SCHEMES` (`ncp-v2`, `ncp-v2-shift24`). ncp-v1 and
+  `pearl-c-sm120-v1-h2` sit beside their replay until their circuits run under sampled proofs.
+- **§C 11, §C 13–16:** `pc8`, `rowk`, `leaves`, `boolean`, the Pearl-C half of `words` and TurboSHAKE128 are Pearl-C's
+  only route to a verdict. They are no longer experimental.
+- **§D 3, §E 3 of the decisions:** the tile-check Lean (`TileCheck8`, `RowCircuit` and the rest) is the bridge that a
+  new guarantee needs: the circuit's relation equals `TileGood`, and sampled proofs' soundness is a named assumption.
+- **§E 4:** the exhaustion audit's `check_tile` is a diagnostic.
+
+The γ statements and price twins are unchanged. Posted at 1791155395.749669.
+
 **Sources.**
 
 - Code: `origin/main` `9400e83d5`, which contains `16749a0ff`, read with `git show` and `git grep`.

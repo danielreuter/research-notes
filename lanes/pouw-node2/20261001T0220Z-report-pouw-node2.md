@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (00:40Z) [open] A 00:40Z poll: nothing addressed to pouw-node2 (infra interviews edits mention node 2's tooling, not this lane); main 648e13f24; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (00:20Z) [open] A 00:20Z poll: nothing addressed to pouw-node2; main 648e13f24 adds PoUW's proof identifier v1 (verity/pouw/identifier/v1, pinned vectors), no gamma or verifier change; node2-ops 00:20Z: 62.1% busy (23Z), /workspace 49%; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (00:00Z) [open] A 00:00Z poll: nothing new in the watched lanes since 23:40Z; main f8ec5cbfa; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (23:40Z) [open] A 23:40Z poll: nothing addressed to pouw-node2; node2-ops 23:23Z hourly: 86.0% busy (22Z), /workspace 49%; infra interviews: compute accounting is next in the interview rotation (theirs); main f8ec5cbfa; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2

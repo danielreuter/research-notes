@@ -478,3 +478,10 @@ Triage:
   installed; `vy-store-evict-unpause.timer` restores 2,500 at 00:00Z 6 Oct. (4) Node 2's 0-123 taskset limit is by design
   (124-191 for network's timing path, #970). (5) The custody "0 file(s)" message goes to the custody lane after #984/#1004.
   (6) #995 waits on ci. Every answer produced an item, so the timer stays on.
+
+## Round 19: memory-accounting, network-accounting (5:22 PM PDT)
+- Asked 00:22Z, 4 Oct, in one announcement (ts 1791073373.573559), right after round 18's triage: the 00:00Z timer fired
+  during it. memory-accounting, unanswered in round 17 and last heard in round 12, goes first; network-accounting is next in
+  rotation (last asked in round 15). Neither is in a timed window or an incident. The ask lists #995 merged (`retention rm`
+  needs the owner's yes; nothing to install on the nodes, since the nodes don't install the `research` CLI), #936, #942,
+  #944, #958, #989 next in the quick tier, and node 1's eviction pause. Infra is subscribed to the thread for 12 h.

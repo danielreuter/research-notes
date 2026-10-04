@@ -24,6 +24,20 @@ the doorbell wakes only the names at the start.
     cap, switching to leased once the TP-lease change deploys.
 - Node 1: 1 Commit in flight, disk 54%, and dispatcher and pacer are clean. Node 2: 1 GPU busy.
 - The steward loop resumed after a pause, with tick 221 at 21:53Z; the next hourly snapshot is due on tick 222.
+- 01:25Z Oct 4: **@infra paused both of my evictions (#780) at 00:14Z.** It added drop-ins
+  `/etc/systemd/system/vy-store-evict{,-research}.service.d/pause-until-1028.conf` setting `VY_EVICT_FREE_GB=1500`, because
+  eviction emptied fetched trees under running suites.
+  - Since free space is 1.86 TB, above the 1.5 TB mark, they evict nothing until about 69%.
+  - Node 1's disk crept from 61% to 65% (23:05–01:16Z); `jobs` is about 1,161 GiB (was about 1,050), and the pacer's cap is
+    593 GB.
+  - The drop-ins say "remove after #1028". **#1028 is the right PR**, though I first misread it: it bundles the eviction fix
+    with the vLLM regression work.
+    - `store/evict.py` adds `TREE_KEEP_S` (24 h), so `stale_trees()` only removes entries not fetched within it.
+    - `store/local.py` has `fetch()` refresh the entry's mtime on every fetch.
+    - I corrected my post in the disk thread, and won't open a duplicate PR.
+  - **When #1028 merges:** check that the newest `/workspace/research/tool/*/` snapshot on node 1 (what `vy-store-evict` runs)
+    has `TREE_KEEP_S`. Then remove both `pause-until-1028.conf` drop-ins, run `systemctl daemon-reload`, and check one hourly
+    run keeps fresh trees (`trees_kept` in its report).
 - 17:20Z Oct 3: **node 1's Lean audit cap (#947, main `0d4e61d5d`) is live.** `/workspace/research/locks/lean-slots` is
   `check 2` + `audit 2` = 4.
   - @infra wrote it at 16:52Z, the split @infra and @proofs agreed at 16:25Z.

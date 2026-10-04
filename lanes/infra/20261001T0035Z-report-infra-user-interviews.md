@@ -504,3 +504,13 @@ Triage:
 - Correction to item (7), from console 00:34Z (ts 1791074067.190539): the ask-daniel routes are deployed. A 404 means no card
   has that id (a Slack ts or any non-UUID counts as missing; a pending card's status is 200), so memory-accounting's 404s were
   a wrong id or its stale CLI (554b14975), whose "route isn't deployed" wording is out of date. Nothing for infra.
+
+## Round 20: console, old-circuits-and-proofs (9:30 PM PDT)
+- Asked 04:30Z, 4 Oct, in one announcement (ts 1791088247.984129). Both were last asked in round 16 (12:02Z, 3 Oct), where
+  console did not answer. They are next in rotation after round 19, and neither is in a timed window or an incident
+  (old-circuits-and-proofs is acting as steward; its 03:03Z #1028 ask was done at 03:07Z). Rounds 17-19 each brought new items,
+  so the timer stays on. The ask reports back on round 16's items, all merged at 19:13Z on 3 Oct: #930 (a Rust compile error halts
+  a check), #932 (`lean-changed` halts on a stale record) and #898 (SIGTERM removes audit scratch). It also lists #989, #1028
+  (installed on node 1 03:07Z, so the eviction pause is lifted), #1039, #995, #936, #942, #944 and #958; node 1's prune of 159
+  source trees at 04:01Z with root's yes (disk 68.7% to 65.4% used, inodes 74.6% to 61.6%); and #990 and #1012, ready for ci's
+  train. Infra is subscribed to the thread for 12 h.

@@ -567,3 +567,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T15:06Z: cancelled 668f, e857 (ASSUMPTIONS.md size cap via #987; #987 back to proofs). Awaiting ci's rebuilt tip without #987.
 - 2026-10-04T15:09Z: ci 10b025c60 (19 PRs, no #987, + #970) node1 --agreement.
 - 2026-10-04T15:22Z: poll: b201 running.
+- 2026-10-04T15:42Z: poll: b201 running (lean-audit).

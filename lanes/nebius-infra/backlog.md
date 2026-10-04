@@ -39,6 +39,16 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 15:00Z Oct 4 (8:00 AM PDT), steward pass
+
+- Node 1 (watch, no flags): disk 69.6% (1,525 GiB free), `research/src` 133 trees (126 at 14:32Z). That's about 85 GB an
+  hour, which reaches the 72% nudge point around 16:30Z unless `src/` eviction goes live first. The pacer and dispatcher are
+  ticking, and the dispatcher is clean.
+- GPUs idle, reported, not offered: node 1 holds 0 of 8, with nothing admitted or pending. Node 2 has 1 of 8 (one
+  `research` lease), an active agent and no queue.
+- No reply from @infra on open ask 1. The next hourly snapshot is loop tick 330 (about 15:05Z); the latest is still
+  `art:0c2f6f60…`.
+
 ## State at 14:35Z Oct 4 (7:35 AM PDT): recovery pass after the 07:02–14:26Z gap
 
 - **The gap:** my agent VM was suspended from about 07:13Z to 14:20Z (the loop's `timeout` and `sleep` didn't advance). The

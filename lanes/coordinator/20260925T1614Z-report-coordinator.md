@@ -564,3 +564,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T14:58Z: cancelled e04e (#1006 not ready). ci rider 4be1df3e0 (#974 #973 #1003 #1070 #1057) on 6fff node2.
 - 2026-10-04T15:00Z: swapped rider to 7b5ed7767 (#974 #973 #1003 #1070; #1057 held for Daniel) node2.
 - 2026-10-04T15:02Z: poll: 668f running; e857 waits node2 window to ~15:45Z.
+- 2026-10-04T15:06Z: cancelled 668f, e857 (ASSUMPTIONS.md size cap via #987; #987 back to proofs). Awaiting ci's rebuilt tip without #987.
+- 2026-10-04T15:09Z: ci 10b025c60 (19 PRs, no #987, + #970) node1 --agreement.

@@ -325,8 +325,11 @@ And at 2:21 PM PDT:
   `verity/` for `catalog/` or `experimental/` takes those members' names. `tools/` holds one distribution per tool,
   each its own suite and cache key, so that a change to one tool reruns only its tests (ci). `research` stays its own
   distribution because the nodes pin it separately.
-- **FP and tensor-core semantics** split as the Lean does: the interpreter in `verity/primitives/fp/`, the formats and
-  device instances in `catalog/` (captain's default; compute-accounting and circuits may object).
+- **Silicon semantics**, how the hardware computes each low-level op bit for bit (the tensor-core step, FP and integer
+  arithmetic, MUFU, PTX max and min), split as the Lean does: the parameterized models in `verity/primitives/silicon/`
+  with their Lean spec beside them, the formats and device instances in `catalog/` (captain's default, name Daniel's,
+  4 Oct; compute-accounting and circuits may object). Their Boolean circuits are Definitions in `catalog/`, which
+  circuit-check ties to the models on edge and random vectors; no Lean proof ties them yet.
 - **Kernels of catalog Definitions** register by Definition id from `verity/kernels/`, so `verity/` imports no catalog
   module. A kernel's self-check against its Definition runs in the catalog's suite. `verity/`'s own tests import no
   catalog module either, so a catalog change never reruns core's suite (ci, 4 Oct). The core tests that use real
@@ -345,7 +348,8 @@ And at 2:21 PM PDT:
 ~~~text
 verity/            TCB, with each spec beside its code: only what a guarantee depends on
   primitives/      circuits, randomness, commitments (one Merkle tree, one SHA-512 row hash), crypto (drand BLS),
-                   fp (the FP and tensor-core interpreter), physical (one timed challenge-response)
+                   silicon (bit-exact models of the hardware's low-level ops), physical (one timed
+                   challenge-response)
   protocols/       verification (C-Flock: its Lean verifier and its reference prover), accounting (work/pouw,
                    space/pous, communication/warden with its active enforcer), compliance/nci, the onsite protocol
                    and the remote protocol

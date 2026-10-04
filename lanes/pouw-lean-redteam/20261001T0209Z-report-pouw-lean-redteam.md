@@ -5,6 +5,9 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (03:46Z) [open] 0346Z #1059 (guarantees-not-pins, 4a33e5140) is a pure rename in both audit files: `pins`→`guarantees`, top-level and per module in `reads`. All 793 PoUW and 29 core records, every definition and module digest, and every read list are identical to main's.
+- #1052 (protocol 2 private circuits) has records equal to main's.
+- #983 at 284d4ac30 adds `tileCheck8_computesWords_domain` with the same false `hent`, so F2 covers it. `Pc4EntryOK` dropped its atom condition but keeps `Row4OK`, so F3 stands.
 CHECKPOINT none (03:34Z) [open] 0334Z NO-GO to cite #983's `tileCheck4_computesWords`, `_pearlC` and `_domain` (52901fd37; records equal main's). This is F3, note:20261004T0332Z-reply-from-d545bc2a-pr983-computeswords4-hent-vacuous.
 - `hent` claims every `Fp4Sem.RowOK` row has `Pc4EntryOK`, whose `rowA` is `Row4OK` (`widen` and α > 0). Main's `RowOK` is "finite words ∧ `RowAdmit4`" (β's code in [8, 128)), so `hent` is false on two families:
   - a row of FP32 1 + 2⁻²⁰, which is not BF16 and fails `widen`;

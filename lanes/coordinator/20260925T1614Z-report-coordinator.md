@@ -590,3 +590,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T18:12Z: (root) asked ci for ab62fbd75 minus #1041 (+dependents); run in parallel with f52f; land whichever is cleared first.
 - 2026-10-04T18:15Z: #1041 ruled IN by top/proofs (protocol 2 sanctioned, Daniel decision 4). Land f52f (ab62fbd75) on pass; no-#1041 tip is fallback only.
 - 2026-10-04T18:22Z: poll: f52f running.
+- 2026-10-04T18:42Z: poll: f52f running.
+- 2026-10-04T18:46Z: f52f FAILED pytest test_slot::test_the_command_holds_the_slots_lock (#1068; passes on VM -> host-dependent). Asked infra to isolate, ci for tip minus #1068.

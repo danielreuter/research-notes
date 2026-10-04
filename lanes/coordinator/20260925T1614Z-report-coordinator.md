@@ -589,3 +589,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T18:10Z: ci tip ab62fbd75 (27 PRs) node1 r20261004-180423-f52f --agreement; HOLD merge: #1041 adds META links input layout to verifier vs Daniel's 15:42Z ruling; asked proofs/top.
 - 2026-10-04T18:12Z: (root) asked ci for ab62fbd75 minus #1041 (+dependents); run in parallel with f52f; land whichever is cleared first.
 - 2026-10-04T18:15Z: #1041 ruled IN by top/proofs (protocol 2 sanctioned, Daniel decision 4). Land f52f (ab62fbd75) on pass; no-#1041 tip is fallback only.
+- 2026-10-04T18:22Z: poll: f52f running.

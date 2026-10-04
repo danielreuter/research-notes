@@ -534,3 +534,13 @@ Triage:
   pieces). (5) `top` is in the registry. (6) The reviewer-line grep ends when #1053 lands. Every answer produced an item, so the
   timer stays on. Next round: circuits, proofs.
 - Round 21, 4 Oct 16:04Z: @circuits and @proofs (announce ts 1791129889.299219). The 08:00Z and 12:00Z rounds didn't run: the VM was suspended 07:25-14:08Z. Context given: node 1's GPUs are lent until circuits' Match starts, and there are temporary quick-tier slots until 18:20Z. Next round: compute-accounting, memory-accounting.
+- Round 21 answers: circuits at 16:05Z, proofs at 16:25Z.
+  - Time lost: finding who owns processes on a core range (`research status` shows `lane: None`); serial quick tiers in node 2's slot q (75-90 min each); tiers failing on the environment (the `PYTHONPYCACHEPREFIX` leak, `CUDA_DEVICE_ORDER` on old heads); slow quick tiers on a 15 GB VM; Lean dependencies taking 27 min to build for an audit.
+  - Worked around: hand-run tmux loops of `queue ready`, which orphan runs when killed; grepping `msg read --thread` output because it ignores `--since`; `research cancel` printing that it hadn't run when it had.
+  - Fix next: a ready mark that doesn't need the waiting client to survive; the launching handle on every run.
+- Triage posted 16:28Z (ts 1791131284.080089):
+  - Yes, by 20:00Z, lane [Queue judge and cancel fixes](bc-1afcc070-26fc-50b8-9e03-41ac4e9df842) on branch `cursor/queue-judge-558b`: `research queue judge RUN`, the cancel message fix, `msg read --thread --since`.
+  - Later: the launching handle on every run; the Lean dependency build (waits on the Lean cache, #1006).
+  - Done today: parallel quick slots until 18:20Z.
+  - No: tiers on the VM (use `--on`). Context only: the environment failures are fixed on main.
+  - Every answer produced an item, so the timer stays on. Next round: compute-accounting, memory-accounting.

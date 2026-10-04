@@ -39,15 +39,17 @@ three contain `afacde975`, which failed its check and won't land: #1082, #1108, 
 | #1136 | tier queued on node 1 | land | a grant carries across a restack (replaces #955) |
 | #1138 | tier queued on node 1 | land | node 1's infra loops as systemd units (replaces #997) |
 | #1139 | tier queued, base #1138 | land after #1138 | the steward's watch and node-sweep as node timers (replaces #1134) |
+| #1143 | new 22:20Z, tier queued | land | the queue's grant paths from what landing changes (fixes the spurious grants) |
+| #1147 | new 22:30Z, tier queued | land | `replay_set` and `replay_expect` label keys (migration step 2) |
 | #1004 | open, base merged | land: retarget to main and queue | node 1's ended runs reach R2 in bounded rounds |
 | #1012 | waiting for grants | land once red-team and vllm-coordinator grant | `research merge` pushes main to node 1's bare repository |
 | #1055 | waiting for grants | land once red-team and vllm-coordinator grant | no presigned URL reaches a run's record |
 | #1065 | draft, base #1055 | register: after #1055 | sign the Lean bundles' URLs with a GET-only credential |
 | #992 | draft, 1,116 behind | register: restack after the refactor's `tools/research` move | retention gc as default rules; #1139's node-sweep is the live sweep until then; `vy-retention-gc@` stays off |
-| #993 | ready | close: superseded by #1138 | paths after `--by`/`--ref` in `research deploy` (#1138's `deploy.py` has it) |
+| #993 | in ci's tip `be2452acd` | land with the tip (reopened 22:30Z; #1138 restacks on it) | paths after `--by`/`--ref` in `research deploy` |
 | #895 | draft, 1,460 behind | close: no consumer while there's no new spend | Nebius `launch.sh` per-run overrides for another VM; reopen when a launch is approved |
 
-Infra's own close-out by 01:00Z: #993 and #895 closed now; the 9 *land* rows in trains or ready; #1004 retargeted; grants
+Infra's own close-out by 01:00Z: #895 closed; #993 lands with ci's tip; #1068 and #988 restacked on that tip (22:30Z); the 9 *land* rows in trains or ready; #1004 retargeted; grants
 asked of proofs for #1012 and #1055.
 
 ## Other lanes (56): provisional, for architecture and ci

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:15Z) [open] Daniel raised usage limit 14:09Z; all leads resumed on Opus; trains being restarted
 CHECKPOINT none (07:15Z) [open] train 8f13bc8e6 (#1021, #1048, #1074, #1073, #1066) stacked; GPUs 15/16 busy
 CHECKPOINT none (07:00Z) [open] trains 90e8ac187 (#915, #1064, #990) stacked behind circuits 5; quick tiers flowing on node 2 slot q
 CHECKPOINT none (06:45Z) [open] quick-tier slot q on node 2 live; route P leads, recursion parked for Daniel; morning decision list in notes

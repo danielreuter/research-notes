@@ -5,6 +5,8 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (06:25Z) [open] 11:25 PM PDT: #1030 on main; train hand-off to ci for 2 AM PDT; grants pending from red-team-hj and lean; six drafts with reasons; route P measured 1.3x/0.64x vs upstream
+CHECKPOINT none (05:20Z) [open] Draw rule (Daniel): the draw depends only on the verifier's coins and the public class. #1030 reviewer line drafted, lean confirming, then ci. zk-regvals pod audits bd01/3f56/fc7e running. Scope widening: B proving, C (scope-a) and D (scope-ef) staffed. flock-reg-out waits on compute-accounting's bridge choice. Friction: Lean Refine.Setup OOM on 16 GB VMs.
 CHECKPOINT none (04:15Z) [open] Reviewer lines in #996-#1037 (train). PoUW scope widening frozen (zk-scope-v2 196dae4ad); lanes B, scope-a, scope-ef on its stubs. #1060 opened (ownAtDrawsHP), pod audit ec49. R line restack running.
 CHECKPOINT none (03:41Z) [open] Track 2 is recursion (Daniel 7:42 PM; arbitrary circuits 8:14 PM): rec-v0/algebra/amat/lean + rec-holo. Track 1 train #996-#1037 checking (11bc), reviewer lines asked of lean; #1030 4e0c307b0 audit 5abc PASS, carries asked; #1049 c545 PASS.
 CHECKPOINT none (01:08Z) [open] 6:05 PM PDT: #1030 granted by the red team, audit PASS; finding: --zk leaks to a malicious verifier at outer coin 1, fix (a) asked of @lean; PRs #1035, #1037; Daniel has two assumption decisions (coin server trusted? HashDerivedKeyHm96 standard?)

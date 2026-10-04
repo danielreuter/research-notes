@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (22:52Z) [open] 3:52 PM PDT: move maps answered (note:proofs/20261004T2240Z-handoff-move-map-answers; reply 1791153726.556209). #1129 landed (main 9400e83d5). #1153 opened: red-team-1129's two cache follow-ups, with regressions that fail on main.
 CHECKPOINT none (22:25Z) [open] 3:24 PM PDT: #1129 has ready (998a) and grant=red-team (red-team-1129, 22:09:55Z) at 1ebe60cd3; told the landing thread that 6b376c61e (14a1) clears the gate. Follow-ups after landing: cached_expanded expands every compose; _EVALUATIONS key lacks seed/broadcast set.
 CHECKPOINT none (22:01Z) [open] 3:01 PM PDT: #1129 ready (tier 998a), its tip 6b376c61e check 14a1 passed; red-team-1129 grant pending; migration workers launched (canonical V1, flock-spec, flock-lock)
 CHECKPOINT none (21:44Z) [open] 2:44 PM PDT: #1129 (partition_binding/owners_of keyed by object; fixes 2c85's test_wired_links flake) quick tier r20261004-212524-998a running, lander's 6b376c61e check 14a1 running; fail-closed merged main f4fb1583a, gaps open, PR not yet; flock-design relaying rows to the flock approach registry

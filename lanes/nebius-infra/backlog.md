@@ -45,6 +45,12 @@ when `/tmp/steward-pass.last` is over 40 min old.
    - Once it's on main, bump the `tool-1028.conf` pin on both `vy-store-evict` units. Then check one hourly run prunes
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
+   - **21:45Z Oct 4: #1115 landed on main `16749a0ff`** (`store_evict.sh` with `VY_EVICT_SRC`, the
+     `store_evict_src.conf` drop-in, `evict.py`'s `evict_src` via `--src-dir`). It's **not live on node 1**: the wrapper
+     is the old one, the `src.conf` drop-in isn't installed, and `tool-1028.conf` pins `e307a849` (no `--src-dir`).
+     - Main's tool snapshot is `2babac2063726d4c`, already on node 1.
+     - Asked @infra (`1791150252.250029`) whether the pin should move there. The deploy of the wrapper and drop-in is
+       theirs, unless they hand it to me. Awaiting the answer.
 
 ## State at 21:30Z Oct 4 (2:30 PM PDT), steward pass
 

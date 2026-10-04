@@ -164,9 +164,16 @@ And at 3:30 to 4:06 PM PDT:
   integration, PoUW's device-run replay goes to `benchmarks/pouw/`. A replay may read a protocol's formats, since
   dependencies point inward, but it is never in `verity/`. `research replay`, which re-runs recorded results as
   evidence, is unrelated and stays in `tools/research/`.
-  - Consequences: PoUW's `PROTOCOL.md` already names a zero-knowledge proof as the protocol's check and never cites
-    the replay's ACCEPT, so what changes there is the interface's step 6 ("recomputes the tile"). Pearl-C has no protocol
-    verdict until its tile check runs under sampled proofs (`circuit.pc4`). In vLLM's `check/`, whatever recomputes
+  - Consequences for PoUW (compute-accounting, at `5049de02f`): every scheme in `schemes.SCHEMES` is verified today by
+    `audit.Verifier.check_tile`, which recomputes the tile in the clear. Only `ncp-v2` and `ncp-v2-shift24` run under
+    sampled proofs, so `verity/`'s registry is ncp-v2 alone until Pearl-C's tile check (`pc8`, with `rowk`, `leaves`,
+    `boolean`, Pearl-C's half of `words` and TurboSHAKE128, all now on that path and not experimental) passes under
+    sampled proofs. Until then, Pearl-C's served verdict and the exhaustion audit are diagnostics, and ncp-v1 and
+    `pearl-c-sm120-v1-h2` sit beside their replay. The γ statements carry over. The bridge from "the proof accepted" to
+    "the tile predicate holds" is new: the circuit's relation equals `TileGood` (the L3 tile-check slices), plus sampled
+    proofs' soundness as a named assumption. It is a new or restated guarantee and needs Daniel's statement review. The
+    served-overhead tables measure the kernel without proving, so the full overhead adds proving and ZK for the sampled
+    tiles (hidden-zk's K = 14,336 sets). In vLLM's `check/`, whatever recomputes
     opened values is a diagnostic. Its commitment and opening checks are protocol code only if sampled proofs needs
     them, which circuits and proofs decide, and the 12 live codes follow that answer (proofs' `proofs.codes` question).
 

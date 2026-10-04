@@ -52,6 +52,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Asked @infra (`1791150252.250029`) whether the pin should move there. The deploy of the wrapper and drop-in is
        theirs, unless they hand it to me. Awaiting the answer.
 
+## State at 22:00Z Oct 4 (3:00 PM PDT), steward pass
+
+- **The watch flagged disk-72 at 22:00Z** (72.0%, 1,404 GiB free; `research/src` 84 trees). #1115 isn't live (old
+  wrapper, no `src.conf`, pin still `e307a849`), and @infra hasn't answered the 21:44Z pin question. I added a one-line
+  nudge under it (`1791151269.030879`), not a new ask.
+- GPUs idle, reported: node 1 0 of 8 and nothing in Kueue; node 2 1 of 8 (a `research` lease), no queue. The pacer and
+  dispatcher are clean.
+- The latest hourly snapshot is `art:e9fe80bd5c6fc03b31bdc52e47415d6b213c9466f1c07746c2f2a528baf9279f` (about 21:55Z).
+
 ## State at 21:30Z Oct 4 (2:30 PM PDT), steward pass
 
 - Both nodes' GPUs are fully idle, reported: node 1 0 of 8 and nothing in Kueue; node 2 0 leases and no queue.

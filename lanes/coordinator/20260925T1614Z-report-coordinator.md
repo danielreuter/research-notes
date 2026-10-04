@@ -609,3 +609,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T21:10Z: 2c85 cause = latent id()-reuse cache bug in class_statement.partition_binding on main (not the six). Asked proofs for a fix PR to land first; six cleared.
 - 2026-10-04T21:22Z: poll: 9c9f running.
 - 2026-10-04T21:25Z: #1129 (partition_binding fix, not yet ready) on 4b3f: 6b376c61e node1 r20261004-212120-14a1 --agreement; merge needs #1129 ready.
+- 2026-10-04T21:42Z: poll.
+- 2026-10-04T21:46Z: MERGED 4b3f88816 (12 PRs incl #1103 #1115 #1110; 9c9f) -> main 16749a0ff; all MERGED. 14a1 (#1129) next, needs ready.

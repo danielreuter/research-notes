@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (17:40Z) [open] A 17:40Z poll: nothing new since 17:20Z; main c05f14179 unchanged; /workspace last 55% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (17:20Z) [open] A 17:20Z poll: nothing addressed to pouw-node2; main c05f14179 lands #1070 (opt-in row_k cut of Pearl-C/Pearl-C4 row units, PROTOCOL.md + vectors; no gamma or cap change), panel unaffected; node2-ops 17:15Z: 16Z GPU busy 10.8% (nothing submitted), /workspace 55% (hold), no windows ahead, corrected infra's wasters item 1 (circuits-tp8, not ours); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (17:00Z) [open] A 17:00Z poll: nothing new since 16:40Z; main ae121709c unchanged; /workspace last 55% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (16:40Z) [open] A 16:40Z poll: nothing addressed to pouw-node2 (only infra interviews round 21); main ae121709c unchanged; /workspace last 55% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2

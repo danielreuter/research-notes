@@ -241,3 +241,24 @@ Top ruled on the open points, and circuits settled the two left to it. These rep
   module map beside its path map. It rewrites imports, `import_module` strings, `module:attr` specs and module-keyed test
   data, and each move PR runs it on its own branch after a restack. Lean comments that name Python modules are left to a
   later Lean PR. See `note:20261004T2058Z-draft-repo-organization-principles`, packaging section.
+
+## Rulings after 23:00Z (Daniel 4:19 PM and 4:25 PM PDT, plan commits 27ac6fbc and 10cf6e8d): the rows as they now stand
+
+These replace the gadget-placement and kernel rows above.
+
+- **Silicon to `catalog/silicon/`, not `verity/`.** The models, their Lean, the FP formats, the device instances and the
+  gadgets that implement them go to `catalog/silicon/`: `ml/boolean/fp`, `tc_step`, `fp4`, the gadget halves of
+  `boolean/scalar` and `mufu`, and the `ml/tables/` bytes. A circuit is claim content pinned by digest, so no guarantee reads
+  a model.
+- **What stays in `verity/`.** Only the circuit machinery stays. That means the generic Boolean pieces `forms`, `gather` and
+  `trace` in `verity/primitives/circuits/boolean/`, plus any builder the verifier runs at verification time (PoUW's
+  `ncp2`). `softmax` composes the `fp` gadgets, so it follows them to `catalog/silicon/`.
+- **Kernels to a top-level `kernels/`, untrusted.** That covers vLLM's `program/kernels/` (`_jit.py`, `kernel_registry.py`,
+  `rows.py`, `dense_rows.py`, `fp8_moe_rows.py`, …) and the registry helpers and constants the row kernels import. They
+  stay bit-exact with their reference. `gpu_proofs_match_cpu` becomes a completeness test. Backends question 3 stands:
+  the row kernels never needed a `verity/` home.
+- **Nothing moves to `experimental/`.** That replaces this note's `boolean.universal` → `experimental/private_circuits/`
+  row and its quarantine row: the non-recursive proof system stays in `verity/`. Where the quarantine goes now is the
+  layout-move worker's call. Consolidate, don't delete, still holds.
+- **The move is one generated commit** on `cursor/layout-move-c3b2` (Daniel, 4:30 PM PDT). Circuits' per-family split
+  scripts and the per-Definition bindings split (`cursor/circuit-check-bindings-per-module-8c79`) are inputs to it.

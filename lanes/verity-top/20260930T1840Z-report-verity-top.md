@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:00Z) [open] 15:00Z: #1057 held for Daniel; rider 7b5ed7767 queued behind 6fff10781; arch layout awaiting Daniel's go
 CHECKPOINT none (14:45Z) [open] GPUs idle (no named work); window 15:00Z; PRs flowing to ci from all leads
 CHECKPOINT none (14:30Z) [open] overnight set closed 4/31 met (Opus outage 07:24-14:09Z); 19 PRs landed, next 15 checking; status sent to Daniel
 CHECKPOINT none (14:15Z) [open] Daniel raised usage limit 14:09Z; all leads resumed on Opus; trains being restarted

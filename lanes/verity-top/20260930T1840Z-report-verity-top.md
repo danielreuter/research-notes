@@ -6,6 +6,7 @@ status: open
 ---
 
 CHECKPOINT none (23:47Z) [open] #1126 old head cleared to land; tips 595f/6315/582a checking; layout move as one branch; P2 pick pending
+CHECKPOINT none (23:47Z) [open] #1126 old head cleared to land; tips 595f/6315/582a checking; layout move as one branch; P2 pick pending
 CHECKPOINT none (23:30Z) [open] two tips checking, 8-PR tip next; Daniel rulings 4:06/4:19/4:25 recorded; P2 pick pending
 CHECKPOINT none (23:15Z) [open] main 5049de02f; f2a07e5ae lands next; P2 options sent to Daniel; proofs-only ruling recorded; mig-check pods up
 CHECKPOINT none (23:00Z) [open] be2452acd checking; lock reductions #1142/#1149/#1156 drafted; all move-map answers in; import names follow directories (Daniel)

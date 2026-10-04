@@ -544,3 +544,4 @@ Triage:
   - Done today: parallel quick slots until 18:20Z.
   - No: tiers on the VM (use `--on`). Context only: the environment failures are fixed on main.
   - Every answer produced an item, so the timer stays on. Next round: compute-accounting, memory-accounting.
+- Round 22, 4 Oct 20:45Z: @compute-accounting and @memory-accounting (announce ts 1791146750.519769). Neither is in a timed window or an incident; both are answering top's migration survey. Context given: #1107 landed (round 21's yes); research/src pruned under #1115's rules and the steward's age-based src sweep off; the quick-tier node-service proposal (note:20261004T1956Z-draft-quick-tier-node-service); `research replay` offered for replay sets. Infra is subscribed to the thread for 12 h. Next round: network-accounting, console.

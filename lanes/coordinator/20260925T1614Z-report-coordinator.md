@@ -532,3 +532,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T02:52Z: proofs stack #996 #1023 #1024 #1037 + #1039 on #1028: 6dd3c93ba node1 r20261004-024819-11bc --agreement; bodies lack 'lean read' lines.
 - 2026-10-04T03:05Z: #976 eb4962dfb scanned: no -h2, no keyed 8-block rotation (only blockwise-FP8 refusal on sm_120). Clear to train.
 - 2026-10-04T03:06Z: MERGED #1028 (b7af) -> main 59438bab7; told steward to install before 04:30Z eviction. 11bc (proofs stack) next, held for reviewer lines.
+- 2026-10-04T03:12Z: #1028 installed on node1 (eviction pinned to main tool snapshot). Train 4 (#900 #975) 6d585a9d4 node1 --agreement.

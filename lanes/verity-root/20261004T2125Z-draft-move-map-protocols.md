@@ -644,3 +644,18 @@ Questions the owners answered on 4 Oct are kept here, marked answered, so their 
    `plan.py`, `draw.py` and `consumers.py` cite about ten C-Flock audit-law pins. Either the lock keeps them, or that
    code cites only kept pins. compute-accounting brings it to Daniel with pouw-lock's report; proofs owns the C-Flock
    audit-law pins.
+
+## Captain's calls on the conflicts (4 Oct, 4:45 PM PDT)
+
+- **1 to 3: a builder the verifier runs at verification time is trusted, so it goes to `verity/` beside `ncp2`.** That
+  covers Pearl-C's tile-check builders (`pc8`, `rowk`, `leaves`), since they are Pearl-C's only route to a verdict and
+  are built per statement like `ncp2`. Everything those builders and `ncp2` import goes with them, split as
+  compute-accounting proposes: `hashes.py`'s SHA-512, SHAKE256 and `KeccakF1600` and Pearl-C's TurboSHAKE128 and
+  `KeccakP1600R12`; `words.py` lines 44-209 and the Pearl-C section; and `boolean.py`. The Pearl-C4 section goes with
+  `pc4` to `experimental/`. PoUW's word primitives (`PouwCh32`, …) move with them, so nothing in `verity/` imports the
+  catalog (P6). "One SHA-512" stays a vectors bridge to `ml/boolean/sha512`. If compute-accounting shows that a builder is
+  a fixed circuit pinned by digest, not built per statement, it goes to the catalog instead.
+- **4: the lock keeps the pins something reads,** as #1156 does (151 kept, 649 dropped, lean-checked). Under the 2:03 PM
+  ruling each reader (code, a ledger, a rendered table) makes its pin a guarantee, so no new ruling is needed. proofs
+  owns the C-Flock audit-law pins that `plan.py`, `draw.py` and `consumers.py` cite.
+- **Not placed:** `ncp-v1` and `pearl-c-sm120-v1-h2` sit beside their replay in `benchmarks/pouw/`.

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:30Z) [open] main 75976b4f2 (26 PRs landed); afacde975 checking; survey round 2 nearly done
 CHECKPOINT none (20:15Z) [open] two tips checking; node 1 disk 72% with GLM quota; Lean move plan agreed
 CHECKPOINT none (20:00Z) [open] 525e5c32d and afacde975 checking in parallel; refactor plan v3 (consolidate, not delete)
 CHECKPOINT none (19:45Z) [open] 525e5c32d in Lean audit; P2 review done, decisions with Daniel; layout principles v2

@@ -556,3 +556,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T07:16Z: #1021 #1048 #1074 #1073 #1066 on 90e8ac187: 8f13bc8e6 node1 --agreement.
 - 2026-10-04T07:21Z: #1071 #1042 #1078 on 8f13bc8e6: b80c020b7 node2 --agreement (node1 full).
 - 2026-10-04T07:24Z: MERGED #1051 #1053 via fb77 (a64d3e16f, incl. lean-agreement) -> main 600f5ca1e. #1053 live: statement-reviewer requirement RETIRED (Daniel ruling); reviewer-line check no longer applied. Chain: 6a14, 3bc4, 6580, 2d6d.
+- 2026-10-04T14:22Z: (gap 07:22-14:13Z, sweeps stopped) MERGED b80c020b7 (19 PRs; 2d6d incl. lean-agreement) -> main ae121709c; closed #1021 #1074 with landed comments. #1038+#1047 2a340549d node2 r20261004-141751-9899. Riders #1006 #1067 #1069 #939 next.
+- 2026-10-04T14:24Z: riders #1006 #1067 #939 on #1038/#1047: c2801eedd node1 r20261004-141928-511d --agreement; #1069 conflicts -> lean restack.
+- 2026-10-04T14:27Z: ci 16-PR train 401963c73 (PoUS Lean, proofs, #1035 #827 flock) node1 --agreement; parallel to lean trains.

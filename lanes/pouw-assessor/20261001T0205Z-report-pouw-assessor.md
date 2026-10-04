@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (05:02Z) [open] 10:02 PM PDT: no new asks. Ratings stand. Main 08ac6bf40 unchanged, no change under protocols/pouw; policy 650df0bd, 793 pins; #1059 not landed; #983 still unmerged. Project store still unmounted; ledger-2156Z and ledger-2230Z held.
 CHECKPOINT fbce5a2f4 (04:41Z) [open] 9:41 PM PDT: no new asks. Ratings stand. Verity fetch failed (auth) at 04:30Z, recovered at 04:41Z: main 08ac6bf40 unchanged, no change under protocols/pouw; policy 650df0bd, 793 pins; #1059 not landed; #983 still unmerged. Project store still unmounted; ledger-2156Z and ledger-2230Z held.
 CHECKPOINT fbce5a2f4 (04:19Z) [open] 9:19 PM PDT: no new asks. Ratings stand. Main 08ac6bf40 (#996 #1023 #1024 #1037 #1039 #900 #975): no change under protocols/pouw since ec8ac91ae; policy 650df0bd, 793 pins; #1059 (pins to guarantees rename) not landed. #983 still unmerged. Project store still unmounted; ledger-2156Z and ledger-2230Z held.
 CHECKPOINT fbce5a2f4 (03:58Z) [open] 8:58 PM PDT: no new asks. Ratings stand. Verity fetch failed (auth) at 03:48Z, recovered at 03:58Z: main 59438bab7 unchanged; policy 650df0bd, 793 pins. Incoming #1059 renames pins to guarantees in the audit files (redteam: records otherwise equal); when it lands I will diff records across the rename and rebaseline the hash. #983 still unmerged (pc8/pc4 NO-GOs stand). Project store still unmounted; ledger-2156Z and ledger-2230Z held.

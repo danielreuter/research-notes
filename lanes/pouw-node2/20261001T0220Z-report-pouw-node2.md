@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (19:40Z) [open] A 19:40Z poll: nothing new since 19:20Z; main 06edf032c unchanged (fetch OK); /workspace last 56% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (19:20Z) [open] A 19:20Z poll: nothing addressed to pouw-node2; node2-ops 19:10Z: 18Z GPU busy 11.0% (nothing submitted), /workspace 56% (hold), no windows ahead; verity fetch auth failed (main last seen 06edf032c); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (19:00Z) [open] A 19:00Z poll: nothing new since 18:40Z; main 06edf032c unchanged; /workspace last 56% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (18:40Z) [open] A 18:40Z poll: nothing addressed to pouw-node2 (accounting's 18:36Z relays are memory accounting's P2/P3, not naming us); main 06edf032c unchanged; /workspace last 56% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2

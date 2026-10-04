@@ -317,15 +317,23 @@ And at 2:21 PM PDT:
 
 - **Tests stay beside their package,** as one input-cached suite each. Test-only code in packages moves into tests
   (PoUS's oracle, adversary and broken attack modes). The repository's own `tests/` keeps only whole-tree invariants.
-- **Python packaging:** one uv workspace with one `uv.lock`. **Import names are kept** (captain, 4 Oct, on the move
-  inventory's evidence): no digest, id or Lean pin contains a module path, while a rename would re-pin fixtures and Lean
-  files and fork the derivation of every `-m` run. A workspace member moves whole. Core's `verity` becomes a PEP 420
-  namespace: its one-line `__init__.py` goes, and each directory under `verity/` that holds core code is a member of
-  its own, keeping `src/verity/<module>/` paths so that path-keyed tools still work. A probe checks uv's editable
-  install, `suites.py`'s `foreign()`, `test_boundaries.py` and circuit-check on that split first. Code that leaves
-  `verity/` for `catalog/` or `experimental/` takes those members' names. `tools/` holds one distribution per tool,
-  each its own suite and cache key, so that a change to one tool reruns only its tests (ci). `research` stays its own
-  distribution because the nodes pin it separately.
+- **Python packaging:** one uv workspace with one `uv.lock`. **Import names follow the directories** (Daniel, 4 Oct):
+  `verity/primitives/silicon/` is `verity.primitives.silicon`. No digest, Definition id or Lean guarantee pin contains a
+  module path (the move inventory), so a rename costs edits and one cold `check`, which the directory move pays anyway.
+  - The move script carries a module map beside the path map. It rewrites imports, `import_module` strings,
+    `module:attr` specs and module-keyed test data, and lanes run it on their own branches after a restack.
+  - Before the first rename, the two guards that fail open on an unknown name fail closed (`suites.py`'s `foreign()`,
+    circuit-check's `_authored`), and a whole-tree test checks that every dotted module string in tracked code and
+    data resolves, history fields aside. That test is what makes the next rename safe.
+  - Lean comments that name Python modules are rewritten in a later Lean PR, so a Python move doesn't rerun the Lean
+    audit. Old data that resolves modules at run time (the vLLM quarantine's `verity_ir.*` adapters, node scripts
+    that run old and new trees) gets an alias table.
+  - The recurring `-m` runs become declared tools, whose derivation is keyed by tool name and version, not by module
+    path. The 111 ad hoc ones fork, and their old records stay valid.
+  - The probe now tests how a directory maps to its import name: per-member hatch `sources`, or one `verity`
+    distribution with a suite per directory. `tools/` holds one distribution per tool, each its own suite and cache
+    key, so that a change to one tool reruns only its tests (ci). `research` stays its own distribution because the
+    nodes pin it separately.
 - **Silicon semantics**, how the hardware computes each low-level op bit for bit (the tensor-core step, FP and integer
   arithmetic, MUFU, PTX max and min), split as the Lean does: the parameterized models in `verity/primitives/silicon/`
   with their Lean spec beside them, the formats and device instances in `catalog/` (captain's default, name Daniel's,

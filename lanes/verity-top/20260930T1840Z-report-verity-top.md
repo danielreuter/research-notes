@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:00Z) [open] 16:00Z: erasure fill broken, decision with Daniel; 19-PR train checking, 12-PR rider queued; quick tiers parallel
 CHECKPOINT none (15:45Z) [open] 15:45Z: node 2 window ending; quick-tier backlog ~20, infra adding parallel slots; scope gap with Daniel/proofs
 CHECKPOINT none (15:30Z) [open] 15:30Z: afternoon set 15:20-18:20Z live, leads tightened lines; 19-PR train checking; node 1 GPUs lent
 CHECKPOINT none (15:15Z) [open] 15:15Z: 19-PR train 10b025c60 checking (b201); #987 fixing size cap; compute window on node 2 until 15:45Z

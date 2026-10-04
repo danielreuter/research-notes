@@ -211,7 +211,7 @@ And at 2:21 PM PDT:
    - *integration:* the frontend rules and vocabulary (which Definition each serving role binds), capture, capture
      maps, the κ profiles, the fold and Match.
 
-   43 of vLLM's 55 registry modules import `verity_vllm` (twins, frontend helpers), so "catalog imports only verity"
+   51 of vLLM's 55 registry modules import `verity_vllm` (twins, frontend helpers), so "catalog imports only verity"
    first needs each Definition split from its twin and from the vocabulary: most of the move's real work there.
    Definition ids and descriptor digests are name-keyed, so no move changes them. Every vLLM Definition's link to a Lean
    model is named, not proved, and is labelled so.
@@ -316,8 +316,18 @@ And at 2:21 PM PDT:
 
 - **Tests stay beside their package,** as one input-cached suite each. Test-only code in packages moves into tests
   (PoUS's oracle, adversary and broken attack modes). The repository's own `tests/` keeps only whole-tree invariants.
-- **Python packaging:** one uv workspace with one `uv.lock`, and one distribution per top-level directory. `research`
-  stays its own distribution because the nodes pin it separately, and `ci.toml` can still declare sub-suites.
+- **Python packaging:** one uv workspace with one `uv.lock`. **Import names are kept** (captain, 4 Oct, on the move
+  inventory's evidence): no digest, id or Lean pin contains a module path, while a rename would re-pin fixtures and Lean
+  files and fork the derivation of every `-m` run. A workspace member moves whole. Core's `verity` becomes a PEP 420
+  namespace: its one-line `__init__.py` goes, and each directory under `verity/` that holds core code is a member of
+  its own, keeping `src/verity/<module>/` paths so that path-keyed tools still work. A probe checks uv's editable
+  install, `suites.py`'s `foreign()`, `test_boundaries.py` and circuit-check on that split first. Code that leaves
+  `verity/` for `catalog/` or `experimental/` takes those members' names. `research` stays its own distribution because
+  the nodes pin it separately, and `ci.toml` can still declare sub-suites.
+- **FP and tensor-core semantics** split as the Lean does: the interpreter in `verity/primitives/fp/`, the formats and
+  device instances in `catalog/` (captain's default; compute-accounting and circuits may object).
+- **Kernels of catalog Definitions** register by Definition id from `verity/kernels/`, so `verity/` imports no catalog
+  module. Their self-checks are tests, and tests may import the catalog (captain's default; circuits may object).
 - **`PROTOCOL.md` retires.** Definitions go to the Lean spec, parameters to the catalog, and where two implementations
   must agree, a vectors file is the spec. A short README keeps the threat model, the lifecycle and the open assumptions,
   and the area's approaches keep its history. Two sections stay until Lean states them: the warden's wire format and
@@ -331,7 +341,7 @@ And at 2:21 PM PDT:
 ~~~text
 verity/            TCB, with each spec beside its code: only what a guarantee depends on
   primitives/      circuits, randomness, commitments (one Merkle tree, one SHA-512 row hash), crypto (drand BLS),
-                   physical (one timed challenge-response)
+                   fp (the FP and tensor-core interpreter), physical (one timed challenge-response)
   protocols/       verification (C-Flock: its Lean verifier and its reference prover), accounting (work/pouw,
                    space/pous, communication/warden with its active enforcer), compliance/nci, the onsite protocol
                    and the remote protocol
@@ -585,7 +595,7 @@ has an H100, so re-running its timed results needs a rented H100 pod: a spend as
    first splits circuit-check's bindings and pins per Definition module, each beside its Definition and labelled from
    the conformance record (circuits plus a worker, after the per-target cache lands), then splits each registry module
    into Definition, twin and vocabulary, one family per PR. The catalog moves only after that. A superseded Definition
-   version is deleted when no kept Program or record names it, and `registry/quarantine/` (8 modules) goes with the
+   version is deleted when no kept Program or record names it, and `registry/quarantine/` (39 files in 6 subpackages) goes with the
    deleted versions' targets.
 
    The ownership map keys on today's paths, and each move PR updates its own globs (comms). `registry.json` stays

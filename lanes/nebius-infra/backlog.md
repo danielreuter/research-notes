@@ -59,6 +59,19 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 23:00Z Oct 4 (4:00 PM PDT), steward pass
+
+- **Node 1 disk is climbing with src eviction live:** 72.4% (22:30Z), 74.1% (22:45Z), 74.5% (23:00Z; 1,277 GiB free).
+  `research/src` is steady at about 80 trees.
+  - Writers over 10 MB/s since 22:25Z: three `pouw-hidden-zk` runs (`r20261004-2134{06,11,16}-*`, `cut_a_form*-k14336`
+    stages) at about 10 GB each into `research/runs/*/out/`, plus about 1 GB of vLLM integration logs per check.
+  - That's about 34 GB of the 105 GiB lost; the rest is slower writers.
+  - Re-armed `node1-disk-watch-78c` (every 15 min) to tell root at 78%, about 50 min away at this rate. No nudge for disk-72
+    (src eviction is live).
+- GPUs idle, reported: node 1 0 of 8 and nothing in Kueue; node 2 1 of 8 (a `research` lease), no queue. The pacer and
+  dispatcher are clean.
+- The latest hourly snapshot is still `art:e9fe80bd…`.
+
 ## State at 22:30Z Oct 4 (3:30 PM PDT), steward pass: #1115 live
 
 - **#1115 is live** (open ask 1, done; see Open asks). The watch still flags disk-72 (72.4%, 1,382 GiB free), but src

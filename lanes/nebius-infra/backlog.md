@@ -27,6 +27,13 @@ runs. (Also in the infra report `20260930T1845Z-report-infra`: every job names i
 are the cron timer `nebius-infra-steward-pass-v2` plus `nebius-infra-steward-fallback` (every 45 min), which runs a full pass
 when `/tmp/steward-pass.last` is over 40 min old.
 
+**Subscriptions (root, 16:34Z Oct 4: they expire 7 days after creation; renew any expiring within 2 days).**
+- `nebius-infra-steward-pass-v2` (cron `*/30`, `sub_bbdccb40…`) and `nebius-infra-steward-fallback` (every 2,700 s,
+  `sub_35ad9975…`): both expire 2026-10-11T14:33Z.
+- A one-shot reminder, `nebius-infra-renew-subscriptions-oct9`, fires about 2026-10-09T14:00Z to renew them.
+- To renew: unsubscribe, then re-subscribe with the same args under a **new name** (`-v3`). Re-subscribing a just-closed name
+  returns `created: false` and leaves no timer (seen 14:33Z Oct 4). Confirm with `list_subscriptions`.
+
 ## Open asks
 
 1. **[@infra] Hourly eviction covers `/workspace/research/src`** (root, 04:02Z Oct 4; asked in the disk thread,
@@ -38,6 +45,16 @@ when `/tmp/steward-pass.last` is over 40 min old.
    - Once it's on main, bump the `tool-1028.conf` pin on both `vy-store-evict` units. Then check one hourly run prunes
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
+
+## State at 16:30Z Oct 4 (9:30 AM PDT), steward pass
+
+- **Node 1 disk never reached 72%.** It peaked at 71.4% (1,435 GiB free) at 16:15Z, then fell to 67.3% (1,641 GiB) by
+  16:30Z: about 206 GiB freed outside retention (no decisions) and eviction, probably a run's own cleanup. `research/src`
+  kept growing (177 trees). No nudge was needed. #992 is still open.
+- Node 1 GPUs: 1 of 4 `provers` leases is a live `pr-1057` run (GPU 3), and the GPUs hold no memory now; the rest are idle.
+  @infra restarted `n1-lease` on #1075 at 15:20Z (`VY_POOL_BORROW=6` until 00:00Z Oct 5: preemptible waiters may borrow
+  circuits' GPUs), and `n1-lease-circuits` at 15:29Z. The pacer (cap 418 GB) and dispatcher are clean.
+- Node 2: 1 of 8 GPUs held (a fill-runner job), and no queue.
 
 ## State at 16:00Z Oct 4 (9:00 AM PDT), steward pass
 

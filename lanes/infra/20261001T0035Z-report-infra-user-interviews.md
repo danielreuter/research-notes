@@ -464,3 +464,17 @@ Triage:
   in round 19. Rounds 15-17 each brought new items, so the timer stays on. The ask lists #936, #942, #944, #958 and ci's line
   on main, node 1 on main's node files since 23:12Z, the quick tier (#1015, #995, #966, #980, #955), and node 2's 0-123 limit
   on a gpu-lease command's taskset. Infra is subscribed to the thread for 12 h.
+- Answers: compute-accounting 23:29Z (ts 1791070162.447809), circuits 00:07Z, 4 Oct (ts 1791072425.902479). Most time:
+  quick tiers on agent VMs (circuits: train 1's five readies ran serially under the queue lock, 33-36 min each, 20:54-23:53Z;
+  compute-accounting: the 15 GB VM can't run two side by side, a `--quick` flock worker was OOM-killed, `soundness/` can't
+  build), too many suites for a small PR (#1014's 4 PoUW files ran 13 suites, verity-vllm 1,166 s), node 1's hourly store
+  eviction emptying `trees/` under running suites (lane R: a phantom regression row and a failed check), and the FP8 passes
+  infra deleted at 20:02Z. Worked around: a second tmux to skip the queue lock; `research data preserved` instead of
+  `research data custody`, which printed "0 file(s)" on a preserved run; a kernel-replay check added to the lean-proofs skill.
+- Triage, posted 00:15Z (ts 1791072940.251069): (1) #989 (quick tiers as runs in node 1's check slots, in parallel) is next
+  in the quick-tier queue. (2) A lane started on the fan-out (bc-96dc40d5, branch `cursor/suite-fanout-558b`): narrow core's
+  `backends/numerical` and research's `integrations/vllm` declarations, each narrowing proved under the suite guard. (3) Node 1
+  eviction paused at 00:14Z (drop-ins `pause-until-1028.conf`, floor 1,500 GB, 1,890 GiB free, disk 63%) until #1028 is
+  installed; `vy-store-evict-unpause.timer` restores 2,500 at 00:00Z 6 Oct. (4) Node 2's 0-123 taskset limit is by design
+  (124-191 for network's timing path, #970). (5) The custody "0 file(s)" message goes to the custody lane after #984/#1004.
+  (6) #995 waits on ci. Every answer produced an item, so the timer stays on.

@@ -236,4 +236,8 @@ Top ruled on the open points, and circuits settled the two left to it. These rep
   mechanism/list split after the moves; no move PR waits on it. `ml.operations` stays whole in `verity/`.
 - **The 43 (backends 7).** It was the plan's first draft, now superseded. The plan cites the scan at main: 59 modules,
   53 of which import nothing outside the registry, `verity` and numpy.
-- **Import names (4c).** Whether import names follow the new directories is open with Daniel.
+- **Import names (4c), settled by Daniel at 22:50Z.** Import names follow the new directories (`verity/primitives/silicon/` is
+  `verity.primitives.silicon`), and `program/kernels` takes its new import name when it moves. The move script carries a
+  module map beside its path map. It rewrites imports, `import_module` strings, `module:attr` specs and module-keyed test
+  data, and each move PR runs it on its own branch after a restack. Lean comments that name Python modules are left to a
+  later Lean PR. See `note:20261004T2058Z-draft-repo-organization-principles`, packaging section.

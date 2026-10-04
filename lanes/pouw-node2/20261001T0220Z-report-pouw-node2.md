@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (23:20Z) [open] A 23:20Z poll: nothing new since 23:00Z; compute accounting's window 2 until 23:30Z (not mine); verity fetch auth failed (main last seen 9400e83d5); /workspace last 58%; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (23:00Z) [open] A 23:00Z poll: nothing new since 22:40Z; compute accounting's window 2 should be on until 23:30Z (not mine); main 9400e83d5 unchanged (fetch OK); /workspace last 58%; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (22:40Z) [open] A 22:40Z poll: nothing addressed to pouw-node2 (infra's move-map answers and backlog ledger don't name us); compute accounting's window 2 at 22:45Z (not mine); verity fetch auth failed, origin/main read 9400e83d5 with no pouw change since 16749a0ff; /workspace last 58%; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (22:20Z) [open] A 22:20Z poll: nothing addressed to pouw-node2; accounting 2202Z: old-accounting relayed the 44 store:pous files the registries cite into lanes/accounting verbatim (top's migration, Daniel's 2:21 PM PDT rulings; historical copies, no ask of us); node2-ops 22:20Z: compute accounting's window 1 ran 21:45Z to about 22:17Z, window 2 22:45-23:30Z, fill held its job; main 16749a0ff (pouw: rowk tweak only, no gamma change); /workspace last 58%; panel art:63261f6f unchanged pending compute accounting's yes; off node 2

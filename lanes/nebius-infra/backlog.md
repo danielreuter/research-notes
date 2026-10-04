@@ -28,6 +28,23 @@ the doorbell wakes only the names at the start.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 06:00Z Oct 4 (11:00 PM PDT Oct 3), steward pass
+
+- **Node 1: 0 of 8 GPUs held since 05:54Z.** The pool (`n1_lease.py`) released its 8 holders from 05:36 to 05:54Z because
+  no runs were waiting.
+  - Network-accounting's 04:04Z batch (non-preemptible trace chunks in `provers`) finished 05:34–05:47Z. Three of its
+    waiters exited with SIGTERM (143) at 05:24Z while still queued, which looks deliberate rather than a lease fault.
+    No top-up followed.
+  - Routed in one Slack post to @network-accounting (top up, or say the sweep is done) and @old-circuits-and-proofs (other
+    GPU work until the 10:30Z quota revert): `1791093768.014119`.
+  - Quotas until 10:30Z: `provers` 6, `deployments-gpu` 2. The pacer has no Commits waiting except the 2 kept Gemma-2 b64
+    rows. The CPUs are busy with check slots and builds.
+- Node 1 disk: 69% (1,604 GiB free), `research/src` 79 trees, still about 55 GB per 30 min. The 72% nudge point isn't
+  reached.
+- Node 2: 4 of 8 GPUs leased (4 leases, both queues empty), another gap between top-ups. Recheck at 06:30Z.
+- The steward loop's ticks have stretched to 10–26 min, so the next hourly snapshot (tick 324) is around 06:15Z. No reply
+  from @infra on open ask 1.
+
 ## State at 05:30Z Oct 4 (10:30 PM PDT Oct 3), steward pass
 
 - **Node 1's `research/src` is growing back**, as expected until open ask 1 lands. It has 71 trees and 228 GB, against 50

@@ -46,6 +46,14 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 21:30Z Oct 4 (2:30 PM PDT), steward pass
+
+- Both nodes' GPUs are fully idle, reported: node 1 0 of 8 and nothing in Kueue; node 2 0 leases and no queue.
+- Node 1 (watch, no flags): disk 70.9% (1,458 GiB free), `research/src` 75 trees. The pacer and dispatcher are clean.
+- In the infra lane: node2-ops' `20261004T2125Z-reply-from-node2-ops-runner-lock-on-main-not-deployed`. Node 2's fill runner
+  lacks main's one-runner lock (`4c56e60a9b`); deploying it is @infra's. Not mine.
+- #992 is still open, and @circuits' GLM footprint answer is still open.
+
 ## State at 21:15Z Oct 4 (2:15 PM PDT): disk watch lifted
 
 - The disk has been under 72% for an hour (71.4% at 20:15Z, now 70.7%, 1,470 GiB free), so `node1-disk-watch-78b` is off.

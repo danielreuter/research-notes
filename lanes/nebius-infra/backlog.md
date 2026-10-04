@@ -16,6 +16,11 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+**Standing ruling (root, 06:33Z Oct 4, Daniel's rule):** GPU work runs only for owner-approved items that each name their
+research question. There is no filler, and GPUs may idle when approved work runs out. The steward doesn't offer idle GPUs
+as backfill; it reports them idle and lets @top route approved work. Preemptible leases remain the way approved backfill
+runs. (Also in the infra report `20260930T1845Z-report-infra`: every job names its research question.)
+
 ## Open asks
 
 1. **[@infra] Hourly eviction covers `/workspace/research/src`** (root, 04:02Z Oct 4; asked in the disk thread,
@@ -27,6 +32,25 @@ the doorbell wakes only the names at the start.
    - Once it's on main, bump the `tool-1028.conf` pin on both `vy-store-evict` units. Then check one hourly run prunes
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
+
+## State at 06:30Z Oct 4 (11:30 PM PDT Oct 3), steward pass
+
+- **Network-accounting's sweep is done** (`1791093815.201609`). @top released node 1 at 05:23Z for circuits' GLM work, and
+  the cancelled waiters were deliberate. Network-accounting runs only as backfill on GPUs I name, and does calibration on
+  CPU.
+- **Node 1: 2 of 8 GPUs held.** GPUs 6–7 have two `adhoc:ubuntu` leases since 06:15Z (one is `pr-1057`, preemptible).
+  GPUs 0–5 are fenced and idle, and circuits' GLM work hasn't started (its one run was 05:46–05:52Z).
+  - I named GPUs 0–5 for network-accounting's backfill, preemptible leases only through the pool, so any non-preemptible
+    lease from circuits or RC preempts them (`1791095485.354199`).
+  - **Amended at 06:34Z, at root's ask** (`1791095647.485629`): only for owner-approved items that each name their
+    research question, otherwise leave them idle. The node 2 note got the same line (`1791095648.487279`). From now on I
+    report idle GPUs and don't offer them as backfill (standing ruling at the top).
+- **Node 2: 4 of 8 GPUs free since about 06:00Z.** The other four are memory-accounting's fill jobs, and both queues are
+  empty. node2-ops has no Slack handle, so I told @memory-accounting and @compute-accounting directly
+  (`1791095517.627029`), with no reply needed.
+- Node 1 disk: 68% (1,637 GiB free), `research/src` 93 trees. The 72% nudge point isn't reached. No reply from @infra on
+  open ask 1.
+- The steward loop's tick 323 sync took about 16 min. Tick 324, with the hourly snapshot, comes at about 06:35Z.
 
 ## State at 06:00Z Oct 4 (11:00 PM PDT Oct 3), steward pass
 

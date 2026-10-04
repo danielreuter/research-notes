@@ -549,7 +549,7 @@ Triage:
   - Time lost: #1001's quick tier hung 85 min on node 2 with nothing flagging it (a `multiprocessing.Pool` under Python 3.14's forkserver); the first `research notes approaches --refresh` took 12.6 min; `research data push --pending` didn't finish in 200 s.
   - Worked around: quick-tier chains in tmux on a VM; a tmux login shell just for `data put --preserve` (R2_* missing in a non-login shell); a round trip with ci over grants that only main lagging the tip asked for; asking top to hand over an approach a retired lane owned; `protocol-spec/v1` for a document.
   - Fix next: a stall flag on quick tiers, then the chains as a node service; self-service takeover of a retired lane's approaches.
-- Triage posted 22:28Z (ts 1791152101.142009):
+- Triage posted 22:15Z (ts 1791152101.142009):
   - Done today: the spurious grants. `Rules.needs` diffed from one of several merge bases; #1143 takes a PR's paths from what landing it changes, and #1012/#1055 were restacked.
   - Probably done: R2_* in a non-login shell (#916 takes a lost injected secret from the tmux server).
   - Yes, after the backlog sweep (under about 15 open): the stall flag inside the quick-tier node service, which also ends the VM chains; approach takeover through the lane contract's successor map; a `document/v1` kind.

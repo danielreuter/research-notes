@@ -1,6 +1,7 @@
 # sm_120 kernels: the toolchain, the card, the libraries and node 2
 
-**Superseded (30 Sep, 19:40Z) by `store:pous/docs/pouw/sm120-gotchas.md`,** the facts page named below. It holds every line
+**Superseded (30 Sep, 19:40Z) by the facts page, now `kb/sm120/gotchas.md` in these notes** (copied from the pous store
+on 4 Oct, notes `ebba7c7a`). It holds every line
 here (four corrected, 37 given run ids or commits) and 196 more backfilled from the lanes' status files and `server.md`. Add
 and correct facts there; this list is no longer kept.
 
@@ -9,8 +10,8 @@ Facts for anyone writing or timing kernels on the RTX PRO 6000 (sm_120, 188 SMs)
 The workflow around these facts is Verity's `.agents/skills/kernel-engineering/SKILL.md`. This list is hand-kept until the
 kernel-attempt ledger's facts page lands (bc-1a23b70c, verity#491); then it is generated from `fact` records, or retires.
 
-Sources: status files are `store:pous/internal/pouw/rtx-pro/workers/<file>` (the POUS Project store) with the time of the
-entry, `server.md` is the RTX PRO coordinator's log there, and commits are on the harness branch (verity#491) unless named.
+Sources: status files are `campaigns/pouw/rtx-pro/workers/<file>` in these notes (copied from the POUS Project store) with
+the time of the entry, `server.md` is the RTX PRO coordinator's log there, and commits are on the harness branch (verity#491) unless named.
 
 ## Build and the SASS gate
 
@@ -76,7 +77,7 @@ entry, `server.md` is the RTX PRO coordinator's log there, and commits are on th
 - CUTLASS 4.8's sparse NVFP4 gives wrong words, and its example 80b's `verify()` compares the reference to itself: nothing
   is gated, timed or used as a baseline from it until it is bit-exact (`server.md` 13:18Z).
 - Triton's `dot_scaled` on sm_120 silently falls back to dequantize plus FP16 MMA when K isn't packed (triton#9684), and
-  libdevice's FTZ reflect is on by default: don't use Triton for exact kernels (`store:pous/docs/pouw/kernel-tooling-report.md`).
+  libdevice's FTZ reflect is on by default: don't use Triton for exact kernels (`kb/sm120/kernel-tooling.md`).
 
 ## Node 2 (`vy-nebius-2`)
 

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (22:01Z) [open] 3:01 PM PDT: #1129 ready (tier 998a), its tip 6b376c61e check 14a1 passed; red-team-1129 grant pending; migration workers launched (canonical V1, flock-spec, flock-lock)
 CHECKPOINT none (21:44Z) [open] 2:44 PM PDT: #1129 (partition_binding/owners_of keyed by object; fixes 2c85's test_wired_links flake) quick tier r20261004-212524-998a running, lander's 6b376c61e check 14a1 running; fail-closed merged main f4fb1583a, gaps open, PR not yet; flock-design relaying rows to the flock approach registry
 CHECKPOINT 2c0aae78f (20:31Z) [open] 20:33Z: #1120/#1121 restack audits f867/ebda: verifier + level3 PASS, records unchanged; soundness running.
 CHECKPOINT 2c0aae78f (20:23Z) [open] 20:23Z: answered @top's survey round 2 (1791145359.634359): C-Flock lock to flock_verify_sound + reads + sampled proofs' cited bounds (~855 of 864 pins leave), closed-form spec before 3.3, three packages. f867/ebda running; fail-closed out.

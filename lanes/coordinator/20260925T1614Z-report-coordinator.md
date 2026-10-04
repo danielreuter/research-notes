@@ -579,3 +579,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T16:22Z: poll: b201 past lean-audit (69 min); a604 e040 2f69 at lean-unit-cut (likely waiting lean slots).
 - 2026-10-04T16:35Z: renewed Slack inbox sub (was expiring 17:59Z) to 2026-11-03. Note: proof-opt-sweep-v25 timer is gone (why sweeps stopped 07:22Z); lander-check-poll (20 min, to Oct 11) replaces it.
 - 2026-10-04T16:42Z: poll: b201 past lean-suites (near end); e040 past circuit-check; a604, 2f69 at lean-unit-cut.
+- 2026-10-04T16:55Z: friction pass posted (5 fixes, renew announcement, circuits label-fallback ask); LANE-CONTRACT 2.9 notes 553623d5. #1105 on bd025f58b: 391c8435a node1 (node2 refused: cache 122<124 GB -> infra).
+- 2026-10-04T17:00Z: comms did fix 1 in #1103 (subs renew in place; timers new name + unsubscribe old). Corrected LANE-CONTRACT §3b to match (notes 7a3d109c).

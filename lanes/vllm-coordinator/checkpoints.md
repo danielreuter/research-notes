@@ -767,3 +767,4 @@ One line per sm_120 sweep fire, newest last.
 - 20261003T2114Z (2:14 PM PDT): sweep fire. no new files in vllm-coordinator or the four vllm-sm120-* lanes since 2026-10-03T20:10Z. vy-sm120-: $0.00 since the move, cap $35.69, not tripped.
 - 20261003T2202Z (3:02 PM PDT): sweep fire. no new files in vllm-coordinator or the four vllm-sm120-* lanes since 2026-10-03T21:14Z. vy-sm120-: $0.00 since the move, cap $35.69, not tripped.
 - 20261003T2306Z (4:06 PM PDT): sweep fire. no new files in vllm-coordinator or the four vllm-sm120-* lanes since 2026-10-03T22:02Z. vy-sm120-: $0.00 since the move, cap $35.69, not tripped.
+- 20261004T0011Z (5:11 PM PDT): sweep fire. no new files in vllm-coordinator or the four vllm-sm120-* lanes since 2026-10-03T23:05Z. vy-sm120-: $0.00 since the move, cap $35.69, not tripped.

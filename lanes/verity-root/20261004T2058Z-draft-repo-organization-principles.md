@@ -173,15 +173,45 @@ And at 3:30 to 4:06 PM PDT:
     "the tile predicate holds" is new: the circuit's relation equals `TileGood` (the L3 tile-check slices), plus sampled
     proofs' soundness as a named assumption. It is a new or restated guarantee and needs Daniel's statement review. The
     served-overhead tables measure the kernel without proving, so the full overhead adds proving and ZK for the sampled
-    tiles (hidden-zk's K = 14,336 sets). In vLLM's `check/`, whatever recomputes
-    opened values is a diagnostic. Its commitment and opening checks are protocol code only if sampled proofs needs
-    them, which circuits and proofs decide, and the 12 live codes follow that answer (proofs' `proofs.codes` question).
+    tiles (hidden-zk's K = 14,336 sets).
+  - In vLLM's `check/` (proofs, at `5049de02f`): the commitment and opening checks verify reads against `vllm-v1`, the
+    record the replay reads, not the `frame-v3-sha512` roots sampled proofs registers, so they stay with the replay in
+    `integrations/vllm`. The linkage from a run's public ends to its roots (`boundary_linkage`,
+    `prescribed_input_linkage`, `link_to_commit_account`) recomputes nothing and is what an accepted sampled proof
+    lacks to show the committed units are what was served; it moves to `verity_sampled_proofs.one_stage`, restated over
+    the registered roots, with vLLM supplying the positions (proofs writes the rule after the move maps). The 12 codes
+    stay in the integration as `check/`'s report vocabulary; sampled proofs keeps its own `Verdict` codes. If the
+    re-baseline doesn't make `vllm-v1` the record, `verity/commitments/vllm_v1` follows the replay out (circuits).
+
+And at 4:19 PM PDT:
+
+- **Only the prover's zero-knowledge layer is trusted; every kernel lives outside `verity/`.** Trust means soundness
+  for the auditor and zero knowledge for the developer. Completeness is out: its failures are loud, since a wrong
+  kernel makes verification fail and the prover can run the verifier on its own proof.
+  - The ZK layer is what a masked C-Flock session needs from the prover: coins and salts from the OS, the pads and
+    adding them, the hiding (`hm96`) commitments, the padded encoding of committed rows, which columns open, and the
+    coin commitment at Hello. It owns the wire: every byte a session sends is masked, committed or public, checked as
+    it is sent (today `zkaudit` checks this after the fact). And it checks before it speaks: no message goes out whose
+    own check fails. The first gap is `zk_veil::prove_inner`, which sends `Y` without checking the batched constraint
+    (`let (c, _t) = batch(...)`), so a wrong kernel would show the verifier one witness-dependent field element.
+  - Everything else is untrusted and goes to the top-level `kernels/`: the witness kernels (GEMM, attention, PoUW
+    mining) and the prover's arithmetic (zerocheck, lincheck, Ligerito's folding, most of C-Flock's CUDA prover), whose
+    wrong outputs stay hidden under the pads.
+  - Open edge: the padded encoding and the leaf hashing are heavy kernels whose wrong output can leak. They stay in the
+    layer unless proofs finds a check the prover runs before opening (recomputing each opened column on the CPU, say).
+    proofs draws the line in C-Flock's code.
+  - Captain's recommendation, for Daniel: the non-recursive system stays in `verity/` and nothing moves to
+    `experimental/`. The private-circuit line being built isn't recursive: protocol 2 (the universal unit, hidden Merkle
+    reads) and route P (hidden wiring over a public gate table) are one masked session each. Recursion
+    (`flock/recursion`) is paused for Daniel's call, with its code on PRs #97 and #1081, not on main; its outer proof
+    would be the same masked session. The split above needs no recursion.
 
 ## The principles
 
-1. **`verity/` is the trusted computing base (TCB):** protocol code for every role, verifier *and* prover, in both
-   reference and fast form. It's *trusted*, not certified trustworthy: if it's wrong, security degrades, whether that's
-   soundness for the auditor, or zero-knowledge and completeness for the developer. `verity/` holds what the guarantees
+1. **`verity/` is the trusted computing base (TCB):** protocol code for every role, the verifier and the prover's
+   zero-knowledge layer, in both reference and fast form. It's *trusted*, not certified trustworthy: if it's wrong,
+   security degrades, whether that's soundness for the auditor or zero knowledge for the developer. Completeness isn't
+   a trust property: its failures are loud, and kernels live outside (the 4:19 PM ruling). `verity/` holds what the guarantees
    depend on and nothing else: if its code implements its spec, then wherever a guarantee's assumptions hold, its
    conclusion holds of the running system. How strong a guarantee is comes from its assumptions, not from which part
    of `verity/` it uses. One that rests on a kernel takes device assumptions (the GPU's arithmetic matches the captured
@@ -244,8 +274,8 @@ And at 3:30 to 4:06 PM PDT:
 4. **Circuits are the core primitive:** the format, its digests, evaluation, compressed structure, and queries over it
    (partitions, cuts, units), generic over a basis of leaf operations. Work is `work(circuit, cost_model)`. Lean has one
    circuit model and one game model, both core's, and every protocol uses them.
-5. **Fast code earns trust from a reference.** Every kernel is bit-exact with a reference in `verity/`, and fast provers
-   take their coins from `verity.randomness`. Deleting every kernel changes only speed. The registry, keyed by op and
+5. **Fast code earns trust from a reference.** Every kernel is untrusted and bit-exact with a reference in `verity/` or
+   the catalog, and fast provers take their coins from `verity.randomness`. Deleting every kernel changes only speed. The registry, keyed by op and
    device, has one entry per kernel, and an entry may be a whole Rust+CUDA crate with patches. Each entry records:
    - its reference, and the test that shows it's bit-exact (CI reads this);
    - its build key: source hash, architecture and the pinned toolkit;
@@ -263,7 +293,7 @@ And at 3:30 to 4:06 PM PDT:
 6. **Dependencies point inward.** `verity` imports nothing else in the repo; `catalog` imports only `verity`; everything
    else imports both. Lean enforces this through `require`s, Python through a boundary test.
 7. **Integrations are adapters.** vLLM, torch and JAX lower a model, capture what the protocol asks for, and hand it to
-   `verity`'s prover. They never talk to the verifier, and they import kernels from `verity/kernels`, never from
+   `verity`'s prover. They never talk to the verifier, and they import kernels from `kernels/`, never from
    `benchmarks/`.
 8. **Nothing is lost.** Cleanup consolidates; it doesn't delete results. Math results, constructions and kernels go case
    by case, and the default is consolidation. Superseded infrastructure is simply deleted. Four things ensure it:
@@ -364,7 +394,7 @@ And at 3:30 to 4:06 PM PDT:
   with their Lean spec beside them, the formats and device instances in `catalog/` (captain's default, name Daniel's,
   4 Oct; compute-accounting and circuits may object). Their Boolean circuits are Definitions in `catalog/`, which
   circuit-check ties to the models on edge and random vectors; no Lean proof ties them yet.
-- **Kernels of catalog Definitions** register by Definition id from `verity/kernels/`, so `verity/` imports no catalog
+- **Kernels of catalog Definitions** register by Definition id from `kernels/`, so `verity/` imports no catalog
   module. A kernel's self-check against its Definition runs in the catalog's suite. `verity/`'s own tests import no
   catalog module either, so a catalog change never reruns core's suite (ci, 4 Oct). The core tests that use real
   entries today (seven in `ir`, three in `evaluation`, and `test_profile`) switch to toy registrations or move to
@@ -384,10 +414,11 @@ verity/            TCB, with each spec beside its code: only what a guarantee de
   primitives/      circuits, randomness, commitments (one Merkle tree, one SHA-512 row hash), crypto (drand BLS),
                    silicon (bit-exact models of the hardware's low-level ops), physical (one timed
                    challenge-response)
-  protocols/       verification (C-Flock: its Lean verifier and its reference prover), accounting (work/pouw,
-                   space/pous, communication/warden with its active enforcer), compliance/nci, the onsite protocol
-                   and the remote protocol
-  kernels/         registered fast code by op and device, e.g. Pearl-C on sm_120, C-Flock's CUDA prover
+  protocols/       verification (C-Flock: its Lean verifier, its reference prover and the prover's ZK layer),
+                   accounting (work/pouw, space/pous, communication/warden with its active enforcer),
+                   compliance/nci, the onsite protocol and the remote protocol
+kernels/           registered fast code by op and device (untrusted), e.g. Pearl-C on sm_120, C-Flock's CUDA prover
+                   outside its ZK layer
 catalog/           hardware models + device assumptions, FP formats, Definitions, cost models, device numbers,
                    calibrated parameters, generated vectors, census, and device instances in Lean
 security_proofs/   every lemma and Lean proof, and as much machinery as possible (untrusted), experimental and

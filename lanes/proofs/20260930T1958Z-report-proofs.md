@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (23:23Z) [open] 4:23 PM PDT: #1150 granted on 847c9b738 and 2507e7202 (red-team-1150). #1126 is SHIP-WITH-FIXES (note:proofs/20261004T2253Z-finding-red-team-1126), waiting for circuits' fixes. Under Daniel's 4:06 PM ruling, proofs owes a public-end linkage rule in sampled proofs' one_stage. Node 1 is at 75%; the writer is compute-accounting's hidden-zk.
 CHECKPOINT none (22:52Z) [open] 3:52 PM PDT: move maps answered (note:proofs/20261004T2240Z-handoff-move-map-answers; reply 1791153726.556209). #1129 landed (main 9400e83d5). #1153 opened: red-team-1129's two cache follow-ups, with regressions that fail on main.
 CHECKPOINT none (22:25Z) [open] 3:24 PM PDT: #1129 has ready (998a) and grant=red-team (red-team-1129, 22:09:55Z) at 1ebe60cd3; told the landing thread that 6b376c61e (14a1) clears the gate. Follow-ups after landing: cached_expanded expands every compose; _EVALUATIONS key lacks seed/broadcast set.
 CHECKPOINT none (22:01Z) [open] 3:01 PM PDT: #1129 ready (tier 998a), its tip 6b376c61e check 14a1 passed; red-team-1129 grant pending; migration workers launched (canonical V1, flock-spec, flock-lock)

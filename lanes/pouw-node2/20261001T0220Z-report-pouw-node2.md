@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (20:40Z) [open] A 20:40Z poll: nothing addressed to pouw-node2; node2-ops 20:25Z: 19Z GPU busy 10.7% (nothing submitted), /workspace 58% (hold; up from 51% at 04:15Z while the node sat mostly idle, flagged to compute accounting), no windows ahead; main 75976b4f2 unchanged; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (20:20Z) [open] A 20:20Z poll: nothing addressed to pouw-node2; main 75976b4f2 (26 PRs): pouw gains the deadline pins (#1084), pc8/pc4 whole-tile Lean tile checks, Boolean _v2 row primitives, and the Pearl-C draw now weights by the cited statement's W_ref (sm120 at 1/1,000: wrefDevRev1K at sm120Loop, cast 8.72; red team #919 F1, #1014); no gamma value change, panel's cited files unaffected; v1 gamma 0.0036949 recommendation stands; /workspace last 56% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (20:00Z) [open] A 20:00Z poll: nothing addressed to pouw-node2; infra 1956Z: idle-GPU alert is node 1's, and a draft for a node-side quick-tier service (node 2's VM-driven chain stalled 7 h on 4 Oct; no ask of us); main 06edf032c unchanged; /workspace last 56% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (19:40Z) [open] A 19:40Z poll: nothing new since 19:20Z; main 06edf032c unchanged (fetch OK); /workspace last 56% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2

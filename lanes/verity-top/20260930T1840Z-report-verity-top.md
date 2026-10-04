@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:31Z) [open] 01:31Z: inbox empty; 4 tips (12 PRs) checking on node 1; node 1 stall fixes #1038/#1039 up
 CHECKPOINT none (01:13Z) [open] 01:13Z: inbox empty; main 648e13f24, tip b64b35475 (11 PRs) with lander; protocol sketch #1036 with Daniel
 CHECKPOINT none (00:54Z) [open] 00:54Z: inbox empty; next tip 32f91de5d with lander; asked circuits for #985/#1021 GPU ask details
 CHECKPOINT none (00:36Z) [open] 00:36Z: inbox empty; network milestone hit (42.92/40 GPU-h); awaiting proofs' 01:00Z private-circuit doc

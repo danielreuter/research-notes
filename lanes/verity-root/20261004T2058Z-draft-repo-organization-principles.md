@@ -68,7 +68,7 @@ can pick it up from here.
 breaks, and whether Python import names follow the directories) and the move maps for core, the protocols, and backends,
 integrations and tools, for owners to correct.
 
-*With Daniel:* nothing open.
+*With Daniel:* the PoUW bridge's statement review (proof accepted to `TileGood`), when compute-accounting brings it.
 
 ## Why (Daniel's goals)
 
@@ -200,8 +200,8 @@ And at 4:19 PM PDT:
   - Open edge: the padded encoding and the leaf hashing are heavy kernels whose wrong output can leak. They stay in the
     layer unless proofs finds a check the prover runs before opening (recomputing each opened column on the CPU, say).
     proofs draws the line in C-Flock's code.
-  - Captain's recommendation, for Daniel: the non-recursive system stays in `verity/` and nothing moves to
-    `experimental/`. The private-circuit line being built isn't recursive: protocol 2 (the universal unit, hidden Merkle
+  - The non-recursive system stays in `verity/` and nothing moves to `experimental/` (Daniel, 4:25 PM PDT, with the
+    silicon models to `catalog/silicon/`). The private-circuit line being built isn't recursive: protocol 2 (the universal unit, hidden Merkle
     reads) and route P (hidden wiring over a public gate table) are one masked session each. Recursion
     (`flock/recursion`) is paused for Daniel's call, with its code on PRs #97 and #1081, not on main; its outer proof
     would be the same masked session. The split above needs no recursion.
@@ -390,10 +390,11 @@ And at 4:19 PM PDT:
     key, so that a change to one tool reruns only its tests (ci). `research` stays its own distribution because the
     nodes pin it separately.
 - **Silicon semantics**, how the hardware computes each low-level op bit for bit (the tensor-core step, FP and integer
-  arithmetic, MUFU, PTX max and min), split as the Lean does: the parameterized models in `verity/primitives/silicon/`
-  with their Lean spec beside them, the formats and device instances in `catalog/` (captain's default, name Daniel's,
-  4 Oct; compute-accounting and circuits may object). Their Boolean circuits are Definitions in `catalog/`, which
-  circuit-check ties to the models on edge and random vectors; no Lean proof ties them yet.
+  arithmetic, MUFU, PTX max and min), is public data: the models, their Lean, the formats, the device instances and
+  their gadgets all go to `catalog/silicon/` (Daniel, 4:25 PM PDT). A circuit is claim content, pinned by digest, so
+  no guarantee reads a model; `verity/` keeps only the circuit machinery. Their Boolean circuits are Definitions in
+  `catalog/`, which circuit-check ties to the models on edge and random vectors; no Lean proof ties them yet. The
+  exception is a builder the verifier runs at verification time (PoUW's `ncp2`), which stays in `verity/`.
 - **Kernels of catalog Definitions** register by Definition id from `kernels/`, so `verity/` imports no catalog
   module. A kernel's self-check against its Definition runs in the catalog's suite. `verity/`'s own tests import no
   catalog module either, so a catalog change never reruns core's suite (ci, 4 Oct). The core tests that use real
@@ -412,15 +413,15 @@ And at 4:19 PM PDT:
 ~~~text
 verity/            TCB, with each spec beside its code: only what a guarantee depends on
   primitives/      circuits, randomness, commitments (one Merkle tree, one SHA-512 row hash), crypto (drand BLS),
-                   silicon (bit-exact models of the hardware's low-level ops), physical (one timed
-                   challenge-response)
+                   physical (one timed challenge-response)
   protocols/       verification (C-Flock: its Lean verifier, its reference prover and the prover's ZK layer),
                    accounting (work/pouw, space/pous, communication/warden with its active enforcer),
                    compliance/nci, the onsite protocol and the remote protocol
 kernels/           registered fast code by op and device (untrusted), e.g. Pearl-C on sm_120, C-Flock's CUDA prover
                    outside its ZK layer
-catalog/           hardware models + device assumptions, FP formats, Definitions, cost models, device numbers,
-                   calibrated parameters, generated vectors, census, and device instances in Lean
+catalog/           silicon/ (the hardware's low-level ops: models and their Lean, FP formats, device instances,
+                   gadgets), Definitions, cost models, device numbers, calibrated parameters, generated vectors,
+                   census
 security_proofs/   every lemma and Lean proof, and as much machinery as possible (untrusted), experimental and
                    superseded ones included
 experimental/      constructions, schemes, kernels and Definitions under development or kept for study, by area

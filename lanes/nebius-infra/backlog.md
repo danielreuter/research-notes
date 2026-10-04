@@ -46,6 +46,43 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## Friction: an unrecorded deletion under the shared `research` user (filed 20:05Z Oct 4, at root's ask)
+
+- **What:** between 19:02 and 19:30Z on Oct 4, about 143 of node 1's `/workspace/research/src` trees were deleted, from 220
+  to 77. Nothing is in `/workspace/research/retention/deletions.jsonl`, `src/.trash` is empty, and no sudo `rm` was
+  involved. Nobody claimed it in the disk thread (asked at 19:33Z, `1791142428.245139`) by the 20:00Z full pass.
+- **Why it matters:** retention exists so data you don't own is deleted only with its owner's recorded yes; its README's
+  named failure is a bare `rm` on 3 Oct. Every agent logs into node 1 as `research` with one key, so neither sshd nor the
+  journal says who.
+  - No running check lost its tree this time (checked 19:36Z, including `f68a`). That was luck, not a guard.
+- **Possible fixes (not mine to make):**
+  - #992's gc with `src/.trash` and the retention log, so pruning is recorded;
+  - per-agent SSH keys or a required `--by` on node-side deletes, so an actor is attributable;
+  - making `research/src` deletable only through `research retention`.
+- Status: open, for @infra (node 1's access and retention tooling).
+
+## State at 20:05Z Oct 4 (1:05 PM PDT): disk at 75%, ask sent to @top and @circuits
+
+- **Disk at 75% at 20:00Z** (1,292 GiB free at 20:02Z), from 69.8% at 19:45Z.
+  - The writer was circuits' GLM-4.7-Flash `m1-capture` (`r20261004-194051-8f66`, direct GPU lease), which wrote about 246 GB
+    from 19:40 to 19:57Z into `/workspace/research/glm47-match/` (that run 235 GB, the directory 354 GB). Its capture is
+    done, and the disk is flat since.
+  - The pacer's 78% latch can't slow a direct lease.
+- `research/src`: 83 trees, 122 GB. 66 unused trees free 107 GB net
+  (`art:4e752ca6fc4cf87420feba1f8d8ae43e18ac9b7933434f88b8a79789df381e37`).
+- **Sent the ask** (root's 75% trigger) to @top and @circuits in the disk thread (`1791144236.471529`): circuits is to give
+  the GLM run's further footprint and when the capture is preserved and evicted, and @top to approve the src cleanup
+  (@infra owner).
+- **On @top's yes, I run it:**
+  1. re-scan with `/tmp/src_candidates.py`;
+  2. keep trees whose 40-hex name is a commit in a fresh `git fetch origin`;
+  3. `research keep PATH --owner @infra --priority low --expires now`;
+  4. `research retention rm PATHS --approved-by @infra --ref <yes>`, dry first and then `--apply`.
+- Watch: `node1-disk-watch-78` (every 15 min) tells root at 78%. The 10-min watch is retired.
+- Node 1: 2 of 8 GPUs held (`provers` 2, the GLM work), and the pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner
+  job). New in the dispatcher lane: a 19:56Z "pod holds a GPU at 0%" alert (not mine). The latest snapshot is
+  `art:d276acd724e0449c9edf5a2935b6032752f7a7d180da6ae60d45956be85f9dc7`.
+
 ## State at 19:35Z Oct 4 (12:35 PM PDT): research/src pruned by someone, unlogged
 
 - **`research/src` went from 220 trees (19:02Z) to 160 (19:15Z) to 77 (19:30Z).** The disk fell from 73% (19:06Z) to 70.6%

@@ -152,6 +152,24 @@ And at 2:21 PM PDT:
   from its executable spec; a lock reduction is reviewed once per package; the landed `train-prep-*` branches whose tip
   is on main are pruned, keeping `cursor/pouw-hash-sm120-9569`.
 
+And at 3:30 to 4:06 PM PDT:
+
+- **The hardware-semantics area is `silicon`,** not `fp`.
+- **Python import names follow the directories** (see Conventions).
+- **A claim about a computation is verified only by a proof:** sampled proofs over C-Flock, zero-knowledge. No protocol
+  verdict comes from the verifier recomputing the work. PoUS and the warden check physical facts (timed responses,
+  timing), not computations, and keep their checks.
+- **A replay is a diagnostic,** a tool that recomputes opened values in the clear and compares. It certifies nothing,
+  and nothing cites its ACCEPT as a verdict. It lives beside what it diagnoses: vLLM's `check/replay/` stays in the
+  integration, PoUW's device-run replay goes to `benchmarks/pouw/`. A replay may read a protocol's formats, since
+  dependencies point inward, but it is never in `verity/`. `research replay`, which re-runs recorded results as
+  evidence, is unrelated and stays in `tools/research/`.
+  - Consequences: PoUW's `PROTOCOL.md` already names a zero-knowledge proof as the protocol's check and never cites
+    the replay's ACCEPT, so what changes there is the interface's step 6 ("recomputes the tile"). Pearl-C has no protocol
+    verdict until its tile check runs under sampled proofs (`circuit.pc4`). In vLLM's `check/`, whatever recomputes
+    opened values is a diagnostic. Its commitment and opening checks are protocol code only if sampled proofs needs
+    them, which circuits and proofs decide, and the 12 live codes follow that answer (proofs' `proofs.codes` question).
+
 ## The principles
 
 1. **`verity/` is the trusted computing base (TCB):** protocol code for every role, verifier *and* prover, in both

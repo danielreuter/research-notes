@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-04 00:20Z hourly (23Z): GPU busy 62.1% (4.97 of 8.00 GPU-h, all useful): memory accounting's four series, `research` runs, and circuits' short TP4 run (23:04–23:11Z).
+    - **Why below 80%:** leased-idle 1.16 GPU-h. That's the series' vLLM start-ups, each one renewing itself (0.74), plus the TP4 run's model load (0.35). There was also a lull 23:11–23:45Z, with 2–4 GPUs free and no backlog (1.88 GPU-h free). CPU 15.5%. The 00Z hour is at 82.7% so far, 0/8 free.
+    - **Backup:** `r20261004-001819-ced3`. The 23Z backup `r20261003-232205-3cde` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (00:17Z). One runner. `/` is 18%, `/workspace` 49%. #494 is still closed.
 - 2026-10-03 23:23Z hourly (22Z): GPU busy 86.0% (6.88 of 8.00 GPU-h, all useful), above the 80% bar. Memory accounting's four series (`series`, `s2`–`s4`) and its ad-hoc runs, `research` and `adhoc:ubuntu` runs, with `gpu-lease` waiters all hour. Leased-idle 0.75 (the series' vLLM start-ups 0.60). CPU 20.6%.
     - **Backup:** `r20261003-232205-3cde`. The 22Z backup `r20261003-221000-393a` is preserved.
     - **Checks:** daemons are up, and `status.md` was fresh (23:21Z). One runner. `/` is 18%, `/workspace` 49%. #494 is still closed.

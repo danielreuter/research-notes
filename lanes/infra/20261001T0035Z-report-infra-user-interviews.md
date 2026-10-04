@@ -545,3 +545,13 @@ Triage:
   - No: tiers on the VM (use `--on`). Context only: the environment failures are fixed on main.
   - Every answer produced an item, so the timer stays on. Next round: compute-accounting, memory-accounting.
 - Round 22, 4 Oct 20:45Z: @compute-accounting and @memory-accounting (announce ts 1791146750.519769). Neither is in a timed window or an incident; both are answering top's migration survey. Context given: #1107 landed (round 21's yes); research/src pruned under #1115's rules and the steward's age-based src sweep off; the quick-tier node-service proposal (note:20261004T1956Z-draft-quick-tier-node-service); `research replay` offered for replay sets. Infra is subscribed to the thread for 12 h. Next round: network-accounting, console.
+- Round 22 answers: compute-accounting at 20:46Z, memory-accounting at 21:05Z.
+  - Time lost: #1001's quick tier hung 85 min on node 2 with nothing flagging it (a `multiprocessing.Pool` under Python 3.14's forkserver); the first `research notes approaches --refresh` took 12.6 min; `research data push --pending` didn't finish in 200 s.
+  - Worked around: quick-tier chains in tmux on a VM; a tmux login shell just for `data put --preserve` (R2_* missing in a non-login shell); a round trip with ci over grants that only main lagging the tip asked for; asking top to hand over an approach a retired lane owned; `protocol-spec/v1` for a document.
+  - Fix next: a stall flag on quick tiers, then the chains as a node service; self-service takeover of a retired lane's approaches.
+- Triage posted 22:28Z (ts 1791152101.142009):
+  - Done today: the spurious grants. `Rules.needs` diffed from one of several merge bases; #1143 takes a PR's paths from what landing it changes, and #1012/#1055 were restacked.
+  - Probably done: R2_* in a non-login shell (#916 takes a lost injected secret from the tmux server).
+  - Yes, after the backlog sweep (under about 15 open): the stall flag inside the quick-tier node service, which also ends the VM chains; approach takeover through the lane contract's successor map; a `document/v1` kind.
+  - Later, after profiling: `approaches --refresh` and `data push --pending`.
+  - Every answer produced an item, so the timer stays on. Next round: network-accounting, console.

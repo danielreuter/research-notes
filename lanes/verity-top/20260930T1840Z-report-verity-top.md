@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (05:00Z) [open] 05:00Z: #1013/#966/#1030 tips checking; #1030 needs reviewer line; security-status page corrected; FP8 table late
 CHECKPOINT none (04:45Z) [open] 04:45Z: coverage gap (zk theorems cover 28-33% vLLM units, no PoUW) sent to Daniel; claims being corrected; #1013+#966 checking
 CHECKPOINT none (04:30Z) [open] 04:30Z: main 08ac6bf40 (7 PRs); #1013+#966 checking; #1053/#1012/#1030 await ready labels; FP8 table due
 CHECKPOINT none (04:15Z) [open] 04:15Z: node 1 pruned to 65.4%; proofs stack checking; #1012 preflight fix with infra; FP8 table ~04:30Z

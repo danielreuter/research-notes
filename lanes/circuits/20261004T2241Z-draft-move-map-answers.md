@@ -213,3 +213,27 @@ current tree. Don't reconcile the counts. Use the AST scan as the record.
 | protocols | `verity_pouw/circuit/hashes.py` → `verity/primitives/circuits/hashes.py` | SHA-512, SHAKE256 and TurboSHAKE128 in gates | goes wherever `words.py` goes (catalog per the entry format) | It is a word-level composite (`Emit` builds `CompositeDefinition`s) over PoUW's own word primitives (`W.PouwCh32`, `PouwMaj32`, `PouwXor32`, `PouwAdd64*`, `PouwRotl64*`), not a gate circuit. In `verity/` it would import catalog-bound `words.py` (P6). "One SHA-512" is a vectors bridge to `ml/boolean/sha512`. |
 | protocols | `verity_pouw/circuit/words.py`, `boolean.py` | `catalog/definitions/pouw/` | agree | `boolean.py` imports `ml.boolean.fp`, `forms` and `trace`, which are all `verity/` after the corrections, so P6 holds. |
 | catalog entry | `status` and conformance as two fields | stored | derived from the Definition's `conformance` attribute at index time | `superseded` sits today inside the same `STATUSES` set as the conformance kinds. One source, no drift. |
+
+## Rulings (22:46–22:50Z, thread 1791150333.889129)
+
+Top ruled on the open points, and circuits settled the two left to it. These replace the answers above where they differ.
+
+- **Gadget placement (core 8.5 and the row corrections).** Daniel renamed `verity/primitives/fp/` to
+  `verity/primitives/silicon/`, the bit-exact models of the hardware's low-level ops.
+  - To `verity/primitives/silicon/`: `ml/boolean/fp`, `tc_step` and `fp4`, beside the models they implement, and the
+    gadget halves of `boolean/scalar` and `mufu` (conversions and MUFU ops) when those modules split.
+  - To `verity/primitives/circuits/boolean/`: the generic pieces `forms`, `gather`, `trace` and `softmax`. `softmax`
+    composes the `fp` gadgets and models no single hardware op.
+- **The catalog digest (backends `class_statement` row, open point 5a).** It is none of the four `definition_digest`
+  functions. The catalog entry pins `verity.ir.codec.program_digest` of the one-call Program at given statics, the
+  wrapper `_encoded` builds, lifted into `verity.ir`. It covers everything the call reaches and is the same in any
+  program. The switch is cheap: `class_statement` checks a capture graph's `definitions_index` against
+  `program_graph`'s v0 digest, which is recorded in the graphs and pinned nowhere. That check moves with `program_graph`
+  and keeps the v0 digest until graphs are re-recorded, and the catalog's digest is a new field.
+- **`ml.library` (core 3).** proofs' answer (`note:proofs/20261004T2240Z-handoff-move-map-answers`) is that
+  `Flock/Library.lean`'s `LIBRARY_TABLES` becomes a file generated from the catalog entry, with a no-diff test (the
+  `Vectors.lean` pattern). This answer's Lean objection therefore no longer holds. The captain decides the
+  mechanism/list split after the moves; no move PR waits on it. `ml.operations` stays whole in `verity/`.
+- **The 43 (backends 7).** It was the plan's first draft, now superseded. The plan cites the scan at main: 59 modules,
+  53 of which import nothing outside the registry, `verity` and numpy.
+- **Import names (4c).** Whether import names follow the new directories is open with Daniel.

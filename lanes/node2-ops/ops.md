@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-04 05:25Z hourly (04Z): GPU busy 86.4% (6.91 of 8.00 GPU-h, all useful), above the 80% bar. Leased-idle 0.52 (memory accounting's series start-ups 0.51), free-idle 0.57. CPU 17.4%. The 05Z hour is at 67.1% so far: three one-hour POUS chunks ended at 04:58Z and left 4 GPUs empty until their submitter topped up (the steward's 05:00Z pass). All 8 were held again at 05:22Z.
+    - **Backup:** `r20261004-052246-55d9`. The 04Z backup `r20261004-041247-ecba` is preserved.
+    - **Root disk:** 42% (103 GB used, 145 GB free). The pytest temp directory is back to 34 MB. The 02:37Z merge check `r20261004-023717-461b` is still on its test suites (writing at 05:22Z), after lean-audit (2,403 s), circuit-check (1,139 s) and lean-suites (954 s) passed.
+    - **Checks:** daemons are up, and `status.md` was fresh (05:22Z). One runner. `/workspace` 52%. No windows ahead. #494 is still closed.
 - 2026-10-04 04:15Z hourly (03Z): GPU busy 94.8% (7.59 of 8.00 GPU-h, all useful), above the 80% bar. Waiters all hour. Leased-idle 0.39 (memory accounting's series start-ups 0.30), free-idle 0.02. CPU 21.8%. The 04Z hour is at 84.2% so far.
     - **Backup:** `r20261004-041247-ecba`. The 03Z backup `r20261004-032029-4f2e` is preserved.
     - **Root disk:** 48% (117 GB used, 131 GB free). The merge check `r20261004-023717-461b` is still running. Its Lean scratch is gone, and the dependencies it kept are in `~/.cache/verity-check/lean-deps` (58 GB), as expected. The new growth is its pytest temp directory: `/tmp/pytest-of-research` went from 3.3 GB to 14 GB. pytest keeps only its last three base directories, so that should level off. I'll raise it at 60%.

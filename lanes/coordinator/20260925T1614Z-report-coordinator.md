@@ -611,3 +611,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T21:25Z: #1129 (partition_binding fix, not yet ready) on 4b3f: 6b376c61e node1 r20261004-212120-14a1 --agreement; merge needs #1129 ready.
 - 2026-10-04T21:42Z: poll.
 - 2026-10-04T21:46Z: MERGED 4b3f88816 (12 PRs incl #1103 #1115 #1110; 9c9f) -> main 16749a0ff; all MERGED. 14a1 (#1129) next, needs ready.
+- 2026-10-04T21:52Z: ci tip be2452acd (14 on #1129) node1 r20261004-214746-1abb --agreement.

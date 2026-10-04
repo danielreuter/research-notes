@@ -533,3 +533,4 @@ Triage:
   infra's: the secrets' placement (top), the laptop subagent limit (Cursor), `research msg` setup (comms; #980 names missing
   pieces). (5) `top` is in the registry. (6) The reviewer-line grep ends when #1053 lands. Every answer produced an item, so the
   timer stays on. Next round: circuits, proofs.
+- Round 21, 4 Oct 16:04Z: @circuits and @proofs (announce ts 1791129889.299219). The 08:00Z and 12:00Z rounds didn't run: the VM was suspended 07:25-14:08Z. Context given: node 1's GPUs are lent until circuits' Match starts, and there are temporary quick-tier slots until 18:20Z. Next round: compute-accounting, memory-accounting.

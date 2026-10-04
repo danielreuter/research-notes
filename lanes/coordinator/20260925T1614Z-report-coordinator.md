@@ -615,3 +615,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T22:02Z: 14a1 (6b376c61e, #1129) PASSED; holding merge: pr:1129@1ebe60cd3 (full-sha key) has ready=true by proofs, no grant=red-team yet. 1abb (be2452acd) running (lean-unit-cut). main 16749a0ff.
 - 2026-10-04T22:22Z: merged 6b376c61e (#1129) → main 9400e83d5. 1abb (be2452acd) running past lean-agreement.
 - 2026-10-04T22:34Z: ci tip f2a07e5ae (be24 + #1119 #1137 #1130) node1 r20261004-223308-b355 --agreement.
+- 2026-10-04T22:41Z: poll: 1abb running (lean-suites passed), b355 running. main 9400e83d5.

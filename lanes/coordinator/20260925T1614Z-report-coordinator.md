@@ -581,3 +581,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T16:42Z: poll: b201 past lean-suites (near end); e040 past circuit-check; a604, 2f69 at lean-unit-cut.
 - 2026-10-04T16:55Z: friction pass posted (5 fixes, renew announcement, circuits label-fallback ask); LANE-CONTRACT 2.9 notes 553623d5. #1105 on bd025f58b: 391c8435a node1 (node2 refused: cache 122<124 GB -> infra).
 - 2026-10-04T17:00Z: comms did fix 1 in #1103 (subs renew in place; timers new name + unsubscribe old). Corrected LANE-CONTRACT §3b to match (notes 7a3d109c).
+- 2026-10-04T17:05Z: MERGED 10b025c60 (19 PRs; b201 incl. lean-agreement) -> main c05f14179; closed #974 (stacked) w/ comment. Next: a604 (5f36), e040 (5e17), 2f69 (bd02), b98c (#1105).

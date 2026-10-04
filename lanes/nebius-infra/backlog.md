@@ -46,6 +46,14 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 17:00Z Oct 4 (10:00 AM PDT), steward pass
+
+- Node 1 (watch, no flags): disk 68.0% (1,604 GiB free), `research/src` 186 trees. 0 of 8 GPUs held and nothing in Kueue
+  (idle, reported). The pacer and dispatcher are ticking, and the dispatcher is clean.
+- Node 2: 1 of 8 GPUs held (a fill-runner job), and no queue.
+- #992 is still open, with no reply from @infra. The latest hourly snapshot is
+  `art:206177f4cae09411bfac4dac40d6ff6b50a8d131563ab911c79c9021d701b0a7` (about 16:40Z).
+
 ## State at 16:30Z Oct 4 (9:30 AM PDT), steward pass
 
 - **Node 1 disk never reached 72%.** It peaked at 71.4% (1,435 GiB free) at 16:15Z, then fell to 67.3% (1,641 GiB) by

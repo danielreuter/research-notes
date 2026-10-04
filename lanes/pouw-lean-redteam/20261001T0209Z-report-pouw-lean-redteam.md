@@ -5,6 +5,10 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (03:04Z) [open] 0304Z SECOND ASK UNANSWERED on note:20261004T0108Z-reply-from-d545bc2a-pr983-computeswords-hent-vacuous: at #983 d36ef3cfe, `hent` is unchanged. No further asks on it. The floor note (F1) also stands.
+- #731 (pc8/pc4 Python circuits) landed on main at ec8ac91ae. #983's tie tests (`test_circuit_tile/row/whole_lean.py`) can run once #983 rebases or lands.
+- Main's `pc8.py` still refuses ρ-overflow rows, so F1 stands. `pc4.py`'s `ok` is `(s ≤ F32_MAX) ∧ dnf`, with no ρ check. Any pc4 words theorem that takes `Row4OK` (α > 0) gets the F2 check.
+- #1020 moved `Decisive` to core unchanged; no pins. Main is ec8ac91ae; policies 650df0bd/03acd87f unchanged.
 CHECKPOINT none (01:09Z) [open] 0109Z NO-GO to cite #983's `tileCheck8_computesWords` (b3657f621; records equal main's): its hypothesis `hent` is false.
 - `hent` claims every `RowOK` row has `Pc8EntryOK`, whose `rowA` is `Row8OK` and needs `StepWord` words with no −0. A row of 1.0s with one −0 entry is `RowOK` but not `Row8OK`, so the theorem is vacuous. Condition (i) is now concrete; see note:20261004T0108Z-reply-from-d545bc2a-pr983-computeswords-hent-vacuous.
 - #1020 moved to 2a4167776: `Decisive` is now existential, plus a `decisive_of_sys_decisive` lemma. No pins.

@@ -52,7 +52,10 @@ today). Its `value` holds:
 - the reference evaluator;
 - the link to its Boolean version;
 - its pins;
-- `{statics: descriptor digest}` for every statics that a kept Program or record uses.
+- `{statics: descriptor digest}` for every statics that a kept Program or record uses. The descriptor digest is
+  `verity.ir.codec.program_digest` of the one-call Program at those statics (the wrapper vLLM's `_encoded` builds,
+  lifted into `verity.ir`). It covers every Definition the call reaches and doesn't depend on the program it sits in,
+  so none of the four existing `definition_digest` functions is lifted.
 
 The builder is the entry's source and lives in `catalog/`. The regeneration test reruns it at each listed statics.
 

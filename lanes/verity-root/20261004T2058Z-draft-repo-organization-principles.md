@@ -211,8 +211,9 @@ And at 2:21 PM PDT:
    - *integration:* the frontend rules and vocabulary (which Definition each serving role binds), capture, capture
      maps, the κ profiles, the fold and Match.
 
-   51 of vLLM's 55 registry modules import `verity_vllm` (twins, frontend helpers), so "catalog imports only verity"
-   first needs each Definition split from its twin and from the vocabulary: most of the move's real work there.
+   At `be2452acd` vLLM's registry has 59 modules, and 53 import nothing outside the registry, `verity` and numpy at
+   module level (the AST scan is the record; circuits, 4 Oct). So "catalog imports only verity" is mostly a matter of
+   separating each Definition's content from its twin and from the vocabulary, not of cutting imports.
    Definition ids and descriptor digests are name-keyed, so no move changes them. Every vLLM Definition's link to a Lean
    model is named, not proved, and is labelled so.
 4. **Circuits are the core primitive:** the format, its digests, evaluation, compressed structure, and queries over it

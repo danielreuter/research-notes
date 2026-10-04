@@ -5,6 +5,9 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (01:09Z) [open] 0109Z NO-GO to cite #983's `tileCheck8_computesWords` (b3657f621; records equal main's): its hypothesis `hent` is false.
+- `hent` claims every `RowOK` row has `Pc8EntryOK`, whose `rowA` is `Row8OK` and needs `StepWord` words with no −0. A row of 1.0s with one −0 entry is `RowOK` but not `Row8OK`, so the theorem is vacuous. Condition (i) is now concrete; see note:20261004T0108Z-reply-from-d545bc2a-pr983-computeswords-hent-vacuous.
+- #1020 moved to 2a4167776: `Decisive` is now existential, plus a `decisive_of_sys_decisive` lemma. No pins.
 CHECKPOINT none (00:41Z) [open] 0041Z #983 is at d0fc73977, no record change. `TileCheck8Words.lean` proves pc8's row words in `pc8Sem` terms under named hypotheses `Pc8OpsAgree`, `Row8OK` (step words with no −0, α and β step words, β > 0) and `Line8OK` (rescaled noise codes neither NaN nor −0). That's fine for internal lemmas.
 - Review condition (i): L3's final statement must not take `Row8OK` or `Line8OK` as hypotheses.
   - `Row8OK` is adversary-controlled: main's `RowOK` credits rows with a −0 entry and ρ-overflow rows, and both fail `Row8OK`. So L3 must discharge it from `RowOK`, which needs the floor fix plus a −0 argument or a `pc8Sem` that reads −0, or else prove the words directly on those rows.

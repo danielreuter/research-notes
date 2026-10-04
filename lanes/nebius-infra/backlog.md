@@ -46,6 +46,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 17:30Z Oct 4 (10:30 AM PDT), steward pass
+
+- Node 1 (watch, no flags): disk 67.3% (1,638 GiB free), `research/src` 194 trees, 0 of 8 GPUs held and nothing in Kueue
+  (idle, reported). The pacer and dispatcher are clean.
+- Node 2: 1 of 8 GPUs held (a fill-runner job), and no queue. #992 is still open, with no reply from @infra.
+- node2-ops' note to @infra (`20261004T1715Z-reply-from-node2-ops-wasters-oct4-circuits-tp8-was-match-and-commit`): an
+  8-GPU lease on node 2 is unmeasured, not idle. I added that caveat to the summary's day-three node 2 numbers. Nothing is
+  for me to do.
+
 ## State at 17:00Z Oct 4 (10:00 AM PDT), steward pass
 
 - Node 1 (watch, no flags): disk 68.0% (1,604 GiB free), `research/src` 186 trees. 0 of 8 GPUs held and nothing in Kueue

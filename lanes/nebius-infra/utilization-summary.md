@@ -386,6 +386,12 @@ research coordinator's timers stopped over the same span. Source: `art:17d591ed1
     and its CPUs were 1–3% busy. No owner-approved GPU work was queued, and Daniel's rule (below) is no filler.
 - Node 2: 120 of 211 GPU-h held or busy (57%), 80 busy, and 91 idle. It was busiest 00:00–08:00Z (POUS's research chunks and
   memory accounting's fill and `erase-calib` jobs). It held only 7 GPU-h from 08:00 to 14:00Z.
+  - **Busy is undercounted on node 2 when one lease holds all 8 GPUs.** POUS's sampler then records only the lease, with no
+    NVML or DCGM query, so those hours read as 0%.
+  - That's the 16:00–20:00Z Oct 3 block (16.4 held, 0.49 "busy"): circuits' `circuits-tp8` Match (`match PASS` 17:29Z) and
+    Commit (`commit PASS` 19:23Z) were working, not idle.
+  - Source: node2-ops, `note:20261004T1715Z-reply-from-node2-ops-wasters-oct4-circuits-tp8-was-match-and-commit`. Its fix,
+    `"measured": false` on such records, waits on @infra.
 
 **Top inefficiencies found, and what was done:**
 1. **`research/src` grew without bound, so node 1's disk filled.** Every check run ships a source tree of up to 24 GB, and

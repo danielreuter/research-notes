@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:30Z) [open] #1030 on main; lean granted all 10; quick tiers starved by train checks, asked infra for a quick-tier slot
 CHECKPOINT none (06:15Z) [open] lean PRs queue behind #1053 (drops statement-reviewer rule); circuits' 5-PR train stacked; node 1 GPUs idle, offered
 CHECKPOINT none (06:00Z) [open] circuits' first train handed to ci; node 2 exhaustion window booked 11:15Z; console resumed after disconnect
 CHECKPOINT none (05:45Z) [open] overnight set live; Daniel's top ask: all ready work merged by morning; ci train a64d3e16f with lander

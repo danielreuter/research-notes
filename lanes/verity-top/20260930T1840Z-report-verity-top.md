@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:08Z) [open] 02:08Z: inbox empty; 3 tips checking; FP8 final table and zk-pubin freeze due ~02:00Z
 CHECKPOINT none (01:50Z) [open] 01:50Z: inbox empty; main 43947f439 (zk_session_sound landed); 3 tips checking
 CHECKPOINT none (01:31Z) [open] 01:31Z: inbox empty; 4 tips (12 PRs) checking on node 1; node 1 stall fixes #1038/#1039 up
 CHECKPOINT none (01:13Z) [open] 01:13Z: inbox empty; main 648e13f24, tip b64b35475 (11 PRs) with lander; protocol sketch #1036 with Daniel

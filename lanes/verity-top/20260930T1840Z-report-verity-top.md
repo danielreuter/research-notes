@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:45Z) [open] 15:45Z: node 2 window ending; quick-tier backlog ~20, infra adding parallel slots; scope gap with Daniel/proofs
 CHECKPOINT none (15:30Z) [open] 15:30Z: afternoon set 15:20-18:20Z live, leads tightened lines; 19-PR train checking; node 1 GPUs lent
 CHECKPOINT none (15:15Z) [open] 15:15Z: 19-PR train 10b025c60 checking (b201); #987 fixing size cap; compute window on node 2 until 15:45Z
 CHECKPOINT none (15:00Z) [open] 15:00Z: #1057 held for Daniel; rider 7b5ed7767 queued behind 6fff10781; arch layout awaiting Daniel's go

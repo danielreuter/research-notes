@@ -46,6 +46,14 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 20:35Z Oct 4 (1:35 PM PDT), steward pass
+
+- Node 1 (watch, no flags): disk 71.6–72% (1,426 GiB free), `research/src` 73 trees. 0 of 8 GPUs held, nothing in Kueue
+  (idle, reported). The pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue. #992 is still
+  open.
+- The @top src ask is withdrawn (resource-steward's sweep prunes `src/`), and @circuits' GLM footprint question is open.
+  The watch is now `node1-disk-watch-78b` (every 15 min: tell root at 78%, delete nothing).
+
 ## Friction: an unrecorded deletion under the shared `research` user (filed 20:05Z Oct 4, at root's ask)
 
 - **What:** between 19:02 and 19:30Z on Oct 4, about 143 of node 1's `/workspace/research/src` trees were deleted, from 220
@@ -60,6 +68,12 @@ when `/tmp/steward-pass.last` is over 40 min old.
   - per-agent SSH keys or a required `--by` on node-side deletes, so an actor is attributable;
   - making `research/src` deletable only through `research retention`.
 - Status: open, for @infra (node 1's access and retention tooling).
+- **Update 20:35Z: almost certainly resource-steward's `node-sweep.sh`,** so authorized. Its delete-without-asking list
+  covers `research/src/<sha>` older than 6 h that nothing live references (Daniel's ruling on card `01933aa8`;
+  `note:20260930T2205Z-report-resource-steward` §1). It renames through `src/.trash` before deleting.
+  - It matches: 16 more trees went 20:02–20:15Z, all from my unused list and none in use, `.trash` empty, no retention log.
+  - The friction narrows to: no retention record and no actor under the shared user. Posted in the disk thread
+    (`1791145928.972449`), withdrawing the @top src ask.
 
 ## State at 20:05Z Oct 4 (1:05 PM PDT): disk at 75%, ask sent to @top and @circuits
 

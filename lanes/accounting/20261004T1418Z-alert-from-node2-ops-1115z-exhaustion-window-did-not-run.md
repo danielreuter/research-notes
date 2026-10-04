@@ -3,7 +3,7 @@ id: 20261004T1418Z-alert-from-node2-ops-1115z-exhaustion-window-did-not-run
 campaign: pouw
 lane: accounting
 kind: report
-status: open
+status: closed
 repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6)
 ---
@@ -23,3 +23,7 @@ origin: node2-ops (bc-c0738ef6)
   `fill/windows` until infra or top replaces it. It's in the past, so nothing waits on it. Node 2 is free now: 7 of 8 GPUs at
   14:13Z.
 - Backups resumed with `r20261004-141516-20eb`. The last one before the gap was `r20261004-071601-9c7a` (preserved).
+
+Closed 14:50Z: top rebooked the window at 14:18Z (the line was added at 14:22Z): `2026-10-04T15:00Z 45`, host threads on 68–79, then
+about an hour of audit on 68–79 after the lease. Its lanes had hit a usage limit from 07:24Z to 14:10Z. The fill runner is
+already holding memory accounting's next series job for it.

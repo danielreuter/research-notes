@@ -38,6 +38,9 @@ a sampled proof over C-Flock with zero-knowledge, and a replay is a diagnostic t
 and `ncp-v2-shift24` run under sampled proofs today, so `verity/`'s PoUW registry is those two until Pearl-C's tile
 check passes under sampled proofs. PoUS and the warden check physical facts, not computations, and keep their checks.
 
+Daniel's 4:19 PM ruling, as the plan records it: only the prover's zero-knowledge layer is trusted, and every kernel
+lives outside `verity/`, in a top-level `kernels/`. A destination written `verity/kernels/…` below reads `kernels/…`.
+
 Approach statuses come from the rendered registries (`campaigns/pouw/APPROACHES.md` and `campaigns/pous/APPROACHES.md`,
 rendered 29 Sep), overridden where the plan's 4 Oct text says otherwise:
 

@@ -54,7 +54,12 @@ All of this is in `tools/check/`, plus research's readers of it.
   - `pods/health.py` and `pool_n1.py`: one path each.
 - `jobs/train_vectors.json`: 29 path hits. It is shared with the site's TypeScript and embeds fake `tools/check/tool.py` and `backends/flock/` paths.
 
-Two code paths depend on the import name rather than the path. `suites.py`'s `foreign()` globs `verity*/__init__.py` and `*/verity*/__init__.py` under each member to detect a virtualenv pointing at another checkout. `circuit_check.targets._authored` keeps a Definition only if its function's top-level module is `verity`, `verity_vllm` or `verity_pouw`. Both fail open: a package with another name, or one nested deeper, silently drops out of the check.
+Two code paths depend on the import name rather than the path. `suites.py`'s `foreign()` globs `verity*/__init__.py` and `*/verity*/__init__.py` under each member to detect a virtualenv pointing at another checkout. `circuit_check.targets._authored` keeps a Definition only if its function's top-level module is `verity`, `verity_vllm` or `verity_pouw`. Both fail open: a package with another name, or one nested deeper, silently drops out of the check. Before the first
+rename, top asked ci (4 Oct, thread 1791154404.802339) to make both fail closed on a name they don't know, and to add a
+whole-tree test that every dotted module string in tracked code and data resolves, with history fields exempt. circuits
+(4 Oct) found a third of this kind: `packages/verity/tests/evaluation/test_evaluation.py:81` keeps only kernels whose
+`fn.__module__` starts with `verity`, so a kernel registered under another import name drops out of the self-check
+silently; it should be keyed on `_KERNELS` minus an explicit allow-list.
 
 Mechanical: the literals and joins are path-map rewrites. Judgment:
 
@@ -121,6 +126,12 @@ Mechanical: recompute each `require path` and manifest `dir` from the new locati
 
 Pinned hits: the generated `RowPrimVectors.lean` and `RowPrimChecks.lean`, byte-checked against their generator. No `lean-audit.json` pin changes for a pure move.
 
+lean (4 Oct, verity#1144): a Lean split keeps declaration names, while proof modules move under a root of their own. For
+`move-check` (#1140), a pure split leaves `pins` and `reads` byte-identical; `roots` and `proved_in` may change, and imports
+may be rewritten module for module. A `runs` entry may move between locks with only its package-relative paths rewritten;
+one that vanishes, is duplicated or changes data is refused. The audit already fails closed on a `runs` path that doesn't
+resolve.
+
 ## 5. Infrastructure and deploy
 
 - `tools/research/src/research/pods/nebius/deploy.toml`: 69 `[[file]]` entries (48 `src`, 21 `by`) and 1 `[[tree]]`. Their sources are under `tools/research` (67), `infra/nebius` (2) and `tools/cluster` (1). The node-side `path` and `managed` values are absolute node paths and must not change. AGENTS.md cites the file as `pods/nebius/deploy.toml`, a shorthand that doesn't resolve.
@@ -131,7 +142,8 @@ Pinned hits: the generated `RowPrimVectors.lean` and `RowPrimChecks.lean`, byte-
 Mechanical: `deploy.toml` `src` and `by` values, and the `$SRC/<path>` references, are path-map rewrites. Judgment:
 
 - Node paths such as `/workspace/pouw/infra/bin` and `/workspace/jobs/dispatch/infra/nebius` contain our top-level names, so the rewrite pattern must be anchored to repository-relative tokens and must never touch absolute paths.
-- A node script runs against trees from before and after the move, so it needs layout detection or must only run against the commit it shipped with.
+- A node script runs against trees from before and after the move, so it needs layout detection or must only run against the commit it shipped with. infra (4 Oct) answers that it already does the second: node scripts that read `$SRC/<path>` read the tree their own run shipped, so they see that commit's layout, and the pinned `research` never reads `infra/` from a checkout.
+- infra (4 Oct): the nodes run `research` from a tool snapshot that carries only `tools/research/src/research/`, so four files the package opens by a package-relative path stay where they are: `deploy.toml`, `weights.tsv`, `monitoring/lanes.tsv` and `store.pod.toml`. `install --ref` takes each `src` from that ref at the path the manifest names, so a ref from before a move fails with the file missing and installs nothing: it fails closed.
 - `research deploy drift` compares deployed files to `main`'s, so a move shows up as drift until `research deploy install` runs from the moved commit.
 
 Nothing here is digest-baked.
@@ -259,6 +271,12 @@ Mechanical: crate-local paths need nothing. The cross-component `include_str!` a
 
 ## Recommendation on the import-name question
 
+Superseded (Daniel, 4 Oct 3:50 PM PDT): Python import names follow the new directories, so `verity/primitives/silicon/` is
+`verity.primitives.silicon`. The move script carries a module map beside its path map. It rewrites imports,
+`import_module` strings, `module:attr` specs and module-keyed test data, and each move PR runs it on its own branch after
+a restack. In a Python move, Lean comments that name Python modules are left alone, so moves don't rerun the Lean audit; a
+later Lean PR rewrites them. The draft's recommendation follows, as written.
+
 Keep Python import names as they are while directories move, at least for this migration, and treat import names as the stable handle that move-proof references should use.
 
 The evidence from category 7 is that renaming gains nothing in content-addressed identity, because no digest, id or Lean pin contains a module path. The rename is also not free:
@@ -286,6 +304,11 @@ Separately, and whichever option is chosen, convert research's 25 directory-shap
 9. **Ignore rules and fixture map.** Rewrite `.gitignore` rules and `artifacts.json` values, keeping each fixture's basename so its art id is unchanged.
 10. **Gates fail closed.** Add a test that every path-prefix gate (`merge_requires` in `ci.toml` and `tool.py`, queue grants, `agreement_closure`, `rust_tests_inputs`, `LEAN_BUILDS`, suite `inputs`, Tool closures) matches at least one tracked file.
 11. **Commit-aware readers.** Give every reader that reads a path at another commit (research's `_show` and `git show` sites, `ci-bundle.sh`) an old-path fallback, following `RULES_BEFORE_MOVE`.
-12. **Deploy.** Rewrite `deploy.toml` `src` and `by`, the systemd units' checkout-relative parts and the node scripts' `$SRC/…` references, and give node scripts layout detection for older trees.
+12. **Deploy.** Rewrite `deploy.toml` `src` and `by`, the systemd units' checkout-relative parts and the node scripts' `$SRC/…` references in the commit that moves their files, and grep `Path(__file__)` reads under `pods/` again. Node scripts need no layout detection, since each reads the tree its own run shipped (infra, 4 Oct).
 13. **Never rewrite frozen content.** Leave the contents of SHA-pinned files, registered fixtures, historical generator strings (`vectors.json`), historical patches, frozen `job.json` copies, provenance strings and store records alone, unless the same PR regenerates their pins.
 14. **Documentation.** Map-rewrite resolving links and backtick paths. Hand-review prose that names a directory's role, starting with `AGENTS.md`, `README.md` and the skills.
+15. **Module map.** Rewrite imports, `import_module` strings, `module:attr` specs and module-keyed test data through the module map (Daniel's 3:50 PM ruling), leaving Lean comments for a later Lean PR.
+
+ci (4 Oct): each move PR also updates `[tool.verity.tests] inputs`, `tools/check/ci.toml` and `tests/test_lean_packages.py`,
+and `move-check` (#1140) carries an allowlist of path-only files: research's `tools_registry.REGISTRY`, `deploy.toml`'s
+sources, numerical's `lowerings.DIRECTORIES`, the `python -m verity_numerical.bench.*` strings and `store/vocab.py`.

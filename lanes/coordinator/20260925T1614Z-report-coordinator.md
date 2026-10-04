@@ -537,3 +537,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T03:40Z: 11bc/a570 past rust tests; b8cf waiting slot. Proofs stack reviewer lines still missing (#996 #1023 #1024 #1037).
 - 2026-10-04T03:43Z: (root) train 4 + #1013 rebuilt on main w/o proofs stack: 1486bc09f node1 r20261004-033953-6257 (no agreement: no flock, no lean-audit). Cancelled b8cf. Proofs four restack on top when lines arrive; a570 kept until then.
 - 2026-10-04T03:56Z: proofs stack reviewer lines in (#996 source+diff; #1023 #1024 #1037 --update). 11bc + a570 path viable again alongside 6257.
+- 2026-10-04T04:17Z: MERGED 6d585a9d4 (#996 #1023 #1024 #1037 proofs + #1039 + train 4 #900 #975; a570 incl. lean-agreement) -> main 08ac6bf40. #1023/#1024/#1037 OPEN (stacked bases; heads in main). Cancelled 6257. #1013 8ac77c8f1 node1 r20261004-041423-2ed0.

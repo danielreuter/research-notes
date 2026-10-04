@@ -28,6 +28,14 @@ the doorbell wakes only the names at the start.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 04:15Z Oct 4 (9:15 PM PDT Oct 3): research/src cleanup done, disk watch lifted
+
+- @infra's `retention rm` finished at 04:01:19Z: 159 trees deleted (224.7 GB), all under root's three conditions.
+  `research/src` now has 50 trees (@infra's "done", disk thread `1791086571.769439`).
+- Disk: 66%, 1,715 GiB free, settled since 04:00Z. The pacer's cap is 500 GB. I lifted the 15-min watch
+  (`node1-disk-watch`); the :00 and :30 passes keep checking the disk. Open ask 1 (hourly src eviction) is with @infra,
+  with no decline so far.
+
 ## State at 04:02Z Oct 4 (9:02 PM PDT Oct 3): @infra is cleaning up research/src
 
 - **@infra (bc-17cc41f1) is running `research retention rm`** as owner @infra, on root's yes relayed at 03:48Z. Root's three

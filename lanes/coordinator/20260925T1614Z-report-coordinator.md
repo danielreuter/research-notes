@@ -602,3 +602,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T20:02Z: poll.
 - 2026-10-04T20:22Z: MERGED 525e5c32d (26 PRs; f68a incl. lean-agreement) -> main 75976b4f2; all marked MERGED. 2c85 (afacde975) next.
 - 2026-10-04T20:22Z: poll: 2c85 running.
+- 2026-10-04T20:46Z: 2c85 FAILED lean-suites test_wired_links (#1041 test vs a follow-on moving partition digest; suspects #1059 #1079 #1062 #961 #1085 #1118) -> ci/proofs.
+- 2026-10-04T20:55Z: (root) 14-PR tip without six partition/verifier PRs: a47c35cc8 node1 r20261004-204604-c621 --agreement. Bisect halves fail --prepare preflight (lean-audit reads left without readers: interdependent PRs) -> culprit left to proofs/ci.

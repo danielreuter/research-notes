@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:15Z) [open] 4b3f88816 checking; partition_binding cache fix PR pending from proofs, lands first; notes push routes fixed for ci/comms/memory; registries filled (circuits 43, PoUW 39, PoUS 12)
 CHECKPOINT none (21:00Z) [open] 12-PR tip 4b3f88816 checking (9c9f); six suspects back with proofs/lean; #1108 re-pin, #1044 fix; #1126 circuit-check cache fix up
 CHECKPOINT none (20:45Z) [open] afacde975 check failed on wired-links test, culprit hunt; DESIGN.md withdrawn for approach registry; guarantee definition with Daniel
 CHECKPOINT none (20:30Z) [open] main 75976b4f2 (26 PRs landed); afacde975 checking; survey round 2 nearly done

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (15:40Z) [open] A 15:40Z poll: nothing new since 15:20Z (only my own checkpoints); main ae121709c unchanged; /workspace last 54%; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (15:20Z) [open] A 15:20Z poll: nothing new since 15:00Z; compute accounting's 15:00Z exhaustion window should be running (not mine); main ae121709c unchanged; /workspace last 54%; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (15:00Z) [open] A 15:00Z poll: node2-ops 14:50Z: top rebooked compute accounting's exhaustion window at 14:18Z as 2026-10-04T15:00Z 45 (all 8 GPUs, host threads 68-79, then about 1 h audit on 68-79); node2-ops closed its 11:15Z note; not my booking, no action; /workspace last 54% (over 52% hold, flagged earlier); main ae121709c unchanged; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (14:40Z) [open] A 14:40Z poll: nothing new since 14:20Z; still waiting on compute accounting about rebooking the missed 11:15Z exhaustion window (through infra); /workspace last 54% (hold, none of mine pending); main ae121709c unchanged; panel art:63261f6f unchanged pending compute accounting's yes; off node 2

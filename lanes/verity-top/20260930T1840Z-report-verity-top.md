@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:46Z) [open] tip 525e5c32d (26 PRs minus #1068) with lander; PoUS P2-vs-cost-rule decision with Daniel
 CHECKPOINT none (18:30Z) [open] 18:30Z afternoon set closed ~18/32; 27-PR tip ab62fbd75 checking; fail-closed pushed
 CHECKPOINT none (18:15Z) [open] 18:15Z 27-PR tip ab62fbd75 checking (#1041 ruled in); afternoon check at 18:20Z
 CHECKPOINT none (18:00Z) [open] 18:00Z main 06edf032c; follow-on tip building; afternoon check due 18:20Z

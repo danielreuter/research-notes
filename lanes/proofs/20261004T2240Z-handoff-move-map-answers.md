@@ -67,7 +67,12 @@ list is off the accept path. Lean can't read the catalog's JSON at compile time,
 - *The vectors generators* become generating tests, as the map says. The JSON stays beside each reference.
 
 **7. Four smaller calls.**
-- *`ml.tc.relation`* moves with its Lean twin `Protocol.TC.Relation`, and core's lock reduction (mine, after #1053 and
+- *`ml.tc.relation`, revised 4:40 PM PDT under Daniel's 4:25 PM PDT silicon ruling:* `relation.py` and its Lean twin
+  `Protocol.TC.Relation` go to `catalog/silicon/` with the tensor-core step's model, not to `experimental/`. No
+  guarantee that a computation was verified reads a model, so the 18 `Guarantees.TC` step pins leave core's lock and
+  become lemmas in `catalog/silicon/`'s Lean, with their names kept. That is core's lock reduction (mine), and the DM to
+  Daniel at landing names them. The superseded text follows.
+- *`ml.tc.relation` (superseded):* moves with its Lean twin `Protocol.TC.Relation`, and core's lock reduction (mine, after #1053 and
   lean's reads check) decides where both go. No file in the repo outside core's Lean package, and no campaign note, names
   the 18 `Guarantees.TC` step pins. No claim id names the relation, and its only Python users are core's tests and
   numerical's archive-bound red team (`redteam/campaign.py`, `forge.py`, `z3_relation.py`). Unless the docs site cites

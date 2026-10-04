@@ -578,3 +578,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T16:14Z: #964 has red-team now; rider6 bd025f58b node2 r20261004-160758-2f69 --agreement as next link.
 - 2026-10-04T16:22Z: poll: b201 past lean-audit (69 min); a604 e040 2f69 at lean-unit-cut (likely waiting lean slots).
 - 2026-10-04T16:35Z: renewed Slack inbox sub (was expiring 17:59Z) to 2026-11-03. Note: proof-opt-sweep-v25 timer is gone (why sweeps stopped 07:22Z); lander-check-poll (20 min, to Oct 11) replaces it.
+- 2026-10-04T16:42Z: poll: b201 past lean-suites (near end); e040 past circuit-check; a604, 2f69 at lean-unit-cut.

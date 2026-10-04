@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:45Z) [open] 02:45Z: inbox empty; 3 tips queued; FP8 final table pending (due ~02:00Z)
 CHECKPOINT none (02:27Z) [open] 02:26Z: inbox empty; private-circuit draft 2 sent to Daniel (6 rulings); main ca950f8b9, 3 tips queued
 CHECKPOINT none (02:08Z) [open] 02:08Z: inbox empty; 3 tips checking; FP8 final table and zk-pubin freeze due ~02:00Z
 CHECKPOINT none (01:50Z) [open] 01:50Z: inbox empty; main 43947f439 (zk_session_sound landed); 3 tips checking

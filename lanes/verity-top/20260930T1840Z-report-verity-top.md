@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:00Z) [open] 525e5c32d and afacde975 checking in parallel; refactor plan v3 (consolidate, not delete)
 CHECKPOINT none (19:45Z) [open] 525e5c32d in Lean audit; P2 review done, decisions with Daniel; layout principles v2
 CHECKPOINT none (19:30Z) [open] 525e5c32d awaiting check; layout survey 8/12; P2 review relaunched
 CHECKPOINT none (19:16Z) [open] 525e5c32d awaiting check; a55cf8174 held; layout survey 5/12+proofs in

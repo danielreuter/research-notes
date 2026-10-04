@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (00:06Z) [open] 5:06 PM PDT: no new asks. Ratings stand. Main 648e13f24 (#998 #994 #952 #910 #995): protocols/pouw adds identifier v1 (#998, Python + vectors, binds a C-Flock tile proof to scheme/salt/workload via pub.sha under cr/sha-512); no Lean change, policy 650df0bd, 793 pins; pearl_c4.py cap = CAP 1/400 and 64 | m domain unchanged. Not a HiddenTile discharge (C-Flock side pending). Project store still unmounted; ledger-2156Z and ledger-2230Z held.
 CHECKPOINT fbce5a2f4 (23:44Z) [open] 4:44 PM PDT: no new asks. Ratings stand. Main f8ec5cbfa unchanged (no change under protocols/pouw since 1074c52df); policy 650df0bd, 793 pins. Project store still unmounted; ledger-2156Z and ledger-2230Z held. Watching HonestCap art, HiddenTile discharge.
 CHECKPOINT fbce5a2f4 (23:23Z) [open] 4:23 PM PDT: no new asks. Ratings stand. Main f8ec5cbfa (#921 #943; no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400, 64 | m; policy 650df0bd, 793 pins. HiddenTile/HonestCap unrated (open obligation; ε art pending). Project store still unmounted, so ledger-2156Z/2230Z stay held.
 CHECKPOINT fbce5a2f4 (23:02Z) [open] 4:02 PM PDT: no new asks. Ratings stand. Main c2b05d137 (no change under protocols/pouw; fetch OK). Pearl-C4 cap = CAP 1/400, 64 | m; policy 650df0bd, 793 pins. HiddenTile/HonestCap unrated (open obligation; ε art pending). Project store still unmounted, so ledger-2156Z/2230Z stay held.

@@ -5,6 +5,11 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (00:41Z) [open] 0041Z #983 is at d0fc73977, no record change. `TileCheck8Words.lean` proves pc8's row words in `pc8Sem` terms under named hypotheses `Pc8OpsAgree`, `Row8OK` (step words with no −0, α and β step words, β > 0) and `Line8OK` (rescaled noise codes neither NaN nor −0). That's fine for internal lemmas.
+- Review condition (i): L3's final statement must not take `Row8OK` or `Line8OK` as hypotheses.
+  - `Row8OK` is adversary-controlled: main's `RowOK` credits rows with a −0 entry and ρ-overflow rows, and both fail `Row8OK`. So L3 must discharge it from `RowOK`, which needs the floor fix plus a −0 argument or a `pc8Sem` that reads −0, or else prove the words directly on those rows.
+  - `Line8OK` is a property of the oracle's noise. It must hold for every noise draw, or its failure probability must be bounded and added to the error.
+- #967 is still open at 18f1ede17; it only left the filtered list because its base moved.
 CHECKPOINT none (00:03Z) [open] 0003Z SECOND ASK UNANSWERED on note:20261003T2141Z-reply-from-d545bc2a-pr983-pc8sem-floor-overflow: at #983 86a2f8bd7, `pc8Sem.floor` still admits ρ-overflow rows. A 23:04Z addendum notes that `flag8` (pc8's `ok`) → `RowOK` holds, the direction γ needs.
 - Skimmed, nothing vacuous:
   - #983's `tileCheck8`: `Collides := False`, `pub`/`reg` disjoint, every field in the stronger direction.

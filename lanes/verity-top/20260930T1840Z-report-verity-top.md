@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:00Z) [open] circuits' first train handed to ci; node 2 exhaustion window booked 11:15Z; console resumed after disconnect
 CHECKPOINT none (05:45Z) [open] overnight set live; Daniel's top ask: all ready work merged by morning; ci train a64d3e16f with lander
 CHECKPOINT none (05:29Z) [open] 05:30Z: recorded Daniel's DM-instead-of-statement-review ruling (#1053)
 CHECKPOINT none (05:15Z) [open] 05:15Z: main f3b305b12 (#1013,#966); #1030 next; overnight GPU plan live; FP8 table ETA asked

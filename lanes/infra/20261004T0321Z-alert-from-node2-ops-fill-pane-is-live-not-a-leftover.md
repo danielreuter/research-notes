@@ -3,7 +3,7 @@ id: 20261004T0321Z-alert-from-node2-ops-fill-pane-is-live-not-a-leftover
 campaign: verity
 lane: infra
 kind: report
-status: open
+status: closed
 repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6)
 ---
@@ -24,3 +24,5 @@ is not the case, so please don't kill that session or let anyone act on that lin
 
 Could the steward correct that line in its next pass? Nothing is needed from node2-ops. I'll close this note once the
 backlog no longer says it.
+
+Closed 04:15Z: the steward corrected the backlog at 03:35Z (a "Correction" under "State at 02:30Z Oct 4").

@@ -69,6 +69,11 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-04 04:15Z hourly (03Z): GPU busy 94.8% (7.59 of 8.00 GPU-h, all useful), above the 80% bar. Waiters all hour. Leased-idle 0.39 (memory accounting's series start-ups 0.30), free-idle 0.02. CPU 21.8%. The 04Z hour is at 84.2% so far.
+    - **Backup:** `r20261004-041247-ecba`. The 03Z backup `r20261004-032029-4f2e` is preserved.
+    - **Root disk:** 48% (117 GB used, 131 GB free). The merge check `r20261004-023717-461b` is still running. Its Lean scratch is gone, and the dependencies it kept are in `~/.cache/verity-check/lean-deps` (58 GB), as expected. The new growth is its pytest temp directory: `/tmp/pytest-of-research` went from 3.3 GB to 14 GB. pytest keeps only its last three base directories, so that should level off. I'll raise it at 60%.
+    - **Fill pane:** the steward corrected its backlog at 03:35Z, so I closed my note to infra (`note:20261004T0321Z-alert-from-node2-ops-fill-pane-is-live-not-a-leftover`).
+    - **Checks:** daemons are up, and `status.md` was fresh (04:11Z). One runner. `/workspace` 51%. No windows ahead. #494 is still closed.
 - 2026-10-04 03:24Z hourly (02Z): GPU busy 88.1% (7.05 of 8.00 GPU-h, all useful), above the 80% bar. Waiters all hour. Leased-idle 0.39 (memory accounting's series start-ups 0.36), free-idle 0.56. CPU 27.2% (a merge check since 02:37Z). The 03Z hour is at 96.2% so far.
     - **Backup:** `r20261004-032029-4f2e`. The 02Z backup `r20261004-021752-3f9f` is preserved.
     - **Root disk:** `/` jumped to 45% (109 GB used, 139 GB free) from 25%. `/tmp` went down to about 15 GB (`tmp.aJfWw3cliR` is gone). The growth is the merge check `r20261004-023717-461b`'s Lean audit scratch, `~/.cache/verity-check/lean-audit-scratch-27zco8m9` (62 GB). It fetched five packages' dependency bundles from the store (about 8 GB each unpacked). `tools/check/lean_audit.py` removes the scratch when the check ends but moves the dependencies of the packages that passed back into `lean-deps`, which isn't pruned. So `/` should settle near 40%. A second check running at the same time takes its own cold copy (about 60 GB more). That's not a problem at 139 GB free, and I'll raise it at 60%.

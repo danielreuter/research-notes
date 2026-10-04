@@ -35,6 +35,30 @@ Version 3 adds Daniel's rulings of 12:51 PM PDT and the follow-up answers from @
 @infra's is pending. Who said what in the
 survey is in those Slack threads. Lean's guide to the Lean workflow is being updated to match. Nothing has moved.
 
+## Status (captain: verity-top's layout agent, from 2:12 PM PDT)
+
+Daniel named this agent captain of the migration. This section is the tracker; the captain keeps it current, and anyone
+can pick it up from here.
+
+*Critical path to the first move* (core's Lean split into its spec and `security_proofs/`, a pure move):
+1. ci's check-time fixes land, ci's tip `afacde975` among them, and ci measures check time. Owner: ci.
+2. Content-keyed caches: ci's suite keys, circuits' per-target key (descriptor digest), lean's audit key (module name and
+   source hash). Then `move-check`, which certifies a PR as a pure move (ci's fast lane, `note:20261004T2105Z-draft-refactor-ci-fast-lane`).
+3. lean's validator change: a `security_proofs/<area>` package validated against its spec's lock, the reads check, an
+   `owner` field, and lift certification. Waits on 1.
+4. Core's split, checked cold and then warm, with the lock byte-identical. Owner: lean.
+
+*In parallel, none of it on the critical path:*
+- verity#1127, the Glossary and the writing rule: ready in the queue.
+- verity#1124, the ownership map: comms.
+- #1053's DM batching, then one lock reduction per package under the 2:03 PM PDT guarantee ruling.
+- `research replay` (infra), each area's replay-set labels, and two reruns at main (PoUW's approved).
+- Approaches: PoUS has 12 registered; the others are in progress. old-accounting relays the 44 `store:pous/` files.
+- circuits splits its bindings and pins per Definition.
+
+*With Daniel:* the P2 response window (recommendation: cap the RTT allowance near 0.35 ms), and ci resolving
+rename-only conflicts itself (recommendation: yes).
+
 ## Why (Daniel's goals)
 
 1. Make the trusted computing base cleaner.

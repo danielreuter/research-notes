@@ -304,7 +304,7 @@ The map for backends, benchmarks and tools decides those.
 |---|---|---|---|---|---|
 | `verity/proofs/__init__.py` | dissolves (package init) | the package dissolves | high | — |  |
 | `verity/proofs/binding.py` | `archive/sp1/proofs/binding` | P8: D-SP1's obligation and lowering stack; D-SP1 is frozen | medium | SP1†, bench/dot_product, bench/ir_call |  |
-| `verity/proofs/codes.py` | split: the 12 codes live code uses (`ACCEPTED`, `EXPECTATION_MISMATCH`, `INVALID_COMMITMENT`, `INVALID_OPENING`, `INVALID_VALUE`, `PUBLIC_IO_MISMATCH`, `CHECK_MISMATCH`, `CHALLENGE_MISMATCH`, `COVERAGE_MISMATCH`, `RELATION_REJECTED`, `INVALID_COMPILED_RESULT`, `MALFORMED_TRANSCRIPT`) to `integrations/vllm/`, values unchanged; the rest to `archive/sp1` with the `proof-format-v3` decoder | P7: all 12 are used only by vLLM's `check/` (`commit_rules`, `gates`, `result`); P8 | medium | bench/ir_call, vLLM | answered (proofs and circuits, 4 Oct): proofs said the 12 go to `verity/codes` if the Commit verdict is a verifier role and into `integrations/vllm` otherwise; circuits answered that it is not (backends map, circuits question 3). C-Flock, sampled proofs and PoUW import none of them. |
+| `verity/proofs/codes.py` | split: the 12 codes live code uses (`ACCEPTED`, `EXPECTATION_MISMATCH`, `INVALID_COMMITMENT`, `INVALID_OPENING`, `INVALID_VALUE`, `PUBLIC_IO_MISMATCH`, `CHECK_MISMATCH`, `CHALLENGE_MISMATCH`, `COVERAGE_MISMATCH`, `RELATION_REJECTED`, `INVALID_COMPILED_RESULT`, `MALFORMED_TRANSCRIPT`) to `integrations/vllm/`, values unchanged; the rest to `archive/sp1` with the `proof-format-v3` decoder | P7: all 12 are used only by vLLM's `check/` (`commit_rules`, `gates`, `result`); P8 | medium | bench/ir_call, vLLM | answered (proofs and circuits, 4 Oct): proofs said the 12 go to `verity/codes` if the Commit verdict is a verifier role and into `integrations/vllm` otherwise; circuits answered that it is not (backends map, circuits question 3). C-Flock, sampled proofs and PoUW import none of them. Daniel's 4:06 PM ruling, as the plan records it, ties the 12 to a narrower question that circuits and proofs decide: whether `check/`'s commitment and opening checks are protocol code because sampled proofs needs them (whatever recomputes opened values is a diagnostic). Until they decide, the destination stays `integrations/vllm/`. |
 | `verity/proofs/conformance.py` | `archive/sp1/proofs/conformance` (test-only) | P8: D-SP1's obligation and lowering stack; D-SP1 is frozen | medium | bench/dot_product | none: it is test-only apart from `benchmarks/dot_product/vector_run.py`, which goes to archive with it. |
 | `verity/proofs/elem_bf16.py` | `archive/sp1/proofs/elem_bf16` | P8: D-SP1's obligation and lowering stack; D-SP1 is frozen | medium | SP1† |  |
 | `verity/proofs/families.py` | `archive/sp1/proofs/families` | P8: D-SP1's obligation and lowering stack; D-SP1 is frozen | medium | SP1† |  |
@@ -515,11 +515,14 @@ destinations:
 
   Its imports of `ml.boolean.forms` and `trace`, and of `ml.tc.fp32` and `cast`, are allowed under the split.
 
-  After compute-accounting's answers (4 Oct), `pc4`, `pc8`, `rowk`, `leaves`, `boolean.py` and the Pearl-C halves of
-  `words.py` and `hashes.py` go to `experimental/pouw/`, and `pearl_kw`'s device records go with `pearl-fp8-v4` to
-  experimental, so those edges are no longer from `verity/`. `pearl_c_device`'s instance references go to
-  `catalog/devices/` with the record's measurements. What is left is `ncp2` (split 10) and `hashes.py`'s `const`
-  (split 7); where `hashes.py` and `words.py` go is in the protocols map's conflicts.
+  After compute-accounting's answers (4 Oct, revised 23:09Z for Daniel's 4:06 PM ruling that a computation is verified
+  only by a sampled proof): `pc4` goes to `experimental/pouw/nvfp4/`, and `pearl_kw`'s device records go with
+  `pearl-fp8-v4` to experimental, so those edges are no longer from `verity/`. `pearl_c_device`'s instance references
+  go to `catalog/devices/` with the record's measurements. `pc8`, `rowk`, `leaves`, `boolean.py`, Pearl-C's half of
+  `words.py` and TurboSHAKE128 are Pearl-C's only route to a verdict under that ruling, so they are not experimental;
+  their edges into the `ml.prims`, `ml.scalar`, `ml.fp32` and `ml.boolean.fp` Definitions remain, and whether they are
+  `verity/` or catalog builders is in the protocols map's conflicts, with `hashes.py` and `words.py`. `ncp2` is split
+  10, and `hashes.py`'s `const` is split 7.
   `lean/scripts/h1t_vectors.py` and `fp8atom_vectors.py` are vector generators, which are tools and may import
   anything.
 - **Sampled proofs, PoUS and the warden**: none. Their source imports only `proofs.profile`, `claims`,

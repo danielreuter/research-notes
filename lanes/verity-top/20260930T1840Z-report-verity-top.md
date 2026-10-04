@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:32Z) [open] main 9400e83d5 (#1129); be2452acd checking; move-map answers in; lock drafts #1142, #1149
 CHECKPOINT none (22:15Z) [open] 6b376c61e passed, waits on #1129 red-team grant; be2452acd checking; lock-reduction drafts starting (#1142 warden 4 of 51)
 CHECKPOINT none (22:00Z) [open] migration underway (~26 workers across leads); 6b376c61e (#1129) and be2452acd checking; move maps 3/4 drafted
 CHECKPOINT none (21:45Z) [open] main 16749a0ff (12 PRs); #1129 next; evening close-out

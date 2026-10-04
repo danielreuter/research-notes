@@ -181,7 +181,10 @@ And at 2:21 PM PDT:
      Everything in `security_proofs/` is free to change, as long as each guarantee still validates with the same
      statement.
    - A Lean PR is either a *move*, which leaves the lock's remaining entries byte-identical, or a *change of meaning*,
-     which the DM shows in full. Never both. Lean module names don't change when directories move.
+     which the DM shows in full. Never both. Declaration names are kept, and proof modules move under a root of their own
+     (`CoreProofs.*`, `PouwProofs.*`), since Lean loads a module from the first package with a directory for its root
+     component (lean, verity#1144). The umbrella module (`Verity`, `Pouw`) stays with the spec. A pure split leaves the
+     `guarantees` and `reads` records byte-identical; `roots` and `proved_in` may change.
    - Lake packages split only where their `require`s differ. The proofs can become one package, since everything
      already shares one Mathlib and only `CheckAxioms` collides (the validator replaces it). The rest are C-Flock's
      executable verifier (no dependencies), the specs, and the catalog.

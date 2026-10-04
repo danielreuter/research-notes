@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:15Z) [open] 18:15Z 27-PR tip ab62fbd75 checking (#1041 ruled in); afternoon check at 18:20Z
 CHECKPOINT none (18:00Z) [open] 18:00Z main 06edf032c; follow-on tip building; afternoon check due 18:20Z
 CHECKPOINT none (17:45Z) [open] 17:45Z main 06edf032c (a604, e040, 2f69, #1105 landed); ci building ~30-PR follow-on tip
 CHECKPOINT none (17:30Z) [open] 17:30Z a604 next to land; #1115 eviction decided (node-local refs); follow-on tip waits on e040

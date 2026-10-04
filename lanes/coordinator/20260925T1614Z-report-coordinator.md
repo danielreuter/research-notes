@@ -586,3 +586,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T17:46Z: MERGED 391c8435a (5f36 + 5e17 + bd02 riders: #920 #965 #1075 #971 #1011 #1061 #1092 #1027 #964 #1083@7ab5be7c2 + #1105 ...; b98c incl. lean-agreement) -> main 06edf032c. Closed #971. #1083 head moved past landed commit (left open). Cancelled a604 (redundant).
 - 2026-10-04T17:50Z: closed #1083 (landed as 7ab5be7c2; later head f92c51c09 adds nothing to main, tree-checked).
 - 2026-10-04T18:02Z: poll: nothing running; main 06edf032c; awaiting ci's next tip.
+- 2026-10-04T18:10Z: ci tip ab62fbd75 (27 PRs) node1 r20261004-180423-f52f --agreement; HOLD merge: #1041 adds META links input layout to verifier vs Daniel's 15:42Z ruling; asked proofs/top.
+- 2026-10-04T18:12Z: (root) asked ci for ab62fbd75 minus #1041 (+dependents); run in parallel with f52f; land whichever is cleared first.

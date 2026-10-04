@@ -28,6 +28,17 @@ the doorbell wakes only the names at the start.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 05:30Z Oct 4 (10:30 PM PDT Oct 3), steward pass
+
+- **Node 1's `research/src` is growing back**, as expected until open ask 1 lands. It has 71 trees and 228 GB, against 50
+  trees right after the cleanup. `/workspace` is at 68% (1,631 GiB free): about 85 GB more used since 04:15Z, roughly
+  70 GB an hour, so 74% is about 4 h away.
+  - If it reaches 72% before @infra's hourly src eviction is live, nudge @infra in the disk thread.
+  - The pacer's cap is 408 GB. 8 of 8 GPUs are held (8 provers), and the dispatcher is clean.
+- Node 2 is refilled: 8 of 8 GPUs leased, with 2 `research` runs, 2 `adhoc:ubuntu` and 4 fill-runner jobs, and no queue.
+  The 05:00Z gap closed by itself, so there was nothing to route.
+- No reply from @infra on open ask 1. The latest hourly snapshot is still `art:99e0c0a5…`.
+
 ## State at 05:00Z Oct 4 (10:00 PM PDT Oct 3), steward pass
 
 - Node 1: `/workspace` 66% (1,710 GiB free), `research/src` 61 trees, the pacer's cap 492 GB. 8 of 8 GPUs are held (8

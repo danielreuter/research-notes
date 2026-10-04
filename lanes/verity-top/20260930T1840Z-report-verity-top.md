@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:15Z) [open] train 8f13bc8e6 (#1021, #1048, #1074, #1073, #1066) stacked; GPUs 15/16 busy
 CHECKPOINT none (07:00Z) [open] trains 90e8ac187 (#915, #1064, #990) stacked behind circuits 5; quick tiers flowing on node 2 slot q
 CHECKPOINT none (06:45Z) [open] quick-tier slot q on node 2 live; route P leads, recursion parked for Daniel; morning decision list in notes
 CHECKPOINT none (06:30Z) [open] #1030 on main; lean granted all 10; quick tiers starved by train checks, asked infra for a quick-tier slot

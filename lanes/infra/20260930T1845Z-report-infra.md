@@ -215,3 +215,20 @@ paused and has no `kinds`.
 
 Next: node 1's provers pool 4.6 of 24.2; memory accounting on node 2 4.3 of 20.1. Node 1 15.2 idle of 36.7 held (Oct 2: 48.1
 of 53.9); node 2 44.0 of 67.1 (Oct 2: 18.0 of 32.8).
+
+## Daily top 3 GPU wasters, Oct 4 (posted 9:13 AM PDT, ts 1791130381.636879)
+
+Idle GPU-hours over the 24 h to 16:00Z, timed leases left out (compute accounting's 15:00Z window 4.6, bc-e90634dd's 1.0 and the
+3 Oct 18:05Z window 1.0). Lane totals from node 1's `held-idle-hourly.jsonl`; node 1 kinds from Prometheus (halved) and
+`lease-usage.jsonl` commands; node 2 kinds from `lease-usage.jsonl`.
+
+1. **circuits, `circuits-tp8`** (2 leases of 8) on node 2: 14.8 idle of 14.8, 16:00-20:00Z on 3 Oct (the Qwen3-235B window
+   after its Match stopped on the fold gap). Suggested: hand the lease back when a stage fails.
+2. **network accounting's `network_traces` seeds** on node 1 (default pool, counted as proofs/provers): 11.7 idle of 101.9
+   (Prometheus `gpu-pool` 13.8, 45 pods). The backfill stopped at 06:56Z under Daniel's no-filler rule.
+3. **memory accounting** on node 2: 7.4 idle of 38.9; fill PoUS e2e series (`fill:bc-15ada664`) 5.9 of 39.0 (133 leases),
+   erase-calib 0.8 of 5.9.
+
+Node 1 14.1 idle of 104.7 held (Oct 3: 15.2 of 36.7); node 2 35.4 of 105.7, about 29 of 99 without timed windows (Oct 3: 44.0
+of 67.1). Gap: node 1's `gpu-lease` records `sampled_s` 0, so its lease-usage busy figures are unmeasured; DCGM is the source.
+

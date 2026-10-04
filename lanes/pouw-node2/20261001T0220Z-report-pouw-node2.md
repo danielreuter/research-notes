@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (02:20Z) [open] A 02:20Z poll: nothing addressed to pouw-node2 (a follow-up line on redteam's #983 note, for lean); main ca950f8b9 (no PoUW change); panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (02:00Z) [open] A 02:00Z poll: nothing new in the watched lanes since 01:40Z; main 43947f439; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (01:40Z) [open] A 01:40Z poll: nothing new in the watched lanes since 01:20Z; main 43947f439 (zk_session_sound stack); panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (01:20Z) [open] A 01:20Z poll: redteam 0108Z: NO-GO to cite #983's tileCheck8_computesWords (vacuous hent, a -0 entry counterexample), for l3-tilecheck/lean; the panel cites nothing from #983; node2-ops 01:15Z: 87.0% busy (00Z), /workspace 49%; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2

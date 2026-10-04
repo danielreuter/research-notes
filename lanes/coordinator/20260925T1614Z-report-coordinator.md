@@ -544,3 +544,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T05:08Z: MERGED #1013 #966 via d319 (fbc74aac1) -> main. 7e7c (#1030) next; body line pending.
 - 2026-10-04T05:22Z: #1053 (removes statement-reviewer requirement per 'Daniel ruling 3 Oct 6:46 PM PDT'; DM Daniel on guarantee change) on #1030: 45e0479fc node1 r20261004-051915-7354 --agreement. HOLD merge pending root confirming the ruling.
 - 2026-10-04T05:25Z: (root) holding #1053; asked @top for record of Daniel's 6:46 PM PDT ruling. Reviewer-line check stays in force until #1053 merges.
+- 2026-10-04T05:28Z: #1051 stacked on #1030 (not on held #1053): cd06130af node1 r20261004-052448-d12e --agreement.
+- 2026-10-04T05:32Z: #1038 (tools/lean/audit.py) + #1047 (tools/lean/README.md) both move every audit key -> hold till after 08:00Z (proofs' push), with #948.
+- 2026-10-04T05:38Z: #1053 ruling CONFIRMED (note verity-top-20261003T1630Z-rulings-3-oct, bullet added 05:29Z, notes main 19803507). Cancelled 7354; a64d3e16f (#1053 on #1051) node1 --agreement. Reviewer-line check retires when #1053 merges.

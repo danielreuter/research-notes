@@ -592,3 +592,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T18:22Z: poll: f52f running.
 - 2026-10-04T18:42Z: poll: f52f running.
 - 2026-10-04T18:46Z: f52f FAILED pytest test_slot::test_the_command_holds_the_slots_lock (#1068; passes on VM -> host-dependent). Asked infra to isolate, ci for tip minus #1068.
+- 2026-10-04T18:50Z: ci tip 525e5c32d (26 PRs, no #1068) node1 --agreement.

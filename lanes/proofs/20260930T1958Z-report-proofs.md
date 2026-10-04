@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (22:25Z) [open] 3:24 PM PDT: #1129 has ready (998a) and grant=red-team (red-team-1129, 22:09:55Z) at 1ebe60cd3; told the landing thread that 6b376c61e (14a1) clears the gate. Follow-ups after landing: cached_expanded expands every compose; _EVALUATIONS key lacks seed/broadcast set.
 CHECKPOINT none (22:01Z) [open] 3:01 PM PDT: #1129 ready (tier 998a), its tip 6b376c61e check 14a1 passed; red-team-1129 grant pending; migration workers launched (canonical V1, flock-spec, flock-lock)
 CHECKPOINT none (21:44Z) [open] 2:44 PM PDT: #1129 (partition_binding/owners_of keyed by object; fixes 2c85's test_wired_links flake) quick tier r20261004-212524-998a running, lander's 6b376c61e check 14a1 running; fail-closed merged main f4fb1583a, gaps open, PR not yet; flock-design relaying rows to the flock approach registry
 CHECKPOINT 2c0aae78f (20:31Z) [open] 20:33Z: #1120/#1121 restack audits f867/ebda: verifier + level3 PASS, records unchanged; soundness running.

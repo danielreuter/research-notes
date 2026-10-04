@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (18:01Z) [open] 11:00 PDT: scope-g done (canonical chain 13fe0a366; only parse_formatOk left, V1); tail circuits stay refused (fail-closed item 9); verifying audit r20261004-175718-cc6a; #1097 tier f52a running; row-seg card pending
 CHECKPOINT none (17:32Z) [open] 10:35 AM: 8 landing PRs admitted and handed to ci; route P pinned on #1088 (f819 PASS, 804 pins); canonical proofs and fail-closed running
 CHECKPOINT none (17:05Z) [open] 10:10 AM: #1062/#1040/#1050 ready; canonical format frozen (08a3ea9ad), proofs split scope-g/canonical-io; row-seg card to Daniel; route P audit f819 running
 CHECKPOINT none (16:41Z) [open] 9:45 AM: ScopeW records on draft #1106 (held for fail-closed); #1041 ready, #1041/#1062 held by a queue merge-base bug (reported); route P audit f819 running; 7 tiers on node 1

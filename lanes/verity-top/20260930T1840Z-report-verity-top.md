@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:30Z) [open] 525e5c32d awaiting check; layout survey 8/12; P2 review relaunched
 CHECKPOINT none (19:16Z) [open] 525e5c32d awaiting check; a55cf8174 held; layout survey 5/12+proofs in
 CHECKPOINT none (19:00Z) [open] tip 525e5c32d with lander; P2 assumption review running; circuit-check cache fix due 21:30Z
 CHECKPOINT none (18:46Z) [open] tip 525e5c32d (26 PRs minus #1068) with lander; PoUS P2-vs-cost-rule decision with Daniel

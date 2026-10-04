@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (16:41Z) [open] 9:45 AM: ScopeW records on draft #1106 (held for fail-closed); #1041 ready, #1041/#1062 held by a queue merge-base bug (reported); route P audit f819 running; 7 tiers on node 1
 CHECKPOINT none (16:01Z) [open] 9:00 AM: Daniel's one-theorem ruling (#1097) announced; fail-closed + canonical-io lanes running; ScopeG retired; tiers queued in slot q on node 2; audit 4b8b building
 CHECKPOINT none (15:30Z) [open] 8:30 AM PDT: afternoon set fixed; local acyclicity lanes running; 6 granted PRs waiting on slot q tiers; g1 audit 4b8b running
 CHECKPOINT none (14:34Z) [open] 7:32 AM PDT: lanes restarted on Opus; train ae121709c landed #1048/#1073/#1074; red-team granted #1041 #1062 #1017 #1025; quick tiers a3ed 1ec3 79a5 533f; #1017/#1025 restacking; rec-holo route P --zk 0.65x

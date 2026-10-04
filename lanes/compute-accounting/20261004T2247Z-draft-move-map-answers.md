@@ -449,6 +449,9 @@ Checked, and I agree with the map: `protocol.py`, `audit.py`, `beacon.py`, `bls1
      - They stay in the harness, as the readers. `ledger.py` and `exhaustion/audit.py` use them.
      - The table already marks each twin `pinned` or `staged`. Once `DevicePrices`' pins leave the lock, the ledger would
        publish staged γ unless it refuses them (§A 1).
+    - verity#1154 renames the certified γ's pin to `Pouw.SecurityProofs.PearlC.GammaSm120v1LoopCast8p72Rev1Cap1000_8192`.
+      `price_twins.py` reads γ off a pin's signature, which is now `X : G`, so it must read the `Guarantees` definition
+      instead. Settle this together with the lock's size.
    - **Confidence:** medium.
 3. **`kernels/pouw_gemm.cu`** (is it a registry entry?).
    - **Answer.** No. It stays in `benchmarks/`.

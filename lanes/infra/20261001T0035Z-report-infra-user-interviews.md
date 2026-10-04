@@ -501,3 +501,6 @@ Triage:
   fixed (#936, node 1's guest gpu-lease copy now in deploy.toml and identical at 00:30Z, #951, #1016; eviction paused);
   (5) #970 queued; (6) stale CLI: pull main; later a `research doctor` behind-main check (#980 follow-up); (7) ask-daniel
   404s passed to console (ts 1791073870.980669). Next round: console, old-circuits-and-proofs.
+- Correction to item (7), from console 00:34Z (ts 1791074067.190539): the ask-daniel routes are deployed. A 404 means no card
+  has that id (a Slack ts or any non-UUID counts as missing; a pending card's status is 200), so memory-accounting's 404s were
+  a wrong id or its stale CLI (554b14975), whose "route isn't deployed" wording is out of date. Nothing for infra.

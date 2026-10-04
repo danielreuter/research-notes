@@ -7,8 +7,8 @@ cursor:
 
 **Final, 14:00Z** (first finalized 12:40Z; the table now runs to 13:59Z). Steward: nebius-infra (bc-fd19a2fe).
 
-**Latest:** the section "Next 24 hours, to 11:39Z Oct 3", finalized at 4:45 AM PDT Oct 3, covers Oct 2–3. The one before it,
-"Last 24 hours, to 12:11Z Oct 2", covers Oct 1–2.
+**Latest:** the section "Third 24 hours, to 14:00Z Oct 4", finalized late at 14:45Z Oct 4 after a VM suspension, covers
+Oct 3–4. Before it, "Next 24 hours, to 11:39Z Oct 3" covers Oct 2–3, and "Last 24 hours, to 12:11Z Oct 2" covers Oct 1–2.
 
 **Sources:**
 - node 1: Prometheus (DCGM GPU and node-exporter host metrics, 1 min) and Kueue's `vy-usage` queue samples (5 min);
@@ -354,8 +354,80 @@ upstream Builds or not yet queued by its lane), which goes to the owning coordin
 **Theory lanes launched:** none. The idle time was feed-bound or waiting on fixes in the owning lanes (TP2 staging, B8 top-p=1),
 not on open questions.
 
+## Third 24 hours, to 14:00Z Oct 4 (4:39 AM PDT Oct 3 – 7 AM PDT Oct 4; finalized late, 14:45Z)
+
+Due at 13:30Z, but my agent VM was suspended from about 07:13Z to 14:20Z, so no pass ran and this was written afterwards. The
+research coordinator's timers stopped over the same span. Source: `art:17d591ed1b4ae0044b2c1a1350c274c3b65a8833f80eabdc11fe743a83e0532c`.
+
+| Server | Hours (UTC) | GPU-h | Kueue-allocated | held or busy | busy | idle | CPU busy | RAM peak |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| vy-nebius-1 | Oct 3 11:39–16:00 (4:39–9 AM PDT) | 34.8 | 10.2 | 9.4 | 8.27 | 25.4 | 23% | 427 GiB |
+| vy-nebius-1 | Oct 3 16:00–20:00 (9 AM–1 PM PDT) | 32.0 | 22.3 | 21.2 | 19.18 | 10.8 | 24% | 273 GiB |
+| vy-nebius-1 | Oct 3 20:00–24:00 (1–5 PM PDT) | 32.0 | 30.8 | 30.1 | 27.00 | 1.9 | 32% | 389 GiB |
+| vy-nebius-1 | Oct 4 00:00–04:00 (5–9 PM PDT) | 32.0 | 31.3 | 30.5 | 27.32 | 1.5 | 32% | 545 GiB |
+| vy-nebius-1 | Oct 4 04:00–08:00 (9 PM–1 AM PDT) | 32.0 | 19.5 | 19.1 | 16.13 | 12.9 | 34% | 631 GiB |
+| vy-nebius-1 | Oct 4 08:00–12:00 (1–5 AM PDT) | 32.0 | 0.0 | 0.0 | 0.00 | 32.0 | 3% | 99 GiB |
+| vy-nebius-1 | Oct 4 12:00–14:00 (5–7 AM PDT) | 16.0 | 0.0 | 0.0 | 0.00 | 16.0 | 1% | 34 GiB |
+| **vy-nebius-1** | **window** | **210.8** | **114.1** | **110.3** | **97.90** | **100.5** | **23%** | **631 GiB** |
+| vy-nebius-2 | Oct 3 11:39–16:00 (4:39–9 AM PDT) | 34.8 | – | 19.7 | 9.99 | 15.1 | 24% | 538 GiB |
+| vy-nebius-2 | Oct 3 16:00–20:00 (9 AM–1 PM PDT) | 32.0 | – | 16.4 | 0.49 | 15.6 | 6% | 842 GiB |
+| vy-nebius-2 | Oct 3 20:00–24:00 (1–5 PM PDT) | 32.0 | – | 23.2 | 18.36 | 8.8 | 15% | 555 GiB |
+| vy-nebius-2 | Oct 4 00:00–04:00 (5–9 PM PDT) | 32.0 | – | 30.3 | 26.59 | 1.7 | 14% | 272 GiB |
+| vy-nebius-2 | Oct 4 04:00–08:00 (9 PM–1 AM PDT) | 32.0 | – | 23.6 | 18.69 | 8.4 | 19% | 394 GiB |
+| vy-nebius-2 | Oct 4 08:00–12:00 (1–5 AM PDT) | 32.0 | – | 4.7 | 3.91 | 27.3 | 8% | 546 GiB |
+| vy-nebius-2 | Oct 4 12:00–14:00 (5–7 AM PDT) | 16.0 | – | 2.0 | 1.63 | 14.0 | 1% | 28 GiB |
+| **vy-nebius-2** | **window** | **210.8** | **–** | **120.0** | **79.66** | **90.8** | **13%** | **842 GiB** |
+
+**GPU-hours used and idle:**
+- Node 1: 110 of 211 GPU-h held or busy (52%), 98 of them busy, and 100 idle. The day before, it held 26 of 188.
+  - From 16:00Z Oct 3 to 04:00Z Oct 4 nearly every GPU was busy. `provers` had 6 GPUs of quota (15:07Z to 10:30Z) for
+    network accounting's non-preemptible trace chunks, run through the GPU pool.
+  - The sweep ended at 05:54Z, and @top released node 1 for circuits' GLM work. From 08:00Z to 14:00Z node 1 ran no GPU work,
+    and its CPUs were 1–3% busy. No owner-approved GPU work was queued, and Daniel's rule (below) is no filler.
+- Node 2: 120 of 211 GPU-h held or busy (57%), 80 busy, and 91 idle. It was busiest 00:00–08:00Z (POUS's research chunks and
+  memory accounting's fill and `erase-calib` jobs). It held only 7 GPU-h from 08:00 to 14:00Z.
+
+**Top inefficiencies found, and what was done:**
+1. **`research/src` grew without bound, so node 1's disk filled.** Every check run ships a source tree of up to 24 GB, and
+   nothing pruned them. The disk lost about 300 GB in the hour to 03:11Z.
+   - I listed the trees no live process, run or slot used (`art:bd3cf373…`) and escalated at 03:47Z.
+   - Root approved deleting them on three conditions: the commit is on origin; no running or queued use; not the only copy.
+   - @infra deleted 159 trees (224.7 GB) through `research retention rm` by 04:01Z, and the disk went from 69% to 66%.
+2. **Eviction was paused, because it emptied fetched trees under running suites.** #1028 (keep a tree fetched within 24 h) was
+   installed by @infra at 03:07Z, and I verified it at 03:11Z: all trees kept.
+   - Both eviction units are pinned to main's snapshot (`tool-1028.conf`). Their default, the newest snapshot, could be an
+     older branch's code.
+3. **Idle GPUs were offered as backfill (my mistake, corrected 06:34Z).** Daniel's rule: GPU work runs only for owner-approved
+   items that each name their research question, with no filler. I report idle GPUs and @top routes approved work.
+4. **PyYAML wasn't in the locked environment, so `check` skipped the dispatch and commit-pack tests** (day 2's open item).
+   #925 fixed it, merged at 14:39Z. Its train surfaced a host leak in the pin tests, which #931 fixed.
+5. **Node 1's Lean audits were uncapped.** #947 made `check 2` plus `audit 2` live at 17:20Z.
+6. **Kueue drift read "DIFFER" after each quota patch,** because the patch scripts write `nominalQuota` as the number `6`
+   while `kueue.yaml` has the string `"6"`.
+   - It happened at 14:45Z Oct 3 and again after the 10:30Z revert. I re-applied `kueue.yaml` at 14:30Z Oct 4, and drift
+     reads "same".
+7. **Steward passes stopped from 07:02Z to 14:26Z** while my agent VM was suspended.
+   - Node 1 now runs `vy-steward-watch.timer`, a read-only state line every 15 min to
+     `/workspace/verity-guest/steward-watch.jsonl`, flagging disk-72, disk-78 and stale pacer or dispatcher.
+   - My passes also have an interval-based fallback timer beside the cron one.
+
+**Still open:**
+- **Hourly eviction of `research/src`** is asked of @infra, and #992 (open) has a `src-tree` rule. Until it lands the trees
+  grow back: 126 trees and 276 GB at 14:30Z, with the disk at 69%.
+- **Node 1's `gpu-lease` is behind main.** It's at `cdcab7126`'s version, while node 2 runs main's; that's @infra's deploy.
+- **Feed-bound:** from 08:00Z both nodes sat almost idle, because no owner-approved GPU work was queued.
+- **Quota patch scripts write integers,** so every temporary quota move shows as drift until someone re-applies `kueue.yaml`.
+- **node2-ops still has no Slack handle.**
+
+**Theory lanes launched:** none. The idle time was feed-bound (approved work ran out), not theory-bound, and the rule is no
+filler.
+
 ## Evidence
 
+- `art:17d591ed1b4ae0044b2c1a1350c274c3b65a8833f80eabdc11fe743a83e0532c`: 11:39Z Oct 3 – 14:34Z Oct 4, both servers, the
+  source of the third 24-hours table.
+- `art:bd3cf3736ce1712e2ab208a20eea55ca9868c8fcf48242eaeab4c935654279bd`: node 1's `research/src` cleanup candidates at
+  03:20Z Oct 4, with net sizes and the scan script.
 - `art:716bbdff08031a6615b0640838fe3a7c5d77eee1a0e403b938d1075314596962`: 12:11Z Oct 2 – 11:39Z Oct 3, both servers, the source
   of the next-24-hours table.
 - `art:e928a60a5356cb83407ca00ad60900ec44c91b853023d30672279ecae768d932`: 12:10Z Oct 1 – 12:11Z Oct 2, both servers, the

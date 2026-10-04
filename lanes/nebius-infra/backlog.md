@@ -21,6 +21,12 @@ research question. There is no filler, and GPUs may idle when approved work runs
 as backfill; it reports them idle and lets @top route approved work. Preemptible leases remain the way approved backfill
 runs. (Also in the infra report `20260930T1845Z-report-infra`: every job names its research question.)
 
+**Fallback (14:33Z Oct 4):** node 1's `vy-steward-watch.timer` writes a read-only state line every 15 min to
+`/workspace/verity-guest/steward-watch.jsonl` (flags disk-72, disk-78, pacer-stale, dispatcher-stale; a copy is in
+`tools/vy-steward-watch`). It keeps running when this VM is suspended. After a gap, read it from the last pass on. My passes
+are the cron timer `nebius-infra-steward-pass-v2` plus `nebius-infra-steward-fallback` (every 45 min), which runs a full pass
+when `/tmp/steward-pass.last` is over 40 min old.
+
 ## Open asks
 
 1. **[@infra] Hourly eviction covers `/workspace/research/src`** (root, 04:02Z Oct 4; asked in the disk thread,
@@ -32,6 +38,27 @@ runs. (Also in the infra report `20260930T1845Z-report-infra`: every job names i
    - Once it's on main, bump the `tool-1028.conf` pin on both `vy-store-evict` units. Then check one hourly run prunes
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
+
+## State at 14:35Z Oct 4 (7:35 AM PDT): recovery pass after the 07:02–14:26Z gap
+
+- **The gap:** my agent VM was suspended from about 07:13Z to 14:20Z (the loop's `timeout` and `sleep` didn't advance). The
+  research coordinator's timers stopped too. The 13:30Z utilization summary was missed, and I finalized it at 14:45Z.
+- **Node 1 disk:** 69% (1,589 GiB free), flat since 07:00Z (1,605). It never reached the 72% nudge point or the 78% latch.
+  - `research/src` has 121–126 trees and 276 GB.
+  - **`src/` eviction isn't live:** no retention decisions since 04:01Z, and the 13:11 and 14:11Z hourly evictions freed 0 GB.
+    #992 (open, updated 06:13Z) carries a `src-tree` rule (@infra, 6 h).
+- **Quota:** the 10:30Z revert ran on time (`provers` 2, `deployments-gpu` 6). Its patch wrote `6` as a number, so drift read
+  "DIFFER" on `"6"` vs `6` only. I re-applied `infra/nebius`'s `kueue.yaml` at 14:30Z (`kubectl diff` showed only that
+  line), and drift reads "same" (logged in `quota-changes.log`).
+- **Node 1:** 0 of 8 GPUs held, no workloads admitted or pending, and GPU busy at 0% over the last hour. The dispatcher and
+  pacer are clean and ticking. Reported idle, not offered.
+- **Node 2:** 1 of 8 GPUs held (a fill-runner job). Both queues are empty, the cluster agent is active, and the disk is at 55%.
+- **Drift, also:** node 1's `/usr/local/bin/gpu-lease` is behind main (it's `cdcab7126`'s); node 2's matches main. That's
+  @infra's deploy, so I only report it.
+- **Settled during the gap:** network-accounting's 06:54Z seeds name their question: do chunks without the 5-s memory
+  sampling, and 40-min chunks, keep more windows (calibration pass 3 input). @top approved it at 05:23Z, and it's now the
+  `question` label on seeds 237–240 (`1791097457.393389`, after root asked in @top's thread).
+- The 07:07Z Grafana alert (pool holder `gpu-pool-1791096899979` at 0% on GPU 2) is moot: node 1 holds no GPUs now.
 
 ## State at 07:00Z Oct 4 (12:00 AM PDT Oct 4), steward pass
 

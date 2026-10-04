@@ -17,7 +17,7 @@ of land, close or register. Infra's rows are decided. The other rows are provisi
 
 **Count.** 74 open (84 at 21:20Z): 18 infra, 56 other lanes. The queue holds 22 ready for a train (6 of them infra's), 38
 waiting, and 14 stacked on another branch. Every open head was tested with `git merge-base --is-ancestor f59913b20`;
-three contain `afacde975`, which failed its check and won't land: #1082, #1108, #1112.
+three look as if they contain `afacde975`: #1082, #1108, #1112. ci's correction (22:17Z): #1108 *is* `f59913b20`, the commit afac only carried, and #1082 sits on it, so neither is contaminated; only #1112 is (superseded by #1130).
 
 **Verdicts.**
 - *land*: in the queue, or will be once its tier passes or its grant comes.
@@ -51,6 +51,20 @@ three contain `afacde975`, which failed its check and won't land: #1082, #1108, 
 
 Infra's own close-out by 01:00Z: #895 closed; #993 lands with ci's tip; #1068 and #988 restacked on that tip (22:30Z); the 9 *land* rows in trains or ready; #1004 retargeted; grants
 asked of proofs for #1012 and #1055.
+
+## Verdicts from ci (22:17Z) and architecture (22:21Z), in top's migration thread
+
+They replace the provisional rows below where they differ.
+- *In a checking tip:* #1129 in `6b376c61e` (passed; lands with red-team-1129's grant). #1059 #1079 #1085 #1117 #1118 #1062
+  #961 #1044 #993 #986 #978 #1001 #1125 #1128 in `be2452acd`.
+- *Next tip, on `be2452acd`:* #1119, #1137, #1140, #1133, #1127 (restacked as `d17d8e76b`), #1145 (new: `--uncite`, `store:`
+  out of `EVIDENCE_RE`) and #1135/#1136/#1138/#1139 once their tiers pass.
+- *Restack on `be2452acd` first:* #1068 and #988 (done 22:30Z), #1123 (memory-accounting).
+- *Land in the next train once ready:* #1108 `c43a1f4f0` and #1082 `6c31cf824`, restacked on main by compute-accounting.
+- *Close:* #1112 (superseded by #1130); #1113, the @architecture handle (no consumer: the migration posts as top's layout
+  agent); #991 once #1138 lands (it comes in through #1138).
+- *Register:* #1036, the layout trial, until core's first move lands; then close. #1126 waits on its red-team review.
+  #1004 carries #1055 and lands with it.
 
 ## Other lanes (56): provisional, for architecture and ci
 

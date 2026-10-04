@@ -19,8 +19,9 @@ publicly and bit-exactly on every use, and it's audited with timed challenges. T
 **Where things are:**
 - **Code:** Verity `protocols/pous` (`verity_pous`) and `benchmarks/pous`.
 - **Lean:** `protocols/pous/lean`, audited by `tools/lean/audit.py`.
-- **Design documents, red-team reviews and cryptanalysis:** the POUS Project store, which is private. Registry entries cite them
-  as `store:pous/<path>`; ask `lanes/pous/` for anything you need.
+- **Design documents, red-team reviews and cryptanalysis:** relayed from the private POUS Project store into the notes, each with
+  its store path and sha256 (`note:20261004T2202Z-report-relay-index-store-pous` lists them). Cite the note; a file that isn't
+  relayed yet is copied into the notes before anything cites it.
 
 **What's been tried:** `APPROACHES.md` in this folder, generated from the evidence store. With `registry: titles` it shows titles,
 statuses, owners and evidence only, the default for every campaign (decided: default, Daniel deferred, 2026-09-29). Hypotheses and

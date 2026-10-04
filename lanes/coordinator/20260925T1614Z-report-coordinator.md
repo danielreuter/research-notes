@@ -541,3 +541,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T04:21Z: #966 (lean fast-path slot pool) on #1013: fbc74aac1 node1.
 - 2026-10-04T04:47Z: 2ed0 (#1013), d319 (#966) past rust tests. infra lane bc-58f8832d building slot/window view + auto node pick (due 10:00Z).
 - 2026-10-04T04:58Z: #1030 (zero knowledge) on #966: d2ef53b1c node1 r20261004-045446-7e7c --agreement; body lacks lean-read line.
+- 2026-10-04T05:08Z: MERGED #1013 #966 via d319 (fbc74aac1) -> main. 7e7c (#1030) next; body line pending.

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (01:20Z) [open] A 01:20Z poll: redteam 0108Z: NO-GO to cite #983's tileCheck8_computesWords (vacuous hent, a -0 entry counterexample), for l3-tilecheck/lean; the panel cites nothing from #983; node2-ops 01:15Z: 87.0% busy (00Z), /workspace 49%; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (01:00Z) [open] A 01:00Z poll: nothing new in the watched lanes since 00:40Z; main 648e13f24; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (00:40Z) [open] A 00:40Z poll: nothing addressed to pouw-node2 (infra interviews edits mention node 2's tooling, not this lane); main 648e13f24; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (00:20Z) [open] A 00:20Z poll: nothing addressed to pouw-node2; main 648e13f24 adds PoUW's proof identifier v1 (verity/pouw/identifier/v1, pinned vectors), no gamma or verifier change; node2-ops 00:20Z: 62.1% busy (23Z), /workspace 49%; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2

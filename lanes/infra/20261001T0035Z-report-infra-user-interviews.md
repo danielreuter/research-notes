@@ -485,3 +485,19 @@ Triage:
   rotation (last asked in round 15). Neither is in a timed window or an incident. The ask lists #995 merged (`retention rm`
   needs the owner's yes; nothing to install on the nodes, since the nodes don't install the `research` CLI), #936, #942,
   #944, #958, #989 next in the quick tier, and node 1's eviction pause. Infra is subscribed to the thread for 12 h.
+- Answers: network-accounting 00:23Z (ts 1791073431.114909), memory-accounting 00:26Z (ts 1791073565.884849). Most time:
+  network: the preemption cascade (waiting preemptible leases SIGTERMed new ones, about 14 chunks; runs called node 1's stale
+  `/workspace/verity-guest/bin/gpu-lease`; record.py exited 0 on SIGTERM, fixed in #951) and node 2's queue slot keeping 0 of
+  353 windows. memory: quick tiers serially (~50 min each, the PoUS batch #934/#935/#972/#952/#959), and tearing down the
+  node 2 HBM sweep fed from a lane's VM (no node-side driver; `research cancel` only from the launcher). Worked around: direct
+  gpu-lease on node 2; `--pss-every 86400` while #970 is open; 8 waiters on node 1 so the pool doesn't fence; restoring evicted
+  requests.jsonl (#1016 refuses a missing one); a worktree CLI for `research cancel`; ask-daniel resolve/status 404; a stale
+  control-VM CLI (554b14975). Fix next, both: a standing campaign target ("keep N of this chunk template leased on node X,
+  seed = counter, until T, preemptible"); memory second: `research cancel` from any VM.
+- Triage, posted 00:31Z (ts 1791073860.631539): (1) standing targets: yes, infra lane bc-7011bc6b (branch
+  `cursor/campaign-keep-558b`): node-side timer, target files with owner/N/until (at most 48 h)/template/seed counter,
+  preemptible only, no starts in timed windows or node 1's quiet hold, pause after repeated failures; (2) cancel from any VM:
+  yes, same lane, second PR (`cursor/cancel-any-vm-558b`), reusing #808's lookup; (3) #989 in the quick tier; (4) cascade
+  fixed (#936, node 1's guest gpu-lease copy now in deploy.toml and identical at 00:30Z, #951, #1016; eviction paused);
+  (5) #970 queued; (6) stale CLI: pull main; later a `research doctor` behind-main check (#980 follow-up); (7) ask-daniel
+  404s passed to console (ts 1791073870.980669). Next round: console, old-circuits-and-proofs.

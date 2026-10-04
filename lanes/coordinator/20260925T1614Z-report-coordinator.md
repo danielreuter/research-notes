@@ -525,3 +525,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T01:18Z: 46d0 past lean-audit; a659 past pytest; a16c early.
 - 2026-10-04T01:27Z: #989 on b64b35475: ae1bc4bc9 node1 r20261004-012450-7741; posted status to ci.
 - 2026-10-04T01:38Z: MERGED 9a00f23a8 (#928 #979 zk_session_sound, #912 #982 #959; 46d0 incl. lean-agreement) -> main 43947f439. #979 OPEN (base cursor/lp-zkbind2-95d4; head in main).
+- 2026-10-04T02:12Z: MERGED #917 #1016 (a659 incl. lean-agreement) -> main.

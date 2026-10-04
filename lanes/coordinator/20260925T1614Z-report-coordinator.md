@@ -583,3 +583,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T17:00Z: comms did fix 1 in #1103 (subs renew in place; timers new name + unsubscribe old). Corrected LANE-CONTRACT §3b to match (notes 7a3d109c).
 - 2026-10-04T17:05Z: MERGED 10b025c60 (19 PRs; b201 incl. lean-agreement) -> main c05f14179; closed #974 (stacked) w/ comment. Next: a604 (5f36), e040 (5e17), 2f69 (bd02), b98c (#1105).
 - 2026-10-04T17:22Z: poll.
+- 2026-10-04T17:46Z: MERGED 391c8435a (5f36 + 5e17 + bd02 riders: #920 #965 #1075 #971 #1011 #1061 #1092 #1027 #964 #1083@7ab5be7c2 + #1105 ...; b98c incl. lean-agreement) -> main 06edf032c. Closed #971. #1083 head moved past landed commit (left open). Cancelled a604 (redundant).

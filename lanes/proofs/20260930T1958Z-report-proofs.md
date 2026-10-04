@@ -5,6 +5,8 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 2c0aae78f (20:03Z) [open] 20:03Z: answered @top's v3 migration question (1791144095.832839): yes for soundness, level3 and the old formats; survey deletions withdrawn. #1120/#1121 restack audits f867/ebda running on node 2; fail-closed out.
+CHECKPOINT none (19:36Z) [open] 12:37 PM PDT: canonical census rerun ce93 (script fix); fail-closed dbaf8e8ac (claims shown non-vacuous); #1120/#1121 in red-team; #1062 with ci
 CHECKPOINT none (19:33Z) [open] 12:20 PM PDT: #1062 to ci (ready+grant at 09c9f08d5); #1120/#1121 in red-team; fail-closed building (flock_verify_sound pushed 5234d2e30); canonical V1 queued behind it; survey answered; row-seg card pending
 CHECKPOINT none (18:33Z) [open] 11:34 PDT: evening lines set; fail-closed resumed (merge main, one theorem); canonical-io 5630d3e78 all stubs but parse_formatOk; #1062 restack audit 926f; #961 admitted; #1097 ready
 CHECKPOINT none (18:01Z) [open] 11:00 PDT: scope-g done (canonical chain 13fe0a366; only parse_formatOk left, V1); tail circuits stay refused (fail-closed item 9); verifying audit r20261004-175718-cc6a; #1097 tier f52a running; row-seg card pending

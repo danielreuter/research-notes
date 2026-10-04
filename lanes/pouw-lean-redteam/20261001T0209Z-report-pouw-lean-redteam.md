@@ -5,6 +5,9 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (05:34Z) [open] 0534Z SECOND ASK UNANSWERED on F3 (#983 `tileCheck4_computesWords` hent note) at 284d4ac30. F1, F2 and F3 are all watch-only now, with no further asks.
+- #1013 (cap proofs) and #966 are on main at f3b305b12 with records unchanged; condition (g) stands. #1059 is still a pure rename. Policies 650df0bd/03acd87f.
+- Daniel's ruling (verity-top rulings note, ~01:48Z, implemented by #1053): spec changes no longer wait for a reviewer's sign-off; Daniel gets a DM when one lands. So this lane's GO/NO-GOs are advisory and act as citation conditions. Post-landing review of any record change on main becomes the main check, and F1/F2/F3 stand as conditions on citing #983's theorems.
 CHECKPOINT none (03:46Z) [open] 0346Z #1059 (guarantees-not-pins, 4a33e5140) is a pure rename in both audit files: `pins`→`guarantees`, top-level and per module in `reads`. All 793 PoUW and 29 core records, every definition and module digest, and every read list are identical to main's.
 - #1052 (protocol 2 private circuits) has records equal to main's.
 - #983 at 284d4ac30 adds `tileCheck8_computesWords_domain` with the same false `hent`, so F2 covers it. `Pc4EntryOK` dropped its atom condition but keeps `Row4OK`, so F3 stands.

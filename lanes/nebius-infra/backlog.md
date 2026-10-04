@@ -16,6 +16,20 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 02:30Z Oct 4 (7:30 PM PDT Oct 3), steward pass
+
+- **Both servers have all 8 GPUs allocated, and neither has a queue.**
+  - Node 1 has 8 provers admitted in Kueue, and all 8 GPUs hold about 90 GB. The pacer has nothing in flight; its only
+    waiting Commits are the two batch-64 Gemma-2 rows (`cov-n050-2`, `cov-n051-2`) on circuits' keep list, held by design.
+  - Node 2's `vy-cluster-agent` holds 8 POUS jobs and its queue is empty. GPU 6 was briefly empty and was granted at
+    02:29:55Z. The `pouw-infra-fill` tmux pane there is a dead leftover; the cluster agent does the filling now.
+- Node 1's `/workspace` is at 66% with the pacer's cap at 521 GB, and the dispatcher is clean. With the eviction pause at
+  1,500 GB free, eviction starts again near 69%. The disk has climbed about 1.5% an hour since 23:05Z (61% to 66%), which
+  reaches 69% around 04:30Z, and #1028 is still open. If the disk is at 68% or more and #1028 hasn't merged by then, raise
+  it with @infra in the disk thread before eviction runs on the unfixed code.
+- Running totals since Sep 30 05:16Z: node 1 is 103 of 746 GPU-h busy and node 2 is 169 of 739. The latest hourly snapshot is
+  `art:54aa06e7f4a18d69f9836802cff75e55bc0d502ef7408c020c4eb322cac4eaa8`.
+
 ## State at 22:07Z Oct 2 (3:07 PM PDT Oct 2), steward pass
 
 - **TP2 work is back on node 1** (in @top's thread `1790958343.711109`):

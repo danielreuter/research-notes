@@ -527,3 +527,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T01:38Z: MERGED 9a00f23a8 (#928 #979 zk_session_sound, #912 #982 #959; 46d0 incl. lean-agreement) -> main 43947f439. #979 OPEN (base cursor/lp-zkbind2-95d4; head in main).
 - 2026-10-04T02:12Z: MERGED #917 #1016 (a659 incl. lean-agreement) -> main.
 - 2026-10-04T02:20Z: #1028 (regression labels-only; conditions met) on ae1bc4bc9: d83f45029 node1 --agreement.
+- 2026-10-04T02:38Z: (root) node1 disk +1.5%/h (66%); ~04:30Z eviction resumes on old #780 code (empties trees under running suites). If a16c or 7741 fails, land #1028 alone (not a full restack). When #1028 is on main, tell steward bc-fd19a2fe to install it.

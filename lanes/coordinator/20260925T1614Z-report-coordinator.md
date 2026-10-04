@@ -559,3 +559,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T14:22Z: (gap 07:22-14:13Z, sweeps stopped) MERGED b80c020b7 (19 PRs; 2d6d incl. lean-agreement) -> main ae121709c; closed #1021 #1074 with landed comments. #1038+#1047 2a340549d node2 r20261004-141751-9899. Riders #1006 #1067 #1069 #939 next.
 - 2026-10-04T14:24Z: riders #1006 #1067 #939 on #1038/#1047: c2801eedd node1 r20261004-141928-511d --agreement; #1069 conflicts -> lean restack.
 - 2026-10-04T14:27Z: ci 16-PR train 401963c73 (PoUS Lean, proofs, #1035 #827 flock) node1 --agreement; parallel to lean trains.
+- 2026-10-04T14:31Z: swapped to ci 6fff10781 (15 PRs, no #964) node1 r20261004-142509-668f --agreement; #1006 on top d8838f720 node2 r20261004-142615-e04e. Cancelled 9899 511d; 0350 had already failed.

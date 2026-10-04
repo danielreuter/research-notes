@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:30Z) [open] 16:30Z: 16:20Z check sent (3 lines met); PoUS hardware break with Daniel; b201 finishing
 CHECKPOINT none (16:15Z) [open] 16:15Z: three trains checking (b201, e040, 2f69); row 1 Build past MLA, stops at router gate; 16:20Z check next
 CHECKPOINT none (16:00Z) [open] 16:00Z: erasure fill broken, decision with Daniel; 19-PR train checking, 12-PR rider queued; quick tiers parallel
 CHECKPOINT none (15:45Z) [open] 15:45Z: node 2 window ending; quick-tier backlog ~20, infra adding parallel slots; scope gap with Daniel/proofs

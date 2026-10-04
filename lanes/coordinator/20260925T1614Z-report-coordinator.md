@@ -522,3 +522,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T00:42Z: 46d0 (zk_session_sound tip) running.
 - 2026-10-04T00:45Z: #917 #1016 on 9a00f23a8: 32f91de5d node1 --agreement.
 - 2026-10-04T01:00Z: #1019 #731 #1015 #1029 on 32f91de5d: b64b35475 node1 --agreement.
+- 2026-10-04T01:18Z: 46d0 past lean-audit; a659 past pytest; a16c early.

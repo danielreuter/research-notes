@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 2.9 (2026-10-04T16:50Z: §3b on every wake, renew subscriptions and timers by expiresAt, unsubscribe then resubscribe (friction pass 4 Oct)); 2.8 (2026-10-01T17:00Z: §3, §3a, §5 notes are records, never messages: handoffs, orders and asks go on Slack or as Cursor follow-ups (Daniel, 1 Oct 9:50 AM PDT)); 2.7 (2026-09-30T20:45Z: §5a times people read are Pacific with the zone shown, converted in your head; machine timestamps stay UTC); 2.6 (2026-09-30T18:00Z: §3b Slack: handles, channels, threads; workers subscribe only to their own threads); 2.5 (2026-09-29T04:00Z: §6, §8, §C evidence and renders go to the evidence store, never the notes; `research notes sync` leaves renders/, campaigns/*/assets/ and lanes/*/evidence/ out); 2.4 (2026-09-27T11:10Z: §5b code moves only through verity branches; bundles go in the Project store's artifacts/, never notes or internal/); 2.3 (2026-09-27T10:30Z: §5 a merge handoff that changes a pinned statement or definition names its statement reviewer); 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
+version: 2.10 (2026-10-04T21:20Z: §K one route to the notes' main: `research notes sync` with RESEARCH_NOTES_TOKEN; the store mirror is retired; lane branches of the notes are read by nobody); 2.9 (2026-10-04T16:50Z: §3b on every wake, renew subscriptions and timers by expiresAt, unsubscribe then resubscribe (friction pass 4 Oct)); 2.8 (2026-10-01T17:00Z: §3, §3a, §5 notes are records, never messages: handoffs, orders and asks go on Slack or as Cursor follow-ups (Daniel, 1 Oct 9:50 AM PDT)); 2.7 (2026-09-30T20:45Z: §5a times people read are Pacific with the zone shown, converted in your head; machine timestamps stay UTC); 2.6 (2026-09-30T18:00Z: §3b Slack: handles, channels, threads; workers subscribe only to their own threads); 2.5 (2026-09-29T04:00Z: §6, §8, §C evidence and renders go to the evidence store, never the notes; `research notes sync` leaves renders/, campaigns/*/assets/ and lanes/*/evidence/ out); 2.4 (2026-09-27T11:10Z: §5b code moves only through verity branches; bundles go in the Project store's artifacts/, never notes or internal/); 2.3 (2026-09-27T10:30Z: §5 a merge handoff that changes a pinned statement or definition names its statement reviewer); 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
 owner: coordinator (edit in place; bump the version line)
 ---
 
@@ -105,7 +105,7 @@ yours, not another instance's.
   enforced is not protection.
 - Your lane folder and your handoffs carry only the verdict (`GRANT` / `GRANT WITH CONDITIONS` / `OBJECT` or `REFUSE`, each
   condition in one line) and a pointer to the private path.
-- The mirror reads only `internal/`, forwards only `internal/lanes/`, and refuses anything below a lane's top level, top-level
+- (The mirror is retired since 4 Oct, §K; this records what it did.) The mirror read only `internal/`, forwarded only `internal/lanes/`, and refuses anything below a lane's top level, top-level
   scripts, data and logs, notes named as a review, attack or exploit, and red-team notes that record a finding label. That is a
   backstop, not a licence.
 - **Code moves only through verity branches** (2026-09-27). Never put git data of any repository in notes or anywhere under
@@ -194,6 +194,17 @@ Lane reports stay each lane's own history.
 `research notes sync` (checkpoint/bind/relaunch do it themselves when RESEARCH_NOTES_SYNC=1, which cloud agents set). Exit 3 is a
 conflict: resolve the named file and sync again; nothing was lost. It holds text only: proof dumps, binaries, archives and any
 file over 1 MB are not committed. Put those in the store (`research data put ... --preserve`) and cite the `art:` id instead.
+
+**The one route to the notes' main (2.10).** With `RESEARCH_NOTES_TOKEN` set (a cloud VM's secret), run
+`research notes sync --path lanes/<you>` from your notes clone; its last line must say `; pushed`. It goes through the token
+whatever the clone's remote says. After verity #1128, `research notes push <you>` run inside the notes clone does the same.
+These don't work:
+- a plain `git push` from the clone goes out as the Cursor App and gets a 403;
+- before #1128, `research notes push` in the clone pushes a `lane/<you>` branch of the notes, which nobody reads;
+- a CLI older than #651 (1 Oct) lacks the token route, so update it first;
+- the store mirror (`internal/lanes/` in a coordinator's store) is retired, and nothing forwards it.
+
+Without the token, or if sync fails twice, message your coordinator the path; don't leave notes in a store.
 
 ## C. Coordinator: relaunching a dead lane
 Merge lanes from origin (`git fetch origin lane/<x>`, merge origin/lane/<x>), never from local branches. Never edit a

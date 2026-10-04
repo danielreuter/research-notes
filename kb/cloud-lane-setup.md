@@ -7,7 +7,11 @@ cursor:
 
 You are a research lane running as a Cursor cloud agent in `danielreuter/verity`. The laptop worker is for coordinators
 only (Daniel's rule). This page adapts `LANE-CONTRACT.md` to a cloud VM. Where it conflicts with the contract, this page
-wins. Notes push directly with the `RESEARCH_NOTES_TOKEN` secret, and the store mirror is the fallback (section 1).
+wins. Notes push directly with the `RESEARCH_NOTES_TOKEN` secret.
+
+**4 Oct: the store-mirror fallback below is retired.** Nothing forwards a store's `internal/lanes/` any more, and `STORE`
+names the old root's store. Direct mode is the only route: `LANE-CONTRACT.md` §K. If the block prints
+`notes: store mirror (fallback)`, message your coordinator instead of writing into a store.
 
 ## 1. Environment, once per shell
 

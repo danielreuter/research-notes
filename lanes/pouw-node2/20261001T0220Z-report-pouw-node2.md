@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (04:00Z) [open] A 04:00Z poll: no new notes in accounting/pouw-node2/node2-ops/pouw-served/infra since 03:40Z (only my own checkpoint); main 59438bab7 unchanged; panel art:63261f6f unchanged pending compute accounting's yes on v1 gamma 0.0036949, FP8 pass rows, totals.py; off node 2 (no infra 'back'), so gpu-lease/fill runner not read
 CHECKPOINT fbce5a2f4 (03:40Z) [open] A 03:40Z poll: nothing addressed to pouw-node2; node2-ops 0321Z: node 2's fill pane is live (not a leftover) and must not be killed, a backlog correction for the steward (not mine); redteam 0332Z: #983's pc4 twin also NO-GO to cite (for lean); panel cites neither; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (03:20Z) [open] A 03:20Z poll: nothing addressed to pouw-node2 (another follow-up on redteam's #983 note, for lean); main 59438bab7; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (03:00Z) [open] A 03:00Z poll: nothing new in the watched lanes since 02:40Z; main ec8ac91ae adds PoUW's circuit pc4/pc8 row checks, leaves and anchors (#731, #1019), nothing under schemes/, so gamma unchanged; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2

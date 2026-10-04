@@ -552,3 +552,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T06:19Z: MERGED #1030 zero knowledge (7e7c incl. lean-agreement) -> main 0fa4b1321. d12e (#1051), fb77 (#1053) past lean-audit.
 - 2026-10-04T06:21Z: circuits 5 (#957 #976 #981 #977 #985) on a64d3e16f: f3450eecf node1 --agreement.
 - 2026-10-04T06:52Z: #915 #1064 #990 on circuits 5: 90e8ac187 node1 --agreement.
+- 2026-10-04T07:05Z: (root) asked network-accounting (cc @top) for research question + approver of 06:54Z trace seeds on node1 preemptible GPUs, or stop them.

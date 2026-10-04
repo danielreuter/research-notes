@@ -33,6 +33,20 @@ runs. (Also in the infra report `20260930T1845Z-report-infra`: every job names i
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 07:00Z Oct 4 (12:00 AM PDT Oct 4), steward pass
+
+- Node 1: 7 of 8 GPUs held, all preemptible leases through the pool. GPU 4 is idle.
+  - Four are network-accounting's network-trace seeds (`benchmarks/network_traces/run.sh --seed N`, 45 min each). Two
+    started 06:32–06:33Z, before my 06:34Z amendment, and two at 06:54Z.
+  - Three are `pr-1057` runs (06:54Z).
+  - The run records carry no research-question label, so whether these are approved items is for network-accounting and
+    @top, not me. I reported it to root and posted nothing more.
+- Node 2: 8 of 8 GPUs leased (4 memory-accounting `erase-calib`, 4 fill-runner jobs), and no queue.
+- Node 1 disk: 69% (1,605 GiB free), `research/src` 106 trees, still below the 72% nudge point. No reply from @infra on
+  open ask 1.
+- The latest hourly snapshot is `art:0c2f6f604a61703c9e5ed49d7e3c3a3e7e126ba9b63c75bbc7472fd836e85586` (tick 324,
+  about 06:40Z).
+
 ## State at 06:30Z Oct 4 (11:30 PM PDT Oct 3), steward pass
 
 - **Network-accounting's sweep is done** (`1791093815.201609`). @top released node 1 at 05:23Z for circuits' GLM work, and

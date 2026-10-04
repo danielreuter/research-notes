@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:15Z) [open] 17:15Z b201 landed (main c05f14179, 19 PRs); #1112 GLM-5.3 indexer draft; a604 next
 CHECKPOINT none (17:00Z) [open] 17:00Z first GLM GPU job running; #1108 pc8 short tile draft; trains b201/e040 checking
 CHECKPOINT none (16:45Z) [open] 16:45Z #1057 gap closed and approved for follow-on tip; e040 checking; afternoon check 18:20Z
 CHECKPOINT none (16:30Z) [open] 16:30Z: 16:20Z check sent (3 lines met); PoUS hardware break with Daniel; b201 finishing

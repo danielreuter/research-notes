@@ -187,7 +187,7 @@ And at 3:30 to 4:06 PM PDT:
     sampled proofs, so `verity/`'s registry is ncp-v2 alone until Pearl-C's tile check (`pc8`, with `rowk`, `leaves`,
     `boolean`, Pearl-C's half of `words` and TurboSHAKE128, all now on that path and not experimental) passes under
     sampled proofs. Until then, Pearl-C's served verdict and the exhaustion audit are diagnostics, and ncp-v1 and
-    `pearl-c-sm120-v1-h2` sit beside their replay. The γ statements carry over. The bridge from "the proof accepted" to
+    `pearl-c-sm120-v1-h2` sit beside their replay, in `benchmarks/pouw/`. The γ statements carry over. The bridge from "the proof accepted" to
     "the tile predicate holds" is new: the circuit's relation equals `TileGood` (the L3 tile-check slices), plus sampled
     proofs' soundness as a named assumption. It is a new or restated guarantee and needs Daniel's statement review. The
     served-overhead tables measure the kernel without proving, so the full overhead adds proving and ZK for the sampled
@@ -427,7 +427,9 @@ And at 4:19 PM PDT:
   C-Flock's §16.15. C-Flock's deviation list becomes data that `agree.py` reads.
 - **The ownership map is data:** path prefixes per handle in `registry.json`, built by @comms (#1124). The queue and
   router use it to send review and restack asks to owners.
-- **Node configuration is data.** The systemd units, cpusets and `deploy.toml` leave the research package for `infra/`.
+- **Node configuration is data.** The systemd units and cpusets go to `infra/`. `deploy.toml`, `weights.tsv`,
+  `monitoring/lanes.tsv` and `store.pod.toml` stay in `tools/research/src/research/`, because the nodes' tool snapshot
+  carries only that tree (infra, 4 Oct).
 
 ## Layout
 
@@ -509,7 +511,8 @@ has an H100, so re-running its timed results needs a rented H100 pod: a spend as
        (`EncardAccSeqsLeConstantRate` and its per-window form, `EncardDecodableLeConstantRate` and its per-window form,
        `EncardAccSeqsLeSync`, `EncardAccSeqsLeFixedClock`, and the four `EncardIngressObsDecodableLe` forms). The 25
        lemma-level entries leave, and the 16 non-vacuity witnesses stay as checked tests in `security_proofs/`;
-     - *PoUW:* 5 of 793 stay: `EndToEnd`, `WorkWeightedSampling` (the draw law `audit.py` implements), #1116's
+     - *PoUW:* superseded by #1156 (lean-checked): the 151 pins that code, a ledger or a rendered table reads stay, and
+       649 leave; under the 2:03 PM ruling each reader makes its pin a guarantee. The round-2 proposal was that 5 of 793 stay: `EndToEnd`, `WorkWeightedSampling` (the draw law `audit.py` implements), #1116's
        certified γ `pearlCGammaSm120v1LoopCast8p72Rev1Cap1000_8192` (read by `pearl_c_device.py`), and the vLLM NCP
        option's `Theorem1` and `GammaFromTTNCP_U_v1`. Leaving the lock but still building: about 25 NCP and Barrier
        lemmas that `PROTOCOL.md` and `ncp.py` name, the γ variants `test_ledger.py` checks, the 104 in

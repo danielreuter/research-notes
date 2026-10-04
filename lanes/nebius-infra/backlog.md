@@ -59,6 +59,14 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 23:30Z Oct 4 (4:30 PM PDT), steward pass
+
+- Node 1 (watch, disk-72, no nudge since src eviction is live): 74.8% (1,266 GiB free), flat since 23:15Z; `research/src`
+  83 trees. 0 of 8 GPUs and nothing in Kueue (idle, reported). The pacer and dispatcher are clean.
+- Node 2: 1 of 8 (a fill-runner job), and no queue.
+- No reply yet from @proofs or @infra on the `pouw-hidden-zk` cache (`1791155309.642929`). `node1-disk-watch-78c` is on.
+- The latest hourly snapshot is `art:c29ca68baf75f5689fb5cd9cc81e4556d677673e405b00a50d28884f99feb95d` (about 23:20Z).
+
 ## State at 23:15Z Oct 4 (4:15 PM PDT): asked the pouw-hidden-zk owner, at root's ask
 
 - **Root (23:02Z):** don't wait for 78%, since the pacer's cap drop slows merge trains. Ask the owner of the three

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 2c0aae78f (20:23Z) [open] 20:23Z: answered @top's survey round 2 (1791145359.634359): C-Flock lock to flock_verify_sound + reads + sampled proofs' cited bounds (~855 of 864 pins leave), closed-form spec before 3.3, three packages. f867/ebda running; fail-closed out.
 CHECKPOINT 2c0aae78f (20:03Z) [open] 20:03Z: answered @top's v3 migration question (1791144095.832839): yes for soundness, level3 and the old formats; survey deletions withdrawn. #1120/#1121 restack audits f867/ebda running on node 2; fail-closed out.
 CHECKPOINT none (19:36Z) [open] 12:37 PM PDT: canonical census rerun ce93 (script fix); fail-closed dbaf8e8ac (claims shown non-vacuous); #1120/#1121 in red-team; #1062 with ci
 CHECKPOINT none (19:33Z) [open] 12:20 PM PDT: #1062 to ci (ready+grant at 09c9f08d5); #1120/#1121 in red-team; fail-closed building (flock_verify_sound pushed 5234d2e30); canonical V1 queued behind it; survey answered; row-seg card pending

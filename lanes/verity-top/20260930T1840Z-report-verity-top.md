@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:45Z) [open] quick-tier slot q on node 2 live; route P leads, recursion parked for Daniel; morning decision list in notes
 CHECKPOINT none (06:30Z) [open] #1030 on main; lean granted all 10; quick tiers starved by train checks, asked infra for a quick-tier slot
 CHECKPOINT none (06:15Z) [open] lean PRs queue behind #1053 (drops statement-reviewer rule); circuits' 5-PR train stacked; node 1 GPUs idle, offered
 CHECKPOINT none (06:00Z) [open] circuits' first train handed to ci; node 2 exhaustion window booked 11:15Z; console resumed after disconnect

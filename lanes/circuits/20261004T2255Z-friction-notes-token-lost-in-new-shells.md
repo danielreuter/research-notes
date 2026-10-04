@@ -3,6 +3,7 @@ id: circuits/20261004T2255Z-friction-notes-token-lost-in-new-shells
 lane: circuits
 kind: friction
 status: open
+recurs: note:proofs-bf16-hill/20261001T1138Z-friction-resumed-session-without-cursor-secrets
 ---
 
 # New shells on a long-lived cloud VM stopped receiving RESEARCH_NOTES_TOKEN

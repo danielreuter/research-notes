@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:00Z) [open] migration underway (~26 workers across leads); 6b376c61e (#1129) and be2452acd checking; move maps 3/4 drafted
 CHECKPOINT none (21:45Z) [open] main 16749a0ff (12 PRs); #1129 next; evening close-out
 CHECKPOINT none (21:30Z) [open] 2:30 PM evening goal check; 4b3f88816 and 6b376c61e (+#1129) checking; network 2/3; steward move and backlog sweep with infra
 CHECKPOINT none (21:15Z) [open] 4b3f88816 checking; partition_binding cache fix PR pending from proofs, lands first; notes push routes fixed for ci/comms/memory; registries filled (circuits 43, PoUW 39, PoUS 12)

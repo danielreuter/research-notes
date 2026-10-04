@@ -69,6 +69,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-04 20:25Z hourly (19Z): GPU busy 10.7% (0.86 of 8.00 GPU-h), below the 80% bar for the same reason: nothing submitted, only memory accounting's series on GPU 7 (free-idle 7.0). Backup `r20261004-202027-b4c5`; the 19Z backup `r20261004-190843-727d` is preserved. Daemons are up, and `status.md` was fresh (20:18Z). `/` 27%, `/workspace` 58%. No windows ahead. No new alerts or inbox notes. #494 is still closed.
 - 2026-10-04 19:10Z hourly (18Z): GPU busy 11.0% (0.88 of 8.00 GPU-h), below the 80% bar for the same reason: nothing submitted, only memory accounting's series on GPU 7 (free-idle 7.0). The steward is still reporting it as idle on both nodes. Backup `r20261004-190843-727d`; the 18Z backup `r20261004-181618-00fe` is preserved. Daemons are up, and `status.md` was fresh (19:07Z). `/` 26%, `/workspace` 56%. No windows ahead. No new alerts or inbox notes. `gh` returned 401, so I couldn't check #494 this hour.
 - 2026-10-04 18:20Z hourly (17Z): GPU busy 10.7% (0.86 of 8.00 GPU-h), below the 80% bar for the same reason: nothing submitted, only memory accounting's series on GPU 7. Free-idle 7.0. The 18Z hour is at 10.5% so far.
     - **Backup:** `r20261004-181618-00fe`. The 17Z backup `r20261004-171207-d39a` is preserved.

@@ -1,0 +1,128 @@
+---
+id: 20261004T2100Z-report-messaging-product-review
+campaign: verity
+lane: comms
+kind: report
+status: open
+repo: danielreuter/verity
+origin: comms (bc-3e100045-0b60-5d20-951e-7207a989b252, under bc-7f347b4b), moved from its coordinator's agent store docs/messaging-product-review.md on Daniel's 4 Oct ruling
+---
+
+# Agent messaging: what's hard, what's ours, what to do next
+
+Comms, 1 Oct 2026, after the first day of `research msg` with all 12 leads on it. Companion to
+`note:20261001T1800Z-report-routing-v1-plan` (what
+shipped) and `note:20261001T1836Z-report-server-side-router-spec`
+(console's router).
+
+## 4 Oct
+
+Over 24 hours, 570 posts and about 900 doorbells. Console's router fix (live 3 Oct 17:42Z) worked:
+
+- **Delivery:** 1 post that should have rung someone didn't, down from 80, and it predates the deploy. Duplicates fell
+  from 16 to 2 (both at 19:16Z, into proofs' inbox). No pauses.
+- **Subscriptions lapse silently after 3 days.** The subscribe calls the tool printed asked for 3 days, and most inboxes
+  were subscribed on 1 Oct, so every lead that hadn't renewed would stop being woken today, with no warning. I renewed
+  mine (it was due at 17:13Z), announced the renewal call to every handle (urgent, 16:31Z), and #1103 makes the default
+  30 days. This is row 5 (lapse detection) arriving early. A last-read column in `names list` is still worth adding.
+- **Stale clients:** lean has updated; infra still hasn't (6 old footers).
+- **Unanswered** is now mostly "Ready: #N" notices to ci, which ci acts on through the queue rather than by replying.
+  They aren't asks.
+
+## 3 Oct
+
+Over 24 hours, 689 posts and about 820 doorbells. proofs (164), lean (124) and infra (120) received the most.
+
+- **Silent posts, still.** 80 posts that should have rung a lead didn't, and 73 of them were quiet posts. The router
+  never adopted #835's rule, because my request to console mentioned the marker by name, and the router reads the
+  marker anywhere in a post, so it silenced the request. #945 counts the marker only as a footer tag or at the end of
+  the text. The request was resent without the marker and reached console's inbox (16:32Z).
+- **Duplicates** continue: 16 pairs, 0.0–0.5 s apart. They're in the same request to console.
+- **One pause** at the new limit of 20: proofs into lean at 06:07Z, during a long Lean review. It cost 6 doorbells to a
+  thread lean was already reading. I'm leaving the limit as it is.
+- **Stale clients:** memory-accounting and proofs updated; lean (39 posts) and infra (30) haven't. Both were asked again.
+- **Lesson:** a client whose rule is ahead of the router's misreports its "rings @x" line. A rule change isn't live until
+  console confirms the router passes the vectors, and I now ask for that confirmation.
+
+## 2 Oct: the first full day with the router on
+
+Over 24 hours (to 16:34Z), 1,054 posts and about 1,150 doorbells went into 12 inboxes. The busiest were ci (208), infra
+(175), the lander (171) and proofs (147), with at most 18 in an hour into one inbox. Rows 1–3 of the table below are done.
+`research msg traffic` and a scan of every inbox gave this:
+
+- **Silent posts (the largest loss).** 74 posts named a lead and also carried `(quiet)`, so they reached no one; 47 of
+  them were to the lander. None was an acknowledgment, and 20 asked for an action. Senders write `(quiet)` to mean "no
+  reply needed". The lander still answered, up to 26 minutes later, because it watches its train thread. From #835,
+  a quiet post wakes the names at its start and no one else. Console's router needs the new vectors. Until then the
+  client's "the router rings @x" line is wrong for quiet posts.
+- **Duplicates.** 25 doorbells (2%) were posted twice by the router, 0.0–0.5 s apart, with identical text. This is
+  console's to dedupe.
+- **Pauses.** There were 9 before the limit went from 6 to 20 an hour (05:04Z) and none since.
+- **Stale clients.** infra, memory-accounting and proofs still post the old `_posted by_` footer: 34 posts, the latest
+  at 16:10Z. Readers handle both forms. These three were told to update from main.
+- **Fixed overnight:** an announcement to a user group without a label went to everyone (console); a repeated `--to`
+  kept only the last name (#725); the traffic report counted ci twice through `pr-captain` (#835).
+- **Unanswered** lists 46 asks, but it only sees replies in the ask's own thread, so it's an upper bound.
+
+## What went wrong on 1 Oct
+
+- **Wasted wakes.** Leads also subscribe to the whole channel to hear Daniel's typed posts. So they wake on their own
+  posts (pr-captain twice, compute-accounting once, each a full turn of "my own post, no action"), and on every
+  top-level post, whoever it's for.
+- **Two reads per message.** A doorbell is a link plus footer metadata, so the recipient runs `read`, then opens the
+  thread. The output repeats agent URLs, timestamps in two zones and `&amp;`-escaped links.
+- **Distribution.** Checkouts older than the branch had no CLI and no registry. Leads ran a fetched single file, and three
+  of them had to pass `--registry` until I added a fallback.
+- **Rules that became ritual.** "Read mail at every checkpoint" was cut (Daniel: ritual for no value). The rate cap fired
+  a false positive on the roll call, because it counted per thread instead of per author.
+- **Identity drift.** Lean answered under @proofs' name before it had one of its own. Workers vs. leads went back and
+  forth until the 10:56 ruling.
+- **Environments differ.** Console, on the laptop, can't subscribe; its wake needs a launchd loop and a Cursor API key.
+
+## What's standard (don't reinvent)
+
+Addressing, inboxes, threads, mention notifications, dedupe, rate limits and digests are solved problems. Slack already
+gives us storage, threads, search, and a UI Daniel reads. We should stay a thin addressing and wake layer on top of it,
+with no queue, database or read-receipt protocol of our own.
+
+## What's unique to us
+
+1. **A wake is expensive.** For an LLM agent, a notification is a full turn: tokens, context and minutes. Not a phone
+   buzz. So the top metric is *wake precision* (each wake is for a message the agent must act on), then *payload
+   economy* (it can act from the wake alone).
+2. **Names are roles, holders are ephemeral.** VMs are suspended and lanes are succeeded. A name must outlive its holder
+   (`succeeds`, `forward_to`), and nothing may depend on one agent staying up.
+3. **Two audiences.** Agents need terse, machine-readable posts; Daniel reads the same channel and must be able to follow
+   and step in. Doorbells and metadata belong in inbox threads, out of his way.
+4. **Agents follow instructions literally.** Every rule we write gets executed by every lead, every time. Instructions
+   must be few, and the default behavior has to be the right one.
+5. **One bot identity, self-asserted names.** Every agent posts as the same bot, and the name in the footer is typed by
+   the sender. Any agent with the token or broker access can post as `@top`. Other agents' text arrives in a wake and
+   must be read as data, never as instructions.
+6. **Heterogeneous runtimes:** cloud VMs with subscriptions, a laptop with none, private workers.
+
+## What to do, in order
+
+| # | Change | Fixes | Who | Size |
+|---|---|---|---|---|
+| 1 | Doorbell carries the text, `from infra (thread T): <text>`; posts lose the agent-link footer; `read` is one line per message | two reads, token waste | comms, with console for the router's copy | small |
+| 2 | Server router on; leads keep only their inbox subscription | self-echo, fan-out wakes | Daniel sets `SLACK_ROUTER_ENABLED`; comms flips `router.json`; console owns the route | small, waiting on console |
+| 3 | Merge #702 so `research msg` is in every fresh checkout; retire the single-file fetch | distribution | top merges after `check` | done but for `check` |
+| 4 | Author attested, not typed: the broker stamps the name from the caller's Cursor identity, matched against the directory's holder; the router marks a post whose name doesn't match its holder; bot-token holders shrink to the few services that need it | impersonation | console (broker), infra (secrets), comms (directory) | medium, after 1–3 |
+| 5 | Lapse detection (4 Oct: default now 30 days, #1103): inbox subscriptions expire silently. The router (or `names list`) shows each name's last read, and comms nudges a lead that hasn't read a doorbell for a day | silent lapse | comms | small |
+| 6 | Loose ends: a daily digest to `@top` of asks open more than a day | asks that never close | comms, using the existing digest | small |
+| 7 | Direct delivery into a conversation (Cloud Agents follow-up) instead of Slack subscriptions, where a Cursor API key is available | wake plumbing, the laptop case | console proves it on itself first | later, only if 2 leaves pain |
+
+Deliberately not doing: names for workers, our own queue or database, read receipts, priorities beyond `urgent`,
+checkpoint rules, per-purpose verbs.
+
+## How I'll keep tuning it
+
+I keep only my inbox subscription, and a timer runs this review daily at 9:30 AM PDT. It computes, from traffic alone:
+doorbells per inbox, duplicates, pauses, quiet posts that name someone, stale-client footers, wakes that ended in "no
+action", and asks still open after a day. I ask
+a lead only when the traffic can't explain something, one question at a time, and I fold answers into the skill rather
+than into new rules.
+
+Success looks like this: an agent wakes only for a message meant for it, sees the message in the wake, replies with one
+command, and never has to think about the plumbing.

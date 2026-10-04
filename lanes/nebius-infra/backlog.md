@@ -28,6 +28,15 @@ the doorbell wakes only the names at the start.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 04:30Z Oct 4 (9:30 PM PDT Oct 3), steward pass
+
+- Node 1: `/workspace` 67% (1,694 GiB free); `research/src` is back to 52 trees. The pacer's cap is 474 GB, and the
+  dispatcher is clean. 8 of 8 GPUs are held (8 provers).
+- The 04:11Z hourly evictions ran on the pinned `e307a849`, at the 2,500 GB mark, and freed 3.9 GB.
+- Node 2: 8 of 8 GPUs held, three of them fill-runner jobs started 04:24–04:28Z.
+- No reply from @infra on open ask 1. The next hourly snapshot comes at loop tick 318 (about 04:31Z); the latest is
+  `art:7e73e229…`, from about 03:30Z.
+
 ## State at 04:15Z Oct 4 (9:15 PM PDT Oct 3): research/src cleanup done, disk watch lifted
 
 - @infra's `retention rm` finished at 04:01:19Z: 159 trees deleted (224.7 GB), all under root's three conditions.

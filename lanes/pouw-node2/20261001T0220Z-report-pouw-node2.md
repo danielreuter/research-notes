@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (03:40Z) [open] A 03:40Z poll: nothing addressed to pouw-node2; node2-ops 0321Z: node 2's fill pane is live (not a leftover) and must not be killed, a backlog correction for the steward (not mine); redteam 0332Z: #983's pc4 twin also NO-GO to cite (for lean); panel cites neither; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (03:20Z) [open] A 03:20Z poll: nothing addressed to pouw-node2 (another follow-up on redteam's #983 note, for lean); main 59438bab7; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (03:00Z) [open] A 03:00Z poll: nothing new in the watched lanes since 02:40Z; main ec8ac91ae adds PoUW's circuit pc4/pc8 row checks, leaves and anchors (#731, #1019), nothing under schemes/, so gamma unchanged; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (02:40Z) [open] A 02:40Z poll: node2-ops 02:20Z: /workspace back at 50% (my tell line; under the 52% hold), root / 25% from circuits' /tmp files (node2-ops watching); node 2 88.4% busy (01Z), 4 GPU jobs queued; main ca950f8b9; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2

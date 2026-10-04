@@ -42,6 +42,13 @@ survey is in those Slack threads. Lean's guide to the Lean workflow is being upd
 Daniel named this agent captain of the migration. This section is the tracker; the captain keeps it current, and anyone
 can pick it up from here.
 
+*Superseded at 4:30 PM PDT (Daniel: "YOLO the PRs"):* the moves go as one generated move on one branch,
+`cursor/layout-move-c3b2` (`tools/move/layout.py` plus its module map), fixed forward there until `check` passes on
+`vy-mig-check-1/2`, then landed through `research merge` with a short hold on other merges. Out of it, each following the
+same way when ready: C-Flock's Lean (after fail-closed and canonical V1), PoUW's Lean split (after slice 6), and
+C-Flock's Rust and CUDA (until proofs draws the ZK layer). The prep PRs below are no longer gates; the branch merges in
+what it needs. The old path, kept for reference:
+
 *Critical path to the first move* (core's Lean split into its spec and `security_proofs/`, a pure move):
 1. ci's check-time fixes land, ci's tip `afacde975` among them, and ci measures check time. Owner: ci.
 2. Content-keyed caches: ci's suite keys, circuits' per-target key (descriptor digest), lean's audit key (module name and

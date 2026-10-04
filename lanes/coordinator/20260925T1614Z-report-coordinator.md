@@ -606,3 +606,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T20:55Z: (root) 14-PR tip without six partition/verifier PRs: a47c35cc8 node1 r20261004-204604-c621 --agreement. Bisect halves fail --prepare preflight (lean-audit reads left without readers: interdependent PRs) -> culprit left to proofs/ci.
 - 2026-10-04T21:00Z: swapped c621 -> ci 4b3f88816 (12 PRs; no #1108 #1044) node1 r20261004-205653-9c9f.
 - 2026-10-04T21:02Z: poll: 9c9f running.
+- 2026-10-04T21:10Z: 2c85 cause = latent id()-reuse cache bug in class_statement.partition_binding on main (not the six). Asked proofs for a fix PR to land first; six cleared.

@@ -561,3 +561,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T14:27Z: ci 16-PR train 401963c73 (PoUS Lean, proofs, #1035 #827 flock) node1 --agreement; parallel to lean trains.
 - 2026-10-04T14:31Z: swapped to ci 6fff10781 (15 PRs, no #964) node1 r20261004-142509-668f --agreement; #1006 on top d8838f720 node2 r20261004-142615-e04e. Cancelled 9899 511d; 0350 had already failed.
 - 2026-10-04T14:42Z: poll: 668f past lean-unit-cut; e04e queued on node2.
+- 2026-10-04T14:58Z: cancelled e04e (#1006 not ready). ci rider 4be1df3e0 (#974 #973 #1003 #1070 #1057) on 6fff node2.
+- 2026-10-04T15:00Z: swapped rider to 7b5ed7767 (#974 #973 #1003 #1070; #1057 held for Daniel) node2.
+- 2026-10-04T15:02Z: poll: 668f running; e857 waits node2 window to ~15:45Z.

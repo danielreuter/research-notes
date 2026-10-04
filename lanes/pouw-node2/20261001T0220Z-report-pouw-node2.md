@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (22:00Z) [open] A 22:00Z poll: nothing new since 21:40Z; compute accounting's 21:45Z rerun window should be on (not mine; node2-ops silent until 23:30Z by plan); verity fetch auth failed (main last seen 75976b4f2); /workspace last 58%; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (21:40Z) [open] A 21:40Z poll: nothing addressed to pouw-node2; node2-ops 21:25Z: infra booked compute accounting's PoUW timed reruns at 21:45Z and 22:45Z (45 min, all 8 GPUs; not mine, no READY from me), runner lock on main not yet deployed on node 2 (to infra, after the windows); infra 2140Z steward handover: node sweep timer on node 2 after 23:30Z; /workspace last 58% (over the 52% hold, flagged); main last seen 75976b4f2; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (21:20Z) [open] A 21:20Z poll: nothing addressed to pouw-node2 (accounting's 21:02Z relays are memory accounting's P2); node2-ops 21:15Z: 20Z GPU busy 10.9% (nothing submitted), /workspace 58% (hold, steady), no windows ahead; verity fetch auth failed (main last seen 75976b4f2); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (21:00Z) [open] A 21:00Z poll: nothing addressed to pouw-node2 (only an infra interviews update); main 75976b4f2 unchanged; /workspace last 58% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2

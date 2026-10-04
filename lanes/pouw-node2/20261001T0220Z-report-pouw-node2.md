@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (00:00Z) [open] A 00:00Z poll: nothing new in the watched lanes since 23:40Z; main f8ec5cbfa; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (23:40Z) [open] A 23:40Z poll: nothing addressed to pouw-node2; node2-ops 23:23Z hourly: 86.0% busy (22Z), /workspace 49%; infra interviews: compute accounting is next in the interview rotation (theirs); main f8ec5cbfa; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (23:20Z) [open] A 23:20Z poll: nothing addressed to pouw-node2; redteam's #983 addendum (one-way tie flag8 -> RowOK holds, the direction gamma needs) is for lean/l3, not the panel; node2-ops 23:19Z: a short circuits TP4 lease, over; main f8ec5cbfa (no PoUW change); panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2
 CHECKPOINT fbce5a2f4 (23:00Z) [open] A 23:00Z poll: nothing new in the watched lanes since 22:40Z; main c2b05d137; panel art:63261f6f unchanged pending compute accounting's yes on v1's 1/1,000 gamma; off node 2

@@ -8,9 +8,11 @@ repo: danielreuter/verity
 origin: verity-top's repository-layout agent (bc-d6f8b221, under bc-7f347b4b)
 ---
 
-# Repository organization: the principles after the survey (4 Oct, 2:10 PM PDT)
+# Repository organization: the principles after the survey (4 Oct, 2:45 PM PDT)
 
-This is version 8. It adds Daniel's rulings of 2:03 PM PDT on round 2's questions (below), and old-accounting's
+This is version 9: Daniel's rulings of 2:21 PM PDT and the fan-out.
+
+Version 8 It adds Daniel's rulings of 2:03 PM PDT on round 2's questions (below), and old-accounting's
 finding on P2's response window.
 
 Version 7 It moves the plan out of an agent store into the notes, after Daniel's ruling of 1:47 PM PDT: qualitative writing goes in the research notes, where it can be shared, and data in the evidence store. The Glossary's new terms are verity#1127.
@@ -56,8 +58,12 @@ can pick it up from here.
 - Approaches: PoUS has 12 registered; the others are in progress. old-accounting relays the 44 `store:pous/` files.
 - circuits splits its bindings and pins per Definition.
 
-*With Daniel:* the P2 response window (recommendation: cap the RTT allowance near 0.35 ms), and ci resolving
-rename-only conflicts itself (recommendation: yes).
+*Fan-out* (Daniel, 2:21 PM PDT: finish in short serial time). Every lead launches workers on its pieces that don't wait
+(the kickoff, Slack `1791150333.889129`). The captain's four workers draft the move inventory (everything a move
+breaks, and whether Python import names follow the directories) and the move maps for core, the protocols, and backends,
+integrations and tools, for owners to correct.
+
+*With Daniel:* nothing open.
 
 ## Why (Daniel's goals)
 
@@ -127,6 +133,14 @@ And at 2:03 PM PDT:
 - **A guarantee is a theorem something relies on as proved:** a ledger row, a published table, the docs site, a claim
   id in `verity.claims`, or code that reads its result. A mention in prose, a PR, a test or an internal table doesn't
   make one (verity#1127's second commit). The lock reductions go by it.
+
+And at 2:21 PM PDT:
+
+- **Finish the migration in short serial time.** Leads launch workers on every piece that doesn't wait, and spend compute
+  where it shortens the critical path. Pods stay bounded, and GPU work still names its question (verity#1133).
+- **ci resolves rename-only conflicts** in the train tip's merge commit and names each one; judgment conflicts go to the
+  owner (verity#1133).
+- **P2's response window:** the RTT allowance is capped near 0.35 ms (Δ + RTT ≤ about 0.85 ms), and w stays 16,448.
 - **The PoUW timed reruns are approved:** twice at current main and once after PoUW's Python move, #1116's window
   (all 8 GPUs of node 2 for 30 min each) and the K = 14,336 accept set (about $160 each on node 1).
 - **The defaults stand:** proofs owns core's lock; an area's Python move is done only when its vectors are generated
@@ -343,7 +357,7 @@ has an H100, so re-running its timed results needs a rented H100 pod: a spend as
 - **PoUS's primitive** is still Daniel's choice. Under "nothing is lost", nothing is deleted whichever he picks. P2
   keeps both expanders: the spec-conforming SHAKE256 `p2-16448/v3`, and the ChaCha8 `v2`, labelled nonconforming but
   kept as an efficient algorithm (about 1% key cost against SHAKE256's estimated 12%).
-- **The P2 response window and w,** Daniel's ruling, which PoUS's Python move waits on (memory-accounting). Old
+- **The P2 response window and w:** ruled at 2:21 PM PDT (cap the RTT allowance near 0.35 ms, keep w). The reason: old
   accounting found (2:03 PM PDT, thread `1791138312.751569`) that the frozen spec's "2× margin through Δ + RTT ≈ 1.9 ms"
   holds only against a Zen 4-derived floor of 13.2 ms per root that nothing in the store derives. Against the timing
   document's Zen 5 floor (5.97 ms per root, the one `ROOT_CALL_NS` encodes) and the measured 3.5× eight-core cooperation,
@@ -352,10 +366,6 @@ has an H100, so re-running its timed results needs a rented H100 pod: a spend as
   computed yet; at about 26.6–36.5 kbit P2 loses to P3-ARX).
 - **For @architecture to answer in the wrap-up:** circuits' catalog entry format (principle 3), and a yes on
   C-Flock's three-package shape (with @lean).
-- **ci's fast lane** (thread `1791144994.129499`, 2:03 PM PDT): ci resolves rename-only conflicts in a tip's merge
-  commit instead of sending each broken PR back for a restack, naming each resolution in the handoff; judgment conflicts
-  still go to the owner. It changes "owners restack their own PRs", so it's Daniel's call.
-
 ## The plan
 
 1. **Prep, with no moves:**

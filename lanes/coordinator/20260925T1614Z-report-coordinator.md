@@ -519,3 +519,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-03T23:48Z: eddf (f67740858) near end; #994 line in.
 - 2026-10-04T00:04Z: MERGED #998 #994 #952 #910 #995 (eddf incl. lean-agreement) -> main.
 - 2026-10-04T00:20Z: ci tip 9a00f23a8 (#928 #979 zk_session_sound, #912, #982, #959) node1 --agreement.
+- 2026-10-04T00:42Z: 46d0 (zk_session_sound tip) running.
+- 2026-10-04T00:45Z: #917 #1016 on 9a00f23a8: 32f91de5d node1 --agreement.

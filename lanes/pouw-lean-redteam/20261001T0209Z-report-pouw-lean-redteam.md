@@ -5,6 +5,12 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (03:34Z) [open] 0334Z NO-GO to cite #983's `tileCheck4_computesWords`, `_pearlC` and `_domain` (52901fd37; records equal main's). This is F3, note:20261004T0332Z-reply-from-d545bc2a-pr983-computeswords4-hent-vacuous.
+- `hent` claims every `Fp4Sem.RowOK` row has `Pc4EntryOK`, whose `rowA` is `Row4OK` (`widen` and α > 0). Main's `RowOK` is "finite words ∧ `RowAdmit4`" (β's code in [8, 128)), so `hent` is false on two families:
+  - a row of FP32 1 + 2⁻²⁰, which is not BF16 and fails `widen`;
+  - a ρ-overflow row, where β = `wordVal(NaN)` = 480 is admitted and α = 0.
+- Correction to 03:04Z: pc4's `ok` does refuse ρ-overflow rows (`dnf` needs β ≤ F32_MAX), so that row is also an F1-style split for pc4. The F2 note's line is fixed.
+- `tileCheck4`: `Collides := False`, as for `tileCheck8`.
 CHECKPOINT none (03:04Z) [open] 0304Z SECOND ASK UNANSWERED on note:20261004T0108Z-reply-from-d545bc2a-pr983-computeswords-hent-vacuous: at #983 d36ef3cfe, `hent` is unchanged. No further asks on it. The floor note (F1) also stands.
 - #731 (pc8/pc4 Python circuits) landed on main at ec8ac91ae. #983's tie tests (`test_circuit_tile/row/whole_lean.py`) can run once #983 rebases or lands.
 - Main's `pc8.py` still refuses ρ-overflow rows, so F1 stands. `pc4.py`'s `ok` is `(s ≤ F32_MAX) ∧ dnf`, with no ρ check. Any pc4 words theorem that takes `Row4OK` (α > 0) gets the F2 check.

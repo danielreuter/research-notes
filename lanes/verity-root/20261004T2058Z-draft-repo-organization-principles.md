@@ -392,7 +392,10 @@ And at 4:19 PM PDT:
 - **Silicon semantics**, how the hardware computes each low-level op bit for bit (the tensor-core step, FP and integer
   arithmetic, MUFU, PTX max and min), is public data: the models, their Lean, the formats, the device instances and
   their gadgets all go to `catalog/silicon/` (Daniel, 4:25 PM PDT). A circuit is claim content, pinned by digest, so
-  no guarantee reads a model; `verity/` keeps only the circuit machinery. Their Boolean circuits are Definitions in
+  no guarantee that a computation was verified reads a model; `verity/` keeps only the circuit machinery. A guarantee
+  that prices an attacker on a device does read one: PoUW's certified γ reads `Sm120`'s E4M3 semantics and
+  `Prices.sm120Loop`, so its lock entry reads `catalog/silicon/` Lean by definition hash, under lean's catalog-read
+  allowance (Slack `1791153016.351199`; compute-accounting). Their Boolean circuits are Definitions in
   `catalog/`, which circuit-check ties to the models on edge and random vectors; no Lean proof ties them yet. The
   exception is a builder the verifier runs at verification time (PoUW's `ncp2`), which stays in `verity/`.
 - **Kernels of catalog Definitions** register by Definition id from `kernels/`, so `verity/` imports no catalog

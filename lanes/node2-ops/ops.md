@@ -69,6 +69,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-04 02:20Z hourly (01Z): GPU busy 88.4% (7.07 of 8.00 GPU-h, all useful), above the 80% bar. Memory accounting's series, `research` and `adhoc:ubuntu` runs, with waiters most of the hour. Leased-idle 0.52 (the series' start-ups 0.36). CPU 11.3%. The 02Z hour is at 98.2% so far, with 4 GPU jobs queued.
+    - **Backup:** `r20261004-021752-3f9f`. The 01Z backup `r20261004-011321-7d8f` is preserved.
+    - **Checks:** daemons are up, and `status.md` was fresh (02:16Z). One runner. `/workspace` 50%. `/` is up to 25% (from 18% at 18Z), about 185 GB free, so nothing to do yet. Most of the growth is `/tmp` (25 GB): circuits' `fix235b-out` (11 GB, last written 15:46Z) and `tmp.aJfWw3cliR` (13 GB, written 01:57Z). Lean scratch is only 4.8 GB, and no check is running. I'll watch it hourly.
+    - #494 is still closed.
 - 2026-10-04 01:15Z hourly (00Z): GPU busy 87.0% (6.96 of 8.00 GPU-h, all useful), above the 80% bar. Memory accounting's series, `research` and `adhoc:ubuntu` runs, 0/8 free most of the hour. Leased-idle 0.50 (the series' start-ups 0.47). CPU 13.7%. The 01Z hour is at 94.2% so far.
     - **Backup:** `r20261004-011321-7d8f`. The 00Z backup `r20261004-001819-ced3` is preserved.
     - **Checks:** daemons are up, and `status.md` was fresh (01:11Z). One runner. `/` is 20%, `/workspace` 49%. #494 is still closed.

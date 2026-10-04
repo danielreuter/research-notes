@@ -1,0 +1,83 @@
+diff --git a/benchmarks/pouw/pearl_c_sm120/pearlc_arm.py b/benchmarks/pouw/pearl_c_sm120/pearlc_arm.py
+index 46493cc87..352868632 100644
+--- a/benchmarks/pouw/pearl_c_sm120/pearlc_arm.py
++++ b/benchmarks/pouw/pearl_c_sm120/pearlc_arm.py
+@@ -28,7 +28,9 @@ the kernels' K32 order, `fixture.k32`) and α, C̃, U (the second launch's where
+ CPU twin
+ (`benchmarks/pouw/pearl_c/twin.py`) on the device record, from the harness's operand rows and the call's seeds, and with
+ hashing the tile's leaf the scheme's over its real rows, that leaf's in the tile tree and row r0's in A's tree the verifier's
+-(`CommitmentDomain.leaf`).  `known_bad` flips C̃'s first word (the first message digest's, where the call stores no C̃)
++(`CommitmentDomain.leaf`).  The twin's tiles run in the harness's process pool (`refs.pool`, the job's CPUs; inline without
++one), and `prefetch` starts a call's from the seeds on the device before the harness gates it: the gate keys every tile by
++the rows it reads and seed_A, so it only takes a prefetched tile made from the same inputs.  `known_bad` flips C̃'s first word (the first message digest's, where the call stores no C̃)
+ between the product and the hashes.  `build` names the cubin (`binaries`) and the verifier the harness runs after the lease
+ (`verify.py` over the run's transcripts).
+ 
+@@ -61,12 +63,19 @@ import json
+ import os
+ import sys
+ import tempfile
++from concurrent.futures import Future
++from concurrent.futures.process import BrokenProcessPool
+ from fractions import Fraction
+ from pathlib import Path
+ 
+ import numpy as np
+ from arm import Buffer, Gate, Work
+ 
++try:
++    import refs                           # the harness's process pool for gate references
++except ImportError:                       # an older harness: the twin runs inline
++    refs = None
++
+ HERE = Path(__file__).resolve().parent
+ 
+ 
+@@ -346,19 +355,35 @@ class _Call:
+                        row_leaf=get(w["tree_a"] + 32 * r0, 32))
+         return out
+ 
+-    def twin_tiles(self, noise: C.Noise) -> list[dict]:
++    def twin_submit(self, noise: C.Noise) -> list[tuple]:
++        """Starts the twin at each sampled tile the set has none for under the rows as the device holds them now and seed_A
++        (in the harness's pool, else inline); per tile (r0, c0, its key, A's rows, the twin's arguments)."""
+         sh, wt, ep = self.shape, self.own, self.own.epoch
+         tshape = W.Shape(sh.label, sh.m, sh.n, sh.k)
+         sd = {"seed_a": noise.seed_a, "seed_b": noise.seed_b, "salt": ep["epoch"].salt, "root_b": ep["root_b"]}
+         if wt.job is None:
+             wt.job = W.job(tshape, self.arm.device, sd)
+         job = dataclasses.replace(wt.job, seeds=sd)
++        pool = refs.pool() if refs is not None else None
+         out = []
+         for r0, c0 in W.samples(tshape):
+             a_rows, b_rows = self.rows(self.ops.a.ptr, r0, sh.m), self.rows(self.ops.b.ptr, c0, sh.n)
+             key = (r0, c0, hashlib.sha256(a_rows.tobytes() + b_rows.tobytes() + noise.seed_a).digest())
++            args = (job, r0, c0, a_rows, b_rows)
+             if key not in wt.twin:
+-                wt.twin[key] = W.tile(job, r0, c0, a_rows, b_rows)
++                wt.twin[key] = pool.submit(W.tile, *args) if pool is not None else W.tile(*args)
++            out.append((r0, c0, key, a_rows, args))
++        return out
++
++    def twin_tiles(self, noise: C.Noise) -> list[dict]:
++        sh, wt, ep = self.shape, self.own, self.own.epoch
++        out = []
++        for r0, c0, key, a_rows, args in self.twin_submit(noise):
++            if isinstance(wt.twin[key], Future):
++                try:
++                    wt.twin[key] = wt.twin[key].result()
++                except BrokenProcessPool:
++                    wt.twin[key] = W.tile(*args)
+             tid = (r0 // T) * (self.n // T) + c0 // T
+             want = expected(wt.twin[key], min(T, sh.m - r0), self.hashing, ep, tid, a_rows[0].astype("<u4").tobytes())
+             got = self.tile_bytes(r0, c0, tid)
+@@ -472,6 +497,9 @@ class PearlCSm120:
+     def known_bad(self, dev, shape, operands) -> _Call:
+         return self.prepare(dev, shape, self.flag_sets["hash"], operands, corrupt=True)
+ 
++    def prefetch(self, dev, call: _Call, shape, flags: frozenset[str]) -> None:
++        call.twin_submit(call.noise()[0])
++
+     def gate(self, dev, call: _Call, shape, flags: frozenset[str]) -> Gate:
+         differing = call.relaunch()
+         noise, seeds = call.noise()

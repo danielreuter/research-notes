@@ -1,0 +1,4 @@
+65c65
+<     "$PY" benchmarks/pouw/pearl_c_vllm/profile_decode.py --model "$MODEL" --kernel benchmarks/pouw/pearl_c_sm120 \
+---
+>     "$PY" "/tmp/prefix-profile/test/inputs/prio.py" benchmarks/pouw/pearl_c_vllm/profile_decode.py --model "$MODEL" --kernel benchmarks/pouw/pearl_c_sm120 \

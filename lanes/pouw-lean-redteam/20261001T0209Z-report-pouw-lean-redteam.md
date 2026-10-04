@@ -5,6 +5,14 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (00:03Z) [open] 0003Z SECOND ASK UNANSWERED on note:20261003T2141Z-reply-from-d545bc2a-pr983-pc8sem-floor-overflow: at #983 86a2f8bd7, `pc8Sem.floor` still admits ρ-overflow rows. A 23:04Z addendum notes that `flag8` (pc8's `ok`) → `RowOK` holds, the direction γ needs.
+- Skimmed, nothing vacuous:
+  - #983's `tileCheck8`: `Collides := False`, `pub`/`reg` disjoint, every field in the stronger direction.
+  - #1020's `Decisive`, which replaces #967's `hU`.
+  - #1013's cap proofs: `CapDomain`/`CapFits` are pinned at the deployed shapes.
+- #1001's audit passes with no record change.
+- New citation conditions: `ComputesCap` via #1013 only once the cap circuit's word counts are modelled and lean rules on its two mismatches; `honestProver_bounded` only via #1020's `Decisive`, never a bare `hU`.
+- Main is f8ec5cbfa; policies 650df0bd/03acd87f unchanged.
 CHECKPOINT none (21:43Z) [open] 2143Z #983 is at d29a8bb6b; its records still equal main's. It adds `RowSem` (`pc8Sem`/`pc4Sem` as word formulas on `RowOps`, not read off the tables).
 - Finding: `pc8Sem.floor` admits a row pc8 refuses. In a row of finite words whose squares overflow, ρ = +∞ and the floor word is NaN 0x7FFFFFFF; Lean reads that as ≥ 1, while pc8's `finite` bit requires ρ ≤ F32_MAX. γ soundness is safe (Lean's credit is at least pc8's), but `RowOK` at `pc8Sem` is not pc8's `ok`. A one-line fix in `RowSem` is in note:20261003T2141Z-reply-from-d545bc2a-pr983-pc8sem-floor-overflow, for lean's 22:00Z batch.
 - New core drafts #1002 (`Verity.Protocol.Scalar`/`Prims`) and #1003 (`Verity.Protocol.Fp32`) change no `lean-audit.json` records. #1001's audit verdict is still pending.

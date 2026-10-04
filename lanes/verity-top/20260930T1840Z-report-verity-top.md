@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:54Z) [open] 00:54Z: inbox empty; next tip 32f91de5d with lander; asked circuits for #985/#1021 GPU ask details
 CHECKPOINT none (00:36Z) [open] 00:36Z: inbox empty; network milestone hit (42.92/40 GPU-h); awaiting proofs' 01:00Z private-circuit doc
 CHECKPOINT none (00:17Z) [open] 00:17Z Daniel iterating architecture (harness layers) and naming with leads directly; #996/#1023/#1024 lean-labelled; GPUs full
 CHECKPOINT none (23:58Z) [open] 23:58Z broker 33/33 pass; #928/#979/#1019 granted; recursion proved (unpinned); merge backlog bottleneck, #989 first

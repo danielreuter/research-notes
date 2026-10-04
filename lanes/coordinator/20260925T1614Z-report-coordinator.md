@@ -542,3 +542,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T04:47Z: 2ed0 (#1013), d319 (#966) past rust tests. infra lane bc-58f8832d building slot/window view + auto node pick (due 10:00Z).
 - 2026-10-04T04:58Z: #1030 (zero knowledge) on #966: d2ef53b1c node1 r20261004-045446-7e7c --agreement; body lacks lean-read line.
 - 2026-10-04T05:08Z: MERGED #1013 #966 via d319 (fbc74aac1) -> main. 7e7c (#1030) next; body line pending.
+- 2026-10-04T05:22Z: #1053 (removes statement-reviewer requirement per 'Daniel ruling 3 Oct 6:46 PM PDT'; DM Daniel on guarantee change) on #1030: 45e0479fc node1 r20261004-051915-7354 --agreement. HOLD merge pending root confirming the ruling.
+- 2026-10-04T05:25Z: (root) holding #1053; asked @top for record of Daniel's 6:46 PM PDT ruling. Reviewer-line check stays in force until #1053 merges.

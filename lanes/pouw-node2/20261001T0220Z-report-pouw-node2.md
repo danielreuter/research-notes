@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (18:40Z) [open] A 18:40Z poll: nothing addressed to pouw-node2 (accounting's 18:36Z relays are memory accounting's P2/P3, not naming us); main 06edf032c unchanged; /workspace last 56% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (18:20Z) [open] A 18:20Z poll: nothing addressed to pouw-node2; node2-ops 18:20Z: 17Z GPU busy 10.7% (nothing submitted), root disk 27% (verity-check cache emptied), /workspace 56% (hold, rising), no windows ahead; main 06edf032c unchanged; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (18:00Z) [open] A 18:00Z poll: nothing new since 17:40Z; main 06edf032c (riders, #1083, #1105; no protocols/pouw or benchmarks/pouw change); /workspace last 55% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (17:40Z) [open] A 17:40Z poll: nothing new since 17:20Z; main c05f14179 unchanged; /workspace last 55% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2

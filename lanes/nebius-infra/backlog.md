@@ -46,6 +46,32 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 19:08Z Oct 4 (12:08 PM PDT): escalation path to @top, at root's ask
+
+- **Root (19:05Z):** if @infra hasn't acted by 19:50Z or 75% disk, whichever comes first, ask @top in the disk thread to
+  approve a repeat of this morning's cleanup under the same three conditions, with @infra as owner, naming who runs it.
+  Delete nothing without that approval. Tell root at 78%.
+- Timers: `node1-disk-watch-75` (every 10 min) and `node1-disk-top-deadline` (one-shot, 19:50Z). Draft:
+  `/tmp/top-ask.txt`, sent with `--file`.
+- On @top's yes, the runner is me:
+  1. re-scan;
+  2. keep only trees whose name is a 40-hex commit present in a fresh `git fetch origin` (condition 1, and condition 3
+     follows for git-sourced trees);
+  3. `research keep` each one (owner @infra, low, expires now);
+  4. `retention rm --approved-by @infra --ref <@top's yes>`, dry first and then `--apply`.
+
+## State at 19:05Z Oct 4 (12:05 PM PDT), steward pass: disk at 72%, @infra nudged
+
+- **Node 1 reached 72% at 19:01Z** (1,416 GiB free), up from 69.2% at 18:45Z. A 24 GB Lean source tree landed at 19:00Z,
+  and `research/runs` is 517 GB.
+- `research/src` has 220 trees. 195 are unused by this morning's scan, and they free 162 GB net
+  (`art:732c49efbaf0078b48b533086378a018142d90efed16b96f73583378c0830f29`).
+- **Nudged @infra** in the disk thread (`1791140606.471969`, wording fix `1791140660.133439`): land #992's src-tree rule or
+  run another `retention rm` under root's three conditions. #992 is still open. Next: tell root at 78% (the pacer's latch).
+- Lesson: backticks inside a double-quoted `--text` run as shell commands. Post from `--file`.
+- Node 1 GPUs: 1 of 8 held, `provers` 2 admitted. Node 2: 1 of 8 (a fill-runner job), and no queue. The pacer and
+  dispatcher are clean. The latest hourly snapshot is `art:a33673c936681a6d553b691ba2ebe02996ef3f179543aece1ea00eb857367b6c`.
+
 ## State at 18:30Z Oct 4 (11:30 AM PDT), steward pass
 
 - Node 1 (watch, no flags): disk 68.9% (1,561 GiB free; 41 GiB down since 18:15Z), `research/src` 207 trees. 0 of 8 GPUs

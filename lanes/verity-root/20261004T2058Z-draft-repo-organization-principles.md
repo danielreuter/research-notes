@@ -8,9 +8,12 @@ repo: danielreuter/verity
 origin: verity-top's repository-layout agent (bc-d6f8b221, under bc-7f347b4b)
 ---
 
-# Repository organization: the principles after the survey (4 Oct, 1:58 PM PDT)
+# Repository organization: the principles after the survey (4 Oct, 2:10 PM PDT)
 
-This is version 7. It moves the plan out of an agent store into the notes, after Daniel's ruling of 1:47 PM PDT: qualitative writing goes in the research notes, where it can be shared, and data in the evidence store. The Glossary's new terms are verity#1127.
+This is version 8. It adds Daniel's rulings of 2:03 PM PDT on round 2's questions (below), and old-accounting's
+finding on P2's response window.
+
+Version 7 It moves the plan out of an agent store into the notes, after Daniel's ruling of 1:47 PM PDT: qualitative writing goes in the research notes, where it can be shared, and data in the evidence store. The Glossary's new terms are verity#1127.
 
 Version 6 (1:45 PM PDT) moved to the README Glossary's vocabulary (Daniel, 1:38 PM PDT): a *guarantee* is what a
 table or a ledger relies on as proved, and anything else proved is a *lemma*, so "cited" is gone as a status. And it
@@ -94,6 +97,17 @@ And at 1:47 PM PDT:
 - **Qualitative writing goes in the research notes, data in the evidence store.** A Cursor agent store is its
   agent's scratch, and nothing cites a `store:` path (AGENTS.md, verity#1127).
 - **Update the Glossary now** (verity#1127).
+
+And at 2:03 PM PDT:
+
+- **A guarantee is a theorem something relies on as proved:** a ledger row, a published table, the docs site, a claim
+  id in `verity.claims`, or code that reads its result. A mention in prose, a PR, a test or an internal table doesn't
+  make one (verity#1127's second commit). The lock reductions go by it.
+- **The PoUW timed reruns are approved:** twice at current main and once after PoUW's Python move, #1116's window
+  (all 8 GPUs of node 2 for 30 min each) and the K = 14,336 accept set (about $160 each on node 1).
+- **The defaults stand:** proofs owns core's lock; an area's Python move is done only when its vectors are generated
+  from its executable spec; a lock reduction is reviewed once per package; the landed `train-prep-*` branches whose tip
+  is on main are pruned, keeping `cursor/pouw-hash-sm120-9569`.
 
 ## The principles
 
@@ -305,31 +319,18 @@ has an H100, so re-running its timed results needs a rented H100 pod: a spend as
 - **PoUS's primitive** is still Daniel's choice. Under "nothing is lost", nothing is deleted whichever he picks. P2
   keeps both expanders: the spec-conforming SHAKE256 `p2-16448/v3`, and the ChaCha8 `v2`, labelled nonconforming but
   kept as an efficient algorithm (about 1% key cost against SHAKE256's estimated 12%).
-- **The P2 response window and w,** Daniel's ruling, which PoUS's Python move waits on (memory-accounting).
+- **The P2 response window and w,** Daniel's ruling, which PoUS's Python move waits on (memory-accounting). Old
+  accounting found (2:03 PM PDT, thread `1791138312.751569`) that the frozen spec's "2× margin through Δ + RTT ≈ 1.9 ms"
+  holds only against a Zen 4-derived floor of 13.2 ms per root that nothing in the store derives. Against the timing
+  document's Zen 5 floor (5.97 ms per root, the one `ROOT_CALL_NS` encodes) and the measured 3.5× eight-core cooperation,
+  the 2× margin holds up to Δ + RTT ≈ 0.85 ms. That covers the measured on-node 0.52 ms (about 3.3×) but not the frozen
+  allowance of 1.5 ms (about 1.14×). The choice is to cap the RTT allowance near 0.35 ms, or to widen w (the width not
+  computed yet; at about 26.6–36.5 kbit P2 loses to P3-ARX).
 - **For @architecture to answer in the wrap-up:** circuits' catalog entry format (principle 3), and a yes on
   C-Flock's three-package shape (with @lean).
-- **Round 2's questions for Daniel:**
-  - *Which pinned theorems are guarantees.* The Glossary says a ledger, a table or a PR cites guarantees as proved;
-    @lean points out that a PR body is history, and counting it makes nearly every pin a guarantee. @lean proposes:
-    a theorem named in a current document, table or the docs site, or read by another guarantee's statement.
-    compute-accounting's list is narrower: it leaves out lemmas that `PROTOCOL.md` and `ncp.py` name, and the γ
-    variants an internal pricing table and `test_ledger.py` read. Recommendation: a guarantee is relied on *as
-    proved* by a ledger row, a published table, the docs site, a claim id in `verity.claims`, or code whose output
-    reads it (as `pearl_c_device.py` reads #1116's γ); a prose reference, a PR, a test or an internal table doesn't
-    make one. verity#1127's second commit writes this into the Glossary. memory-accounting's PoUS list counts `PROTOCOL.md` and PRs, and keeps
-    about 73 of 104; under the recommendation it keeps the theorems its certificates enforce and the audit results a
-    table rests on. Lock reductions wait for this ruling.
-  - *Core's lock:* who owns it, and whether core and NCI keep "each package's point" (11 and 2 entries) when nothing
-    outside Lean relies on them. comms' map (#1124) gives `packages/verity/` to proofs and `verity/ml/` to circuits;
-    circuits owns no entries and leaves core's to proofs and compute. Recommendation: proofs.
-  - *Lean's done criterion:* an area's Python move is done only when its vectors are generated from its executable
-    spec.
-  - *Spend:* the PoUW timed reruns, twice now and once after the move: #1116's window (all 8 GPUs of node 2 for
-    30 min each) and the K = 14,336 accept set (about $160 each on node 1). compute-accounting reads "compute isn't the
-    bottleneck" as yes; the H100 rental is asked separately.
-  - *Lock reductions are reviewed once per package,* not once per dropped record (#1053's batching first).
-  - *The lander:* prune the landed `train-prep-*` branches, keeping `cursor/pouw-hash-sm120-9569`, which Pearl-C4's
-    `build.sh` fetches. Recommendation: yes for those whose tip is on main.
+- **ci's fast lane** (thread `1791144994.129499`, 2:03 PM PDT): ci resolves rename-only conflicts in a tip's merge
+  commit instead of sending each broken PR back for a restack, naming each resolution in the handoff; judgment conflicts
+  still go to the owner. It changes "owners restack their own PRs", so it's Daniel's call.
 
 ## The plan
 
@@ -560,7 +561,7 @@ verity#1127 adds what the repo already has:
 - **Lemma:** anything proved that isn't a guarantee.
 - **TCB**, and beside it the assurance TCB.
 - **Approach**, the notes' term, now cited from the README.
-- **Guarantee**, in a commit of its own (pending Daniel): a theorem a ledger row, a published table, the docs site, a
+- **Guarantee**, in a commit of its own (Daniel, 2:03 PM PDT): a theorem a ledger row, a published table, the docs site, a
   claim id or code reading its result relies on as proved, never one only a PR names.
 
 The rest arrive with the change that makes them true:

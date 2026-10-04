@@ -16,6 +16,25 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 03:15Z Oct 4 (8:15 PM PDT Oct 3): #1028 installed on node 1, eviction pause lifted
+
+- **Done at root's ask** (root's Slack thread `1791083016.896119`, closed; reported in the disk thread `1790807092.688879`).
+  - Main `59438bab7`'s tool snapshot is `e307a849d2b709e1`. It was already on node 1 and the newest, shipped at 02:17Z, so
+    the 02:35Z and 02:51Z eviction runs already had `TREE_KEEP_S`.
+  - Both units have a `tool-1028.conf` drop-in pinning `VY_RESEARCH_TOOL` to that snapshot, because the wrapper's default,
+    the newest snapshot, can be an older branch's. Bump the pin when a later eviction fix lands.
+  - Both `pause-until-1028.conf` drop-ins are removed and systemd reloaded. @infra's `vy-store-evict-unpause` timer is no
+    longer listed.
+  - A dry run, then one real run of each unit at the 2,500 GB mark: the research store's 5 trees (all fetched within
+    2.5 h) were kept with identical contents (`trees_kept 5`, `trees_removed false`). No process had a tree open. The units
+    freed 0.1 GB and 0 GB. The next hourly runs are at 04:11Z.
+- **Eviction won't slow the disk.** `/workspace` is at 69% with 1,574 GiB free, down about 300 GB from 02:35 to 03:11Z.
+  - The writes are check runs' source trees. `/workspace/research/src` holds 197 trees (356 GB, 39 of them since 00:00Z);
+    three of 24–29 GB with Lean `.lake` builds appeared since 02:46Z. Another 48 GB is in `research/scratch`.
+  - Nothing in the research tool prunes `src/`. Disk policy is resource-steward's (bc-b154b9ef), so I left the routing to
+    @infra in the disk thread.
+  - The pacer's cap drops at 78%, about 470 GB from here; resource-steward's writer pause is at 82%, and my guard at 90%.
+
 ## State at 02:30Z Oct 4 (7:30 PM PDT Oct 3), steward pass
 
 - **Both servers have all 8 GPUs allocated, and neither has a queue.**

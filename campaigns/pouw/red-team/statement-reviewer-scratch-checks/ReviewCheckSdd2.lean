@@ -1,0 +1,42 @@
+import Pouw
+import Pouw.PearlC.DeviceSm120Gamma
+
+#print axioms Pouw.PearlC.creditDevRev1_h100
+#print axioms Pouw.PearlC.devAt_hopper
+#print axioms Pouw.PearlC.devAt_sm120_floor
+#print axioms Pouw.PearlC.devSm120v1_domain
+#print axioms Pouw.PearlC.devSm120v1_flags
+#print axioms Pouw.PearlC.devSm120v2_domain
+#print axioms Pouw.PearlC.devSm120v2_flags
+#print axioms Pouw.PearlC.pearlCGamma16384
+#print axioms Pouw.PearlC.pearlCGamma8192
+#print axioms Pouw.PearlC.pearlCGammaH100Rev1_16384
+#print axioms Pouw.PearlC.pearlCGammaH100Rev1_8192
+#print axioms Pouw.PearlC.pearlCGammaSm120v1Rev1_16384
+#print axioms Pouw.PearlC.pearlCGammaSm120v1Rev1_8192
+#print axioms Pouw.PearlC.pearlCGammaSm120v2Cap1000_16384
+#print axioms Pouw.PearlC.pearlCGammaSm120v2Cap1000_8192
+#print axioms Pouw.PearlC.pearlCGammaSm120v2ChainCap1000_16384
+#print axioms Pouw.PearlC.pearlCGammaSm120v2ChainCap1000_8192
+#print axioms Pouw.PearlC.pearlCGammaUOnlySm120v1Rev1_8192
+#print axioms Pouw.PearlC.pearlCGammaUOnlySm120v2Cap1000_8192
+#print axioms Pouw.PearlC.pearlCSampledH100Rev1_16384
+#print axioms Pouw.PearlC.pearlCSampledH100Rev1_8192
+#print axioms Pouw.PearlC.pearlCSampledSm120v1Rev1_16384
+#print axioms Pouw.PearlC.pearlCSampledSm120v1Rev1_8192
+#print axioms Pouw.PearlC.pearlCSampledSm120v2Cap1000_16384
+#print axioms Pouw.PearlC.pearlCSampledSm120v2Cap1000_8192
+#print axioms Pouw.PearlC.pearlCSampledSm120v2ChainCap1000_16384
+#print axioms Pouw.PearlC.pearlCSampledSm120v2ChainCap1000_8192
+#print axioms Pouw.PearlC.pearlCSampledUOnlySm120v1Rev1_8192
+#print axioms Pouw.PearlC.pearlCSampledUOnlySm120v2Cap1000_8192
+#print axioms Pouw.PearlC.ttOutPearlCDev_h100
+#print axioms Pouw.PearlC.ttOutPearlCH100Rev1Witness
+#print axioms Pouw.PearlC.ttOutPearlCWitness
+#print axioms Pouw.PearlC.ttOutTilePearlCDev_h100
+#print axioms Pouw.PearlC.ttOutTilePearlCH100Rev1Witness
+#print axioms Pouw.PearlC.FormingP.saltDeadP_card_le
+#print axioms Pouw.PearlC.FormingP.rhoD_atomMixP_flat
+#print axioms Pouw.PearlC.FormingP.atomMixChainP_saltLive_flat
+#print axioms Pouw.PearlC.Forming.flatPairs_support
+#print axioms Pouw.PearlC.FormingP.atomMixP_pairErr

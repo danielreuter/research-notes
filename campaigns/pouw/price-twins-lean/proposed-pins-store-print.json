@@ -1,0 +1,2787 @@
+{
+  "note": "The same records as proposed-pins.json, printed by the store's vendored audit tool (lean/tools/lean, VENDORED-FROM 6746f408) instead of the workspace's newer one: audit.py --update --no-replay over a copy of the same private build (16:00Z, PASS, 853 pins). Every record's type_hash and assumptions equal the staged file's; only the signature text differs (the store tool prints `d.G = 0` and `↑(…)` where the newer one prints `Eq d.G 0` and `(…).cast`). This is the merge plan's option (b) for M2a, ready if it is chosen over (a). bc-876ca543's 182 proposed FP8 pins (144; plus 32 kernel chain-only pins at the casts 32.06 and 16, 13:04Z; plus 6 chain-cap pins against the kernel's W_ref, 13:48Z): 16 at any record, 18 at devSm120v1/v2 Prices.sm120Loop, 8 v2 equivalence lemmas (DeviceSm120v2LoopEquiv), 134 against the kernel's W_ref (DeviceSm120KernelGamma and its general theorems), and 6 for v2's chain cap against the kernel's W_ref (ChainCapKernelGamma: two general theorems and the exact in-loop values per unit and per tile); five layers entries; and one assumptions module to register, Pouw.PearlC.TTOutChainOnly. One 8.38 record, Prices.sm120Loop = <1047/125, 2, <40, 2>>, with the cast credited at 8.0 (the 10:49Z ruling). `labels` marks the 32 twins that are upper bounds (qa rounded) and names the exact in-loop pin for each but the 8 U-only twins, which have none yet. Records from audit.py --update (AUDIT PASS, 11:43Z) over the rev1 bundle, device/'s chain-cap files, ttout-fp4-staging, rev2's Device.lean items 1-2, device-sm120-staging's DeviceSm120Gamma, and this folder; the later pins from audit.py --update --no-replay (PASS, 13:04Z and 13:48Z) over the same copy, with their modules' kernel replays run separately. `reads` regenerate on the integrator's --update.",
+  "assumptions": [
+    "Pouw.PearlC.TTOutChainOnly"
+  ],
+  "pins": {
+    "Pouw.PearlC.pearlCGammaUnpromotedCap1000Loop_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaUnpromotedCap1000Loop_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (hG : d.G = 0)",
+        "  (hp : d.prices = Pouw.PearlC.Prices.sm120Loop) (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDev CM d sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDev d sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh8192) (↑(522517 / 139900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d1b0fc82"
+    },
+    "Pouw.PearlC.pearlCGammaUnpromotedCap1000Loop_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaUnpromotedCap1000Loop_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (hG : d.G = 0)",
+        "  (hp : d.prices = Pouw.PearlC.Prices.sm120Loop) (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDev CM d sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDev d sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh16384) (↑(3000127 / 829300000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000001b38c143"
+    },
+    "Pouw.PearlC.pearlCSampledUnpromotedCap1000Loop_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledUnpromotedCap1000Loop_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (hG : d.G = 0)",
+        "  (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM d sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolDev d sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDev d sem (1 / 1000)) (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh8192)",
+        "    (↑(522517 / 139900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e43c51c4"
+    },
+    "Pouw.PearlC.pearlCSampledUnpromotedCap1000Loop_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledUnpromotedCap1000Loop_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (hG : d.G = 0)",
+        "  (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM d sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolDev d sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDev d sem (1 / 1000)) (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh16384)",
+        "    (↑(3000127 / 829300000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000bd54e00c"
+    },
+    "Pouw.PearlC.pearlCGammaSm120LoopRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120LoopRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (hG : d.G = 4)",
+        "  (hp : d.prices = Pouw.PearlC.Prices.sm120Loop) (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM d sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDevRev1 d sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh8192) (↑(310284613 / 59477920000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000005b12b969"
+    },
+    "Pouw.PearlC.pearlCGammaSm120LoopRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120LoopRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (hG : d.G = 4)",
+        "  (hp : d.prices = Pouw.PearlC.Prices.sm120Loop) (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM d sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDevRev1 d sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh16384) (↑(1802569231 / 352995040000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a54e1aae"
+    },
+    "Pouw.PearlC.pearlCSampledSm120LoopRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120LoopRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (hG : d.G = 4)",
+        "  (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM d sem (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolDevRev1 d sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1 d sem (1 / 400)) (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh8192)",
+        "    (↑(310284613 / 59477920000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b2de7136"
+    },
+    "Pouw.PearlC.pearlCSampledSm120LoopRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120LoopRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (hG : d.G = 4)",
+        "  (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM d sem (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolDevRev1 d sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1 d sem (1 / 400)) (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh16384)",
+        "    (↑(1802569231 / 352995040000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000ab63a51e"
+    },
+    "Pouw.PearlC.pearlCGammaUnpromotedChainCap1000Loop_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaUnpromotedChainCap1000Loop_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hG : d.G = 0) (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDevChainCap CM d sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDevChainCap d sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh8192) (↑(64899 / 17487500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000890a74de"
+    },
+    "Pouw.PearlC.pearlCGammaUnpromotedChainCap1000Loop_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaUnpromotedChainCap1000Loop_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hG : d.G = 0) (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDevChainCap CM d sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDevChainCap d sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh16384) (↑(373769 / 103662500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009cc83982"
+    },
+    "Pouw.PearlC.pearlCSampledUnpromotedChainCap1000Loop_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledUnpromotedChainCap1000Loop_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hG : d.G = 0) (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainCap CM d sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolDevChainCap d sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevChainCap d sem (1 / 1000)) (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh8192)",
+        "    (↑(522517 / 139900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000003233d54e"
+    },
+    "Pouw.PearlC.pearlCSampledUnpromotedChainCap1000Loop_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledUnpromotedChainCap1000Loop_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hG : d.G = 0) (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainCap CM d sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolDevChainCap d sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevChainCap d sem (1 / 1000)) (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh16384)",
+        "    (↑(3000127 / 829300000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000ee5d717e"
+    },
+    "Pouw.PearlC.pearlCGammaUOnlySm120LoopRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaUOnlySm120LoopRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (hG : d.G = 4)",
+        "  (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDevUOnly CM d sem (1 / 400)) :",
+        "  Pouw.PearlC.GγU CM (Pouw.PearlC.pearlCProtocolDevRev1 d sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh8192) (↑(310284613 / 59477920000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000006d195431"
+    },
+    "Pouw.PearlC.pearlCGammaUOnlyUnpromotedCap1000Loop_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaUOnlyUnpromotedCap1000Loop_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hG : d.G = 0) (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDevUOnly CM d sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγU CM (Pouw.PearlC.pearlCProtocolDevRev1 d sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh8192) (↑(522517 / 139900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000724c2ef7"
+    },
+    "Pouw.PearlC.pearlCSampledUOnlySm120LoopRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledUOnlySm120LoopRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (hG : d.G = 4)",
+        "  (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDevUOnly CM d sem (1 / 400)) :",
+        "  Pouw.PearlC.GγSampledU CM (Pouw.PearlC.pearlCProtocolDevRev1 d sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1 d sem (1 / 400)) (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh8192)",
+        "    (↑(310284613 / 59477920000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d9361421"
+    },
+    "Pouw.PearlC.pearlCSampledUOnlyUnpromotedCap1000Loop_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledUOnlyUnpromotedCap1000Loop_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hG : d.G = 0) (hp : d.prices = Pouw.PearlC.Prices.sm120Loop)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDevUOnly CM d sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampledU CM (Pouw.PearlC.pearlCProtocolDevRev1 d sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1 d sem (1 / 1000)) (Pouw.PearlC.pearlCDomainDevAt d Pouw.PearlC.sh8192)",
+        "    (↑(522517 / 139900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000008608a8c2"
+    },
+    "Pouw.PearlC.devSm120v1Loop_domain": {
+      "signature": [
+        "Pouw.PearlC.devSm120v1Loop_domain (s : Pouw.PearlC.Shape) (hs : s = Pouw.PearlC.sh8192 ∨ s = Pouw.PearlC.sh16384) :",
+        "  Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) s",
+        "    { N := 1, shape := fun x => s, wid := fun x => 0 }"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000038c249f7"
+    },
+    "Pouw.PearlC.devSm120v2Loop_domain": {
+      "signature": [
+        "Pouw.PearlC.devSm120v2Loop_domain (s : Pouw.PearlC.Shape) (hs : s = Pouw.PearlC.sh8192 ∨ s = Pouw.PearlC.sh16384) :",
+        "  Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) s",
+        "    { N := 1, shape := fun x => s, wid := fun x => 0 }"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c6a2a586"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1 (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(310284613 / 59477920000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000087cd24b7"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1 (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(1802569231 / 352995040000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000019cb8a28"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1 (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1 (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(310284613 / 59477920000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a5a40dfa"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1 (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1 (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(1802569231 / 352995040000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000005a617458"
+    },
+    "Pouw.PearlC.pearlCGammaUOnlySm120v1LoopRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaUOnlySm120v1LoopRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevUOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγU CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1 (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(310284613 / 59477920000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d2db0296"
+    },
+    "Pouw.PearlC.pearlCSampledUOnlySm120v1LoopRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledUOnlySm120v1LoopRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevUOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampledU CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1 (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1 (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(310284613 / 59477920000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a65b0c88"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDev (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(522517 / 139900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000061ccdf64"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDev (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(3000127 / 829300000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a50ac0ef"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDev (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDev (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(522517 / 139900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d2c609f6"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDev (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDev (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(3000127 / 829300000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000008ca58fd8"
+    },
+    "Pouw.PearlC.pearlCGammaUOnlySm120v2LoopCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaUOnlySm120v2LoopCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevUOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγU CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1 (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(522517 / 139900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000089716180"
+    },
+    "Pouw.PearlC.pearlCSampledUOnlySm120v2LoopCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledUOnlySm120v2LoopCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevUOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampledU CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1 (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1 (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(522517 / 139900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000090c0a432"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopChainCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopChainCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevChainCap (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(64899 / 17487500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000003cf329b2"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopChainCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopChainCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevChainCap (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(373769 / 103662500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000000dd68ca1"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopChainCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopChainCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevChainCap (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevChainCap (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(522517 / 139900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000026577b4f"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopChainCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopChainCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevChainCap (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevChainCap (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(3000127 / 829300000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d92c49ab"
+    },
+    "Pouw.PearlC.ttOut_wref": {
+      "signature": [
+        "Pouw.PearlC.ttOut_wref {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  {CM : Pouw.PearlC.CostModel Q R S} {P : Pouw.PearlC.Protocol Q R S} {D : Pouw.PearlC.Layout → Prop} {γ₀ : ℝ}",
+        "  {ε : ℕ → ℕ → ℝ} (W : Pouw.PearlC.Layout → ℕ → ℝ) (h : Pouw.PearlC.Assumptions.TTOut CM P D γ₀ ε) :",
+        "  Pouw.PearlC.Assumptions.TTOut CM",
+        "    { ticket := P.ticket, useful := P.useful, actOK := P.actOK, weightOK := P.weightOK, credit := P.credit,",
+        "      capOK := P.capOK, Wref := W }",
+        "    D γ₀ ε"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009c360470"
+    },
+    "Pouw.PearlC.ttOutTile_wref": {
+      "signature": [
+        "Pouw.PearlC.ttOutTile_wref {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  {CM : Pouw.PearlC.CostModel Q R S} {P : Pouw.PearlC.Protocol Q R S} {TR : Pouw.PearlC.TileRules Q R S}",
+        "  {D : Pouw.PearlC.Layout → Prop} {γ₀ : ℝ} {ε : ℕ → ℕ → ℝ} (W W' : Pouw.PearlC.Layout → ℕ → ℝ)",
+        "  (Wc : Pouw.PearlC.Layout → ℕ → Pouw.PearlC.Codes → ℝ) (h : Pouw.PearlC.Assumptions.TTOutTile CM P TR D γ₀ ε) :",
+        "  Pouw.PearlC.Assumptions.TTOutTile CM",
+        "    { ticket := P.ticket, useful := P.useful, actOK := P.actOK, weightOK := P.weightOK, credit := P.credit,",
+        "      capOK := P.capOK, Wref := W }",
+        "    { tiling := TR.tiling, rowOK := TR.rowOK, credit := TR.credit, capOK := TR.capOK, Wref := W', Wcred := Wc } D γ₀ ε"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a7cb68a8"
+    },
+    "Pouw.PearlC.pearlCGammaDevKAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaDevKAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ c : ℚ)",
+        "  (s : Pouw.PearlC.Shape) (ω γ : ℚ) (hω0 : 0 < ω)",
+        "  (hω : Pouw.PearlC.wrefDevK d c s = ω * ((1 - ρ) * Pouw.PearlC.creditDev d s)) (hγ : γ = 1 - (1 - 1 / 400) / ω)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDev CM d sem ρ) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDevK d sem ρ c) (Pouw.PearlC.pearlCDomainDevAt d s) (↑γ)",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000004bd1b11a"
+    },
+    "Pouw.PearlC.pearlCSampledDevKAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledDevKAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ c : ℚ)",
+        "  (s : Pouw.PearlC.Shape) (ω γ : ℚ) (hω0 : 0 < ω) (hw0 : 0 ≤ Pouw.PearlC.wrefDevK d c s)",
+        "  (hω : Pouw.PearlC.wrefDevK d c s = ω * ((1 - ρ) * Pouw.PearlC.creditDev d s)) (hγ : γ = 1 - (1 - 1 / 400) / ω)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM d sem ρ) :",
+        "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolDevK d sem ρ c) (Pouw.PearlC.pearlCTilesDevK d sem ρ c)",
+        "    (Pouw.PearlC.pearlCDomainDevAt d s) (↑γ) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000095a05395"
+    },
+    "Pouw.PearlC.pearlCGammaDevRev1KAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaDevRev1KAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ c : ℚ)",
+        "  (s : Pouw.PearlC.Shape) (ω γ : ℚ) (hω0 : 0 < ω)",
+        "  (hω : Pouw.PearlC.wrefDevRev1K d c s = ω * ((1 - ρ) * Pouw.PearlC.creditDevRev1 d s)) (hγ : γ = 1 - (1 - 1 / 400) / ω)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM d sem ρ) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDevRev1K d sem ρ c) (Pouw.PearlC.pearlCDomainDevAt d s) (↑γ)",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000007ad4095f"
+    },
+    "Pouw.PearlC.pearlCSampledDevRev1KAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledDevRev1KAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ c : ℚ)",
+        "  (s : Pouw.PearlC.Shape) (ω γ : ℚ) (hω0 : 0 < ω) (hw0 : 0 ≤ Pouw.PearlC.wrefDevRev1K d c s)",
+        "  (hω : Pouw.PearlC.wrefDevRev1K d c s = ω * ((1 - ρ) * Pouw.PearlC.creditDevRev1 d s)) (hγ : γ = 1 - (1 - 1 / 400) / ω)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM d sem ρ) :",
+        "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolDevRev1K d sem ρ c) (Pouw.PearlC.pearlCTilesDevRev1K d sem ρ c)",
+        "    (Pouw.PearlC.pearlCDomainDevAt d s) (↑γ) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000044824d7d"
+    },
+    "Pouw.PearlC.ttOutPearlCDevChainOnly_of_ttOut": {
+      "signature": [
+        "Pouw.PearlC.ttOutPearlCDevChainOnly_of_ttOut {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ)",
+        "  (h : Pouw.PearlC.Assumptions.TTOutPearlCDev CM d sem ρ) : Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM d sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d519d369"
+    },
+    "Pouw.PearlC.ttOutPearlCDevRev1ChainOnly_of_ttOut": {
+      "signature": [
+        "Pouw.PearlC.ttOutPearlCDevRev1ChainOnly_of_ttOut {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ)",
+        "  (h : Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM d sem ρ) :",
+        "  Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM d sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000062e821af"
+    },
+    "Pouw.PearlC.ttOutTilePearlCDevChainOnly_of_ttOut": {
+      "signature": [
+        "Pouw.PearlC.ttOutTilePearlCDevChainOnly_of_ttOut {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ)",
+        "  (h : Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM d sem ρ) :",
+        "  Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM d sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "000000001f7ba4ac"
+    },
+    "Pouw.PearlC.ttOutTilePearlCDevRev1ChainOnly_of_ttOut": {
+      "signature": [
+        "Pouw.PearlC.ttOutTilePearlCDevRev1ChainOnly_of_ttOut {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ)",
+        "  (h : Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM d sem ρ) :",
+        "  Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM d sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "000000002c7f6fd3"
+    },
+    "Pouw.PearlC.pearlCGammaDevKChainOnlyAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaDevKChainOnlyAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ c : ℚ)",
+        "  (s : Pouw.PearlC.Shape) (ω γ : ℚ) (hω0 : 0 < ω)",
+        "  (hω : Pouw.PearlC.wrefDevK d c s = ω * (Pouw.PearlC.creditDevChainOnly d s - ρ * Pouw.PearlC.creditDev d s))",
+        "  (hγ : γ = 1 - (1 - 1 / 400) / ω) (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM d sem ρ) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDevK d sem ρ c) (Pouw.PearlC.pearlCDomainDevAt d s) (↑γ)",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000078e7a389"
+    },
+    "Pouw.PearlC.pearlCSampledDevKChainOnlyAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledDevKChainOnlyAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ c : ℚ)",
+        "  (s : Pouw.PearlC.Shape) (ω γ : ℚ) (hω0 : 0 < ω) (hw0 : 0 ≤ Pouw.PearlC.wrefDevK d c s)",
+        "  (hω : Pouw.PearlC.wrefDevK d c s = ω * (Pouw.PearlC.creditDevChainOnly d s - ρ * Pouw.PearlC.creditDev d s))",
+        "  (hγ : γ = 1 - (1 - 1 / 400) / ω) (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM d sem ρ) :",
+        "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolDevK d sem ρ c) (Pouw.PearlC.pearlCTilesDevK d sem ρ c)",
+        "    (Pouw.PearlC.pearlCDomainDevAt d s) (↑γ) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000082328d47"
+    },
+    "Pouw.PearlC.pearlCGammaDevRev1KChainOnlyAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaDevRev1KChainOnlyAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ c : ℚ)",
+        "  (s : Pouw.PearlC.Shape) (ω γ : ℚ) (hω0 : 0 < ω)",
+        "  (hω :",
+        "    Pouw.PearlC.wrefDevRev1K d c s = ω * (Pouw.PearlC.creditDevRev1ChainOnly d s - ρ * Pouw.PearlC.creditDevRev1 d s))",
+        "  (hγ : γ = 1 - (1 - 1 / 400) / ω) (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM d sem ρ) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDevRev1K d sem ρ c) (Pouw.PearlC.pearlCDomainDevAt d s) (↑γ)",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f22f1859"
+    },
+    "Pouw.PearlC.pearlCSampledDevRev1KChainOnlyAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledDevRev1KChainOnlyAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ c : ℚ)",
+        "  (s : Pouw.PearlC.Shape) (ω γ : ℚ) (hω0 : 0 < ω) (hw0 : 0 ≤ Pouw.PearlC.wrefDevRev1K d c s)",
+        "  (hω :",
+        "    Pouw.PearlC.wrefDevRev1K d c s = ω * (Pouw.PearlC.creditDevRev1ChainOnly d s - ρ * Pouw.PearlC.creditDevRev1 d s))",
+        "  (hγ : γ = 1 - (1 - 1 / 400) / ω) (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM d sem ρ) :",
+        "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolDevRev1K d sem ρ c) (Pouw.PearlC.pearlCTilesDevRev1K d sem ρ c)",
+        "    (Pouw.PearlC.pearlCDomainDevAt d s) (↑γ) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000016868f60"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast32Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast32Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (32 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(173561 / 22302500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000002ce032f"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast32Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast32Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (32 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (32 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(173561 / 22302500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000107874c4"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast32Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast32Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (32 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(3763 / 587500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000006fb4a6d2"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast32Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast32Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (32 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (32 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(3763 / 587500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c6b51512"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast32Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast32Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (32 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(143029 / 22150000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000032be5b6c"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast32Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast32Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (32 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (32 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(143029 / 22150000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000095f3b70b"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast32Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast32Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (32 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(4150127 / 830450000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000872e0789"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast32Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast32Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (32 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (32 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(4150127 / 830450000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000005ccd61b"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast32p06Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast32p06Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(173711 / 22302650)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009e960ad1"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast32p06Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast32p06Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(173711 / 22302650)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000056a72e97"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast32p06Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast32p06Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(1255 / 195834)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000007cf36d85"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast32p06Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast32p06Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(1255 / 195834)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000030ac3789"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast32p06Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast32p06Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(2720551 / 420853000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000063504d2d"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast32p06Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast32p06Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(2720551 / 420853000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000010a701f0"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast32p06Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast32p06Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(4153127 / 830453000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000071076048"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast32p06Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast32p06Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(4153127 / 830453000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000fcce0647"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast16Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast16Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(133561 / 22262500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000006f6f30ed"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast16Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast16Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(133561 / 22262500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000656a47ea"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast16Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast16Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(9689 / 1760900)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000038922b6d"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast16Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast16Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(9689 / 1760900)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000005714c0a4"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast16Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast16Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(1917551 / 420050000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e9adb0f3"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast16Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast16Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(1917551 / 420050000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000003fd89d3e"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast16Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast16Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(1116709 / 276550000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d1eef286"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast16Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast16Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(1116709 / 276550000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e3bbb758"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast8p72Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast8p72Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(115361 / 22244300)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b444864e"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast8p72Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast8p72Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(115361 / 22244300)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000019998119"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast8p72Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast8p72Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(2987 / 586724)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000066a9bb4"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast8p72Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast8p72Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(2987 / 586724)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000070da73f3"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast8p72Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast8p72Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(1553551 / 419686000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000010dea36"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast8p72Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast8p72Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(1553551 / 419686000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000ce97fc9f"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast8p72Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast8p72Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(2986127 / 829286000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b51d09bc"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast8p72Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast8p72Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(2986127 / 829286000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000032fef79a"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast8p72ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast8p72ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(16547 / 1711100)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000008842cd96"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast8p72ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast8p72ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(16547 / 1711100)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009d7a3993"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast8p72ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast8p72ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(4317 / 586724)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000000d8a7a4b"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast8p72ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast8p72ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(4317 / 586724)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f2dbdeb2"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast8p72ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast8p72ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(3548551 / 419686000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000091b1408d"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast8p72ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast8p72ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(3548551 / 419686000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000580ebb4a"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast8p72ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast8p72ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(4981127 / 829286000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000007e54781"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast8p72ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast8p72ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (218 / 25 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(4981127 / 829286000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000005bb58fe"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast32Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast32Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1391793839 / 178894700000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009a0f2fe9"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast32Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast32Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1391793839 / 178894700000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e1aa4603"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast32Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast32Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(754503077 / 117818660000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000007754893"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast32Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast32Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(754503077 / 117818660000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c6b4fd6f"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast32Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast32Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(2719901 / 420852350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f26172e5"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast32Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast32Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(2719901 / 420852350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000005c60686d"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast32Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast32Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(197737 / 39545350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000028ca43c9"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast32Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast32Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (32 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(197737 / 39545350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000005d1d83f6"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast32p06Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast32p06Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1392993839 / 178895900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000007fb7176e"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast32p06Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast32p06Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1392993839 / 178895900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000032ac7c48"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast32p06Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast32p06Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(251634359 / 39273020000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000655c68fa"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast32p06Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast32p06Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(251634359 / 39273020000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b57148f8"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast32p06Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast32p06Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(2722901 / 420855350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000661b3936"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast32p06Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast32p06Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(2722901 / 420855350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009078abb6"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast32p06Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast32p06Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(1385159 / 276818450)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000003a53cfc"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast32p06Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast32p06Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(1385159 / 276818450)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d172025c"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast16Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast16Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(3277657 / 546100000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f9c9d326"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast16Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast16Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(3277657 / 546100000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000008b58a5f2"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast16Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast16Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(1943509231 / 353135980000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000007c8af3de"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast16Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast16Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(1943509231 / 353135980000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000008db165b0"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast16Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast16Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(639967 / 140017450)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000025c49d70"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast16Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast16Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(639967 / 140017450)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000001c7b47c0"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast16Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast16Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(3352477 / 829652350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000007168f04a"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast16Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast16Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(3352477 / 829652350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f1d6cc22"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast8p72Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast8p72Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(926193839 / 178429100000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000311b9b2b"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast8p72Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast8p72Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(926193839 / 178429100000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000df16b447"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast8p72Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast8p72Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(599303077 / 117663460000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000109cdff3"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast8p72Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast8p72Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(599303077 / 117663460000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000000da85bd4"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast8p72Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast8p72Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1555901 / 419688350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a3239e51"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast8p72Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast8p72Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1555901 / 419688350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e40b1435"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast8p72Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast8p72Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(332053 / 92143150)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000be5b7fe4"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast8p72Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast8p72Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(332053 / 92143150)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a4b7cfac"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast8p72ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast8p72ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1724193839 / 178429100000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000003109a558"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast8p72ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast8p72ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1724193839 / 178429100000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e79ba082"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast8p72ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast8p72ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(50900181 / 6921380000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000bd8a83c8"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast8p72ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast8p72ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(50900181 / 6921380000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000491d55c2"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast8p72ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast8p72ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(3550901 / 419688350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000002d7dc37f"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast8p72ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast8p72ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(3550901 / 419688350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000074694b9c"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast8p72ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast8p72ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(1661159 / 276429450)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b7fe9404"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast8p72ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast8p72ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q]",
+        "  [Fintype R] [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (218 / 25 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(1661159 / 276429450)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c3b17564"
+    },
+    "Pouw.PearlC.ttOutPearlCDev_sm120v2_loop": {
+      "signature": [
+        "Pouw.PearlC.ttOutPearlCDev_sm120v2_loop {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ) :",
+        "  Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem ρ ↔",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "000000008e3056d6"
+    },
+    "Pouw.PearlC.ttOutTilePearlCDev_sm120v2_loop": {
+      "signature": [
+        "Pouw.PearlC.ttOutTilePearlCDev_sm120v2_loop {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ) :",
+        "  Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem ρ ↔",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d1f8bb09"
+    },
+    "Pouw.PearlC.ttOutPearlCDevChainCap_sm120v2_loop": {
+      "signature": [
+        "Pouw.PearlC.ttOutPearlCDevChainCap_sm120v2_loop {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ) :",
+        "  Pouw.PearlC.Assumptions.TTOutPearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem ρ ↔",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "000000002c51ba51"
+    },
+    "Pouw.PearlC.ttOutTilePearlCDevChainCap_sm120v2_loop": {
+      "signature": [
+        "Pouw.PearlC.ttOutTilePearlCDevChainCap_sm120v2_loop {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ) :",
+        "  Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem ρ ↔",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000040e66c69"
+    },
+    "Pouw.PearlC.ttOutPearlCDevChainOnly_sm120v2_loop": {
+      "signature": [
+        "Pouw.PearlC.ttOutPearlCDevChainOnly_sm120v2_loop {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ) :",
+        "  Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem ρ ↔",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000aa905e4d"
+    },
+    "Pouw.PearlC.ttOutTilePearlCDevChainOnly_sm120v2_loop": {
+      "signature": [
+        "Pouw.PearlC.ttOutTilePearlCDevChainOnly_sm120v2_loop {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ) :",
+        "  Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem ρ ↔",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000006c464f9"
+    },
+    "Pouw.PearlC.ttOutPearlCDevUOnly_sm120v2_loop": {
+      "signature": [
+        "Pouw.PearlC.ttOutPearlCDevUOnly_sm120v2_loop {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ) :",
+        "  Pouw.PearlC.Assumptions.TTOutPearlCDevUOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem ρ ↔",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevUOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "000000000522404a"
+    },
+    "Pouw.PearlC.ttOutTilePearlCDevUOnly_sm120v2_loop": {
+      "signature": [
+        "Pouw.PearlC.ttOutTilePearlCDevUOnly_sm120v2_loop {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ : ℚ) :",
+        "  Pouw.PearlC.Assumptions.TTOutTilePearlCDevUOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem ρ ↔",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevUOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem ρ"
+      ],
+      "assumptions": [],
+      "type_hash": "000000005bd5dc27"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast8Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast8Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(911793839 / 178414700000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000037480de1"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast8Rev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast8Rev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(911793839 / 178414700000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f905f1e9"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast8Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast8Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(84929011 / 16808380000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a0dd7c14"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast8Rev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast8Rev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1 CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(84929011 / 16808380000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000062641e0b"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast8Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast8Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1519901 / 419652350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000003d0b5300"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast8Cap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast8Cap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000) (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1519901 / 419652350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000aca1270f"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast8Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast8Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(109351 / 30713050)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000955f10bd"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast8Cap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast8Cap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDev CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000) (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(109351 / 30713050)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c11ae764"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast32p06ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast32p06ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(273461 / 22302650)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000aea96d23"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast32p06ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast32p06ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(273461 / 22302650)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f52658d6"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast32p06ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast32p06ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(5095 / 587502)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000004baaca9d"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast32p06ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast32p06ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(5095 / 587502)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000ceff1b53"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast32p06ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast32p06ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(4715551 / 420853000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000096dfb975"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast32p06ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast32p06ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(4715551 / 420853000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e369218b"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast32p06ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast32p06ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(6148127 / 830453000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000ba2f0245"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast32p06ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast32p06ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (1603 / 50 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(6148127 / 830453000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e9eb8ba2"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast16ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast16ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(131 / 12500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000061ae9ed"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast16ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast16ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(131 / 12500)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000005ef209fe"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1Cast16ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1Cast16ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(13679 / 1760900)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000005226e50"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1Cast16ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1Cast16ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) sem (1 / 400) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(13679 / 1760900)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000002295f06b"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast16ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast16ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(3912551 / 420050000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000001b3b3669"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast16ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast16ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh8192)",
+        "    (↑(3912551 / 420050000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a17b673d"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2Cast16ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2Cast16ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(1781709 / 276550000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000005eaa12eb"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2Cast16ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2Cast16ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) sem (1 / 1000) (16 - 8))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120) Pouw.PearlC.sh16384)",
+        "    (↑(1781709 / 276550000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c9eb4621"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast32p06ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast32p06ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(2190993839 / 178895900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000060710a08"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast32p06ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast32p06ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(2190993839 / 178895900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000000a470285"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast32p06ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast32p06ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(1020903077 / 117819060000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000015cb4575"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast32p06ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast32p06ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(1020903077 / 117819060000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000bbfb62dc"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast32p06ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast32p06ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(4717901 / 420855350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b178b1ab"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast32p06ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast32p06ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q]",
+        "  [Fintype R] [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(4717901 / 420855350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000086f1b20e"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast32p06ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast32p06ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(2050159 / 276818450)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000ac052736"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast32p06ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast32p06ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q]",
+        "  [Fintype R] [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (1603 / 50 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(2050159 / 276818450)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000be7c53c5"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast16ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast16ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(623264613 / 59524900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000698e243f"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast16ChainOnlyRev1_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast16ChainOnlyRev1_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(623264613 / 59524900000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000611b2872"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1LoopCast16ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1LoopCast16ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(2741509231 / 353135980000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000003331b6db"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1LoopCast16ChainOnlyRev1_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1LoopCast16ChainOnlyRev1_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevRev1ChainOnly CM (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 400)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevRev1K (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) sem (1 / 400)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v1 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(2741509231 / 353135980000)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009bea1685"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast16ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast16ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1304967 / 140017450)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a64aa0f1"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast16ChainOnlyCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast16ChainOnlyCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1304967 / 140017450)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c1389d48"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast16ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast16ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(5347477 / 829652350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000419f06f4"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast16ChainOnlyCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast16ChainOnlyCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainOnly CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (16 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(5347477 / 829652350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000bb59c3d9"
+    },
+    "Pouw.PearlC.pearlCGammaDevChainCapKAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaDevChainCapKAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ c : ℚ)",
+        "  (s : Pouw.PearlC.Shape) (ω γ : ℚ) (hω0 : 0 < ω)",
+        "  (hω : Pouw.PearlC.wrefDevK d c s = ω * (Pouw.PearlC.creditDev d s - ρ * Pouw.PearlC.chainCreditDev d s))",
+        "  (hγ : γ = 1 - (1 - 1 / 400) / ω) (hTT : Pouw.PearlC.Assumptions.TTOutPearlCDevChainCap CM d sem ρ) :",
+        "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolDevChainCapK d sem ρ c) (Pouw.PearlC.pearlCDomainDevAt d s) (↑γ)",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000047afb027"
+    },
+    "Pouw.PearlC.pearlCSampledDevChainCapKAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledDevChainCapKAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.PearlCDevice) (sem : Pouw.PearlC.PearlCSem Q R S) (ρ c : ℚ)",
+        "  (s : Pouw.PearlC.Shape) (ω γ : ℚ) (hω0 : 0 < ω) (hw0 : 0 ≤ Pouw.PearlC.wrefDevK d c s)",
+        "  (hω : Pouw.PearlC.wrefDevK d c s = ω * ((1 - ρ) * Pouw.PearlC.creditDev d s)) (hγ : γ = 1 - (1 - 1 / 400) / ω)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainCap CM d sem ρ) :",
+        "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolDevChainCapK d sem ρ c)",
+        "    (Pouw.PearlC.pearlCTilesDevChainCapK d sem ρ c) (Pouw.PearlC.pearlCDomainDevAt d s) (↑γ) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000188e4143"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast8ChainCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast8ChainCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevChainCapK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(754963 / 209826175)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000ced66859"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCast8ChainCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v2LoopCast8ChainCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutPearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.Gγ CM",
+        "    (Pouw.PearlC.pearlCProtocolDevChainCapK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(490417 / 138208725)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000018fd5060"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast8ChainCap1000_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast8ChainCap1000_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevChainCapK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevChainCapK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh8192)",
+        "    (↑(1519901 / 419652350)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000dc5cc894"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCast8ChainCap1000_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v2LoopCast8ChainCap1000_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (sem : Pouw.PearlC.PearlCSem Q R S)",
+        "  (hTT :",
+        "    Pouw.PearlC.Assumptions.TTOutTilePearlCDevChainCap CM (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem",
+        "      (1 / 1000)) :",
+        "  Pouw.PearlC.GγSampled CM",
+        "    (Pouw.PearlC.pearlCProtocolDevChainCapK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCTilesDevChainCapK (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) sem (1 / 1000)",
+        "      (8 - 8953 / 1000))",
+        "    (Pouw.PearlC.pearlCDomainDevAt (Pouw.PearlC.devSm120v2 Pouw.PearlC.Prices.sm120Loop) Pouw.PearlC.sh16384)",
+        "    (↑(109351 / 30713050)) Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000007b4dbe5e"
+    }
+  },
+  "labels": {
+    "Pouw.PearlC.pearlCGammaUnpromotedCap1000Loop_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v2LoopCast8Cap1000_8192",
+    "Pouw.PearlC.pearlCGammaUnpromotedCap1000Loop_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v2LoopCast8Cap1000_16384",
+    "Pouw.PearlC.pearlCSampledUnpromotedCap1000Loop_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v2LoopCast8Cap1000_8192",
+    "Pouw.PearlC.pearlCSampledUnpromotedCap1000Loop_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v2LoopCast8Cap1000_16384",
+    "Pouw.PearlC.pearlCGammaSm120LoopRev1_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v1LoopCast8Rev1_8192",
+    "Pouw.PearlC.pearlCGammaSm120LoopRev1_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v1LoopCast8Rev1_16384",
+    "Pouw.PearlC.pearlCSampledSm120LoopRev1_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v1LoopCast8Rev1_8192",
+    "Pouw.PearlC.pearlCSampledSm120LoopRev1_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v1LoopCast8Rev1_16384",
+    "Pouw.PearlC.pearlCGammaUnpromotedChainCap1000Loop_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v2LoopCast8ChainCap1000_8192",
+    "Pouw.PearlC.pearlCGammaUnpromotedChainCap1000Loop_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v2LoopCast8ChainCap1000_16384",
+    "Pouw.PearlC.pearlCSampledUnpromotedChainCap1000Loop_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v2LoopCast8ChainCap1000_8192",
+    "Pouw.PearlC.pearlCSampledUnpromotedChainCap1000Loop_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v2LoopCast8ChainCap1000_16384",
+    "Pouw.PearlC.pearlCGammaUOnlySm120LoopRev1_8192": "upper bound (qa rounded up to 2)",
+    "Pouw.PearlC.pearlCGammaUOnlyUnpromotedCap1000Loop_8192": "upper bound (qa rounded up to 2)",
+    "Pouw.PearlC.pearlCSampledUOnlySm120LoopRev1_8192": "upper bound (qa rounded up to 2)",
+    "Pouw.PearlC.pearlCSampledUOnlyUnpromotedCap1000Loop_8192": "upper bound (qa rounded up to 2)",
+    "Pouw.PearlC.pearlCGammaSm120v1LoopRev1_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v1LoopCast8Rev1_8192",
+    "Pouw.PearlC.pearlCGammaSm120v1LoopRev1_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v1LoopCast8Rev1_16384",
+    "Pouw.PearlC.pearlCSampledSm120v1LoopRev1_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v1LoopCast8Rev1_8192",
+    "Pouw.PearlC.pearlCSampledSm120v1LoopRev1_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v1LoopCast8Rev1_16384",
+    "Pouw.PearlC.pearlCGammaUOnlySm120v1LoopRev1_8192": "upper bound (qa rounded up to 2)",
+    "Pouw.PearlC.pearlCSampledUOnlySm120v1LoopRev1_8192": "upper bound (qa rounded up to 2)",
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCap1000_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v2LoopCast8Cap1000_8192",
+    "Pouw.PearlC.pearlCGammaSm120v2LoopCap1000_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v2LoopCast8Cap1000_16384",
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCap1000_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v2LoopCast8Cap1000_8192",
+    "Pouw.PearlC.pearlCSampledSm120v2LoopCap1000_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v2LoopCast8Cap1000_16384",
+    "Pouw.PearlC.pearlCGammaUOnlySm120v2LoopCap1000_8192": "upper bound (qa rounded up to 2)",
+    "Pouw.PearlC.pearlCSampledUOnlySm120v2LoopCap1000_8192": "upper bound (qa rounded up to 2)",
+    "Pouw.PearlC.pearlCGammaSm120v2LoopChainCap1000_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v2LoopCast8ChainCap1000_8192",
+    "Pouw.PearlC.pearlCGammaSm120v2LoopChainCap1000_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCGammaSm120v2LoopCast8ChainCap1000_16384",
+    "Pouw.PearlC.pearlCSampledSm120v2LoopChainCap1000_8192": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v2LoopCast8ChainCap1000_8192",
+    "Pouw.PearlC.pearlCSampledSm120v2LoopChainCap1000_16384": "upper bound (qa rounded up to 2); exact in-loop value: Pouw.PearlC.pearlCSampledSm120v2LoopCast8ChainCap1000_16384"
+  },
+  "layers": {
+    "Pouw.PearlC.DevicePricesLoop": {
+      "imports": [
+        "Mathlib",
+        "Pouw.Basic",
+        "Pouw.PearlC.Device"
+      ],
+      "except": [],
+      "why": "sm_120's in-loop W1 prices: definitions only, reading the device record"
+    },
+    "Pouw.PearlC.DeviceKernelWref": {
+      "imports": [
+        "Mathlib",
+        "Pouw.Basic",
+        "Pouw.PearlC.DeviceRev1"
+      ],
+      "except": [],
+      "why": "Pearl-C's protocol and tiles at a record with the honest kernel's W_ref: definitions only, reading the record's protocol and tiles"
+    },
+    "Pouw.PearlC.DeviceChainOnly": {
+      "imports": [
+        "Mathlib",
+        "Pouw.Basic",
+        "Pouw.PearlC.DeviceKernelWref"
+      ],
+      "except": [],
+      "why": "the chain-only credit, protocol and tiles at a record: definitions only"
+    },
+    "Pouw.PearlC.TTOutChainOnly": {
+      "imports": [
+        "Mathlib",
+        "Pouw.Basic",
+        "Pouw.PearlC.TTOut",
+        "Pouw.PearlC.DeviceChainOnly"
+      ],
+      "except": [],
+      "why": "the chain-only TT_OUT forms and their game import no proofs"
+    },
+    "Pouw.PearlC.DeviceChainCapKernel": {
+      "imports": [
+        "Mathlib",
+        "Pouw.Basic",
+        "Pouw.PearlC.DeviceChainCap",
+        "Pouw.PearlC.DeviceKernelWref"
+      ],
+      "except": [],
+      "why": "Pearl-C's chain-cap protocol and tiles at a record with the honest kernel's W_ref: definitions only, reading the record's chain-cap protocol and tiles"
+    }
+  }
+}

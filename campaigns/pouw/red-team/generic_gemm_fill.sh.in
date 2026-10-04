@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# fill: owner=bc-d7d4b0d1 gpus=1 max_min=25 cpus=8 project=pous prio=10 mem_gb=16
+# Writer: bc-c7421547, an agent the sm_120 PoUW coordinator (bc-2aa33ad8) started by mistake, not the assessor. The assessor (bc-d7d4b0d1) reviewed and adopted it (run r20260930-085618-5cfa), 30 Sep 2026.
+# Independent assessor (bc-d7d4b0d1; written by bc-c7421547 in that role), `generic-core-rate/sm120`: the fastest
+# non-tensor-core GEMM on the card as a kernel, not a peak (FFMA, BF16-in FFMA, HFMA2 f16/bf16, dp4a int8, dp4a on NVFP4
+# codes with the block rescale), 8 tile configs each, against cuBLAS SGEMM (pedantic) and cuBLAS BF16 in the same process.
+# Shape @SHAPE@. GPU-bound throughout: each config runs back to back for @SECS@ s of GPU time after a bit-exact gate on 256
+# sampled words. One variant per chunk; a chunk's JSONL is its checkpoint. Exit 99 while variants remain, 0 when all are done.
+# Code: project store internal/pouw/red-team/generic_gemm_sm120.cu, pinned copy /workspace/pouw/red-team/generic-gemm/src/@SHA@,
+# built and SASS-gated (no tensor-core op in any of the 48 kernels) in /workspace/pouw/red-team/generic-gemm/build/@SHA@.
+set -euo pipefail
+SHA=@SHA@
+SHAPE=@SHAPE@; M=@M@; N=@N@; K=@K@; SECS=@SECS@
+SRC=/workspace/pouw/red-team/generic-gemm/src/$SHA
+BLD=/workspace/pouw/red-team/generic-gemm/build/$SHA
+OUT=/workspace/pouw/fill-out/assessor-generic-gemm/$SHAPE
+VARIANTS=(ffma_f32 ffma_bf16 hfma2_f16 hfma2_bf16 dp4a_s8 dp4a_nvfp4)
+mkdir -p "$OUT" "$BLD"
+if [ ! -x "$BLD/generic_gemm" ]; then
+  (
+    flock -x 9
+    if [ ! -x "$BLD/generic_gemm" ]; then
+      /usr/local/cuda/bin/nvcc -O3 -std=c++17 -gencode arch=compute_120a,code=sm_120a -Xptxas -v \
+        "$SRC/generic_gemm_sm120.cu" -lcublas -o "$BLD/generic_gemm.tmp" 2> "$BLD/ptxas.log"
+      /usr/local/cuda/bin/cuobjdump -sass "$BLD/generic_gemm.tmp" > "$BLD/sass.txt"
+      python3 "$SRC/generic_gemm_sass_gate.py" "$BLD/sass-gate.json" 48 < "$BLD/sass.txt"
+      mv "$BLD/generic_gemm.tmp" "$BLD/generic_gemm"
+    fi
+  ) 9> "$BLD/.lock"
+fi
+python3 -c 'import json, sys; sys.exit(0 if json.load(open(sys.argv[1]))["pass"] else 1)' "$BLD/sass-gate.json"
+UUID=${GPU_LEASE_UUID:-$(nvidia-smi -i "${CUDA_VISIBLE_DEVICES%%,*}" --query-gpu=uuid --format=csv,noheader)}
+export GPU_LEASE_UUID=$UUID
+for v in "${VARIANTS[@]}"; do
+  out="$OUT/$v.jsonl"
+  [ -s "$out" ] && continue
+  starts=$(( $(cat "$OUT/$v.starts" 2>/dev/null || echo 0) + 1 ))
+  echo "$starts" > "$OUT/$v.starts"
+  if [ "$starts" -gt 5 ]; then echo "chunk $SHAPE/$v started 5 times without finishing" >&2; exit 1; fi
+  echo "chunk $SHAPE/$v start=$(date -u +%FT%TZ) job=${FILL_JOB:-?} uuid=$UUID sha=$SHA"
+  nvidia-smi --id="$UUID" --query-gpu=timestamp,clocks.sm,clocks.mem,power.draw,temperature.gpu,utilization.gpu \
+    --format=csv,noheader -lms 1000 > "$OUT/$v.clocks.csv" &
+  SMI=$!
+  trap 'kill "$SMI" 2>/dev/null || true' EXIT
+  "$BLD/generic_gemm" "$M" "$N" "$K" "$SECS" "$v" > "$out.tmp"
+  kill "$SMI" 2>/dev/null || true
+  trap - EXIT
+  mv "$out.tmp" "$out"
+  echo "chunk $SHAPE/$v done=$(date -u +%FT%TZ)"
+  for w in "${VARIANTS[@]}"; do [ -s "$OUT/$w.jsonl" ] || exit 99; done
+  exit 0
+done
+exit 0

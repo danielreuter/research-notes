@@ -1,0 +1,74 @@
+--- ttout-fp4-staging/Pouw/PearlC/DeviceFp4.lean
++++ fix rehearsal (bc-876ca543, private copy; NVFP4 only)
+@@ -268,6 +268,19 @@
+ def span24 {p : ℕ} (A : Op4 p) (i : Fin p) (c : ℕ) : Prop :=
+   ∀ i' : Fin p, (i' : ℕ) / 16 = (i : ℕ) / 16 → rowIs24 (A i') c = true
+ 
++/-- F2's cost of the masked int8 route per useful MAC (theory §6.3, bc-d9842080's pinned `c_L`, W1's leaf 2.0): the best
++depth `L`, from 1 to `log₂(k/16)` (NVFP4's UE4M3 block of 16), of `2·(7/8)^L + 4.25·(1/m + 1/n)·((7/4)^L − 1)/0.75`;
++`1`, no saving, when no depth fits. -/
++def cL (m k n : ℕ) : ℚ :=
++  ((List.range (Nat.log2 (k / 16))).map fun L : ℕ =>
++    2 * (7 / 8 : ℚ) ^ (L + 1) + 17 / 4 * (1 / (m : ℚ) + 1 / n) * ((7 / 4 : ℚ) ^ (L + 1) - 1) / (3 / 4)).foldl min 1
++
++/-- F2's flatness: the share of the rows `I`'s scale bytes at their most common byte (the tile's modal byte). -/
++noncomputable def modalShare {p : ℕ} (A : Op4 p) (I : Finset (Fin p)) : ℚ :=
++  let cnt := fun v : Fin 256 => ∑ i ∈ I, ((A i).map fun r => r.2.count v).getD 0
++  let tot := ∑ i ∈ I, ((A i).map fun r => r.2.length).getD 0
++  if tot = 0 then 0 else (((univ : Finset (Fin 256)).sup cnt : ℕ) : ℚ) / tot
++
+ end Pouw.PearlC.Fp4Dev
+ 
+ namespace Pouw.PearlC
+@@ -357,6 +370,10 @@
+     Lines4 (U.layout.shape u).m (U.layout.shape u).n (U.layout.shape u).k
+   alpha : (k : ℕ) → (Fin k → ℚ) → ℚ
+   beta : (k : ℕ) → (Fin k → ℚ) → ℚ
++  /-- F1′'s `S_w` (rehearsal): the split's expected saving on window `w` of a row, from its clean values and `E_i`. -/
++  splitSave : (k : ℕ) → (Fin k → ℚ) → (Fin 32 → Nib) → ℕ → ℚ
++  /-- F1′'s modal byte (rehearsal): block `b`'s most likely scale byte, from the row's clean values and `E_i`. -/
++  modalByte : (k : ℕ) → (Fin k → ℚ) → (Fin 32 → Nib) → ℕ → Fin 256
+ 
+ variable {Q R S : Type}
+ 
+@@ -417,6 +434,14 @@
+   d.useful AB.1 AB.2 z.FA z.FB (fun i => eTilde (z.EA i) (e4m3 (sem.beta sh.k (X i))))
+     (fun j => eTilde (z.EB j) (e4m3 (sem.beta sh.k (W j))))
+ 
++/-- F1′'s charge per word of one formed row (theory §6.2, rehearsal): over each aligned 128-window `w`,
++`128·max(0, S_w − min(c·M_w, 1/8))`, with `M_w` the window's blocks off their modal byte and `c = 16.92/128`. -/
++noncomputable def Fp4Sem.f1Row (sem : Fp4Sem Q R S) {k : ℕ} (x : Fin k → ℚ) (e : Fin 32 → Nib) (r : Option Row4) : ℚ :=
++  ∑ w ∈ range (k / 128),
++    128 * max 0 (sem.splitSave k x e w - min (423 / 3200 * (((range 8).filter fun b =>
++      (r.map fun r => decide (r.2.getD (8 * w + b) 0 ≠ sem.modalByte k x e (8 * w + b))).getD false = true).card : ℚ))
++      (1 / 8))
++
+ open Classical in
+ /-- **A tile's replayed debit at an FP4 record** (theory §2), in FP4 units, over the words `rows × cols` of unit `u`,
+ from the committed activations, the weights and the realized noise (the `unitForm` the ticket reads):
+@@ -437,18 +462,22 @@
+   let AB := sem.unitForm d H s U u act
+   let fl := d.flags AB.1 AB.2
+   let sdA := fun (i : Fin sh.m) (l : Fin sh.k) => d.saltDead sem.alpha sem.beta sh.k (X i) l
+-  let sdB := fun (j : Fin sh.n) (l : Fin sh.k) => d.saltDead sem.alpha sem.beta sh.k (W j) l
+   let I := (univ : Finset (Fin sh.m)).filter fun i : Fin sh.m => (i : ℕ) ∈ rows
+   let J := (univ : Finset (Fin sh.n)).filter fun j : Fin sh.n => (j : ℕ) ∈ cols
+   let spans := (J.card : ℚ) * ∑ i ∈ I, ((range (sh.k / 128)).filter fun c => span24 AB.1 i c).card +
+     (I.card : ℚ) * ∑ j ∈ J, ((range (sh.k / 128)).filter fun c => span24 AB.2 j c).card
+-  let t24 := (J.card : ℚ) * ∑ i ∈ I, row24 (sdA i) + (I.card : ℚ) * ∑ j ∈ J, row24 (sdB j)
++  let z := sem.lines H s U u act
++  let f1 := (J.card : ℚ) * ∑ i ∈ I, sem.f1Row (X i) (z.EA i) (AB.1 i) +
++    (I.card : ℚ) * ∑ j ∈ J, sem.f1Row (W j) (z.EB j) (AB.2 j)
++  let f2 := max 0 (1 - cL sh.m sh.k sh.n - 4 * (2 - modalShare AB.1 I - modalShare AB.2 J)) *
++    ((I.card : ℚ) * J.card * sh.k)
+   let atoms := ∑ i ∈ I, ∑ j ∈ J, ((range (sh.k / 64)).filter fun t => fl i j t = true).card
+   let pairs := ∑ i ∈ I, ∑ j ∈ J, ((range (sh.k / 16)).filter fun b => d.deadPair (X i) (W j) b = true).card
+   let subs := ∑ i ∈ I, ∑ j ∈ J, ((range (sh.k / 16)).filter fun b => d.subgrid AB.1 AB.2 i j b = true).card
+   let elems := ((univ : Finset (Fin sh.m × Fin sh.k)).filter fun e => (e.1 : ℕ) ∈ rows ∧
+     (sdA e.1 e.2 ∨ ∀ j : Fin sh.n, (j : ℕ) ∈ cols → fl e.1 j ((e.2 : ℕ) / 64) = true)).card
+-  64 * spans + t24 + 64 * (atoms : ℚ) + 16 * (pairs : ℚ) + d.prices.fs * (cols.card / sh.n) * elems + 16 * (subs : ℚ)
++  64 * spans + f1 + 64 * (atoms : ℚ) + 16 * (pairs : ℚ) + d.prices.fs * (cols.card / sh.n) * elems + 16 * (subs : ℚ) +
++    f2
+ 
+ /-- **The unit's replayed debit at an FP4 record**: the tile debit over all its words. -/
+ noncomputable def Fp4Sem.unitDebit (sem : Fp4Sem Q R S) (d : Fp4Device) (H : Q → R) (s : S) (U : Workload) (u : ℕ)

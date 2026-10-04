@@ -1,0 +1,1417 @@
+{
+  "note": "bc-876ca543's v1-hot price twins (ttout-restatements.md section 9, bc-b58c6093): 4 general theorems (any protocol meeting v1-hot's accounting at a record, forming credited and chain-only), 64 twins (v1 under rev1 at the cap 1/400, G = 4, forming credited and chain-only, per unit and per tile, 8192^3 and 16384^3, at Prices.sm120 (FADD 8.00) and Prices.sm120Loop (FADD 1047/125 = 8.376), honest cast 8, 8.72, 32.06 and 16, for every H_{i,g} sizing rule h), and 32 values of gammaHotRev1 / gammaHotRev1ChainOnly at HotSizing.publicConst 64. One layers entry, for DeviceHotRev1. Records from audit.py --update --no-replay (PASS, 14:37Z, 853 pins) over the same private copy as ../proposed-pins.json; the two modules' kernel replay was run separately (123 constants accepted).",
+  "pins": {
+    "Pouw.PearlC.pearlCGammaHotRev1At": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaHotRev1At {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (c ρ : Rat) (s : Pouw.PearlC.Shape)",
+        "  (hρ : Rat.instLT.lt ρ 1) (hC : Rat.instLT.lt 0 (Pouw.PearlC.creditDevRev1Hot d s))",
+        "  (hW0 : Rat.instLT.lt 0 (Pouw.PearlC.wrefDevRev1Hot d h c s)) (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h c ρ s)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h c ρ s).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000fb34f635"
+    },
+    "Pouw.PearlC.pearlCSampledHotRev1At": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledHotRev1At {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (c ρ : Rat)",
+        "  (s : Pouw.PearlC.Shape) (hρ : Rat.instLT.lt ρ 1) (hC : Rat.instLT.lt 0 (Pouw.PearlC.creditDevRev1Hot d s))",
+        "  (hW0 : Rat.instLT.lt 0 (Pouw.PearlC.wrefDevRev1Hot d h c s))",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h c ρ s)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1 d h c ρ s).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000adda7f28"
+    },
+    "Pouw.PearlC.pearlCGammaHotRev1ChainOnlyAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaHotRev1ChainOnlyAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (c ρ : Rat) (s : Pouw.PearlC.Shape)",
+        "  (hK :",
+        "    Rat.instLT.lt 0",
+        "      (instHSub.hSub (Pouw.PearlC.creditDevRev1HotChainOnly d s) (instHMul.hMul ρ (Pouw.PearlC.creditDevRev1Hot d s))))",
+        "  (hW0 : Rat.instLT.lt 0 (Pouw.PearlC.wrefDevRev1Hot d h c s))",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h c ρ s)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1ChainOnly d h c ρ s).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000007dfe43fa"
+    },
+    "Pouw.PearlC.pearlCSampledHotRev1ChainOnlyAt": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledHotRev1ChainOnlyAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (c ρ : Rat)",
+        "  (s : Pouw.PearlC.Shape)",
+        "  (hK :",
+        "    Rat.instLT.lt 0",
+        "      (instHSub.hSub (Pouw.PearlC.creditDevRev1HotChainOnly d s) (instHMul.hMul ρ (Pouw.PearlC.creditDevRev1Hot d s))))",
+        "  (hW0 : Rat.instLT.lt 0 (Pouw.PearlC.wrefDevRev1Hot d h c s))",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h c ρ s)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1ChainOnly d h c ρ s).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000ffd231e1"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast8_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast8_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000006192419f"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast8_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast8_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f4012913"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast8_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast8_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000000f2b481"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast8_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast8_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c3f7829e"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast8ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast8ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000008c7c90ea"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast8ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast8ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009f978d34"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast8ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast8ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000025c76003"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast8ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast8ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d6509d30"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast8p72_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast8p72_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c14a2afd"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast8p72_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast8p72_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000587fe68f"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast8p72_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast8p72_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e45ab45c"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast8p72_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast8p72_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000db8b57dc"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast8p72ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast8p72ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000076a93633"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast8p72ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast8p72ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000fee39d81"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast8p72ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast8p72ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e976ca07"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast8p72ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast8p72ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000007f24c52f"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast32p06_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast32p06_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000025ccf7e5"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast32p06_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast32p06_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a7d088eb"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast32p06_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast32p06_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000014804145"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast32p06_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast32p06_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000008413b29f"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast32p06ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast32p06ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000006729e7c8"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast32p06ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast32p06ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000006132d8ed"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast32p06ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast32p06ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000011cbb5c0"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast32p06ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast32p06ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a73891e5"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast16_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast16_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000bb6917e2"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast16_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast16_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000026675a97"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast16_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast16_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000406ff85c"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast16_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast16_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000080d3c04e"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast16ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast16ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000050aa81e5"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast16ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast16ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000bab608a8"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotCast16ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotCast16ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000027c4e5ba"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotCast16ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotCast16ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000006ca06fd8"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009c9f72f6"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f1a458d7"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000288231e2"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000654cf72b"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a4e30cb3"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f6f071d8"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000007dbf8634"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000005d94d0f2"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000008ce49e8a"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b62fd315"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000af5cb0dd"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b993326d"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000040ea7829"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009ad0dc93"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c105bc46"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000bdcaca88"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000003d7e0e73"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000008574dc7c"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000cf45ec3a"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f46097e6"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b42584cf"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c2758ea3"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000075cff1fd"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000227db1b2"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e734ec0d"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d8d1ee1e"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000000b90c031"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+        "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000673c949b"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b65817fa"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16ChainOnly_8192": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000008b73e6fd"
+    },
+    "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+        "  (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.Gγ CM P D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000005511b1c3"
+    },
+    "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16ChainOnly_16384": {
+      "signature": [
+        "Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]",
+        "  [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+        "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)",
+        "  (hacc :",
+        "    Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+        "  Pouw.PearlC.GγSampled CM P TR D",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast",
+        "    Pouw.PearlC.εPearlC"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009a59e835"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotCast8_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotCast8_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192)",
+        "    (29136559 / 5699239375)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000171385d6"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotCast8_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotCast8_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 8) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "    (113909711 / 22539599375)"
+      ],
+      "assumptions": [],
+      "type_hash": "000000001f4bf745"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 8) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "    (54672559 / 5699239375)"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000083209767"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 8) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "    (164981711 / 22539599375)"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000008c3c046"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotCast8p72_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotCast8p72_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) 8) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "    (29597359 / 5699700175)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000234b415a"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotCast8p72_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotCast8p72_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) 8) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "    (16404473 / 3220074425)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000240ba9b0"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8p72_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8p72_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) 8) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "    (55133359 / 5699700175)"
+      ],
+      "assumptions": [],
+      "type_hash": "000000009d6182d6"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8p72_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8p72_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) 8) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "    (23700473 / 3220074425)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000452212ea"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotCast32p06_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotCast32p06_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) 8) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "    (6362137 / 816376825)"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000016a1e272"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotCast32p06_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotCast32p06_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) 8) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "    (144706511 / 22570396175)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e64f2143"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast32p06_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast32p06_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) 8) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "    (10010137 / 816376825)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000affa657e"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast32p06_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast32p06_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) 8) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "    (195778511 / 22570396175)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000cc4b2122"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotCast16_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotCast16_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 8) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "    (11418853 / 1901453125)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000a9e0bd2a"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotCast16_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotCast16_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 8) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "    (5911891 / 1073801875)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b0da53dc"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast16_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast16_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 8) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "    (19930853 / 1901453125)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000971a1783"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast16_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast16_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 8) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "    (8343891 / 1073801875)"
+      ],
+      "assumptions": [],
+      "type_hash": "000000003932b396"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "    (29245398169 / 5714672265625)"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000089f0ae21"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "    (145953047 / 28864964375)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000c47ccab2"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 (8953 / 1000))",
+        "      (1 / 400) Pouw.PearlC.sh8192)",
+        "    (54781398169 / 5714672265625)"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000088acc674"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 (8953 / 1000))",
+        "      (1 / 400) Pouw.PearlC.sh16384)",
+        "    (4239826559 / 579519669375)"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000080ca0720"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8p72_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8p72_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) (8953 / 1000))",
+        "      (1 / 400) Pouw.PearlC.sh8192)",
+        "    (29706198169 / 5715133065625)"
+      ],
+      "assumptions": [],
+      "type_hash": "000000002af81719"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8p72_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8p72_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) (8953 / 1000))",
+        "      (1 / 400) Pouw.PearlC.sh16384)",
+        "    (12800315089 / 2511354300625)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000d3c1adb5"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8p72_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8p72_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice)",
+        "  (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) (8953 / 1000))",
+        "      (1 / 400) Pouw.PearlC.sh8192)",
+        "    (55242198169 / 5715133065625)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000887e364a"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8p72_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8p72_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice)",
+        "  (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) (8953 / 1000))",
+        "      (1 / 400) Pouw.PearlC.sh16384)",
+        "    (55424945267 / 7534062901875)"
+      ],
+      "assumptions": [],
+      "type_hash": "000000002304e012"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast32p06_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast32p06_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) (8953 / 1000))",
+        "      (1 / 400) Pouw.PearlC.sh8192)",
+        "    (44643798169 / 5730070665625)"
+      ],
+      "assumptions": [],
+      "type_hash": "0000000055a12df6"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast32p06_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast32p06_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) (8953 / 1000))",
+        "      (1 / 400) Pouw.PearlC.sh16384)",
+        "    (48359345267 / 7544021301875)"
+      ],
+      "assumptions": [],
+      "type_hash": "000000002a266553"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast32p06_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast32p06_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice)",
+        "  (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64)",
+        "      (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)",
+        "    (70179798169 / 5730070665625)"
+      ],
+      "assumptions": [],
+      "type_hash": "000000003bc57bb2"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast32p06_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast32p06_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice)",
+        "  (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64)",
+        "      (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)",
+        "    (65383345267 / 7544021301875)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000980ac552"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast16_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast16_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh8192)",
+        "    (11455132723 / 1906597421875)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000f4a2e939"
+    },
+    "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast16_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast16_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 (8953 / 1000)) (1 / 400)",
+        "      Pouw.PearlC.sh16384)",
+        "    (124521235801 / 22611507105625)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000e371fa9c"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast16_publicConst64_8192": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast16_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)",
+        "  (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 (8953 / 1000))",
+        "      (1 / 400) Pouw.PearlC.sh8192)",
+        "    (19967132723 / 1906597421875)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000b076c356"
+    },
+    "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast16_publicConst64_16384": {
+      "signature": [
+        "Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast16_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice)",
+        "  (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :",
+        "  Eq",
+        "    (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 (8953 / 1000))",
+        "      (1 / 400) Pouw.PearlC.sh16384)",
+        "    (175593235801 / 22611507105625)"
+      ],
+      "assumptions": [],
+      "type_hash": "00000000375b6990"
+    }
+  },
+  "layers": {
+    "Pouw.PearlC.DeviceHotRev1": {
+      "imports": [
+        "Mathlib",
+        "Pouw.Basic",
+        "Pouw.PearlC.DeviceHot",
+        "Pouw.PearlC.DeviceRev1"
+      ],
+      "except": [],
+      "why": "v1-hot's credit, W_ref and accounting at a record: definitions only, reading rev1's credit and v2-hot's sizing rule"
+    }
+  }
+}

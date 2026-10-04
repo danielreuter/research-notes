@@ -1,0 +1,1078 @@
+v1-hot: what audit.py --update recorded in bc-876ca543's private copy (14:37Z, PASS, 10,119 declarations, 853 pins).
+The 100 new pins' signatures and the 10 new definitions as they are now (their `read by` lists shortened to a count).
+Nothing else changed: no existing pin record and no existing definition.
+
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast16_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast16_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 8) (1 / 400)
+            Pouw.PearlC.sh16384)
+          (8343891 / 1073801875)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast16_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast16_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 8) (1 / 400)
+            Pouw.PearlC.sh8192)
+          (19930853 / 1901453125)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast32p06_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast32p06_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) 8) (1 / 400)
+            Pouw.PearlC.sh16384)
+          (195778511 / 22570396175)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast32p06_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast32p06_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) 8) (1 / 400)
+            Pouw.PearlC.sh8192)
+          (10010137 / 816376825)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 8) (1 / 400)
+            Pouw.PearlC.sh16384)
+          (164981711 / 22539599375)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 8) (1 / 400)
+            Pouw.PearlC.sh8192)
+          (54672559 / 5699239375)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8p72_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8p72_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) 8) (1 / 400)
+            Pouw.PearlC.sh16384)
+          (23700473 / 3220074425)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8p72_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotCast8p72_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) 8) (1 / 400)
+            Pouw.PearlC.sh8192)
+          (55133359 / 5699700175)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast16_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast16_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice)
+        (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 (8953 / 1000))
+            (1 / 400) Pouw.PearlC.sh16384)
+          (175593235801 / 22611507105625)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast16_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast16_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 (8953 / 1000))
+            (1 / 400) Pouw.PearlC.sh8192)
+          (19967132723 / 1906597421875)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast32p06_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast32p06_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice)
+        (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64)
+            (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)
+          (65383345267 / 7544021301875)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast32p06_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast32p06_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice)
+        (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64)
+            (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+          (70179798169 / 5730070665625)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 (8953 / 1000))
+            (1 / 400) Pouw.PearlC.sh16384)
+          (4239826559 / 579519669375)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 (8953 / 1000))
+            (1 / 400) Pouw.PearlC.sh8192)
+          (54781398169 / 5714672265625)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8p72_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8p72_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice)
+        (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) (8953 / 1000))
+            (1 / 400) Pouw.PearlC.sh16384)
+          (55424945267 / 7534062901875)
+  pin Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8p72_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1ChainOnly_sm120v1HotLoopCast8p72_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice)
+        (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1ChainOnly d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) (8953 / 1000))
+            (1 / 400) Pouw.PearlC.sh8192)
+          (55242198169 / 5715133065625)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotCast16_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotCast16_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 8) (1 / 400)
+            Pouw.PearlC.sh16384)
+          (5911891 / 1073801875)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotCast16_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotCast16_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 8) (1 / 400)
+            Pouw.PearlC.sh8192)
+          (11418853 / 1901453125)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotCast32p06_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotCast32p06_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) 8) (1 / 400)
+            Pouw.PearlC.sh16384)
+          (144706511 / 22570396175)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotCast32p06_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotCast32p06_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) 8) (1 / 400)
+            Pouw.PearlC.sh8192)
+          (6362137 / 816376825)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotCast8_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotCast8_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 8) (1 / 400)
+            Pouw.PearlC.sh16384)
+          (113909711 / 22539599375)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotCast8_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotCast8_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192)
+          (29136559 / 5699239375)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotCast8p72_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotCast8p72_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) 8) (1 / 400)
+            Pouw.PearlC.sh16384)
+          (16404473 / 3220074425)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotCast8p72_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotCast8p72_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) 8) (1 / 400)
+            Pouw.PearlC.sh8192)
+          (29597359 / 5699700175)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast16_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast16_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh16384)
+          (124521235801 / 22611507105625)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast16_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast16_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 16 (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh8192)
+          (11455132723 / 1906597421875)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast32p06_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast32p06_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) (8953 / 1000))
+            (1 / 400) Pouw.PearlC.sh16384)
+          (48359345267 / 7544021301875)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast32p06_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast32p06_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (1603 / 50) (8953 / 1000))
+            (1 / 400) Pouw.PearlC.sh8192)
+          (44643798169 / 5730070665625)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh16384)
+          (145953047 / 28864964375)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub 8 (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh8192)
+          (29245398169 / 5714672265625)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8p72_publicConst64_16384: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8p72_publicConst64_16384 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) (8953 / 1000))
+            (1 / 400) Pouw.PearlC.sh16384)
+          (12800315089 / 2511354300625)
+  pin Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8p72_publicConst64_8192: new
+    after:
+      Pouw.PearlC.gammaHotRev1_sm120v1HotLoopCast8p72_publicConst64_8192 (d : Pouw.PearlC.PearlCDevice) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop) :
+        Eq
+          (Pouw.PearlC.gammaHotRev1 d (Pouw.PearlC.HotSizing.publicConst 64) (instHSub.hSub (218 / 25) (8953 / 1000))
+            (1 / 400) Pouw.PearlC.sh8192)
+          (29706198169 / 5715133065625)
+  pin Pouw.PearlC.pearlCGammaHotRev1At: new
+    after:
+      Pouw.PearlC.pearlCGammaHotRev1At {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (c ρ : Rat) (s : Pouw.PearlC.Shape)
+        (hρ : Rat.instLT.lt ρ 1) (hC : Rat.instLT.lt 0 (Pouw.PearlC.creditDevRev1Hot d s))
+        (hW0 : Rat.instLT.lt 0 (Pouw.PearlC.wrefDevRev1Hot d h c s)) (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h c ρ s)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h c ρ s).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaHotRev1ChainOnlyAt: new
+    after:
+      Pouw.PearlC.pearlCGammaHotRev1ChainOnlyAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (c ρ : Rat) (s : Pouw.PearlC.Shape)
+        (hK :
+          Rat.instLT.lt 0
+            (instHSub.hSub (Pouw.PearlC.creditDevRev1HotChainOnly d s) (instHMul.hMul ρ (Pouw.PearlC.creditDevRev1Hot d s))))
+        (hW0 : Rat.instLT.lt 0 (Pouw.PearlC.wrefDevRev1Hot d h c s))
+        (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h c ρ s)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1ChainOnly d h c ρ s).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast16ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast16ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast16ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast16ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast16_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast16_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast16_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast16_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast32p06ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast32p06ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast32p06ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast32p06ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast32p06_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast32p06_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast32p06_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast32p06_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast8ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast8ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast8ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast8ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast8_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast8_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast8_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast8_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast8p72ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast8p72ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast8p72ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast8p72ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast8p72_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast8p72_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotCast8p72_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotCast8p72_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4) (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast16_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast32p06_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc : Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccountingChainOnly P D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72_16384: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72_8192: new
+    after:
+      Pouw.PearlC.pearlCGammaSm120v1HotLoopCast8p72_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)
+        (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1UnitAccounting P D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.Gγ CM P D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledHotRev1At: new
+    after:
+      Pouw.PearlC.pearlCSampledHotRev1At {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (c ρ : Rat)
+        (s : Pouw.PearlC.Shape) (hρ : Rat.instLT.lt ρ 1) (hC : Rat.instLT.lt 0 (Pouw.PearlC.creditDevRev1Hot d s))
+        (hW0 : Rat.instLT.lt 0 (Pouw.PearlC.wrefDevRev1Hot d h c s))
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h c ρ s)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1 d h c ρ s).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledHotRev1ChainOnlyAt: new
+    after:
+      Pouw.PearlC.pearlCSampledHotRev1ChainOnlyAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (c ρ : Rat)
+        (s : Pouw.PearlC.Shape)
+        (hK :
+          Rat.instLT.lt 0
+            (instHSub.hSub (Pouw.PearlC.creditDevRev1HotChainOnly d s) (instHMul.hMul ρ (Pouw.PearlC.creditDevRev1Hot d s))))
+        (hW0 : Rat.instLT.lt 0 (Pouw.PearlC.wrefDevRev1Hot d h c s))
+        (hacc : Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h c ρ s)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1ChainOnly d h c ρ s).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast16ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast16ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast16ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast16ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast16_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast16_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast16_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast16_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast32p06ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast32p06ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast32p06ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast32p06ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast32p06_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast32p06_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh16384).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast32p06_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast32p06_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) 8) (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast8ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast8ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast8ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast8ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast8_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast8_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast8_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast8_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast8p72ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast8p72ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast8p72ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast8p72ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast8p72_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast8p72_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh16384).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotCast8p72_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotCast8p72_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) 8) (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast16_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 16 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast32p06_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (1603 / 50) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc : Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub 8 (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72ChainOnly_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72ChainOnly_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72ChainOnly_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72ChainOnly_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R]
+        [Fintype S] (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccountingChainOnly P TR D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400)
+            Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1ChainOnly d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72_16384: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh16384).cast
+          Pouw.PearlC.εPearlC
+  pin Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72_8192: new
+    after:
+      Pouw.PearlC.pearlCSampledSm120v1HotLoopCast8p72_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]
+        (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)
+        (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.PearlCDevice) (h : Pouw.PearlC.HotSizing) (hG : Eq d.G 4)
+        (hp : Eq d.prices Pouw.PearlC.Prices.sm120Loop)
+        (hacc :
+          Pouw.PearlC.HotRev1TileAccounting P TR D d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192)
+        (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :
+        Pouw.PearlC.GγSampled CM P TR D
+          (Pouw.PearlC.gammaHotRev1 d h (instHSub.hSub (218 / 25) (8953 / 1000)) (1 / 400) Pouw.PearlC.sh8192).cast
+          Pouw.PearlC.εPearlC
+  definition Pouw.PearlC.HotRev1TileAccounting (Pouw.PearlC.DeviceHotRev1), read by 100 pins: new
+    now (pouw2/Pouw/PearlC/DeviceHotRev1.lean:57-65):
+      /-- **The per-tile accounting a v1-hot protocol's audit tiles meet** on the one-shape domain at `s`: each tile has a
+      share `t ≥ 0` (its credited rows' share of the unit), with `Wcred = wrefDevRev1Hot·t ≤ Wref`, and a tile within the cap
+      is credited at least `(1 − ρ)·creditDevRev1Hot·t`. -/
+      def HotRev1TileAccounting (P : Protocol Q R S) (TR : TileRules Q R S) (D : Layout → Prop) (d : PearlCDevice)
+          (h : HotSizing) (c ρ : ℚ) (s : Shape) : Prop :=
+        ∀ U : Workload, U.InDomain P D → ∀ g < (TR.tiling U.layout).NT, ∀ act : Codes, ∃ t : ℚ, 0 ≤ t ∧
+          TR.Wcred U.layout g act = ((wrefDevRev1Hot d h c s * t : ℚ) : ℝ) ∧ TR.Wcred U.layout g act ≤ TR.Wref U.layout g ∧
+          ∀ (H : Q → R) (s' : S), TR.capOK H s' U g act →
+            (((1 - ρ) * creditDevRev1Hot d s * t : ℚ) : ℝ) ≤ TR.credit H s' U g act
+  definition Pouw.PearlC.HotRev1TileAccountingChainOnly (Pouw.PearlC.DeviceHotRev1), read by 100 pins: new
+    now (pouw2/Pouw/PearlC/DeviceHotRev1.lean:86-93):
+      /-- **The per-tile accounting a chain-only v1-hot protocol's audit tiles meet**: as `HotRev1TileAccounting`, with the
+      fixed credit `(creditDevRev1HotChainOnly − ρ·creditDevRev1Hot)·t`. -/
+      def HotRev1TileAccountingChainOnly (P : Protocol Q R S) (TR : TileRules Q R S) (D : Layout → Prop) (d : PearlCDevice)
+          (h : HotSizing) (c ρ : ℚ) (s : Shape) : Prop :=
+        ∀ U : Workload, U.InDomain P D → ∀ g < (TR.tiling U.layout).NT, ∀ act : Codes, ∃ t : ℚ, 0 ≤ t ∧
+          TR.Wcred U.layout g act = ((wrefDevRev1Hot d h c s * t : ℚ) : ℝ) ∧ TR.Wcred U.layout g act ≤ TR.Wref U.layout g ∧
+          ∀ (H : Q → R) (s' : S), TR.capOK H s' U g act →
+            (((creditDevRev1HotChainOnly d s - ρ * creditDevRev1Hot d s) * t : ℚ) : ℝ) ≤ TR.credit H s' U g act
+  definition Pouw.PearlC.HotRev1UnitAccounting (Pouw.PearlC.DeviceHotRev1), read by 100 pins: new
+    now (pouw2/Pouw/PearlC/DeviceHotRev1.lean:47-55):
+      /-- **The per-unit accounting a v1-hot protocol meets** on the one-shape domain at `s`: a unit within the cap has
+      `W_ref = wrefDevRev1Hot` and is credited at least `(1 − ρ)·creditDevRev1Hot`. It holds once the protocol's credit is
+      `creditDevRev1Hot − debit` with the cap `debit ≤ ρ·creditDevRev1Hot`, and its `W_ref` is `wrefDevRev1Hot` under `h`. -/
+      def HotRev1UnitAccounting (P : Protocol Q R S) (D : Layout → Prop) (d : PearlCDevice) (h : HotSizing) (c ρ : ℚ)
+          (s : Shape) : Prop :=
+        ∀ U : Workload, U.InDomain P D → ∀ (H : Q → R) (s' : S), ∀ u < U.layout.N, ∀ act : Codes,
+          P.actOK (U.layout.shape u) act → P.capOK H s' U u act →
+            P.Wref U.layout u = (wrefDevRev1Hot d h c s : ℝ) ∧
+              (((1 - ρ) * creditDevRev1Hot d s : ℚ) : ℝ) ≤ P.credit H s' U u act
+  definition Pouw.PearlC.HotRev1UnitAccountingChainOnly (Pouw.PearlC.DeviceHotRev1), read by 100 pins: new
+    now (pouw2/Pouw/PearlC/DeviceHotRev1.lean:77-84):
+      /-- **The per-unit accounting a chain-only v1-hot protocol meets**: a unit within the cap has `W_ref = wrefDevRev1Hot`
+      and is credited at least `creditDevRev1HotChainOnly − ρ·creditDevRev1Hot`. -/
+      def HotRev1UnitAccountingChainOnly (P : Protocol Q R S) (D : Layout → Prop) (d : PearlCDevice) (h : HotSizing)
+          (c ρ : ℚ) (s : Shape) : Prop :=
+        ∀ U : Workload, U.InDomain P D → ∀ (H : Q → R) (s' : S), ∀ u < U.layout.N, ∀ act : Codes,
+          P.actOK (U.layout.shape u) act → P.capOK H s' U u act →
+            P.Wref U.layout u = (wrefDevRev1Hot d h c s : ℝ) ∧
+              ((creditDevRev1HotChainOnly d s - ρ * creditDevRev1Hot d s : ℚ) : ℝ) ≤ P.credit H s' U u act
+  definition Pouw.PearlC.creditDevRev1Hot (Pouw.PearlC.DeviceHotRev1), read by 100 pins: new
+    now (pouw2/Pouw/PearlC/DeviceHotRev1.lean:31-32):
+      /-- **v1-hot's credit at a record**: `creditDevRev1` plus U's removal `fl(T − Σ_g H_{i,g})`, one FP32 add per word. -/
+      def creditDevRev1Hot (d : PearlCDevice) (s : Shape) : ℚ := creditDevRev1 d s + d.prices.add * s.m * s.n
+  definition Pouw.PearlC.creditDevRev1HotChainOnly (Pouw.PearlC.DeviceHotRev1), read by 100 pins: new
+    now (pouw2/Pouw/PearlC/DeviceHotRev1.lean:67-70):
+      /-- **v1-hot's chain-only credit**: `creditDevRev1Hot` less the credited forming `fs·m·k`. U's removal stays credited:
+      it is clean-up, not forming. -/
+      def creditDevRev1HotChainOnly (d : PearlCDevice) (s : Shape) : ℚ :=
+        creditDevRev1Hot d s - (d.prices.costs.fs : ℚ) * s.m * s.k
+  definition Pouw.PearlC.gammaHotRev1 (Pouw.PearlC.DeviceHotRev1), read by 100 pins: new
+    now (pouw2/Pouw/PearlC/DeviceHotRev1.lean:43-45):
+      /-- **v1-hot's γ** at the cap `ρ`: `1 − (399/400)/ω` with `ω = wrefDevRev1Hot/((1 − ρ)·creditDevRev1Hot)`. -/
+      def gammaHotRev1 (d : PearlCDevice) (h : HotSizing) (c ρ : ℚ) (s : Shape) : ℚ :=
+        1 - (1 - 1 / 400) / (wrefDevRev1Hot d h c s / ((1 - ρ) * creditDevRev1Hot d s))
+  definition Pouw.PearlC.gammaHotRev1ChainOnly (Pouw.PearlC.DeviceHotRev1), read by 100 pins: new
+    now (pouw2/Pouw/PearlC/DeviceHotRev1.lean:72-75):
+      /-- **v1-hot's chain-only γ** at the cap `ρ`, which stays on the full credit: `1 − (399/400)/ω` with
+      `ω = wrefDevRev1Hot/(creditDevRev1HotChainOnly − ρ·creditDevRev1Hot)`. -/
+      def gammaHotRev1ChainOnly (d : PearlCDevice) (h : HotSizing) (c ρ : ℚ) (s : Shape) : ℚ :=
+        1 - (1 - 1 / 400) / (wrefDevRev1Hot d h c s / (creditDevRev1HotChainOnly d s - ρ * creditDevRev1Hot d s))
+  definition Pouw.PearlC.hotFoldDev (Pouw.PearlC.DeviceHotRev1), read by 100 pins: new
+    now (pouw2/Pouw/PearlC/DeviceHotRev1.lean:34-36):
+      /-- **The fold of a row's group starts**, Σ_g H_{i,g}: `k/(32·G) − 1` FP32 adds for each of the m rows (`k/128 − 1` at
+      G = 4), ascending in g. -/
+      def hotFoldDev (d : PearlCDevice) (s : Shape) : ℚ := d.prices.add * s.m * ((s.k : ℚ) / (32 * d.G) - 1)
+  definition Pouw.PearlC.wrefDevRev1Hot (Pouw.PearlC.DeviceHotRev1), read by 100 pins: new
+    now (pouw2/Pouw/PearlC/DeviceHotRev1.lean:38-41):
+      /-- **v1-hot's `W_ref` at a record**, under the sizing rule `h`: the credit, the A-only forming, `c` per activation
+      element, the fold, and the sizing rule's cost. -/
+      def wrefDevRev1Hot (d : PearlCDevice) (h : HotSizing) (c : ℚ) (s : Shape) : ℚ :=
+        creditDevRev1Hot d s + (d.prices.costs.qa : ℚ) * s.m * s.k + c * s.m * s.k + hotFoldDev d s + h.cost d.prices s

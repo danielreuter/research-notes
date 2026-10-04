@@ -1,0 +1,814 @@
+{
+ "note": "bc-876ca543's FP4 delta (held behind the base-split fix: tt-out/fp4-sm120 is D): the four GO'd issue-bound twins (rcp.approx, FADD 8.00), unchanged; the scale step as a parameter (Fp4Prices.sm120At fadd p; rcpApprox, lut256) with forming-credited twins and values; the chain-only reading in the same form; and Pearl-C4 v2 (T1: H removed by one credited FADD per word) in the same form, forming credited and chain-only, generic over the v2 protocol (Fp4HotUnitAccounting / Fp4HotTileAccounting). One assumptions module to register (Pouw.PearlC.TTOutFp4ChainOnly), four layers entries. Records from audit.py --update --no-replay (PASS, 13:04Z) over the same private copy as ../proposed-pins.json; the modules' kernel replays were run separately.",
+ "assumptions": [
+  "Pouw.PearlC.TTOutFp4ChainOnly"
+ ],
+ "pins": {
+  "Pouw.PearlC.pearlCGammaFp4Sm120Issue_8192": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4Sm120Issue_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S)",
+    "  (hp : Eq d.prices Pouw.PearlC.Fp4Prices.sm120Issue) (hTT : Pouw.PearlC.Assumptions.TTOutFp4 CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh8192) (162371257 / 22950880000).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "000000008421e45e"
+  },
+  "Pouw.PearlC.pearlCGammaFp4Sm120Issue_16384": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4Sm120Issue_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S)",
+    "  (hp : Eq d.prices Pouw.PearlC.Fp4Prices.sm120Issue) (hTT : Pouw.PearlC.Assumptions.TTOutFp4 CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh16384) (814384171 / 134388640000).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000c1790cca"
+  },
+  "Pouw.PearlC.pearlCSampledFp4Sm120Issue_8192": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4Sm120Issue_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S)",
+    "  (hp : Eq d.prices Pouw.PearlC.Fp4Prices.sm120Issue) (hTT : Pouw.PearlC.Assumptions.TTOutTileFp4 CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400)) (Pouw.PearlC.pearlCTilesFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh8192) (162371257 / 22950880000).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000286b874d"
+  },
+  "Pouw.PearlC.pearlCSampledFp4Sm120Issue_16384": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4Sm120Issue_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S)",
+    "  (hp : Eq d.prices Pouw.PearlC.Fp4Prices.sm120Issue) (hTT : Pouw.PearlC.Assumptions.TTOutTileFp4 CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400)) (Pouw.PearlC.pearlCTilesFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh16384) (814384171 / 134388640000).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000169d8d12"
+  },
+  "Pouw.PearlC.Fp4Prices.sm120Issue_eq": {
+   "signature": [
+    "Pouw.PearlC.Fp4Prices.sm120Issue_eq :",
+    "  Eq Pouw.PearlC.Fp4Prices.sm120Issue (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.rcpApprox)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000d4e75891"
+  },
+  "Pouw.PearlC.pearlCGammaFp4Sm120At_8192": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4Sm120At_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (fadd : Rat)",
+    "  (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutFp4 CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh8192) (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh8192).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000b35273e2"
+  },
+  "Pouw.PearlC.pearlCGammaFp4Sm120At_16384": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4Sm120At_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (fadd : Rat)",
+    "  (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutFp4 CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh16384) (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh16384).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "000000008e218b68"
+  },
+  "Pouw.PearlC.pearlCSampledFp4Sm120At_8192": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4Sm120At_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (fadd : Rat)",
+    "  (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutTileFp4 CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400)) (Pouw.PearlC.pearlCTilesFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh8192) (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh8192).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "000000007d09f44d"
+  },
+  "Pouw.PearlC.pearlCSampledFp4Sm120At_16384": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4Sm120At_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (fadd : Rat)",
+    "  (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutTileFp4 CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400)) (Pouw.PearlC.pearlCTilesFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh16384) (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh16384).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000bfc64ca7"
+  },
+  "Pouw.PearlC.gammaFp4_sm120Issue_rcpApprox_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4_sm120Issue_rcpApprox_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  Eq (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh8192) (162371257 / 22950880000)"
+   ],
+   "assumptions": [],
+   "type_hash": "000000003b47953a"
+  },
+  "Pouw.PearlC.gammaFp4_sm120Issue_rcpApprox_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4_sm120Issue_rcpApprox_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  Eq (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh16384) (814384171 / 134388640000)"
+   ],
+   "assumptions": [],
+   "type_hash": "0000000090199478"
+  },
+  "Pouw.PearlC.gammaFp4_sm120Loop_rcpApprox_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4_sm120Loop_rcpApprox_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  Eq (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh8192) (1646385229 / 229553920000)"
+   ],
+   "assumptions": [],
+   "type_hash": "000000007abac3d3"
+  },
+  "Pouw.PearlC.gammaFp4_sm120Loop_rcpApprox_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4_sm120Loop_rcpApprox_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  Eq (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh16384) (8211859687 / 1344021760000)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000ad3d8cc8"
+  },
+  "Pouw.PearlC.gammaFp4_sm120Issue_lut256_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4_sm120Issue_lut256_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  Eq (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh8192) (6492677 / 917600000)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000d5b23033"
+  },
+  "Pouw.PearlC.gammaFp4_sm120Issue_lut256_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4_sm120Issue_lut256_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  Eq (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh16384) (32568847 / 5374240000)"
+   ],
+   "assumptions": [],
+   "type_hash": "0000000059f0c974"
+  },
+  "Pouw.PearlC.gammaFp4_sm120Loop_lut256_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4_sm120Loop_lut256_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  Eq (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh8192) (9875013901 / 1376663200000)"
+   ],
+   "assumptions": [],
+   "type_hash": "000000008b45157a"
+  },
+  "Pouw.PearlC.gammaFp4_sm120Loop_lut256_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4_sm120Loop_lut256_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  Eq (Pouw.PearlC.gammaFp4 d (1 / 400) Pouw.PearlC.sh16384) (5473473967 / 895794400000)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000da833b55"
+  },
+  "Pouw.PearlC.ttOutFp4ChainOnly_of_ttOut": {
+   "signature": [
+    "Pouw.PearlC.ttOutFp4ChainOnly_of_ttOut {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (ρ : Rat)",
+    "  (hfs : Rat.instLE.le 0 d.prices.fs) (h : Pouw.PearlC.Assumptions.TTOutFp4 CM d sem ρ) :",
+    "  Pouw.PearlC.Assumptions.TTOutFp4ChainOnly CM d sem ρ"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000bc6dacc9"
+  },
+  "Pouw.PearlC.ttOutTileFp4ChainOnly_of_ttOut": {
+   "signature": [
+    "Pouw.PearlC.ttOutTileFp4ChainOnly_of_ttOut {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (ρ : Rat)",
+    "  (hfs : Rat.instLE.le 0 d.prices.fs) (h : Pouw.PearlC.Assumptions.TTOutTileFp4 CM d sem ρ) :",
+    "  Pouw.PearlC.Assumptions.TTOutTileFp4ChainOnly CM d sem ρ"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000301bcd59"
+  },
+  "Pouw.PearlC.pearlCGammaFp4ChainOnlyAt": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4ChainOnlyAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (ρ : Rat)",
+    "  (s : Pouw.PearlC.Shape)",
+    "  (hK :",
+    "    Rat.instLT.lt 0 (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d s) (instHMul.hMul ρ (Pouw.PearlC.creditFp4 d s))))",
+    "  (hw : Rat.instLT.lt 0 (Pouw.PearlC.wrefFp4 d s)) (hTT : Pouw.PearlC.Assumptions.TTOutFp4ChainOnly CM d sem ρ) :",
+    "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolFp4 d sem ρ) (Pouw.PearlC.pearlCDomainFp4At sem s)",
+    "    (Pouw.PearlC.gammaFp4ChainOnly d ρ s).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "000000001b938890"
+  },
+  "Pouw.PearlC.pearlCSampledFp4ChainOnlyAt": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4ChainOnlyAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (ρ : Rat)",
+    "  (s : Pouw.PearlC.Shape)",
+    "  (hK :",
+    "    Rat.instLT.lt 0 (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d s) (instHMul.hMul ρ (Pouw.PearlC.creditFp4 d s))))",
+    "  (hw : Rat.instLT.lt 0 (Pouw.PearlC.wrefFp4 d s)) (hTT : Pouw.PearlC.Assumptions.TTOutTileFp4ChainOnly CM d sem ρ) :",
+    "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolFp4 d sem ρ) (Pouw.PearlC.pearlCTilesFp4 d sem ρ)",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem s) (Pouw.PearlC.gammaFp4ChainOnly d ρ s).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000f3434aeb"
+  },
+  "Pouw.PearlC.pearlCGammaFp4Sm120ChainOnlyAt_8192": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4Sm120ChainOnlyAt_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (fadd : Rat)",
+    "  (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hK :",
+    "    Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh8192))))",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutFp4ChainOnly CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh8192)",
+    "    (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000055bf28a"
+  },
+  "Pouw.PearlC.pearlCGammaFp4Sm120ChainOnlyAt_16384": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4Sm120ChainOnlyAt_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (fadd : Rat)",
+    "  (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hK :",
+    "    Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh16384))))",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutFp4ChainOnly CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.Gγ CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh16384)",
+    "    (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh16384).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000d698a9a6"
+  },
+  "Pouw.PearlC.pearlCSampledFp4Sm120ChainOnlyAt_8192": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4Sm120ChainOnlyAt_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (fadd : Rat)",
+    "  (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hK :",
+    "    Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh8192))))",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutTileFp4ChainOnly CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400)) (Pouw.PearlC.pearlCTilesFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh8192)",
+    "    (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000a2c92197"
+  },
+  "Pouw.PearlC.pearlCSampledFp4Sm120ChainOnlyAt_16384": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4Sm120ChainOnlyAt_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (d : Pouw.PearlC.Fp4Device) (sem : Pouw.PearlC.Fp4Sem Q R S) (fadd : Rat)",
+    "  (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hK :",
+    "    Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh16384))))",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutTileFp4ChainOnly CM d sem (1 / 400)) :",
+    "  Pouw.PearlC.GγSampled CM (Pouw.PearlC.pearlCProtocolFp4 d sem (1 / 400)) (Pouw.PearlC.pearlCTilesFp4 d sem (1 / 400))",
+    "    (Pouw.PearlC.pearlCDomainFp4At sem Pouw.PearlC.sh16384)",
+    "    (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh16384).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "0000000039e22cc3"
+  },
+  "Pouw.PearlC.gammaFp4ChainOnly_sm120Issue_rcpApprox_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4ChainOnly_sm120Issue_rcpApprox_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh8192))))",
+    "    (Eq (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh8192) (451194057 / 22950880000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000e581f7e4"
+  },
+  "Pouw.PearlC.gammaFp4ChainOnly_sm120Issue_rcpApprox_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4ChainOnly_sm120Issue_rcpApprox_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh16384))))",
+    "    (Eq (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh16384) (1680852571 / 134388640000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000107f4dda"
+  },
+  "Pouw.PearlC.gammaFp4ChainOnly_sm120Issue_lut256_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4ChainOnly_sm120Issue_lut256_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh8192))))",
+    "    (Eq (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh8192) (17611477 / 917600000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000e723f35a"
+  },
+  "Pouw.PearlC.gammaFp4ChainOnly_sm120Issue_lut256_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4ChainOnly_sm120Issue_lut256_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh16384))))",
+    "    (Eq (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh16384) (65925247 / 5374240000))"
+   ],
+   "assumptions": [],
+   "type_hash": "000000001791f7c3"
+  },
+  "Pouw.PearlC.gammaFp4ChainOnly_sm120Loop_rcpApprox_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4ChainOnly_sm120Loop_rcpApprox_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh8192))))",
+    "    (Eq (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh8192) (4557116829 / 229553920000))"
+   ],
+   "assumptions": [],
+   "type_hash": "000000004c92c45a"
+  },
+  "Pouw.PearlC.gammaFp4ChainOnly_sm120Loop_rcpApprox_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4ChainOnly_sm120Loop_rcpApprox_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh16384))))",
+    "    (Eq (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh16384) (16944054487 / 1344021760000))"
+   ],
+   "assumptions": [],
+   "type_hash": "000000008c44af96"
+  },
+  "Pouw.PearlC.gammaFp4ChainOnly_sm120Loop_lut256_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4ChainOnly_sm120Loop_lut256_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh8192))))",
+    "    (Eq (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh8192) (26680734301 / 1376663200000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000f3f95037"
+  },
+  "Pouw.PearlC.gammaFp4ChainOnly_sm120Loop_lut256_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4ChainOnly_sm120Loop_lut256_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4ChainOnly d Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4 d Pouw.PearlC.sh16384))))",
+    "    (Eq (Pouw.PearlC.gammaFp4ChainOnly d (1 / 400) Pouw.PearlC.sh16384) (11075380767 / 895794400000))"
+   ],
+   "assumptions": [],
+   "type_hash": "0000000085f507b3"
+  },
+  "Pouw.PearlC.pearlCGammaFp4HotAt": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4HotAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+    "  (d : Pouw.PearlC.Fp4Device) (a K : Rat) (s : Pouw.PearlC.Shape) (hK : Rat.instLT.lt 0 K)",
+    "  (hW0 : Rat.instLT.lt 0 (Pouw.PearlC.wrefFp4Hot d a s)) (hacc : Pouw.PearlC.Fp4HotUnitAccounting P D d a K s)",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+    "  Pouw.PearlC.Gγ CM P D",
+    "    (instHSub.hSub 1 (instHDiv.hDiv (instHSub.hSub 1 (1 / 400)) (instHDiv.hDiv (Pouw.PearlC.wrefFp4Hot d a s) K))).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "0000000063307d42"
+  },
+  "Pouw.PearlC.pearlCSampledFp4HotAt": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4HotAt {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+    "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.Fp4Device) (a K : Rat) (s : Pouw.PearlC.Shape)",
+    "  (hK : Rat.instLT.lt 0 K) (hW0 : Rat.instLT.lt 0 (Pouw.PearlC.wrefFp4Hot d a s))",
+    "  (hacc : Pouw.PearlC.Fp4HotTileAccounting P TR D d a K s)",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+    "  Pouw.PearlC.GγSampled CM P TR D",
+    "    (instHSub.hSub 1 (instHDiv.hDiv (instHSub.hSub 1 (1 / 400)) (instHDiv.hDiv (Pouw.PearlC.wrefFp4Hot d a s) K))).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "000000003d2bd595"
+  },
+  "Pouw.PearlC.pearlCGammaFp4Sm120HotAt_8192": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4Sm120HotAt_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+    "  (d : Pouw.PearlC.Fp4Device) (fadd : Rat) (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hacc :",
+    "    Pouw.PearlC.Fp4HotUnitAccounting P D d (instHMul.hMul 2 fadd)",
+    "      (instHMul.hMul (instHSub.hSub 1 (1 / 400)) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh8192))",
+    "      Pouw.PearlC.sh8192)",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+    "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 fadd) (1 / 400) Pouw.PearlC.sh8192).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "0000000058bf5696"
+  },
+  "Pouw.PearlC.pearlCGammaFp4Sm120HotAt_16384": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4Sm120HotAt_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+    "  (d : Pouw.PearlC.Fp4Device) (fadd : Rat) (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hacc :",
+    "    Pouw.PearlC.Fp4HotUnitAccounting P D d (instHMul.hMul 2 fadd)",
+    "      (instHMul.hMul (instHSub.hSub 1 (1 / 400))",
+    "        (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh16384))",
+    "      Pouw.PearlC.sh16384)",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+    "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 fadd) (1 / 400) Pouw.PearlC.sh16384).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000cf39995d"
+  },
+  "Pouw.PearlC.pearlCSampledFp4Sm120HotAt_8192": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4Sm120HotAt_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+    "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.Fp4Device) (fadd : Rat) (p : Pouw.PearlC.Fp4ScalePath)",
+    "  (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hacc :",
+    "    Pouw.PearlC.Fp4HotTileAccounting P TR D d (instHMul.hMul 2 fadd)",
+    "      (instHMul.hMul (instHSub.hSub 1 (1 / 400)) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh8192))",
+    "      Pouw.PearlC.sh8192)",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+    "  Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 fadd) (1 / 400) Pouw.PearlC.sh8192).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "0000000033139104"
+  },
+  "Pouw.PearlC.pearlCSampledFp4Sm120HotAt_16384": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4Sm120HotAt_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+    "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.Fp4Device) (fadd : Rat) (p : Pouw.PearlC.Fp4ScalePath)",
+    "  (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hacc :",
+    "    Pouw.PearlC.Fp4HotTileAccounting P TR D d (instHMul.hMul 2 fadd)",
+    "      (instHMul.hMul (instHSub.hSub 1 (1 / 400))",
+    "        (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh16384))",
+    "      Pouw.PearlC.sh16384)",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+    "  Pouw.PearlC.GγSampled CM P TR D (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 fadd) (1 / 400) Pouw.PearlC.sh16384).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "000000009d9eb1fb"
+  },
+  "Pouw.PearlC.pearlCGammaFp4Sm120HotChainOnlyAt_8192": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4Sm120HotChainOnlyAt_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+    "  (d : Pouw.PearlC.Fp4Device) (fadd : Rat) (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hK :",
+    "    Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 fadd) Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh8192))))",
+    "  (hacc :",
+    "    Pouw.PearlC.Fp4HotUnitAccounting P D d (instHMul.hMul 2 fadd)",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 fadd) Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh8192)))",
+    "      Pouw.PearlC.sh8192)",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+    "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 fadd) (1 / 400) Pouw.PearlC.sh8192).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000136694d5"
+  },
+  "Pouw.PearlC.pearlCGammaFp4Sm120HotChainOnlyAt_16384": {
+   "signature": [
+    "Pouw.PearlC.pearlCGammaFp4Sm120HotChainOnlyAt_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (D : Pouw.PearlC.Layout → Prop)",
+    "  (d : Pouw.PearlC.Fp4Device) (fadd : Rat) (p : Pouw.PearlC.Fp4ScalePath) (hf : Rat.instLE.le 0 fadd)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hK :",
+    "    Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 fadd) Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh16384))))",
+    "  (hacc :",
+    "    Pouw.PearlC.Fp4HotUnitAccounting P D d (instHMul.hMul 2 fadd)",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 fadd) Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh16384)))",
+    "      Pouw.PearlC.sh16384)",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOut CM P D (1 / 400) Pouw.PearlC.εPearlC) :",
+    "  Pouw.PearlC.Gγ CM P D (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 fadd) (1 / 400) Pouw.PearlC.sh16384).cast",
+    "    Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000d8b4d356"
+  },
+  "Pouw.PearlC.pearlCSampledFp4Sm120HotChainOnlyAt_8192": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4Sm120HotChainOnlyAt_8192 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+    "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.Fp4Device) (fadd : Rat) (p : Pouw.PearlC.Fp4ScalePath)",
+    "  (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hK :",
+    "    Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 fadd) Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh8192))))",
+    "  (hacc :",
+    "    Pouw.PearlC.Fp4HotTileAccounting P TR D d (instHMul.hMul 2 fadd)",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 fadd) Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh8192)))",
+    "      Pouw.PearlC.sh8192)",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+    "  Pouw.PearlC.GγSampled CM P TR D",
+    "    (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 fadd) (1 / 400) Pouw.PearlC.sh8192).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000e9ea5c33"
+  },
+  "Pouw.PearlC.pearlCSampledFp4Sm120HotChainOnlyAt_16384": {
+   "signature": [
+    "Pouw.PearlC.pearlCSampledFp4Sm120HotChainOnlyAt_16384 {Q R S : Type} [Fintype Q] [DecidableEq Q] [Fintype R] [Fintype S]",
+    "  (CM : Pouw.PearlC.CostModel Q R S) (P : Pouw.PearlC.Protocol Q R S) (TR : Pouw.PearlC.TileRules Q R S)",
+    "  (D : Pouw.PearlC.Layout → Prop) (d : Pouw.PearlC.Fp4Device) (fadd : Rat) (p : Pouw.PearlC.Fp4ScalePath)",
+    "  (hf : Rat.instLE.le 0 fadd) (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At fadd p))",
+    "  (hK :",
+    "    Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 fadd) Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh16384))))",
+    "  (hacc :",
+    "    Pouw.PearlC.Fp4HotTileAccounting P TR D d (instHMul.hMul 2 fadd)",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 fadd) Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 fadd) Pouw.PearlC.sh16384)))",
+    "      Pouw.PearlC.sh16384)",
+    "  (hTT : Pouw.PearlC.Assumptions.TTOutTile CM P TR D (1 / 400) Pouw.PearlC.εPearlC) :",
+    "  Pouw.PearlC.GγSampled CM P TR D",
+    "    (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 fadd) (1 / 400) Pouw.PearlC.sh16384).cast Pouw.PearlC.εPearlC"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000e3f5029e"
+  },
+  "Pouw.PearlC.gammaFp4Hot_sm120Issue_rcpApprox_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4Hot_sm120Issue_rcpApprox_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  Eq (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 8) (1 / 400) Pouw.PearlC.sh8192) (25671209 / 3630560000)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000255e19ca"
+  },
+  "Pouw.PearlC.gammaFp4Hot_sm120Issue_rcpApprox_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4Hot_sm120Issue_rcpApprox_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  Eq (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 8) (1 / 400) Pouw.PearlC.sh16384) (271674457 / 44838880000)"
+   ],
+   "assumptions": [],
+   "type_hash": "000000005e7ed34f"
+  },
+  "Pouw.PearlC.gammaFp4Hot_sm120Issue_lut256_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4Hot_sm120Issue_lut256_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  Eq (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 8) (1 / 400) Pouw.PearlC.sh8192) (19503599 / 2757920000)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000bb94b358"
+  },
+  "Pouw.PearlC.gammaFp4Hot_sm120Issue_lut256_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4Hot_sm120Issue_lut256_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  Eq (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 8) (1 / 400) Pouw.PearlC.sh16384) (310423 / 51232000)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000db5f411a"
+  },
+  "Pouw.PearlC.gammaFp4Hot_sm120Loop_rcpApprox_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4Hot_sm120Loop_rcpApprox_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  Eq (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 (1047 / 125)) (1 / 400) Pouw.PearlC.sh8192) (549538679 / 76666880000)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000439d9839"
+  },
+  "Pouw.PearlC.gammaFp4Hot_sm120Loop_rcpApprox_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4Hot_sm120Loop_rcpApprox_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  Eq (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 (1047 / 125)) (1 / 400) Pouw.PearlC.sh16384)",
+    "    (1174078873 / 192194560000)"
+   ],
+   "assumptions": [],
+   "type_hash": "000000003618b644"
+  },
+  "Pouw.PearlC.gammaFp4Hot_sm120Loop_lut256_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4Hot_sm120Loop_lut256_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  Eq (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 (1047 / 125)) (1 / 400) Pouw.PearlC.sh8192)",
+    "    (9888398749 / 1379343520000)"
+   ],
+   "assumptions": [],
+   "type_hash": "000000005136c6ef"
+  },
+  "Pouw.PearlC.gammaFp4Hot_sm120Loop_lut256_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4Hot_sm120Loop_lut256_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  Eq (Pouw.PearlC.gammaFp4Hot d (instHMul.hMul 2 (1047 / 125)) (1 / 400) Pouw.PearlC.sh16384)",
+    "    (5477935583 / 896687840000)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000b5e7ea65"
+  },
+  "Pouw.PearlC.gammaFp4HotChainOnly_sm120Issue_rcpApprox_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4HotChainOnly_sm120Issue_rcpApprox_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 8) Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 8) Pouw.PearlC.sh8192))))",
+    "    (Eq (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 8) (1 / 400) Pouw.PearlC.sh8192) (71274809 / 3630560000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000c5cfdb36"
+  },
+  "Pouw.PearlC.gammaFp4HotChainOnly_sm120Issue_rcpApprox_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4HotChainOnly_sm120Issue_rcpApprox_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 8) Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 8) Pouw.PearlC.sh16384))))",
+    "    (Eq (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 8) (1 / 400) Pouw.PearlC.sh16384)",
+    "      (560497257 / 44838880000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000e5edf364"
+  },
+  "Pouw.PearlC.gammaFp4HotChainOnly_sm120Issue_lut256_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4HotChainOnly_sm120Issue_lut256_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 8) Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 8) Pouw.PearlC.sh8192))))",
+    "    (Eq (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 8) (1 / 400) Pouw.PearlC.sh8192) (52859999 / 2757920000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000b267946e"
+  },
+  "Pouw.PearlC.gammaFp4HotChainOnly_sm120Issue_lut256_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4HotChainOnly_sm120Issue_lut256_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At 8 Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 8) Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 8) Pouw.PearlC.sh16384))))",
+    "    (Eq (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 8) (1 / 400) Pouw.PearlC.sh16384) (628103 / 51232000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000f3682f1c"
+  },
+  "Pouw.PearlC.gammaFp4HotChainOnly_sm120Loop_rcpApprox_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4HotChainOnly_sm120Loop_rcpApprox_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 (1047 / 125)) Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 (1047 / 125)) Pouw.PearlC.sh8192))))",
+    "    (Eq (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 (1047 / 125)) (1 / 400) Pouw.PearlC.sh8192)",
+    "      (4559347637 / 230000640000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000c0ebffec"
+  },
+  "Pouw.PearlC.gammaFp4HotChainOnly_sm120Loop_rcpApprox_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4HotChainOnly_sm120Loop_rcpApprox_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.rcpApprox)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 (1047 / 125)) Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 (1047 / 125)) Pouw.PearlC.sh16384))))",
+    "    (Eq (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 (1047 / 125)) (1 / 400) Pouw.PearlC.sh16384)",
+    "      (2421535273 / 192194560000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000ba29b331"
+  },
+  "Pouw.PearlC.gammaFp4HotChainOnly_sm120Loop_lut256_8192": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4HotChainOnly_sm120Loop_lut256_8192 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 (1047 / 125)) Pouw.PearlC.sh8192)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 (1047 / 125)) Pouw.PearlC.sh8192))))",
+    "    (Eq (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 (1047 / 125)) (1 / 400) Pouw.PearlC.sh8192)",
+    "      (26694119149 / 1379343520000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000ac82b4ed"
+  },
+  "Pouw.PearlC.gammaFp4HotChainOnly_sm120Loop_lut256_16384": {
+   "signature": [
+    "Pouw.PearlC.gammaFp4HotChainOnly_sm120Loop_lut256_16384 (d : Pouw.PearlC.Fp4Device)",
+    "  (hp : Eq d.prices (Pouw.PearlC.Fp4Prices.sm120At (1047 / 125) Pouw.PearlC.Fp4ScalePath.lut256)) :",
+    "  And",
+    "    (Rat.instLT.lt 0",
+    "      (instHSub.hSub (Pouw.PearlC.creditFp4HotChainOnly d (instHMul.hMul 2 (1047 / 125)) Pouw.PearlC.sh16384)",
+    "        (instHMul.hMul (1 / 400) (Pouw.PearlC.creditFp4Hot d (instHMul.hMul 2 (1047 / 125)) Pouw.PearlC.sh16384))))",
+    "    (Eq (Pouw.PearlC.gammaFp4HotChainOnly d (instHMul.hMul 2 (1047 / 125)) (1 / 400) Pouw.PearlC.sh16384)",
+    "      (11079842383 / 896687840000))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000c5d097fc"
+  }
+ },
+ "layers": {
+  "Pouw.PearlC.DeviceFp4Issue": {
+   "imports": [
+    "Mathlib",
+    "Pouw.Basic",
+    "Pouw.PearlC.DeviceFp4"
+   ],
+   "except": [],
+   "why": "Pearl-C4's sm_120 record at the issue-bound FP32 price: definitions only, reading the FP4 record"
+  },
+  "Pouw.PearlC.DeviceFp4ChainOnly": {
+   "imports": [
+    "Mathlib",
+    "Pouw.Basic",
+    "Pouw.PearlC.DeviceFp4Issue"
+   ],
+   "except": [],
+   "why": "Pearl-C4's chain-only credit, protocol, tiles and γ at an FP4 record: definitions only"
+  },
+  "Pouw.PearlC.TTOutFp4ChainOnly": {
+   "imports": [
+    "Mathlib",
+    "Pouw.Basic",
+    "Pouw.PearlC.TTOutFp4",
+    "Pouw.PearlC.DeviceFp4ChainOnly"
+   ],
+   "except": [],
+   "why": "the chain-only TT_OUT-FP4 forms and their game import no proofs"
+  },
+  "Pouw.PearlC.DeviceFp4Hot": {
+   "imports": [
+    "Mathlib",
+    "Pouw.Basic",
+    "Pouw.PearlC.DeviceFp4ChainOnly"
+   ],
+   "except": [],
+   "why": "Pearl-C4 v2's credit, W_ref, γ and the accounting a v2 protocol meets: definitions only"
+  }
+ }
+}

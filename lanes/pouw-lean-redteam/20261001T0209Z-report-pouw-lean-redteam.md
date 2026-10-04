@@ -5,6 +5,7 @@ created: 2026-10-01T02:09Z
 status: open
 ---
 
+CHECKPOINT none (05:58Z) [open] 0558Z #1001 (fp8-table, ebe985e8b, ready) now touches PoUW Lean, but only HonestCap.lean's docstring (the fresh-trial case); `HonestTileCapRate` and the records are unchanged. GO (advisory), with two citation conditions: cite a fresh-trial bound only from rows with `unmeasured_draws = 0` and `openings_failed = 0` (note:20261004T0558Z-reply-from-d545bc2a-pr1001-honestcap-fresh-trials). #1059 at 97ff60894 (main merged in) is still a pure rename, 793/29. Main is f3b305b12, unchanged.
 CHECKPOINT none (05:34Z) [open] 0534Z SECOND ASK UNANSWERED on F3 (#983 `tileCheck4_computesWords` hent note) at 284d4ac30. F1, F2 and F3 are all watch-only now, with no further asks.
 - #1013 (cap proofs) and #966 are on main at f3b305b12 with records unchanged; condition (g) stands. #1059 is still a pure rename. Policies 650df0bd/03acd87f.
 - Daniel's ruling (verity-top rulings note, ~01:48Z, implemented by #1053): spec changes no longer wait for a reviewer's sign-off; Daniel gets a DM when one lands. So this lane's GO/NO-GOs are advisory and act as citation conditions. Post-landing review of any record change on main becomes the main check, and F1/F2/F3 stand as conditions on citing #983's theorems.

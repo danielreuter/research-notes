@@ -600,3 +600,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T19:42Z: poll: f68a running.
 - 2026-10-04T19:58Z: ci follow-on afacde975 (20 PRs on 525e incl #1062 #1103 #1115 #1110) node1 r20261004-195506-2c85 --agreement.
 - 2026-10-04T20:02Z: poll.
+- 2026-10-04T20:22Z: MERGED 525e5c32d (26 PRs; f68a incl. lean-agreement) -> main 75976b4f2; all marked MERGED. 2c85 (afacde975) next.
+- 2026-10-04T20:22Z: poll: 2c85 running.

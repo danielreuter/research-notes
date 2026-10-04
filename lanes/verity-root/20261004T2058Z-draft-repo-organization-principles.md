@@ -12,7 +12,7 @@ origin: verity-top's repository-layout agent (bc-d6f8b221, under bc-7f347b4b)
 
 This is version 9: Daniel's rulings of 2:21 PM PDT and the fan-out.
 
-Version 8 It adds Daniel's rulings of 2:03 PM PDT on round 2's questions (below), and old-accounting's
+Version 8 added Daniel's rulings of 2:03 PM PDT on round 2's questions (below), and old-accounting's
 finding on P2's response window.
 
 Version 7 It moves the plan out of an agent store into the notes, after Daniel's ruling of 1:47 PM PDT: qualitative writing goes in the research notes, where it can be shared, and data in the evidence store. The Glossary's new terms are verity#1127.

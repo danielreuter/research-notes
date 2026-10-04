@@ -514,3 +514,22 @@ Triage:
   (installed on node 1 03:07Z, so the eviction pause is lifted), #1039, #995, #936, #942, #944 and #958; node 1's prune of 159
   source trees at 04:01Z with root's yes (disk 68.7% to 65.4% used, inodes 74.6% to 61.6%); and #990 and #1012, ready for ci's
   train. Infra is subscribed to the thread for 12 h.
+- Answers: console 04:31Z (ts 1791088280.064589), old-circuits-and-proofs 04:31Z (ts 1791088308.719599). Most time: console:
+  finding things after its handoff (notes in the coordinator's store, the `top` handle, `research msg`'s setup on a laptop agent),
+  and node 1's boto3 1.34 lacking `IfNoneMatch` in its R2 smoke tests; old-circuits-and-proofs: tip checks restarted by follow-on
+  tips (fixed by ci's batching), node 2's slot pausing for windows it couldn't see coming (#960, about 20 min on 18:05Z), cold
+  audits queued behind node 1's Lean `check 2`. Worked around: console ran its read-only cache probe through top (the key is only
+  in the Personal environment, and a laptop agent can't start cloud subagents); old-circuits-and-proofs moved checks between
+  nodes by hand and grepped PR bodies for the reviewer line. Fix next: console: no sudo for `research run` jobs on node 1 (any job
+  can read `/etc/verity/lean-cache.env`); old-circuits-and-proofs: slots and windows visible before launch, and `--on auto`.
+- Triage, posted 04:47Z (ts 1791088842.995949): (1) jobs off sudo: yes, infra. Verified at 04:35Z that NoNewPrivileges alone is
+  escapable: jobs run as `research`, which has a lingering user systemd, about 15 tmux sessions, ssh keys and a cluster-admin
+  kubeconfig. The fix is a separate unprivileged job user (as #1011 does for `lean-build`). Lane bc-437d1338 is on the audit, a
+  design note and an opt-in draft PR with a probe (`cursor/n1-job-user-558b`), by 12:00Z; top is asked whether the Lean cache
+  timer also waits for it. (2) Placement: yes, infra, lane bc-58f8832d (`cursor/check-on-auto-558b`), by 10:00Z: `slot.py
+  --status` lists upcoming windows, `check.py` shows both nodes' slots, Lean pools, windows and waiters from a VM, and
+  `--on auto` chooses deterministically and refuses when it can read neither node. (3) Lean cap: later (inodes at 66%, the gate
+  runs to 08:00Z; then the steward's call; the Lean cache helps cold audits). (4) No: boto3 (#1006's client is urllib). Not
+  infra's: the secrets' placement (top), the laptop subagent limit (Cursor), `research msg` setup (comms; #980 names missing
+  pieces). (5) `top` is in the registry. (6) The reviewer-line grep ends when #1053 lands. Every answer produced an item, so the
+  timer stays on. Next round: circuits, proofs.

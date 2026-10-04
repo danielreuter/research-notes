@@ -9,3 +9,4 @@ Harness helper bc-6da61042 (#588), VM-only material copied at its migration (202
   art:8273a5fad7a89bf825168fe8470065e38973eeb85ae6c25ecb60135d21edbb16 (after).
 - Earlier outputs, already preserved: build bab84c16 art:01c2f39c1cfd79813f7b4843c030ac7a453a468ad52b3febaca72c1632daa382,
   8192^3 NVFP4/FP8 fill check art:4767f9591ab4edbe124519487840cfc44ff7b2110f5697934a510b78ceeefd0c.
+- The bundle's two commits are on verity branch cursor/pouw-node2-twin-trees-028b, head 03df589b83fcb7672aefdc6c647336eaf872223b (= helper-cd3d-twin-after; its parent 14041d06c = helper-cd3d-twin-before; base 9f1e33b16), pushed by old-accounting 2026-10-04; the bundle itself stays in the pous store (git data stays out of the notes).

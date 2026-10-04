@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (17:20Z) [open] A 17:20Z poll: nothing addressed to pouw-node2; main c05f14179 lands #1070 (opt-in row_k cut of Pearl-C/Pearl-C4 row units, PROTOCOL.md + vectors; no gamma or cap change), panel unaffected; node2-ops 17:15Z: 16Z GPU busy 10.8% (nothing submitted), /workspace 55% (hold), no windows ahead, corrected infra's wasters item 1 (circuits-tp8, not ours); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (17:00Z) [open] A 17:00Z poll: nothing new since 16:40Z; main ae121709c unchanged; /workspace last 55% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (16:40Z) [open] A 16:40Z poll: nothing addressed to pouw-node2 (only infra interviews round 21); main ae121709c unchanged; /workspace last 55% (hold); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (16:20Z) [open] A 16:20Z poll: nothing addressed to pouw-node2; node2-ops 16:10Z: compute accounting's rebooked window ran (r20261004-150005-0c35, timed lease on all 8 GPUs at 15:02Z, 34.5 timed min, CPU audit on 68-79 still running), node 2 7 of 8 GPUs free, /workspace 55% (over 52% hold, none of mine pending); infra's daily GPU wasters list names none of ours; main ae121709c unchanged; panel art:63261f6f unchanged pending compute accounting's yes; off node 2

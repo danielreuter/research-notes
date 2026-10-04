@@ -34,6 +34,21 @@ every scheme in `schemes.SCHEMES`, so these answers change:
 
 The γ statements and price twins are unchanged. Posted at 1791155395.749669.
 
+**Revised 23:29Z, after Daniel's 4:25 PM ruling: the silicon models (the models and their Lean, FP formats, device
+instances and gadgets) go to `catalog/silicon/`.**
+
+- **§A 3, §D 1, §G 2:** `Sm120`, `DevicePricesLoop` and `devSm120v1` go to `catalog/silicon/`, along with PoUW's FP8
+  atom model `Fp8Atom.{Atom,E4M3,Fp32}`, which the certified γ reads, and `scripts/fp8atom_vectors.py` (§D 8). The γ's
+  `Sm120` instance stays in the lock and reads them by definition hash, through lean's catalog-read allowance.
+- **§C 6:** `pearl_c_device.py`'s measured part (the `Prices` values, `atom`, `peel`) goes to `catalog/silicon/`, not
+  `catalog/devices/`.
+- **§C 4:** `pearl_kw`'s FP-format conversions (`bf16_*`, `f32_to_fp8`, `fp8_to_f32`, `f32_*`) go to
+  `catalog/silicon/`.
+- **§F 4:** the generic TC interpreter goes to `catalog/silicon/` too, not `verity/primitives/`.
+- **§C 12:** `ncp2` stays in `verity/` (as ruled).
+- **Unchanged:** "Nothing moves to `experimental/`" is scoped to the proof system. PoUW's experimental rows stand as
+  revised at 23:09Z.
+
 **Sources.**
 
 - Code: `origin/main` `9400e83d5`, which contains `16749a0ff`, read with `git show` and `git grep`.

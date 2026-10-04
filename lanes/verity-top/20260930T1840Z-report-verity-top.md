@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:00Z) [open] be2452acd checking; lock reductions #1142/#1149/#1156 drafted; all move-map answers in; import names follow directories (Daniel)
 CHECKPOINT none (22:45Z) [open] be2452acd checking; #1123 ready; #1148+#1150 out of draft awaiting red-team grant; move-map answers in from proofs and circuits
 CHECKPOINT none (22:32Z) [open] main 9400e83d5 (#1129); be2452acd checking; move-map answers in; lock drafts #1142, #1149
 CHECKPOINT none (22:15Z) [open] 6b376c61e passed, waits on #1129 red-team grant; be2452acd checking; lock-reduction drafts starting (#1142 warden 4 of 51)

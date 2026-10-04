@@ -33,6 +33,13 @@ the doorbell wakes only the names at the start.
   - Steps on approval: re-scan (`/tmp/src_candidates.py` on n1), `research keep` each tree (owner @infra, low,
     expires now), then `retention rm --approved-by @infra --ref <yes>`, dry first and then `--apply`.
 - Disk at 03:23Z: 69%, 1,566 GiB free. Growth slowed to about 40 GB an hour after 03:11Z.
+- 03:30Z pass: disk 69% (1,567 GiB free), and no reply from @infra on the src cleanup. Node 1 has 8 of 8 GPUs held (8
+  provers) with the pacer's cap at 338 GB. Node 2 has 8 of 8 leased; GPUs 2 and 6 were starting fill-runner jobs. The
+  dispatcher is clean, and the latest hourly snapshot is `art:7e73e229…`. Drift shows only the planned quota swap, which
+  reverts at 10:30Z.
+- **03:47Z: escalated** to @infra and @top in the disk thread (`1791085669.650279`), since nobody had acted on
+  `research/src` by the deadline. The disk was 69% (1,573 GiB free), flat since 03:11Z. I'm waiting for the owner's yes;
+  nothing is recorded or deleted.
 
 ## State at 03:15Z Oct 4 (8:15 PM PDT Oct 3): #1028 installed on node 1, eviction pause lifted
 

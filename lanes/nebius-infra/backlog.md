@@ -50,7 +50,20 @@ when `/tmp/steward-pass.last` is over 40 min old.
      is the old one, the `src.conf` drop-in isn't installed, and `tool-1028.conf` pins `e307a849` (no `--src-dir`).
      - Main's tool snapshot is `2babac2063726d4c`, already on node 1.
      - Asked @infra (`1791150252.250029`) whether the pin should move there. The deploy of the wrapper and drop-in is
-       theirs, unless they hand it to me. Awaiting the answer.
+       theirs, unless they hand it to me.
+   - **Done, 22:14Z Oct 4: live on node 1, deployed by @infra.**
+     - The new wrapper, `vy-store-evict-research.service.d/src.conf`, and `tool-1028.conf` on both units now pin
+       `2babac2063726d4c` (main `16749a0ff`).
+     - The first research run (22:14:54Z) deleted 23 src trees (32.8 GB, 427k inodes) and kept 63 (condition 1: 7,
+       condition 2: 20, condition 3: 18, recent: 38).
+     - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
+       main's `2babac20` and needs a bump with the next eviction change.
+
+## State at 22:30Z Oct 4 (3:30 PM PDT), steward pass: #1115 live
+
+- **#1115 is live** (open ask 1, done; see Open asks). The watch still flags disk-72 (72.4%, 1,382 GiB free), but src
+  eviction is live, so there's no nudge. The rest of the disk is the GLM capture and `research/runs`.
+- GPUs idle, reported: node 1 0 of 8 and nothing in Kueue; node 2 0 leases and no queue. The pacer and dispatcher are clean.
 
 ## State at 22:00Z Oct 4 (3:00 PM PDT), steward pass
 

@@ -26,8 +26,10 @@ Only with no open files (`lsof +D`), and only at `nice 19 ionice -c3`:
   it: `~/.cache/uv`, `/workspace/cache/uv`, `/workspace/jobs/cache/{uv,triton}`, `~/.triton`, `~/.cache/vllm`, and
   harness venvs under `/workspace/cache`. Never `~/.cache/verity-check/lean-deps` or `circuit-check` (check's verdict caches;
   their owner is the check, and run `r20260930-213917-d6b3` is moving them to `/workspace`);
-- shipped source trees `/workspace/research/src/<sha>` older than **6 h** that no running run references (Daniel's ruling on
-  card `01933aa8`, 6:58 PM PDT 30 Sep; it was 24 h), and that hold nothing outside their commit besides build caches and
+- (off since 4 Oct, infra: `node-sweep.sh` sweeps these only with `--src`, which `sweep.sh` doesn't pass, and owner-approved trees
+  always; `research.store.evict.evict_src` (#1115) decides src/ under stricter rules, so a tree with local commits, a stash, loose
+  objects or hidden index flags stays) shipped source trees `/workspace/research/src/<sha>` older than **6 h** that no running run
+  references (Daniel's ruling on card `01933aa8`, 6:58 PM PDT 30 Sep; it was 24 h), and that hold nothing outside their commit besides build caches and
   registered fixtures: a tree with other files may hold a run's output, so it waits on its owner (§5). `tools/sweep.sh`
   (§2) checks every request not yet finished (a dead runner's doesn't count), Kueue workloads and pods not finished, fill
   jobs queued or running, and every process's cwd, root, open files, maps, argv and environment. A tree whose ship is reused

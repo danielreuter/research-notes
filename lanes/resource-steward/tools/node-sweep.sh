@@ -1,13 +1,15 @@
 #!/bin/bash
 # The resource steward's delete-without-asking sweep, run ON a node as root (`sudo nice -n 19 ionice -c3 node-sweep.sh`).
-# Usage: node-sweep.sh [--dry-run] [--src-age-h H] [--approved FILE] [--jobs-src] [--lake]. Per the policy in lanes/resource-steward/*-report-resource-steward.md:
-#  - /workspace/research/src/<sha> trees whose directory is older than H h (default 24), unless something live names the sha
+# Usage: node-sweep.sh [--dry-run] [--src] [--src-age-h H] [--approved FILE] [--jobs-src] [--lake]. Per the policy in lanes/resource-steward/*-report-resource-steward.md:
+#  - only with --src (off since 4 Oct: research.store.evict.evict_src, #1115, decides src/ with stricter rules: local commits,
+#    stashes, loose objects, hidden index flags, extra config), /workspace/research/src/<sha> trees whose directory is older
+#    than H h (default 24), unless something live names the sha
 #    (REFS_PY: a request not yet finished or refused whose runner is alive or not yet launched, a Kueue workload or pod not finished, a
 #    fill job queued or running, any process's cwd, root, open files, maps, argv or environment), and unless the tree holds
 #    files outside its commit (EXTRA_PY), which may be a run's output. The trees that pass are renamed into src/.trash/ (one
 #    rename each, so the launcher never sees a half-deleted READY tree), scanned once more together, put back if anything
 #    names them now, and deleted. A tree listed in the --approved FILE (shas, whose owners have said their files outside the
-#    commit may go) skips only the age and EXTRA_PY checks;
+#    commit may go) skips only the age and EXTRA_PY checks, and is swept without --src;
 #  - src/.trash/ entries an interrupted sweep left (decided already; nothing executes from there);
 #  - check scratch untouched for 2 h and not held open: /tmp/pytest-of-research/pytest-*, <verity-check cache>/lean-audit-scratch-*;
 #  - only with --lake, the Lean dependencies (.lake/packages) a failed audit left in a source tree nothing live names, at any
@@ -20,8 +22,8 @@
 # environment.
 [ "$(id -u)" = 0 ] || { echo "node-sweep: needs root to read every process" >&2; exit 2; }
 exec 9>/run/lock/resource-steward-sweep.lock; flock -n 9 || { echo "node-sweep: another sweep is running" >&2; exit 2; }
-DRY=0; AGE_H=24; APPROVED=; JOBS=0; LAKE=0
-while [ $# -gt 0 ]; do case $1 in --dry-run) DRY=1;; --src-age-h) AGE_H=$2; shift;; --jobs-src) JOBS=1;; --lake) LAKE=1;;
+DRY=0; AGE_H=24; APPROVED=; JOBS=0; LAKE=0; SRCS=0
+while [ $# -gt 0 ]; do case $1 in --dry-run) DRY=1;; --src) SRCS=1;; --src-age-h) AGE_H=$2; shift;; --jobs-src) JOBS=1;; --lake) LAKE=1;;
   --approved) APPROVED=$(tr -s ' \n' ',,' < "$2") || exit 2; shift;; *) echo "unknown $1" >&2; exit 2;; esac; shift; done
 approved() { [[ ,$APPROVED, == *,$1,* ]]; }
 R=/workspace/research; SRC=$R/src; TRASH=$SRC/.trash; now=$(date +%s); T=$(mktemp -d); trap 'rm -rf $T' EXIT; trap '' PIPE
@@ -155,7 +157,7 @@ gone() { local p=$1 n m w
 : > $T/src
 for d in $SRC/*/; do d=${d%/}; s=${d##*/}
   [[ $s =~ ^[0-9a-f]{40}$ ]] || continue
-  { [ $(age_h $d) -ge $AGE_H ] || approved $s; } && echo $s >> $T/src
+  { { [ $SRCS = 1 ] && [ $(age_h $d) -ge $AGE_H ]; } || approved $s; } && echo $s >> $T/src
 done
 if [ -s $T/src ]; then
   held $T/src > $T/held

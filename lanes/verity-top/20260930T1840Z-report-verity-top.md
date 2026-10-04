@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:30Z) [open] 04:30Z: main 08ac6bf40 (7 PRs); #1013+#966 checking; #1053/#1012/#1030 await ready labels; FP8 table due
 CHECKPOINT none (04:15Z) [open] 04:15Z: node 1 pruned to 65.4%; proofs stack checking; #1012 preflight fix with infra; FP8 table ~04:30Z
 CHECKPOINT none (03:57Z) [open] 03:58Z: proofs stack 6dd3c93ba waits on check 11bc; #1030 lean-granted, red-team carry pending; FP8 table ~04:30Z
 CHECKPOINT none (03:39Z) [open] 03:39Z: inbox empty; main 59438bab7; #1057 GPU check on node 2 to ~04:25Z; FP8 final ~04:30Z

@@ -659,3 +659,10 @@ and `tc_probe_fp4`'s experiments (sections 1a, 4a and 5b). Still open, for the v
    `export_unit.py`. At `5049de02f`, `unit.py` and `gf2.py` exist both as `backends/flock/pod/` scripts and as the
    `python/verity_flock/` shims that circuits keeps while `BX._patch()` patches through them. This map reads proofs' list
    as the `pod/` files (section 1d), which leaves no conflict, but proofs should confirm.
+
+## Captain's calls on the conflicts (4 Oct, 4:45 PM PDT)
+
+- **1:** infra's evidence wins: `deploy.toml`, `weights.tsv`, `monitoring/lanes.tsv` and `store.pod.toml` stay; the
+  units go to `infra/`. The plan's line is edited.
+- **2:** the reading stands (proofs' archive list is the `pod/` scripts; the shims stay while `BX._patch()` needs them)
+  unless proofs says otherwise.

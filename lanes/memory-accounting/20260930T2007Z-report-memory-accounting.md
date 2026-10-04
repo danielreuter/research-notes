@@ -5,6 +5,7 @@ created: 2026-09-30T20:07Z
 status: open
 ---
 
+CHECKPOINT f3b305b12 (20:56Z) [open] registered approach:pous/p2-seqroot-cooperating-cores (live: fails as frozen, art:f33b450f) and approach:pous/p2-xor-reduce-compression (parked); pous/ec-p2-16448 needs handover pous->memory-accounting; timing red-team relay pending from old-accounting
 CHECKPOINT cc21a7d94 (11:37Z) [open] 4:40 AM PDT: timed set complete (floor 40.7x the 483us cert, 220/220 audits), d sweep, P2 13.6 GB/s, band climb best 2.77 GB/s (1.73x); post-7:50 plan + Daniel list in store state.md; #473 new head 8d0f6070c
 CHECKPOINT cc21a7d94 (06:38Z) [open] RESUMED 11:33 PM PDT (Daniel) for 4 overnight PoUS items on node 1; workers: census id, #474 B1/B2 fixes + sm_120 build mode; asked infra for node-1 submission recipe (Slack 1790836566.037499)
 CHECKPOINT cc21a7d94 (21:54Z) [blocked] IDLE from 2:52 PM PDT: PoUS paused by Daniel until the shared queue and resources are grounded; no work, timers or subscriptions; retired bc-4b3abaed, bc-c0ee31ee (stopped only); resume plan in store internal/memory-accounting/state.md

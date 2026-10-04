@@ -46,6 +46,26 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 19:35Z Oct 4 (12:35 PM PDT): research/src pruned by someone, unlogged
+
+- **`research/src` went from 220 trees (19:02Z) to 160 (19:15Z) to 77 (19:30Z).** The disk fell from 73% (19:06Z) to 70.6%
+  (1,476 GiB free, 19:30Z).
+  - Nothing is in `deletions.jsonl` since 04:01Z, `src/.trash` is empty, and no sudo `rm` was involved (the trees are
+    `research`'s). No Slack post claims it, and every agent logs in as `research`, so I can't tell who.
+  - Asked in the disk thread for whoever pruned it to say so and how (`1791142428.245139`).
+- **The @top ask is on hold:** the disk is under 72% and the trees are pruned. At the 19:50Z deadline, send it only if the
+  disk is back at 75%, or if @infra says it wasn't involved and the trees regrow. I told root.
+- Node 1: 1 of 8 GPUs held (`provers` 1). Node 2: 1 of 8 (a fill-runner job). The pacer and dispatcher are clean, and #992
+  is still open.
+- **Root (19:34Z):** hold the @top ask (send only at 75%, or if the trees regrow and @infra says it wasn't involved). Keep the
+  "who pruned it" question open. If nobody claims it by the 20:00Z full pass, file a friction item: an unrecorded deletion
+  under the shared `research` user.
+- **No running check lost its tree** (checked 19:36Z):
+  - `f68a` (`r20261004-184459-f68a`, check slot c and Lean check slot 1, mid Lean audit) is on `525e5c32…`, which exists.
+  - So do the other live holders: check-b `6cfd99db…` and check-d `3f048ece…`.
+  - Every running run's tree exists, except two Oct 1 runs whose pids are dead (stale records).
+  - So I sent nothing to RC.
+
 ## State at 19:08Z Oct 4 (12:08 PM PDT): escalation path to @top, at root's ask
 
 - **Root (19:05Z):** if @infra hasn't acted by 19:50Z or 75% disk, whichever comes first, ask @top in the disk thread to

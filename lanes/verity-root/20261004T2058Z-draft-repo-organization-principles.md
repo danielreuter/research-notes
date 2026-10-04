@@ -47,7 +47,18 @@ can pick it up from here.
 `vy-mig-check-1/2`, then landed through `research merge` with a short hold on other merges. Out of it, each following the
 same way when ready: C-Flock's Lean (after fail-closed and canonical V1), PoUW's Lean split (after slice 6), and
 C-Flock's Rust and CUDA (until proofs draws the ZK layer). The prep PRs below are no longer gates; the branch merges in
-what it needs. The old path, kept for reference:
+what it needs. Lanes (4:40 PM PDT):
+- the Python half: `tools/move/layout.py` and its map on `cursor/layout-move-c3b2` (captain's worker);
+- the Lean half: lean, on `cursor/layout-move-lean-c3b2` (core, NCI, the warden and PoUS, by `tools/lean/split.py`);
+- restacks: `tools/move/restack.py` reruns the move script on an open branch, then merges, so only content conflicts
+  remain; it is dry-run across every open PR (captain's worker, on ci's `rename_merge.py`);
+- look-ahead: what the move breaks outside `check` (store derivations, `-m`, readers of `census/` and fixtures,
+  module-keyed data, guards that fail open), fixed before or with the move (captain's worker);
+- pre-scripted follow-ups that fire when their blockers land: C-Flock's Lean (proofs), PoUW's Lean (compute-accounting);
+- the node side and a redeploy right after landing (infra); the landing check sharded over five pods (ci);
+- once the generated commit exists: one fix-forward worker per area, each on a sibling branch merged into the move.
+
+The old path, kept for reference:
 
 *Critical path to the first move* (core's Lean split into its spec and `security_proofs/`, a pure move):
 1. ci's check-time fixes land, ci's tip `afacde975` among them, and ci measures check time. Owner: ci.

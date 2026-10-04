@@ -16,6 +16,24 @@ tests pass, without asking: take it out of draft, run `research queue ready N --
 it. In Slack posts, put the mentions first, then `steward:`. The top-level forwards a post that tags a handle anywhere, but
 the doorbell wakes only the names at the start.
 
+## State at 03:30Z Oct 4 (8:30 PM PDT Oct 3): disk watch at root's ask
+
+- **Root's ask (03:17Z):** check node 1's disk every 15 min (timer `node1-disk-watch`, at :15 and :45, plus the :00 and :30
+  passes). If @infra hasn't acted by 74% or 03:47Z (one-shot timer `node1-disk-escalation-deadline`), whichever comes first,
+  escalate to @infra and @top in the disk thread with an owner-approvable `research/src` cleanup through
+  `research retention rm`. Delete nothing without approval. Tell root at 78% or if merges stall.
+- **Cleanup prepared** (`art:bd3cf3736ce1712e2ab208a20eea55ca9868c8fcf48242eaeab4c935654279bd`; draft post in
+  `/tmp/src-escalation.txt`):
+  - 178 of 198 trees are unused, 219 GB net of hard links into `/workspace/cache` (uv) and the kept trees. 71 trees of
+    1 GB or more hold 201 GB.
+  - 20 trees (152 GB) are excluded: each has a live process, a running run's `job.json`, a live slot holder, or a change
+    within the last hour.
+  - No retention record covers `research/src`, so `retention rm` refuses them all today (dry run on `4e6cef7e`). The
+    proposed owner is @infra, since this is `research run`'s machine-side cache.
+  - Steps on approval: re-scan (`/tmp/src_candidates.py` on n1), `research keep` each tree (owner @infra, low,
+    expires now), then `retention rm --approved-by @infra --ref <yes>`, dry first and then `--apply`.
+- Disk at 03:23Z: 69%, 1,566 GiB free. Growth slowed to about 40 GB an hour after 03:11Z.
+
 ## State at 03:15Z Oct 4 (8:15 PM PDT Oct 3): #1028 installed on node 1, eviction pause lifted
 
 - **Done at root's ask** (root's Slack thread `1791083016.896119`, closed; reported in the disk thread `1790807092.688879`).
@@ -23,11 +41,15 @@ the doorbell wakes only the names at the start.
     the 02:35Z and 02:51Z eviction runs already had `TREE_KEEP_S`.
   - Both units have a `tool-1028.conf` drop-in pinning `VY_RESEARCH_TOOL` to that snapshot, because the wrapper's default,
     the newest snapshot, can be an older branch's. Bump the pin when a later eviction fix lands.
-  - Both `pause-until-1028.conf` drop-ins are removed and systemd reloaded. @infra's `vy-store-evict-unpause` timer is no
-    longer listed.
-  - A dry run, then one real run of each unit at the 2,500 GB mark: the research store's 5 trees (all fetched within
-    2.5 h) were kept with identical contents (`trees_kept 5`, `trees_removed false`). No process had a tree open. The units
-    freed 0.1 GB and 0 GB. The next hourly runs are at 04:11Z.
+  - **@infra had already done the install at 03:07Z, in parallel** (root's thread, `1791083313.080789`). It pinned the
+    same snapshot, removed both `pause-until-1028.conf` drop-ins, stopped the 6 Oct auto-unpause timer, and ran the
+    research store's eviction by hand: all 5 trees kept, 16.3 GB of preserved blobs and run files evicted. My 03:11Z
+    `tool-1028.conf` replaced its pin with the same value, so there is one pin; my `rm -f` of the pause drop-ins was a
+    no-op.
+  - A dry run, then a second run by hand of each unit at the 2,500 GB mark: the research store's 5 trees (all fetched
+    within 2.5 h) were kept with identical contents (`trees_kept 5`, `trees_removed false`). No process had a tree open.
+    These runs freed 0.1 GB and 0 GB, since @infra's 03:07Z run had already freed what was evictable. The next hourly runs
+    are at 04:11Z.
 - **Eviction won't slow the disk.** `/workspace` is at 69% with 1,574 GiB free, down about 300 GB from 02:35 to 03:11Z.
   - The writes are check runs' source trees. `/workspace/research/src` holds 197 trees (356 GB, 39 of them since 00:00Z);
     three of 24–29 GB with Lean `.lake` builds appeared since 02:46Z. Another 48 GB is in `research/scratch`.
@@ -40,8 +62,12 @@ the doorbell wakes only the names at the start.
 - **Both servers have all 8 GPUs allocated, and neither has a queue.**
   - Node 1 has 8 provers admitted in Kueue, and all 8 GPUs hold about 90 GB. The pacer has nothing in flight; its only
     waiting Commits are the two batch-64 Gemma-2 rows (`cov-n050-2`, `cov-n051-2`) on circuits' keep list, held by design.
-  - Node 2's `vy-cluster-agent` holds 8 POUS jobs and its queue is empty. GPU 6 was briefly empty and was granted at
-    02:29:55Z. The `pouw-infra-fill` tmux pane there is a dead leftover; the cluster agent does the filling now.
+  - Node 2's `vy-cluster-agent` granted all 8 GPU leases, and its own queue was empty. GPU 6 was briefly empty and was
+    granted at 02:29:55Z.
+  - **Correction (03:35Z, from node2-ops' note `20261004T0321Z-alert-from-node2-ops-fill-pane-is-live-not-a-leftover`):**
+    the `pouw-infra-fill` tmux pane is live; don't kill it. Its fill runner launches jobs under the agent's leases and keeps
+    its own queue, which the agent can't see until a job asks for a lease. At 03:31Z two of the 8 leases were fill-runner
+    jobs (GPUs 2 and 6), six were `research` runs, and two more fill jobs were queued.
 - Node 1's `/workspace` is at 66% with the pacer's cap at 521 GB, and the dispatcher is clean. With the eviction pause at
   1,500 GB free, eviction starts again near 69%. The disk has climbed about 1.5% an hour since 23:05Z (61% to 66%), which
   reaches 69% around 04:30Z, and #1028 is still open. If the disk is at 68% or more and #1028 hasn't merged by then, raise

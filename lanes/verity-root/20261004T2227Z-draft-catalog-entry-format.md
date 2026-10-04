@@ -61,8 +61,10 @@ The builder is the entry's source and lives in `catalog/`. The regeneration test
 - Code in `verity/` never imports `catalog/`. It takes an entry's `value` as a parameter. The caller loads the entry
   by digest and checks it; the caller is the verifier's configuration, a tool or a test.
 - A result records `catalog: {id: digest}` for every entry it read (principle 10).
-- A device instance in catalog Lean is an entry too. Its `value` is the declaration's name plus the sha256 of its
-  source module. A guarantee that reads the instance has it in its lock's `reads`, so the lock covers it.
+- A device instance in catalog Lean is an entry too. Its `value` is the declaration's name plus its definition hash,
+  the audit's per-definition SHA-256 that the lock's `reads` records. A module hash would change with comments and
+  with unrelated declarations beside it, so one hash names the definition in both places (lean). Catalog Lean is
+  trusted wherever a guarantee reads it, and lean's reads check allows reads in the catalog's Lean modules.
 
 ## What this answers
 
@@ -72,10 +74,13 @@ The builder is the entry's source and lives in `catalog/`. The regeneration test
 - **compute-accounting Q2 (device records), a recommendation:** the caller passes the chosen device entry's value
   into `pearl_c_work`, `pearl_c_debit`, `pc8` and `rowk`. I'd state the certified γ over a device parameter, under its
   named device assumption. `Sm120` would then be an instance in catalog Lean, read by the guarantee that instantiates
-  it. Compute-accounting and lean decide this one.
+  it. Lean agrees: γ is stated once for every device that satisfies the named assumption, and the cited guarantee is
+  its instance at `Sm120`, which stays in the lock. Compute-accounting owns the details.
 - **circuits Q4:** yes, the conformance record becomes each Definition's status in the index.
 - **C-Flock's three-package shape** (the executable verifier in `verity/`, its spec, and `security_proofs/flock/`
-  with `level3` and `soundness`): yes, with lean's agreement.
+  with `level3` and `soundness`): yes, and lean agrees. `FlockLevel3` and `FlockSoundness` already have roots of
+  their own and move whole, and `FlockProofs` goes with them. `Flock` and `Main` stay with the executable verifier, as
+  its spec, until proofs extracts it.
 
 ## Not decided here
 

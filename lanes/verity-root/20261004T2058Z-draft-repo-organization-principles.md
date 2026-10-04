@@ -322,12 +322,16 @@ And at 2:21 PM PDT:
   namespace: its one-line `__init__.py` goes, and each directory under `verity/` that holds core code is a member of
   its own, keeping `src/verity/<module>/` paths so that path-keyed tools still work. A probe checks uv's editable
   install, `suites.py`'s `foreign()`, `test_boundaries.py` and circuit-check on that split first. Code that leaves
-  `verity/` for `catalog/` or `experimental/` takes those members' names. `research` stays its own distribution because
-  the nodes pin it separately, and `ci.toml` can still declare sub-suites.
+  `verity/` for `catalog/` or `experimental/` takes those members' names. `tools/` holds one distribution per tool,
+  each its own suite and cache key, so that a change to one tool reruns only its tests (ci). `research` stays its own
+  distribution because the nodes pin it separately.
 - **FP and tensor-core semantics** split as the Lean does: the interpreter in `verity/primitives/fp/`, the formats and
   device instances in `catalog/` (captain's default; compute-accounting and circuits may object).
 - **Kernels of catalog Definitions** register by Definition id from `verity/kernels/`, so `verity/` imports no catalog
-  module. Their self-checks are tests, and tests may import the catalog (captain's default; circuits may object).
+  module. A kernel's self-check against its Definition runs in the catalog's suite. `verity/`'s own tests import no
+  catalog module either, so a catalog change never reruns core's suite (ci, 4 Oct). The core tests that use real
+  entries today (seven in `ir`, three in `evaluation`, and `test_profile`) switch to toy registrations or move to
+  the catalog's suite; circuits decides which.
 - **`PROTOCOL.md` retires.** Definitions go to the Lean spec, parameters to the catalog, and where two implementations
   must agree, a vectors file is the spec. A short README keeps the threat model, the lifecycle and the open assumptions,
   and the area's approaches keep its history. Two sections stay until Lean states them: the warden's wire format and

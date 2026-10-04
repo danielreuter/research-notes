@@ -549,3 +549,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T05:38Z: #1053 ruling CONFIRMED (note verity-top-20261003T1630Z-rulings-3-oct, bullet added 05:29Z, notes main 19803507). Cancelled 7354; a64d3e16f (#1053 on #1051) node1 --agreement. Reviewer-line check retires when #1053 merges.
 - 2026-10-04T05:45Z: STANDING (Daniel 2026-09-29 per root): after each train, close stacked PRs whose head is in main but not marked merged, comment 'Merged into main at {sha} (train {name})', no asking. Did #979 #854 #919 #923 #1023 #1024 #1037 (all already closed; comments added).
 - 2026-10-04T05:43Z: 7e7c (#1030), d12e (#1051) past pytest; fb77 (#1053) early.
+- 2026-10-04T06:19Z: MERGED #1030 zero knowledge (7e7c incl. lean-agreement) -> main 0fa4b1321. d12e (#1051), fb77 (#1053) past lean-audit.
+- 2026-10-04T06:21Z: circuits 5 (#957 #976 #981 #977 #985) on a64d3e16f: f3450eecf node1 --agreement.

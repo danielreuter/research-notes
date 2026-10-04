@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (07:23Z) [open] 12:25 AM PDT: train: #1041 admitted; #987/#1035/#1040/#1050/#827 granted, quick tiers on vy-nebius-2; #1041 and #1062 restacking on #1073 for ci. Route P proved/pinned/audited (draft #1088, 73b0). Lane B's 31 stubs proved; merging into scope base. scope-g freezing P1 twins for helper lanes.
 CHECKPOINT none (06:25Z) [open] 11:25 PM PDT: #1030 on main; train hand-off to ci for 2 AM PDT; grants pending from red-team-hj and lean; six drafts with reasons; route P measured 1.3x/0.64x vs upstream
 CHECKPOINT none (05:20Z) [open] Draw rule (Daniel): the draw depends only on the verifier's coins and the public class. #1030 reviewer line drafted, lean confirming, then ci. zk-regvals pod audits bd01/3f56/fc7e running. Scope widening: B proving, C (scope-a) and D (scope-ef) staffed. flock-reg-out waits on compute-accounting's bridge choice. Friction: Lean Refine.Setup OOM on 16 GB VMs.
 CHECKPOINT none (04:15Z) [open] Reviewer lines in #996-#1037 (train). PoUW scope widening frozen (zk-scope-v2 196dae4ad); lanes B, scope-a, scope-ef on its stubs. #1060 opened (ownAtDrawsHP), pod audit ec49. R line restack running.

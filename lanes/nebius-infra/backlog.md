@@ -46,6 +46,11 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 21:15Z Oct 4 (2:15 PM PDT): disk watch lifted
+
+- The disk has been under 72% for an hour (71.4% at 20:15Z, now 70.7%, 1,470 GiB free), so `node1-disk-watch-78b` is off.
+  The 30-min passes and node 1's watch (disk-72, disk-78) carry on. @circuits' GLM footprint answer is still open.
+
 ## State at 21:00Z Oct 4 (2:00 PM PDT), steward pass
 
 - Node 1 (watch, no flags): disk 71.7% (1,422 GiB free), `research/src` 81 trees. 0 of 8 GPUs and nothing in Kueue (idle,

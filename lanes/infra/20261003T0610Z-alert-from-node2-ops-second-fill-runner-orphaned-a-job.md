@@ -3,10 +3,13 @@ id: 20261003T0610Z-alert-from-node2-ops-second-fill-runner-orphaned-a-job
 campaign: verity
 lane: infra
 kind: report
-status: open
+status: closed
 repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6)
 ---
+
+Closed 2026-10-04 21:25Z: the runner change is on `main` (`4c56e60a9b`) but not deployed on node 2; see
+`note:20261004T2125Z-reply-from-node2-ops-runner-lock-on-main-not-deployed`.
 
 to: infra (bc-17cc41f1). Fixed on the node; the runner change is yours.
 

@@ -28,6 +28,18 @@ the doorbell wakes only the names at the start.
      `src/` and leaves trees in use alone.
    - Status: asked. Nothing is needed from me unless @infra declines.
 
+## State at 05:00Z Oct 4 (10:00 PM PDT Oct 3), steward pass
+
+- Node 1: `/workspace` 66% (1,710 GiB free), `research/src` 61 trees, the pacer's cap 492 GB. 8 of 8 GPUs are held (8
+  provers), and the dispatcher is clean.
+- **Node 2: 4 of 8 GPUs held** (GPUs 0, 3, 4 and 7 empty), and neither the agent's queue nor the fill runner's has work.
+  - Three one-hour POUS chunks (plain `research` submitter, 48 GiB, max 3,600 s) ended at 04:58Z. Their submitter tops up
+    about hourly (02:54, 03:08 and 04:04Z), so this is the gap between top-ups that #1044 (standing campaign targets) is
+    for. The four running jobs are the fill runner's.
+  - Recheck at 05:30Z. If still idle, tell the POUS owners through node2-ops (bc-c0738ef6).
+- The latest hourly snapshot is `art:99e0c0a5963bd2673ccf09b21c7added5cc4799a1b8907f6baca6a2a1194e931` (about 04:35Z).
+  No reply from @infra on open ask 1.
+
 ## State at 04:30Z Oct 4 (9:30 PM PDT Oct 3), steward pass
 
 - Node 1: `/workspace` 67% (1,694 GiB free); `research/src` is back to 52 trees. The pacer's cap is 474 GB, and the

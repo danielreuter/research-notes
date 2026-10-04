@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (02:33Z) [open] 7:33 PM PDT: no new asks. Ratings stand. Verity fetch failed (auth) at 02:23Z, recovered at 02:33Z: main ca950f8b9, no change under protocols/pouw since 648e13f24; policy 650df0bd, 793 pins. #983 still unmerged. Project store still unmounted; ledger-2156Z and ledger-2230Z held.
 CHECKPOINT fbce5a2f4 (02:12Z) [open] 7:12 PM PDT: no new asks. Ratings stand. Main ca950f8b9 (#917 #1016): no change under protocols/pouw since 648e13f24; policy 650df0bd, 793 pins. #983 still unmerged (its NO-GO note only edited its Fix line). Project store still unmounted; ledger-2156Z and ledger-2230Z held.
 CHECKPOINT fbce5a2f4 (01:51Z) [open] 6:51 PM PDT: no new asks. Ratings stand. Main 43947f439 (#928 #979 #912 #982 #959, zk_session_sound): no change under protocols/pouw; policy 650df0bd, 793 pins; pearl_c4.py cap = CAP 1/400 and 64 | m domain unchanged. #983 still unmerged. Project store still unmounted; ledger-2156Z and ledger-2230Z held.
 CHECKPOINT fbce5a2f4 (01:30Z) [open] 6:30 PM PDT: no new asks. Ratings stand. Main 648e13f24 unchanged; policy 650df0bd, 793 pins; #983 still unmerged. Project store still unmounted; ledger-2156Z and ledger-2230Z held. Watching HonestCap art, HiddenTile discharge.

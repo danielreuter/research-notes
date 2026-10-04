@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (05:00Z) [open] A 05:00Z poll: nothing addressed to pouw-node2; redteam 0441Z follow-up: #983 at 284d4ac30, tileCheck4_computesWords still not citable (panel cites neither); infra interviews r20 note old-circuits-and-proofs lost about 20 min when node 2's slot paused for the 18:05Z window (#960, infra's fix, no ask of us); main 08ac6bf40 unchanged; /workspace last 51%; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4 (04:40Z) [open] A 04:40Z poll: nothing addressed to pouw-node2 (only infra's interviews round 20, not naming us); main 08ac6bf40 unchanged; /workspace last 51% (node2-ops 04:15Z), under 52% hold; panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4 (04:20Z) [open] A 04:20Z poll: nothing addressed to pouw-node2; node2-ops 04:15Z hourly: GPU busy 94.8%, one fill runner, daemons up, no windows ahead, /workspace 51% (over 50% watch, under 52% hold; flagged to compute accounting); fill-pane note closed; main 08ac6bf40 (no protocols/pouw or benchmarks/pouw change); panel art:63261f6f unchanged pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4 (04:00Z) [open] A 04:00Z poll: no new notes in accounting/pouw-node2/node2-ops/pouw-served/infra since 03:40Z (only my own checkpoint); main 59438bab7 unchanged; panel art:63261f6f unchanged pending compute accounting's yes on v1 gamma 0.0036949, FP8 pass rows, totals.py; off node 2 (no infra 'back'), so gpu-lease/fill runner not read

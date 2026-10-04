@@ -59,6 +59,25 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 23:15Z Oct 4 (4:15 PM PDT): asked the pouw-hidden-zk owner, at root's ask
+
+- **Root (23:02Z):** don't wait for 78%, since the pacer's cap drop slows merge trains. Ask the owner of the three
+  `pouw-hidden-zk` `cut_a_form*-k14336` runs how much more they'll write and whether finished stages can be published out
+  of `runs/`. Copy @infra, and delete nothing.
+- **Correction to my 23:00Z read:** each of the three run directories is only about 1 GB (two done, one running). The
+  probe's "about 10 GB each" was write traffic, not growth. The campaign's disk is its cache instead.
+- **Where the disk went** (`du` at 23:10Z, against earlier):
+  - `research/cache` grew from 157 to 342 GB: `pouw-hidden-zk` 180 GB, new `pouw-hidden-zk-replay2` since 23:06Z, and
+    `verity-check` 148 GB.
+  - `research/trees` is 84 GB (`lean-*` worktrees, about 12 GB each).
+  - `research/scratch` grew from 13 to 59 GB, and `research/runs` from 521 to 540 GB.
+  - `glm47-match` shrank to 240 GB.
+- **Owner:** @proofs. The runs come from branch `cursor/pouw-c4-k14336-replay-b5fc`, a replay of #1034's `hidden_zk`
+  driver (C-Flock `--zk`), and #1034 names proofs.
+- **Asked** in one line in the disk thread, to @proofs with @infra copied (`1791155309.642929`): how much more it will
+  write, and whether finished stages can be published out of `runs/` and the cache.
+- Disk at 23:13Z: 75% (1,271 GiB free). `node1-disk-watch-78c` tells root at 78%.
+
 ## State at 23:00Z Oct 4 (4:00 PM PDT), steward pass
 
 - **Node 1 disk is climbing with src eviction live:** 72.4% (22:30Z), 74.1% (22:45Z), 74.5% (23:00Z; 1,277 GiB free).

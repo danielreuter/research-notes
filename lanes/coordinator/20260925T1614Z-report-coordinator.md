@@ -621,3 +621,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T23:21Z: poll: b355 running (lean-suites passed), 2eff running (agreement cached). main 5049de02f.
 - 2026-10-04T23:23Z: ci tip 6315ea54f (f2a0 + 8: #1126 #1124 #1140 #1133 #1127 #1123 #1146 #1131) node2 r20261004-232227-7af8, no send. Supersedes 595f (2eff). b355 lands first if it passes.
 - 2026-10-04T23:33Z: ci tip 582aa41f7 (6315 + #1148 #1150) node2 r20261004-233121-833c --agreement. Merge held: #1148 no labels, #1150 red-team only (no ready). Docstring conflict checked OK.
+- 2026-10-04T23:41Z: poll: b355, 2eff, 7af8, 833c all running. main 5049de02f.
+- 2026-10-04T23:43Z: HOLD 595f/6315/582a on #1126 (red-team-1126 false cache hits, fix 8216f316c). Asked ci for 6315-minus-#1126.

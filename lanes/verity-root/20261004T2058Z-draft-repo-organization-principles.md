@@ -59,7 +59,8 @@ can pick it up from here.
   notes, and all 129 registry cites now point at those notes (verity#1145 adds `--uncite` and takes `store:` out of `EVIDENCE_RE`).
   Still to copy: the kernel pages the skill points at (gotchas, technique catalog, panel, the rtx-pro briefs), where compute-accounting decides.
 - Move maps (drafts, for owners to correct): `note:20261004T2125Z-draft-move-inventory`,
-  `note:20261004T2125Z-draft-move-map-backends-integrations-tools`, `note:20261004T2125Z-draft-move-map-protocols`; core's is in progress.
+  `note:20261004T2125Z-draft-move-map-backends-integrations-tools`, `note:20261004T2125Z-draft-move-map-protocols`,
+  `note:20261004T2125Z-draft-move-map-core`.
 - circuits splits its bindings and pins per Definition.
 
 *Fan-out* (Daniel, 2:21 PM PDT: finish in short serial time). Every lead launches workers on its pieces that don't wait
@@ -297,10 +298,10 @@ And at 2:21 PM PDT:
      statement's reads (the lock's reads are exactly those), not the proof's: a guarantee whose proof uses a lemma from
      a superseded approach is still proved. The lock holds only guarantees, each with an `owner`, and a change to one
      DMs Daniel and that owner. No `Status:` header is needed.
-   - Experimental Lean, specs included, sits in `security_proofs/` under spec-shaped module names, unlocked, with no
-     package of its own. Promotion moves those modules into `verity/`'s spec package with their names kept, plus their
-     lock entries. To keep `verity/` minimal, the validator *reports* (doesn't fail) any spec definition no guarantee
-     reads, as a candidate to move out.
+   - Experimental Lean, specs included, sits in `security_proofs/` under the proofs' own module root, unlocked, with no
+     package of its own. Promotion moves those modules into `verity/`'s spec package under the spec's root, with their
+     declaration names kept, plus their lock entries. To keep `verity/` minimal, the validator *reports* (doesn't fail)
+     any spec definition no guarantee reads, as a candidate to move out.
    - *What fails is often a reading, not the code.* Band and dense's theorems stay guarantees in the ideal model, while
      the approach that read them as deadlines secure on hardware is killed (art:7617c801, #1122). A Definition version
      in `catalog/` is current or superseded: kept only so old records replay, never bound by a new Program.

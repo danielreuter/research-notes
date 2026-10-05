@@ -59,6 +59,17 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 14:05Z Oct 5 (7:05 AM PDT), steward pass
+
+- **Node 1 climbing again:** 70.9% (13:15Z), 72.0% (13:30Z), 73.6% (13:45Z), 74.0% (14:00Z; 1,304 GiB free). That's about
+  150 GiB/h, reaching 78% in about 80 min.
+  - No single writer: the probe shows only about 1 GB of vLLM integration logs per check. `research/runs` went from 540 to
+    565 GB, `research/scratch` from 59 to 79 GB, and `research/cache` is 291 GB; `research` is 1,389 GB in all, `jobs`
+    1,165 GB and `hf` 1,128 GB (steady).
+  - No nudge for disk-72, since src eviction is live. Re-armed `node1-disk-watch-78d` (every 15 min) to tell root at 78%.
+- 0 of 8 GPUs and nothing in Kueue (idle, reported). The pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner
+  job), and no queue. No replies.
+
 ## State at 13:30Z Oct 5 (6:30 AM PDT), steward pass
 
 - The quiet hold was released on schedule (`vy-quiet-release`, 13:30Z).

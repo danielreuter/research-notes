@@ -13,6 +13,10 @@ origin: verity-top's repository-layout agent (bc-d6f8b221, under bc-7f347b4b)
 Tonight's move doesn't depend on this. It lands at 7:00 AM PDT as planned. This memo is about the next layout, the one
 your 05:38Z rulings (locked points 1 to 7, `note:20261004T2058Z-draft-repo-organization-principles`) point at.
 
+Corrected at 12:25 AM PDT (07:25Z), after the version sent at 11:50 PM PDT: T can't split its Lake packages without
+renaming modules, since two packages whose roots share a first component break `lake env lean` (see "Lake"). So the
+Lake split leaves step 1 and comes with the layout you pick. The recommendation is still C.
+
 ## The question
 
 Where do each component's Lean programs, the security statements (assumptions, with the model inside them, and
@@ -23,9 +27,11 @@ guarantees) and the proofs live? Two candidates survived the evidence:
   one package on Mathlib. `Security/Proofs/` is its own package on Mathlib and ArkLib. Paths under `Security/` mirror
   the components, and a statement attaches to a program by importing its module and naming the constant, which the
   audit lock records.
-- **T, today's directories with the Lake packages split:** every component keeps its Lean where it is (`Protocol`,
-  `Assumptions`, `Guarantees` and `SecurityProofs` side by side). The packages split without any file moving: one for
-  programs, one for statements and one for proofs, each picking its modules by source directory and roots.
+- **T, today's directories with the Lake packages split:** every component keeps its Lean in its own directory
+  (`Protocol`, `Assumptions`, `Guarantees` and the proofs side by side). The packages split into one for programs, one
+  for statements and one for proofs, and each needs first components of its own. So the proof modules are renamed
+  (`Pouw.SecurityProofs.*` to `PouwProofs.*`, #1167's scheme) and move into a sibling directory in the same component,
+  with their imports rewritten.
 
 Two others lost: statements inline in each component with one shared proofs directory (A), and a separate `lean/` tree
 with verifier, specs and proofs packages (B). C ties A and beats B (63 to 0 PRs needing fewer directories), so they
@@ -49,9 +55,20 @@ plus the component (3.2 directories on average). Protocol specs change with thei
 - with statements and proofs as separate roots, the statements' workspace holds no ArkLib, so a statement importing
   ArkLib fails to build. The trust rule then holds at build time, not only in the audit.
 
-Module names are global in Lake and duplicates are silently accepted (a toy build compiled the wrong file with no
-warning). Either layout needs a test that every package's module roots are disjoint. That test is no-regret and is
-being added now (see "Started without waiting").
+Module names are global in Lake, and two kinds of clash pass `lake build` without a word:
+- Within one package, roots that nest across source directories build the wrong file (a toy build compiled it with no
+  warning).
+- Across packages, roots that share only a first component (`Pk.A` in one package, `Pk.B` in another) build. But
+  `lake env lean`, which the editor and the audit use, looks for every `Pk.*` in the first package's build directory
+  and fails to find `Pk.B` (`art:36b93b8d856da402695675e77c5ab00b532407c3dfa941ee51bcdf4a23dd357b`). The same pair in
+  one package works.
+
+So each package needs first components of its own. C's shape has them: `Assumptions` and `Guarantees` for the
+statements, `Proofs` for the proofs, and `Flock`, `Grader`, `NetTiming` and so on for the programs. The inventory ran
+`lake env lean` on a proofs file in it. T doesn't: `Pouw.Guarantees` and `Pouw.SecurityProofs`, or the warden's
+program and statements under `NetTiming`, would sit in different packages. T's split therefore renames modules and
+moves their files as well, and needs a module map just as C does. The guard for both rules is
+[verity#1193](https://github.com/danielreuter/verity/pull/1193) (see "Started without waiting").
 
 **The run model.** Both drafts compose the whole run in Lean (locked point 4), and both put it in three layers:
 programs with no Mathlib, statements on Mathlib without ArkLib, proofs on ArkLib. That is C's shape. The run's programs
@@ -82,21 +99,23 @@ apart only by module names, lakefile roots and the guard.
 
 ## Recommendation
 
-Do T's package split first, then move to C.
+Do the no-regret work first, then C's move, which splits the Lake packages in the same step.
 
 1. **Now, no-regret under both:** the namespace guard; the audit's `srcDir` fix and the `FlockVerify` rename; the two
-   ArkLib cuts; the warden's five definitions over `List`; the Lake split into programs, statements and proofs
-   packages with no file moving; and a per-module audit cache, since `check` re-audits a whole package on any change
-   (45 to 70 minutes cold for soundness alone), which a single statements package would make worse. These get every
-   measured Lake gain.
-2. **Then C's directory move,** generated by `tools/move/layout.py` like tonight's, from the Lean inventory's map.
+   ArkLib cuts; the warden's five definitions over `List`; and a per-module audit cache, since `check` re-audits a
+   whole package on any change (45 to 70 minutes cold for soundness alone), which a single statements package would
+   make worse. Splitting the packages under T first is no longer no-regret: it would rename the proof modules twice
+   (`PouwProofs.*`, then `Proofs.Pouw.*`).
+2. **Then C's directory move,** generated by `tools/move/layout.py` like tonight's, from the Lean inventory's map. It
+   splits the packages and gets every measured Lake gain.
 
 Why C over T, against the co-change numbers. Co-change counts directories, which costs little when paths mirror and
 most PRs are written by agents. Your locked point 5 ("security proofs live apart from specs") and your 05:45Z proposal
 both ask for the separation C makes visible. In a verification project, the trusted text an outside reviewer reads is
 the product, and C makes it a tree rather than a convention. The cost is real: protocol work spans three trees, and a
-statement no longer sits next to its proof. If you'd rather keep related code together, T after step 1 has every
-measured gain and only lacks path-says-tier.
+statement no longer sits next to its proof. If you'd rather keep related code together, T gets every measured Lake
+gain and lacks only path-says-tier. Its split now needs a module map too, so its advantage is the co-change numbers,
+not a cheaper transition.
 
 ## What needs your call
 
@@ -128,11 +147,13 @@ soundness package has its own `Game` type, separate from core's (proofs moves it
 ## Started without waiting
 
 - The module-root guard, [verity#1193](https://github.com/danielreuter/verity/pull/1193) (draft): a repository test
-  that no two packages or source directories claim nesting module names. It passes today's 15 roots and fails on a
-  planted `Pouw` / `Pouw.Guarantees` overlap. It lands after the move.
+  that roots in two packages share no first component and roots in one package don't nest across source directories.
+  It passes today's 15 roots and main's current lakefiles. It fails on a planted `Pouw.Sibling` in another package and
+  on `Pouw` / `Pouw.Guarantees` across source directories. It lands after the move.
 
 ## Evidence
 
 The Lean inventory, with every module's destination under C: `art:5c8eb99afee110483540469130afcf0290f764d82cfac147d43d88a1009cced4`. the co-change and Lake passes (scripts, results, toy lakefiles, the guard sketch) are
 `art:8e07b30b6b1dc2908d7553d86c7f028561a53fcb3e3f0d6b8684431d85d42ff4`; the run-model prototype log is
-`art:69981778cc169c07aa583138cff652aabbe175c6033f61c989e3990b01d1dd42`.
+`art:69981778cc169c07aa583138cff652aabbe175c6033f61c989e3990b01d1dd42`. The second co-change pass and the root-prefix
+probe (bc-02319ab8) are `art:36b93b8d856da402695675e77c5ab00b532407c3dfa941ee51bcdf4a23dd357b`.

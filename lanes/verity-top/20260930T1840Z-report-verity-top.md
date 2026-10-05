@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:45Z) [open] 01:45Z: main 839ba800a (d563 landed); 4bb6 checking; d4ab, 67e9 queued; Lean batch all ready, ci building; console reconnect nudged
 CHECKPOINT none (01:30Z) [open] 01:30Z: d563 checking node 2; queue 4bb6, 5a91, d4ab; Lean batch (#1169 #1148 #1150 #1168 #1141 #1144) waits on #1150/#1141 ready; asked Daniel re closing #1010/#1086/#1096
 CHECKPOINT none (01:15Z) [open] 01:15Z: d563 checking node 2; queue 4bb6, 5a91, d4ab; #1150 fixed at 99f22f0, awaiting re-grant + tier; #1169 lands before #1167 rerun
 CHECKPOINT none (01:00Z) [open] 01:00Z: d563 checking node 2, 4bb6 next on node 1; #1174 shim up; sampling split cd8c chosen; flock artifacts.json input flagged to proofs

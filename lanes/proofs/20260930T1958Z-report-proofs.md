@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (18:05Z) [open] Daniel design chat: names proposed (selection rule, proof service, workers, gateway, edge/batch verifier), waiting on his pick. Restack hazard noted: post-move git add -A sweeps old fixture paths; stage explicit paths. Node 1 idle, 72%.
 CHECKPOINT e259af141 (17:19Z) [open] red-team-lean-move REFUSES #1225 at b37b16723: merge_locks drops ArkLib scan; queue.toml red-team paths miss Security/Proofs/Flock. Told top with fixes; rerun on next head.
 CHECKPOINT e259af141 (16:40Z) [open] canonical V1 returned (#1192 at 57a52cf1f, audit passes; body updated). restack.py stacked-branch base bug fixed in #1224; #1170/#1192/#1201 restack onto the Lean move with it.
 CHECKPOINT e259af141 (16:19Z) [open] #1179 check failed on the 48 KB doc cap (17 bytes over), fixed at ca8e3a26c; restacks onto the Lean move for its check and a new grant. flock-security-defs to stack on cursor/lean-layout-move-c3b2 when it returns.

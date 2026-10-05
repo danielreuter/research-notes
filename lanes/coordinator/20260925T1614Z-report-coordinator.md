@@ -752,3 +752,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T18:27Z: top: hold the freeze. #1225 is past red-team's fixes (head 1b6514c81), locks being re-recorded, landing check next; ETA ~19:15Z. 5973 goes first after it.
 - 2026-10-05T19:02Z: freeze extended. #1225 head 77b8d66bc, landing run r20261005-185517-6282 on vy-mig-check-8 (Security audit ~30 min). Top releases 5973 if not passed by 19:45Z or that run fails.
 - 2026-10-05T19:09Z: freeze extended to ~20:30Z: #1225's landing check runs as 5 shards on vy-mig-check-13..17, with red-team's rerun on 77b8d66bc alongside; top releases 5973 at once on any failure.
+- 2026-10-05T19:32Z: freeze released (red-team refused #1225 at 77b8d66bc). Merged 59738cf7d (#1165 #1154) → main cd965cf51 via --push: spec DM, mirror, post_train all ran. b374 void (sibling). Asked ci to rebuild on cd965cf51.

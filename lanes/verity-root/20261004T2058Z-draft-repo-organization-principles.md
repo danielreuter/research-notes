@@ -124,6 +124,48 @@ below feeds it:
 - Where the runs layer (the onsite and remote products) lives.
 - Native SHA-512 and carry-less multiply under named assumptions (still with Daniel).
 
+## Daniel's rulings on the Lean layout (5 Oct, 8:53 AM PDT, 15:53Z)
+
+These answer the memo (`note:20261005T0640Z-draft-lean-layout-memo`), worked through with the captain in chat from
+8:03 AM PDT, with `@lean`'s views on the lock (Slack 1791213468.840519). They replace the open layout items above.
+
+1. **Lean is split into code and security analysis.** Code is the programs and the interfaces they use (C-Flock's
+   verifier, the PoUS grader, the warden, and each party program as it moves to Lean). It lives with its component,
+   in files beside the Python, or a Lean directory when it's large. It is untrusted and never imports `Security/`.
+2. **`verity/Security/` holds the analysis, in three trees** that mirror the components:
+   - `Definitions/`: trusted vocabulary (reference circuits, games, the silicon model, shared assumptions such as
+     SHA-512 collision resistance), on Mathlib.
+   - `Specs/`: one per executable, its named assumptions → its guarantees, stated about the code's own constants. A
+     protocol's own assumptions (the driver assumption) sit in its spec.
+   - `Proofs/`: a package of its own (ArkLib allowed). Every proof lives here, including the equivalence of code's
+     definitions to the trusted ones.
+
+   Trusted text is `Definitions/` plus `Specs/`. A definition both code and specs need is written twice: in code as the
+   program uses it, and in `Definitions/` as a plain reference, with the equivalence proved in `Proofs/`.
+3. **Proof fields stay with their definitions.** Anything whose type is a `Prop` is proof and untrusted, even inside a
+   trusted file (`bandExtra_lt`, `Circuit.toCircuit`'s fields). Anything that is data is trusted text.
+4. **The lock attaches properties to programs.**
+   - Assumptions are listed by name in the lock with their own records, like guarantees, instead of being recognised by
+     module.
+   - A program's last declaration lists the guarantees it must satisfy by name (`List Lean.Name`, no import). The lock
+     checks that each one exists, reads one of the program's constants and is proved, and records the list as `required`.
+   - The reads walk stops at a program's constants: a spec reads that the program exists, not its body.
+   - Code that runs but no spec reads is reported, not failed, with exemptions that each give a reason.
+   - Where Python still runs an algorithm, the lock records the Python–Lean pairing and the test that checks it, so the
+     gap is a named assumption.
+5. **Lean drives as far as possible.** The memo's ask 5: phased one assumption at a time, in the run-model draft's order.
+   Each step retires the assumption it covers. PoUS's timing loop is measured on a node before it moves.
+6. **Names.** `lean-audit.json` becomes `lean-lock.json`, and `tools/lean/audit.py` becomes `lean_check.py` (the `check`
+   step `lean-check`). `spec_alert` must treat a renamed lock file as a move first, so that the rename sends no DMs.
+
+Taken as following from these (Daniel can object):
+- The memo's ask 2 is relaxed for the run's own Lean: the run's code calls C-Flock's verifier, and its spec cites
+  protocols. Protocols still import no backend.
+- The memo's ask 3: the extraction and the simulator move into `Definitions/`, or `Specs/` for the spec that names them.
+- The memo's ask 4: `Security/` sits inside `verity/`.
+- The memo's step 1 goes ahead now: the namespace guard (verity#1193), the audit's `srcDir` fix, `Main` renamed
+  `FlockVerify`, the two ArkLib cuts, the warden's five definitions over `List`, and the per-module lock cache.
+
 ## Status (captain: verity-top's layout agent, from 2:12 PM PDT)
 
 Daniel named this agent captain of the migration. This section is the tracker; the captain keeps it current, and anyone

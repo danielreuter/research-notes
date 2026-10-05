@@ -717,3 +717,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T13:41Z: poll: 64f1 past lean-suites; 212a, b27c, 7e6b running. main 378453fb3.
 - 2026-10-05T14:02Z: 64f1 past pytest; labels missing: ready on #1193 #1197 #1191 (top's layout agent), #1210 (ci), #1136 (infra). Pinged top/ci.
 - 2026-10-05T14:04Z: ci tip 2c9ff2e04 (a5ec + #1200 #1202) node1; waits on #1200/#1202 ready.
+- 2026-10-05T14:21Z: 64f1 (5923) PASSED, held: #1197@483ebc101 no ready (#1193 now ready by top). 212a, b27c, 7e6b, 54e5 running. Still no ready on #1210 #1191 #1136 #1202.
+- 2026-10-05T14:23Z: per root, asked ci for a fallback without #1197 (#1193 #1204 #1210 #1191 #1136 #1200 #1202) for node 1's free slot.
+- 2026-10-05T14:25Z: fallback 0f6e9ec88 (main + 7 PRs, no #1197) node1 running.

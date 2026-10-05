@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (20:31Z) [open] #1235 quick tier + red-team still running; workers healthy; node 1 67%; answered infra interview 28
 CHECKPOINT e259af141 (20:22Z) [open] #1235 at d72bb8dc0: quick tier + red-team running; lean-drives PR 1 opened as draft #1237 (waits for #1225)
 CHECKPOINT e259af141 (20:12Z) [open] zk-cpu-steps returned: --zk prove K=4096 4.74->1.88 s, byte-identical; draft #1235. Red-team + check after the Lean move.
 CHECKPOINT e259af141 (19:07Z) [open] Rerunning red-team on #1225 at 77b8d66bc. Four workers found stopped since 17:47Z, resumed (friction note). red-team-1034 running.

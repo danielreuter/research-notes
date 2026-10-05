@@ -27,7 +27,7 @@ lane rebuilds main's GPU prover and reruns M0 and `--zk` on the same node for a 
 
 ## Runs
 
-Script: `backends/flock/pod/85-rec-reprice.sh` (STEP=build|inner|ostage|oprove|lean), node 1 (`vy-nebius-1`), FLOCK_WORK
+Script: `backends/flock/pod/85-rec-reprice.sh` (STEP=build|inner|ostage|alg|oprove|lean), node 1 (`vy-nebius-1`), FLOCK_WORK
 `/workspace/jobs/rec-reprice`, all via `research run --queue`.
 
 | step | run | started | status |
@@ -39,7 +39,9 @@ Script: `backends/flock/pod/85-rec-reprice.sh` (STEP=build|inner|ostage|oprove|l
 | oprove: each level --zk on loopback ×(1+3), upstream replay --zk | r20261005-070734-c714 | 07:07Z | passed: every session accepted (serve, replay --zk) |
 | inner rerun: loopback M0 and --zk only (INNER_PROXY=0), prover cores' background load recorded | r20261005-071603-4d28 | 07:16Z | passed |
 | alg: InnerClaims + rec_residuals (InnerRepCheck, both reps) on the inner's last proxied session | r20261005-072008-d624 | 07:20Z | failed: InnerClaims gave the verifier no partition object (the inner binds `verity/partition/v1`) |
-| alg again: InnerClaims `--partition` (the inner's q-word object, checked against META), rec_residuals | r20261005-073130-72a8 | 07:31Z | running |
+| alg again: InnerClaims `--partition` (the inner's q-word object, checked against META), rec_residuals | r20261005-073130-72a8 | 07:31Z | passed: claims 2:03 wall at 3.0 GB; InnerRepCheck staged, 4,281 products, holds on both reps, 16:20 at 19.7 GB |
+| oprove alg: the algebra --zk on loopback ×(1+3), upstream replay --zk | r20261005-075524-97c1 | 07:55Z | running |
+| build K=14336 (N=512): the second size's inner staged | r20261005-075635-aef2 | 07:56Z | running |
 
 ## Shape of V* at m = 35 (from `rec_algebra.fast100(35)`, before any run)
 

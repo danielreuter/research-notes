@@ -61,5 +61,59 @@ The prover's key moved with the layout move (47340c664cec521f to 5c9218d04c285b4
 | vstage K=14336, the algebra alone | r20261005-204925-f05e | passed: InnerFold 4:51 at 9.85 GB (6 extras); InnerRepCheck_v1{S={411cbf3083ae}} 113 ports, 2,944 products, unit 7.52M rows, circuit 818 MB, holds on both reps, unit agrees, 5:35 at 13.8 GB; verifier rows 5.2 s |
 | oprove on the 2,048-claim prover (forgeries FC_ZK_SELF_CHECK=skip) | r20261005-210107-34e7 | L0-L6 accepted by the prover, serve 4/4 and replay --zk (prove 0.40-1.20 s); forged sum L0 and L6 now proved and rejected by serve and replay --zk ('zk inner: the batched constraint fails'); the algebra, honest and forged, aborted: 'coin tree: round 256 of circuit/rep0 (7 coins) is outside the committed schedule': --zk's coin schedule is 256 rounds a rep (coin_spec_of, Lean Zk.coinSpec), each region is two claims and each claim a ring-switch round, and a rep's other rounds are 107-122 (this run's sessions: m = 29, 6 regions, 242 rounds; m = 32, 10 regions, 288), so a statement takes at most about 70 regions; the algebra has 125 |
 | oprove K=14336, the algebra | r20261005-210125-02c4 | the same abort |
-| vstage, the algebra in parts (d3f9d15b8: `rec_residuals.parts`, at most 64 regions a part; at K=4096 three parts of 55, 9 and 53 row ports, 63, 21 and 61 regions) | r20261005-214203-b6fc | running |
-| vstage K=14336, the algebra in parts | r20261005-214228-ab7a | running |
+| vstage, the algebra in parts (d3f9d15b8: `rec_residuals.parts`, at most 64 regions a part) | r20261005-214203-b6fc | passed: points 0.66 s; InnerFold 1:37 at 3.0 GB, 6 extras; verifier rows 5.4 s, coefficients 0.38 s, entries 0.05 s; L0-L6 RecOpen_v2 (436/212/142/106/86/72/64 instances) every query opened and summed; p0 {S={b4fe4eff4f85}} 55 ports, 63 regions, residuals 0-6, 1,057 products, unit 2,854,913 rows, 324 MB; p1 {S={cc83d4a3e73c}} 9 ports, 21 regions, residuals 7, 8, 9, 12, 1,409 products, 3,616,769 rows, 408 MB; p2 {S={9189915bcf20}} 53 ports, 61 regions, residuals 10, 11, 474 products, 1,175,553 rows, 165 MB; every part holds on both reps and its unit agrees, 6:20 at 10.5 GB; forged comb: p0 residual 1 on rep 0; forged message: p0's m0, rep 0, word 0, bit 0; forged sum (row 559): p2 residual 10 on both reps, L0 [rep 1, q 0] and L6 [rep 0, q 31] not summed |
+| vstage K=14336, the algebra in parts | r20261005-214228-ab7a | passed: InnerFold 4:59 at 9.85 GB; p0 {S={3915be1e4dd4}} 54 ports, 64 regions; p1 {S={0d757299bb0a}} 10 ports, 24 regions; p2 {S={11a5c1ad9398}} 53 ports, 61 regions; every part holds on both reps, 6:08 at 10.7 GB |
+| oprove K=4096 (10 statements ×(1+3), 11 forged sessions ×1 with FC_ZK_SELF_CHECK=skip, replay --zk) | r20261005-221419-ad0a | passed: every honest session accepted by the prover, serve (4/4) and replay --zk; every forgery rejected in exactly its affected statement (table below) |
+| oprove K=14336, the algebra in parts | r20261005-221931-87b2 | passed: p0 0.985 s prove, p1 0.943 s, p2 0.888 s (m 28, k_log 25 each), serve 3.13/3.11/2.86 s, 4/4 accepted, replay --zk accepted |
+| lean K=4096 (`verify --zk` on every session; JOBS=3) | r20261005-224601-2a56 | passed: every honest statement accepted, every forgery rejected in exactly its affected statement; four 'no verdict' entries are the pre-split sessions' directories left on the pod by r20261005-210107-34e7 (v-sess/alg, forged-*-alg: Lean finds no `v/…/alg/circuit.txt`, which the parts layout no longer writes) |
+| lean K=14336, the algebra in parts | r20261005-224610-bae1 | passed: p0, p1, p2 accepted (verify 49.2/79.0/43.8 s, setup 30.5/75.8/25.5 s); the same stale `alg` entry |
+
+## Step 2: the answer
+
+V* is sound for the inner session on every forgery tried, and the honest session is accepted by all three verifiers. Each
+forgery is rejected by serve, upstream `replay --zk` and Lean `verify --zk` in exactly the statement it touches; V* rejects
+when any of its statements does. The forgeries' provers ran with `FC_ZK_SELF_CHECK=skip`, so every rejection is the
+verifier's own (the honest prover's self-check had stopped forged sum L0 and L6 in r20261005-202003-8103).
+
+| forgery | statement rejected | serve and replay --zk | Lean verify --zk | the other statements |
+|---|---|---|---|---|
+| comb (rep 0's residual 1) | alg-p0 | zk inner: the batched constraint fails (⟨c, Y⟩ ≠ t + β τ) | the same | alg-p1, alg-p2 accepted (they hold no comb-dependent residual 1) |
+| message (one bit of m0's row, rep 0) | alg-p0 | opening: RingSwitch(ClaimMismatch) | opening: ring-switch claim 2 mismatch | alg-p1, alg-p2 accepted (they read no m0) |
+| sum (chain row 559) | L0, L6, alg-p2 | zk inner: the batched constraint fails | the same, for all three | alg-p0, alg-p1 accepted |
+
+Cost at K = 4096, m = 35 (node 1, GPU prover on loopback, medians of 3 timed sessions after 1 warm, prover cores 3-28% busy
+before each; Lean `verify --zk` once a session, 3 at once):
+
+| statement | prove | session | serve verify | bytes (both reps) | host / GPU peak | Lean verify | Lean setup |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| L0 RecOpen_v2 (m 32) | 1.195 s | 1.596 s | 1.224 s | 2,132,852 | 9.37 GB / 11,133 MiB | 59.3 s | 80.7 s |
+| L1 (m 31) | 0.746 s | 1.126 s | 1.065 s | 2,052,484 | 5.87 GB / 6,845 MiB | 60.3 s | 63.1 s |
+| L2 (m 31) | 0.738 s | 1.138 s | 1.046 s | 2,035,972 | 5.83 GB / 6,929 MiB | 53.3 s | 60.0 s |
+| L3 (m 30) | 0.544 s | 0.857 s | 0.959 s | 1,934,452 | 4.57 GB / 4,705 MiB | 43.3 s | 42.6 s |
+| L4 (m 30) | 0.546 s | 0.852 s | 0.907 s | 1,926,196 | 4.16 GB / 4,669 MiB | 34.9 s | 36.1 s |
+| L5 (m 30) | 0.512 s | 0.789 s | 0.863 s | 1,934,452 | 3.85 GB / 4,691 MiB | 31.0 s | 36.0 s |
+| L6 (m 29) | 0.467 s | 0.760 s | 0.916 s | 1,693,300 | 3.25 GB / 3,577 MiB | 29.6 s | 29.3 s |
+| alg-p0 InnerRepCheck_v1 (m 29, k_log 26) | 1.368 s | 2.866 s | 5.194 s | 2,164,276 | 9.28 GB / 14,591 MiB | 53.6 s | 34.4 s |
+| alg-p1 (m 28, k_log 25) | 0.853 s | 1.820 s | 3.181 s | 1,704,884 | 6.14 GB / 8,055 MiB | 50.8 s | 43.7 s |
+| alg-p2 (m 28, k_log 25) | 0.929 s | 1.867 s | 3.092 s | 2,035,124 | 5.24 GB / 7,735 MiB | 33.0 s | 18.6 s |
+| levels | 4.747 s | 7.119 s | 6.980 s | 13,709,708 | | 311.8 s | 347.8 s |
+| algebra | 3.151 s | 6.553 s | 11.468 s | 5,904,284 | | 137.4 s | 96.7 s |
+| V* (outer) total | 7.898 s | 13.672 s | 18.448 s | 19,613,992 | 9.37 GB / 14,591 MiB | 449.2 s | 444.6 s |
+| phase 1's V* (r20261005-082407-16e7) | 5.846 s | 9.889 s | 12.934 s | 14,867,840 | 12.4 GB / 15.4 GiB | 595.2 s | |
+| inner, ZK off, against the proxy (r20261005-194909-c4fb) | 0.931 s | 0.969 s | in V* | | | | |
+| today's `--zk`, same build and node (r20261005-194909-c4fb) | 5.34 s | 7.53 s | 6.87 s | | | | |
+
+V* at step 2 costs 7.90 s of prove against phase 1's 5.85 s (1.35×): the levels 4.75 s against 4.30 s (+0.45 s, GfScale
+fused into RecOpen_v2 and the chain's ports; phase 1's first run was 4.73 s) and the algebra 3.15 s against 1.54 s (+1.61 s).
+The algebra's growth is its three sessions, each with the prover's per-session floor (L6, the smallest level, is 0.47 s), and
+its registered reads: 117 row ports, each a digest region of two claims, which serve verifies (5.2 s for p0's 63 regions).
+Outer over the inner's ZK-off prove: 8.48× (phase 1 6.68×); outer over today's `--zk`: 1.48×. Lean's numbers are a newer
+build than phase 1's (463f4dea against 88a84ea1) and ran 3 at once, so they are not like for like.
+
+K = 14,336: the algebra's three parts prove in 2.816 s (5.548 s session, 9.105 s serve verify, 5,824,668 bytes, Lean verify
+172.0 s); V*'s RecOpen levels depend on m alone, so K = 4096's stand, and V* is 7.56 s (phase 1 6.05 s).
+
+What's left for step 2: a red-team grant and a `check --record` with lean-agreement (the coordinator's); fewer algebra parts
+(a verifier-side `coinSpec` with more rounds a rep, Rust `coin_spec_of` and Lean `Zk.coinSpec`, would let one statement carry
+the 125 regions, but it changes the Lean verifier, which this step does not; without it, a grouping that shares fewer row
+ports between parts: the three parts carry 145 regions against the whole's 125).

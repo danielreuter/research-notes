@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (02:40Z) [open] A 02:40Z poll: nothing addressed to pouw-node2; main 97d06c4d5: pc8 circuit/plan, a short last tile row is its own Pc8Tile batch and stratum at W_ref r/64, whole-tile Programs pinned (no gamma change; panel unaffected); /workspace last 59% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (02:20Z) [open] A 02:20Z poll: nothing addressed to pouw-node2; node2-ops 02:20Z: 01Z GPU busy 10.2% (nothing submitted), one runner, /workspace 59% (hold, creeping up), no windows ahead; main 839ba800a (no pouw change); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (02:00Z) [open] A 02:00Z poll: nothing new since 01:40Z; verity fetch auth failed (main last seen b529216bb); /workspace last 58%; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (01:40Z) [open] A 01:40Z poll: nothing new since 01:20Z; main b529216bb unchanged (fetch OK); /workspace last 58%; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2

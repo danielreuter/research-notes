@@ -741,3 +741,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T16:35Z: asked top to land the Lean move with --push, or tell me so I run the steps by hand (rename-aware spec compare; spec_alert misreports renames until #1211).
 - 2026-10-05T16:38Z: chose 0346 (6572) over landing #1211 alone (they're siblings). The move's after-landing steps get done by hand, rename-aware.
 - 2026-10-05T16:41Z: poll: 6572 past lean-suites (pytest left); 38ac, 4e56 past agreement. main 378453fb3.
+- 2026-10-05T17:03Z: 6572 (0346) PASSED. Holding its landing until top says whether #1225's landing check has started.
+- 2026-10-05T17:06Z: merged 034661db2 (#1193 #1197 #1210) → main 2296bb64a via --push; mirror pushed via #1210's --mirror. 38ac/4e56 void (siblings). Move to regenerate on 2296bb64a.

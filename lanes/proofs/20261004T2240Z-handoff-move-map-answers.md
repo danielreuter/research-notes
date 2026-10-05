@@ -15,6 +15,40 @@ These answer `note:20261004T2125Z-draft-move-map-core` questions 3, 4, 7 and 9 a
 from origin/main at `9400e83d5` (#1129 and ci's 12-PR tip landed) and from `cursor/verifier-fail-closed-95d4` at
 `12e5bfa4e`. I take top's five defaults; nothing here objects to them.
 
+## Revisions, 5:25 PM PDT (4 Oct), under Daniel's 4:19 and 4:25 PM PDT rulings
+
+These replace the answers they name; the original text below is kept for the record.
+
+- **C-Flock's prover (answer 2 and the `gpu.rs` bullet, and section 4's ordering).** The line is
+  `note:proofs/20261005T0009Z-draft-zk-layer-line`, read at `5049de02f`. The ZK layer goes to C-Flock's protocol home in
+  `verity/` (`zk/`). The Rust CPU prover's arithmetic and witness fill go to `kernels/flock-cpu/` and the `gpu` feature to
+  `kernels/flock-cuda/`, with `gpu_proofs_match_cpu` kept between the two kernel entries. The Python statement staging
+  and the Rust statement code (`circuit.rs`'s `Circuit`, ranges, R1CS build) go to the protocol's statement code.
+  `gpu.rs` does not leave whole: `gpu_circuit.rs` imports nine items from it, and `chunk::comp` and `chunk::log2ceil` are
+  read by current code.
+- **The open edge (my call on Daniel's ask 3).**
+  - Kernels are buggy, not adversarial. The ruling already puts Ligerito folding in `kernels/`, and its level-1+ roots
+    and rounds go out live, so it is safe only against buggy kernels. An adversarial kernel would need the layer to run
+    the verifier and recompute every root.
+  - The leaf hashing stays in the layer: level 0's hm96 salts, leaves, tree and cap (CUDA and CPU), and the blind. The
+    level-0 root goes out at Commit, before anything opens, and only a full recompute (estimated 20–50 core-seconds per
+    statement at m = 35, against 1.06 s of prove) would check it.
+  - The padded encoding stays in the layer until one PR lands three things: the pre-send check before `Req::Proof`
+    (opened positions derived from the coins; salts, leaves and paths; ybar and e recomputed from the layer's own pads;
+    T'), the refusal of level-0 lane coins in {0, 1}, and a measurement of that check at K=4096 and K=14,336. That PR
+    moves `fc_zk_lane_input`, `fc_zk_interleave` and the encoding's NTT calls to `kernels/flock-cuda/`. Recomputing each
+    opened column from scratch is not the check: it costs more than re-encoding (about 6e10 multiplications per rep).
+  - The mask slot's words get a readback in the layer before the opening's label: a kernel that zeroes them sends the
+    claims unmasked and the verifier still accepts.
+- **The move.** A crate can't be split by renames, so C-Flock's Rust, CUDA and patches are not in the generated move. They
+  stay at `backends/flock/` until the split PRs, which follow fail-closed and canonical V1 (both edit `flock-circuit.rs`,
+  `circuit.rs` and `lib.rs`, and add `proved_scope.rs`, which the split classifies when they land). The first split PR
+  extracts the ZK orchestration and session driver from `bin/flock-circuit.rs` into a library module. Then the layer, the
+  two kernel entries and the archive each take their rows.
+- **Nothing moves to `experimental/`.** The frame-v3 IR forms (section 4's `experimental/flock/` list) go to
+  `archive/flock/` with their records and last-good commit; the Rust ones go with the crate split. `unit_fp4_check`
+  follows `lowering` to the catalog. `multiproof` goes to `archive/sp1/` with its only importers.
+
 ## Two corrections that change the maps' premises
 
 - **The Lean verifier has no parsers for the legacy forms.** `pure_block`, `chunk`, `ir_frame`, `ir_sampling` and

@@ -3,7 +3,7 @@ id: proofs/20261005T0930Z-friction-queue-default-mem-cap-oom-as-sigterm
 campaign: flock
 lane: proofs
 kind: friction
-status: open
+status: fix-ready
 repo: verity
 origin: proofs
 ---
@@ -20,3 +20,6 @@ It cost 20 minutes of node 1 and a diagnosis. The rerun with `--mem-gb 96` passe
 
 Better: when an OOM kill lands in a stopped scope's interval, classify the run as an OOM and print the cap it hit, or
 refuse an ad hoc job with no `--mem-gb` instead of giving it a silent 8 GB.
+
+Fix (infra, 8:48 AM PDT Oct 5): #1212 is ready. A job killed at its cap is classified as an OOM at that cap, and a job of an
+unregistered kind must give `--mem-gb`. Until it lands, a soundness build takes `--mem-gb 32` or more.

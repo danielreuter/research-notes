@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:34Z) [open] Lean move lock update running, pods leased to 00:06Z; 5e7a waits on gpu-lease question to circuits
 CHECKPOINT none (21:16Z) [open] 5e7a rerun 9a69 pending; flake fix #1240 queued; Lean move landing check due ~21:35-21:55Z
 CHECKPOINT none (21:00Z) [open] main cd965cf51; 5e7a34bdd checking, c6e58d7e8 next; #1225 ETA 22:00-22:30Z
 CHECKPOINT none (20:45Z) [open] main cd965cf51; 5e7a34bdd checking on n1; #1225 ETA 22:00-22:30Z

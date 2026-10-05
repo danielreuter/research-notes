@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (20:40Z) [open] A 20:40Z poll: only infra's 20:32Z idle-GPU alert, about node 1 (vy-nebius-1 GPU 1), not mine; main cd965cf51 unchanged; node-2 /workspace last 62% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (20:20Z) [open] A 20:20Z poll: node2-ops 19Z hourly 11.1% busy, one runner, daemons up, /workspace 62% (hold), no windows; infra round 28 not for node 2; main cd965cf51 unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (20:00Z) [open] A 20:00Z poll: nothing new since 19:40Z; main cd965cf51 unchanged; node-2 /workspace last 62% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (19:41Z) [open] A 19:40Z poll: main cd965cf51 (#1154, #1165: Lean record regenerated, headline sm120 twin moved to Pouw.SecurityProofs.PearlC.GammaSm120v1LoopCast8p72Rev1Cap1000_8192, same 0.36949%); panel citations all resolve, no gamma changed; node-2 /workspace 62% (hold); panel art:d2b2eb906612; off node 2

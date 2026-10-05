@@ -69,6 +69,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-05 01:20Z hourly (00Z): GPU busy 10.9% (0.87 of 8.00 GPU-h), below the 80% bar. Nothing was submitted; only memory accounting's series ran, on GPU 7 (free-idle 7.0). Backup `r20261005-011508-67ca`; the 00Z backup `r20261005-002254-5715` is preserved. Daemons are up, and `status.md` was fresh (01:15Z). One runner (`df9b8baa`). `/` is down to 30%, `/workspace` 58%. No windows ahead. `gh` returns 401 again, so #494 is unchecked this hour.
+    - **New deploy (infra, 01:13:46Z, `main` `b529216bb4`):** `n2_custody.sh`, the user unit `n2-custody.service` and a research tree at `/workspace/jobs/custody/`. It sends node 2's own ended runs (`n2_commit`/`n2_build`, whose store has no remote) home through node 1. My backups already preserve their own custody, so this marks them and doesn't touch them. The unit is static and inactive; I see no timer yet.
 - 2026-10-05 00:25Z hourly (21Z–23Z, held for the windows): GPU busy 29.9%, 57.6% and 38.2%, all below the 80% bar. The busy time is compute accounting's two timed windows (1.98, 4.58 and 2.60 GPU-h) plus memory accounting's series on GPU 7. Outside the windows, nothing else was submitted (free-idle 5.6, 3.4 and 4.9 GPU-h). Fill held the series' next job across both windows and released it at 23:3xZ. The 00Z hour is at 11.1% so far.
     - **Backup:** `r20261005-002254-5715`. The 21Z backup `r20261004-211349-6313` is preserved.
     - **Checks:** daemons are up, and `status.md` was fresh (00:22Z). One runner, still `df9b8baa` (the lock fix waits on infra). `/` is up to 36% (159 GB free), from `/tmp/pytest-of-research` (30 GB) and `/tmp/fix235b-out` (11 GB, Oct 3); `/workspace` is 58%. #494 is still closed.

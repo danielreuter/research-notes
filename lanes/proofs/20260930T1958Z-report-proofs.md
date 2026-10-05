@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (04:04Z) [open] #1169 tier 1d55 running (4c963f07d); restack.py bug fixed by top in #1175 355384d33; recursion rollout and Lean-speed answers for Daniel
 CHECKPOINT none (03:32Z) [open] #1169 restacked on #1144 f84b29e72 at 4c963f07d, grants carried, tier 1d55 running; architecture not blocked on proofs; two helpers on the refactor
 CHECKPOINT none (03:07Z) [open] 8:05 PM PDT: #1169 queue-ready at 25ecd8f17, asked ci to add it to the next Lean tip; recursion-for-ZK design note for Daniel
 CHECKPOINT none (02:48Z) [open] 7:49 PM PDT: #1150 grant re-cited to note:proofs/20261005T0247Z-finding-1150-flockproofs-exempt; #1169 tier 4e71 running; waiting on lean readies, flock-spec, fail-closed, canonical-v1

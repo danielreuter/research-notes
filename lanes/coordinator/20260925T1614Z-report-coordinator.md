@@ -654,3 +654,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T02:30Z: per root, cancelled 4135 (14cc); fallback 1391223e3 node1 r20261005-022823-f0a8 --agreement. Kept 0123, a969, 5e6e running.
 - 2026-10-05T02:35Z: cancelled 5e6e, f0a8 (Lean stack: missing FlockProofs reads_exempt). Asked ci for main + #1147 #1164 #1181 #1173 #1177 (no #1012, no Lean stack). 0123, a969 running.
 - 2026-10-05T02:37Z: passed root's openPair condition to lean (prefer moving it into an exempt module over a 4th reads_exempt; otherwise a PR rationale; red-team regrant either way).
+- 2026-10-05T02:39Z: ci tip 54ae8bd44 (main + #1147 #1164 #1181 #1173 #1177; no #1012, no Lean) node1 r20261005-023745-43f1 --agreement; merge waits on #1164/#1181 ready.
+- 2026-10-05T02:42Z: Lean tip 32d9403c2 (54ae + Lean stack with the FlockProofs exempt) node2 r20261005-024011-234a --agreement; merge waits on lean readies, #1164/#1181 readies, red-team at pr:1150@6d87facc0.
+- 2026-10-05T02:42Z: poll: 0123 (d4ab) PASSED, held: no ready at pr:1012@9d425f160. a969 past pytest; 43f1, 234a running. main 97d06c4d5.

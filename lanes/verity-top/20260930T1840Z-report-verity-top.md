@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:15Z) [open] 04:15Z: main 97d06c4d5; #1180 and Lean stack (#1150/#1141/#1144) ready; #1164 rerun pending; #1184 tier on mig-check-2; move 14:00Z
 CHECKPOINT none (04:00Z) [open] 04:00Z: main 97d06c4d5; move 14:00Z, cutoff 08:00Z; 7 pre-cutoff PRs merge clean on b0b2, awaiting readies; #1175 restack guard fixed; node 1 66%
 CHECKPOINT none (03:45Z) [open] 03:45Z: main 97d06c4d5; #1181 ready, #1164 rerunning a Nebius test; b0b2/32d9 checking; #1171 strings sent to architecture; Daniel picking recursion-mainline rollout calls with proofs
 CHECKPOINT none (03:31Z) [open] 03:30Z: main 97d06c4d5; b0b2, 32d9, 4543 checking; 858d (#1169) waits on tier ~04:00Z; #1012 ready ~03:35Z+; Daniel weighing ZK recursion with proofs

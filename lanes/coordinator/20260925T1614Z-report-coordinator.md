@@ -755,3 +755,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T19:32Z: freeze released (red-team refused #1225 at 77b8d66bc). Merged 59738cf7d (#1165 #1154) → main cd965cf51 via --push: spec DM, mirror, post_train all ran. b374 void (sibling). Asked ci to rebuild on cd965cf51.
 - 2026-10-05T19:33Z: main open for trains until #1225's next landing check starts (top will announce the freeze).
 - 2026-10-05T19:34Z: top: only non-Lean trains until #1225 lands; asked ci to hold Lean-heavy PRs from the rebuild.
+- 2026-10-05T19:41Z: ci tip 5e7a34bdd (22 PRs, no Lean/lock/Lake changes; FP8 held items absent) node1 r20261005-193903-ec32 --agreement.

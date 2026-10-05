@@ -670,3 +670,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T04:22Z: poll: 234a (32d9) PASSED and 2c45 (b0b2) PASSED. 32d9 waits on #1164 ready (via 54ae); deadline 04:45Z, then b0b2 lands. f629 running.
 - 2026-10-05T04:41Z: poll: #1164 still no ready; f629 (4543) past lean-suites. Deadline 04:45Z.
 - 2026-10-05T04:50Z: merged 32d9403c2 (10 PRs) → main d18933dac; all MERGED; d4ab/b0b2 void. Found manual git push skipped spec_alert + post_train since #1053: sent catch-up DM (600f5ca1e~1..d18933dac), post_train r20261005-044722-9ea1, hint fix #1187. Land with --push from now on.
+- 2026-10-05T05:02Z: merged 45436c571 (#1174) → main 43bef6294 via --push (post_train started). Nodes idle; awaiting ci's follow-on.
+- 2026-10-05T05:05Z: ci move-inputs tip 810d1974d (858d: #1151 #1169 + #1012 #1180 #1162 #1184 #1182 #1175) node1 r20261005-050350-5b67 --agreement; merge waits on #1162 ready (tier 4d6e) and #1169's.

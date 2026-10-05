@@ -93,6 +93,20 @@ Open, for the morning memo (about 12:00Z):
   package re-audits everything on any change (45 to 70 minutes cold for soundness alone); a per-module audit cache, or
   Proofs as a package of its own, comes first. Its prototype also hit the module-name collision (verity#1144). Open:
   whether `Security/` sits inside `verity/` or beside it.
+  The Lean run-model draft (bc-03e91581, 06:26Z; branch `cursor/run-model-draft-c3b2` at `f7716b464`,
+  `experimental/run_model/`, every proof still `sorry`) agrees on the shape. It has three packages: `exec` (the party
+  programs, on the executable verifier alone, no Mathlib), `spec` (Protocol, Assumptions and Guarantees on core and
+  Mathlib, no ArkLib) and `proofs` (on ArkLib). That is `verity/<component>/lean`, `Security/{Assumptions,Guarantees}`
+  and `Security/Proofs`. It brings three things for the memo:
+  - The run's programs cross areas (the send gate runs C-Flock's `Statement.verify`, and the coin server and proxy
+    share hm96), so they are a composition of their own. Its `exec` requires a backend while its statements cite
+    protocols, which the 2026-10-03 ruling (card `d9eb2f28`: no package requires both a protocol and a backend) forbids.
+    Locked point 4 needs that ruling relaxed for the run layer alone; protocols still import no backend. Daniel decides.
+  - The extraction and the simulator (`ZkOuter.layer`, `wmsg`, the Goldreich–Kahan finder) are trusted text, since a
+    weak one makes the guarantee vacuous, but today they sit behind ArkLib. They move into `Security/Assumptions`, or
+    the soundness guarantee's meaning can only be read in the proofs.
+  - C-Flock's soundness package has its own `Game` type, separate from core's; it needs a transport, or C-Flock moves onto
+    core's `Game`.
 - Whether "judge" is a concept at all. Daniel thinks it's just part of the toolkit; the captain agrees. The run-model
   draft agrees: the run needs only parties, one program per party, hosts and workers; the deciding code is library
   functions the programs call, and the Glossary has no "judge" entry to retire.

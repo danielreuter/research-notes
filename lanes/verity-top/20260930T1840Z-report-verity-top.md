@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:30Z) [open] main frozen 2296bb64a; #1225 re-recording locks, landing ~19:15Z
 CHECKPOINT none (18:15Z) [open] main frozen 2296bb64a; #1225 regenerated f599b5f5b, full check next, landing ~19:00Z
 CHECKPOINT none (18:00Z) [open] main frozen 2296bb64a; #1225 red-team fixes in progress; post-move tip lined up
 CHECKPOINT none (17:45Z) [open] main frozen 2296bb64a for Lean move #1225; red-team fixes in progress

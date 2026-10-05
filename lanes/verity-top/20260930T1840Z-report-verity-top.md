@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:00Z) [open] 14:00Z: main 378453fb3 (move); post-move trains waiting on n1 check slots; n1 inodes 67%
 CHECKPOINT none (13:45Z) [open] 13:45Z: post-move trains queued behind 5923c2263; n1 inodes 66% (five Lean builds), conditional lane-tree sweep approved at 68%
 CHECKPOINT none (13:30Z) [open] 13:30Z: four post-move tips queued (5923c2263, 53157fe0b, 7e01a1318, a5ec9b24b); tiers running; warden reads_exempt revert found by #1214
 CHECKPOINT none (13:15Z) [open] 13:15Z: post-move trains 5923c2263 -> 53157fe0b (#1210) -> 7e01a1318 (#1191) queued; restacks and tiers running across lanes

@@ -262,3 +262,13 @@ These replace the gadget-placement and kernel rows above.
   layout-move worker's call. Consolidate, don't delete, still holds.
 - **The move is one generated commit** on `cursor/layout-move-c3b2` (Daniel, 4:30 PM PDT). Circuits' per-family split
   scripts and the per-Definition bindings split (`cursor/circuit-check-bindings-per-module-8c79`) are inputs to it.
+
+## Import names (top 00:40Z, from the layout probe; plan at notes 458c528e)
+
+- Outside `verity/`, a top-level directory groups distributions; it is not itself an import name. Circuits' pieces become
+  `catalog/verity_catalog/` (silicon at `verity_catalog.silicon`) and `kernels/verity_kernels/` (vLLM's `program/kernels/`).
+  The quarantine is the distribution `verity_quarantine` under `experimental/`, with its destination taken as a script
+  parameter (superseded/quarantine branch `cursor/superseded-quarantine-0db4`). This replaces question 4c's
+  `verity.primitives.silicon` example above.
+- `test_evaluation.py`'s self-check filter `__module__.startswith("verity")` (question 7's row) would match
+  `verity_catalog` and `verity_kernels` only by prefix coincidence. The filter keyed on `_KERNELS` is still the fix.

@@ -729,3 +729,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T15:55Z: #1204 restacked alone at 515171659. Cancelled 0eff/f0ce (old #1204). 034661db2 (#1193 #1197 #1210, fully labelled) node1 r20261005-155259-6572; b37454729 (+ #1204 #1136 #1200 #1202 #1186 #864 #1211) node2 r20261005-155333-38ac --agreement.
 - 2026-10-05T15:58Z: queued 8532e1d96 (b374 + #1212) for the next free slot; #1191 tips wait on its fix.
 - 2026-10-05T16:04Z: Lean layout move hold (top 16:01Z, landing ~18:00Z): trains land as normal until 17:00Z; no new nebius train checks from 17:00Z; no landings from the move's check start until the move is on main.
+- 2026-10-05T16:08Z: notes commit 739e81069 (Daniel's Lean layout ruling) is not on the notes remote; asked top for a bundle via the evidence store (or a re-created note), to push from the control pod.
+- 2026-10-05T16:08Z: asked lean whether #1167 is superseded by the Lean layout move; close it if so.

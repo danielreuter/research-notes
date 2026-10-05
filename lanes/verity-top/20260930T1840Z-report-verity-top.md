@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:18Z) [open] Lean move shards 1/4/5 running (3 passed); leads launched finished-repo lanes; consolidation notes arriving
 CHECKPOINT none (23:00Z) [open] Lean move: lean + red-team granted at b87eeef64, landing check shards running, ETA 00:05Z
 CHECKPOINT none (22:41Z) [open] main 88f5cc533 (5e7a landed), frozen; Lean move landing check running, lean granted, red-team rerun pending; ETA 00:05Z
 CHECKPOINT none (22:23Z) [open] Lean move freeze/landing check ~22:35Z; 5e7a rerun running; P2 window confirmed ruled

@@ -747,3 +747,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T17:24Z: root's merge request #1228 (AGENTS.md rule retirement, ready at 9ad77bb5b) goes in the first post-move tip; asked ci. Also asked ci to update or drop TRAIN_GRANTS' statement-reviewer entry (cites removed §5).
 - 2026-10-05T17:27Z: asked ci for a low-priority PR dropping the statement-reviewer grant (vocab, queue, TRAIN_GRANTS, tests), after the Lean move.
 - 2026-10-05T17:34Z: #1231 (drops the statement-reviewer grant) supersedes #1229; train #1231 after the move, not both.
+- 2026-10-05T18:23Z: asked top for #1225's status and ETA, and whether to unfreeze for 5973 if the move is >1h out with its check not started.
+- 2026-10-05T18:25Z: 4e56 (5973) and 38ac (b374) both PASSED; 5973 lands in seconds on top's go (b374 still needs #1202 ready).
+- 2026-10-05T18:27Z: top: hold the freeze. #1225 is past red-team's fixes (head 1b6514c81), locks being re-recorded, landing check next; ETA ~19:15Z. 5973 goes first after it.

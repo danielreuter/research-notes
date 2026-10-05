@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 97d06c4d5 (06:47Z) [open] #1176 granted; #1171 red-team (red-team-1171) reviewing ca3622bcf, due 07:30Z; vllm hit is a two-merge-base artifact
 CHECKPOINT 97d06c4d5 (06:42Z) [open] #1176 granted at 545c5ba4f by red-team-1176 (on remote); ci told ee6dd1835 can proceed; canonical public-input sessions and rec-reprice running
 CHECKPOINT 97d06c4d5 (06:33Z) [open] #1176: red-team-1176 resumed on fixed head 545c5ba4f for the grant by 07:30Z (ci holds ee6dd1835; cutoff 08:00Z); canonical public-input sessions and rec-reprice running
 CHECKPOINT 97d06c4d5 (06:25Z) [open] canonical V1 done (#1192, draft on #1179); job (1) canonical public-input sessions launched (cursor/canon-pubin-95d4); fail-closed, flock-spec, rec-reprice running

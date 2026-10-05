@@ -32,7 +32,9 @@ Script: `backends/flock/pod/85-rec-reprice.sh` (STEP=build|inner|ostage|oprove|l
 
 | step | run | started | status |
 |---|---|---|---|
-| build (K=4096: GPU prover key 47340c664cec521f, Lean 88a84ea16d7e8f86, inner staged) | r20261005-064451-cec2 | 06:44Z | running |
+| build (K=4096: GPU prover key 47340c664cec521f, Lean 88a84ea16d7e8f86, inner staged) | r20261005-064451-cec2 | 06:44Z | failed: the prover's kernels use `clmad`, which node 1's host CUDA 13.0 ptxas rejects (Lean built) |
+| build, CUDA 13.3.1 from NVIDIA's redistributable archives under FLOCK_WORK | r20261005-064928-7c4f | 06:49Z | passed: binary dc3d91dd…, inner m = 35, k_log 24, nbl 11, 2,048 instances, circuit 567 MB |
+| inner: proxy M0 ×(1+3), replay, rec_vstar; loopback M0 and --zk ×(1+3) | r20261005-065337-4837 | 06:53Z | running |
 
 ## Shape of V* at m = 35 (from `rec_algebra.fast100(35)`, before any run)
 

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (11:05Z) [open] move red-team REFUSE at f357ec26d: identity constant rewritten (Lean refuses new proofs), 13 pod PYTHONPATHs lack catalog/kernels/experimental; fixes posted 1791198305
 CHECKPOINT e259af141 (11:01Z) [open] 11:00Z: move candidate f357ec26d (move commit f0dde01ec); red-team-move pre-review running; resume on its return with the 3-part scope
 CHECKPOINT e259af141 (10:33Z) [open] 10:30Z: red-team-move pre-reviewing move commit c863067f5's C-Flock side; final commit ~11:30Z, grant by 14:00Z; flock-lean-split parks on C/T ruling
 CHECKPOINT e259af141 (10:00Z) [open] 10:00Z: quiet; flock-lean-split running (6a0b34f0a); node 1 71%; move red-team from 11:30Z

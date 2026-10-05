@@ -688,3 +688,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T07:50Z: next to check is 21f0d7bb9 (82ed + #1190), replacing 82ed; queued for the next free slot.
 - 2026-10-05T07:53Z: #1178 ready (top). Next to check is 192c04edb (21f0 + #1178, needs the agreement send), replacing 21f0; queued for the next free slot. Freeze 11:30Z.
 - 2026-10-05T07:54Z: next to check is 1b269cf41 (192c + #937), with the agreement send; queued for the next free slot.
+- 2026-10-05T08:01Z: poll: 02e0 (3d805) running; c599 (d472) past lean-suites. main 03ab7e5a5. 1b26 queued.

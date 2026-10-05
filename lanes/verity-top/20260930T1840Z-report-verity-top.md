@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:45Z) [open] 07:45Z: main 03ab7e5a5; 3d805d696/d472eef83 checking; #1178 awaits owner ready label; #864 awaits red-team; freeze 11:30Z
 CHECKPOINT none (07:30Z) [open] 07:30Z: main 03ab7e5a5; 3d805d696/d472eef83 checking; next 82ed60b8a (+#1189) or 8c4d22e6e (+#1178 once ready); freeze 11:30Z
 CHECKPOINT none (07:15Z) [open] 07:15Z: main 03ab7e5a5 (all move inputs in); 3d805d696/d472eef83 checking on nodes 1/2; #1178 fix with architecture; freeze 11:30Z
 CHECKPOINT none (07:02Z) [open] 07:00Z: main a592a5567 (move inputs landed); 2515 waits red-team-1171 (07:30Z); #1178 red-team by 07:15Z; d472 next; freeze 11:30Z

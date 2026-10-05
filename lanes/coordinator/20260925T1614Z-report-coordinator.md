@@ -679,3 +679,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T06:01Z: poll: 5b67, 71ce past lean-suites. main 43bef6294.
 - 2026-10-05T06:21Z: poll: 5b67 past pytest; 71ce running. main 43bef6294.
 - 2026-10-05T06:45Z: 810d (5b67) and 2515 (71ce) PASSED, but merge refused: #1171 lacks red-team + vllm-coordinator, #1169 lacks vllm-coordinator (queue.toml, integrations/vllm/). Asked circuits/proofs for grants; asked ci for a fallback without #1169/#1171.
+- 2026-10-05T06:48Z: merged 810d1974d (8 PRs, move inputs) → main a592a5567 via --push; spec DM sent, post_train started; all MERGED. 2515 waits on red-team at pr:1171@ca3622bcf.

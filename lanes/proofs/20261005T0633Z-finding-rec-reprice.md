@@ -43,3 +43,39 @@ L0 `RecOpen{64,16}` 436 openings × 45 compressions; L1 `{16,15}` 212 × 37; L2 
 L4 `{16,10}` 86 × 27; L5 `{16,8}` 72 × 23; L6 `{16,6}` 64 × 19. 40,630 compressions, 3.31e9 SHA-512 rows for the two reps
 (1.65e9 per rep). Unit slots: L0–L4 2^22, L5–L6 2^21, so by table size the outer is about 2^34.4 rows against the inner's
 2^35: an estimate to be replaced by the measured runs.
+
+## Inner and today's numbers, same node and build (measured, r20261005-065337-4837)
+
+Medians over 3 timed sessions after 1 warm; prove = the prover's `prove_total_s` (both reps), session = the rollup's
+definition (time between verdicts), verify = serve's own `verify_s` per session (circuit already loaded).
+
+| statement | prove | session | verify | bytes/rep | host RSS | GPU peak |
+|---|---:|---:|---:|---:|---:|---:|
+| inner M0 against the rec proxy (salted SHA-512 of rounds and caps) | 0.875 s | 0.909 s | upstream replay: accepted, 8.96 s wall incl. parse | 963,794 | 20.7 GB | 74.0 GiB |
+| inner M0 on loopback | 0.722 s | 0.873 s | 0.392 s | 963,794 | 20.8 GB | 71.9 GiB |
+| `--zk` on loopback (main) | 5.53 s | 7.85 s | 6.88 s | 1,179,202 | 21.1 GB | 74.0 GiB |
+
+The proxy adds 0.15 s of prove (its Python round trips): 278 rounds, 510 message rows, 2,082 coins and 16 caps per
+session. `rec_vstar` (V*'s hashing reference) accepts the proxied session: 1,118 openings over 7 levels, 510 message rows.
+
+Main's `--zk` against the rollup's 1.063 s (cfbad08), decomposed from main's own records: the mask-rank check (`ZKRANK`,
+`zk_veil::mask_rank_ok`, single-threaded Gaussian elimination over all 262,144 mask words, 2 then 4 claim points) 2.60 s
+per session; level 0's hiding draw (`level0_zk`, one ChaCha stream, single-threaded, counted in rep 0's `prove_s`) 1.03 s;
+the two reps' device proofs 0.84 s each (cfbad08: 0.52 s; `t.zk_inner` 0.11 s against 0.01 s, and about 0.2 s between
+`t.total` and `t.upstream`). Neither CPU step is in cfbad08's numbers, and both are linear in the statement's blocks, so the
+outer pays them too; the ratios below are given against both baselines.
+
+## V* staged (measured, r20261005-065619-2e26)
+
+| level | template | instances | unit rows | block | padded m | stage wall | stage RSS | circuit |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| L0 | RecOpen{64,16} | 436 | 3,335,169 | 2^23 | 32 | 6:02 | 8.3 GB | 498 MB |
+| L1 | RecOpen{16,15} | 212 | 2,686,977 | 2^23 | 31 | 6:49 | 6.8 GB | 406 MB |
+| L2 | RecOpen{16,13} | 142 | 2,401,281 | 2^23 | 31 | 5:14 | 6.1 GB | 367 MB |
+| L3 | RecOpen{16,12} | 106 | 2,258,945 | 2^23 | 30 | 4:36 | 5.7 GB | 347 MB |
+| L4 | RecOpen{16,10} | 86 | 1,973,249 | 2^23 | 30 | 4:04 | 5.1 GB | 308 MB |
+| L5 | RecOpen{16,8} | 72 | 1,679,361 | 2^22 | 29 | 3:31 | 4.4 GB | 268 MB |
+| L6 | RecOpen{16,6} | 64 | 1,393,665 | 2^22 | 28 | 3:08 | 3.8 GB | 229 MB |
+
+Committed size, padded: 2^33.43 over the 7 statements against the inner's 2^35 (0.34×); the earlier 2^34.4 estimate
+assumed 2^24 blocks.

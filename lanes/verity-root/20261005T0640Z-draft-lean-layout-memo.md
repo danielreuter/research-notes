@@ -103,7 +103,9 @@ soundness package has its own `Game` type, separate from core's (proofs moves it
 
 ## Started without waiting
 
-- The module-root guard (a repository test), as a PR.
+- The module-root guard, [verity#1193](https://github.com/danielreuter/verity/pull/1193) (draft): a repository test
+  that no two packages or source directories claim nesting module names. It passes today's 15 roots and fails on a
+  planted `Pouw` / `Pouw.Guarantees` overlap. It lands after the move.
 
 ## Pending
 

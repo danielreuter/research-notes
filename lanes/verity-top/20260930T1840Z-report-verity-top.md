@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (12:30Z) [open] 12:30Z: architecture landing #1206 after move lead died; waits on shards 4/5 and circuits' vllm grant; merge 14:00Z
 CHECKPOINT none (12:15Z) [open] 12:15Z: #1206 awaiting remaining shards and circuits' vllm grant; merge 14:00Z
 CHECKPOINT none (12:05Z) [open] 12:00Z: #1206 landing check on 62cf02978, shard 5 rerunning after OOM; L3 closed (#1207/#1208 drafts); merge 14:00Z
 CHECKPOINT none (11:45Z) [open] 11:45Z: #1206 red-team granted at 62cf02978; landing check running (2/5 shards passed); merge 14:00Z

@@ -37,6 +37,39 @@ Version 3 adds Daniel's rulings of 12:51 PM PDT and the follow-up answers from @
 @infra's is pending. Who said what in the
 survey is in those Slack threads. Lean's guide to the Lean workflow is being updated to match. Nothing has moved.
 
+## Daniel's rulings on the architecture after the move (5 Oct, 05:38Z)
+
+These come after the recursive zero-knowledge architecture (the proofs coordinator's "Recursive zero knowledge: the
+system architecture"). Under it, both soundness and zero knowledge are proved in Lean, and the prover's trusted code is
+Lean too. These rulings fix the target the next layout derives from. They don't change tonight's move.
+
+Locked:
+1. The trusted code is Lean: each party's program over the whole run (registration, draw, the inner and outer sessions,
+   the verdict, the profile), and the statements about it.
+2. Python, Rust and CUDA make up the environment and the workers. The model treats the environment as adversarial, so a
+   bug there can only make a run fail; it can't make a false claim pass.
+3. Lean and everything else meet only through canonical bytes, with one Lean reader and vectors pinning the format.
+4. The whole run's composition is in Lean, with end-to-end soundness and zero-knowledge theorems.
+5. Security proofs live apart from specs and judges.
+6. Untrusted code sits inside the component it serves, so there is no top-level `kernels/` or `provers/`.
+7. The Python package is `verity/`, and keeps tonight's import names.
+
+Also ruled:
+- Tonight's move lands as planned (about 14:00Z).
+- Overnight evidence default: if both evidence workers (the run-model draft and the co-change and Lake evidence) agree
+  on a layout, the captain prepares that layout's move map. Nothing lands without Daniel.
+- `verity/` is the whole system: a mixture of Lean and Python per component, where the Lean is the trusted part.
+
+Open, for the morning memo (about 12:00Z):
+- Whether the assumptions and guarantees sit inline with each component's Lean, or the components' Lean holds only
+  executables and the security statements live together somewhere else. The captain leans to the second: `verity/`
+  holds Lean executables with no dependencies, and one `security/` package on Mathlib holds the assumptions, guarantees,
+  the model and the proofs. The memo checks this against the co-change and Lake evidence.
+- Whether "judge" is a concept at all. Daniel thinks it's just part of the toolkit; the captain agrees.
+- Whether Lean drives Python, with the party program as the main loop and the workers serving its requests.
+- Where the runs layer (the onsite and remote products) lives.
+- Native SHA-512 and carry-less multiply under named assumptions (still with Daniel).
+
 ## Status (captain: verity-top's layout agent, from 2:12 PM PDT)
 
 Daniel named this agent captain of the migration. This section is the tracker; the captain keeps it current, and anyone

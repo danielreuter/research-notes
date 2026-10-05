@@ -149,7 +149,7 @@ Two tests also break, and `check` will catch them (F1, F2). Neither ArkLib cut i
 - #1193's module-root guard, now on this branch: `test_lean_module_roots_are_disjoint` passes on `b37b16723`'s packages
   (14 claims, no clash; `security` and `security_proofs` share `verity/Security` with different first components).
 
-## Rerun at `77b8d66bc` (19:35Z): REFUSE
+## Rerun at `77b8d66bc` (19:27Z): REFUSE
 
 **Verdict: REFUSE for PR #1225 at `77b8d66bc7e8ded3481bd2513afe005d395935ae`.** B1, B2, F1 and F2 are fixed, the two
 ArkLib cuts are in and declaration-identical, the verifier's and grader's lock updates are moves, and 815ac27cd's replay

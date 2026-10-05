@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (05:00Z) [open] 05:00Z: main d18933dac (10 PRs landed 04:48Z); next 4543 then 858d then follow-up tip (12 PRs, waits on #1162); lean verifying text-merged lean-audit.json; #1176 red-team ~06:45Z
 CHECKPOINT none (04:45Z) [open] 04:45Z: main 97d06c4d5; #1169, #1184, #1180, #1012, #1142 ready; landing line waits on #1164 re-tier; follow-up tip waits on #1162; #1176 red-team ~06:45Z
 CHECKPOINT none (04:30Z) [open] 04:30Z: main 97d06c4d5; landing line 54ae->32d9->4543->858d waits on #1164 re-tier; follow-up tip on 858d trial-merged; #1184 tier running
 CHECKPOINT none (04:15Z) [open] 04:15Z: main 97d06c4d5; #1180 and Lean stack (#1150/#1141/#1144) ready; #1164 rerun pending; #1184 tier on mig-check-2; move 14:00Z

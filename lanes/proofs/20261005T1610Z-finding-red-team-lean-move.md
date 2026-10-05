@@ -3,20 +3,41 @@ id: proofs/20261005T1610Z-finding-red-team-lean-move
 campaign: layout-move
 lane: proofs
 kind: finding
-status: in-progress
+status: open
 repo: danielreuter/verity
 origin: red-team-lean-move
 ---
 
-# Red team pre-review: the Lean layout move (PR #1225, `cursor/lean-layout-move-c3b2`), red-team scope
+# Red team review: the Lean layout move (PR #1225, `cursor/lean-layout-move-c3b2`), red-team scope
 
-**Verdict: pending, no final head yet. At `444c5d72f7a8d699c1681bbde6cd66c2825a63d9` (17:05Z) it would be REFUSE:** two gates
-go vacuous (B1, B2). Two tests also break and `check` will catch them (F1, F2). Neither ArkLib cut is in the branch yet.
-Top's message commit `444c5d72f` asks the move lead to merge the new `origin/main` (#1193 #1197 #1210), rerun
-`tools/move/lean.py` and check that head. I rerun everything on it with `/tmp/rt-lean-move-tools/rerun.sh`.
+**Verdict: REFUSE for PR #1225 at `b37b1672324e2bc23ca4125bba01c4ac25a470c9` (17:20Z).** Two gates go vacuous (B1, B2).
+Two tests also break, and `check` will catch them (F1, F2). Neither ArkLib cut is in the branch yet.
+
+- How this head was built: it merges `origin/main` (#1193 #1197 #1210, none of which touch Lean) and the regenerated
+  `2e5c5c94e`, and the tree is the same as `c55eed2c2`'s. Every probe below gives the same result on both.
+- Re-review on the fixed head:
+  - Run `rerun.sh HEAD`, from `art:81dbfd4f5a5607837410f44f8b5d5e7f8754fdee03338e996a5f6e2d0a71b9e2` (`tools/`; or
+    `/tmp/rt-lean-move-tools/` on this VM). It reads files only: one PASS/FAIL line per finding, then the record, gate and
+    declaration diffs.
+  - Add `AGREE_LOG=…/lean-agreement.log` to compare the check run's agreement set by set.
+- What turns this into a GRANT:
+  - B1 and B2 fixed.
+  - F1 and F2 fixed, or `check` red on them.
+  - The cuts reviewed (or explicitly deferred out of the PR).
+  - The `--update --moved` printout showing only the same statements.
+  - The check run's agreement equal to the reference.
+- Exact fixes:
+  - **B1.** In `tools/move/lean.py` `merge_locks`, after line 493 (the `watch` loop):
+    `for s, e in up.get("scan", {}).items():` / `if s in prf["upstream"].setdefault("scan", {}): raise SystemExit(f"upstream
+    scan {s} in two locks")` / `prf["upstream"]["scan"][s] = e`. Then regenerate, and run
+    `python tools/lean/upstream.py verity/Security/Proofs`.
+  - **B2.** In `tools/check/queue.toml`, red-team `paths = ["backends/flock/", "verity/Security/Proofs/Flock/",
+    "!README.md", "!PROTOCOL.md", "!*/tests/*"]`, with a test that pins it on a moved file.
+  - **F1, F2.** `backends/flock/tests/test_lean_verifier.py` (details below).
 
 - Brief: proofs coordinator (bc-8416bc72), 9:05 AM PDT. Ruling: thread 1791215694.084699. Move thread 1791216100.963309.
-- Base: main `378453fb3` (Layout move #1206). Heads reviewed: `bfcf4fe8e`, `2f5fc95d9`, `6447d4723`, `444c5d72f`.
+- Base: main `378453fb3` (Layout move #1206). Heads reviewed: `bfcf4fe8e`, `2f5fc95d9`, `6447d4723`, `444c5d72f`,
+  `c55eed2c2`, `b37b16723`.
 - Scope: `backends/flock/` minus `README.md`, `PROTOCOL.md` and `*/tests/*` (`tools/check/queue.toml`'s red-team grant),
   plus wherever the move puts C-Flock's soundness, level3 and verifier proofs (`verity/Security/Proofs/Flock/`), and the
   gates keyed by their paths.
@@ -65,7 +86,7 @@ Top's message commit `444c5d72f` asks the move lead to merge the new `origin/mai
   - The split-string test is a negative (`returncode != 0`). If it were changed to keep running in the verifier package with
     `import Proofs.Flock.Verifier`, the failing import would make it pass vacuously. It has to run where the module resolves.
 
-## Checks that pass at `444c5d72f`
+## Checks that pass at `b37b16723`
 
 - **Check 1, statements.** All 1754 guarantees are identical by name, signature, assumptions and type hash; the focus
   statements digest is `32027e06…` at base and head. Owners didn't change. `lean_moves.json` is the empty map.
@@ -117,10 +138,13 @@ Top's message commit `444c5d72f` asks the move lead to merge the new `origin/mai
 
 ## Left for the final head
 
-- Rerun `rerun.sh` on the regenerated head (after `origin/main` with #1193 #1197 #1210, and the cuts).
+- Rerun `rerun.sh` on the fixed head.
 - The ArkLib cuts: byte-identical definitions, or a reference with its equivalence proved; no assumption added or lost;
   `#print axioms` stays propext / Classical.choice / Quot.sound.
 - The `--update --moved` printout.
-- The `check` run: the audit visits all 4 packages, and lean-agreement has every session agreeing at the reference counts
-  (564 sessions; Lean accepts 12; the upstream build accepts 80).
-- #1193's module-root guard on the merged tree.
+- The `check` run:
+  - the audit visits all 4 packages;
+  - lean-agreement has every session agreeing at the reference counts (r20261005-081515-2188: 17 sets, 564 sessions, 564
+    agree, 0 disagree, Lean accepts 12: sets 8:4, 10:3, 11:1, 12:1, 15:3). `agreement_cmp.py` checks this.
+- #1193's module-root guard, now on this branch: `test_lean_module_roots_are_disjoint` passes on `b37b16723`'s packages
+  (14 claims, no clash; `security` and `security_proofs` share `verity/Security` with different first components).

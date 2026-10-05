@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:19Z) [open] 16:19Z main 378453fb3; Lean move target ~18:00Z, train hold from 17:00Z; f4b2f19e3 (+#1165 #1154 #1215) offered pre-move; #1167 close held for Daniel
 CHECKPOINT none (16:00Z) [open] 16:00Z main 378453fb3; Lean layout ruled by Daniel 15:55Z, step 1 dispatched; next train 034661db2 waits a slot; #1204 standalone 515171659
 CHECKPOINT none (15:45Z) [open] 15:45Z main 378453fb3; 5315 refused (#1204 on unpinned #1203), ci rebasing #1204, lander checks 5315-minus-#1204
 CHECKPOINT none (15:30Z) [open] 15:30Z main 378453fb3; #1191 fixed e2fc2bd50, tier d928 running; 5315 waits #1197 tier; layout option S/D with Daniel

@@ -34,7 +34,9 @@ Script: `backends/flock/pod/85-rec-reprice.sh` (STEP=build|inner|ostage|oprove|l
 |---|---|---|---|
 | build (K=4096: GPU prover key 47340c664cec521f, Lean 88a84ea16d7e8f86, inner staged) | r20261005-064451-cec2 | 06:44Z | failed: the prover's kernels use `clmad`, which node 1's host CUDA 13.0 ptxas rejects (Lean built) |
 | build, CUDA 13.3.1 from NVIDIA's redistributable archives under FLOCK_WORK | r20261005-064928-7c4f | 06:49Z | passed: binary dc3d91dd…, inner m = 35, k_log 24, nbl 11, 2,048 instances, circuit 567 MB |
-| inner: proxy M0 ×(1+3), replay, rec_vstar; loopback M0 and --zk ×(1+3) | r20261005-065337-4837 | 06:53Z | running |
+| inner: proxy M0 ×(1+3), replay, rec_vstar; loopback M0 and --zk ×(1+3) | r20261005-065337-4837 | 06:53Z | passed (GPU 4; prover on 16 cores 96-111, verifier 112-127) |
+| ostage: V*'s 7 RecOpen statements (`rec_outer --link-rows`, 4 at once) | r20261005-065619-2e26 | 06:56Z | passed: every level staged, every query opened |
+| oprove: each level --zk on loopback ×(1+3), upstream replay --zk | r20261005-070734-c714 | 07:07Z | running |
 
 ## Shape of V* at m = 35 (from `rec_algebra.fast100(35)`, before any run)
 
@@ -79,3 +81,25 @@ outer pays them too; the ratios below are given against both baselines.
 
 Committed size, padded: 2^33.43 over the 7 statements against the inner's 2^35 (0.34×); the earlier 2^34.4 estimate
 assumed 2^24 blocks.
+
+## V*'s RecOpen sessions with --zk (measured, r20261005-070734-c714)
+
+Each level on loopback, GPU 4, the same build, prover on 16 cores and serve on 16; medians over 3 timed sessions after 1 warm.
+Every session accepted by serve (4 of 4 per level) and the last one by upstream's `replay --zk`.
+
+| level | m | instances | prove | session | verify (serve) | bytes/rep | host RSS | GPU peak | rank check | level-0 draw | replay --zk |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| L0 | 32 | 436 | 1.277 s | 1.777 s | 1.480 s | 1,037,530 | 8.3 GB | 10.9 GiB | 0.695 s | 0.142 s | accepted, 13.5 s wall |
+| L1 | 31 | 212 | 0.798 s | 1.237 s | 1.244 s | 1,005,602 | 5.5 GB | 6.8 GiB | 0.352 s | 0.113 s | accepted, 10.4 s |
+| L2 | 31 | 142 | 0.767 s | 1.187 s | 1.185 s | 1,005,602 | 5.4 GB | 6.7 GiB | 0.341 s | 0.105 s | accepted, 9.3 s |
+| L3 | 30 | 106 | 0.507 s | 0.848 s | 1.043 s | 946,586 | 4.5 GB | 4.6 GiB | 0.141 s | 0.078 s | accepted, 8.7 s |
+| L4 | 30 | 86 | 0.572 s | 0.853 s | 0.927 s | 946,586 | 3.8 GB | 4.6 GiB | 0.147 s | 0.072 s | accepted, 7.8 s |
+| L5 | 29 | 72 | 0.448 s | 0.684 s | 0.683 s | 834,202 | 3.1 GB | 2.8 GiB | 0.133 s | 0.078 s | accepted, 6.6 s |
+| L6 | 28 | 64 | 0.356 s | 0.586 s | 0.654 s | 777,946 | 2.6 GB | 2.2 GiB | 0.063 s | 0.073 s | accepted, 6.2 s |
+| sum | | 1,118 | 4.726 s | 7.172 s | 7.216 s | 6,554,054 | max 8.3 GB | max 10.9 GiB | 1.872 s | 0.661 s | |
+
+The device work is small (L0's two reps: `t.total` minus the rank check about 0.15 s each); the rest is per-session CPU work
+of `--zk` (rank check, level-0 draw, the inner proof and replay, about 0.06-0.07 s a rep) and the round trips.
+
+Next: the inner rerun with no co-running job of this lane (r20261005-071603-4d28), then STEP=alg (InnerClaims +
+rec_residuals at m = 35), its --zk proving, and Lean on every outer session.

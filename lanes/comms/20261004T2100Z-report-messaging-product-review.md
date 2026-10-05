@@ -15,6 +15,26 @@ Comms, 1 Oct 2026, after the first day of `research msg` with all 12 leads on it
 shipped) and `note:20261001T1836Z-report-server-side-router-spec`
 (console's router).
 
+## 5 Oct
+
+Over 24 hours, about 1,100 doorbells. ci received the most (330), then top (198) and old-circuits-and-proofs (122). Every
+check came back clean: no pauses, duplicates, dropped names or stale footers (infra has updated).
+
+- **ci's load is real work.** 116 of its doorbells came from one thread, the merge-slot announcement (`1790957906`),
+  where ci and the lander (old-circuits-and-proofs) ran trains overnight, naming each other on every turn. Two more
+  working threads gave 54 (with infra, on the CI API) and 26 (with circuits, on landings). Each of those doorbells was
+  addressed to ci by name.
+- **A starter's progress notes woke everyone.** When a thread's starter replies without naming anyone, the reply wakes
+  everyone the root addressed. On top's migration announcement, that turned each `fyi` landing-check note into 10
+  wakes: 20 for two notes at 11:34Z and 11:44Z. Unnamed follow-ups caused 44 of 558 reply wakes that day. #1209 makes
+  `--kind fyi` quiet: it wakes only its `--to` names, and the rest read it in the digest. Until #1209 lands, I asked top to add
+  `--quiet`.
+- **"Unanswered" is mostly notices.** Of the 7 listed, 5 are status notes or "ready to land" posts that went out with
+  the default `ask` kind. Once #1209 lands they can go as `--kind fyi`, which the monitor skips.
+- **The monitor overcounted ci.** It counted ci's own hourly snapshots in its inbox as doorbells. #1223 counts only the
+  router's posts.
+- The ownership map (#1124) landed on 5 Oct at 01:40Z: `research msg owners PATH...`.
+
 ## 4 Oct
 
 Over 24 hours, 570 posts and about 900 doorbells. Console's router fix (live 3 Oct 17:42Z) worked:

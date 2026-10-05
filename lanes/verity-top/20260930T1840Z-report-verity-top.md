@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:15Z) [open] 15:15Z main 378453fb3; #1191 out of trains (vLLM test paths, architecture); 5315 lands on #1197 ready; 6c1963832/93dad18e0 wait #1136/#1202 readies
 CHECKPOINT none (15:00Z) [open] 15:00Z: main 378453fb3; two tip lines (5df391911 with #1197, fallback 064bedd13) wait on readies; Daniel awake, driving architecture
 CHECKPOINT none (14:45Z) [open] 14:45Z: main 378453fb3; first train waits on #1197/#1210 readies, tiers slot-bound (~77 min each post-move)
 CHECKPOINT none (14:30Z) [open] 14:30Z: 5923c2263 passed, waits on #1197/#1210 readies; fallback 0f6e9ec88 built; tiers draining via n2 slots e/f

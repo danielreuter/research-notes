@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (01:17Z) [open] flock-spec returned (spec + bridge proved, audit PASS). Ruled: move the model into the spec; resumed it as C-Flock's Lean split script, dry-run on flock-spec + #1170 + canonical V1, records unchanged, audits on node 1.
 CHECKPOINT none (00:33Z) [open] Top's order: lock reductions first, then the move. #1169 (core 29->0) quick tier r20261005-003139-2144 running; it trains once lean confirms nothing relies on the 11, else core-lock-tc goes instead.
 CHECKPOINT none (00:28Z) [open] Lock reductions up as drafts: #1170 C-Flock 871->41 (stacked on fail-closed; waits on canonical V1, then statement review and red-team), #1169 core 29->0 (order vs core-lock-tc and #1167 is top's call; asked lean about the 11).
 CHECKPOINT none (00:22Z) [open] ZK-layer line drawn (note:proofs/20261005T0009Z-draft-zk-layer-line) and posted to top with my call: hashing stays, encoding stays until a pre-send check lands; C-Flock Rust/CUDA leave the generated move for split PRs after fail-closed and canonical V1.

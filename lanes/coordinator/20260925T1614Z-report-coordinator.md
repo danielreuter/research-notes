@@ -664,3 +664,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T03:21Z: poll: 43f1 past lean-suites; 234a, f629, 2c45 running. #1181 ready now; #1012, #1164 still none. main 97d06c4d5.
 - 2026-10-05T03:23Z: ci tip 858da8231 (3017 + #1169: core lock 29→0 guarantees, under Daniel's 2:03 PM PDT guarantee ruling; DMs Daniel at landing) queued for the next free slot; waits on #1169 ready + 32d9/4543 labels.
 - 2026-10-05T03:41Z: poll: 43f1, 234a, 2c45 past lean-suites; f629 running. #1012/#1164 still no ready. main 97d06c4d5.
+- 2026-10-05T04:01Z: poll: 43f1 (54ae) PASSED, held: no ready at #1164@39ef8822b. 234a past pytest; f629, 2c45 running. main 97d06c4d5.

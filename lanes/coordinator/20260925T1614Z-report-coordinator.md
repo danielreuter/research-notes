@@ -630,3 +630,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T23:59Z: ci tip 24115cc0f (e414 + #1004 #1068) node2 r20261004-235741-b966 --agreement. Skipping 93a1 (same tree as f1dc/6352).
 - 2026-10-05T00:02Z: merged f2a07e5ae (#1119 #1137 #1130) → main b529216bb. 32e7, b966, 6352 running.
 - 2026-10-05T00:05Z: ci tip d76901335 (f1dc + #1161 #988 #1108) node1 r20261005-000405-e1f0 --agreement. #1108 FP8 check clear (no -h2 or keyed rotation).
+- 2026-10-05T00:21Z: poll: 32e7 past agreement; b966, 6352, e1f0 running. pr:1126@8216 ready=true (by merge-queue, 23:59Z). main b529216bb.
+- 2026-10-05T00:25Z: f1dc HOLD (root): asked circuits for a hand ready at pr:1126@8216 (current one by merge-queue, the queue ready/judge default --by after the quick tier; gate accepts any ready=true) and for its answer on clearing the node caches.
+- 2026-10-05T00:26Z: f1dc hold cleared: circuits posted a hand ready at pr:1126@8216; no cache clearing (cache dir keyed by circuit_check's source digest, and cache.py changed 83c25→8216).

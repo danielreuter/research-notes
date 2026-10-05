@@ -27,4 +27,17 @@ lane rebuilds main's GPU prover and reruns M0 and `--zk` on the same node for a 
 
 ## Runs
 
-(recorded as they start)
+Script: `backends/flock/pod/85-rec-reprice.sh` (STEP=build|inner|ostage|oprove|lean), node 1 (`vy-nebius-1`), FLOCK_WORK
+`/workspace/jobs/rec-reprice`, all via `research run --queue`.
+
+| step | run | started | status |
+|---|---|---|---|
+| build (K=4096: GPU prover key 47340c664cec521f, Lean 88a84ea16d7e8f86, inner staged) | r20261005-064451-cec2 | 06:44Z | running |
+
+## Shape of V* at m = 35 (from `rec_algebra.fast100(35)`, before any run)
+
+fast100 at m = 35 has 7 Ligerito levels (m = 27 had 4), so V* is 7 `RecOpen` sessions plus the algebra. Per level (both reps):
+L0 `RecOpen{64,16}` 436 openings × 45 compressions; L1 `{16,15}` 212 × 37; L2 `{16,13}` 142 × 33; L3 `{16,12}` 106 × 31;
+L4 `{16,10}` 86 × 27; L5 `{16,8}` 72 × 23; L6 `{16,6}` 64 × 19. 40,630 compressions, 3.31e9 SHA-512 rows for the two reps
+(1.65e9 per rep). Unit slots: L0–L4 2^22, L5–L6 2^21, so by table size the outer is about 2^34.4 rows against the inner's
+2^35: an estimate to be replaced by the measured runs.

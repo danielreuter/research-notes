@@ -5,6 +5,8 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (16:07Z) [open] Lean layout move (bc-7fd918d5) lands ~11 AM PDT and does the ArkLib cuts and FlockVerify; red-team-lean-move (bc-69d92627) pre-reviewing; flock-security-defs to be redirected to GK/Game after the move.
+CHECKPOINT e259af141 (16:02Z) [open] Lean layout ruled (8:53 AM PDT). proofs step 1: flock-security-defs (bc-e3b551b5: ArkLib cuts, GK closure, Game onto core's; draft ~8 PM PDT) and lean-drives-1 (bc-ef589682: phase 1 plan ~1 PM PDT). Main->FlockVerify after #1179/#1170 land.
 CHECKPOINT e259af141 (15:09Z) [open] 15:00Z wake: #1179 check 7bf8 waits for a node-1 slot (3 ahead); canonical V1 active (737691d43); rec-step2 and zk-cpu-steps running; node 1 72%, GPUs idle.
 CHECKPOINT e259af141 (15:05Z) [open] Daniel 7:51 AM PDT: recursion stands at 6.7x, rollout past step 1. Resumed rec-reprice (bc-2a00fbff) for step 2 (sound V*, #1081 restack); launched zk-cpu-steps (bc-b63aca89: mask-rank + level-0 draw, byte-identical). #1179 check r20261005-144706-7bf8 running.
 CHECKPOINT e259af141 (14:56Z) [open] #1179 at fe0b6f9d9 (36 guarantee owners); red-team grant carried; check r20261005-144706-7bf8 queued on node 1. #864 grant posted (ci: not needed). #1170 body set: 874 to 41, merge fe0b6f9d9 before ready.

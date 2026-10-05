@@ -639,3 +639,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T01:10Z: ci tip 5a9131b4e (4bb6 + #1012@9d425f160) node2 r20261005-010928-bffe; merge held until ready at pr:1012@9d425f160.
 - 2026-10-05T01:12Z: swapped bffe (started 2 min earlier) for d4ab0c91f (5a91 + #1147) node2 r20261005-011125-0123; merge held until ready at pr:1012@9d425f160.
 - 2026-10-05T01:21Z: poll: e359 past lean-suites; d832, 0123 running. main b529216bb.
+- 2026-10-05T01:35Z: ci tip 67e9f3b11 (d4ab + #1164@39ef8822b) node1 r20261005-013429-a969; merge waits on ready at pr:1164@39ef8822b (and #1012's).
+- 2026-10-05T01:43Z: merged d5632b720 (7 PRs) → main 839ba800a; all MERGED; #1159 retargeted onto main. d832 past lean-suites; 0123, a969 running.

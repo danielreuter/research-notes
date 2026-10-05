@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:02Z) [open] 07:00Z: main a592a5567 (move inputs landed); 2515 waits red-team-1171 (07:30Z); #1178 red-team by 07:15Z; d472 next; freeze 11:30Z
 CHECKPOINT none (06:45Z) [open] 06:45Z: main 43bef6294; 810d/2515 passed check, blocked on vllm-coordinator grants #1169/#1171 + red-team #1171 (asked circuits, proofs); fallback being built; #1176 granted; vy-mig-check-3 up
 CHECKPOINT none (06:30Z) [open] 06:30Z: main 43bef6294; 810d/2515 checking; ee6d held for #1176 red-team grant; main frozen 11:30-14:00Z; canonical V1 draft #1192
 CHECKPOINT none (06:15Z) [open] 06:15Z: main 43bef6294; 810d and 2515 checking on nodes 1/2, both fully labelled, landing before 08:00Z; overnight lanes reported, none blocked

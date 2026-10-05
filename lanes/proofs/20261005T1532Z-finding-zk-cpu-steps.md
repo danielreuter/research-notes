@@ -1,0 +1,38 @@
+---
+id: proofs/20261005T1532Z-finding-zk-cpu-steps
+campaign: flock
+lane: proofs
+kind: finding
+status: in-progress
+repo: danielreuter/verity
+origin: bc-b63aca89-377c-5e17-99a5-ace054ba29d0 (zk-cpu-steps, for the proofs coordinator bc-8416bc72)
+---
+
+# `--zk`'s two single-threaded CPU steps off the critical path (K = 4096 and 14,336, node 1)
+
+**Question.** Does C-Flock's `--zk` prove at K = 4096 drop from about 5.2 s to about 1.8 s on node 1 when the mask-rank check
+(`zk_veil::mask_rank_ok`, about 2.5 s a session, `ZKRANK`) and level 0's hiding draw (`level0_zk`, about 1.0 s) come off the
+critical path, with byte-identical proofs and every session still accepted by serve, upstream's `replay --zk` and Lean's
+`verify --zk`?
+
+**Branch** `cursor/zk-cpu-steps-95d4` off main 378453fb3:
+
+- f6997de29: `backends/flock/pod/86-zk-cpu-steps.sh` (85-rec-reprice.sh's statements and loopback machinery; builds keyed by
+  their sources; the "before" build is this commit, whose live crate is main's).
+- 5c491f8a2: `mask_rank_ok` as an incremental echelon basis that stops once the rank is `128 k` (the column count, so exact).
+  The old Gauss–Jordan stays in the tests as the oracle (random, repeated, zero, Boolean, short, empty inputs; the proved
+  sizes 2048 × 2^17 and 512 × 2^19).
+- b7a476bb5: `level0_zk` draws its lanes on rayon's threads in 4096-word pieces, one `ProverRng` copy per worker
+  (`ProverRng::f128s_lanes`); test: equal to the sequential `f128s` at every address. `ZKL0` prints the draw's seconds.
+
+**Baseline** (85-rec-reprice.sh STEP=inner INNER_PROXY=0 on `cursor/rec-reprice-95d4`): r20261005-071603-4d28 (K = 4096):
+`--zk` prove 5.212 s (ZKRANK 2.489 s a session, level-0 wait 0.915 s), session 7.50 s, serve verify 6.90 s; M0 prove 0.728 s,
+session 0.876 s. r20261005-081442-dc2b (K = 14,336): `--zk` 4.06 s (ZKRANK 0.69 s, level 0 1.06 s).
+
+## Runs
+
+- r20261005-153137-feee: STEP=build at f6997de29 (before), CPU.
+
+## Results
+
+Pending.

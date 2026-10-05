@@ -216,6 +216,45 @@ with a pod's cores. That remains the one non-negligible cost, and it is D3.
    * (a) `SoundZ*` at `dj` = the program's draw, with `RecordCustodyZK` → `RecordsLiveZK`, as soon as PR 1 lands;
    * (b) A6 and `hRec` out, after PRs 3-4.
 
+## PR 1 as built (branch `cursor/lean-drives-1-95d4`)
+
+What changed from the plan above:
+* The developer answers only the registered public file's key, which is the registration's `leaf_layer`. The circuit
+  is the auditor's own pin, and the tables are read under the verifier's own pins (`MUFU_TABLES`).
+* The population is the public file's header `instances`, read before the draw. `Stmt.setupTables` reads the rest of the
+  file and refuses a draw over another population (`HmRow.drawn`). An earlier version parsed the 56 MB circuit before
+  the draw and again in setup, which cost 5 s.
+* The workers live in `a0_lean.py worker`, which serves the developer, the serving side and the audit, and in the test
+  helper `backends/flock/tests/audit_workers.py`. There is no `backends/flock/verifier/workers/`.
+* The guarantees are recorded in `lean-audit.json`, owner @proofs:
+  * `auditor_draws_once` is stated over `auditorOf k reg pop sess`, for any registration and session check, and
+    `auditor own` is `auditorOf` by definition. Stated over `auditor own`, it read 1,171 definitions, the whole verifier.
+    Over `auditorOf` it reads `Prog`, the sampler (`Flock.Draw`), `report` and `canon`.
+  * `replay_simulate`: a run against any environment, a function of the transcript so far, replays to its output.
+  * `Talk.noCoin_lift`.
+* `FlockAudit` is under `reads_exempt` on the same ruling as `Flock` (C-Flock is excepted until the spec is extracted).
+
+Measured in recorded run `r20261005-171413-1d38` (`art:9225f77b`, local 4-core VM, CPU, OS coins). The set is RoPE
+d64, synthetic, n = 32, seed 1, staged by the checkout's M0. The live session is `serve --zk --draw-file` plus
+`prove --zk` at the program's draw, a subset of 16 of 32.
+* The verdict is accepted, with 13 events and 1 coin request of 352 B.
+* The replay of the 58.7 MB transcript gets the same verdict.
+* The audit record is accepted.
+* **Cost per session:** `flock-audit replay` takes 16.5–16.7 s and `flock-verify verify --zk --archive` takes
+  16.7–17.0 s on the same session and content store. The program costs what the verifier of record costs. A request's
+  round trip is about 1 ms, and the time is in hashing the 56 MB circuit (1.3 s), setup (5.8 s) and `Zk.verify` (9 s),
+  which both programs do.
+
+Tests (`backends/flock/tests/test_lean_audit.py`, 10, on fixture `art:5542740a` through a replaying worker and a coin
+tape that draws its units):
+* the honest run accepts, and its transcript replays;
+* a transcript with a flipped proof does not replay;
+* a second draw is refused: the worker asks for a redraw, the run makes one coin request, and a transcript with an
+  extra draw does not replay;
+* each tampered answer is refused by name: U1, a hash mismatch, S17 on a flipped proof, a non-canonical answer, an
+  over-long frame refused before its body is read, a worker that exits, and a doubled population;
+* the archive channel is refused to a worker.
+
 ## Decisions for Daniel
 
 None of these blocks PR 1; each has a recommendation.

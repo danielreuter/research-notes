@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (10:33Z) [open] 10:30Z: red-team-move pre-reviewing move commit c863067f5's C-Flock side; final commit ~11:30Z, grant by 14:00Z; flock-lean-split parks on C/T ruling
 CHECKPOINT e259af141 (10:00Z) [open] 10:00Z: quiet; flock-lean-split running (6a0b34f0a); node 1 71%; move red-team from 11:30Z
 CHECKPOINT e259af141 (09:38Z) [open] fail-closed done: form refused last at 9f1866605, 62 sessions pass every check; #1179 body updated; post-move restack+audit+check+red-team
 CHECKPOINT e259af141 (09:33Z) [open] 09:30Z: quiet; fail-closed 9f1866605 and flock-lean-split 6e9f2e17b running; node 1 71%; move red-team from 11:30Z

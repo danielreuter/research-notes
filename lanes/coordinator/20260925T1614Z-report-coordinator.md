@@ -648,3 +648,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T02:01Z: poll: d832 past pytest; 0123 past lean-suites; a969, 5e6e running. main 839ba800a.
 - 2026-10-05T02:03Z: yes to proofs' two C-Flock proof jobs (public-input sessions, then the work-law claim), compute-accounting's order; #1179 may land first.
 - 2026-10-05T02:10Z: ci tip 14ccda831 (5d6f + #1181@6f04bf96e with root's base condition + #1173) queued for the next free slot (both nodes at 2 checks). Replaces 1ad8/1eb0.
+- 2026-10-05T02:23Z: merged 4bb67870c (6 PRs) → main 97d06c4d5; all MERGED; #1163/#1176 retargeted. 14ccda831 node1 r20261005-022107-4135 --agreement. d4ab waits on #1012 ready.
+- 2026-10-05T02:24Z: per root, asked ci for the stack minus #1012 on 97d06c4d5; pinged infra once for #1012's ready at 9d425f160.

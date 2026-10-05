@@ -674,3 +674,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T05:05Z: ci move-inputs tip 810d1974d (858d: #1151 #1169 + #1012 #1180 #1162 #1184 #1182 #1175) node1 r20261005-050350-5b67 --agreement; merge waits on #1162 ready (tier 4d6e) and #1169's.
 - 2026-10-05T05:08Z: sibling 41ed3199c (810d minus #1162) node2 r20261005-050618-8299 --agreement. Whichever is landable first lands (810d if #1162 ready). #1169 ready by proofs (owner of core's lock) + red-team carried.
 - 2026-10-05T05:21Z: poll: 5b67 (810d), 8299 (41ed) running; #1162 no ready. main 43bef6294.
+- 2026-10-05T05:35Z: #1162 ready (ci). Cancelled 8299 (41ed). ci tip 25157eb17 (810d + #1171 #1142; no flock diff) node2 r20261005-053322-71ce --agreement. 810d (5b67) lands first.

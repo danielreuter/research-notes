@@ -59,6 +59,12 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 05:30Z Oct 5 (10:30 PM PDT Oct 4), steward pass
+
+- Unchanged. Node 1 (watch, no flags): 70.2% (1,497 GiB free), `research/src` 75 trees, 0 of 8 GPUs and nothing in Kueue
+  (idle, reported); the pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue. No replies.
+- The latest hourly snapshot is `art:c4ab2e118332552a9b460866c42d5e36dc601db8ddc7bd4a6df239df9d0918c3` (about 05:20Z).
+
 ## State at 05:00Z Oct 5 (10:00 PM PDT Oct 4), steward pass
 
 - Node 1 (watch, no flags): 70.3% (1,491 GiB free), `research/src` 84 trees. 0 of 8 GPUs and nothing in Kueue (idle,

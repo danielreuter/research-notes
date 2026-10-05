@@ -73,6 +73,14 @@ Open, for the morning memo (about 12:00Z):
   captain's pick. So the target is `Security/Assumptions/` (with the model's definitions in it), `Security/Guarantees/`
   (the Glossary's existing term, so no rename) and `Security/Proofs/`. A cloud worker (bc-8a03b032) is inventorying every
   Lean module against it, including which programs use Mathlib today.
+  Co-change and Lake evidence (bc-e529d785, 06:06Z; scripts and results in the captain's store,
+  `internal/lean-layout-evidence/`): of 170 Lean-touching PRs, statements inline (A) keep 49% in one directory and a
+  separate `lean/` tree with judge, specs and proofs as packages keeps 41%. Proofs inline, as today, keep 87%. Flock
+  is 123 of the 164 Lean PRs; protocol specs move with their proofs in 28 of 29 PRs; Lean spans two areas in 3 of
+  772. Lake works for every layout, but module names are global with no duplicate check (a namespace guard test is
+  needed), a Mathlib root costs about 8 GB (seven roots today), and a program that imports no Mathlib still clones
+  it if its package requires it. The same worker is measuring the ruled target (`Security/` plus
+  `verity/<component>/lean`) for the memo.
 - Whether "judge" is a concept at all. Daniel thinks it's just part of the toolkit; the captain agrees.
 - Whether Lean drives Python, with the party program as the main loop and the workers serving its requests.
 - Where the runs layer (the onsite and remote products) lives.

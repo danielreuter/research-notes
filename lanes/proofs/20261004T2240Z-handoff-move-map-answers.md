@@ -45,6 +45,13 @@ These replace the answers they name; the original text below is kept for the rec
   `circuit.rs` and `lib.rs`, and add `proved_scope.rs`, which the split classifies when they land). The first split PR
   extracts the ZK orchestration and session driver from `bin/flock-circuit.rs` into a library module. Then the layer, the
   two kernel entries and the archive each take their rows.
+- **Import names (top's packaging call, 5 Oct 00:40Z).**
+  - C-Flock's statement staging goes inside `verity/` and imports as `verity.protocols.verification.flock.*`.
+  - Its CLIs and benches (`circuit_bench`, `bench`, `ir_bench`, `register`, `key_class_sets`, `class_sweep`,
+    `negatives`, `partition_units`' CLI) become `benchmarks/flock/verity_flock_bench/`, imported as `verity_flock_bench`.
+  - The agreement scripts become `tools/lean_agreement/`, imported as `lean_agreement`.
+  - `archive/flock/` is not a workspace member and gets no import name: its replays run at their own commits.
+  - `kernels/flock-cpu/` and `kernels/flock-cuda/` are a Cargo crate and a CUDA tree, with no Python import name.
 - **Nothing moves to `experimental/`.** The frame-v3 IR forms (section 4's `experimental/flock/` list) go to
   `archive/flock/` with their records and last-good commit; the Rust ones go with the crate split. `unit_fp4_check`
   follows `lowering` to the catalog. `multiproof` goes to `archive/sp1/` with its only importers.

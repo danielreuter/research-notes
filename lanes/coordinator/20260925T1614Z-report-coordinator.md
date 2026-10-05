@@ -726,3 +726,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T15:08Z: no-#1191/#1197 tips: 93dad18e0 (+#1211) node1 r20261005-150508-0eff and 6c1963832 node2 r20261005-150616-f0ce, both --agreement. Ready missing: #1136 #1200 #1202 (tiers running).
 - 2026-10-05T15:21Z: poll: 0eff, f0ce running; #1197 still no ready. main 378453fb3.
 - 2026-10-05T15:45Z: 5315 merge REFUSED: #1204 stacked on unpinned #1203@d998ce26b (#1181 rule); 0eff/f0ce carry #1204 too. Asked ci for #1204 rebase or #1203 pinned, plus a tip without #1204.
+- 2026-10-05T15:55Z: #1204 restacked alone at 515171659. Cancelled 0eff/f0ce (old #1204). 034661db2 (#1193 #1197 #1210, fully labelled) node1 r20261005-155259-6572; b37454729 (+ #1204 #1136 #1200 #1202 #1186 #864 #1211) node2 r20261005-155333-38ac --agreement.
+- 2026-10-05T15:58Z: queued 8532e1d96 (b374 + #1212) for the next free slot; #1191 tips wait on its fix.

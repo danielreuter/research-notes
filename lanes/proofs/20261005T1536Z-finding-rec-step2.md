@@ -51,4 +51,6 @@ The prover's key moved with the layout move (47340c664cec521f to 5c9218d04c285b4
 
 | step | run | status |
 |---|---|---|
-| build | r20261005-194257-3095 | running |
+| build | r20261005-194257-3095 | passed: binary 1fb79808 (key 5c9218d04c285b4c), Lean 463f4dea3955a270, inner m = 35, k_log 24, nbl 11, 2,048 instances, circuit 567 MB |
+| inner (proxy M0 ×(1+3), replay, rec_vstar; loopback M0 and --zk ×(1+3)) | r20261005-194909-c4fb | passed: proxy prove 0.931 s, session 0.969 s, 218 message rows (one a round), 278 rounds; replay accepted; rec_vstar 1,118 openings; M0 0.755 s; `--zk` 5.34 s prove, 7.53 s session, 6.87 s verify (rank 2.49 s), every session accepted, replay --zk accepted; prover cores 99% busy before each |
+| vstage (InnerFold, points, the verifier, alg, forgeries, 7 levels; JOBS=3) | r20261005-195948-5376 | running |

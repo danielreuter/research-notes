@@ -31,7 +31,7 @@ check came back clean: no pauses, duplicates, dropped names or stale footers (in
   `--quiet`.
 - **"Unanswered" is mostly notices.** Of the 7 listed, 5 are status notes or "ready to land" posts that went out with
   the default `ask` kind. Once #1209 lands they can go as `--kind fyi`, which the monitor skips.
-- **The monitor overcounted ci.** It counted ci's own hourly snapshots in its inbox as doorbells. #1223 counts only the
+- **The monitor overcounted ci.** It counted ci's own hourly snapshots in its inbox as doorbells. #1230 counts only the
   router's posts.
 - The ownership map (#1124) landed on 5 Oct at 01:40Z: `research msg owners PATH...`.
 

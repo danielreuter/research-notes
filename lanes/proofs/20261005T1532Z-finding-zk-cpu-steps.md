@@ -34,7 +34,15 @@ session 0.876 s. r20261005-081442-dc2b (K = 14,336): `--zk` 4.06 s (ZKRANK 0.69 
 - r20261005-153137-feee: STEP=build at f6997de29 (before, key 5c9218d04c285b4c), CPU, done. Staged K = 4096 (shape 430e5aad,
   M0 statement digest 2602e07c…, the baseline's) and K = 14,336 (shape bac929c3) at N = 2048 and 512; Lean flock-verify
   built (sources 463f4dea3955a270).
-- r20261005-155357-a60a: STEP=build at ee2638800 (after, key dfae70f600a9cf7b), CPU.
+- r20261005-155357-a60a: STEP=build at ee2638800 (after, key dfae70f600a9cf7b), CPU, done.
+- r20261005-155947-8f55: STEP=prove K=4096, BUILDS before and after, GPU, done. `--zk` prove 4.965 → 2.410 s (ZKRANK 2.220 →
+  0.002 s; the level-0 draw itself 0.070 s, ZKL0), but rep 0's level-0 wait only 0.965 → 0.608 s. Every session accepted
+  (serve), upstream replay --zk accepted for both builds, `prover_is_deterministic --zk --gpu` transcript digest dc75aed4… in
+  both builds (pinned: byte-identical proofs and transcripts). M0 0.788 → 0.780 s.
+- The remaining wait: `make_zkrep` cloned the whole `Level0Zk` (the four 2^22-word extra lanes, 256 MB) once per rep on one
+  thread (VM probe: 130–170 ms a clone, 43 ms written on rayon). 8d8c26fb3 writes each rep's copy on rayon's threads and
+  prints ZKPRE (zk_prepare's seconds).
+- r20261005-161240-0785: STEP=build at 2b34204a1 (after2, key 4f4efe413970c2cd), CPU.
 
 ## Results
 

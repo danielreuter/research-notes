@@ -76,3 +76,15 @@ They go to `benchmarks/pous/tests/`. `tests/test_pous_bench.py` tests `benchmark
   - *Kept (11):* `BandMultiMeetsFamily` and its D2, D1 and D0 forms; `ChainDenseMeets64`; and six P2 pins. Code reads all of them today.
   - *Held (4):* `DigestAU` and three `SecureErasureMeets*`, while #1096 and #1086 are open.
   - That is the lock before the move. At the Python move, answers 1 and 2 take dense and P2 out, along with their code, leaving the band's four plus whatever the erasure PRs settle.
+
+## Addendum, 00:50Z: import names under top's packaging call (notes 458c528e)
+
+- **The protocol:** `protocols/pous/verity_pous/` goes to `verity/protocols/accounting/space/pous/`, imported as `verity.protocols.accounting.space.pous`.
+  - Dense's overwrite chain, extracted before the move (answer 1), becomes `…space.pous.chain`.
+  - `verity_pous` as an import name goes away. The vLLM option (`protocol_options/pous.py`), `benchmarks/pous` and the tests change with it.
+- **Experimental schemes:** dense, P2 (v2 and v3, with their fixtures and the frozen spec) and P3 go to `experimental/verity_experimental/pous/{dense,p2,p3}/`, imported as `verity_experimental.pous.{dense,p2,p3}`.
+- **The benchmarks:**
+  - Today `bench.py`, the tests and `p2_v1` import `band_gpu`, `p2_v1`, `p2_gpu`, `hbm_audit` and `erase_calib` as bare top-level names off a `sys.path` entry for `benchmarks/pous`. The rule rules that out, and `-P` would break it.
+  - They become one distribution, `benchmarks/pous/verity_pous_bench/{band_gpu,p2_v1,p2_gpu,erase_calib}/`, with `bench.py` as `verity_pous_bench.bench`. `hbm_audit` goes to `archive/` with TwoTierBandwidth (no host RAM).
+  - The P2 harnesses stay in the benchmarks rather than moving to `experimental/`: `p2_v1` imports `band_gpu`'s shared native build, and `experimental/` shouldn't import a benchmark.
+- **The grader** goes to `tools/` (the layout's "PoUS's grader"). Its Lean stays a Lake package, so no Python import name is involved.

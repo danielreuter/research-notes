@@ -35,11 +35,21 @@ was kept; the result has 41 guarantees, all with owner `@proofs`).
 ## Plan and progress
 
 - [ ] A declaration-level dependency dump on node 1 (`Deps.lean`, scratch). For each declaration it gives its constants,
-      which shows which import each trusted module needs for its definitions and which only for its theorems.
+      which shows which import each trusted module needs for its definitions and which only for its theorems. It is
+      running as r20261005-162232-7f67.
+- The scale is larger than the five direct importers suggest. The 129 tainted trusted modules hold 1468 theorems and
+  1360 definitions, and only 13 of them hold no theorem. So the work is a split of each such module: its definitions,
+  plus the theorems that need nothing tainted, stay at today's path, and the other theorems move into a proof module
+  beside it. The records' `reads` then keep their modules.
 - [ ] Step 1: the ArkLib cuts (`Defs`, `ZkSession.Inner`), plus plain Mathlib references for the RS code and the
       unique-decoding radius, with their equivalence to ArkLib's proved in a proof module.
 - [ ] Step 2: the ZK/GK closure.
-- [ ] Step 3: `Game` onto `Verity.Game`.
+- [x] Step 3: `Game` onto `Verity.Game` (ed4e2a8f8, not built yet). Core's definitions are C-Flock's, word for word.
+      `export` keeps every old name (`FlockSoundness.Game.bind` and the rest). Dot notation on core's type doesn't see
+      C-Flock's own lemmas, but a source scan finds no such use. The audit takes the move as
+      `--moved {"FlockSoundness.Game": "Verity.Game"}`. The package now requires `verity/lean` by path. That changes
+      `lake-manifest.json`, so two fixtures, `exfiltration_lean.json` and `randomness_lean.json`, record a stale sha256
+      until they are regenerated on node 1.
 - [ ] Step 4: the repository test.
 - [ ] Step 5: the full audit on node 1.
 - [ ] Step 6: the before and after table.

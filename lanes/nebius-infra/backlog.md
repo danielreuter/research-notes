@@ -59,6 +59,21 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## 23:15Z Oct 5: the idle `provers` lease alert, attributed
+
+- The five alerts (04:25, 08:26, 20:31, 21:12, 22:26Z) are `n1_lease.py` growing one pool holder per `gpu-lease` waiter. The
+  waiters: circuits' `glm47-flash` `r20261005-041419-e27e` (04:14Z, failed 04:18), then proofs' recursion `flock` runs
+  (`cursor/rec-step2-95d4` / `rec-reprice-95d4`, `85-rec-reprice.sh STEP=oprove`) that lease a GPU but spend the lease in
+  the CPU prover. Not ours. Posted once to @infra and @proofs (`1791242004.526059`); node1-dispatcher has no Slack handle.
+
+## State at 23:09Z Oct 5 (4:09 PM PDT), steward pass (cron arrived 9 min late)
+
+- Unchanged. Node 1 (watch 22:30–23:00Z, no flags): 67.1% (1,652 GiB free), `research/src` 45 trees, 0 of 8 GPUs and
+  nothing in Kueue (idle, reported); the pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue.
+  @infra hasn't answered on `vy-custody`.
+- A fifth "pod holds a GPU at 0%" alert today (22:27Z), the same brief `provers` pool lease pattern, for the infra and
+  dispatcher lanes.
+
 ## State at 22:35Z Oct 5 (3:35 PM PDT), steward pass (cron arrived 4 min late)
 
 - Unchanged. Node 1 (watch 22:00–22:30Z, no flags): 66.8% (1,667 GiB free), `research/src` 43 trees, `provers` 1 admitted

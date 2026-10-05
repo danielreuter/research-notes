@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (11:24Z) [open] A 11:20Z poll: nothing new since 11:00Z (node2-ops' 10Z hourly not in yet); main b9ac23dfc unchanged; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (11:00Z) [open] A 11:00Z poll: nothing new in the lanes since 10:40Z; main b9ac23dfc (no pouw change); /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (10:40Z) [open] A 10:40Z poll: nothing new since 10:20Z; main b3fbce247 unchanged; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (10:20Z) [open] A 10:20Z poll: nothing addressed to pouw-node2; node2-ops 10:20Z: 09Z GPU busy 11.1% (nothing submitted), one runner, /workspace 60% (hold), no windows ahead; main b3fbce247 unchanged; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2

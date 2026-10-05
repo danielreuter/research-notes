@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:04Z) [open] 10:04Z: main b3fbce247 (aa6481b0c landed); 640eebb5a due ~10:10Z; 2031cc955 (#1167) likely misses new 11:00Z cutoff, hand-fold; move merge 14:00Z
 CHECKPOINT none (09:49Z) [open] 09:49Z: main 5fc53b0c1; 640eebb5a node 1, aa6481b0c node 2 (~09:55Z); #1167 tip 2031cc955 on node 2 next if ready, else hand-folded; freeze 11:30Z
 CHECKPOINT none (09:30Z) [open] 09:30Z: main 5fc53b0c1; 640eebb5a/aa6481b0c checking; #1198 #1201 #1200 after move; freeze 11:30Z
 CHECKPOINT none (09:15Z) [open] 09:15Z: main 5fc53b0c1 (3d805d696 landed); 640eebb5a on node 1, aa6481b0c on node 2; recursion re-price misses bar (6.7x), sent to Daniel; freeze 11:30Z

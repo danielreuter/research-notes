@@ -42,7 +42,12 @@ session 0.876 s. r20261005-081442-dc2b (K = 14,336): `--zk` 4.06 s (ZKRANK 0.69 
 - The remaining wait: `make_zkrep` cloned the whole `Level0Zk` (the four 2^22-word extra lanes, 256 MB) once per rep on one
   thread (VM probe: 130–170 ms a clone, 43 ms written on rayon). 8d8c26fb3 writes each rep's copy on rayon's threads and
   prints ZKPRE (zk_prepare's seconds).
-- r20261005-161240-0785: STEP=build at 2b34204a1 (after2, key 4f4efe413970c2cd), CPU.
+- r20261005-161240-0785: STEP=build at 2b34204a1 (after2, key 4f4efe413970c2cd), CPU, done.
+- r20261005-161736-5c59: STEP=prove K=4096, BUILDS before, after, after2, GPU, done. `--zk` prove 4.739 / 2.187 / 1.880 s,
+  level-0 wait 0.832 / 0.472 / 0.183 s (after2's ZKPRE 0.155 s), ZKRANK 2.180 / 0.002 / 0.002 s, session 6.58 / 4.07 /
+  3.74 s, serve verify 5.60 / 5.79 / 5.80 s; every session accepted, replay --zk accepted, transcript digest dc75aed4… in
+  all three. M0 prove 0.838 / 0.767 / 0.756 s.
+- r20261005-162739-8d44: STEP=prove K=14336, the same three builds, GPU.
 
 ## Results
 

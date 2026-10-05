@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (08:41Z) [open] A 08:40Z poll: nothing addressed to pouw-node2 (infra 0827Z idle-GPU alert routed to node1-dispatcher); main 03ab7e5a5 unchanged; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (08:20Z) [open] A 08:20Z poll: nothing addressed to pouw-node2; node2-ops 08:10Z: 07Z GPU busy 10.5% (nothing submitted), one runner, /workspace 60% (hold), no windows ahead; infra skipped interviews round 25 (layout move fix-forward); main 03ab7e5a5 unchanged; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (08:00Z) [open] A 08:00Z poll: nothing new since 07:40Z; main 03ab7e5a5 unchanged; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (07:40Z) [open] A 07:40Z poll: nothing addressed to pouw-node2; node2-ops 07:20Z: 06Z GPU busy 10.9% (nothing submitted), one runner, /workspace 60% (2.05 TB free, about 1 point every few hours; over the 52% hold, flagged), no windows ahead; main 03ab7e5a5 unchanged; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2

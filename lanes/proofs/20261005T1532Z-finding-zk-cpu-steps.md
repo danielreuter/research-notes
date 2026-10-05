@@ -3,7 +3,7 @@ id: proofs/20261005T1532Z-finding-zk-cpu-steps
 campaign: flock
 lane: proofs
 kind: finding
-status: in-progress
+status: done
 repo: danielreuter/verity
 origin: bc-b63aca89-377c-5e17-99a5-ace054ba29d0 (zk-cpu-steps, for the proofs coordinator bc-8416bc72)
 ---
@@ -15,40 +15,87 @@ origin: bc-b63aca89-377c-5e17-99a5-ace054ba29d0 (zk-cpu-steps, for the proofs co
 critical path, with byte-identical proofs and every session still accepted by serve, upstream's `replay --zk` and Lean's
 `verify --zk`?
 
-**Branch** `cursor/zk-cpu-steps-95d4` off main 378453fb3:
+**Answer.** Yes, with one more step than the two named. At K = 4096 the `--zk` prove goes from 4.739 s to 1.880 s (median of 3
+timed sessions after 1 warm, the same job, the same node), the session from 6.58 s to 3.74 s; at K = 14,336 from 3.548 s to
+2.346 s. The mask-rank check is 2 ms a session where it was 2.2 s (K = 4096) and 0.6 s (K = 14,336). Parallelising the
+level-0 draw alone (0.058 s, from about 0.8 s) left a 0.47 s wait: `make_zkrep` cloned the whole `Level0Zk` (four 2^22-word
+extra lanes, 256 MB) once per rep on one thread. Writing those copies on rayon's threads takes the wait to 0.18 s. Proofs are
+byte-identical across the three builds: `prover_is_deterministic --zk --gpu` gives the same transcript digest (stream messages
+and coins, the link, both reps' proof SHA-512s) in each build, pinned with `--expect-transcript`. Every session was accepted
+by serve, and the last `--zk` session of each build and size by upstream's `replay --zk` and Lean's `verify --zk`.
 
-- f6997de29: `backends/flock/pod/86-zk-cpu-steps.sh` (85-rec-reprice.sh's statements and loopback machinery; builds keyed by
-  their sources; the "before" build is this commit, whose live crate is main's).
-- 5c491f8a2: `mask_rank_ok` as an incremental echelon basis that stops once the rank is `128 k` (the column count, so exact).
-  The old Gauss–Jordan stays in the tests as the oracle (random, repeated, zero, Boolean, short, empty inputs; the proved
-  sizes 2048 × 2^17 and 512 × 2^19).
-- b7a476bb5: `level0_zk` draws its lanes on rayon's threads in 4096-word pieces, one `ProverRng` copy per worker
-  (`ProverRng::f128s_lanes`); test: equal to the sequential `f128s` at every address. `ZKL0` prints the draw's seconds.
+## Changes (branch `cursor/zk-cpu-steps-95d4` off main 378453fb3)
 
-**Baseline** (85-rec-reprice.sh STEP=inner INNER_PROXY=0 on `cursor/rec-reprice-95d4`): r20261005-071603-4d28 (K = 4096):
-`--zk` prove 5.212 s (ZKRANK 2.489 s a session, level-0 wait 0.915 s), session 7.50 s, serve verify 6.90 s; M0 prove 0.728 s,
-session 0.876 s. r20261005-081442-dc2b (K = 14,336): `--zk` 4.06 s (ZKRANK 0.69 s, level 0 1.06 s).
+- f6997de29, ee2638800, 2b34204a1: `backends/flock/pod/86-zk-cpu-steps.sh` (85-rec-reprice.sh's statements and loopback
+  machinery; builds keyed by their sources as 85 keys them; STEP=build | prove | lean). The before build is f6997de29, whose
+  live crate is main's.
+- 5c491f8a2: `mask_rank_ok` inserts each word's row into an echelon basis (a vector per pivot column, its lowest set bit) and
+  stops once the rank is `128 k`. That is the column count, so the result is the Gauss–Jordan's exactly. The old function
+  stays in the tests as the oracle, checked on random, repeated, zero, Boolean, too-short and empty inputs and at the proved
+  sizes (2048 blocks × 2^17 and 512 × 2^19, release only).
+- b7a476bb5: `level0_zk` draws its lanes on rayon's threads, in 4096-word pieces, with one copy of the `ProverRng` per worker
+  (`ProverRng::f128s_lanes`). Test: each lane equals the sequential `f128s` at its address, for lane lengths that end inside a
+  ChaCha20 block, at a piece's end and inside a later piece, and after the generator has read other streams. `ZKL0` prints
+  the draw's time.
+- 8d8c26fb3: `make_zkrep` writes each rep's copy of the extra lanes on rayon's threads, and `zk_prepare` prints `ZKPRE`.
+- 1d54bed32: live `PROTOCOL.md` §6, `mask_rank_ok`'s cost.
 
-## Runs
+## Results (node 1, `vy-nebius-1`, RTX PRO 6000 sm_120, CUDA 13.3.1; prover on 16 cores, verifier on the job's other 16)
 
-- r20261005-153137-feee: STEP=build at f6997de29 (before, key 5c9218d04c285b4c), CPU, done. Staged K = 4096 (shape 430e5aad,
-  M0 statement digest 2602e07c…, the baseline's) and K = 14,336 (shape bac929c3) at N = 2048 and 512; Lean flock-verify
-  built (sources 463f4dea3955a270).
-- r20261005-155357-a60a: STEP=build at ee2638800 (after, key dfae70f600a9cf7b), CPU, done.
-- r20261005-155947-8f55: STEP=prove K=4096, BUILDS before and after, GPU, done. `--zk` prove 4.965 → 2.410 s (ZKRANK 2.220 →
-  0.002 s; the level-0 draw itself 0.070 s, ZKL0), but rep 0's level-0 wait only 0.965 → 0.608 s. Every session accepted
-  (serve), upstream replay --zk accepted for both builds, `prover_is_deterministic --zk --gpu` transcript digest dc75aed4… in
-  both builds (pinned: byte-identical proofs and transcripts). M0 0.788 → 0.780 s.
-- The remaining wait: `make_zkrep` cloned the whole `Level0Zk` (the four 2^22-word extra lanes, 256 MB) once per rep on one
-  thread (VM probe: 130–170 ms a clone, 43 ms written on rayon). 8d8c26fb3 writes each rep's copy on rayon's threads and
-  prints ZKPRE (zk_prepare's seconds).
-- r20261005-161240-0785: STEP=build at 2b34204a1 (after2, key 4f4efe413970c2cd), CPU, done.
-- r20261005-161736-5c59: STEP=prove K=4096, BUILDS before, after, after2, GPU, done. `--zk` prove 4.739 / 2.187 / 1.880 s,
-  level-0 wait 0.832 / 0.472 / 0.183 s (after2's ZKPRE 0.155 s), ZKRANK 2.180 / 0.002 / 0.002 s, session 6.58 / 4.07 /
-  3.74 s, serve verify 5.60 / 5.79 / 5.80 s; every session accepted, replay --zk accepted, transcript digest dc75aed4… in
-  all three. M0 prove 0.838 / 0.767 / 0.756 s.
-- r20261005-162739-8d44: STEP=prove K=14336, the same three builds, GPU.
+Builds: before 5c9218d04c285b4c (main's live crate), after dfae70f600a9cf7b (the echelon rank check and the parallel draw),
+after2 4f4efe413970c2cd (plus the parallel per-rep copy). The level-0 wait is rep 0's `prove_s` minus its `t.prove` bucket:
+the `--zk` preparation's time after the witness is ready.
 
-## Results
+K = 4096, N = 2048 (m = 35, k_log = 24), r20261005-161736-5c59 (art:1779537b4762224c0de5ef44d2e651d467ccd4050eff432e30918a3ad16a9c80):
 
-Pending.
+| | before | after | after2 |
+|---|---|---|---|
+| `--zk` prove_total_s | 4.739 | 2.187 | 1.880 |
+| ZKRANK s / session | 2.180 | 0.002 | 0.002 |
+| level-0 draw (ZKL0) s | not printed | 0.058 | 0.058 |
+| level-0 wait s | 0.832 | 0.472 | 0.183 |
+| `--zk` session_s | 6.58 | 4.07 | 3.74 |
+| `--zk` serve verify s | 5.60 | 5.79 | 5.80 |
+| M0 prove_total_s / session_s / serve verify s | 0.838 / 0.996 / 0.314 | 0.767 / 0.874 / 0.260 | 0.756 / 0.856 / 0.269 |
+| serve verdicts (`--zk`, M0) | 4/4, 4/4 | 4/4, 4/4 | 4/4, 4/4 |
+| upstream `replay --zk` | accepted, 15.1 s | accepted, 14.4 s | accepted, 14.3 s |
+| Lean `verify --zk` (r20261005-164516-8952) | accepted, 109 s | accepted, 109 s | accepted, 109 s |
+| transcript digest | dc75aed4… | dc75aed4… (pinned) | dc75aed4… (pinned) |
+
+A second K = 4096 job, r20261005-155947-8f55 (art:66146905b79304b51b2e71db409855d76994f6142fadbe4ad317c5abf526daba), before and
+after only: `--zk` prove 4.965 / 2.410 s, ZKRANK 2.220 / 0.002 s, level-0 wait 0.965 / 0.608 s, session 6.47 / 4.28 s, serve
+verify 4.68 / 5.63 s, M0 0.788 / 0.780 s. All verdicts accepted, and the same digest in both builds.
+
+K = 14,336, N = 512, r20261005-162739-8d44 (art:2d4fbce6a6cde16cbdd21756eaa81b631c8b4f75d6c5b649d633c8b45a61f98d):
+
+| | before | after | after2 |
+|---|---|---|---|
+| `--zk` prove_total_s | 3.548 | 2.681 | 2.346 |
+| ZKRANK s / session | 0.594 | 0.002 | 0.002 |
+| level-0 draw (ZKL0) s | not printed | 0.059 | 0.059 |
+| level-0 wait s | 0.799 | 0.454 | 0.169 |
+| `--zk` session_s | 6.34 | 5.54 | 5.19 |
+| `--zk` serve verify s | 9.17 | 9.37 | 9.28 |
+| M0 prove_total_s | 0.770 | 0.810 | 0.790 |
+| serve verdicts (`--zk`, M0) | 4/4, 4/4 | 4/4, 4/4 | 4/4, 4/4 |
+| upstream `replay --zk` | accepted, 41.3 s | accepted, 44.1 s | accepted, 45.4 s |
+| Lean `verify --zk` (r20261005-164522-ba6d) | accepted, 317 s | accepted, 316 s | accepted, 316 s |
+| transcript digest | 673b37f9… | 673b37f9… (pinned) | 673b37f9… (pinned) |
+
+Builds: r20261005-153137-feee (before, and both statements staged: shape 430e5aad with M0 statement digest 2602e07c…, the
+baseline's, and shape bac929c3), r20261005-155357-a60a (after), r20261005-161240-0785 (after2). Lean (sources
+463f4dea3955a270): r20261005-164516-8952 (art:b292141df4ff02cfe9a335eac06bc58f751fef7a4debbf4e362f771b0dc65737), r20261005-164522-ba6d
+(art:09d9161217612de17628f6e7157df8187ce92eca7afe6a89275d939dfd305475).
+
+## What it means, and what is left
+
+- Today's before build is a little faster than the rec-reprice baseline on the same statement (4.74–4.97 s against 5.21 s at
+  K = 4096, 3.55 s against 4.06 s at K = 14,336). The node and the machinery are the same; the difference is between runs.
+- After this change the session is bounded by the verifier, not the prover. Serve's `--zk` verify takes 5.8 s at K = 4096 and
+  9.3 s at K = 14,336, and the sessions overlap only because serve verifies several at once (`FC_VERIFY_AHEAD`).
+- What `--zk` still adds over M0, per rep at after2: rep 1 encodes and commits again (0.165 s; M0's rep 1 reuses rep 0's
+  commitment, and `--zk` turns that off), the inner proof's replay (0.09 s at K = 4096, 0.35 s at K = 14,336), and the 0.18 s
+  level-0 wait. The first session's `ZKPRE` is 1.4 s, the cold allocations, and it falls in the warm session.
+- No prover identity, statement digest or recorded vector changed: the statement digests are equal across builds (M0
+  2602e07c…, `--zk` 09a9cb86… at K = 4096), and proof bytes are equal (1,179,202 per rep at K = 4096, 1,179,330 at
+  K = 14,336).

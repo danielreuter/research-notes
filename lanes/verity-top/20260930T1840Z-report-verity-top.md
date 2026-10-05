@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:15Z) [open] main b529216bb; e414, 2411, f1dc checking; d769 next; #1164 stale-head gate drafted
 CHECKPOINT none (00:00Z) [open] f2a0 then e414 landing next; then f1dc or 2411; #1126 fix awaiting ready; P2 pick and pod budget sent to Daniel
 CHECKPOINT none (23:47Z) [open] #1126 old head cleared to land; tips 595f/6315/582a checking; layout move as one branch; P2 pick pending
 CHECKPOINT none (23:47Z) [open] #1126 old head cleared to land; tips 595f/6315/582a checking; layout move as one branch; P2 pick pending

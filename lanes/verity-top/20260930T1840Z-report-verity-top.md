@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (05:45Z) [open] 05:45Z: main 43bef6294; 810d (move inputs) fully labelled for lander, 2515 (+#1171 #1142) next; Daniel locked end-state principles + tonight's move, asleep; layout memo ~12:00Z
 CHECKPOINT none (05:30Z) [open] 05:30Z: main 43bef6294; 810d/41ed move-inputs tips with lander; #1176 red-team found 4 cache holes (fixes written); architecture proposes Lean run model before layout, awaiting Daniel
 CHECKPOINT none (05:15Z) [open] 05:15Z: main 43bef6294; move-inputs tips 810d (+#1162) / 41ed (without) handed to lander; Daniel weighing Lean-only verity/ + sdk/ end state with architecture
 CHECKPOINT none (05:00Z) [open] 05:00Z: main d18933dac (10 PRs landed 04:48Z); next 4543 then 858d then follow-up tip (12 PRs, waits on #1162); lean verifying text-merged lean-audit.json; #1176 red-team ~06:45Z

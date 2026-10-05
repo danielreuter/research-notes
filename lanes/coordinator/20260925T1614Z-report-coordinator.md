@@ -626,3 +626,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T23:48Z: holds cleared: circuits ok'd #1126 @83c25a27b; ready on #1148/#1150 (verified). 595f/6315/582a land as-is in order after b355; fallbacks d563/e414 unused.
 - 2026-10-04T23:50Z: per root, cancelled 2eff/7af8/833c (#1126 @83c25 lacks fix 8216f316c). Fallback e41475531 (582a minus #1126) node2 r20261004-234848-32e7 --agreement. Asked ci for e414 + #1126@8216f316c; pr:1126@8216 has red-team, no ready. Awaiting circuits on cache clearing.
 - 2026-10-04T23:52Z: 2c476e14c (582a + #1004 #1068) not started, since it's built on the old #1126; asked ci to restack it on e414 + #1126@8216.
+- 2026-10-04T23:57Z: ci tip f1dcdcb31 (e414 + #1126@8216 + #1004 #1068) node1 r20261004-235519-6352 --agreement; merge waits on #1126 ready. 2c47 void.
+- 2026-10-04T23:59Z: ci tip 24115cc0f (e414 + #1004 #1068) node2 r20261004-235741-b966 --agreement. Skipping 93a1 (same tree as f1dc/6352).
+- 2026-10-05T00:02Z: merged f2a07e5ae (#1119 #1137 #1130) → main b529216bb. 32e7, b966, 6352 running.

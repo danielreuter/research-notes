@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:52Z) [open] Lean move head fc6d04815: red-team granted, lean label pending, landing check ~20 min; consolidation notes in from infra/net/mem/compute/circuits
 CHECKPOINT none (23:36Z) [open] Lean move head c9b274c1a, red-team re-granted, lean label + landing check pending, ETA 01:00Z, pods to 03:02Z
 CHECKPOINT none (23:18Z) [open] Lean move shards 1/4/5 running (3 passed); leads launched finished-repo lanes; consolidation notes arriving
 CHECKPOINT none (23:00Z) [open] Lean move: lean + red-team granted at b87eeef64, landing check shards running, ETA 00:05Z

@@ -65,7 +65,8 @@ Also ruled:
   on a layout, the captain prepares that layout's move map. Nothing lands without Daniel.
 - `verity/` is the whole system: a mixture of Lean and Python per component, where the Lean is the trusted part.
 
-Open, for the morning memo (about 12:00Z):
+Open, for the morning memo (about 12:00Z). The memo is `note:20261005T0640Z-draft-lean-layout-memo`; the evidence
+below feeds it:
 - Whether the assumptions and guarantees sit inline with each component's Lean, or the components' Lean holds only
   executables and the security statements live together somewhere else. The captain leans to the second: `verity/`
   holds Lean executables with no dependencies, and one `security/` package on Mathlib holds the assumptions, guarantees,

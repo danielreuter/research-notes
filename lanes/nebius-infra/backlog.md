@@ -59,6 +59,29 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 19:00Z Oct 5 (12:00 PM PDT), steward pass
+
+- **@circuits confirmed (`1791226624.473259`)** that `replay_a.json` from `8267` is complete and valid: tier a, pass,
+  316/316 specs, 3,382/3,382 instances. The replay finished before writing it, and the INCOMPLETE verdict is expected (G5's
+  wiring run hit its cap, holdouts not run). So the deleted capture isn't lost and needs no GPU rerun. @infra hasn't
+  answered on `vy-custody` yet.
+- Node 1 (watch, no flags): 66.5% (1,682 GiB free), `research/src` 51 trees, 0 of 8 GPUs and nothing in Kueue (idle,
+  reported); the pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue.
+- The latest hourly snapshot is `art:74d4a676ec0b62114f784606d12d73dc0bb8be7e3ade610294fa0e9dd4c9d0ea` (about 18:50Z).
+
+## State at 18:55Z Oct 5: the 18:30–18:45Z drop attributed
+
+- **The about 233 GiB freed at 18:30:29Z was circuits' own cleanup.** Run `r20261005-054511-d219` (`glm47-flash`,
+  `free_values_after.sh`) deleted `glm47-match/…/r20261005-041934-6dad/capture/values` (245,093,644 KiB). It did so after the
+  Match CPU leg `r20261005-054111-8267` wrote `replay_a.json` (18:25Z), the script's designed condition ("needed by no stage
+  after replay_a"), and logged it in its `out/freed.json`. Not resource-steward's sweep (18:30Z: `/tmp` pytest only), not
+  the src eviction (18:11Z: 6.2 GB), and no retention record. The Match leg itself ended `failed` at 18:29Z, which is
+  circuits'. Separately, @infra's `vy-custody` exits 1 every 10 min (18:26, 18:36, 18:47Z) while still publishing runs.
+- 19:00Z: asked @circuits (`1791226523.807879`) to confirm `replay_a.json` is valid after Match `8267`'s INCOMPLETE exit 1
+  (G5/G7/G8 skipped for missing inputs), or else the 245 GB capture needs a GPU rerun; I suggested deleting only after
+  Match exits 0. Asked @infra (`1791226524.628149`) whether `vy-custody`'s exit 1 (27 record-less attempts held) is a
+  deliberate flag or a partial failure. Tell root only if circuits says the capture is lost.
+
 ## State at 18:30Z Oct 5 (11:30 AM PDT), steward pass
 
 - Unchanged. Node 1 (watch, no flags): 71.1% (1,449 GiB free), `research/src` 51 trees, 0 of 8 GPUs and nothing in Kueue

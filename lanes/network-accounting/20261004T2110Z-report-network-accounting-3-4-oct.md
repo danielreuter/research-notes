@@ -79,8 +79,20 @@ and the active warden. Each approach is in the registry under `network-accountin
   tick went past 12 ms. The VM refuses SCHED_FIFO, because the pod's cgroup has no real-time budget. A deployment pins
   the proxy to a reserved core, or sets the slack from the jitter it measures.
 
+## 5 Oct
+
+- **Landed:** verity#1131 (`--cpus`) and verity#1146 (a request forwarded upstream a bucket late fails closed as
+  `delivery-refused`; a fault that drops a carried queue faults the next window) at 01:40Z, and verity#1142 (the
+  warden's lock, 51 records → 4 guarantees, lean-confirmed) at 07:07Z.
+- **The real-time hour at main** (`43bef6294`, live3's command, `--nice -20 --cpus 1,2,3`), run twice:
+  130/130 and 130/130, raw = committed, no misses (`art:98e55cce`, `art:ad460521`). Tick lateness p99.9 was 3.2 and
+  3.0 ms, with a maximum of 13 ms. The pinned target of at least 129 of 130 is met. The host was quieter, not the code:
+  p99 matches live2–live4, and only the tail is gone (one 0.5 s sample with a core losing 4 or more jiffies, against
+  10–16 per core in live3). No request reached the server late, so #1146's fault didn't fire. It is shown on the
+  injected clock, not yet live.
+
 ## Open
 
 - Egress option (d), per-grid-class allocation, is held for Daniel (`network-accounting/egress-per-grid-class-allocation`).
-- Lane J's follow-up, `cursor/network-warden-active-pinning-728f` (`--cpus`), is the pinned real-time hour, with a
-  target of at least 129 of 130.
+- The online sync choice (`network-accounting/online-sync-choice`, live): causal per-window sync rules on the
+  preserved vLLM traces.

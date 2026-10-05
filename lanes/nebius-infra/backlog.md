@@ -59,6 +59,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 23:43Z Oct 5 (4:43 PM PDT), steward pass (cron arrived 13 min late)
+
+- **@proofs fixed the idle-lease cause** (`1791242426.676669`): `rec-step2` held a lease across a whole `85-rec-reprice`
+  step. It now takes `gpu-lease` only around each GPU prove call (preemptible where it can), and `zk-gateway` follows the
+  same rule.
+- Node 1 (watch, no flags): 67.8% (1,614 GiB free), `research/src` 46 trees, 0 of 8 GPUs and nothing in Kueue (idle,
+  reported); the pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue. @infra hasn't answered
+  on `vy-custody`. Loop tick 66 (23:32Z) is taking the hourly snapshot.
+
 ## 23:15Z Oct 5: the idle `provers` lease alert, attributed
 
 - The five alerts (04:25, 08:26, 20:31, 21:12, 22:26Z) are `n1_lease.py` growing one pool holder per `gpu-lease` waiter. The

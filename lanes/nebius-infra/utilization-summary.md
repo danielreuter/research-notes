@@ -475,10 +475,11 @@ filler.
   - `art:b7b5f42f92bad3accc980033d38d464523603299efc107557145f5244598622f` (about 09:35Z Oct 5)
   - `art:b7ef95b9686c921f91a8fd2e9d8b46e05aa5f1960ffd9fb40105354460d15633` (about 11:15Z Oct 5)
   - `art:66aa3193434e12c60df3b24c825df60112758fc74ada794ce2dc589d5ead04b9` (about 12:50Z Oct 5)
-  - `art:4d7dc3623d24a7033724270de12008588ab8ea316f08cbe96b2201bec41907a4` (about 14:25Z Oct 5, the latest)
-- **Running totals, Sep 30 05:16Z to about 14:25Z Oct 5** (from `art:4d7dc362…`):
-  - Node 1: 1,033 GPU-h observed, 261 held or busy, 132 busy, 772 idle.
-  - Node 2: 1,026 GPU-h observed, 392 held or busy, 220 busy, 634 idle.
+  - `art:4d7dc3623d24a7033724270de12008588ab8ea316f08cbe96b2201bec41907a4` (about 14:25Z Oct 5)
+  - `art:87ad458070a151621c462e81c38f11199d24c4b94cf982596790d0d2cfebbfb6` (about 15:50Z Oct 5, the latest)
+- **Running totals, Sep 30 05:16Z to about 15:50Z Oct 5** (from `art:87ad4580…`):
+  - Node 1: 1,042 GPU-h observed, 261 held or busy, 132 busy, 780 idle.
+  - Node 2: 1,034 GPU-h observed, 393 held or busy, 221 busy, 641 idle.
   - Since about 00:00Z Oct 4 both servers have had all 8 GPUs allocated (node 1: 8 provers in Kueue; node 2: 8 jobs from
     its cluster agent, with an empty queue). Brief 0% readings are jobs between phases.
 - **Working files in this folder:** `backlog.md` (the CPU map and fills), and `tools/` (`channel_sync.py`, `util_collect.py`,

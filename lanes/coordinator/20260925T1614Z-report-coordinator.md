@@ -768,3 +768,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T21:41Z: poll: 9a69 (5e7a rerun) and 4b17 (7d59) past lean-suites. main cd965cf51.
 - 2026-10-05T22:03Z: 4b17 (7d59) PASSED; held: #884@cc3aadc6c no ready. 9a69 (5e7a rerun) running. main cd965cf51.
 - 2026-10-05T22:24Z: 9a69 (5e7a rerun) past pytest (the flaky test passed); finishing. #884 still no ready.
+- 2026-10-05T22:36Z: merged 5e7a34bdd (22 PRs) → main 88f5cc533 via --push before top's freeze. 7d59 waits (no #884 ready).

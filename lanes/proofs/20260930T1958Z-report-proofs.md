@@ -5,6 +5,8 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 97d06c4d5 (06:25Z) [open] canonical V1 done (#1192, draft on #1179); job (1) canonical public-input sessions launched (cursor/canon-pubin-95d4); fail-closed, flock-spec, rec-reprice running
+CHECKPOINT none (06:15Z) [open] 06:20Z: top gave the go on the recursion re-price (node 1 GPUs); rec-reprice (bc-2a00fbff) launched, K=4096 first, due ~13:00Z. fail-closed, canonical V1, flock-spec resumed.
 CHECKPOINT none (06:11Z) [open] 06:15Z: fail-closed, canonical V1 and flock-spec found dead since the 02:26Z VM suspend; resumed. #1169 ready, in ci's hands for 08:00Z. #1176 SHIP-WITH-FIXES with circuits. Asked top for the recursion re-price go (node 1 GPUs idle).
 CHECKPOINT none (04:41Z) [open] 04:30Z wake: #1169 tier 1d55 passed, ready=true at 04:25Z; red-team-1176 reviewing #1176 at 7800f456; Daniel's architecture writeup at internal/recursive-zk-system-architecture.md; node 1 70% disk, GPUs idle
 CHECKPOINT none (04:04Z) [open] #1169 tier 1d55 running (4c963f07d); restack.py bug fixed by top in #1175 355384d33; recursion rollout and Lean-speed answers for Daniel

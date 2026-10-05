@@ -700,3 +700,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T09:41Z: poll: 0f8d past lean-suites; f5f5 past agreement. main 5fc53b0c1.
 - 2026-10-05T09:48Z: top's call: check 2031cc955 (640e + #1167) on node1 right after 640e lands, if #1167 is ready by ~10:15Z, with agreement. Node 2 stays free for the shard. Hard stop 11:25Z; otherwise #1167 is folded into the move.
 - 2026-10-05T09:50Z: top revised: start 2031cc955 on node2 when aa64 (0f8d) finishes (~09:55Z), if #1167 is ready, with agreement; it lands after 640e. Node 1 kept free for the shard from ~10:10Z. Hard stop 11:25Z.
+- 2026-10-05T09:59Z: merged aa6481b0c (6 PRs) → main b3fbce247 via --push; spec DM sent. 640e running on node1. #1167 tier 3399 queued behind compute-accounting on -2 slot d; 2031 goes to node1 slot b once #1167 is ready.
+- 2026-10-05T10:01Z: 2031cc955 node1 r20261005-095914-751b --agreement, started ahead of #1167's ready to make 11:25Z; merge waits on the ready + 640e.

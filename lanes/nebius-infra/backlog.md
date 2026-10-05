@@ -59,6 +59,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 02:10Z Oct 5: owners freed about 220 GiB, node 1 at 69.3%
+
+- 69.3% (1,539 GiB free) at 02:09Z, from 73.7% at 02:00Z. Owners cleared their own data (no retention-log entries):
+  - `glm47-match` 240 to 6 GB (circuits' GLM capture);
+  - `cache/pouw-hidden-zk` 180 to 138 GB, and `pouw-hidden-zk-replay2` 80 to 70 GB;
+  - `cache/verity-check` 159 to 104 GB (a finished audit's scratch).
+- The @top pause line isn't needed unless the disk climbs back to 78%. `node1-disk-watch-78c` comes off after an hour under
+  72% (about 03:09Z). The @proofs and @ci questions stay open for the record.
+
 ## State at 02:00Z Oct 5 (7:00 PM PDT Oct 4), steward pass
 
 - Node 1: 73.7% (1,319 GiB free), `research/src` 82 trees. 0 of 8 GPUs and nothing in Kueue (idle, reported). The pacer and

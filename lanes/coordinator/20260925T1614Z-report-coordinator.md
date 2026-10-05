@@ -731,3 +731,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T16:04Z: Lean layout move hold (top 16:01Z, landing ~18:00Z): trains land as normal until 17:00Z; no new nebius train checks from 17:00Z; no landings from the move's check start until the move is on main.
 - 2026-10-05T16:08Z: notes commit 739e81069 (Daniel's Lean layout ruling) is not on the notes remote; asked top for a bundle via the evidence store (or a re-created note), to push from the control pod.
 - 2026-10-05T16:08Z: asked lean whether #1167 is superseded by the Lean layout move; close it if so.
+- 2026-10-05T16:13Z: ci tip 59738cf7d (0346 + #1165 #1154, PoUW Lean; FP8 clear) node1 r20261005-161115-4e56 --agreement; lands after 0346 if it passes before the Lean move's check starts.

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:45Z) [open] 10:45Z: last pre-move train 640eebb5a landed as main b9ac23dfc (10:42Z, +#1196); trains held; move landing check from 11:30Z on cursor/layout-move-1005-c3b2; red-team-move pre-reviewing
 CHECKPOINT none (10:30Z) [open] 10:30Z: main b3fbce247; 640eebb5a should land by 11:00Z; move merge 14:00Z
 CHECKPOINT none (10:15Z) [open] 10:15Z: main b3fbce247; 640eebb5a last pre-move train (by 11:00Z); #1167 parked for Daniel's C/T ruling; move merge 14:00Z
 CHECKPOINT none (10:04Z) [open] 10:04Z: main b3fbce247 (aa6481b0c landed); 640eebb5a due ~10:10Z; 2031cc955 (#1167) likely misses new 11:00Z cutoff, hand-fold; move merge 14:00Z

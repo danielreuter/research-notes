@@ -10,8 +10,9 @@ origin: bc-2a00fbff-762d-5c36-a641-1bbff50ddb4d (rec-reprice, for the proofs coo
 
 # Recursive witness ZK at m = 35: what the outer proof costs against today's `--zk` (K = 4096)
 
-Branch `cursor/rec-reprice-95d4` (origin/main 43bef6294 + `cursor/rec-v0-95d4` cbad2989e). Work in progress; every number
-below is marked measured or estimated as it lands.
+Branch `cursor/rec-reprice-95d4` (origin/main 43bef6294 + `cursor/rec-v0-95d4` cbad2989e). Every number below is marked
+measured or estimated. Summary of every measured number: art:453bd179bb84e81ab73001606749b0ba70e6ae1e8314c5dbe2f7864731fa427e
+(`rec-reprice/v0`, refs to each run's record).
 
 ## Baseline (given, from the dense rollup art:c343ae88d618f9b5ffc8699951fb2a7bf0e36f151a450a671305c88c7bee1996)
 
@@ -47,7 +48,7 @@ Script: `backends/flock/pod/85-rec-reprice.sh` (STEP=build|inner|ostage|alg|opro
 | lean zk: Lean `verify --zk` on today's --zk session (K=4096) | r20261005-081504-864d | 08:15Z | passed: accepted, verify 73.3 s |
 | alg K=14336: InnerClaims, rec_residuals on the K=14336 inner's last proxied session | r20261005-082029-6db5 | 08:20Z | passed: claims 5:27 at 9.9 GB; Shape(35, 26, 8), 4,285 products, holds on both reps, 7:38 at 19.7 GB |
 | oprove rerun K=4096: V*'s 8 statements again, background load recorded | r20261005-082407-16e7 | 08:24Z | passed: every session accepted (serve, replay --zk) |
-| oprove alg K=14336: the second size's algebra --zk on loopback ×(1+3), replay --zk | r20261005-083548-9b6a | 08:35Z | running |
+| oprove alg K=14336: the second size's algebra --zk on loopback ×(1+3), replay --zk | r20261005-083548-9b6a | 08:35Z | passed: 4 of 4 accepted, replay --zk accepted |
 
 ## Shape of V* at m = 35 (from `rec_algebra.fast100(35)`, before any run)
 
@@ -213,3 +214,35 @@ sides (estimated by subtraction): main's `--zk` about 1.83 s, the outer about 3.
 Not in prove: staging V*'s inputs per session (Python here: 3-6 min a level and 16 min for the algebra, most of it writing
 circuits that m and the inner's shape fix; the per-session inputs are the inner proof's opened bytes and the algebra's 1,777
 private words, estimated negligible natively) and the claims extraction (Lean here, 2:03; natively part of V*'s replay).
+
+## K = 14,336 at m = 35 (measured: r20261005-081442-dc2b, r20261005-082029-6db5, r20261005-083548-9b6a)
+
+The inner at K = 14,336 (N = 512, k_log 26, nbl 9, m = 35; circuit 1.93 GB, staged in 16:01 at 43.5 GB, r20261005-075635-aef2):
+proxied M0 prove 0.836 s, session 0.898 s, 963,858 bytes/rep, 23.2 GB host, 79.8 GiB GPU; 282 rounds, 514 message rows, so
+139,520 bytes to the verifier. Upstream replay accepted (44 s wall); rec_vstar accepted 1,118 openings, per level 436, 212,
+142, 106, 86, 72, 64 for both reps: K = 4096's, so V*'s RecOpen statements are the same and K = 4096's measured levels stand
+(rerun, 4.302 s prove, 6.502 s session, 6.491 s verify, 13,108,108 bytes). Same node: loopback M0 0.770 s prove, 1.038 s
+session, 0.738 s verify; main's `--zk` 4.06 s prove (rank check 0.69 s, level-0 draw 1.06 s), 7.51 s session, 11.46 s verify,
+1,179,330 bytes/rep, 22.7 GB host, 81.9 GiB GPU, 4 of 4 accepted and replay --zk accepted.
+
+The algebra: InnerClaims 5:27 at 9.9 GB; Shape(35, 26, 8), 4,285 products, nv 4,291, nw 1,781, unit 10,448,897 rows (unit_log
+24), dense m 29, holds on both reps, staged in 7:38 at 19.7 GB. Proved with `--zk` (prover cores 7% busy): 1.747 s prove, 3.544 s
+session, 6.385 s serve verify, 879,866 bytes/rep, 12.4 GB host, 15.4 GiB GPU; 4 of 4 accepted, replay --zk accepted.
+
+| statement | prove | session | bytes (both reps) | verify serve | status |
+|---|---:|---:|---:|---:|---|
+| inner, ZK off, against the proxy | 0.836 s | 0.898 s | 139,520 to the verifier | in V* | measured |
+| V* L0-L6 | 4.302 s | 6.502 s | 13,108,108 | 6.491 s | measured at K = 4096 (the same statements) |
+| V* algebra | 1.747 s | 3.544 s | 1,759,732 | 6.385 s | measured |
+| outer total | 6.049 s | 10.046 s | 14,867,840 | 12.876 s | measured |
+| recursion total | 6.886 s | 10.944 s | 15,007,360 | 12.876 s | measured |
+| today's `--zk`, main, same node | 4.06 s | 7.51 s | 2,358,660 | 11.46 s | measured |
+| today's `--zk`, rollup (r20261002-122853-c740) | 1.071 s | 4.85 s | | 11.75 s | given |
+| packed L0: outer | 5.710 s | 9.582 s | 14,803,984 | 12.619 s | estimated (L1 for L0) |
+
+Go criterion: outer 7.23× the inner's ZK-off prove (packed 6.83×); fails. Against `--zk`: prove 1.70× main's (packed 1.61×),
+6.43× the rollup's (packed 6.11×); session 1.46× and 2.26×; bytes 6.36×; verify 1.12× main's and 1.10× the rollup's (the
+inner's own verify is larger at this K, V*'s is not). With the rank check and the level-0 draw removed on both sides: outer
+4.60× the inner, recursion total 2.03× `--zk` (2.31 s). Lean was not run at this size (V*'s RecOpen sessions are K = 4096's;
+the algebra's statement is the same size).
+

@@ -692,3 +692,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T08:16Z: next to check is c5857b32f (3d805 + #1189 #1190 #937; #1178 folded into the move), no send; replaces 1b26; queued for the next free slot.
 - 2026-10-05T08:17Z: next to check is d15a63aa8 (c585 + #1195), no send; replaces c585.
 - 2026-10-05T08:21Z: poll: 02e0 past lean-suites; c599 past pytest. main 03ab7e5a5. d15a queued.
+- 2026-10-05T08:41Z: c599 (d472) PASSED, held as fallback; 02e0 (3d805) past pytest. ci tip aa6481b0c (d15a + #1093 #1132; FP8/row-shape clear) node2 r20261005-083942-0f8d --agreement.

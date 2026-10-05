@@ -59,6 +59,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 12:05Z Oct 5 (5:05 AM PDT), steward pass
+
+- Unchanged. Node 1 (watch 11:30–12:00Z, no flags): 69.5% (1,529 GiB free), `research/src` 49 trees, 0 of 8 GPUs and
+  nothing in Kueue (idle, reported); the pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue.
+  No replies.
+- This VM seems to pause briefly at times. The cron pass arrived 5 min late (12:05Z), and tick 20's sync (11:41Z) spanned
+  about 16 min of wall clock, as tick 3's did at 07:07Z, more than `timeout -k 30 480` allows. The steps still finish
+  normally, and node 1's watch covers the gaps.
+
 ## State at 11:30Z Oct 5 (4:30 AM PDT), steward pass
 
 - Unchanged. Node 1 (watch, no flags): 69.4% (1,537 GiB free), `research/src` 47 trees, 0 of 8 GPUs and nothing in Kueue

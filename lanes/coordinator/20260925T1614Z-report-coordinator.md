@@ -724,3 +724,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T14:53Z: ci tips 064bedd13 (fallback + #1186 #864) and 5df391911 (2c9f + #1186 #864) queued for the next free slot. FP8 check clear for #1186 and #864.
 - 2026-10-05T15:05Z: b27c (7e01) and 7e6b (a5ec) FAILED: #1191's boundary tests reject verity_catalog.definitions imports post-move. Cancelled 54e5, c019. 212a (5315) PASSED, held on #1197. Asked ci for a tip without #1191/#1197.
 - 2026-10-05T15:08Z: no-#1191/#1197 tips: 93dad18e0 (+#1211) node1 r20261005-150508-0eff and 6c1963832 node2 r20261005-150616-f0ce, both --agreement. Ready missing: #1136 #1200 #1202 (tiers running).
+- 2026-10-05T15:21Z: poll: 0eff, f0ce running; #1197 still no ready. main 378453fb3.

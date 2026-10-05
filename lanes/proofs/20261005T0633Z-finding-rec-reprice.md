@@ -160,35 +160,54 @@ V*'s 8 ran 4 at once; setup is per statement (V*'s circuits are fixed by m and t
 | inner M0 (proxied, os coins) | 0.3 s | 85.7 s | 71.7 s | 2:38 | 3.0 GB |
 | today's `--zk` (main, loopback) | 7.1 s | 85.5 s | 73.3 s | 2:46 | 3.0 GB |
 
+## V*'s sessions again (measured, r20261005-082407-16e7)
+
+The 8 statements proved again with the prover cores' load recorded before each (29-43% busy; the first algebra run saw 99.8%).
+Every session accepted by serve, the last of each by `replay --zk`; bytes identical.
+
+| statement | prove | session | verify (serve) | rank check | level-0 draw | (first run: prove, session, verify) |
+|---|---:|---:|---:|---:|---:|---|
+| L0 | 1.102 s | 1.561 s | 1.274 s | 0.606 s | 0.134 s | 1.277, 1.777, 1.480 |
+| L1 | 0.763 s | 1.097 s | 1.017 s | 0.334 s | 0.089 s | 0.798, 1.237, 1.244 |
+| L2 | 0.712 s | 1.090 s | 1.120 s | 0.292 s | 0.082 s | 0.767, 1.187, 1.185 |
+| L3 | 0.489 s | 0.821 s | 0.984 s | 0.113 s | 0.052 s | 0.507, 0.848, 1.043 |
+| L4 | 0.506 s | 0.773 s | 0.843 s | 0.112 s | 0.067 s | 0.572, 0.853, 0.927 |
+| L5 | 0.402 s | 0.613 s | 0.607 s | 0.116 s | 0.056 s | 0.448, 0.684, 0.683 |
+| L6 | 0.329 s | 0.548 s | 0.645 s | 0.049 s | 0.043 s | 0.356, 0.586, 0.654 |
+| algebra | 1.544 s | 3.387 s | 6.443 s | 0.007 s | 0.068 s | 1.797, 4.140, 8.046 |
+| V* total | 5.846 s | 9.889 s | 12.934 s | 1.631 s | 0.591 s | 6.523, 11.312, 15.262 |
+
 ## K = 4096 at m = 35: the answer
 
 Prove = the GPU prover's `prove_total_s` (both reps) given V*'s staged inputs; session = time between verdicts; verify = serve's
-(Rust) per-session `verify_s`; Lean's per-session verify beside it. All medians of 3 timed sessions after 1 warm, GPU 4.
+(Rust) per-session `verify_s`; Lean's per-session verify beside it. All medians of 3 timed sessions after 1 warm, GPU 4. V*'s
+rows give the rerun, then the first run.
 
 | statement | prove | session | host / GPU peak | bytes (both reps) | verify serve | verify Lean | status |
 |---|---:|---:|---:|---:|---:|---:|---|
 | inner, ZK off, against the proxy | 0.875 s | 0.909 s | 20.7 GB / 74.0 GiB | 139,008 to the verifier (caps, salted commits, link roots) | in V* | 71.7 s (M0's own) | measured |
-| V* L0-L6 (RecOpen, `--zk`) | 4.726 s | 7.172 s | 8.3 GB / 10.9 GiB (L0) | 13,108,108 | 7.216 s | 403.4 s | measured |
-| V* algebra (InnerRepCheck, `--zk`) | 1.797 s | 4.140 s | 12.4 GB / 15.4 GiB | 1,759,732 | 8.046 s | 191.8 s | measured |
+| V* L0-L6 (RecOpen, `--zk`) | 4.302 s (4.726) | 6.502 s (7.172) | 8.3 GB / 11.1 GiB (L0) | 13,108,108 | 6.491 s (7.216) | 403.4 s | measured |
+| V* algebra (InnerRepCheck, `--zk`) | 1.544 s (1.797) | 3.387 s (4.140) | 12.4 GB / 15.4 GiB | 1,759,732 | 6.443 s (8.046) | 191.8 s | measured |
 | V* GfScale | about 0 | 0 | | 0 | about 0 | | estimated (fused into RecOpen) |
-| outer total | 6.523 s | 11.312 s | 12.4 GB / 15.4 GiB | 14,867,840 | 15.262 s | 595.2 s | measured |
-| recursion total (inner + outer) | 7.398 s | 12.221 s | 20.7 GB / 74.0 GiB | 15,006,848 | 15.262 s | 595.2 s | measured |
+| outer total | 5.846 s (6.523) | 9.889 s (11.312) | 12.4 GB / 15.4 GiB | 14,867,840 | 12.934 s (15.262) | 595.2 s | measured |
+| recursion total (inner + outer) | 6.721 s (7.398) | 10.798 s (12.221) | 20.7 GB / 74.0 GiB | 15,006,848 | 12.934 s (15.262) | 595.2 s | measured |
 | today's `--zk`, main, same node (two runs) | 5.21-5.53 s | 7.50-7.85 s | 21.3 GB / 74.0 GiB | 2,358,404 | 6.88-6.90 s | 73.3 s | measured |
 | today's `--zk`, rollup cfbad08 (r20261002-062836-96bb) | 1.063 s | 3.05 s | | 2,358,404 | 5.72 s | | given |
-| packed L0 (rec-v0 §L2, L0 at L1's size): outer | 6.044 s | 10.771 s | | 14,803,984 | 15.027 s | 592.8 s | estimated (L1's measurement for L0) |
+| packed L0 (rec-v0 §L2, L0 at L1's size): outer | 5.508 s | 9.425 s | | 14,803,984 | 12.678 s | 592.8 s | estimated (L1's measurement for L0) |
 
-Go criterion (outer under about +50% of proving, here the inner's ZK-off prove 0.875 s): the outer is 7.45× (+645%), packed
-6.91×; it fails by an order of magnitude. Cfbad08's `--zk` is +47% over its M0 (1.063 against 0.723 s), so +50% is today's
-`--zk` overhead, and recursion's total is 10.2× the M0 prove.
+Go criterion (outer under about +50% of proving, here the inner's ZK-off prove 0.875 s): the outer is 6.68× (first run 7.45×),
+packed 6.29×; it fails by an order of magnitude. Cfbad08's `--zk` is +47% over its M0 (1.063 against 0.723 s), so +50% is
+today's `--zk` overhead; recursion's total is 9.3× the M0 prove.
 
-Against `--zk` (recursion total over today's): prove 1.38× main's (packed 1.29×) but 6.96× the rollup's (packed 6.51×);
-session 1.59× main's, 4.01× the rollup's; bytes 6.36× (15.0 MB against 2.36 MB; packed 6.34×); verify (serve) 2.22× main's,
-2.67× the rollup's; Lean 8.1× (595 s against 73 s per session, and 661 s of setup per statement against 85 s).
+Against `--zk` (recursion total over today's, rerun numbers): prove 1.25× main's (packed 1.19×) but 6.32× the rollup's
+(packed 6.00×); session 1.41× main's, 3.54× the rollup's; bytes 6.36× (15.0 MB against 2.36 MB; packed 6.34×); verify (serve)
+1.88× main's, 2.26× the rollup's (serve verifies the algebra's sessions about two at once, so its 6.4 s is latency at that
+concurrency); Lean 8.1× (595 s against 73 s per session, and 661 s of setup per statement against 85 s).
 
 Main's `--zk` is 5× cfbad08's because of two single-threaded CPU steps new since then (the mask-rank check, 2.5 s, and
-level 0's hiding draw, 1.0 s), which V* pays too (rank 1.88 s, draws 0.73 s over its 8 sessions). With both removed on both
-sides (estimated by subtraction): main's `--zk` about 1.83 s, the outer about 3.91 s, outer/inner 4.47×, recursion total
-2.62× `--zk`. The criterion still fails.
+level 0's hiding draw, 1.0 s), which V* pays too (rank 1.63 s, draws 0.59 s over its 8 sessions). With both removed on both
+sides (estimated by subtraction): main's `--zk` about 1.83 s, the outer about 3.63 s, outer/inner 4.14×, recursion total
+2.47× `--zk`. The criterion still fails.
 
 Not in prove: staging V*'s inputs per session (Python here: 3-6 min a level and 16 min for the algebra, most of it writing
 circuits that m and the inner's shape fix; the per-session inputs are the inner proof's opened bytes and the algebra's 1,777

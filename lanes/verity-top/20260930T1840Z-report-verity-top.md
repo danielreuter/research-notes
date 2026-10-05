@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:45Z) [open] 02:45Z: main 97d06c4d5; Lean tip 32d9 checking node 2 (FlockProofs exemption), waits on readies; 54ae, d4ab, 67e9 queued; #1012 ready ~03:15Z
 CHECKPOINT none (02:30Z) [open] 02:30Z: main 97d06c4d5 (4bb6 landed); fallback a0049a07d/1391223e3 without #1012 queued; #1163 fixes in, merging main
 CHECKPOINT none (02:15Z) [open] 02:15Z: main 839ba800a; tips 4bb6, 5d6f checking; d4ab, 67e9, 14cc queued; erasure deferred by Daniel (goals updated); #1138/#1139 next tip
 CHECKPOINT none (02:00Z) [open] 02:00Z: main 839ba800a; 4bb6 + Lean tip 5d6f checking; d4ab, 67e9 queued; #1181 revising for base-PR condition; #1180 fresh-store fix in tier

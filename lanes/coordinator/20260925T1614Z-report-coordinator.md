@@ -641,3 +641,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T01:21Z: poll: e359 past lean-suites; d832, 0123 running. main b529216bb.
 - 2026-10-05T01:35Z: ci tip 67e9f3b11 (d4ab + #1164@39ef8822b) node1 r20261005-013429-a969; merge waits on ready at pr:1164@39ef8822b (and #1012's).
 - 2026-10-05T01:43Z: merged d5632b720 (7 PRs) → main 839ba800a; all MERGED; #1159 retargeted onto main. d832 past lean-suites; 0123, a969 running.
+- 2026-10-05T01:48Z: ci Lean tip 5d6fc647a (67e9 + #1148 #1150@99f2 #1141 #1144 #1168) node2 r20261005-014649-5e6e --agreement. Flagged to ci: #1141/#1144 lack red-team (their flock diff is #1150's).

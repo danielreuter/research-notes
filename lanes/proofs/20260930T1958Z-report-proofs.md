@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (11:35Z) [open] 11:34Z red-team GRANT on pr:1206@62cf02978 (move fixed head; identity 0 diffs, pod imports 0 failures, nothing dropped; note:proofs/20261005T1059Z-finding-red-team-move). Landing check shards 3-5 running; post-move queue starts with #1179 restack after 14:00Z.
 CHECKPOINT e259af141 (11:05Z) [open] move red-team REFUSE at f357ec26d: identity constant rewritten (Lean refuses new proofs), 13 pod PYTHONPATHs lack catalog/kernels/experimental; fixes posted 1791198305
 CHECKPOINT e259af141 (11:01Z) [open] 11:00Z: move candidate f357ec26d (move commit f0dde01ec); red-team-move pre-review running; resume on its return with the 3-part scope
 CHECKPOINT e259af141 (10:33Z) [open] 10:30Z: red-team-move pre-reviewing move commit c863067f5's C-Flock side; final commit ~11:30Z, grant by 14:00Z; flock-lean-split parks on C/T ruling

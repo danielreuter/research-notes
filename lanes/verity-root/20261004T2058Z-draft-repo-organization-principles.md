@@ -403,10 +403,21 @@ And at 4:19 PM PDT:
     that run old and new trees) gets an alias table.
   - The recurring `-m` runs become declared tools, whose derivation is keyed by tool name and version, not by module
     path. The 111 ad hoc ones fork, and their old records stay valid.
-  - The probe now tests how a directory maps to its import name: per-member hatch `sources`, or one `verity`
-    distribution with a suite per directory. `tools/` holds one distribution per tool, each its own suite and cache
-    key, so that a change to one tool reruns only its tests (ci). `research` stays its own distribution because the
-    nodes pin it separately.
+  - **Core is one regular package** (captain, 5 Oct 00:40Z, from the layout probe,
+    `internal/layout-import-probe-report.md`, branch `cursor/layout-import-probe-c3b2`): `verity/` has an
+    `__init__.py` in every directory, the repo root's `pyproject.toml` is the one `verity` distribution, it installs
+    editable in hatch's exact mode, and each directory under `verity/` is its own suite through a tests-only
+    `pyproject.toml`. Per-member hatch `sources` can't install editable, since hatchling and uv refuse a prefix
+    rewrite, and their workaround puts the repo root on every `sys.path`. `suites.py` needs about 15 lines: count the root
+    distribution as a member, key dependents on `verity/` and not `.`, and run pytest and `foreign()` with `-P`.
+  - **Outside `verity/`, a top-level directory is a grouping, not an import name.** Each distribution under it is a
+    directory with a distinct name of its own, as `integrations/vllm/verity_vllm/` is today: `catalog/verity_catalog/`,
+    `kernels/verity_kernels/`, `experimental/verity_experimental/`, and tools keep theirs (`research`,
+    `circuit_check`). `kernels` is Hugging Face's package, which transformers imports, and `experimental`, `infra`,
+    `benchmarks`, `examples`, `tools`, `integrations` and `archive` are all PyPI names. Nothing on a pod puts the
+    repo root on `PYTHONPATH`.
+  - `tools/` holds one distribution per tool, each its own suite and cache key, so that a change to one tool reruns
+    only its tests (ci). `research` stays its own distribution because the nodes pin it separately.
 - **Silicon semantics**, how the hardware computes each low-level op bit for bit (the tensor-core step, FP and integer
   arithmetic, MUFU, PTX max and min), is public data: the models, their Lean, the formats, the device instances and
   their gadgets all go to `catalog/silicon/` (Daniel, 4:25 PM PDT). A circuit is claim content, pinned by digest, so

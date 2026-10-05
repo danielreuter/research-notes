@@ -53,4 +53,7 @@ The prover's key moved with the layout move (47340c664cec521f to 5c9218d04c285b4
 |---|---|---|
 | build | r20261005-194257-3095 | passed: binary 1fb79808 (key 5c9218d04c285b4c), Lean 463f4dea3955a270, inner m = 35, k_log 24, nbl 11, 2,048 instances, circuit 567 MB |
 | inner (proxy M0 ×(1+3), replay, rec_vstar; loopback M0 and --zk ×(1+3)) | r20261005-194909-c4fb | passed: proxy prove 0.931 s, session 0.969 s, 218 message rows (one a round), 278 rounds; replay accepted; rec_vstar 1,118 openings; M0 0.755 s; `--zk` 5.34 s prove, 7.53 s session, 6.87 s verify (rank 2.49 s), every session accepted, replay --zk accepted; prover cores 99% busy before each |
-| vstage (InnerFold, points, the verifier, alg, forgeries, 7 levels; JOBS=3) | r20261005-195948-5376 | running |
+| vstage (InnerFold, points, the verifier, alg, forgeries, 7 levels; JOBS=3) | r20261005-195948-5376 | passed (19 min): points 0.65 s; InnerFold 1:38 at 3.0 GB, 6 extras; verifier rows 6.0 s, coefficients 0.39 s, entries 0.04 s; InnerRepCheck_v1{S={5c7461729881}} 111 ports, 2,940 products, unit 7.51M rows (log 23), circuit 816 MB, holds on both reps, unit agrees, 5:16 at 13.8 GB; L0-L6 RecOpen_v2 every query opened and summed against one chain; forged sum (row 559): L0 [rep 1, q 0] and L6 [rep 0, q 31] not summed, residual 10 on both reps; forged comb: residual 1 on rep 0; forged message: one bit of m0's row in inst.bin, pub.bin and registered.json the honest ones |
+| build K=14336 (N=512) | r20261005-200059-d507 | passed: m = 35, k_log 26, nbl 9, 512 instances, circuit 1.93 GB, staged 10:20 at 41.4 GB |
+| oprove (8 statements ×(1+3), 5 forged ×1, replay --zk) | r20261005-202003-8103 | running |
+| inner K=14336 | r20261005-202036-af66 | running |

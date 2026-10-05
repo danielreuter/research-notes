@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (20:12Z) [open] zk-cpu-steps returned: --zk prove K=4096 4.74->1.88 s, byte-identical; draft #1235. Red-team + check after the Lean move.
 CHECKPOINT e259af141 (19:07Z) [open] Rerunning red-team on #1225 at 77b8d66bc. Four workers found stopped since 17:47Z, resumed (friction note). red-team-1034 running.
 CHECKPOINT e259af141 (19:00Z) [open] #1225 fixing red-team refusal (B1 half, B2, ArkLib cuts, moved locks at 77b8d66bc); rerun waits for top's head. red-team-1034 running. Node 1 idle, 67%.
 CHECKPOINT e259af141 (18:31Z) [open] lean-drives PR 1 built (cursor/lean-drives-1-95d4 81ec13c9c, run r20261005-171413-1d38), no PR yet; D1-D4 for Daniel. PR 3 (coin tree) held until Daniel picks live coins vs joint beacon. Node 1 idle, 69%.

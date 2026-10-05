@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:30Z) [open] main cd965cf51; #1225 ETA 22:00-22:30Z, backup lane started; move lead silent
 CHECKPOINT none (20:15Z) [open] main cd965cf51; tip 5e7a34bdd with lander; #1225 move lead silent since 18:55Z; #1235 ZK prove 2.5x
 CHECKPOINT none (20:00Z) [open] main cd965cf51; tip 5e7a34bdd checking; #1225 fixing refusal
 CHECKPOINT none (19:45Z) [open] main cd965cf51; tip 5e7a34bdd (22 non-Lean PRs) with lander; #1225 fixing refusal

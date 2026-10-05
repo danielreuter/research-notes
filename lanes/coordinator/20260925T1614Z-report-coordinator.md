@@ -685,3 +685,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T07:21Z: ci tips (handed over 07:09Z, missed until 07:17Z) 3d805d696 node1 r20261005-071825-02e0, fallback d472eef83 node2 r20261005-071943-c599. #1178 out (red-team-1178 declined). Freeze 11:30Z.
 - 2026-10-05T07:26Z: queued 82ed60b8a (3d805 + #1189, fixes main's G6 golden) for the next free slot; or 8c4d22e6e (+ #1178) if #1178 is ready.
 - 2026-10-05T07:41Z: poll: 02e0 (3d805), c599 (d472) running; #1178 no ready. main 03ab7e5a5.
+- 2026-10-05T07:50Z: next to check is 21f0d7bb9 (82ed + #1190), replacing 82ed; queued for the next free slot.
+- 2026-10-05T07:53Z: #1178 ready (top). Next to check is 192c04edb (21f0 + #1178, needs the agreement send), replacing 21f0; queued for the next free slot. Freeze 11:30Z.
+- 2026-10-05T07:54Z: next to check is 1b269cf41 (192c + #937), with the agreement send; queued for the next free slot.

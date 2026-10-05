@@ -657,3 +657,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T02:39Z: ci tip 54ae8bd44 (main + #1147 #1164 #1181 #1173 #1177; no #1012, no Lean) node1 r20261005-023745-43f1 --agreement; merge waits on #1164/#1181 ready.
 - 2026-10-05T02:42Z: Lean tip 32d9403c2 (54ae + Lean stack with the FlockProofs exempt) node2 r20261005-024011-234a --agreement; merge waits on lean readies, #1164/#1181 readies, red-team at pr:1150@6d87facc0.
 - 2026-10-05T02:42Z: poll: 0123 (d4ab) PASSED, held: no ready at pr:1012@9d425f160. a969 past pytest; 43f1, 234a running. main 97d06c4d5.
+- 2026-10-05T02:50Z: red-team on pr:1150@6d87 re-posted with finding note:proofs/20261005T0247Z-finding-1150-flockproofs-exempt (reviewed the line). ci tip 45436c571 (32d9 + #1174) node2 r20261005-024857-f629 --agreement.

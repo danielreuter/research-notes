@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (09:30Z) [open] 09:30Z: main 5fc53b0c1; 640eebb5a/aa6481b0c checking; #1198 #1201 #1200 after move; freeze 11:30Z
 CHECKPOINT none (09:15Z) [open] 09:15Z: main 5fc53b0c1 (3d805d696 landed); 640eebb5a on node 1, aa6481b0c on node 2; recursion re-price misses bar (6.7x), sent to Daniel; freeze 11:30Z
 CHECKPOINT none (09:00Z) [open] 09:00Z: main 03ab7e5a5; 3d805d696 checking; next d15a63aa8 then 640eebb5a; #1167 regenerating; freeze 11:30Z
 CHECKPOINT none (08:45Z) [open] 08:45Z: main 03ab7e5a5; 3d805d696 checking; next d15a63aa8 then aa6481b0c (#1093 #1132); #1167 regenerating; freeze 11:30Z

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (02:20Z) [open] A 02:20Z poll: nothing addressed to pouw-node2; node2-ops 02:20Z: 01Z GPU busy 10.2% (nothing submitted), one runner, /workspace 59% (hold, creeping up), no windows ahead; main 839ba800a (no pouw change); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (02:00Z) [open] A 02:00Z poll: nothing new since 01:40Z; verity fetch auth failed (main last seen b529216bb); /workspace last 58%; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (01:40Z) [open] A 01:40Z poll: nothing new since 01:20Z; main b529216bb unchanged (fetch OK); /workspace last 58%; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (01:20Z) [open] A 01:20Z poll: nothing addressed to pouw-node2; node2-ops 01:20Z: 00Z GPU busy 10.9% (nothing submitted), one runner, /workspace 58% (hold), no windows ahead, infra deployed n2-custody (node 2's own runs sent home via node 1; inactive, no timer yet); verity fetch auth failed (main last seen b529216bb); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2

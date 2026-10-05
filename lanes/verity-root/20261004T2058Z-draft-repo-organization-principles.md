@@ -69,6 +69,10 @@ Open, for the morning memo (about 12:00Z):
   `security/model` (games, adversaries and probability, which assumptions and properties are both written in). It also
   says how statements attach to programs: by import and constant name, recorded by the audit's lock, with paths that
   mirror the component a statement reads. The memo specifies this layout.
+  Daniel (05:51Z): the model is part of the assumptions; directories are capitalized as Lean does; the term is the
+  captain's pick. So the target is `Security/Assumptions/` (with the model's definitions in it), `Security/Guarantees/`
+  (the Glossary's existing term, so no rename) and `Security/Proofs/`. A cloud worker (bc-8a03b032) is inventorying every
+  Lean module against it, including which programs use Mathlib today.
 - Whether "judge" is a concept at all. Daniel thinks it's just part of the toolkit; the captain agrees.
 - Whether Lean drives Python, with the party program as the main loop and the workers serving its requests.
 - Where the runs layer (the onsite and remote products) lives.

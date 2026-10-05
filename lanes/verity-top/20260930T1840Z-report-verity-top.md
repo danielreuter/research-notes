@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:23Z) [open] Lean move freeze/landing check ~22:35Z; 5e7a rerun running; P2 window confirmed ruled
 CHECKPOINT none (22:05Z) [open] Lean move ETA 23:30-23:45Z, pods to 01:30Z; trains 5e7a (rerun) then 7d59 (needs #884 ready)
 CHECKPOINT none (21:50Z) [open] Lean move lock update building on -16; 5e7a rerun pending; idle GPU leases traced (proofs/circuits fixes queued)
 CHECKPOINT none (21:34Z) [open] Lean move lock update running, pods leased to 00:06Z; 5e7a waits on gpu-lease question to circuits

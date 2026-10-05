@@ -665,3 +665,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T03:23Z: ci tip 858da8231 (3017 + #1169: core lock 29→0 guarantees, under Daniel's 2:03 PM PDT guarantee ruling; DMs Daniel at landing) queued for the next free slot; waits on #1169 ready + 32d9/4543 labels.
 - 2026-10-05T03:41Z: poll: 43f1, 234a, 2c45 past lean-suites; f629 running. #1012/#1164 still no ready. main 97d06c4d5.
 - 2026-10-05T04:01Z: poll: 43f1 (54ae) PASSED, held: no ready at #1164@39ef8822b. 234a past pytest; f629, 2c45 running. main 97d06c4d5.
+- 2026-10-05T04:18Z: #1012 ready (infra 04:05Z). d4ab, b0b2, 54ae are siblings; holding all for #1164's re-tier efb5. Pass: land 54ae → 32d9 → 4543, then 4543 + #1012 #1180 + move inputs. Fail: land b0b2.
+- 2026-10-05T04:20Z: deadline 04:45Z for #1164 ready (timer deadline-1164-0445); then land the biggest ready tip (b0b2 if passed, else d4ab). #1141@9827ce8e4 and #1144@f84b29e72 have red-team carried by proofs (ref pr:1150@6d87), checked 04:19Z, as 32d9's precondition.
+- 2026-10-05T04:22Z: poll: 234a (32d9) PASSED and 2c45 (b0b2) PASSED. 32d9 waits on #1164 ready (via 54ae); deadline 04:45Z, then b0b2 lands. f629 running.

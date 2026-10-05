@@ -669,3 +669,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T04:20Z: deadline 04:45Z for #1164 ready (timer deadline-1164-0445); then land the biggest ready tip (b0b2 if passed, else d4ab). #1141@9827ce8e4 and #1144@f84b29e72 have red-team carried by proofs (ref pr:1150@6d87), checked 04:19Z, as 32d9's precondition.
 - 2026-10-05T04:22Z: poll: 234a (32d9) PASSED and 2c45 (b0b2) PASSED. 32d9 waits on #1164 ready (via 54ae); deadline 04:45Z, then b0b2 lands. f629 running.
 - 2026-10-05T04:41Z: poll: #1164 still no ready; f629 (4543) past lean-suites. Deadline 04:45Z.
+- 2026-10-05T04:50Z: merged 32d9403c2 (10 PRs) → main d18933dac; all MERGED; d4ab/b0b2 void. Found manual git push skipped spec_alert + post_train since #1053: sent catch-up DM (600f5ca1e~1..d18933dac), post_train r20261005-044722-9ea1, hint fix #1187. Land with --push from now on.

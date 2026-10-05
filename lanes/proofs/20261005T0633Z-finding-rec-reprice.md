@@ -44,7 +44,8 @@ Script: `backends/flock/pod/85-rec-reprice.sh` (STEP=build|inner|ostage|alg|opro
 | build K=14336 (N=512): the second size's inner staged | r20261005-075635-aef2 | 07:56Z | passed: m = 35, k_log 26, nbl 9, 512 instances, circuit 1.93 GB, stage 16:01 at 43.5 GB |
 | lean: Lean `verify --zk` on V*'s 8 last sessions (4 at once), then the inner's proxied session | r20261005-080101-741c | 08:01Z | passed: all 9 accepted |
 | inner K=14336: proxy M0, replay, rec_vstar; loopback M0 and --zk | r20261005-081442-dc2b | 08:14Z | running |
-| lean zk: Lean `verify --zk` on today's --zk session (K=4096) | r20261005-081504-864d | 08:15Z | running |
+| lean zk: Lean `verify --zk` on today's --zk session (K=4096) | r20261005-081504-864d | 08:15Z | passed: accepted, verify 73.3 s |
+| alg K=14336: InnerClaims, rec_residuals on the K=14336 inner's last proxied session | r20261005-082029-6db5 | 08:20Z | running |
 
 ## Shape of V* at m = 35 (from `rec_algebra.fast100(35)`, before any run)
 

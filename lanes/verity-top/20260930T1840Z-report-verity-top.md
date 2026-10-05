@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (12:05Z) [open] 12:00Z: #1206 landing check on 62cf02978, shard 5 rerunning after OOM; L3 closed (#1207/#1208 drafts); merge 14:00Z
 CHECKPOINT none (11:45Z) [open] 11:45Z: #1206 red-team granted at 62cf02978; landing check running (2/5 shards passed); merge 14:00Z
 CHECKPOINT none (11:30Z) [open] 11:30Z: awaiting move lead's fixed head on #1206 for red-team grant and rerun shards; merge still 14:00Z
 CHECKPOINT none (11:15Z) [open] 11:15Z: move PR #1206; red-team refused f357ec26d (prover statement tag rewritten, pod PYTHONPATH); move lead fixing as hand commits on f0dde01ec; merge still 14:00Z

@@ -556,3 +556,4 @@ Triage:
   - Later, after profiling: `approaches --refresh` and `data push --pending`.
   - Every answer produced an item, so the timer stays on. Next round: network-accounting, console.
 - Round 23 (5 Oct 00:00Z): skipped. Every lead is on the layout migration (Daniel 4:30 PM PDT: one generated move, five check pods), and round 22's yes items are still held behind the backlog sweep, so another round would add asks infra has no bandwidth for. Next round at 04:00Z: network-accounting, console.
+- Round 24 (5 Oct 04:00Z): skipped. The layout move now has a deadline (Daniel: on main by 14:00Z; input cutoff 08:00Z, fix-forward to 11:30Z, five-pod check to 13:30Z), and every lead is on its trains or fix-forward. Round 22's yes items are still behind the backlog sweep. Next round at 08:00Z if the move is on track, else 16:00Z: network-accounting, console.

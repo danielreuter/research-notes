@@ -645,3 +645,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T01:55Z: 5d6f: chose to have proofs carry red-team to #1141/#1144 rather than land with a pre-#1164 gate. #1181 (gate diffs from merge parent) goes in the next tip.
 - 2026-10-05T01:56Z: passed root's #1181 condition to ci (base PR head on main or pinned in the tip, with its grants; otherwise refuse; test).
 - 2026-10-05T01:58Z: 1ad89bdb4 not started (#1181 head will move for root's condition; nodes full). Asked ci for a rebuild.
+- 2026-10-05T02:01Z: poll: d832 past pytest; 0123 past lean-suites; a969, 5e6e running. main 839ba800a.
+- 2026-10-05T02:03Z: yes to proofs' two C-Flock proof jobs (public-input sessions, then the work-law claim), compute-accounting's order; #1179 may land first.

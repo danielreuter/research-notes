@@ -3,7 +3,7 @@ id: proofs/20261005T1059Z-finding-red-team-move
 campaign: layout-move
 lane: proofs
 kind: finding
-status: draft
+status: final
 repo: danielreuter/verity
 origin: red-team-move
 ---
@@ -158,3 +158,26 @@ Everything else in scope is the move's own renames, or is fixed by the hand comm
   classifier alone is `python3 /tmp/rt-move-tools/classify.py <commit> --repo <worktree> --out <dir>`. When the mechanical
   digest differs, run `diff <(cut -f1,3,4 /tmp/rt-move-out/mechanical-c863067f5.tsv | sort) <(cut -f1,3,4 OUT/mechanical-<short>.tsv | sort)`.
   The first file is also in the art, as `classify/mechanical-c863067f5.tsv`.
+
+## Final: GRANT (red-team) at #1206's head 62cf02978 (by proofs, 11:35Z)
+
+#1206, `cursor/layout-move-1045-c3b2` at `62cf0297857964779cf9c10ca200537d7f299aa4`, has move commit `f0dde01ec` on main `b9ac23dfc`.
+Its four new hand commits are f5143e269 (`layout.py` keeps `.rs`/`.lean` string literals), 0f8ff1188, 68eae1722 and 62cf02978.
+`bash /tmp/rt-move-tools/rerun.sh f0dde01ec 62cf02978` gives the following (evidence `art:57c391ba9473c65057fe3ea93329b6214f3c79fec3532da1578dc31343412595`):
+- **Rename digests:** the mechanical, other and code-context digests are equal to `c863067f5`'s, so the generated commit's red-team scope is
+  the pre-review's.
+- **Blocking 1 is fixed.** The identity drift between the prover and Lean `Tags` is 0. `flock-circuit.rs` is byte-identical to main's.
+  Every changed Rust string literal in scope is a path (`repo.join`, the slot snippet's `sys.path`); the rest are comments.
+  Under `verifier/lean/`, only two `README.md` files change.
+- **Blocking 2 is fixed.** Pod-import failures on the pod-like venv are 0 (27 at `f357ec26d`). `sha512_native.rs`'s snippet now
+  lists `catalog`, `kernels` and `experimental`.
+- **Dropped tracked files:** none. The 6 `flock-runs/*/out/` files are back.
+- **Closures:** `tool.py`'s `CORE` covers verity, the catalog, the kernels and experimental. The only old files left
+  uncovered are the groups noted in item 4: 16 `verity.proofs` modules now in `archive/sp1`, and, for `FLOCK_PURE`,
+  `verity_vllm/check/codes.py` and `query/units.py`. C-Flock imports none of them.
+- `class_statement.py`'s code digest reads verity, `verity_catalog`, `verity_kernels` and `verity_experimental`. PoUW is a
+  module of `verity` now, so it's still covered.
+- **Moved vectors:** core's `hm96/vectors_sha512.json` exists at its new path, and only its `generator` field changed.
+  `circuit.rs`'s `hm96_leaves_match_core_vectors` reads it there.
+
+Label: `pr:1206@62cf0297857964779cf9c10ca200537d7f299aa4 grant red-team --by proofs`.

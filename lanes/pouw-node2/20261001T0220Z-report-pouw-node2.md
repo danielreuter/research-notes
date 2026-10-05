@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (01:00Z) [open] A 01:00Z poll: nothing new since 00:40Z; main b529216bb unchanged (fetch OK); /workspace last 58%; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (00:40Z) [open] A 00:40Z poll: nothing addressed to pouw-node2; node2-ops 00:25Z: compute accounting's two windows ran (timed busy in 21Z-23Z: 1.98, 4.58, 2.60 GPU-h), fill held and released the series job, one runner (df9b8baa), /workspace 58% (hold), node sweep and vy-keeper deployed on node 2; verity fetch auth failed (main last seen b529216bb); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (00:20Z) [open] A 00:20Z poll: nothing addressed to pouw-node2; infra 2359Z: node-side audit for top's repo layout move (paths and module names change; nothing of ours listed; the panel's helper runs from a pinned worktree at dd23c0c36, so unaffected until it is rebuilt); node2-ops' 00Z report on compute accounting's windows not in yet; main b529216bb (no pouw change); /workspace last 58%; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (00:00Z) [open] A 00:00Z poll: nothing new since 23:40Z (node2-ops' 00Z report on compute accounting's 21:45Z/22:45Z windows not in yet); verity fetch auth failed (main last seen 5049de02f); /workspace last 58%; panel art:d2b2eb906612 (wording rename only), v1 gamma 0.0036949 pending compute accounting's yes; off node 2

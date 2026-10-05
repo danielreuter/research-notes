@@ -59,6 +59,20 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 00:12Z Oct 5: root's two asks (pause at 78%, the verity-check cache)
+
+- **At 78% with no @proofs answer:** one line in the disk thread to @top, copying @proofs, to pause the K=14,336 replay
+  (branch `cursor/pouw-c4-k14336-replay-b5fc`) until @proofs says how much more it writes. Draft: `/tmp/top-pause.txt`.
+  Then report to root.
+- **`research/cache/verity-check` is 159 GB.** Asked @ci, copying @infra (`1791159060.789029`): who owns it, and can any of
+  it be evicted under a retention record?
+  - 122 GB is two `lean-audit-scratch-*` directories (59 and 63 GB), in use right now by running Lean audits (pouw, pous,
+    level3 cwds, files written 00:09Z), so not freeable yet. I asked whether check removes them when an audit finishes.
+  - The rest: `lean-deps` 18 GB (warm deps, leave alone), `lean-records` 13, `circuit-check` 7, `lean-audit` and
+    `lean-builds` about 1 each.
+  - I found no @circuits statement on clearing circuit-check caches after #1126, so there's nothing to fold in.
+- Disk 77% (1,185 GiB free) at 00:11Z. Nothing deleted.
+
 ## State at 00:08Z Oct 5: node 1 at 77%, the pouw-hidden-zk replay is filling it
 
 - 77% (1,193 GiB free) at 00:06Z, down 41 GiB in 6 min.

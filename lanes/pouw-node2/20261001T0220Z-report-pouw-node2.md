@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (22:40Z) [open] A 22:40Z poll: main 88f5cc533 (row-seg/v2 row schemas; exhaustion audit.sh split from window.sh, AUDIT=0); no gamma or Lean change, panel unaffected; node-2 /workspace last 62% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (22:20Z) [open] A 22:20Z poll: node2-ops 21Z hourly 10.6% busy, one runner, daemons up, /workspace 62% (1,922 GiB free; hold), no windows; main cd965cf51 unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (22:00Z) [open] A 22:00Z poll: nothing new since 21:40Z; main cd965cf51 unchanged; node-2 /workspace last 62% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (21:40Z) [open] A 21:40Z poll: only infra's 21:13Z idle-GPU alert, about node 1 (vy-nebius-1 GPU 5), not mine; main cd965cf51 unchanged; node-2 /workspace last 62% (hold); panel art:d2b2eb906612; off node 2

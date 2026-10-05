@@ -698,3 +698,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T09:21Z: poll: 0f8d (aa64) past agreement; f5f5 (640e) running. main 5fc53b0c1.
 - 2026-10-05T09:39Z: top/ci: no new nebius checks; a slot free at 11:30Z for the move's pytest shard. aa64 first: land it, 640e continues. 640e first: land it, cancel aa64. Stop leftovers at 11:25Z.
 - 2026-10-05T09:41Z: poll: 0f8d past lean-suites; f5f5 past agreement. main 5fc53b0c1.
+- 2026-10-05T09:48Z: top's call: check 2031cc955 (640e + #1167) on node1 right after 640e lands, if #1167 is ready by ~10:15Z, with agreement. Node 2 stays free for the shard. Hard stop 11:25Z; otherwise #1167 is folded into the move.
+- 2026-10-05T09:50Z: top revised: start 2031cc955 on node2 when aa64 (0f8d) finishes (~09:55Z), if #1167 is ready, with agreement; it lands after 640e. Node 1 kept free for the shard from ~10:10Z. Hard stop 11:25Z.

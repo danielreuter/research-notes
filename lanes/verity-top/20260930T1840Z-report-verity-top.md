@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:00Z) [open] 17:00Z train freeze for Lean move #1225 (landing ~18:00-18:30Z); commit-overhead result sent to Daniel (#1226)
 CHECKPOINT none (16:45Z) [open] 16:45Z main 378453fb3; 034661db2 lands on check 6572 pass; Lean move draft #1225 (on #1217), freeze 17:00Z, after-land steps by hand; #1211 after move
 CHECKPOINT none (16:30Z) [open] 16:30Z main 378453fb3; Lean move pods up (vy-mig-check-8..12); infra #1212-1214/#1136 ready; pre-move line c31690225 awaits a slot
 CHECKPOINT none (16:19Z) [open] 16:19Z main 378453fb3; Lean move target ~18:00Z, train hold from 17:00Z; f4b2f19e3 (+#1165 #1154 #1215) offered pre-move; #1167 close held for Daniel

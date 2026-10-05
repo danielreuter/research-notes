@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (16:19Z) [open] #1179 check failed on the 48 KB doc cap (17 bytes over), fixed at ca8e3a26c; restacks onto the Lean move for its check and a new grant. flock-security-defs to stack on cursor/lean-layout-move-c3b2 when it returns.
 CHECKPOINT e259af141 (16:07Z) [open] Lean layout move (bc-7fd918d5) lands ~11 AM PDT and does the ArkLib cuts and FlockVerify; red-team-lean-move (bc-69d92627) pre-reviewing; flock-security-defs to be redirected to GK/Game after the move.
 CHECKPOINT e259af141 (16:02Z) [open] Lean layout ruled (8:53 AM PDT). proofs step 1: flock-security-defs (bc-e3b551b5: ArkLib cuts, GK closure, Game onto core's; draft ~8 PM PDT) and lean-drives-1 (bc-ef589682: phase 1 plan ~1 PM PDT). Main->FlockVerify after #1179/#1170 land.
 CHECKPOINT e259af141 (15:09Z) [open] 15:00Z wake: #1179 check 7bf8 waits for a node-1 slot (3 ahead); canonical V1 active (737691d43); rec-step2 and zk-cpu-steps running; node 1 72%, GPUs idle.

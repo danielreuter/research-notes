@@ -766,3 +766,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T21:36Z: passed the steward's 'GPU at 0%' provers-lease lead (20:32Z, 21:13Z inside 5e7a's checks) and node 1 facts to circuits for the test_tp_gpu_lease isolation question.
 - 2026-10-05T21:38Z: circuits: test_tp_gpu_lease is a race in the test's own tmp_path legs (fix #1240), not isolation; no vllm test reaches the real gpu-lease or /run/gpu-lease. 5e7a lands on a passing rerun (9a69), else with #1240. Idle provers leases are a steward/infra question.
 - 2026-10-05T21:41Z: poll: 9a69 (5e7a rerun) and 4b17 (7d59) past lean-suites. main cd965cf51.
+- 2026-10-05T22:03Z: 4b17 (7d59) PASSED; held: #884@cc3aadc6c no ready. 9a69 (5e7a rerun) running. main cd965cf51.

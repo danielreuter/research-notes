@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (03:31Z) [open] 03:30Z: main 97d06c4d5; b0b2, 32d9, 4543 checking; 858d (#1169) waits on tier ~04:00Z; #1012 ready ~03:35Z+; Daniel weighing ZK recursion with proofs
 CHECKPOINT none (03:15Z) [open] 03:15Z: main 97d06c4d5; b0b2 (labelled-only) + Lean tip 32d9 checking; #1169 restacking; move not blocked on proofs (architecture)
 CHECKPOINT none (03:00Z) [open] 03:00Z: main 97d06c4d5; Lean tip 32d9 + 4543 (#1174) checking; #1184 pod-setup fix needed before move; layout branch 65 commits, merging main next
 CHECKPOINT none (02:45Z) [open] 02:45Z: main 97d06c4d5; Lean tip 32d9 checking node 2 (FlockProofs exemption), waits on readies; 54ae, d4ab, 67e9 queued; #1012 ready ~03:15Z

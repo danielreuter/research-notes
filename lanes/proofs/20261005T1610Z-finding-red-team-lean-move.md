@@ -148,3 +148,132 @@ Two tests also break, and `check` will catch them (F1, F2). Neither ArkLib cut i
     agree, 0 disagree, Lean accepts 12: sets 8:4, 10:3, 11:1, 12:1, 15:3). `agreement_cmp.py` checks this.
 - #1193's module-root guard, now on this branch: `test_lean_module_roots_are_disjoint` passes on `b37b16723`'s packages
   (14 claims, no clash; `security` and `security_proofs` share `verity/Security` with different first components).
+
+## Rerun at `77b8d66bc` (19:35Z): REFUSE
+
+**Verdict: REFUSE for PR #1225 at `77b8d66bc7e8ded3481bd2513afe005d395935ae`.** B1, B2, F1 and F2 are fixed, the two
+ArkLib cuts are in and declaration-identical, the verifier's and grader's lock updates are moves, and 815ac27cd's replay
+change is sound. Two new findings block. B3: Security's reads check can't see the verifier's code, and 77b8d66bc drops
+the `Flock` exemption because of that, not because nothing reads it. B4: Security's lock at this head doesn't match its
+build, and the update that will replace it has 46 hash changes, of which only two are explained.
+
+- Evidence: `art:4019f782c3b688f314c399e28d7e8c3d0bf44932152f2d0126a4afaf21776142` (`tools/`, the rerun's outputs in
+  `out-77b8d66bc7e8/`, and in `pod-runs/` the stdout of vy-mig-check-8's audits r20261005-174419-76c1 at `64dc27dfa`,
+  r20261005-180406-63e4 at `1b6514c81` with its `review.txt` and rewritten Security lock, and r20261005-185517-6282 at this
+  head, which is still running).
+- To rerun: `bash rerun.sh HEAD`, then `python3 reads_home.py /tmp/rt-lean-head` (B3), then
+  `python3 pending.py /tmp/rt-lean-base /tmp/rt-lean-head REWRITTEN_LOCK` (B4). REWRITTEN_LOCK is the lock the Security
+  audit wrote under `lean-audit/audit-verity_Security/`.
+
+### Blocking
+
+3. **B3: Security's reads check doesn't see the verifier's code, so it fails open.**
+   - `spec_reads` skips any module that isn't in `home` and treats it as a pinned dependency's (`audit.py:708`).
+   - Security's `home` (`audit()`, lines 1202 to 1205) holds Security's own modules and its prover's (`Proofs.*`) modules.
+     Security requires nothing by path, and the loop over provers adds only `lean_modules(q)`, not the prover's path
+     dependencies. So `Flock.*` isn't in it.
+   - At base, soundness and level3 required `flock_verifier` by path, so `Flock.*` was in their `home` and their
+     `reads_exempt: Flock` ("C-Flock is excepted until proofs extracts its spec", Daniel, 4 Oct 1:30 PM PDT) was used.
+   - At `1b6514c81`, Security's audit failed with "``reads_exempt`` lists Flock, under which no guarantee reads outside the
+     spec; remove the entry" (180406-63e4, line 724). 77b8d66bc removed the entry.
+   - Its commit message ("no guarantee under Security reads [Flock] now") is wrong. Security's lock records 43 `Flock.*`
+     read modules: 376 guarantees read `Flock.Bytes`, 446 read `Flock.Field`. Their contents are still pinned (`Flock` is
+     under `meaning`), but the spec rule no longer applies to them.
+   - `reads_home.py` runs the tree's own `home` code with a fake guarantee that reads `Flock.Bytes` and no exemption. The
+     check passes it.
+   - Fix:
+     - In `audit()`, replace the prover loop's body with
+       `for m, spec in (homes(q, {}) if q.is_dir() else {}).items(): home.setdefault(m, spec)`. The prover's own modules
+       keep `[]`, and its path dependencies get their specs. The verifier has no `layers`, so its spec is `[]`.
+     - Revert 77b8d66bc.
+     - Add a test in `tools/lean/tests/test_audit.py`: a `proved_in` package's guarantee that reads a module of its prover's
+       path dependency outside that dependency's spec fails, unless an exemption covers it.
+   - Simulated on the head's recorded reads: with the fix and no entry, all 43 `Flock.*` read modules fail the spec rule;
+     with the entry restored, they pass and the entry counts as used. `reads_home.py` passes on a patched copy.
+   - 77b8d66bc is also an instance of B2's residual: it changes how C-Flock's guarantees are checked, in
+     `verity/Security/lean-audit.json`, and no red-team grant was needed.
+
+4. **B4: Security's lock at this head doesn't match its build, and the replacement isn't shown to be a move.**
+   - At `1b6514c81`, 180406-63e4 rewrote Security's lock. 77b8d66bc carries only the one-line exemption drop. So
+     Security's audit fails on this head, which fails closed. 185517-6282 is `--update` on this head and will rewrite it
+     again, which forces a new head.
+   - What the update changes, compared with every base lock (`pending.py`):
+     - **7 guarantees' `type_hash`:**
+       - The 7 are `FlockLevel3.pinned_indep`, `FlockLevel3.unpack_add`, `Aliased.zeroPos_block`, `Layout.gateAt_one`,
+         `Layout.gateAt_zero`, `Zero.Prog.zeroCols_singleton` and `Zero.accepted_zero_block`. Each prints the same before
+         and after.
+       - For the first two, the move lead's probes (184418-9035 and 184438-c1fe) show the cause. The type names
+         `FlockLevel3.instFactPrimeOfNatNat_proofs`, which was `..._flockLevel3`: the anonymous
+         `instance : Fact (Nat.Prime 2)` in `Proofs/Flock/Level3/GF128Ring.lean`, which Lean names from the module root.
+         It is a proof, so the statement is the same, and that is a move.
+       - The other five aren't explained.
+     - **62 read definitions:**
+       - 23 take a hash that some base lock already recorded. Base locks disagreed on these (`Flock.F128`, for example),
+         and they include the 17 PoUS reads (`Pous.Digest.*`, `Pous.Erase*`, `Pous.Guarantees.SecureErasure*`) that the
+         merged lock had dropped.
+       - **39 match no base record**, although none of their source files changed beyond imports (`leandiff`).
+       - `tools/move/lean_moves.json` is empty (the move renamed no declaration), so `--moved` maps nothing. Every one of
+         these is Lean producing a different term.
+       - The likely cause is a generated proof name derived from the module, like that `Fact` instance. That can't
+         explain `Proofs.Flock.Soundness.Defs`'s `Model.Arith.Correct` and `RepDoomedW`: they are generic over
+         `[Field F]`, and that file's imports went from ArkLib to Mathlib in the cut. So a different instance path is
+         possible there.
+       - `Specs.Pous.Guarantees`' four `Band*Meets14*` can't use the `Fact` instance either.
+       - `review.txt` names these definitions without their texts, so a reviewer can't tell.
+     - Also in the update: the `Proofs.Flock.Soundness.Refine.Walk` compile-time digest (C1), and the proofs package's
+       Mathlib and ArkLib dependency digests.
+   - What clears it on the next head:
+     - A canon or raw-type diff, before and after, of the 7 guarantees and the 39 definitions, as 184418-9035 did for two.
+       Each difference has to be a generated proof name or an instance path between definitionally equal instances.
+     - A named statement reviewer.
+     - Better still, `--update` printing each changed definition's text before and after, which makes the probe
+       unnecessary.
+
+### Open (blocks a grant; not a finding)
+
+- **lean-agreement.** No `check` has run on this head; 185517-6282 is `audit.py --update`, still building `Proofs`. The
+  PR touches `backends/flock/`, so the landing `check` needs lean-agreement. Run `agreement_cmp.py` on its log against
+  r20261005-081515-2188.
+
+### Passed at `77b8d66bc`
+
+- **B1.** The proofs lock scans `Arklib`, with 16 watch entries, and `64dc27dfa` tests that every upstream-watching lock
+  scans a package.
+- **B2.** The grant covers `verity/Security/Proofs/Flock/` and `Flock.lean`, with a test; 0 of 605 Flock files are
+  uncovered.
+- **F1, F2.** `AUDIT` is `Proofs/Flock/Soundness/Audit`, and the import regex matches. The tests build only `Flock` in the
+  verifier.
+- **The cuts.**
+  - `Proofs.Flock.Soundness.Defs` imports no ArkLib (it imports `Polynomial.Degree.Defs`, `Polynomial.Eval.Defs` and
+    `CharP.Defs`), and its 30 declarations have the same text.
+  - Base `Inner.lean`'s 42 declarations are now 20 in `ZkSession/Inner.lean` (no ArkLib) and 22 in `InnerSound.lean`
+    (BCIKS20, VCVio), all with the same text.
+  - The three files newly in `leandiff` are these two and `Replay.lean`.
+  - The committed records keep all 1754 guarantees the same. The build's differences are B4.
+- **The verifier's and grader's printouts** (174419-76c1, committed in `1b6514c81`).
+  - The verifier's 7 code guarantees have identical records: signature, assumptions, `type_hash` and owner `@proofs`.
+  - Its 26 "gone" lines are module groups shrinking. All 135 definitions the verifier's lock no longer lists are in
+    Security's lock with the same hash, under one of the 18 guarantees that moved (with the module renamed, `FlockProofs`
+    to `Proofs.Flock.Verifier`).
+  - The `Flock` sources are byte-identical.
+  - The grader has 0 guarantees and passes.
+- **815ac27cd (`Replay.lean`): sound.**
+  - **What passes.** A replayed constant that an outside import also declares is dropped only when both are theorems with
+    `a.type == b.type` and `a.levelParams == b.levelParams`. Every other kind pair (definition, opaque, axiom, inductive,
+    constructor, recursor, or a mix) is still refused.
+  - **How "one statement" is compared.** `Expr ==` is `Expr.eqv`: alpha-equivalence over the full type, universe levels
+    included, ignoring only binder annotations, which the kernel ignores too. Universe parameters are compared as the
+    list of names, in order.
+  - **Whether the import's version was checked.** This replay doesn't check it: `importModules` adds it unchecked, as it
+    adds every constant from outside the set. It was kernel-checked when its module was built, and the verifier's own
+    replay checks it if it is the verifier's (that passed in 185517-6282).
+  - **Why swapping the body changes nothing.** The v4.34.0 kernel refuses a theorem whose type isn't a `Prop`
+    (`thmTypeIsNotProp`). So both versions prove the same proposition, and proof irrelevance means no dependent's
+    judgment depends on which body stands.
+  - **An axiom behind the import's version.** The axiom walk goes through the import's body whenever a replayed constant
+    names it. Any difference from the `.olean`-recorded axioms fails the audit, in either direction, and the axiom check
+    refuses a disallowed one.
+  - Non-blocking suggestions:
+    - Limit the exception to equation-lemma names (`.eq_<n>`, `.eq_def`), or refuse it when the shared name is pinned.
+    - List the names the import stood for in `replay.json`.
+    - Add audit controls for "same name, different statement" and "a definition shared with an import".

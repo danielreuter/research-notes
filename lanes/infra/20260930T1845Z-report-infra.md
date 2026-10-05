@@ -232,3 +232,17 @@ Idle GPU-hours over the 24 h to 16:00Z, timed leases left out (compute accountin
 Node 1 14.1 idle of 104.7 held (Oct 3: 15.2 of 36.7); node 2 35.4 of 105.7, about 29 of 99 without timed windows (Oct 3: 44.0
 of 67.1). Gap: node 1's `gpu-lease` records `sampled_s` 0, so its lease-usage busy figures are unmeasured; DCGM is the source.
 
+
+## Daily top 3 GPU wasters, Oct 5 (posted 9:02 AM PDT, ts 1791216143.559069)
+
+Idle GPU-hours over the 24 h to 16:00Z (hourly records through 15:00Z), timed leases left out (compute accounting's two
+exhaustion reruns on node 2, 9.2). Lane totals from node 1's `held-idle-hourly.jsonl`; node 1 kinds from `lease-usage.jsonl`
+commands (Prometheus: 19 `gpu-pool` pods, 3.0 idle, halved); node 2 kinds from `lease-usage.jsonl`.
+
+1. **memory accounting** on node 2: 3.8 idle of 20.7; fill PoUS e2e series (`fill:bc-15ada664`, GPU 7) 3.0 of 21.6 (72 leases).
+2. **node 1's proofs lease pool**: 1.9 idle of 4.9: network accounting's `network_traces/active_live.sh` 1.3 h held, a
+   research `match_gpu_job` 1.1 h, flock's `85-rec-reprice` steps 0.5 h (node 1 leases record no busy time).
+3. **node 1's lease pool, unleased**: 0.8 idle of 0.9.
+
+Node 1 2.8 idle of 5.8 held (Oct 4: 14.1 of 104.7); node 2 12.9 of 29.9, 3.7 of 20.7 without timed windows (Oct 4: 35.4 of
+105.7). The waste is low because little was held: node 1 averaged 0.24 GPUs held, node 2 1.2.

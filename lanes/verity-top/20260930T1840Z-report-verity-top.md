@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:45Z) [open] main cd965cf51; tip 5e7a34bdd (22 non-Lean PRs) with lander; #1225 fixing refusal
 CHECKPOINT none (19:30Z) [open] #1225 refused again (fail-open Flock reads, Security lock); freeze released, 59738cf7d landing
 CHECKPOINT none (19:15Z) [open] freeze to ~20:30Z for #1225 landing check; 2 of 5 check pods up (RunPod CPU stock out)
 CHECKPOINT none (19:00Z) [open] 19:00Z: #1225 audit fix pending; architecture deciding on releasing 59738cf7d

@@ -31,7 +31,10 @@ session 0.876 s. r20261005-081442-dc2b (K = 14,336): `--zk` 4.06 s (ZKRANK 0.69 
 
 ## Runs
 
-- r20261005-153137-feee: STEP=build at f6997de29 (before), CPU.
+- r20261005-153137-feee: STEP=build at f6997de29 (before, key 5c9218d04c285b4c), CPU, done. Staged K = 4096 (shape 430e5aad,
+  M0 statement digest 2602e07c…, the baseline's) and K = 14,336 (shape bac929c3) at N = 2048 and 512; Lean flock-verify
+  built (sources 463f4dea3955a270).
+- r20261005-155357-a60a: STEP=build at ee2638800 (after, key dfae70f600a9cf7b), CPU.
 
 ## Results
 

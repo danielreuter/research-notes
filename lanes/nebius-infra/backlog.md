@@ -59,6 +59,12 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 09:00Z Oct 5 (2:00 AM PDT), steward pass
+
+- Unchanged. Node 1 (watch, no flags): 70.6% (1,476 GiB free), `research/src` 75 trees, 0 of 8 GPUs and nothing in Kueue
+  (idle, reported); the pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue. No replies.
+- The 08:27Z Grafana "pod holds a GPU at 0%" alert (the brief `provers` lease) is moot: no GPU is held now.
+
 ## State at 08:30Z Oct 5 (1:30 AM PDT), steward pass
 
 - Unchanged. Node 1 (watch, no flags): 70.5% (1,478 GiB free), `research/src` 71 trees, `provers` 1 admitted and 0 GPUs

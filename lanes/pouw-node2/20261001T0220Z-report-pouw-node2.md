@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (07:40Z) [open] A 07:40Z poll: nothing addressed to pouw-node2; node2-ops 07:20Z: 06Z GPU busy 10.9% (nothing submitted), one runner, /workspace 60% (2.05 TB free, about 1 point every few hours; over the 52% hold, flagged), no windows ahead; main 03ab7e5a5 unchanged; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (07:20Z) [open] A 07:20Z poll: nothing new in the lanes since 07:00Z (node2-ops' 06Z hourly not in yet); main 03ab7e5a5 (no pouw change); /workspace last 59% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (07:00Z) [open] A 07:00Z poll: nothing new in the lanes since 06:40Z; main a592a5567 (no pouw change); /workspace last 59% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (06:40Z) [open] A 06:40Z poll: nothing addressed to pouw-node2; node2-ops 06:40Z: node 2 OOM kill at 06:22Z was circuits' GLM-4.7 wiring run at its own 400G cap (circuits' to handle; other jobs unaffected); main 43bef6294 unchanged; /workspace last 59% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2

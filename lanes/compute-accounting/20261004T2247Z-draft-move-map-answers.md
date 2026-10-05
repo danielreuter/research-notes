@@ -63,8 +63,8 @@ paths in this note name the grouping and the sub-package. Their import names are
 | `verity/…/pouw/…` (§C 12, ncp2, the registry) | unchanged | follows the directories (Daniel's 3:50 PM ruling) |
 
 - **`benchmarks.pouw` is imported today:** research's `tools_registry.py` names `benchmarks.pouw.tool:POUW_{GEMM,ROUTE_U,VLLM,E2E}`,
-  so the move rewrites those four to `verity_pouw_benchmarks.tool:…`. The same goes for any `-m benchmarks.pouw…` line
-  in run scripts and `deploy.toml`. `ncp-v1` and `-h2` (top's call) go to `verity_pouw_benchmarks` with their replay.
+  so the move rewrites those four to `verity_pouw_benchmarks.tool:…`. Nothing else on main (`5049de02f`) imports
+  `benchmarks.pouw` (`git grep`). `ncp-v1` and `-h2` (top's call) go to `verity_pouw_benchmarks` with their replay.
 
 **Sources.**
 

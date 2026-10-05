@@ -713,3 +713,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T13:07Z: ci tip 53157fe0b (5923 + #1210, the #1012 re-land) node1 r20261005-130550-212a; waits on #1210's ready. Land with --push after 5923.
 - 2026-10-05T13:10Z: ci tip 7e01a1318 (5315 + #1191) node2 r20261005-130921-b27c; waits on circuits' vllm-coordinator grant and ready at pr:1191@20ff02d4f.
 - 2026-10-05T13:21Z: poll: 64f1, 212a, b27c running. main 378453fb3.
+- 2026-10-05T13:30Z: ci tip a5ec9b24b (7e01 + #1136) node1; waits on #1136 ready, #1191 ready + vllm grant.

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (13:02Z) [open] 13:00Z: move on main 378453fb3; restacks under way, first post-move train 5923c2263 checking; landing pods terminated
 CHECKPOINT none (12:46Z) [open] 12:46Z: layout move #1206 landed as main 378453fb3 (12:35Z); restacks next, then trains resume
 CHECKPOINT none (12:45Z) [open] 12:45Z: #1206 has both grants and all 5 shards; architecture combining and merging
 CHECKPOINT none (12:30Z) [open] 12:30Z: architecture landing #1206 after move lead died; waits on shards 4/5 and circuits' vllm grant; merge 14:00Z

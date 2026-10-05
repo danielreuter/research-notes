@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:15Z) [open] main frozen 2296bb64a; #1225 regenerated f599b5f5b, full check next, landing ~19:00Z
 CHECKPOINT none (18:00Z) [open] main frozen 2296bb64a; #1225 red-team fixes in progress; post-move tip lined up
 CHECKPOINT none (17:45Z) [open] main frozen 2296bb64a for Lean move #1225; red-team fixes in progress
 CHECKPOINT none (17:30Z) [open] 17:30Z main 2296bb64a frozen; #1225 refused by red-team (2 vacuous gates), fixes in progress; #1228 queued post-move

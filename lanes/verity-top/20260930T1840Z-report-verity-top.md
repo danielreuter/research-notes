@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:15Z) [open] 01:15Z: d563 checking node 2; queue 4bb6, 5a91, d4ab; #1150 fixed at 99f22f0, awaiting re-grant + tier; #1169 lands before #1167 rerun
 CHECKPOINT none (01:00Z) [open] 01:00Z: d563 checking node 2, 4bb6 next on node 1; #1174 shim up; sampling split cd8c chosen; flock artifacts.json input flagged to proofs
 CHECKPOINT none (00:46Z) [open] 00:46Z: d563 checking node 2 (e359); e414/f1dc/2411/e1f0 cancelled on #1148/#1150 undeclared test inputs, lean fixing; move-map import names in from all areas
 CHECKPOINT none (00:30Z) [open] e414/2411/f1dc checking; all lock reductions drafted (#1142 #1149 #1156 #1169 #1170); Lean half #1167 up; ZK threat-model and P2 picks with Daniel

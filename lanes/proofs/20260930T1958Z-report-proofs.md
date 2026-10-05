@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 97d06c4d5 (06:33Z) [open] #1176: red-team-1176 resumed on fixed head 545c5ba4f for the grant by 07:30Z (ci holds ee6dd1835; cutoff 08:00Z); canonical public-input sessions and rec-reprice running
 CHECKPOINT 97d06c4d5 (06:25Z) [open] canonical V1 done (#1192, draft on #1179); job (1) canonical public-input sessions launched (cursor/canon-pubin-95d4); fail-closed, flock-spec, rec-reprice running
 CHECKPOINT none (06:15Z) [open] 06:20Z: top gave the go on the recursion re-price (node 1 GPUs); rec-reprice (bc-2a00fbff) launched, K=4096 first, due ~13:00Z. fail-closed, canonical V1, flock-spec resumed.
 CHECKPOINT none (06:11Z) [open] 06:15Z: fail-closed, canonical V1 and flock-spec found dead since the 02:26Z VM suspend; resumed. #1169 ready, in ci's hands for 08:00Z. #1176 SHIP-WITH-FIXES with circuits. Asked top for the recursion re-price go (node 1 GPUs idle).

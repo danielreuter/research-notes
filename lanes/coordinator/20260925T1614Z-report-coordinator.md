@@ -707,3 +707,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T10:21Z: poll: f5f5 (640e) past pytest. main b3fbce247. Cutoff 11:00Z.
 - 2026-10-05T10:43Z: merged 640eebb5a (#1196) → main b9ac23dfc via --push. Last pre-move train. HOLDING all trains until the move is on main.
 - 2026-10-05T12:41Z: the move has landed: main 378453fb3 'Layout move (#1206)'. Trains resume when ci hands over post-move tips.
+- 2026-10-05T12:55Z: #1206 catch-up. lean-audit.json: 5 pure renames (R100), no guarantee change; spec_alert would misreport 916 'new' (no rename following), so no DM sent. Node 1 bare main → 378453fb3 via a592's --mirror (local catalog refresh needed). post_train for 378453fb3 queued behind the b9ac job (tmux post-train-3784). FOUND: Merge #1142 (25157eb17) reverted #1012's 4 files; told ci.
+- 2026-10-05T13:00Z: PR-presence audit (tools/pr_lines.py + who_removed.py) over every 'Merge #N' in 839ba800a..b9ac23dfc vs 378453fb3 (renames applied): only #1012 is missing. Other low scores are later intentional edits (#1093, #1126, #1135, #1171, #1173, #1176, and #1169 emptying core's lock over #1150) or lines that are present. #1012 re-land asked of ci; land with --push.
+- 2026-10-05T12:55Z: post-move train 5923c2263 (#1193 #1197 #1204) node1 r20261005-125351-64f1; merge waits on readies. Asked ci for #1012's re-land next.

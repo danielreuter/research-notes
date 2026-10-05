@@ -702,3 +702,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T09:50Z: top revised: start 2031cc955 on node2 when aa64 (0f8d) finishes (~09:55Z), if #1167 is ready, with agreement; it lands after 640e. Node 1 kept free for the shard from ~10:10Z. Hard stop 11:25Z.
 - 2026-10-05T09:59Z: merged aa6481b0c (6 PRs) → main b3fbce247 via --push; spec DM sent. 640e running on node1. #1167 tier 3399 queued behind compute-accounting on -2 slot d; 2031 goes to node1 slot b once #1167 is ready.
 - 2026-10-05T10:01Z: 2031cc955 node1 r20261005-095914-751b --agreement, started ahead of #1167's ready to make 11:25Z; merge waits on the ready + 640e.
+- 2026-10-05T10:03Z: cutoff moved to 11:00Z (top). 640e should fit. 2031 lands only if it passes and #1167 is ready before 11:00Z, else stop it (timer premove-cutoff-1100). Hold trains after 11:00Z until the move is on main.
+- 2026-10-05T10:06Z: top took out #1167 (Lake split, waits on Daniel's layout ruling). Cancelled 751b (2031). Last pre-move train is 640e; hold after it.

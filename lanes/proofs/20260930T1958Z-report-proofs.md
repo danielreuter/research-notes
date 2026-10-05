@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (23:17Z) [open] finished-state lanes launched (flock-specs, flock-e2e, one-stage-layout, consolidation) + recursive ZK prototype lanes (rec-thm, zk-gateway); rec-step2 running
 CHECKPOINT e259af141 (22:55Z) [open] red-team GRANT on the Lean move b87eeef64 (pr:1225@b87eeef64), posted to top
 CHECKPOINT e259af141 (22:38Z) [open] freeze for the Lean move; red-team-lean-move rerunning on b87eeef64 for the landing's grant
 CHECKPOINT e259af141 (21:55Z) [open] flock-security-defs items 2-4 opened as draft #1241 (stacked on the move; restack after B4, then a statement reviewer)

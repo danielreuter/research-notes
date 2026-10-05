@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:46Z) [open] 00:46Z: d563 checking node 2 (e359); e414/f1dc/2411/e1f0 cancelled on #1148/#1150 undeclared test inputs, lean fixing; move-map import names in from all areas
 CHECKPOINT none (00:30Z) [open] e414/2411/f1dc checking; all lock reductions drafted (#1142 #1149 #1156 #1169 #1170); Lean half #1167 up; ZK threat-model and P2 picks with Daniel
 CHECKPOINT none (00:15Z) [open] main b529216bb; e414, 2411, f1dc checking; d769 next; #1164 stale-head gate drafted
 CHECKPOINT none (00:00Z) [open] f2a0 then e414 landing next; then f1dc or 2411; #1126 fix awaiting ready; P2 pick and pod budget sent to Daniel

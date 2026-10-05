@@ -732,3 +732,7 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T16:08Z: notes commit 739e81069 (Daniel's Lean layout ruling) is not on the notes remote; asked top for a bundle via the evidence store (or a re-created note), to push from the control pod.
 - 2026-10-05T16:08Z: asked lean whether #1167 is superseded by the Lean layout move; close it if so.
 - 2026-10-05T16:13Z: ci tip 59738cf7d (0346 + #1165 #1154, PoUW Lean; FP8 clear) node1 r20261005-161115-4e56 --agreement; lands after 0346 if it passes before the Lean move's check starts.
+- 2026-10-05T16:20Z: posted the friction-pass fixes (ci: prepare-time gate refusal, #1194/#1214 into tips, after-landing steps follow main; lean: two skill lines). Asked lean/network-accounting about the warden reads_exempt (847c9b738) loss. #1155 to ci. #1167 not to be closed without Daniel.
+- 2026-10-05T16:18Z: kept 4e56 (5973) rather than swapping to f4b2 (+#1215); #1215 lands after the Lean move unchanged.
+- 2026-10-05T16:35Z: reran the silent-loss audit with #1214's reverted() (head 656815f24) over the 8 landings 839ba800a..b9ac23dfc vs 378453fb3: 5 landings flagged, ~30 files. Triaged by presence on main: everything is rewritten or reformatted on purpose (flock lean-audit pins→guarantees, #1126 targets units, #1176 cache, #1108 plan doc, #1004 nebius test) except #1012 and the warden reads_exempt (lean/network-accounting to confirm). Scripts in tools/audit1214*.py.
+- 2026-10-05T16:41Z: poll: 6572 (0346) past lean-suites; 38ac, 4e56 running. main 378453fb3.

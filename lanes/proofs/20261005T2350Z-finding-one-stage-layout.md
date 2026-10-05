@@ -22,7 +22,7 @@ all of its negatives, and the Lean verifier refuses the tampered session by name
 
 ## Runs
 
-All four are recorded `research run`s on a local 4-core VM, CPU only, from 4:25 to 4:47 PM PDT.
+All five are recorded `research run`s on a local 4-core VM, CPU only, from 4:25 to 4:55 PM PDT.
 
 Inputs:
 * `m0.tar`: a `git archive` of `b87eeef64` (sha256 `7769f782…`). M0 runs from this pinned tree, not from the checkout.
@@ -35,6 +35,9 @@ Inputs:
 | `r20261005-233748-4bcf` (`art:11f462bd9d9953bd282869d004b6ab044d576d74e4e5471408940c3c77c5354c`) | `d3fdebd3f` | A0 `K=16` | accepted, complete | 20/20 refused | `lincheck: ConsistencyFailed (sumcheck-final)` |
 | `r20261005-234154-ec01` (`art:4146714d0c3e8a341da654b82385ae65a04640edba18994031cdc1ec9d5b0c23`) | `5b96da663` | A0 `BIND=1 K=16` | accepted, complete | 21/21 refused | `lincheck: ConsistencyFailed (sumcheck-final)` |
 | `r20261005-234645-14d7` (`art:50d87b82b8bbd0e2ca781dd13125752ddcdeff9fc532d9d4deafd921e0c0cbac`) | `5b96da663` | A3, RoPE layer 0 (64), `K=16 --draw-file` | accepted, complete | 10/10 refused | n/a |
+| **`r20261005-235122-722b`** (`art:2873b503b78a9d4212938423cb3951f1a65dc1a52465fab926233d9d05552724`) | `5b96da663`, clean | A0 `BIND=1 K=16` | accepted, complete | 21/21 refused | `lincheck: ConsistencyFailed (sumcheck-final)` |
+
+`722b` is the run of record for the branch head: its source is recorded clean.
 
 What every A0 run does:
 * It builds both binaries from the pinned trees: `flock-circuit` with M0's own `60-circuit.sh MODE=build GPU=0`, and
@@ -68,7 +71,7 @@ On every tampered session, M0's live verifier and its prover refuse with `Linche
      Lean. Lean refused at setup, and the negative still counted as refused, because its test asks only that Lean not
      accept.
    * The last pre-move A0 has the same refusal (`r20260927-110313-402a`, `art:c49fd9db`).
-   * `hold_bound` writes both files beside either stage, and `ec01` shows the proof refused by name.
+   * `hold_bound` writes both files beside either stage, and `ec01` and `722b` show the proof refused by name.
    * Not changed, recommended: `wrong-output-word` should require Lean's refusal not to be a `setup:` one, so a missing
      input can't pass for a refused proof.
 
@@ -91,3 +94,12 @@ On every tampered session, M0's live verifier and its prover refuse with `Linche
   * A recorded run is marked `dirty: true`. That happened for `4bcf` and `ec01`, whose tree hashes still equal their
     commits'. Excluding the build dirs in `.git/info/exclude` keeps later records clean.
 * This affects only an agent VM: on a pod, `/workspace` is not the checkout.
+* This VM's `/workspace` is one checkout shared by several proofs workers: flock-e2e, one-stage-layout, zk-gateway and
+  rec-thm. At 23:17:16Z, five seconds after this lane created its branch, a sibling checked out `cursor/rec-thm-95d4`.
+  * Both of this lane's commits (`d3fdebd3f`, `5b96da663`) were therefore made on the local `cursor/rec-thm-95d4`. Its
+    first push sent `cursor/one-stage-layout-95d4` still at `b87eeef64`.
+  * Fixed without a checkout: the branch ref was fast-forwarded to `5b96da663` and pushed.
+  * The local `cursor/rec-thm-95d4` (not on origin) still carries the two commits. Its owner should drop them.
+  * A sibling's commit `9ddab1aa8` ("Flock.Guarantees.EndToEnd") was made on the same branch at 23:33Z and reset away at
+    23:36Z.
+  * Workers on one VM need a worktree each.

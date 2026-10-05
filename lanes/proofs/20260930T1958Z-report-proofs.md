@@ -5,6 +5,8 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (15:05Z) [open] Daniel 7:51 AM PDT: recursion stands at 6.7x, rollout past step 1. Resumed rec-reprice (bc-2a00fbff) for step 2 (sound V*, #1081 restack); launched zk-cpu-steps (bc-b63aca89: mask-rank + level-0 draw, byte-identical). #1179 check r20261005-144706-7bf8 running.
+CHECKPOINT e259af141 (14:56Z) [open] #1179 at fe0b6f9d9 (36 guarantee owners); red-team grant carried; check r20261005-144706-7bf8 queued on node 1. #864 grant posted (ci: not needed). #1170 body set: 874 to 41, merge fe0b6f9d9 before ready.
 CHECKPOINT e259af141 (14:32Z) [open] #1179 red-team GRANT at d7a0aca74 (note:proofs/20261005T1330Z-finding-red-team-1179), label posted. #1215 GRANT. #1179's check still waiting for a node 1 slot; #1192/#1170 workers running.
 CHECKPOINT e259af141 (13:18Z) [open] Move on main (378453fb3). #1179 restacked to d7a0aca74 (diff unchanged, 59 files), check r20261005-130833-6d5b queued on node 1; red-team-1179 reviewing. #1192 and #1170 taking #1179's final head + move (workers). Deferred 8 wait for C-Flock's split.
 CHECKPOINT e259af141 (11:35Z) [open] 11:34Z red-team GRANT on pr:1206@62cf02978 (move fixed head; identity 0 diffs, pod imports 0 failures, nothing dropped; note:proofs/20261005T1059Z-finding-red-team-move). Landing check shards 3-5 running; post-move queue starts with #1179 restack after 14:00Z.

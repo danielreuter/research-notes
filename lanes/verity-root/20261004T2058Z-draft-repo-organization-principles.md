@@ -50,6 +50,11 @@ Locked:
    bug there can only make a run fail; it can't make a false claim pass.
 3. Lean and everything else meet only through canonical bytes, with one Lean reader and vectors pinning the format.
 4. The whole run's composition is in Lean, with end-to-end soundness and zero-knowledge theorems.
+   This also settles the zero-knowledge threat from untrusted kernels (captain, 06:12Z). The inner C-Flock session runs
+   on the developer's rack with zero knowledge off, a proxy salts and hashes every outgoing message, and the outer
+   session proves V* with zero knowledge on and live coins. So a malicious kernel can't leak the witness, as long as the
+   egress premise holds: the rack meets the auditor only through the developer's program, which the warden checks.
+   The zero-knowledge theorem takes that premise as a named assumption; kernels need no trust.
 5. Security proofs live apart from specs and judges.
 6. Untrusted code sits inside the component it serves, so there is no top-level `kernels/` or `provers/`.
 7. The Python package is `verity/`, and keeps tonight's import names.

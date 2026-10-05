@@ -740,3 +740,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T16:28Z: not starting c31690225 (+#1215 #1155). It can't pass before the Lean move's check starts (~17:00Z), and the move makes it stale; rebuild after the move.
 - 2026-10-05T16:35Z: asked top to land the Lean move with --push, or tell me so I run the steps by hand (rename-aware spec compare; spec_alert misreports renames until #1211).
 - 2026-10-05T16:38Z: chose 0346 (6572) over landing #1211 alone (they're siblings). The move's after-landing steps get done by hand, rename-aware.
+- 2026-10-05T16:41Z: poll: 6572 past lean-suites (pytest left); 38ac, 4e56 past agreement. main 378453fb3.

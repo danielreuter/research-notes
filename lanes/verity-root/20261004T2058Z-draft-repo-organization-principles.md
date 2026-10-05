@@ -78,8 +78,8 @@ Open, for the morning memo (about 12:00Z):
   captain's pick. So the target is `Security/Assumptions/` (with the model's definitions in it), `Security/Guarantees/`
   (the Glossary's existing term, so no rename) and `Security/Proofs/`. A cloud worker (bc-8a03b032) is inventorying every
   Lean module against it, including which programs use Mathlib today.
-  Co-change and Lake evidence (bc-e529d785, 06:06Z; scripts and results in the captain's store,
-  `internal/lean-layout-evidence/`): of 170 Lean-touching PRs, statements inline (A) keep 49% in one directory and a
+  Co-change and Lake evidence (bc-e529d785, 06:06Z; scripts, results and the layout-C pass in
+  `art:8e07b30b6b1dc2908d7553d86c7f028561a53fcb3e3f0d6b8684431d85d42ff4`): of 170 Lean-touching PRs, statements inline (A) keep 49% in one directory and a
   separate `lean/` tree with judge, specs and proofs as packages keeps 41%. Proofs inline, as today, keep 87%. Flock
   is 123 of the 164 Lean PRs; protocol specs move with their proofs in 28 of 29 PRs; Lean spans two areas in 3 of
   772. Lake works for every layout, but module names are global with no duplicate check (a namespace guard test is

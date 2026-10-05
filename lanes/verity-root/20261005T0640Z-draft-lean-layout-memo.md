@@ -110,4 +110,6 @@ soundness package has its own `Game` type, separate from core's (proofs moves it
 ## Pending
 
 - The Lean module inventory (bc-8a03b032): every module's place under C, and which programs use Mathlib today.
-- The co-change and Lake evidence's tree in the evidence store (its `art:` id goes here).
+Evidence: the co-change and Lake passes (scripts, results, toy lakefiles, the guard sketch) are
+`art:8e07b30b6b1dc2908d7553d86c7f028561a53fcb3e3f0d6b8684431d85d42ff4`; the run-model prototype log is
+`art:69981778cc169c07aa583138cff652aabbe175c6033f61c989e3990b01d1dd42`.

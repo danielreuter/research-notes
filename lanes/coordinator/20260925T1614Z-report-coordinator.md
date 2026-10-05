@@ -634,3 +634,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T00:25Z: f1dc HOLD (root): asked circuits for a hand ready at pr:1126@8216 (current one by merge-queue, the queue ready/judge default --by after the quick tier; gate accepts any ready=true) and for its answer on clearing the node caches.
 - 2026-10-05T00:26Z: f1dc hold cleared: circuits posted a hand ready at pr:1126@8216; no cache clearing (cache dir keyed by circuit_check's source digest, and cache.py changed 83c25→8216).
 - 2026-10-05T00:43Z: 32e7/6352 FAILED lean-suites (verity-lean-audit reads lake-manifest.json outside its inputs; from #1148/#1150). Cancelled 32e7, 6352, b966, e1f0. d5632b720 node2 r20261005-004200-e359 (no send). Asked ci for d563 + the rest minus #1148/#1150.
+- 2026-10-05T00:50Z: ci tip 4bb67870c (d563 + #1004 #1068 #1126@8216 #1161 #988 #1108; no #1148/#1150) node1 r20261005-004957-d832, no send.

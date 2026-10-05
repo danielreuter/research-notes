@@ -5,6 +5,8 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (09:28Z) [open] canon-pubin done: public_pinnedC proved, draft #1201 on #1192; work-law claim waits for #1179's post-move head; 2 workers live
+CHECKPOINT e259af141 (09:13Z) [open] rec-reprice done: outer 6.7x inner ZK-off at K=4096 (go bar <0.5x); posted to top 1791191548.548429; 3 workers live
 CHECKPOINT e259af141 (09:02Z) [open] 09:00Z: move regenerated onto 03ab7e5a5 with #1178; nothing owed by proofs; 4 workers live; move-commit red-team from 11:30Z
 CHECKPOINT 97d06c4d5 (08:31Z) [open] #1132 granted (key rename only); fail-closed doing form-last; canon-pubin, rec-reprice, flock-lean-split live
 CHECKPOINT 97d06c4d5 (08:01Z) [open] cutoff passed; proofs' grants all in; four workers live; move-commit red-team from 11:30Z

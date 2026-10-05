@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (09:02Z) [open] 09:00Z: move regenerated onto 03ab7e5a5 with #1178; nothing owed by proofs; 4 workers live; move-commit red-team from 11:30Z
 CHECKPOINT 97d06c4d5 (08:31Z) [open] #1132 granted (key rename only); fail-closed doing form-last; canon-pubin, rec-reprice, flock-lean-split live
 CHECKPOINT 97d06c4d5 (08:01Z) [open] cutoff passed; proofs' grants all in; four workers live; move-commit red-team from 11:30Z
 CHECKPOINT 97d06c4d5 (07:31Z) [open] #1171, #1176, #1178 granted; four workers live (canon-pubin, fail-closed, flock-lean-split, rec-reprice); move-commit red-team from 11:30Z

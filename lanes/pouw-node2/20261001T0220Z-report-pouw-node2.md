@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (10:40Z) [open] A 10:40Z poll: nothing new since 10:20Z; main b3fbce247 unchanged; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (10:20Z) [open] A 10:20Z poll: nothing addressed to pouw-node2; node2-ops 10:20Z: 09Z GPU busy 11.1% (nothing submitted), one runner, /workspace 60% (hold), no windows ahead; main b3fbce247 unchanged; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (10:00Z) [open] A 10:00Z poll: nothing addressed to pouw-node2; main b3fbce247 lands lean's Pearl-C rulings A-F (admission rules: finite widened BF16 words, per-row weightOK, floor/beta 0 where not finite), PeelExists/RowStats/TileCheckWords; audit record: no guarantee signature changed, 33 trusted definitions changed (lean's statement review), no gamma value change; panel's numbers and citations unaffected; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (09:40Z) [open] A 09:40Z poll: nothing new since 09:20Z; main 5fc53b0c1 unchanged; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2

@@ -629,3 +629,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-04T23:57Z: ci tip f1dcdcb31 (e414 + #1126@8216 + #1004 #1068) node1 r20261004-235519-6352 --agreement; merge waits on #1126 ready. 2c47 void.
 - 2026-10-04T23:59Z: ci tip 24115cc0f (e414 + #1004 #1068) node2 r20261004-235741-b966 --agreement. Skipping 93a1 (same tree as f1dc/6352).
 - 2026-10-05T00:02Z: merged f2a07e5ae (#1119 #1137 #1130) → main b529216bb. 32e7, b966, 6352 running.
+- 2026-10-05T00:05Z: ci tip d76901335 (f1dc + #1161 #988 #1108) node1 r20261005-000405-e1f0 --agreement. #1108 FP8 check clear (no -h2 or keyed rotation).

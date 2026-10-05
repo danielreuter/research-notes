@@ -59,6 +59,25 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 00:08Z Oct 5: node 1 at 77%, the pouw-hidden-zk replay is filling it
+
+- 77% (1,193 GiB free) at 00:06Z, down 41 GiB in 6 min.
+  - `research/cache/pouw-hidden-zk-replay2` went from about 1 to 80 GB since 23:06Z, from four new runs
+    (`r20261004-2304{45,55}`, `-2305{01,06}`, `cut_a_{head,form5,form6,first}-k14336`). `pouw-hidden-zk` is still
+    180 GB.
+  - A check copying `lean-records` into scratch adds about 7 GB.
+- Followed up in one line to @proofs and @infra (`1791158845.092659`): answer, or pause the replay. A one-shot
+  `node1-disk-78-soon` at about 00:12Z tells root at 78%. Nothing deleted.
+
+## State at 00:00Z Oct 5 (5:00 PM PDT Oct 4), steward pass
+
+- Node 1 (watch, disk-72, no nudge since src eviction is live): 75.4% (1,234 GiB free; 75.6% at 23:45Z), short of 78%.
+  `research/src` 94 trees. 0 of 8 GPUs and nothing in Kueue (idle, reported). The pacer and dispatcher are clean.
+  @infra's `n1-lease` `VY_POOL_BORROW_UNTIL` expired at 00:00Z.
+- Node 2: 1 of 8 (a fill-runner job), and no queue.
+- No reply from @proofs or @infra on the `pouw-hidden-zk` cache. The coordinator lane's new friction note (`research merge`
+  and stale PR heads) isn't for me.
+
 ## State at 23:30Z Oct 4 (4:30 PM PDT), steward pass
 
 - Node 1 (watch, disk-72, no nudge since src eviction is live): 74.8% (1,266 GiB free), flat since 23:15Z; `research/src`

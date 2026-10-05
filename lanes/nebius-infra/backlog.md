@@ -59,6 +59,13 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 01:00Z Oct 5 (6:00 PM PDT Oct 4), steward pass
+
+- Node 1: 72.2% (1,395 GiB free), easing from 75.5% at 00:30Z; `research/src` 91 trees. 0 of 8 GPUs and nothing in Kueue
+  (idle, reported). The pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue.
+- No reply from @proofs or @ci. The @top pause line is held for 78%. `node1-disk-watch-78c` is on until the disk is an hour
+  under 72%.
+
 ## State at 00:30Z Oct 5 (5:30 PM PDT Oct 4), steward pass
 
 - Node 1: 75.5% (1,229 GiB free), flat since 00:13Z; `research/src` 85 trees. The pacer's cap is 0 GB at this level (its

@@ -59,6 +59,18 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 06:30Z Oct 5 (11:30 PM PDT Oct 4), steward pass
+
+- Node 1 (watch, no flags): 70.5% (1,477 GiB free), `research/src` 67 trees, 0 of 8 GPUs and nothing in Kueue (idle,
+  reported); the pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue. No replies.
+- Steward loop: tick 398's channel sync hung from 05:45 to about 06:22Z with no output. `timeout 480` kills python, but the
+  `| tail` waits on any child still holding the pipe.
+  - **Fixed 06:33Z, at root's ask:** `/tmp/steward_loop.sh` now runs each step's whole pipeline under
+    `timeout -k 30 N sh -c '…'` (channel sync 480 s, util_collect 900 s, drift_check 300 s). timeout signals its process
+    group, so a hung child can't keep `tail` waiting. A failed or timed-out step logs a line.
+  - Swapped in by atomic `mv` and restarted in tmux `steward-loop` (new pid 1438107, tick 0 at 06:33Z). A copy is in
+    `tools/steward_loop.sh`.
+
 ## State at 06:00Z Oct 5 (11:00 PM PDT Oct 4), steward pass
 
 - Unchanged. Node 1 (watch, no flags): 70.4% (1,484 GiB free), `research/src` 80 trees, 0 of 8 GPUs and nothing in Kueue

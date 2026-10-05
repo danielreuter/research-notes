@@ -652,3 +652,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T02:24Z: per root, asked ci for the stack minus #1012 on 97d06c4d5; pinged infra once for #1012's ready at 9d425f160.
 - 2026-10-05T02:28Z: fallback 1391223e3 (main + #1147 #1164 Lean stack #1181 #1173 #1177; no #1012) queued for the first free slot. 4c3a void.
 - 2026-10-05T02:30Z: per root, cancelled 4135 (14cc); fallback 1391223e3 node1 r20261005-022823-f0a8 --agreement. Kept 0123, a969, 5e6e running.
+- 2026-10-05T02:35Z: cancelled 5e6e, f0a8 (Lean stack: missing FlockProofs reads_exempt). Asked ci for main + #1147 #1164 #1181 #1173 #1177 (no #1012, no Lean stack). 0123, a969 running.
+- 2026-10-05T02:37Z: passed root's openPair condition to lean (prefer moving it into an exempt module over a 4th reads_exempt; otherwise a PR rationale; red-team regrant either way).

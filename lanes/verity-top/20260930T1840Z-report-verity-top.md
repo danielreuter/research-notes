@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (11:00Z) [open] 11:00Z: main frozen at b9ac23dfc; move landing check starting on cursor/layout-move-1045-c3b2 (f357ec26d, move commit f0dde01ec), slot d free; merge due 14:00Z
 CHECKPOINT none (10:45Z) [open] 10:45Z: last pre-move train 640eebb5a landed as main b9ac23dfc (10:42Z, +#1196); trains held; move landing check from 11:30Z on cursor/layout-move-1005-c3b2; red-team-move pre-reviewing
 CHECKPOINT none (10:30Z) [open] 10:30Z: main b3fbce247; 640eebb5a should land by 11:00Z; move merge 14:00Z
 CHECKPOINT none (10:15Z) [open] 10:15Z: main b3fbce247; 640eebb5a last pre-move train (by 11:00Z); #1167 parked for Daniel's C/T ruling; move merge 14:00Z

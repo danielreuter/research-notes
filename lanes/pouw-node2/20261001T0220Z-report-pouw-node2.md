@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (17:20Z) [open] A 17:20Z poll: nothing addressed to pouw-node2; node2-ops 17:04Z: memory accounting's timing-loop idle is by design, /workspace disk alert repeat (no action); main 2296bb64a (no pouw change); /workspace last 61% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (17:00Z) [open] A 17:00Z poll: nothing new since 16:40Z; main 378453fb3 unchanged; /workspace last 61% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (16:40Z) [open] A 16:40Z poll: nothing addressed to pouw-node2; node2-ops 16:25Z: 15Z GPU busy 12.2%, 16Z so far 28.2% (circuits' pu_bench four wide, memory accounting's series and timing-loop), waiting_min fixed in node2-ops' report; infra skipped interviews round 27; main 378453fb3 unchanged; /workspace last 61% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (16:20Z) [open] A 16:20Z poll: nothing addressed to pouw-node2; node2-ops 16:20Z: idle-in-lease alerts are start-ups (circuits' pu-commit-bench on GPUs 4-5, memory accounting's series on GPU 7), /workspace 61% (hold); infra's Oct 5 GPU wasters list names none of ours (compute accounting's timed reruns left out); main 378453fb3 unchanged; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2

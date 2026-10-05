@@ -59,6 +59,14 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 21:30Z Oct 5 (2:30 PM PDT), steward pass
+
+- Unchanged. Node 1 (watch, no flags): 66.8% (1,663 GiB free), `research/src` 46 trees, 0 of 8 GPUs and nothing in Kueue
+  (idle, reported); the pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue. @infra hasn't
+  answered on `vy-custody`.
+- Pattern: "pod holds a GPU at 0%" alerts at 04:26, 08:27, 20:32 and 21:13Z today, each a brief `provers` pool lease that
+  sat unused about 10 min and then went. They go to the infra and dispatcher lanes, who own the pool. Not acted on.
+
 ## State at 21:00Z Oct 5 (2:00 PM PDT), steward pass
 
 - Unchanged. Node 1 (watch, no flags): 67.2% (1,646 GiB free), `research/src` 46 trees, 0 of 8 GPUs and nothing in Kueue

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (01:50Z) [open] fail-closed returned: draft #1179 (one theorem over what flock-verify accepts). Draw-less refused per Daniel's 8:42 ruling; audit, check and coverage running. compute-accounting told PoUW is refused (work law, public inputs).
 CHECKPOINT none (01:36Z) [open] zk-selfcheck returned: #1177 opened (prover stops before τ on a failing batched constraint; check PASS 3cc5). Quick tier 98fd running; red-team-1177 reviewing.
 CHECKPOINT none (01:17Z) [open] flock-spec returned (spec + bridge proved, audit PASS). Ruled: move the model into the spec; resumed it as C-Flock's Lean split script, dry-run on flock-spec + #1170 + canonical V1, records unchanged, audits on node 1.
 CHECKPOINT none (00:33Z) [open] Top's order: lock reductions first, then the move. #1169 (core 29->0) quick tier r20261005-003139-2144 running; it trains once lean confirms nothing relies on the 11, else core-lock-tc goes instead.

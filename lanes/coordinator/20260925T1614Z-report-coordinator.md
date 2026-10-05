@@ -684,3 +684,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T07:09Z: merged 25157eb17 (#1171 #1142) → main 03ab7e5a5 via --push; all move inputs on main before 08:00Z. Nodes idle.
 - 2026-10-05T07:21Z: ci tips (handed over 07:09Z, missed until 07:17Z) 3d805d696 node1 r20261005-071825-02e0, fallback d472eef83 node2 r20261005-071943-c599. #1178 out (red-team-1178 declined). Freeze 11:30Z.
 - 2026-10-05T07:26Z: queued 82ed60b8a (3d805 + #1189, fixes main's G6 golden) for the next free slot; or 8c4d22e6e (+ #1178) if #1178 is ready.
+- 2026-10-05T07:41Z: poll: 02e0 (3d805), c599 (d472) running; #1178 no ready. main 03ab7e5a5.

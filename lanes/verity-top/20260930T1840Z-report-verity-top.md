@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:30Z) [open] 10:30Z: main b3fbce247; 640eebb5a should land by 11:00Z; move merge 14:00Z
 CHECKPOINT none (10:15Z) [open] 10:15Z: main b3fbce247; 640eebb5a last pre-move train (by 11:00Z); #1167 parked for Daniel's C/T ruling; move merge 14:00Z
 CHECKPOINT none (10:04Z) [open] 10:04Z: main b3fbce247 (aa6481b0c landed); 640eebb5a due ~10:10Z; 2031cc955 (#1167) likely misses new 11:00Z cutoff, hand-fold; move merge 14:00Z
 CHECKPOINT none (09:49Z) [open] 09:49Z: main 5fc53b0c1; 640eebb5a node 1, aa6481b0c node 2 (~09:55Z); #1167 tip 2031cc955 on node 2 next if ready, else hand-folded; freeze 11:30Z

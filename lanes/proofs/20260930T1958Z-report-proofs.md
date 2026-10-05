@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 97d06c4d5 (07:31Z) [open] #1171, #1176, #1178 granted; four workers live (canon-pubin, fail-closed, flock-lean-split, rec-reprice); move-commit red-team from 11:30Z
 CHECKPOINT 97d06c4d5 (07:01Z) [open] red-team-1171 (#1171, due 07:30Z) and red-team-1178 (#1178, due 07:12Z) running; #1176 granted; move-commit reviewer from 11:30Z
 CHECKPOINT 97d06c4d5 (06:47Z) [open] #1176 granted; #1171 red-team (red-team-1171) reviewing ca3622bcf, due 07:30Z; vllm hit is a two-merge-base artifact
 CHECKPOINT 97d06c4d5 (06:42Z) [open] #1176 granted at 545c5ba4f by red-team-1176 (on remote); ci told ee6dd1835 can proceed; canonical public-input sessions and rec-reprice running

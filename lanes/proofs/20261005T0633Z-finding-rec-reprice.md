@@ -38,7 +38,8 @@ Script: `backends/flock/pod/85-rec-reprice.sh` (STEP=build|inner|ostage|oprove|l
 | ostage: V*'s 7 RecOpen statements (`rec_outer --link-rows`, 4 at once) | r20261005-065619-2e26 | 06:56Z | passed: every level staged, every query opened |
 | oprove: each level --zk on loopback ×(1+3), upstream replay --zk | r20261005-070734-c714 | 07:07Z | passed: every session accepted (serve, replay --zk) |
 | inner rerun: loopback M0 and --zk only (INNER_PROXY=0), prover cores' background load recorded | r20261005-071603-4d28 | 07:16Z | passed |
-| alg: InnerClaims + rec_residuals (InnerRepCheck, both reps) on the inner's last proxied session | r20261005-072008-d624 | 07:20Z | running |
+| alg: InnerClaims + rec_residuals (InnerRepCheck, both reps) on the inner's last proxied session | r20261005-072008-d624 | 07:20Z | failed: InnerClaims gave the verifier no partition object (the inner binds `verity/partition/v1`) |
+| alg again: InnerClaims `--partition` (the inner's q-word object, checked against META), rec_residuals | r20261005-073130-72a8 | 07:31Z | running |
 
 ## Shape of V* at m = 35 (from `rec_algebra.fast100(35)`, before any run)
 

@@ -744,3 +744,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T17:03Z: 6572 (0346) PASSED. Holding its landing until top says whether #1225's landing check has started.
 - 2026-10-05T17:06Z: merged 034661db2 (#1193 #1197 #1210) → main 2296bb64a via --push; mirror pushed via #1210's --mirror. 38ac/4e56 void (siblings). Move to regenerate on 2296bb64a.
 - 2026-10-05T17:08Z: MAIN FROZEN (top 17:05Z) at 2296bb64a until #1225 (Lean move) lands, ~18:00Z. 5973 (4e56) goes first after it; b374 waits on #1202 ready.
+- 2026-10-05T17:24Z: root's merge request #1228 (AGENTS.md rule retirement, ready at 9ad77bb5b) goes in the first post-move tip; asked ci. Also asked ci to update or drop TRAIN_GRANTS' statement-reviewer entry (cites removed §5).
+- 2026-10-05T17:27Z: asked ci for a low-priority PR dropping the statement-reviewer grant (vocab, queue, TRAIN_GRANTS, tests), after the Lean move.

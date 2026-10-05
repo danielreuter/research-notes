@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (23:40Z) [open] A 23:40Z poll: node2-ops 22Z hourly 11.0% busy, memory accounting's PoUS pod.sh on GPU 5 from 23:12Z, /workspace 62% (hold), no windows; node2-ops corrects infra's draft: cluster agent already live on node 2 since Oct 1 (grants every gpu-lease request); main 88f5cc533 unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (23:20Z) [open] A 23:20Z poll: infra's consolidation draft (finished-state ask) proposes the cluster agent go live on node 2 first, timed windows named as compute accounting's; draft only, nothing for me; main 88f5cc533 unchanged; node-2 /workspace last 62% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (23:00Z) [open] A 23:00Z poll: only node2-ops' 22:53Z disk fold, /workspace 62% (hold); main 88f5cc533 unchanged; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (22:40Z) [open] A 22:40Z poll: main 88f5cc533 (row-seg/v2 row schemas; exhaustion audit.sh split from window.sh, AUDIT=0); no gamma or Lean change, panel unaffected; node-2 /workspace last 62% (hold); panel art:d2b2eb906612; off node 2

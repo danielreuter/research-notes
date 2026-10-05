@@ -10,6 +10,11 @@ origin: bc-b848b76d-faea-58b9-a5eb-32d339fbb293 (zk-layer-line, for the proofs c
 
 # The ZK layer's line in C-Flock's prover
 
+*The coordinator's call (5:25 PM PDT, 4 Oct) is in `note:proofs/20261004T2240Z-handoff-move-map-answers`, "Revisions":
+the rows stand; kernels are buggy, not adversarial; the leaf hashing stays; the padded encoding stays until the
+pre-send check, the lane-coin refusal and a measurement land together; C-Flock's Rust and CUDA leave the generated move
+for split PRs after fail-closed and canonical V1.*
+
 This draft draws Daniel's 4:19 PM PDT ruling (4 Oct) through C-Flock's prover code. Under that ruling only the prover's
 zero-knowledge layer is trusted (soundness for the auditor, ZK for the developer), it stays in `verity/` under C-Flock's
 verification protocol, and every kernel goes to a top-level `kernels/`. It was read at `origin/main` `5049de02f`. Nothing

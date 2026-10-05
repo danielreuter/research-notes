@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:00Z) [open] f2a0 then e414 landing next; then f1dc or 2411; #1126 fix awaiting ready; P2 pick and pod budget sent to Daniel
 CHECKPOINT none (23:47Z) [open] #1126 old head cleared to land; tips 595f/6315/582a checking; layout move as one branch; P2 pick pending
 CHECKPOINT none (23:47Z) [open] #1126 old head cleared to land; tips 595f/6315/582a checking; layout move as one branch; P2 pick pending
 CHECKPOINT none (23:30Z) [open] two tips checking, 8-PR tip next; Daniel rulings 4:06/4:19/4:25 recorded; P2 pick pending

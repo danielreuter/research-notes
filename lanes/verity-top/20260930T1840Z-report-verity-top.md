@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:45Z) [open] 14:45Z: main 378453fb3; first train waits on #1197/#1210 readies, tiers slot-bound (~77 min each post-move)
 CHECKPOINT none (14:30Z) [open] 14:30Z: 5923c2263 passed, waits on #1197/#1210 readies; fallback 0f6e9ec88 built; tiers draining via n2 slots e/f
 CHECKPOINT none (14:15Z) [open] 14:15Z: first post-move train waits on ready labels; tiers spread to temporary n2 slots e/f
 CHECKPOINT none (14:00Z) [open] 14:00Z: main 378453fb3 (move); post-move trains waiting on n1 check slots; n1 inodes 67%

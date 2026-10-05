@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:00Z) [open] Lean move: lean + red-team granted at b87eeef64, landing check shards running, ETA 00:05Z
 CHECKPOINT none (22:41Z) [open] main 88f5cc533 (5e7a landed), frozen; Lean move landing check running, lean granted, red-team rerun pending; ETA 00:05Z
 CHECKPOINT none (22:23Z) [open] Lean move freeze/landing check ~22:35Z; 5e7a rerun running; P2 window confirmed ruled
 CHECKPOINT none (22:05Z) [open] Lean move ETA 23:30-23:45Z, pods to 01:30Z; trains 5e7a (rerun) then 7d59 (needs #884 ready)

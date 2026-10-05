@@ -706,3 +706,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T10:06Z: top took out #1167 (Lake split, waits on Daniel's layout ruling). Cancelled 751b (2031). Last pre-move train is 640e; hold after it.
 - 2026-10-05T10:21Z: poll: f5f5 (640e) past pytest. main b3fbce247. Cutoff 11:00Z.
 - 2026-10-05T10:43Z: merged 640eebb5a (#1196) → main b9ac23dfc via --push. Last pre-move train. HOLDING all trains until the move is on main.
+- 2026-10-05T12:41Z: the move has landed: main 378453fb3 'Layout move (#1206)'. Trains resume when ci hands over post-move tips.

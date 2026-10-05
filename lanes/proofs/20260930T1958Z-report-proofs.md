@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (17:19Z) [open] red-team-lean-move REFUSES #1225 at b37b16723: merge_locks drops ArkLib scan; queue.toml red-team paths miss Security/Proofs/Flock. Told top with fixes; rerun on next head.
 CHECKPOINT e259af141 (16:40Z) [open] canonical V1 returned (#1192 at 57a52cf1f, audit passes; body updated). restack.py stacked-branch base bug fixed in #1224; #1170/#1192/#1201 restack onto the Lean move with it.
 CHECKPOINT e259af141 (16:19Z) [open] #1179 check failed on the 48 KB doc cap (17 bytes over), fixed at ca8e3a26c; restacks onto the Lean move for its check and a new grant. flock-security-defs to stack on cursor/lean-layout-move-c3b2 when it returns.
 CHECKPOINT e259af141 (16:07Z) [open] Lean layout move (bc-7fd918d5) lands ~11 AM PDT and does the ArkLib cuts and FlockVerify; red-team-lean-move (bc-69d92627) pre-reviewing; flock-security-defs to be redirected to GK/Game after the move.

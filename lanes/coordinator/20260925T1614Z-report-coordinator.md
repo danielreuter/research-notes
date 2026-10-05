@@ -736,3 +736,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T16:18Z: kept 4e56 (5973) rather than swapping to f4b2 (+#1215); #1215 lands after the Lean move unchanged.
 - 2026-10-05T16:35Z: reran the silent-loss audit with #1214's reverted() (head 656815f24) over the 8 landings 839ba800a..b9ac23dfc vs 378453fb3: 5 landings flagged, ~30 files. Triaged by presence on main: everything is rewritten or reformatted on purpose (flock lean-audit pins→guarantees, #1126 targets units, #1176 cache, #1108 plan doc, #1004 nebius test) except #1012 and the warden reads_exempt (lean/network-accounting to confirm). Scripts in tools/audit1214*.py.
 - 2026-10-05T16:41Z: poll: 6572 (0346) past lean-suites; 38ac, 4e56 running. main 378453fb3.
+- 2026-10-05T16:27Z: lean: #1167 superseded by the Lean move (commented, left open for Daniel); warden reads_exempt drop intended (lean 13:43Z). No loss beyond #1012.
+- 2026-10-05T16:28Z: not starting c31690225 (+#1215 #1155). It can't pass before the Lean move's check starts (~17:00Z), and the move makes it stale; rebuild after the move.

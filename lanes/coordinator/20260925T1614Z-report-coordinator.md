@@ -660,3 +660,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T02:50Z: red-team on pr:1150@6d87 re-posted with finding note:proofs/20261005T0247Z-finding-1150-flockproofs-exempt (reviewed the line). ci tip 45436c571 (32d9 + #1174) node2 r20261005-024857-f629 --agreement.
 - 2026-10-05T03:01Z: poll: a969 (67e9) PASSED, held with 0123 (d4ab): no ready on #1012@9d425f160 or #1164@39ef8822b; #1181@6f04 none either. 43f1, 234a, f629 running. main 97d06c4d5.
 - 2026-10-05T03:03Z: per root, asked ci for main + labeled-only (#1147 #1173 #1177 #1174 #1151; labels verified) for node 1's free slot.
+- 2026-10-05T03:06Z: ci labeled-only tip b0b2853f6 (main + #1147 #1173 #1177 #1174 #1151; verified it holds no #1012/#1164/#1181/Lean) node1 r20261005-030504-2c45 --agreement.

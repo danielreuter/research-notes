@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:15Z) [open] 17:15Z main 2296bb64a (#1193 #1197 #1210), frozen until Lean move #1225; 5973 first after; PoUS timing loop OK for Lean (#1227)
 CHECKPOINT none (17:00Z) [open] 17:00Z train freeze for Lean move #1225 (landing ~18:00-18:30Z); commit-overhead result sent to Daniel (#1226)
 CHECKPOINT none (16:45Z) [open] 16:45Z main 378453fb3; 034661db2 lands on check 6572 pass; Lean move draft #1225 (on #1217), freeze 17:00Z, after-land steps by hand; #1211 after move
 CHECKPOINT none (16:30Z) [open] 16:30Z main 378453fb3; Lean move pods up (vy-mig-check-8..12); infra #1212-1214/#1136 ready; pre-move line c31690225 awaits a slot

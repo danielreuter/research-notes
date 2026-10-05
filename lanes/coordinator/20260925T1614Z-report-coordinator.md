@@ -663,3 +663,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T03:06Z: ci labeled-only tip b0b2853f6 (main + #1147 #1173 #1177 #1174 #1151; verified it holds no #1012/#1164/#1181/Lean) node1 r20261005-030504-2c45 --agreement.
 - 2026-10-05T03:21Z: poll: 43f1 past lean-suites; 234a, f629, 2c45 running. #1181 ready now; #1012, #1164 still none. main 97d06c4d5.
 - 2026-10-05T03:23Z: ci tip 858da8231 (3017 + #1169: core lock 29→0 guarantees, under Daniel's 2:03 PM PDT guarantee ruling; DMs Daniel at landing) queued for the next free slot; waits on #1169 ready + 32d9/4543 labels.
+- 2026-10-05T03:41Z: poll: 43f1, 234a, 2c45 past lean-suites; f629 running. #1012/#1164 still no ready. main 97d06c4d5.

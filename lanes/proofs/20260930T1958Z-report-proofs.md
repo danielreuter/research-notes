@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (00:28Z) [open] Lock reductions up as drafts: #1170 C-Flock 871->41 (stacked on fail-closed; waits on canonical V1, then statement review and red-team), #1169 core 29->0 (order vs core-lock-tc and #1167 is top's call; asked lean about the 11).
 CHECKPOINT none (00:22Z) [open] ZK-layer line drawn (note:proofs/20261005T0009Z-draft-zk-layer-line) and posted to top with my call: hashing stays, encoding stays until a pre-send check lands; C-Flock Rust/CUDA leave the generated move for split PRs after fail-closed and canonical V1.
 CHECKPOINT none (00:15Z) [open] Local VM disk freed (100%->90%: removed merged worktree /tmp/lp-hj). Node 1 76%: replay2 stages into its own cache (61G) beside set 1's 180G; rang compute-accounting to repoint, size or pause. Waiting on zk-selfcheck, zk-layer-line, core-lock-tc.
 CHECKPOINT none (23:44Z) [open] 4:45 PM PDT: #1126 granted red-team at 8216f316c (red-team tests fail before, pass after). Core lock's 18 tensor-core statements leave as lemmas on cursor/core-lock-tc-95d4, stacked on #1150, so the layout move's Lean commit stays pure. ZK-layer asks in progress: prover self-check, and C-Flock's ZK layer vs kernels/ line.

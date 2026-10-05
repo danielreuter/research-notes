@@ -668,3 +668,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T04:18Z: #1012 ready (infra 04:05Z). d4ab, b0b2, 54ae are siblings; holding all for #1164's re-tier efb5. Pass: land 54ae → 32d9 → 4543, then 4543 + #1012 #1180 + move inputs. Fail: land b0b2.
 - 2026-10-05T04:20Z: deadline 04:45Z for #1164 ready (timer deadline-1164-0445); then land the biggest ready tip (b0b2 if passed, else d4ab). #1141@9827ce8e4 and #1144@f84b29e72 have red-team carried by proofs (ref pr:1150@6d87), checked 04:19Z, as 32d9's precondition.
 - 2026-10-05T04:22Z: poll: 234a (32d9) PASSED and 2c45 (b0b2) PASSED. 32d9 waits on #1164 ready (via 54ae); deadline 04:45Z, then b0b2 lands. f629 running.
+- 2026-10-05T04:41Z: poll: #1164 still no ready; f629 (4543) past lean-suites. Deadline 04:45Z.

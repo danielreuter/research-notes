@@ -696,3 +696,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T08:51Z: 640eebb5a (aa64 + #1196) queued for node 1 when 02e0 ends; aa64 (0f8d) keeps running.
 - 2026-10-05T09:03Z: merged 3d805d696 (7 PRs) → main 5fc53b0c1 via --push; #1139 closed by sweep. 640eebb5a node1 r20261005-090122-f5f5 --agreement; aa64 (0f8d) running.
 - 2026-10-05T09:21Z: poll: 0f8d (aa64) past agreement; f5f5 (640e) running. main 5fc53b0c1.
+- 2026-10-05T09:39Z: top/ci: no new nebius checks; a slot free at 11:30Z for the move's pytest shard. aa64 first: land it, 640e continues. 640e first: land it, cancel aa64. Stop leftovers at 11:25Z.
+- 2026-10-05T09:41Z: poll: 0f8d past lean-suites; f5f5 past agreement. main 5fc53b0c1.

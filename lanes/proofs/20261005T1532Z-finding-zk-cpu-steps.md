@@ -99,3 +99,13 @@ baseline's, and shape bac929c3), r20261005-155357-a60a (after), r20261005-161240
 - No prover identity, statement digest or recorded vector changed: the statement digests are equal across builds (M0
   2602e07c…, `--zk` 09a9cb86… at K = 4096), and proof bytes are equal (1,179,202 per rep at K = 4096, 1,179,330 at
   K = 14,336).
+
+## Tests (head 1d54bed32)
+
+- `check_build.sh` and `check_build.sh test` on the last Rust commit (8d8c26fb3): `cargo check` passed in all three feature
+  sets. flock-live `--lib --release` passed: `sha512` 82 passed, 1 ignored; `sha512,glue,seed-injection` 89 passed, 2 ignored.
+  The upstream crates' tests all passed.
+- `suites.py verity-flock repository` at 1d54bed32, with nothing cached: `verity-flock` had 587 passed and 11 skipped (all
+  opt-in heavy checks), and `repository` had 42 passed.
+
+The draft PR's title and body are in the Project store at `internal/zk-cpu-steps-pr-body.md`, for the coordinator to open.

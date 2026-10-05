@@ -761,3 +761,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T20:21Z: poll: ec32 (5e7a) past lean-suites. main cd965cf51.
 - 2026-10-05T20:48Z: ci tip 7d5910e92 (5e7a + #884 #1031 #1034 #1099 #1221; no Lean paths; FP8 clear) node2 r20261005-204635-4b17.
 - 2026-10-05T21:04Z: ec32 (5e7a) FAILED one vllm test (test_tp_gpu_lease unleased-leg free [False, True]; test unchanged, looks flaky); rerun r20261005-210145-9a69 node1; told circuits. 4b17 (7d59) depends on it.
+- 2026-10-05T21:21Z (replayed): poll: 9a69 (5e7a rerun) past agreement; 4b17 (7d59) past lean-suites. main cd965cf51.
+- 2026-10-05T21:29Z: checkpoint writes: the 20:21Z write completed (41 s); the 21:21Z one was killed by my 20 s timeout and is replayed above. The stall is the agent-store FUSE mount's append/close of this 207 KB file (intermittent; 0.1 s when tested), not notes sync. All writes now go through tools/ckpt.sh (90 s timeout, 3 tries, verified, local copy in /tmp/ckpt-local.log).

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (08:30Z) [open] 08:30Z: main 03ab7e5a5; 3d805d696 checking; next d15a63aa8, then b529216bb (#1093+#1132) if #1093 tier passes; P2 red team no break; freeze 11:30Z
 CHECKPOINT none (08:15Z) [open] 08:15Z: main 03ab7e5a5; 3d805d696 checking, next 1b269cf41; landing pods -4..-7 up; #1191 tier rerunning; freeze 11:30Z
 CHECKPOINT none (08:00Z) [open] 08:00Z: input cutoff; main 03ab7e5a5; 3d805d696 checking; next 1b269cf41 (#1189 #1190 #1178 #937); freeze 11:30Z
 CHECKPOINT none (07:45Z) [open] 07:45Z: main 03ab7e5a5; 3d805d696/d472eef83 checking; #1178 awaits owner ready label; #864 awaits red-team; freeze 11:30Z

@@ -81,8 +81,21 @@ Open, for the morning memo (about 12:00Z):
   needed), a Mathlib root costs about 8 GB (seven roots today), and a program that imports no Mathlib still clones
   it if its package requires it. The same worker is measuring the ruled target (`Security/` plus
   `verity/<component>/lean`) for the memo.
-- Whether "judge" is a concept at all. Daniel thinks it's just part of the toolkit; the captain agrees.
-- Whether Lean drives Python, with the party program as the main loop and the workers serving its requests.
+  Run-model draft (bc-c7b00243, 06:09Z; branch `cursor/run-model-draft-7bd6`, `experimental/run_model/DESIGN.md`,
+  prototype log `art:69981778cc169c07aa583138cff652aabbe175c6033f61c989e3990b01d1dd42`): the composition theorem is
+  stated over party programs that cut across components, plus a model that needs Mathlib, so it wants the security
+  statements together and the programs dependency-free. The `check` audit cache is per package, so one large security
+  package re-audits everything on any change (45 to 70 minutes cold for soundness alone); a per-module audit cache, or
+  Proofs as a package of its own, comes first. Its prototype also hit the module-name collision (verity#1144). Open:
+  whether `Security/` sits inside `verity/` or beside it.
+- Whether "judge" is a concept at all. Daniel thinks it's just part of the toolkit; the captain agrees. The run-model
+  draft agrees: the run needs only parties, one program per party, hosts and workers; the deciding code is library
+  functions the programs call, and the Glossary has no "judge" entry to retire.
+- Whether Lean drives Python, with the party program as the main loop and the workers serving its requests. The
+  run-model draft measured it on a toy audit (2^10 rows, a quarter wrong, 16 drawn, about 1% acceptance expected): Lean
+  driving 0 of 50 accepted, an honest Python driver 0 of 50, a Python driver that reruns `draw` 20 of 20. Lean driving
+  removes the coin-server assumption and two custody ZK assumptions, for 9.4 µs median per small request over pipes
+  (0.35 ms at p99.9, so PoUS's 0.85 ms timing loop should own its socket and clock in Lean, measured on a node first).
 - Where the runs layer (the onsite and remote products) lives.
 - Native SHA-512 and carry-less multiply under named assumptions (still with Daniel).
 

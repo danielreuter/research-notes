@@ -65,6 +65,10 @@ Open, for the morning memo (about 12:00Z):
   executables and the security statements live together somewhere else. The captain leans to the second: `verity/`
   holds Lean executables with no dependencies, and one `security/` package on Mathlib holds the assumptions, guarantees,
   the model and the proofs. The memo checks this against the co-change and Lake evidence.
+  Daniel's proposal (05:45Z): `security/assumptions`, `security/properties`, `security/proofs`. The captain's reply adds
+  `security/model` (games, adversaries and probability, which assumptions and properties are both written in). It also
+  says how statements attach to programs: by import and constant name, recorded by the audit's lock, with paths that
+  mirror the component a statement reads. The memo specifies this layout.
 - Whether "judge" is a concept at all. Daniel thinks it's just part of the toolkit; the captain agrees.
 - Whether Lean drives Python, with the party program as the main loop and the workers serving its requests.
 - Where the runs layer (the onsite and remote products) lives.

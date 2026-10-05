@@ -36,7 +36,9 @@ Script: `backends/flock/pod/85-rec-reprice.sh` (STEP=build|inner|ostage|oprove|l
 | build, CUDA 13.3.1 from NVIDIA's redistributable archives under FLOCK_WORK | r20261005-064928-7c4f | 06:49Z | passed: binary dc3d91dd…, inner m = 35, k_log 24, nbl 11, 2,048 instances, circuit 567 MB |
 | inner: proxy M0 ×(1+3), replay, rec_vstar; loopback M0 and --zk ×(1+3) | r20261005-065337-4837 | 06:53Z | passed (GPU 4; prover on 16 cores 96-111, verifier 112-127) |
 | ostage: V*'s 7 RecOpen statements (`rec_outer --link-rows`, 4 at once) | r20261005-065619-2e26 | 06:56Z | passed: every level staged, every query opened |
-| oprove: each level --zk on loopback ×(1+3), upstream replay --zk | r20261005-070734-c714 | 07:07Z | running |
+| oprove: each level --zk on loopback ×(1+3), upstream replay --zk | r20261005-070734-c714 | 07:07Z | passed: every session accepted (serve, replay --zk) |
+| inner rerun: loopback M0 and --zk only (INNER_PROXY=0), prover cores' background load recorded | r20261005-071603-4d28 | 07:16Z | passed |
+| alg: InnerClaims + rec_residuals (InnerRepCheck, both reps) on the inner's last proxied session | r20261005-072008-d624 | 07:20Z | running |
 
 ## Shape of V* at m = 35 (from `rec_algebra.fast100(35)`, before any run)
 
@@ -101,5 +103,14 @@ Every session accepted by serve (4 of 4 per level) and the last one by upstream'
 The device work is small (L0's two reps: `t.total` minus the rank check about 0.15 s each); the rest is per-session CPU work
 of `--zk` (rank check, level-0 draw, the inner proof and replay, about 0.06-0.07 s a rep) and the round trips.
 
-Next: the inner rerun with no co-running job of this lane (r20261005-071603-4d28), then STEP=alg (InnerClaims +
-rec_residuals at m = 35), its --zk proving, and Lean on every outer session.
+## Today's numbers again (measured, r20261005-071603-4d28)
+
+The prover's 16 cores were 77% busy with other lanes' no-pool jobs just before each run (queue jobs naming no pool share
+96-127), and the numbers hold: M0 0.728 s prove, 0.876 s session, 0.382 s verify; `--zk` 5.21 s prove (rank check 2.49 s,
+level-0 draw 0.97 s), 7.50 s session, 6.90 s verify, 1,179,202 bytes/rep, 21.3 GB host, 74.0 GiB GPU; upstream `replay --zk`
+accepted. Main's `--zk` on this node is 5.2-5.5 s.
+
+## K = 14,336 needs only the inner and the algebra
+
+V*'s RecOpen statements depend on m alone (fast100(m)'s levels, lanes, Merkle depths and query counts), so at m = 35 the
+seven statements are the same for K = 14,336 as for K = 4096; only the inner and the algebra's Shape(35, k_log, c) change.

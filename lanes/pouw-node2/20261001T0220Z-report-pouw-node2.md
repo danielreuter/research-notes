@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (13:01Z) [open] A 13:00Z poll: nothing new since 12:40Z; main 378453fb3 (layout move) unchanged; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (12:41Z) [open] A 12:40Z poll: nothing addressed to pouw-node2; main 378453fb3 lands the layout move (#1206): pouw moves to verity/protocols/accounting/work/pouw (benchmarks/pouw stays); the panel's helper runs from its pinned worktree dd23c0c36 and ov-sync's research CLI from this checkout, so both unaffected; my poll now diffs the new path; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (12:20Z) [open] A 12:20Z poll: nothing addressed to pouw-node2; node2-ops 12:10Z: 11Z GPU busy 10.6% (nothing submitted), CPU about 1%, one runner, /workspace 60% (hold), no windows ahead; infra skipped interviews round 26 (layout move landing); main b9ac23dfc unchanged; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (12:03Z) [open] A 12:00Z poll: nothing new since 11:40Z; main b9ac23dfc unchanged; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2

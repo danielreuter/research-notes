@@ -555,3 +555,4 @@ Triage:
   - Yes, after the backlog sweep (under about 15 open): the stall flag inside the quick-tier node service, which also ends the VM chains; approach takeover through the lane contract's successor map; a `document/v1` kind.
   - Later, after profiling: `approaches --refresh` and `data push --pending`.
   - Every answer produced an item, so the timer stays on. Next round: network-accounting, console.
+- Round 23 (5 Oct 00:00Z): skipped. Every lead is on the layout migration (Daniel 4:30 PM PDT: one generated move, five check pods), and round 22's yes items are still held behind the backlog sweep, so another round would add asks infra has no bandwidth for. Next round at 04:00Z: network-accounting, console.

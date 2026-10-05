@@ -650,3 +650,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T02:10Z: ci tip 14ccda831 (5d6f + #1181@6f04bf96e with root's base condition + #1173) queued for the next free slot (both nodes at 2 checks). Replaces 1ad8/1eb0.
 - 2026-10-05T02:23Z: merged 4bb67870c (6 PRs) → main 97d06c4d5; all MERGED; #1163/#1176 retargeted. 14ccda831 node1 r20261005-022107-4135 --agreement. d4ab waits on #1012 ready.
 - 2026-10-05T02:24Z: per root, asked ci for the stack minus #1012 on 97d06c4d5; pinged infra once for #1012's ready at 9d425f160.
+- 2026-10-05T02:28Z: fallback 1391223e3 (main + #1147 #1164 Lean stack #1181 #1173 #1177; no #1012) queued for the first free slot. 4c3a void.
+- 2026-10-05T02:30Z: per root, cancelled 4135 (14cc); fallback 1391223e3 node1 r20261005-022823-f0a8 --agreement. Kept 0123, a969, 5e6e running.

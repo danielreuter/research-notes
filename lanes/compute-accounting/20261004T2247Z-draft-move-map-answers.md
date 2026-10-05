@@ -49,6 +49,23 @@ instances and gadgets) go to `catalog/silicon/`.**
 - **Unchanged:** "Nothing moves to `experimental/`" is scoped to the proof system. PoUW's experimental rows stand as
   revised at 23:09Z.
 
+**Revised 00:42Z (5 Oct), after top's packaging call (thread 1791150333.889129, reply 1791160841.433459): outside
+`verity/`, a top-level directory is a grouping, and each distribution in it has a directory of its own name.** The
+paths in this note name the grouping and the sub-package. Their import names are these:
+
+| Path in this note | Directory | Import name |
+|---|---|---|
+| `catalog/silicon/…` | `catalog/verity_catalog/silicon/` | `verity_catalog.silicon` |
+| `experimental/pouw/…` | `experimental/verity_experimental/pouw/` | `verity_experimental.pouw` |
+| `experimental/sampled_proofs/…` | `experimental/verity_experimental/sampled_proofs/` | `verity_experimental.sampled_proofs` |
+| `kernels/pouw_gemm.cu`, `kernels/__init__.py`'s `load` (§E 3) | `kernels/verity_kernels/pouw/` | `verity_kernels.pouw` |
+| `benchmarks/pouw/…` (§E) | `benchmarks/pouw/verity_pouw_benchmarks/` | `verity_pouw_benchmarks` (the distribution is already `verity-pouw-benchmarks`) |
+| `verity/…/pouw/…` (§C 12, ncp2, the registry) | unchanged | follows the directories (Daniel's 3:50 PM ruling) |
+
+- **`benchmarks.pouw` is imported today:** research's `tools_registry.py` names `benchmarks.pouw.tool:POUW_{GEMM,ROUTE_U,VLLM,E2E}`,
+  so the move rewrites those four to `verity_pouw_benchmarks.tool:…`. The same goes for any `-m benchmarks.pouw…` line
+  in run scripts and `deploy.toml`. `ncp-v1` and `-h2` (top's call) go to `verity_pouw_benchmarks` with their replay.
+
 **Sources.**
 
 - Code: `origin/main` `9400e83d5`, which contains `16749a0ff`, read with `git show` and `git grep`.

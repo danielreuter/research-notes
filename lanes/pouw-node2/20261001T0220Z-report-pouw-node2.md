@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (14:00Z) [open] A 14:00Z poll: nothing addressed to pouw-node2; node2-ops 13:50Z: /workspace 60% disk alert (2,006 GiB free), enough through Oct 7 15:00Z, no action (still over my 52% hold, which only holds new passes of mine); main 378453fb3 unchanged; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (13:40Z) [open] A 13:40Z poll: nothing new since 13:20Z; main 378453fb3 unchanged; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (13:20Z) [open] A 13:20Z poll: nothing addressed to pouw-node2; node2-ops 13:15Z: 12Z GPU busy 10.9% (nothing submitted), one runner, /workspace 60% (hold), no windows ahead; main 378453fb3 unchanged; panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (13:01Z) [open] A 13:00Z poll: nothing new since 12:40Z; main 378453fb3 (layout move) unchanged; /workspace last 60% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2

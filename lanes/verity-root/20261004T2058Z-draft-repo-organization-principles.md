@@ -58,10 +58,8 @@ Locked:
    Its cost, measured at real size (proofs, 2:12 AM PDT, 09:12Z; note:proofs/20261005T0633Z-finding-rec-reprice,
    art:453bd179bb84e81ab73001606749b0ba70e6ae1e8314c5dbe2f7864731fa427e): at K = 4096 the outer proof takes 5.85 s, 6.7×
    the inner's ZK-off prove, against a go bar of about 0.5×. With the inner it is 1.25× main's `--zk` prove, 6.4× its
-   bytes and 8× its Lean verify. Optimised by estimate, the outer is still about 4×. The rollout holds at step 1 until
-   Daniel decides whether recursion stands at this cost. If it doesn't, the threat from untrusted kernels is open again,
-   and with it the question of which prover code zero knowledge trusts. Points 1-3 and 5-7, and tonight's move, don't
-   depend on the answer.
+   bytes and 8× its Lean verify. Optimised by estimate, the outer is still about 4×. Daniel ruled 7:51 AM PDT (14:51Z):
+   recursion stands at this cost, so the rollout goes on past step 1.
 5. Security proofs live apart from specs and judges.
 6. Untrusted code sits inside the component it serves, so there is no top-level `kernels/` or `provers/`.
 7. The Python package is `verity/`, and keeps tonight's import names.

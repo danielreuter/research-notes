@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:00Z) [open] 19:00Z: #1225 audit fix pending; architecture deciding on releasing 59738cf7d
 CHECKPOINT none (18:45Z) [open] main frozen 2296bb64a; #1225 audit fix in progress; 19:00Z decision point on releasing 59738cf7d
 CHECKPOINT none (18:30Z) [open] main frozen 2296bb64a; #1225 re-recording locks, landing ~19:15Z
 CHECKPOINT none (18:15Z) [open] main frozen 2296bb64a; #1225 regenerated f599b5f5b, full check next, landing ~19:00Z

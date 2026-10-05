@@ -676,3 +676,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T05:21Z: poll: 5b67 (810d), 8299 (41ed) running; #1162 no ready. main 43bef6294.
 - 2026-10-05T05:35Z: #1162 ready (ci). Cancelled 8299 (41ed). ci tip 25157eb17 (810d + #1171 #1142; no flock diff) node2 r20261005-053322-71ce --agreement. 810d (5b67) lands first.
 - 2026-10-05T05:41Z: poll: 5b67 (810d), 71ce (2515) running. main 43bef6294.
+- 2026-10-05T06:01Z: poll: 5b67, 71ce past lean-suites. main 43bef6294.

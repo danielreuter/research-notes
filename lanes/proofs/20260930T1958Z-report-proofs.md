@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT e259af141 (10:00Z) [open] 10:00Z: quiet; flock-lean-split running (6a0b34f0a); node 1 71%; move red-team from 11:30Z
 CHECKPOINT e259af141 (09:38Z) [open] fail-closed done: form refused last at 9f1866605, 62 sessions pass every check; #1179 body updated; post-move restack+audit+check+red-team
 CHECKPOINT e259af141 (09:33Z) [open] 09:30Z: quiet; fail-closed 9f1866605 and flock-lean-split 6e9f2e17b running; node 1 71%; move red-team from 11:30Z
 CHECKPOINT e259af141 (09:28Z) [open] canon-pubin done: public_pinnedC proved, draft #1201 on #1192; work-law claim waits for #1179's post-move head; 2 workers live

@@ -59,6 +59,17 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 00:30Z Oct 5 (5:30 PM PDT Oct 4), steward pass
+
+- Node 1: 75.5% (1,229 GiB free), flat since 00:13Z; `research/src` 85 trees. The pacer's cap is 0 GB at this level (its
+  75% room target), with nothing waiting but the 2 kept rows. 0 of 8 GPUs and nothing in Kueue (idle, reported). The
+  dispatcher is clean.
+- Node 2: 1 of 8 (a fill-runner job), and no queue.
+- No reply yet from @proofs (replay) or @ci (`verity-check`). The @top pause line is held for 78%.
+- Infra's node-side move audit (`20261004T2359Z-report-node-side-move-audit`) lists resource-steward's `vy-node-sweep`, not
+  my units.
+- The latest hourly snapshot is `art:b60917a0e01013953ad14e05234a94007469e6939747f09e5bcb9c7e20b62bf9` (about 00:25Z).
+
 ## State at 00:12Z Oct 5: root's two asks (pause at 78%, the verity-check cache)
 
 - **At 78% with no @proofs answer:** one line in the disk thread to @top, copying @proofs, to pause the K=14,336 replay

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (13:15Z) [open] 13:15Z: post-move trains 5923c2263 -> 53157fe0b (#1210) -> 7e01a1318 (#1191) queued; restacks and tiers running across lanes
 CHECKPOINT none (13:02Z) [open] 13:00Z: move on main 378453fb3; restacks under way, first post-move train 5923c2263 checking; landing pods terminated
 CHECKPOINT none (12:46Z) [open] 12:46Z: layout move #1206 landed as main 378453fb3 (12:35Z); restacks next, then trains resume
 CHECKPOINT none (12:45Z) [open] 12:45Z: #1206 has both grants and all 5 shards; architecture combining and merging

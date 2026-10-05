@@ -45,8 +45,9 @@ Script: `backends/flock/pod/85-rec-reprice.sh` (STEP=build|inner|ostage|alg|opro
 | lean: Lean `verify --zk` on V*'s 8 last sessions (4 at once), then the inner's proxied session | r20261005-080101-741c | 08:01Z | passed: all 9 accepted |
 | inner K=14336: proxy M0, replay, rec_vstar; loopback M0 and --zk | r20261005-081442-dc2b | 08:14Z | passed: every session accepted; replay and replay --zk accepted; rec_vstar 1,118 openings, the same per level as K=4096 |
 | lean zk: Lean `verify --zk` on today's --zk session (K=4096) | r20261005-081504-864d | 08:15Z | passed: accepted, verify 73.3 s |
-| alg K=14336: InnerClaims, rec_residuals on the K=14336 inner's last proxied session | r20261005-082029-6db5 | 08:20Z | running |
-| oprove rerun K=4096: V*'s 8 statements again, background load recorded | r20261005-082407-16e7 | 08:24Z | running |
+| alg K=14336: InnerClaims, rec_residuals on the K=14336 inner's last proxied session | r20261005-082029-6db5 | 08:20Z | passed: claims 5:27 at 9.9 GB; Shape(35, 26, 8), 4,285 products, holds on both reps, 7:38 at 19.7 GB |
+| oprove rerun K=4096: V*'s 8 statements again, background load recorded | r20261005-082407-16e7 | 08:24Z | passed: every session accepted (serve, replay --zk) |
+| oprove alg K=14336: the second size's algebra --zk on loopback ×(1+3), replay --zk | r20261005-083548-9b6a | 08:35Z | running |
 
 ## Shape of V* at m = 35 (from `rec_algebra.fast100(35)`, before any run)
 

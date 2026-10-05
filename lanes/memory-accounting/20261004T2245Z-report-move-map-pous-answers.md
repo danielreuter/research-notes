@@ -85,6 +85,8 @@ They go to `benchmarks/pous/tests/`. `tests/test_pous_bench.py` tests `benchmark
 - **Experimental schemes:** dense, P2 (v2 and v3, with their fixtures and the frozen spec) and P3 go to `experimental/verity_experimental/pous/{dense,p2,p3}/`, imported as `verity_experimental.pous.{dense,p2,p3}`.
 - **The benchmarks:**
   - Today `bench.py`, the tests and `p2_v1` import `band_gpu`, `p2_v1`, `p2_gpu`, `hbm_audit` and `erase_calib` as bare top-level names off a `sys.path` entry for `benchmarks/pous`. The rule rules that out, and `-P` would break it.
-  - They become one distribution, `benchmarks/pous/verity_pous_bench/{band_gpu,p2_v1,p2_gpu,erase_calib}/`, with `bench.py` as `verity_pous_bench.bench`. `hbm_audit` goes to `archive/` with TwoTierBandwidth (no host RAM).
+  - They become one distribution, `benchmarks/pous/verity_pous_bench/{band_gpu,p2_v1,p2_gpu,hbm_audit,erase_calib}/`, with `bench.py` as `verity_pous_bench.bench`.
+  - `hbm_audit` stays, although its host-placement measurement went with TwoTierBandwidth: `erase_calib/fill.py` imports its `digest.py` through a `sys.path` insert, which becomes `verity_pous_bench.hbm_audit.digest`.
+  - `benchmarks/pous/pyproject.toml`'s `testpaths` follow the new paths.
   - The P2 harnesses stay in the benchmarks rather than moving to `experimental/`: `p2_v1` imports `band_gpu`'s shared native build, and `experimental/` shouldn't import a benchmark.
 - **The grader** goes to `tools/` (the layout's "PoUS's grader"). Its Lean stays a Lake package, so no Python import name is involved.

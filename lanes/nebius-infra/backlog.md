@@ -59,6 +59,19 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 00:35Z Oct 6 (5:35 PM PDT Oct 5), steward pass
+
+- **Node 1 jumped from 68.6% to 74.1% (00:15–00:30Z):** circuits' second GLM-4.7-Flash capture (`m1-capture`, run
+  `r20261006-001155-ac92`, direct lease on GPU 6 until 00:57Z) wrote 235 GB into
+  `glm47-match/…/r20261006-001155-ac92`. It finished at 00:30:36Z, and the disk is flat at 75% (1,280 GiB free).
+  - Like yesterday, its CPU Match leg (about 13 h) and `free_values_after.sh` will delete `capture/values` afterwards.
+    Until then about 177 GiB is left before 78%.
+  - Re-armed `node1-disk-watch-78e` (every 15 min) to tell root at 78%. No disk-72 nudge, since src eviction is live.
+- The 00:25Z "pod holds a GPU at 0%" alert came in, likely around this capture's lease; circuits', and the pattern is
+  already reported.
+- The `TimeoutExpired` line in the loop log is tick 66's. Tick 68 isn't an hourly tick; the next hourly, tick 72, uses
+  the gzip fix. Node 2: 1 of 8 (a fill-runner job), and no queue.
+
 ## State at 00:20Z Oct 6 (5:20 PM PDT Oct 5), steward pass (cron arrived 16 min late)
 
 - **The hourly util_collect at tick 66 (23:32Z) failed:** `ssh n2 'cat /workspace/pouw/infra/util/*.jsonl'` timed out at

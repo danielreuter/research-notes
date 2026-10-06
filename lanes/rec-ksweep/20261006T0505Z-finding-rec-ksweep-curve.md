@@ -63,7 +63,7 @@ Run ids (build, inner, proxy re-measure, vstage, oprove, lean):
   the same commit.
 - **Forgeries (K = 4096 only)** were rejected in exactly their statements, by the Rust replay and by Lean alike: comb at
   alg-p0 ("the batched constraint fails"), message at alg-p0 (ring-switch claim mismatch), sum at L0, L6 and alg-p2 (the
-  batched constraint fails). The other six forged statements were accepted, as staged. Every honest statement, the inner
+  batched constraint fails). The other six forged statements were accepted, as the vstage step predicted. Every honest statement, the inner
   and today's `--zk` were accepted by Lean at all four K.
 
 ## Caveats

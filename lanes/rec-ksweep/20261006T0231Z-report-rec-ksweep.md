@@ -2,9 +2,10 @@
 lane: rec-ksweep
 kind: report
 created: 2026-10-06T02:31Z
-status: open
+status: final
 ---
 
+CHECKPOINT b6139d9b6 (05:07Z) [final] 05:08Z: done. Overhead 1.71x (K=2048), 1.70x (4096), 1.96x (8192), 1.99x (16384); V* flat 6.9-7.9 s, today's --zk falls 5.1->4.0 s with its instance count. Curve art:14821352140f16b745c9a9fb937292429383e2a26624cfb2a83c201d4747932f; finding note:rec-ksweep/20261006T0505Z-finding-rec-ksweep-curve. 0.50 GPU-h. Node data/ deleted.
 CHECKPOINT none (04:37Z) [open] 04:38Z: K=2048, 4096, 8192 complete incl. Lean. Overhead 1.71x, 1.70x, 1.96x (V* flat ~7-8 s; today's --zk falls with N since its zk-rank step scales with instances). oprove 16384 running.
 CHECKPOINT none (04:22Z) [open] 04:23Z: K=4096 and K=2048 complete incl. Lean (forgeries at 4096 rejected in exactly their statements, Lean agrees with Rust). Overhead 1.70x (4096), 1.71x (2048). oprove 8192 and vstage 16384 running.
 CHECKPOINT none (04:16Z) [open] 04:16Z: K=4096 and K=2048 points proved (V* 7.75 s / 7.94 s, today's --zk 5.08 / 5.10 s); proxy re-measured clean (0.87 / 0.76 s); Lean k4096 (with forgeries) and k2048 running; inner k8192 and k16384 passed (k16384: GPU 82 GB, zk 4.06 s); oprove k8192 and vstage k16384 launched.

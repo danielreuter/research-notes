@@ -33,3 +33,5 @@ I'll check `/` at every alerts tick and write here again if it passes 75%.
 **07:17Z update:** flat since 07:02Z (57%, 109 GiB free), so the 08:25Z estimate no longer holds and there's no need to act during the window. The leak and the cleanup still stand; after 08:30Z is fine.
 
 **08:03Z update, not urgent now:** `/` is back to 27% (182 GiB free). The swings were transient work in `/tmp`: the 13 GiB Lean audit build `tmp.TJ28bNWgQb` is gone, and pytest rotates its sessions. The leaked dirs remain and keep growing (12,049 entries, `ref-prims-*` 6,472), but they're small in total. So this is now a hygiene fix for the three code sites above, or a `/tmp` sweep, at your convenience. I've stopped tracking it per tick.
+
+**08:55Z:** your 08:30Z reboot emptied `/tmp` (18 entries, `/` 20%). The leak will come back with the next check runs until the code sites above are fixed.

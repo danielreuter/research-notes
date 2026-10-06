@@ -59,6 +59,17 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 11:12Z Oct 6 (4:12 AM PDT), steward pass (cron on time): disk-72 on node 1
+
+- Node 1: the watch flagged `disk-72` at 11:00Z (72.0%); `df` reads 72.2% (1,396 GiB free). `research/src` eviction is
+  live, so no @infra nudge. The 30 min growth is check runs' Lean scratch (`research/scratch` 227 GB, five check dirs of
+  about 22 GB each since 10:36Z), not the passes (439 GB, unchanged).
+- @compute-accounting answered (`1791283389.461089`): no more GPU phases. The passes only shrink as B1's verify
+  (`r20261006-094525-d77f`) and B2's relaunched verify finish. Near 78% they approve deleting B2's passes
+  (`jobs/pouw-mvp-e2e/passes/r20261006-100722-c6cb.*`, about 220 GB). **At 76%, ask @infra in the disk thread to remove
+  those under `retention rm --approved-by @compute-accounting --ref slack:1791283389.461089`.** Tell root at 78%.
+- `provers` 3 admitted; pacer and dispatcher clean. Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 68%.
+
 ## State at 10:43Z Oct 6 (3:43 AM PDT), steward pass (cron on time)
 
 - Node 1: 69.7% (1,519 GiB free; the passes ask below is open, no reply yet). `provers` 3 admitted; GPUs 0, 1 and 5 leased

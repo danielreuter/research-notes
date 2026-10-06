@@ -829,3 +829,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T10:34Z: 19f22d470 (tip 19) node1 r20261006-103204-8e6b. c871 shards: bd98 past lean-audit, 2464 queued, d10e past circuit-build; 7f39 (187d) past lean-audit.
 - 2026-10-06T10:53Z: c871 shard 1 bd98 FAILED on the pod's environment (taskset CPU 0 outside the cpuset; notes-sync under load). Rerun on node1 as r20261006-105111-5602. Combine: 5602 + 2464 + d10e.
 - 2026-10-06T10:56Z: merged 187d0017a (10 PRs) → main c3be1f9b6 via --push. Cancelled 5602; c871 shards moot. 8e6b (19f2) next.
+- 2026-10-06T10:58Z: root: every landing report now includes a one-paragraph readout of the guarantee DM.
+- 2026-10-06T11:01Z: asked infra to fix test_nebius' two slot tests to use os.sched_getaffinity(0) instead of CPU 0 (skip if too few cores); it trains when green.

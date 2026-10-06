@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (05:00Z) [open] 05:00Z: 4020 failed on placement flake (infra deflaking), e011 checking 031484e84; D1 keyed on BLAKE3 leaf in joint note
 CHECKPOINT none (04:44Z) [open] 04:44Z: inbox empty; trains 031484e84/4020f22d7 checking, 090257a15 queued; served-request hidden_zk opening done
 CHECKPOINT none (04:28Z) [open] main c305471c5; lander checking tips (top 031484e84 e011, next 090257a15); overnight lanes running
 CHECKPOINT none (04:12Z) [open] main c305471c5; lander checking all tips (top 031484e84 e011); #1270 NO-GRANT inner proxy; #1264 granted; seed_A D1 covers C and C4

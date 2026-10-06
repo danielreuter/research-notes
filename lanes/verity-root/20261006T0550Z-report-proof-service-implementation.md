@@ -203,3 +203,6 @@ The notes' other questions for Daniel go in his morning report.
   r20261006-084525-c8b5); every PR restacks with `restack.py --move-commit afc9d352d --script tools/move/rename.py
   --onto origin/main`. 4:00 AM PDT (11:00Z): every lead but console reported; one strong reason so far, C1 (Pearl-C's
   `-h3` wholly on SHA-512 costs 13.5x BLAKE3's overhead, floor about 4.4x; report due 7:00 AM PDT).
+- 4:05 AM PDT (11:05Z): standing ruling from the coordinator: closing a PR needs Daniel's direct approval, including any
+  approval posted as top; top approves no closes. #1112 (closed 3:53 AM PDT on my word, content on main) goes to Daniel;
+  my 10:35 PM PDT note that ci close #1280 is withdrawn (1791284713).

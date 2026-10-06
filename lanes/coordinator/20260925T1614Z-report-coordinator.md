@@ -864,3 +864,7 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T15:41Z: swapped be98's check (3 min in) for tip 38 4d30cca29 (+ #1344 #1362) node1 slot a r20261006-153823-fa34 --agreement; pod shards to 4d30.
 - 2026-10-06T15:45Z: sent top the lander's old->new list for the repo-wide doc sweep (5 items).
 - 2026-10-06T15:46Z: tip 38 4d30 pod shards: 1/3 r20261006-154133-adf4 (-20), 2/3 r20261006-154138-cb21 (-21, agreement sent), 3/3 r20261006-154133-9963 (-19). Combine those; node 1 full check fa34. (c679 was cancelled earlier.)
+- 2026-10-06T15:57Z: tips 36-41 stale (#1273 #1274 #1283 moved). Cancelled fa34. Tip 42 98f910a65 (1431 + the whole set at current heads) node1 r20261006-155452-cc20 --agreement; asked infra to swap the pod shards to 98f9.
+- 2026-10-06T16:00Z: asked all leads not to push to a PR in a checking tip (unless its check failed on it). Friction note coordinator/20261006T1559Z-friction-head-push-voids-tips.
+- 2026-10-06T16:04Z: tip 44 69adccffd (98f9 + #1368 + lean's 4); asked infra to run the pod shards on 69ad; cc20 (98f9) on node 1 is the fallback.
+- 2026-10-06T16:06Z: tip 42 98f9 pod shards: 1/3 r20261006-160312-9a6e (-21), 2/3 r20261006-160312-68b7 (-20, agreement), 3/3 r20261006-160312-d6d3 (-19). Pod 21 OOMs in lean-agreement (128 GB cap). Node 1 has cc20. My ask to swap these to 69ad crossed with infra's post.

@@ -81,8 +81,8 @@ ruling goes further in three places.
    items. So a registration carries the public items and salted roots, and nothing else.
 
    This supersedes the 2026-10-01 (3:32 PM PDT) ruling's "shapes such as batch size and sequence length may stay public
-   for now" (`.agents/skills/friction/SKILL.md`). The skill's list of rulings needs a line for 7:48 PM, so that nobody
-   reads the old one as current. Proofs adds it in its first code PR after tonight.
+   for now" (`.agents/skills/friction/SKILL.md`). #1277 adds the skill's lines for the 7:48, 7:17 and 7:11 PM rulings
+   and points the old clause to them, so that nobody reads it as current.
 
    What the auditor used to check against its own copies moves into a **window statement**: a small Program, proved once
    per window. Its public outputs are the public aggregates, such as PoUW's unit count N and its credited work, and it

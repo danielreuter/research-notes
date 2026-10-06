@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:03Z) [open] 06:03Z: 031484e84 passed (e011), awaiting lander's land of 17 PRs; 44f2 checking on vy-mig-check-18
 CHECKPOINT none (05:48Z) [open] 05:48Z: 44f2838c7 checking (924a), a09f1bb9a next; #1280/#1218 closes held for Daniel
 CHECKPOINT none (05:32Z) [open] 05:32Z: 44f2838c7 checking on vy-mig-check-18 (924a), a09f1bb9a next; GPU root floor: cap stands
 CHECKPOINT none (05:16Z) [open] 05:16Z: draft feedback relayed to Daniel; 01cd537d0 to check on vy-mig-check-18; e011 checking 031484e84

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:12Z) [open] tip 51 checking (#1309 pin test likely fails, lean on it); sweep replies to architecture
 CHECKPOINT none (17:03Z) [open] tip 51 checking, 52-54 stacked; smell sweep replies flowing to architecture
 CHECKPOINT none (16:46Z) [open] tip 50/51 (no #1261) checking; #1239/#1346 closes asked of Daniel
 CHECKPOINT none (16:26Z) [open] tip 26 landed cb50af5e8; #1261 replay failure blocks tips 42-48, ci building without it

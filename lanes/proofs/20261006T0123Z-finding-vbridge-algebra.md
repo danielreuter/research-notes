@@ -34,3 +34,12 @@ Plan: `note:proofs/20261005T2345Z-draft-vbridge-plan`, piece E. Python restated:
   comb's 64 from `FlockLevel3.folded_eq`), `ringswitch` `5fbee7d2e` (`ringSwitch_of_residuals`: each claim's value
   check on the decoded ring switches, and Ligerito's `T` = `Σ γ_k·β_k` over the verifier's bit transposes `tOf`).
   Next: `Ligerito`, then audits of the new heads and the PR files.
+- 03:57Z (8:57 PM PDT): `ligerito` `0283c6438` (`ligerito_of_residuals`: V*'s Ligerito residuals zero give the run of
+  `ligeritoRun` on the decoded messages from `T`, all coins drawn, and `FinalOK`, the shape and value checks of
+  Refine's `finalProg`, with `kv_e` for each query's `e` when `cons` is `consAt`). The sim and eval audits failed
+  (rc=1) on the Proofs package only: `Sim.lean:24`'s `f128_ring` macro is compile-time code. Expanded every macro use
+  (and `f256_ring`) inline across the stack, merged forward; heads `sim` `e5863ee44`, `build` `fcf83e00d`, `eval`
+  `f327adc3f`, `zerocheck` `08ef999aa`, `lincheck` `32b7690c1`, `ringswitch` `78a1671bf`, `ligerito` `4be179309`.
+  Audits on vy-nebius-1: `r20261006-035315-89aa` (sim), `-035339-16cd` (eval), `-035403-b1df` (zerocheck),
+  `-035428-b999` (lincheck), `-035453-d26f` (ringswitch), `-035518-fcfe` (ligerito). Next: commit their records,
+  the PR files.

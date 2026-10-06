@@ -11,6 +11,7 @@ prove, each term also reported alone; V* is every honest staged statement (L*, a
 import argparse
 import json
 import re
+import statistics
 from pathlib import Path
 
 
@@ -45,13 +46,31 @@ def sizes(text: str) -> dict:
     return out
 
 
-def live_row(v: dict) -> dict:
+def waits(runs: Path, names: list[str], rel: str) -> dict:
+    """Medians over the timed sessions of a prove's LIVE records (out/<rel>/prove.tsv; the first WARM are untimed): the
+    prover's wait for the verifier's coins on its critical path (wait_e2e_s) and prove_total_s less it (compute_s)."""
+    for r in reversed(names):
+        f = runs / r / "out" / rel / "prove.tsv"
+        if not f.exists():
+            continue
+        rows = [json.loads(l.split("\t", 2)[2]) for l in f.read_text().splitlines() if "\tLIVE\t" in l]
+        w = runs / r / "out" / rel / "warm.txt"
+        warm = int(w.read_text().strip()) if w.exists() else 1
+        timed = [x for x in rows[warm:] if isinstance(x.get("prove_total_s"), (int, float))]
+        if not timed:
+            return {}
+        return {"wait_e2e_s": round(statistics.median(x.get("wait_e2e_s", 0) for x in timed), 6),
+                "compute_s": round(statistics.median(x["prove_total_s"] - x.get("wait_e2e_s", 0) for x in timed), 6)}
+    return {}
+
+
+def live_row(v: dict, extra: dict | None = None) -> dict:
     pb = v.get("proof_bytes") or []
     return {"prove_s": v.get("prove_total_s"), "session_s": v.get("session_s"), "serve_verify_s": v.get("serve_verify_s"),
             "proof_bytes": sum(pb) if isinstance(pb, list) else pb, "m": v.get("dense_m"), "k_log": v.get("k_log"),
             "host_peak_gb": v.get("prover_peak_gb"), "gpu_peak_mib": v.get("gpu_peak_mib"), "accepted": v.get("accepted"),
             "serve_accepted": v.get("serve_accepted"), "prover_cores_busy_before": v.get("prover_cores_busy_before"),
-            "zkrank_s": v.get("zkrank_s"), "gpu_held_s": held_s(v.get("lease"))}
+            "zkrank_s": v.get("zkrank_s"), "gpu_held_s": held_s(v.get("lease"))} | (extra or {})
 
 
 def ssum(rows: list[dict], key: str):
@@ -78,7 +97,8 @@ def point(runs: Path, spec: dict) -> dict:
                             "binary": (b.get("binary") or "")[:16], "lean": (b.get("lean") or "")[:16], "stage_wall": b.get("stage_wall"),
                             "stage_peak_gb": b.get("stage_peak_gb")}
     i, p["runs"]["inner"] = load(runs, spec["inner"], "inner")
-    inner = {n: live_row(i[n]) for n in ("proxy", "m0", "zk") if isinstance(i.get(n), dict) and "error" not in i[n]}
+    inner = {n: live_row(i[n], waits(runs, p["runs"]["inner"], f"inner/{n}")) for n in ("proxy", "m0", "zk")
+             if isinstance(i.get(n), dict) and "error" not in i[n]}
     p["inner"] = inner
     p["inner"]["replay_proxy"] = (i.get("replay_proxy") or {}).get("verdict")
     p["inner"]["replay_zk"] = (i.get("replay_zk") or {}).get("verdict")
@@ -102,7 +122,7 @@ def point(runs: Path, spec: dict) -> dict:
     o, p["runs"]["oprove"] = load(runs, spec["oprove"], "oprove")
     honest, forged = {}, {}
     for name, x in sorted((o.get("levels") or {}).items()):
-        row = live_row(x.get("live") or {})
+        row = live_row(x.get("live") or {}, waits(runs, p["runs"]["oprove"], f"oprove/{name}"))
         rep = x.get("replay")
         row["replay"] = rep.get("verdict") if isinstance(rep, dict) else rep
         d = name.replace("alg-", "alg/").replace("forged-sum-", "forged-sum/").replace("forged-comb-", "forged-comb/") \
@@ -116,7 +136,8 @@ def point(runs: Path, spec: dict) -> dict:
     lv = [r for n, r in honest.items() if n.startswith("L")]
     al = [r for n, r in honest.items() if n.startswith("alg")]
     allr = lv + al
-    p["vstar_total"] = {g: {k: ssum(rs, k) for k in ("prove_s", "session_s", "serve_verify_s", "proof_bytes", "circuit_bytes", "gpu_held_s")}
+    p["vstar_total"] = {g: {k: ssum(rs, k) for k in ("prove_s", "compute_s", "wait_e2e_s", "session_s", "serve_verify_s", "proof_bytes",
+                                                     "circuit_bytes", "gpu_held_s")}
                         | {"statements": len(rs), "host_peak_gb": smax(rs, "host_peak_gb"), "gpu_peak_mib": smax(rs, "gpu_peak_mib"),
                            "prover_cores_busy_before_max": smax(rs, "prover_cores_busy_before")}
                         for g, rs in (("levels", lv), ("algebra", al), ("vstar", allr))}
@@ -141,12 +162,18 @@ def point(runs: Path, spec: dict) -> dict:
                   "vstar_algebra_prove_s": p["vstar_total"]["algebra"]["prove_s"], "today_zk_prove_s": zk.get("prove_s"),
                   "today_zk_session_s": zk.get("session_s"), "today_zk_serve_verify_s": zk.get("serve_verify_s"),
                   "today_zk_proof_bytes": zk.get("proof_bytes"), "vstar_proof_bytes": p["vstar_total"]["vstar"]["proof_bytes"],
-                  "inner_m0_proof_bytes": m0.get("proof_bytes")}
+                  "inner_m0_proof_bytes": m0.get("proof_bytes"),
+                  "inner_m0_proxy_coin_wait_s": m0.get("wait_e2e_s"), "inner_m0_proxy_compute_s": m0.get("compute_s"),
+                  "vstar_zk_coin_wait_s": p["vstar_total"]["vstar"]["wait_e2e_s"], "today_zk_coin_wait_s": zk.get("wait_e2e_s")}
     t = p["terms"]
     if all(isinstance(t[k], (int, float)) for k in ("inner_m0_proxy_prove_s", "vstar_zk_prove_s", "today_zk_prove_s")):
         p["overhead"] = round((t["inner_m0_proxy_prove_s"] + t["vstar_zk_prove_s"]) / t["today_zk_prove_s"], 4)
         p["vstar_over_today_zk"] = round(t["vstar_zk_prove_s"] / t["today_zk_prove_s"], 4)
         p["vstar_over_inner_m0"] = round(t["vstar_zk_prove_s"] / t["inner_m0_proxy_prove_s"], 4)
+    # the rec proxy (Python, on the job's verifier cores) answers the inner's coins on its critical path; on node 1's shared
+    # cores 96-127 its latency is foreign load, not the prover's, so the overhead is also given with the inner's wait removed
+    if all(isinstance(t[k], (int, float)) for k in ("inner_m0_proxy_compute_s", "vstar_zk_prove_s", "today_zk_prove_s")):
+        p["overhead_inner_compute"] = round((t["inner_m0_proxy_compute_s"] + t["vstar_zk_prove_s"]) / t["today_zk_prove_s"], 4)
     p["peaks"] = {"vstar_host_gb": p["vstar_total"]["vstar"]["host_peak_gb"], "vstar_gpu_mib": p["vstar_total"]["vstar"]["gpu_peak_mib"],
                   "inner_m0_host_gb": m0.get("host_peak_gb"), "inner_m0_gpu_mib": m0.get("gpu_peak_mib"),
                   "today_zk_host_gb": zk.get("host_peak_gb"), "today_zk_gpu_mib": zk.get("gpu_peak_mib")}
@@ -166,18 +193,20 @@ def fmt(x, nd=3):
 
 
 def table(points: list[dict]) -> str:
-    h = ["K", "N", "m", "inner M0 (proxy)", "V* --zk total", "levels", "algebra (parts)", "today's --zk", "overhead",
-         "V*/today", "V* bytes", "today bytes", "V* host/GPU peak", "Lean V* verify", "Lean today --zk",
-         "build", "inner", "vstage", "oprove", "lean"]
-    lines = ["| " + " | ".join(h) + " |", "|" + "---:|" * 15 + "---|" * 5]
+    h = ["K", "N", "m", "inner M0 (proxy)", "of it, coin wait", "V* --zk total", "levels", "algebra (parts)", "today's --zk",
+         "overhead", "overhead, inner wait removed", "V*/today", "V* bytes", "today bytes", "V* host/GPU peak", "Lean V* verify",
+         "Lean today --zk", "build", "inner", "vstage", "oprove", "lean"]
+    lines = ["| " + " | ".join(h) + " |", "|" + "---:|" * 17 + "---|" * 5]
     for p in points:
         t, vt = p["terms"], p["vstar_total"]
         lean_zk = (p.get("lean") or {}).get("zk", {}).get("verify_s")
         lines.append("| " + " | ".join([
             fmt(p["K"]), fmt(p["N"]), fmt(p["inner_statement"].get("m")), fmt(t["inner_m0_proxy_prove_s"]) + " s",
+            fmt(t["inner_m0_proxy_coin_wait_s"]) + " s",
             fmt(t["vstar_zk_prove_s"]) + " s", fmt(t["vstar_levels_prove_s"]) + " s",
             fmt(t["vstar_algebra_prove_s"]) + f" s ({vt['algebra']['statements']})", fmt(t["today_zk_prove_s"]) + " s",
-            fmt(p.get("overhead"), 2) + "×", fmt(p.get("vstar_over_today_zk"), 2) + "×", fmt(t["vstar_proof_bytes"]),
+            fmt(p.get("overhead"), 2) + "×", fmt(p.get("overhead_inner_compute"), 2) + "×",
+            fmt(p.get("vstar_over_today_zk"), 2) + "×", fmt(t["vstar_proof_bytes"]),
             fmt(t["today_zk_proof_bytes"]),
             f"{fmt(p['peaks']['vstar_host_gb'], 2)} GB / {fmt(p['peaks']['vstar_gpu_mib'])} MiB",
             fmt((p.get("lean_total") or {}).get("verify_s"), 1) + " s", fmt(lean_zk, 1) + (" s" if lean_zk else ""),
@@ -197,6 +226,9 @@ def main():
            "statement as K grows (Gemm_v2{K, N=4096} coordinate, m = 35)", "source": "cursor/rec-step2-95d4@b6139d9b6",
            "script": "backends/flock/pod/85-rec-reprice.sh", "node": "vy-nebius-1",
            "overhead": "(inner M0 against the rec proxy + V*'s total --zk prove) / today's --zk prove",
+           "overhead_inner_compute": "the same with the inner's critical-path wait for the rec proxy's coins removed (median over "
+           "the timed sessions of prove_total_s - wait_e2e_s): the Python proxy runs on the job's verifier cores, node 1's shared "
+           "96-127, so its latency carries other jobs' load",
            "gpu_held_s_total": round(sum(p["gpu_held_s"] for p in pts), 1), "points": pts}
     a.out.write_text(json.dumps(doc, indent=1, sort_keys=False))
     md = table(pts)

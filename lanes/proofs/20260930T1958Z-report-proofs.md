@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (03:45Z) [open] 8:46 PM PDT: joint note agreed by all three leads (7 AM item done early); #1277 records the rulings; #1264 under red-team-proofs-1264
 CHECKPOINT none (03:38Z) [open] 8:38 PM PDT: interface + γ posted early (γ fails under (a); -h3 recommended); joint note agreed by compute-accounting and network-accounting with 6 changes applied, memory-accounting pending; #1264 under red-team-proofs-1264
 CHECKPOINT none (03:01Z) [open] 20:00 PDT: #1270 gateway (red-team-zk-gateway), #1271/#1272 VBridge B1/B2 (red-team-vbridge-b), defs-move GRANT posted, rec-ksweep, proof-service + pouw-gamma due 06:00Z, #1034 re-grant running
 CHECKPOINT none (01:55Z) [open] 6:52 PM PDT: #1264 (main's J-table y₀ repair, from #1179's e970ca142) is in progress under y0-repair; draft #1261 (RecursiveSound/ZK) is with rec-thm for VBridge's three fixes; #1258 and #1247 are granted; #1258's quick tier is running

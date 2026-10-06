@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:11Z) [open] 10:12Z rename move #1321 landed, main a7134c413; c871 next; leads restacking
 CHECKPOINT none (09:57Z) [open] 09:58Z move #1321 check c8b5 + ready tier running; tips c871/187d checking; #1327 hook extended to process listings
 CHECKPOINT none (09:42Z) [open] 09:42Z: move #1321 c8b5 past circuit-check+lean-suites, tier 1298 on 29 suites; landing ~10:05Z; PoUS node-2 harness fix #1329 (20/20)
 CHECKPOINT none (09:27Z) [open] 09:27Z: move #1321 check c8b5 past circuit-check, on Lean audit; landing at ~09:37Z if green; PoUS circuits halve cost (#1306); env-leak hook #1327

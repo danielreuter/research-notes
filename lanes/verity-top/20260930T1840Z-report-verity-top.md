@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:32Z) [open] passive: lander's 59 checking, tip 72 next; R2 repair ruling with Daniel
 CHECKPOINT none (19:17Z) [open] passive: lander's 59 checking, tip 71 next; R2 repair ruling asked of Daniel
 CHECKPOINT none (19:05Z) [open] passive: lander's 59 checking, tip 70 next; pods 20/21 gone, RunPod CPU stock out, infra retrying
 CHECKPOINT none (18:48Z) [open] passive: lander's 59 checking, tip 66 next; #1163 blocks six PRs (circuits asked)

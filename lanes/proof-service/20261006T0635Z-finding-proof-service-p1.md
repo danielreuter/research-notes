@@ -77,3 +77,8 @@ Import: `from verity.protocols.verification.sampled_proofs import service as S`.
   Five negative controls are each caught by the tests: the rule off, the budget off, the deadline off, a redraw, and a second outcome.
 
   The PR body is in the coordinator's store, at `internal/proofs/proof-service-pr.md`. One more deviation is in there, number 9: the default draw is `derive` over fresh coins, not Lean's samplers on raw bytes, so C-Flock passes `flock-verify draw` as the `sampler`. The PR body also lists two things not done: holding the session count and size to the Spec, and the proof mode.
+- 6 Oct, 1:36 AM PDT (08:36Z): the `--quick` sweep on this 4-core, 15 GB VM, shared with another agent's run. 21 suites passed. Two did not, both for environmental reasons:
+  - `verity-vllm`: 1 bf16 tolerance failure and 4 temp-directory errors under contention, all five passing on rerun alone;
+  - circuit-check: OOM-killed, with two circuit-check runs at once.
+
+  The coordinator's quick tier on node 1 is the run of record.

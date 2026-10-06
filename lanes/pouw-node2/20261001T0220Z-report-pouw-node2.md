@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (08:20Z) [open] A 08:20Z poll: node-2 / back to 27% (182 GiB free), the swings were transient /tmp work, leak now hygiene only; main 89fb2c28c (#1149, #1266, #1275, #1264), nothing under pouw; /workspace last 68% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (08:00Z) [open] A 08:00Z poll: nothing new since 07:40Z (07:00Z window in progress); main 68e614869 unchanged; node-2 / last 57%, /workspace 68% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (07:40Z) [open] A 07:40Z poll: nothing new since 07:20Z (07:00Z window in progress, node2-ops holding until 08:30Z); main 68e614869 unchanged; node-2 / last 57%, /workspace 68% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (07:20Z) [open] A 07:20Z poll: node-2 / flat at 57% (109 GiB free) since 07:02Z, no action needed during the 07:00Z window, cleanup after 08:30Z still pending infra's yes; main 68e614869 unchanged; /workspace last 68% (hold); panel art:d2b2eb906612; off node 2

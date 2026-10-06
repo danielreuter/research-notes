@@ -113,3 +113,6 @@ for each of the other three. It is not larger than A.
 * Step B restacked (12:46 AM PDT, 6 Oct): `cursor/flock-e2e-drawn-95d4` at `3eb247de0` (binder `1a693331f`, merges
   `cb9c4e50f` and `a817ddc7a`, record), audit `r20261006-070215-60cc` PASS (1750 guarantees); C's audit
   `r20261006-074511-78e2` is running.
+* Step C restacked (1:31 AM PDT, 6 Oct): `cursor/flock-e2e-hidden-95d4` at `573d4a50d` (binders and
+  `EndToEndHidden_refSetup` `7ca89feb1`, its pin `18de5e020`, merges `007e18e14` and `28e6a652c`, record), audit
+  `r20261006-074511-78e2` PASS (1755 guarantees); D's audit `r20261006-083030-61a1` is running.

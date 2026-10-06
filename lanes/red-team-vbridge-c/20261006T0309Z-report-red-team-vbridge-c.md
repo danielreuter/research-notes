@@ -5,6 +5,7 @@ created: 2026-10-06T03:09Z
 status: open
 ---
 
+CHECKPOINT 5b96da663 (06:01Z) [open] pr1283: all five checks done and clean; only the replay audit r20261006-044346-2f12 (vy-nebius-2, 77 min so far vs 48 on node 1) remains before the verdict
 CHECKPOINT 5b96da663 (04:54Z) [open] pr1283 checks 1-3 pass: recOpen == unit_circuit gate for gate at (8,1),(16,2); open_ref == lean forms == statement RHS; honest witness meets every hypothesis (8,1 idx0/1; 16,2); local kernel replay of 6 VBridge modules ok; art:547fabd7; waiting on replay audit r20261006-044346-2f12
 CHECKPOINT 5b96da663 (04:46Z) [open] pr1283: check5 merge clean (remerge-diff: imports only; JSON 3-way none); check4 records: only sound_recOpen + RecOpen reads {consStructure,consTerm,recOpen} new, 0 changed vs 2434949b9/7c5cb816e/17cfcdae8; replay audit r20261006-044346-2f12 running on vy-nebius-2
 CHECKPOINT 5b96da663 (04:42Z) [open] reopened for #1283 (sound_recOpen) review at 3d9977368: NOT final

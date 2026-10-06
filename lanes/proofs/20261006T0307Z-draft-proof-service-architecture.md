@@ -677,7 +677,7 @@ leads and proofs.
 
 ## 8. Asks of each lead
 
-**Agreement so far (8:45 PM PDT):** compute-accounting agrees, with four changes (thread 1791253199.410869,
+**Agreement so far (8:37 PM PDT):** compute-accounting agrees, with four changes (thread 1791253199.410869,
 1791257722.929929): the owed row-seeded theorem (section 4.1 step 10, D1), one row digest before forming (step 4), the
 seed derivation kept (section 5), and Pearl-C4 off served accounting. network-accounting agrees, with two changes
 (1791257756.221339): L7's weight and L6's cheaper statement shape. All six are applied. memory-accounting: pending.
@@ -714,5 +714,5 @@ Ask 5: served-zk moves onto one-stage's registration, receipt and Lean draw afte
   accepted cost (step 8).
 - 5 Oct, 8:32 PM PDT (03:32Z), proofs coordinator: public items restated in top's four kinds (section 1, `Public.kind`,
   L1), and γ filled in from pouw-gamma's finding (sections 1 and 4.1, D1; the interface's section 8).
-- 5 Oct, 8:45 PM PDT (03:45Z), proofs coordinator: compute-accounting's four changes and network-accounting's two
+- 5 Oct, 8:37 PM PDT (03:37Z), proofs coordinator: compute-accounting's four changes and network-accounting's two
   applied (sections 2, 4.1, 5, 7 and 8); memory-accounting's answer pending.

@@ -99,3 +99,6 @@ for each of the other three. It is not larger than A.
   (`--no-replay --no-runs`); new guarantee `EndToEndDrawn` (accepts ∧ some drawn unit wrong ≤ ε_ks + δ_link, no A3),
   needs a statement reviewer. The first run (`r20261006-022101-daf3`) failed for an unnamed guarantee; message fix on
   `cursor/lean-audit-pin-hint-ed8d`. C gained drawn-unit siblings for both modes; C's audit `r20261006-035812-e255` is running.
+* Step C (10:11 PM PDT, 5 Oct): `cursor/flock-e2e-hidden-95d4` at `04d66d9eb`, audit `r20261006-035812-e255` PASS
+  (`--no-replay --no-runs`); new guarantees `EndToEndHidden`, `EndToEndHiddenDrawn`, `EndToEndRegistered`,
+  `EndToEndRegisteredDrawn` (gap 4, both events), need a statement reviewer. D rebased on it; D's audit is running.

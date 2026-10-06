@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 5b96da663 (05:16Z) [open] 05:16Z: research-clone-shim -> #1286 and rec-ksweep's n1_lease fix -> #1287 (drafts, quick tiers 1dd4/8dcb queued); rec-ksweep curve posted to top (1.70x at K=4096, 1.99x at 16384, V* flat 6.9-7.9 s). #1264/#1257 quick tiers still waiting for node-1 check slots.
 CHECKPOINT none (05:08Z) [open] 10:10 PM PDT: #1257 re-granted at a294e8f5e (quick tier r20261006-050355-8c30 queued behind #1264's); #1284 (rec-step3) opened; red-team-proofs-1261 running on #1261 at b4784eb8e; research-clone-shim fixing the --cwd clone pyshim bug; D1 revised to the BLAKE3-keyed -h3 seed in the joint note; feedback on Daniel's recursive-architecture draft posted to top (1791263314.423629).
 CHECKPOINT none (04:17Z) [open] 9:18 PM PDT (04:18Z): red-team-vbridge-c granted #1273 and #1274; store bodies synced. Holding new node-1 Lean audits at infra's ask (vbridge-algebra's eight). Pearl-C4 attack folded into the joint note. rec-ksweep's K=4096/2048 points posted to top (7.75 s / 7.94 s outer). Waiting: #1264 quick tier, then undraft and post to ci.
 CHECKPOINT none (03:45Z) [open] 8:46 PM PDT: joint note agreed by all three leads (7 AM item done early); #1277 records the rulings; #1264 under red-team-proofs-1264

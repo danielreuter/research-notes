@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (10:00Z) [open] A 10:00Z poll: only node2-ops' 09:42Z disk fold, /workspace 67% (hold); node 2 quiet to 13:30Z; main 89fb2c28c unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (09:40Z) [open] A 09:40Z poll: only infra's 09:17Z idle-GPU alert (node 1), not mine; node 2 quiet to 13:30Z; main 89fb2c28c unchanged; /workspace last 68% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (09:20Z) [open] A 09:20Z poll: nothing for me (infra interviews only); node 2 quiet to 13:30Z for memory accounting; main 89fb2c28c unchanged; /workspace last 68% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (09:00Z) [open] A 09:00Z poll: node 2 back at 08:36Z; the outage was infra's planned reboot (cores 120-127 isolated), booked in slot-windows as quiet to 13:30Z for memory accounting's timed runs; agent, daemons, runner back; / 20%, /workspace 68% (hold); windows live in both fill/windows and slot-windows; main 89fb2c28c unchanged; still off node 2

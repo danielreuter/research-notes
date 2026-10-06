@@ -60,3 +60,9 @@ Local evidence (the Rust cross-check crate, the vector regeneration, the slow-te
    three analogous tests that passed there (hidden outputs, identifier, public inputs).
 4. `A5-uniform-secret` still has no upstream watch entry (pre-existing, `ASSUMPTIONS.md:337`).
 5. The `research` and `tc-probe-fp4` suite failures in the author's run are harness-only; both pass on a VM at the head.
+
+## The head moved during the review
+
+The grant label is on `7f32a63eb`. The PR's head is now `5c54ab971`, one commit on top (the P2 v1.1 kit keeps
+randomness v1 as `p2_v1/randomness_v1.py`). It touches only `benchmarks/pous/`, which this review left out of scope;
+outside that directory the patch is byte-identical at both heads. Whoever reviews `benchmarks/pous/` covers that commit.

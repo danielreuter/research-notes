@@ -370,6 +370,6 @@ PoUS's numbers here are from its first version (7:29 PM PDT). memory-accounting 
 
 - 5 Oct, 8:00 PM PDT (03:00Z): deliverable 1 written, ahead of the 10:45 PM PDT deadline. Next: deliverable 2,
   `proof-service-architecture`.
-- 5 Oct, 8:20 PM PDT (03:20Z): clear mode removed, per the coordinator's relay of the 7:48 PM ruling. The rest of the
+- 5 Oct, 8:17 PM PDT (03:17Z): clear mode removed, per the coordinator's relay of the 7:48 PM ruling. The rest of the
   ruling is applied in `note:proofs/20261006T0307Z-draft-proof-service-architecture`. A steward sync at 8:07 PM PDT had
   put back an older copy of this note; this version restores the 8:00 PM text.

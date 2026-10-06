@@ -20,3 +20,10 @@ Plan: `note:proofs/20261005T2345Z-draft-vbridge-plan`, piece E. Python restated:
   (25, 22, 8): `structureOf` equals `structure` exactly (5147 operands, 13 residuals); at random coins `verifierRows`' v
   (2710), `kappa`, the fold points, the query rows and `residuals` on a random w all equal Python's. Audit run
   `r20261006-014745-c8b8` on vy-nebius-1. Next: the lemmas (`residuals` on the built S is `run` over F), then the stages.
+- 02:50Z (7:50 PM PDT): `residuals_eq_run` proved: on `structureOf`'s S and `verifierRows`' v, `GfResiduals` at w is
+  `run` over F on the messages w holds, at the rep's coins, when each running-sum pair adds to `kappa`'s component.
+  Four stacked branches, pushed: `structure` `34cefd872` (`_build` as straight binds, comb slots counted first; same S,
+  v, kappa as Python again at (25, 22, 8)), `sim` `383856439` (`run_sim`, 572 lines), `build` `c28092c68`
+  (`buildAll_spec`, 611), `eval` `e3898fe2b` (`residuals_eq_run`, 134). `r20261006-014745-c8b8` PASS on `5ac9230d9`
+  (record unchanged: no pin). Audits `r20261006-024951-946b` (sim) and `r20261006-024951-26c0` (eval) running.
+  Next: `Zerocheck` (V*'s residual zero ⇒ the two `check`s of `bindAndZerocheck`, its loop as `Refine.zStep`'s fold).

@@ -21,3 +21,10 @@ Plan: `note:proofs/20261005T2345Z-draft-vbridge-plan`, pieces B1 and B2.
 - 02:25Z (7:25 PM PDT): B1's audit `r20261006-012013-995c` PASS (6873 declarations, 217 modules, 1749 guarantees; one
   guarantee new, none changed; 42 min, pod load ~168). Record committed unchanged on `cursor/vbridge-gf-95d4` at
   `9a87c37ac`; merged into B2's branch (`7e59941e1`, clean). PR file `internal/proofs/vbridge-gf-b1-pr.md`.
+- 02:50Z (7:50 PM PDT): B2's audit `r20261006-014233-86bc` PASS (1750 guarantees; against B1's record, one guarantee new,
+  none changed; its `sound_mul128` record is B1's). Record committed unchanged on `cursor/vbridge-residuals-95d4` at
+  `7c5cb816e`. PR file `internal/proofs/vbridge-gf-b2-pr.md`. Done; `check` not run (the merge needs it).
+- Finding for whoever restates `GfResiduals`: `gf2k._term_value` reads `["wt", i, u]` as bit `u` of `w[i + j]` (0 for
+  `u ≥ 128`), but both circuits (`rec_residuals.term`, `gf2k._term_refs`) read `W[128 (i + j) + u]`, and nothing checks
+  `u < 128`. The only producer (`rec_algebra._build`) has `u < 128`, so nothing is wrong today; B2's `termVal` follows
+  the circuits.

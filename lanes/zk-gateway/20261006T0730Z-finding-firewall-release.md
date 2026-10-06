@@ -17,6 +17,8 @@ origin: bc-8416bc72 (proofs)
 - §10.5's first row holds through the relay at 11.19 bits (`log₂ 2336`), lower than 12.1 because there is no outer `Finish` bit and a cut before the first request looks like a session never opened.
 - `85-rec-reprice.sh` does not run the relay yet, so node 1's sessions are still the second row's (80.1 bits).
 
+Evidence for the local real-binary relay run, the negative controls and the period analysis below: `art:4c115cd6ca3c1f0181836ec4d3879ff1ebcd6fe4ebb5a60223d19b1b7ae9b771`.
+
 **Rule 3's input.** Run `r20261006-065256-f517` on node 1 (K = 4096, `MODES=gate` at `d828d3ea9`, which is today's `FC_FIREWALL=1`) covered the eight V* statements, each with 10 timed sessions after 1 warm, and one GPU leased around each prove. `e2e_s` runs from `Register`, the slot grant, to the end of proving. The verdict is serve's verification after `Finish`.
 
 | statement | e2e median (s) | e2e max (s) | verdict median (s) |

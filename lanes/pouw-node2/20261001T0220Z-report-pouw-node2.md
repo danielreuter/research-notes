@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4cd (21:20Z) [open] A 21:20Z poll: main 57a04f569: more PearlC namespaced lifts (Fp4, Sampled, RowSeed TTOut), no gamma change, panel cites resolve; /workspace 70% (-62 GiB/h, hold); 21:45Z PoUS window not mine; off node 2; v1 gamma + beacon wording await yes
 CHECKPOINT fbce5a2f4cd (21:00Z) [open] A 21:00Z poll: no new notes; main unchanged d21be99ba; off node 2 (no infra 'back'); 21:45Z PoUS window not mine; /workspace last 69% (hold); v1 gamma + beacon wording await yes
 CHECKPOINT fbce5a2f4cd (20:40Z) [open] A 20:40Z poll: no new notes; main unchanged d21be99ba; off node 2 (no infra 'back'); 21:45Z PoUS window not mine; /workspace last 69% (hold); v1 gamma + beacon wording await yes
 CHECKPOINT fbce5a2f4cd (20:20Z) [open] A 20:20Z poll: slot-windows retired 20:07Z, node 2 bookings now only in fill/windows; 21:45Z-23:15Z memory accounting's PoUS window (whole node quiet, PoUW off; not mine); /workspace 69% (hold); main unchanged d21be99ba; off node 2; beacon-wording/v1 gamma still awaiting yes

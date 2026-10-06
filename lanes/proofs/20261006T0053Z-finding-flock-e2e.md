@@ -95,3 +95,7 @@ for each of the other three. It is not larger than A.
   (`--no-replay --no-runs`); `EndToEnd` restated in place, "wrong" = `wrongRegZ` against the public file; changed record,
   needs a statement reviewer. Gap 3 is not cheap (per-circuit `RowsCert`, constant-1 column only up to a collision); it
   stays open. Steps C (hidden outputs, registered reads) and D (zero-knowledge half) are written and type-check locally.
+* Step B (9:05 PM PDT, 5 Oct): `cursor/flock-e2e-drawn-95d4` at `5aa4c94e2`, audit `r20261006-030514-32be` PASS
+  (`--no-replay --no-runs`); new guarantee `EndToEndDrawn` (accepts ∧ some drawn unit wrong ≤ ε_ks + δ_link, no A3),
+  needs a statement reviewer. The first run (`r20261006-022101-daf3`) failed for an unnamed guarantee; message fix on
+  `cursor/lean-audit-pin-hint-ed8d`. C gained drawn-unit siblings for both modes; C's audit `r20261006-035812-e255` is running.

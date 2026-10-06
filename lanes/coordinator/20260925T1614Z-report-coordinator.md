@@ -816,3 +816,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T08:16Z: infra: node 2 down 08:30-08:45Z; node 1 has a fifth slot (e, cores 96-127); vy-mig-check-19/20 are for quick tiers and shards only.
 - 2026-10-06T08:46Z: first post-rename tip c8710a449 (move 4f827ee8b + #1279 #1281 #1285 #1286 #1271 #1272 #1298 #1293 #1302) node1 r20261006-084358-029d --agreement, started ahead; lands once the move is on main if tree-identical.
 - 2026-10-06T08:48Z: cancelled 029d (c871): it was queued ahead of the move's check c8b5 on full node 1 (5 lane runs). c871 waits for leftover capacity or shards on vy-mig-check-20.
+- 2026-10-06T08:53Z: the move's check c8b5 is running (node1 slot a). c871 rerun ec6a waiting with priority. Top's #1321 ready tier 130c waits behind lanes; suggested vy-mig-check-19/20.
+- 2026-10-06T08:56Z: c871 is checking as 3 shards (1bcf, 46cd on vy-mig-check-20; 2/3 on -19 ~09:00Z). Cancelled ec6a. Land c871 on the combined result after top's move post.

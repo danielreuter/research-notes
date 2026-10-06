@@ -827,3 +827,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T10:16Z: the rename move a7134c413's after-landing steps all ran: spec DM (10 NetTiming definitions changed, from the Warden→Certifier type rename only; no guarantee changed), mirror at a7134, post_train regression r20261006-100943-10ba on node 1, marker at a7134.
 - 2026-10-06T10:18Z: tip 19 is now 19f22d470 (187d + #1312@260a2739a); aafb is stale (never started). Queued for the next free slot.
 - 2026-10-06T10:34Z: 19f22d470 (tip 19) node1 r20261006-103204-8e6b. c871 shards: bd98 past lean-audit, 2464 queued, d10e past circuit-build; 7f39 (187d) past lean-audit.
+- 2026-10-06T10:53Z: c871 shard 1 bd98 FAILED on the pod's environment (taskset CPU 0 outside the cpuset; notes-sync under load). Rerun on node1 as r20261006-105111-5602. Combine: 5602 + 2464 + d10e.
+- 2026-10-06T10:56Z: merged 187d0017a (10 PRs) → main c3be1f9b6 via --push. Cancelled 5602; c871 shards moot. 8e6b (19f2) next.

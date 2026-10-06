@@ -18,8 +18,10 @@ K = 4096 session still accepted and a wrong `coef` or `dirs` refused? And what d
 
 ## Answer
 
-Yes. The branch is `cursor/vstar-register-coef-95d4`, on #1284's `cursor/rec-step3-95d4` (`273017068`). The commits are
-`96142e0b4` (the registrations), `f011d6057` (the slot bound) and `a9b50258c` (a comment). The PR body is
+Yes. The branch is `cursor/vstar-register-coef-95d4`, written on #1284's `cursor/rec-step3-95d4` at `273017068`. The
+commits are `96142e0b4` (the registrations), `f011d6057` (the slot bound) and `a9b50258c` (a comment). The head
+`a106e15b8` restacks them onto rec-step3's restacked tip `77acebf9d`, merging against rec-step3's own `rename.py` commit
+`a3312e653`, so the result is `77acebf9d` plus exactly this branch's diff. The PR body is
 `/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/internal/proofs/vstar-register-coef-pr.md`.
 
 - **The design.** The verifier computes each row as before and registers it with `Registered.commit` under public salts:
@@ -30,9 +32,13 @@ Yes. The branch is `cursor/vstar-register-coef-95d4`, on #1284's `cursor/rec-ste
 - **Definitions.** `RecOpen_v4` has a `dirs` of 64 words (one M0 row; the unit reads word 0's low H bits), and
   `InnerRepCheck_v2` has a `v` of P(nv) words (the unit reads its first 128·nv bits). circuit-check passes both, with 0
   failures.
-- **Negative controls.** The forged-`coef` and forged-`dirs` sessions are refused at L0 by the server and by upstream's
-  replay, both with `opening: RingSwitch(ClaimMismatch)`. Each is the prover's row one bit off, under the verifier's salt.
-  The other forgeries are refused where they were on rec-step3.
+- **Accepted.** The honest session is accepted by the server, by upstream's `replay --zk` and by Lean `verify --zk`.
+  That covers L0–L6 and both bounded algebra parts, all with no `--public-inputs`.
+- **Negative controls.** The forged-`coef` and forged-`dirs` sessions are refused at L0. The server and upstream both say
+  `opening: RingSwitch(ClaimMismatch)`. Lean says `opening: ring-switch claim 8 mismatch` and `claim 10 mismatch`. Each
+  forgery is the prover's row one bit off, under the verifier's salt.
+- **The older forgeries** (`top`, `top-salt`, `sum`, `comb`, `message`) are refused by all three where they were on
+  rec-step3, in both algebra splits. The other algebra part of each is accepted.
 
 ## What it costs
 
@@ -45,6 +51,9 @@ Yes. The branch is `cursor/vstar-register-coef-95d4`, on #1284's `cursor/rec-ste
   slots and k_log 27 = `K_MAX`, and its serve verify takes 43–64 s (run `r20261006-100522-5713`). `MAX_SLOTS = 128`
   splits the algebra into two parts at k_log 26 (128 and 125 slots, run `r20261006-101921-b847`): 2^27 bits in all, as
   on rec-step3.
+  - The parts prove in 1.94 and 2.36 s, with proofs of 1,069,754 and 1,082,138 bytes.
+  - Lean verifies each in 13.2 minutes (144 and 139 s of verify), against 22.2 minutes for the unbounded k_log 27 part.
+  - Their serve verify (20 and 42 s) ran with the prover's cores fully busy, so it needs a re-time on a quiet node.
 - **A cheaper `coef`, not done.** `coef` is κ[level][r][l] · eq(α)[j]. With κ as a constant of the level's template, the
   products by κ are free in ANDs, and an opening registers one F element. That would take back most of L0's cost.
 
@@ -53,8 +62,8 @@ Yes. The branch is `cursor/vstar-register-coef-95d4`, on #1284's `cursor/rec-ste
 | Step | Runs |
 |---|---|
 | vstage | `r20261006-093343-89f7`; bounded algebra `r20261006-101921-b847` |
-| oprove | `r20261006-100522-5713` |
-| Lean | see the PR body |
+| oprove | `r20261006-100522-5713`; bounded algebra `r20261006-111106-374c`, `-112120-7214`, `-114353-67f3` |
+| Lean | `r20261006-105510-fa41`, `-110428-b738`; bounded algebra `r20261006-112100-f467`, `-114405-992b`, `-115318-aca4` |
 | Baseline (rec-step3) | vstage `r20261006-022005-409a`, oprove `r20261006-024439-6203`, Lean `r20261006-040407-0310` |
 
 ## Hazards met
@@ -64,3 +73,12 @@ Yes. The branch is `cursor/vstar-register-coef-95d4`, on #1284's `cursor/rec-ste
   rootdir is `backends/flock`; use `-k 'not rejects_exactly_the_mutations'`.
 - The VM's disk was full (254 GB, mostly other lanes' worktrees and pytest dirs). Freeing space, I deleted
   `/tmp/pytest-of-ubuntu/pytest-655` (64 KB), which was another agent's, by mistake.
+- `tools/move/restack.py` on a branch stacked on an already restacked parent fails twice, in ways that aren't the
+  branch's.
+  - Step 1 (merge the move's base) hits the parent's own conflict, here `flock-circuit.rs`.
+  - Step 3 (merge `--onto`, against the move commit) conflicts in every file both branches change.
+  - What worked: merge the parent's base merge (`9859b89d6`) first, keep the tool's script commit (`360a354ee`), and
+    merge it with the parent's tip against the parent's own script commit (`a3312e653`) with
+    `git merge-tree --merge-base`.
+  - Check: the result minus the parent's tip equals the branch's own diff, renamed.
+  - A `--parent-script` option in `restack.py` would make this one command.

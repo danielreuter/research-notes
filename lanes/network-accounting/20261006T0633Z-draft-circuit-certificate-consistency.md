@@ -299,3 +299,33 @@ The check against a TP Build's crossing values did not run. It needs three thing
 
 With that, `consistency.py` gains an interior-link mode that checks direction 1 per member and direction 2 per real
 slot.
+
+## Correction from @circuits (X4, 6 Oct 10:30Z, main `a7134c413`)
+
+§7 and the "pinned transport" item assumed the TP Builds use a one-shot all-reduce. They don't.
+
+**Transport.**
+- The TP Builds run pynccl with custom all-reduce disabled and `NCCL_P2P_DISABLE=1` (recorded as `env_required`), on batch-invariant NCCL (tree / Simple).
+- Their Definitions (`AllReduce2_v1` at 2 ranks, `AllReduce_v2` chained above that) model the result's arithmetic, not the messages on the wire.
+- What the wire carries is NCCL's tree traffic.
+- Nothing records NCCL's actual choice (algorithm, protocol, channels, transport, version), and no TP Build spans nodes.
+- So direction 1 at a node boundary needs two things:
+  - NCCL's choice, recorded and pinned;
+  - a wire model of tree / Simple chunks as a Definition, or a transport the certifier can frame canonically.
+
+**Members.**
+- The rank-local input is `<site>/part_rank<r>`; an all-gather's is `shard_rank<r>`.
+- The reduced output has one of three names:
+  - `<site>/0` for dense row-parallel linears;
+  - `<site>/out` for fused MoE and mid-module sites;
+  - the bare `<site>` for `embed_tokens` and `logits_processor`.
+- Two caveats:
+  - on a `reduce_results=False` model, `/0` is the partial;
+  - GLM's fused all-reduce + RMSNorm commits no bare sum.
+- The bytes are raw bf16, row-major and little-endian, at a 4-byte-aligned offset in the step's packed stream, under 256-byte `chunk-leaf-v1` leaves. Those leaves are still SHA-256, so they need the one-hash move.
+- The address comes from `binding_map_rank<r>.json`, not from the name.
+- Example: Llama-3.2-1B TP2, step 5, `o_proj/part_rank1` is [1, 2048] bf16, 4,096 bytes.
+
+**Request to step.** Request r's step s is engine step `arrive_step + s`, as the Program declares. The binding map's request blocks carry the collector's `step_rows`. Token positions follow from the schedule.
+
+The two-node recorded check comes after 7:00 AM PDT (14:00Z).

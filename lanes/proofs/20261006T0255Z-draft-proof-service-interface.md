@@ -109,7 +109,8 @@ outer_heavy(vstar_statement, transcript) -> work  # the outer proof's arithmetic
 commit(value, digests) -> Handle                  # salts each x; Handle.root() per call, asynchronous, batched per pass
 commit_stream(value) -> Appender                  # .append(row) off a real-time tick; .close() -> Root (warden R3)
 commit_registered(program, value, rows) -> Registered   # hm96-sha512/row/v2 (section 4)
-commit_fresh(nonce, digest) -> CommitString       # x = SHA-512(prefix(nonce) || block), inside the deadline (section 3)
+commit_fresh(nonce, block) -> CommitString        # x = SHA-512(prefix(nonce) || block) over the whole block, never over
+                                                  # H(block); inside the deadline (section 3)
 register(spec, roots) -> Registration             # sent to the verifier gateway; the receipt comes back
 prove(draw, check) -> Sessions                    # zk | recursive, chosen by size; gates every message
 

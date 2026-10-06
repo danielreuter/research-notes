@@ -3,7 +3,7 @@ id: proofs/20261006T0307Z-draft-proof-service-architecture
 campaign: proofs
 lane: proofs
 kind: draft
-status: draft (for compute-accounting's, memory-accounting's and network-accounting's agreement)
+status: agreed by compute-accounting, memory-accounting and network-accounting (5 Oct, 8:41 PM PDT); for Daniel
 repo: danielreuter/verity
 origin: bc-bb283e71-f122-57b3-b894-fccb8cd2ada1 (proof-service, for the proofs coordinator bc-8416bc72)
 ---
@@ -53,7 +53,8 @@ Read at `origin/main` `c305471c5`. Inputs, at the notes commits named:
     commits, then one proof of the answers and an exhaustive fact.
   - The warden: streamed commits, every link-window selected, and a ZK proof of the grid check per window.
 - **Each protocol deletes its own copies of the infrastructure** (section 5). For PoUW that is about 7k lines in its own
-  files. PoUS loses its timed verifier, transport, salt, draw, vk tree and public-encoder setup. The warden loses its
+  files. PoUS loses its timed verifier's loops, transport, salt, draw, vk tree and public-encoder setup, and keeps its
+  acceptance rules as the oracle the service's timed mode is difftested against. The warden loses its
   digest, record-keeping and publishing.
 - **The migration starts tonight with served-zk** (section 6): one served request whose commitment the proof opens, with
   the draw moved from `os.urandom` to one-stage's registration, receipt and Lean draw. The order after that: the warden's
@@ -286,6 +287,9 @@ cover, which limits completeness and never soundness.
   - the setup indices and the setup profile;
   - the `A_j`;
   - the audit's indices and nonces, once the session closes;
+  - each round's on-time bit, the record's only timing (an output);
+  - the k drawn hiding leaves of C, `AnswerOpens`' public inputs (section 4.3 step 8). They are hiding, so they reveal
+    nothing about C; the verifier gateway holds all B of them from setup and checks them against C's registered root;
   - a rejection or abort.
 - The outcome: `P2SlackFamilyUncond` (or `P2SlackFamilyFreeBlocks` after a sampled setup), then the `StorageProfile`.
 
@@ -404,11 +408,18 @@ Each audit:
    - It measures the RTT between the gateways first, and refuses an allowance above 354 µs.
    - Each round, it reveals (i_j, nonce_j) as one Goldreich–Kahan opening of its coin tree.
    - The prover gateway checks the opening, reads block i_j, and sends `A_j = commit_fresh(nonce_j, block)` at a fixed
-     offset. memory-accounting puts the round at about 185 µs at p99.9 under load, so an offset near 400 µs fits inside Δ.
+     offset. `commit_fresh` hashes nonce_j ‖ the whole 2,056-byte block; a commitment over nonce_j ‖ H(block) is the
+     precomputation attack again.
+   - **The offset comes from the honest per-round tail at the audit's rejection target, not from p99.9**
+     (memory-accounting). 185 µs is p99.9 per round under load, and an audit is 105 rounds, so a 0.1% honest rejection
+     needs about 1e-5 per round. A release after the offset counts as a miss. memory-accounting's preemptible sweep
+     (bc-addb6781) measures honest acceptance at the 354 µs cap tonight; the offset is set from it and the on-node round.
+     400 µs is a placeholder until then.
    - The record keeps one bit per round, on time or not, and the exact times stay on the verifier gateway.
 8. After the session, the service proves `AnswerOpens`: each `A_j` opens, with nonce_j, to the same 2,056 bytes as C's
-   leaf i_j. The verifier gateway holds C's hiding leaves, so they are public inputs and the statement needs no Merkle
-   path. That is about 3.4e8 ANDs at k = 105: one recursive session, or about 21 s of direct `--zk`. The size rule picks.
+   leaf i_j, and the statement recomputes the inner digest H(block) from those bytes. The verifier gateway holds all B of
+   C's hiding leaves (64 bytes a block) from setup and checks them natively against C's registered root, so the k drawn
+   leaves are public inputs and the statement needs no Merkle path. That is about 3.4e8 ANDs at k = 105: one recursive session, or about 21 s of direct `--zk`. The size rule picks.
 9. Once the proof verifies, by PoUS's proof deadline (it suggests an hour), `outcome` gives an `Exhaustive` fact (k of k
    on time and opened), the terms (proof, binding, possession) and the setup profile.
 10. PoUS maps the fact through its certificate into the `StorageProfile`, adding the service's terms and, after a sampled
@@ -459,13 +470,18 @@ derivations, `WorkProfile` and its Lean.
 - vk's tree (`verifier.py`'s `MerkleTree`, `leaf_hash`, `node_hash` and `verify_path`, and `reference.py`'s second framing);
 - the salt draw (`setup.draw_salt`, `setup_salt`, the bench constant, vLLM's `os.urandom` placeholder);
 - the challenge draw (`audit.challenge_key`, `TimedVerifier.challenge`, `audit_key`, the `os.urandom` sources);
-- the timed verifiers (`TimedVerifier`, `run_timed`, `protocol.Verifier`, `ContinuousVerifier`, `p2_v1/live.py`'s loop);
+- the timed verifiers' loops (`TimedVerifier`, `run_timed`, `protocol.Verifier`, `ContinuousVerifier`, `p2_v1/live.py`'s
+  loop), but not their acceptance rules (below);
 - transport and RTT calibration (`band_gpu/live.py`'s wire, `calibrate`, `limit_of`, `ControlResponder`, `continuous.Reply`);
 - the audit JSON records, with their device and server times;
 - the public-encoder setup (`setup.verifier_key_from_encoding`), and the setup verifier as a mechanism.
 
 PoUS keeps the scheme and codec, `Certificate`, `StorageProfile`, `LOCAL_CLAIMS`, `audit.simulate`, the Lean, the kernels and
-the benchmark measurements. `layout.Layout` becomes the developer's private data, and the tensor table replaces it in the
+the benchmark measurements. It also keeps its acceptance rules (strict, the continuous miss budget and graded: the rule
+code in `audit.py` and `continuous.py`) with `audit.simulate`, as the oracle the service's timed mode is difftested
+against, like the warden's Python audit. `ContinuousVerifier`'s rules are what `test_pous_continuous_difftest` checks
+against the Lean model. Only the loops, transport, draws, salt, vk tree, records and public-encoder setup go
+(memory-accounting). `layout.Layout` becomes the developer's private data, and the tensor table replaces it in the
 statements (section 2.1). The service's sessions take k, Δ and the call time from PoUS's certificate, so P3's defaults
 can no longer reach a P2 audit (the consolidation note's first fix).
 
@@ -579,7 +595,9 @@ leads and proofs.
   change, but the profile then certifies the padded store.
 - **D3. The possession claim (PoUS Q3).** It is a new named assumption, for example `possession/sha-512` under the
   `random-oracle` model: a nonce-bound commitment received by time t determines a hash query on the whole block, made
-  after the nonce. With it, the general rule is written down: a guarantee about *when* a value was held needs a nonce-bound
+  after the nonce. That holds only if `commit_fresh` hashes nonce_j ‖ the whole 2,056-byte block and `AnswerOpens`
+  recomputes H(block) from those bytes; over nonce_j ‖ H(block) it is the precomputation attack again (memory-accounting).
+  With it, the general rule is written down: a guarantee about *when* a value was held needs a nonce-bound
   commitment, and one about *what* was committed needs only binding. Recommendation: yes, entering PoUS's profile beside
   `P2_CLAIMS`. Without it, PoUS is broken by a prover holding 3% of C, and PoUS's guarantee waits on it.
 - **D4. Where PoUS's timed verifier runs, what makes it auditor-trusted, and isolation as soundness (PoUS Q1, R3, R8).**
@@ -677,10 +695,13 @@ leads and proofs.
 
 ## 8. Asks of each lead
 
-**Agreement so far (8:37 PM PDT):** compute-accounting agrees, with four changes (thread 1791253199.410869,
+**Agreement (8:41 PM PDT):** compute-accounting agrees, with four changes (thread 1791253199.410869,
 1791257722.929929): the owed row-seeded theorem (section 4.1 step 10, D1), one row digest before forming (step 4), the
 seed derivation kept (section 5), and Pearl-C4 off served accounting. network-accounting agrees, with two changes
-(1791257756.221339): L7's weight and L6's cheaper statement shape. All six are applied. memory-accounting: pending.
+(1791257756.221339): L7's weight and L6's cheaper statement shape. memory-accounting agrees, with four changes
+(1791257816.713839): keep PoUS's acceptance rules as the difftest oracle (section 5), the on-time bits and drawn hiding
+leaves as public items (section 3), the offset from the rejection target (section 4.3 step 7), and `commit_fresh` over
+the whole block (step 8, D3; the interface's signature). All ten are applied. **All three leads agree.**
 
 **compute-accounting (PoUW):** answered. Asks 1–3: agree, with the changes applied. Ask 4: L4 and L5 decided (section 7).
 Ask 5: served-zk moves onto one-stage's registration, receipt and Lean draw after its 11:00 PM PDT (06:00Z) verdict, and
@@ -692,7 +713,10 @@ Ask 5: served-zk moves onto one-stage's registration, receipt and Lean draw afte
 5. Run served-zk's step 0 through one-stage's registration, receipt and Lean draw in place of `os.urandom`. Report
    `hm96_rows.cu`'s rate as R1's number.
 
-**memory-accounting (PoUS):**
+**memory-accounting (PoUS):** answered. Ask 1: agree, with the changes applied. Ask 2: agreed, W by weight row with P2's
+byte stream as the rows in committed tensor order, and the tensor table's well-formedness in `P2Decode`. Ask 3: the
+fixed-offset release and an hour's proof deadline agreed. Ask 4: takes step 5 and step 11 (starting with one traced
+16,448-bit squaring through `circuit-check`).
 1. Agree to sections 3, 4.3 and PoUS's part of section 5, or mark what's wrong.
 2. Agree section 2.1: PoUS opens weight rows through the shared tensor table, at an estimated 10–65% more per setup block.
 3. Agree the fixed-offset release in the timed loop, and the proof deadline in `outcome`.
@@ -716,3 +740,5 @@ Ask 5: served-zk moves onto one-stage's registration, receipt and Lean draw afte
   L1), and γ filled in from pouw-gamma's finding (sections 1 and 4.1, D1; the interface's section 8).
 - 5 Oct, 8:37 PM PDT (03:37Z), proofs coordinator: compute-accounting's four changes and network-accounting's two
   applied (sections 2, 4.1, 5, 7 and 8); memory-accounting's answer pending.
+- 5 Oct, 8:41 PM PDT (03:41Z), proofs coordinator: memory-accounting's four changes applied (sections 1, 3, 4.3, 5,
+  7 and 8; the interface's `commit_fresh` signature). Agreed by all three leads.

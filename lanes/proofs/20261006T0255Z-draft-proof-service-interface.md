@@ -127,8 +127,8 @@ salt `y`, computes `b = x ⊕ M·y` and `c = H(y)`, builds the frame-v3-sha512 t
 ready. Salts never reach a GPU. A GPU that sends a wrong `x` gains nothing: hm96's hiding holds for every `x`, and a wrong
 `x` opens to no row, so its proof fails. This is compute-accounting's split (R1). The gateway's share is about 1 µs a leaf,
 1.5–5 cores per GPU at decode (their estimate); `M·y` and `c` depend on the salt alone, so they are precomputed. Roots come
-per call (R2). A window's registration carries one root over the calls' entries (each call's root, its public shape and
-counts, and its committed record), since 15 minutes of decode is millions of calls. `commit_stream` is the same over rows that arrive 10 times a second (warden R3).
+per call (R2), and a window's registration carries one root over the calls' `(root, shape, record)` entries, since 15
+minutes of decode is millions of calls. `commit_stream` is the same over rows that arrive 10 times a second (warden R3).
 
 **`register` and `receive`.** This is one-stage's registration (`registration.record`, `check`, `receipt`), plus the
 protocol's context (R10) and the root over per-call roots. One change for the warden's R1: today's receipt stamps the
@@ -149,9 +149,8 @@ to keep pace with windows, not finish inside an epoch.
 **`select`.** The verifier gateway draws from its own randomness after the receipt, under the rule in the `Spec`:
 - `Law`: the one-stage laws as today (`draw.derive`, `check_draw`; Lean `Flock.Draw`). PoUW's per-unit work (R7) is met by
   strata keyed by template and credit class, the class read from the per-call records registered before the draw. The
-  README's rule already says a template whose units are credited differently is split. Lean's `work_escape_le` takes any
-  strata, and `prob_auditReg` covers strata that depend on the registration. What's new is code: `draw.derive` and
-  `Flock.Draw` derive strata from the program and query alone today.
+  README's rule already says a template whose units are credited differently is split, and Lean's `work_escape_le` takes
+  any strata.
 - `TwoStage`: section 4.
 - `All`: no draw, and so no escape term.
 - `Sequential`: inside `timed`, below.
@@ -167,16 +166,15 @@ to keep pace with windows, not finish inside an epoch.
   then V*'s outer `--zk` session through the gate.
 
 The rule is by size. The gate's trusted work grows with the committed witness: for direct ZK that is the statement's
-witness, and for recursion it is V*'s, which grows only with the inner proof's openings and algebra. So the service proves directly
+witness, and for recursion it is V*'s, which depends only weakly on the inner statement. So the service proves directly
 when the drawn units' witness is below V*'s, and recursively above it. Drawn units of one template class go into sessions
 sized to the prover's block limit (PoUW R11, R12). Today V*'s eight statements are 2^28 to 2^32 words each, and the gated
 outer prove costs 46.8 s and about 176 CPU-seconds of gateway work a session (#1270). The crossover itself is unmeasured.
 PoUS's openings go direct, and PoUW's windows go recursive.
 
 **`timed`.** This is PoUS's audit as a verifier-gateway mode, on the node, built on #1227's Lean-owned loop with no Python
-hop in the round (PoUS R2, R4, R7). The verifier gateway draws k indices uniform with replacement from its own
-randomness, keeps them secret until each reveal (in hidden mode, from its coin tree, one Goldreich–Kahan opening a round),
-and reveals index j only once answer j − 1 is in or its hard deadline has passed. It checks each answer after stamping its
+hop in the round (PoUS R2, R4, R7). The verifier gateway draws k indices uniform with replacement from its coin tree, and
+reveals index j only once answer j − 1 is in or its hard deadline has passed. It checks each answer after stamping its
 receipt, or after the last round when the check doesn't fit the gap (the band's graded audit). The record keeps, per index,
 whether the answer was correct and in time, not when it arrived (warden R1). With `fresh=True` (hidden mode), each reveal
 carries a nonce and the gateway answers with `commit_fresh` inside the deadline. A direct-ZK proof after the session then
@@ -256,8 +254,8 @@ What isn't built:
 - **The Lean verifier**: `Flock/Registered.lean` reads row/v1 only. `Flock/HmRow.lean` already computes row/v2 leaves.
 - **The prover**: the Rust prover's `--registered` rows, and the in-circuit row digest, whose prefix carries the bit length.
 - **Recursion**: `rec_live.top_rows` and `RecOpen`'s reads (rec-step3), changed together.
-- **The lock**: the `ZkReg` theorems read the verifier's registered path (`Flock/Registered.lean`, `HmRow.lean`). If their
-  records change, they need a named statement reviewer.
+- **The lock**: the `ZkReg` theorems' statements read the row format. Their records change and need a named statement
+  reviewer.
 
 ## 5. What each call is guaranteed by
 
@@ -273,7 +271,6 @@ What isn't built:
 | `select`: one-stage law | verifier gateway | sampled proofs' law: `subset_miss`, `stratified_escape`, `work_escape_le`, and `drawOS_*_escape_le` for the running draw under A3 | main |
 | `select`: two-stage | verifier gateway | `twoStage_count`, `two_stage_b_tight`, `effEscape_bernoulli_prod` | main, coverage unchecked |
 | `select`: sequential | verifier gateway | — (PoUS's `P2SlackFamilyUncond` assumes uniform indices) | none yet |
-| `timed`: the deadline | verifier gateway | its clock and the audit's isolation, as named claims (PoUS R3, R8); #1227 measures the loop | none yet |
 | `prove` + `verify`: direct ZK, soundness | prover gateway, batch verifier | the `zk_session_*` family (`zk_session_soundJ_custody`, `zk_session_soundR`, `zk_session_soundHJR_custody`) | main |
 | `prove`: direct ZK, zero knowledge | prover gateway | honest-verifier at each coin vector: `zk_session_view`, `zk_session_view_all`, `session_shvzk_le`; against a malicious auditor, `gk_simulate_hm96` instantiated at C-Flock's `--zk` | main; the instance none yet |
 | the gateway's send check | prover gateway | the rule in #1270's PROTOCOL §10; `gateway_no_free_choice` proposed | none yet |
@@ -360,5 +357,5 @@ first user's code and not before. The gateways are C-Flock's (`backends/flock`),
 
 ## Checkpoint
 
-- 5 Oct, 8:00 PM PDT (03:00Z): deliverable 1 written, ahead of the 10:45 PM PDT deadline. Next: deliverable 2,
+- 5 Oct, 10:16 PM PDT (05:16Z): deliverable 1 written, ahead of the 10:45 PM PDT deadline. Next: deliverable 2,
   `proof-service-architecture`.

@@ -4,7 +4,7 @@ campaign: proofs
 lane: proofs
 kind: friction
 status: fixing
-fix: "PR #1327 (infra): .cursor/hooks.json beforeShellExecution guard refuses env/printenv/set/export -p and /proc/*/environ; covers agents started after it lands"
+fix: "PR #1327 (infra): .cursor/hooks.json beforeShellExecution guard refuses env/printenv/set/export -p and /proc/*/environ, and since 735e85ddc every-process full-command-line listings (ps aux, -ef, -eo args, axo pid,args, /proc/*/cmdline); a listing piped into grep/rg and pgrep -af PATTERN still pass; covers agents started after it lands"
 severity: incident
 recurs: note:circuits-grid-models/20261001T1517Z-friction-env-names-printed-key-lines
 repo: verity

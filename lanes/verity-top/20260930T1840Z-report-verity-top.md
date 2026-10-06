@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:14Z) [open] passive: lander's 59 checking, ci's tip 63 next; red-team relabel running
 CHECKPOINT none (18:05Z) [open] passive: 58/58a vllm grants pushed, gate re-run pending; tip 59 fallback checking
 CHECKPOINT none (18:01Z) [open] passive: watching lander tip 59 d23cc26c74f2 land; inbox empty
 CHECKPOINT none (17:32Z) [open] tip 56/57 next (#1309 fixed); smell sweep replies in; Daniel deciding tools/infra layout with architecture

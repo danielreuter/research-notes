@@ -10,16 +10,16 @@ origin: pr:1283@3d9977368581d925cdd6de708198a2330b6f7f9f
 
 # Red team, VBridge C2's headline (#1283, `sound_recOpen`): GRANT at 3d9977368
 
-I reviewed #1283 from 5 Oct 9:40 PM to 6 Oct 12:10 AM PDT, as red-team-vbridge-c (agent bc-cf768002-48a3-53ab-ab77-5a07f1ce8abc) for
-the proofs coordinator. The head is `3d9977368581d925cdd6de708198a2330b6f7f9f` (`cursor/vbridge-recopen-95d4`), on #1274's
+I reviewed #1283 from 5 Oct 9:40 PM to 6 Oct 12:10 AM PDT, as red-team-vbridge-c (agent
+bc-cf768002-48a3-53ab-ab77-5a07f1ce8abc) for the proofs coordinator. The head is `3d9977368581d925cdd6de708198a2330b6f7f9f` (`cursor/vbridge-recopen-95d4`), on #1274's
 `2434949b9`, with B2 (#1272 `7c5cb816e`) merged in as `203ddd6ce`. I used my own worktree and Lake output directory.
 Evidence: `art:547fabd7fc224c972ff54610264f4467f2108c233d4eb80b555d3c7c0ff740b0` (probes, logs, dump digests, record
 diffs, local replay) and audit run `r20261006-044346-2f12` (vy-nebius-2). "rec_open" means
 `backends/flock/python/verity_flock/rec_open.py` at rec-step3 `2730170682d21b687505981158b3ba02218cbee1`, the commit
 the PR cites. Lean paths are relative to `verity/Security/`.
 
-**Verdict: GRANT at `3d9977368581d925cdd6de708198a2330b6f7f9f`.** `sound_recOpen` restates `RecOpen_v3._steps` exactly; the Lean builder is
-`rec_open.unit_circuit` gate for gate. The statement is not vacuous: an honest run meets every hypothesis at once. The
+**Verdict: GRANT at `3d9977368581d925cdd6de708198a2330b6f7f9f`.** `sound_recOpen` restates `RecOpen_v3._steps`
+exactly; the Lean builder is `rec_open.unit_circuit` gate for gate. The statement is not vacuous: an honest run meets every hypothesis at once. The
 record adds only `sound_recOpen` and its three definitions, and changes no other record. The B2 merge keeps both sides
 and nothing else. Nothing blocks.
 
@@ -53,16 +53,25 @@ and nothing else. Nothing blocks.
    with one element changed, is false in each run. No `c.size` hypothesis is needed: `Carries z coef (rowBytes c)` fixes
    `coef.length = 128·c.size`, the forms past `coef`'s end read as zero (`bit_eq_wbit`), and `c[i]!` past the end is 0.
    On the Python side `coef` is always `2·LANES` elements (`coef_words`), so G instantiates `c` at that size anyway.
-4. **The record.** My audit `r20261006-044346-2f12` ran on vy-nebius-2: `audit.py --build --no-runs verity/Security` in the run's own clone at `3d9977368`, comparing records (no `--update`), with the kernel replay. Its run record is `art:3c9a4c60e6a88478b66124d5f727897391c36f23a1c158c91801c7d51fdcc05e`. Both packages **PASS**, with 0 failures, 0 escapes and axioms `propext`, `Classical.choice`, `Quot.sound`. `security` has 1753 guarantees in 6873 declarations, and the replay accepted 6,794 of them. `security_proofs` has 57,911 declarations in 882 modules, and the replay accepted 57,336, the six VBridge modules among them. The records it computed equal the committed ones for all 1753 guarantees and every `reads` entry. It took 2 h 2 min: node 2 has no Lean build cache (`lean-cache: off on this machine`), so `security_proofs` built ArkLib and VCVio from source, beside about 500 other processes. Against the merge `203ddd6ce`, `lean-audit.json` adds the guarantee
-   `FlockVBridge.sound_recOpen` (owner `@proofs`, no assumptions) and the module entry `Proofs.Flock.VBridge.RecOpen`,
-   which reads `consStructure`, `consTerm` and `recOpen`. The only other edits add `sound_recOpen` to the `guarantees`
-   lists of the 13 modules it reads. No guarantee record, definition digest or module digest changes against the merge,
-   #1274 (`2434949b9`), B2 (`7c5cb816e`) or #1258 (`17cfcdae8`). `3d9977368` differs from `8e729fbe7`, where the lane's
-   `--no-replay` audit `r20261006-033234-afc7` ran, only in `lean-audit.json`. Locally, `tools/lean/Replay.lean` on the
-   six VBridge modules (Sha, Climb, Open, Karatsuba, Residuals, RecOpen, compiled at `3d9977368` against identical
-   imports) accepted all 465 constants, with body axioms `propext`, `Classical.choice`, `Quot.sound`. `#print axioms` gives
-   the same three for `sound_recOpen`, `resVal_consStructure`, `bitL_rowBytes` and `carries_split`. `RecOpen.lean` has no
-   `sorry`, `native_decide`, `axiom`, `implemented_by`, `extern`, `unsafe` or `csimp`, and compiles with no warnings.
+4. **The record.**
+   - The audit: `r20261006-044346-2f12` on vy-nebius-2, `audit.py --build --no-runs verity/Security` in the run's own
+     clone at `3d9977368`, comparing records (no `--update`), with the kernel replay. Run record
+     `art:3c9a4c60e6a88478b66124d5f727897391c36f23a1c158c91801c7d51fdcc05e`. Both packages **PASS**, with 0 failures,
+     0 escapes and axioms `propext`, `Classical.choice`, `Quot.sound`. `security`: 1753 guarantees in 6873
+     declarations, 6,794 accepted by the replay. `security_proofs`: 57,911 declarations in 882 modules, 57,336 accepted
+     by the replay, the six VBridge modules among them. The records it computed equal the committed ones for all 1753
+     guarantees and every `reads` entry.
+   - The diff: against the merge `203ddd6ce`, `lean-audit.json` adds the guarantee `FlockVBridge.sound_recOpen` (owner
+     `@proofs`, no assumptions) and the module entry `Proofs.Flock.VBridge.RecOpen`, which reads `consStructure`,
+     `consTerm` and `recOpen`. Its only other edits add `sound_recOpen` to the `guarantees` lists of the 13 modules it
+     reads. No guarantee record, definition digest or module digest changes against the merge, #1274 (`2434949b9`), B2
+     (`7c5cb816e`) or #1258 (`17cfcdae8`). `3d9977368` differs from `8e729fbe7`, where the lane's `--no-replay` audit
+     `r20261006-033234-afc7` ran, only in `lean-audit.json`.
+   - Locally, `tools/lean/Replay.lean` on the six VBridge modules (Sha, Climb, Open, Karatsuba, Residuals, RecOpen,
+     compiled at `3d9977368` against identical imports) accepted all 465 constants, with body axioms `propext`,
+     `Classical.choice`, `Quot.sound`. `#print axioms` gives the same three for `sound_recOpen`,
+     `resVal_consStructure`, `bitL_rowBytes` and `carries_split`. `RecOpen.lean` has no `sorry`, `native_decide`,
+     `axiom`, `implemented_by`, `extern`, `unsafe` or `csimp`, and compiles with no warnings, here and on the pod.
 5. **The merge.** `git show --remerge-diff 203ddd6ce` shows one conflict, `VBridge.lean`'s imports, resolved by keeping
    all four (`Climb`, `Open`, `Karatsuba`, `Residuals`). `lean-audit.json` merged textually; a 3-way semantic check
    against the merge base finds no problem, and the merge's 1752 guarantees are the union of both sides' 1750, each
@@ -83,7 +92,12 @@ and nothing else. Nothing blocks.
   of the ports from the committed u16 words.
 - The statement is at rec-step3 `273017068`, which has not landed; if `_steps`, `cons_structure` or `acc_ref` change,
   so does this.
+- The audit took 2 h 2 min on vy-nebius-2, against 48 min for the same audit on vy-nebius-1: node 2 has no Lean build
+  cache (`lean-cache: off on this machine`), so `security_proofs` built ArkLib and VCVio from source, beside about 500
+  other processes.
 
 ## Label
 
-`pr:1283@3d9977368581d925cdd6de708198a2330b6f7f9f`: `grant=red-team` by red-team-vbridge-c, ref `r20261006-044346-2f12`, written 2026-10-06T07:07:08Z. I pushed it with `labels-sync --push-only`, and `research data labels … --remote` lists it on both the local store and the remote.
+`pr:1283@3d9977368581d925cdd6de708198a2330b6f7f9f`: `grant=red-team` by red-team-vbridge-c, ref
+`r20261006-044346-2f12`, written 2026-10-06T07:07:08Z. I pushed it with `labels-sync --push-only`, and
+`research data labels … --remote` lists it on both the local store and the remote.

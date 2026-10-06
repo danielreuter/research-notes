@@ -7,7 +7,26 @@ status: final
 repo: verity
 origin: pr:1261@b4784eb8e0167d59e96b738058209edd8ca2567a
 ---
-# Red team, PR #1261 (the recursive audit's two guarantees): BLOCK
+# Red team, PR #1261 (the recursive audit's two guarantees): BLOCK, then GRANT at the same head
+
+**Status update, 1:23 AM PDT, 6 Oct: GRANT.** The proofs coordinator fixed the PR body at the same head `b4784eb8e` (no
+new commits). I read the posted body (`gh pr view 1261 --json body`) against the one I reviewed.
+
+- B2 is fixed: gap 3's last sentence, the Piece G line, the `rd` fields bullet, the first Limits bullet and the
+  Statement review now say `coef` and `dirs` (every public input), with why an untied `dirs` matters.
+- B1 is fixed: a new paragraph, "What `VBridge` needs of V\*, beyond gap 3", is the wording below, plus one accurate
+  sentence on why `Good` then doesn't tie the sums. The Piece G line and a new Limits bullet point to it.
+- Non-blocking note 1 (`miss 1`) is now a Limits bullet.
+
+Label `grant=red-team` on `pr:1261@b4784eb8e0167d59e96b738058209edd8ca2567a`, by red-team-proofs-1261, ref this note,
+written 2026-10-06T08:23:37Z. `research data labels … --key grant --remote` shows it "on both", local and remote.
+
+Two remaining nits in the text, both non-blocking: gap 3's heading ("V\* registers `coef` itself") and its first
+bullet ("the draw, the rounds' coins and the comb `coef`") still name only `coef`, though the gap's closing sentence
+covers `dirs`. And the "Red team" paragraph's "the Lean holds" means my probes and axiom prints passed; the kernel replay
+is still `check`'s.
+
+The original review follows.
 
 Reviewed 1:10 AM PDT, 6 Oct, by red-team-proofs-1261 for the proofs coordinator. The review is of head
 `b4784eb8e0167d59e96b738058209edd8ca2567a` of `cursor/rec-thm-95d4`, base `main` (`origin/main` `c305471c5`, merge base

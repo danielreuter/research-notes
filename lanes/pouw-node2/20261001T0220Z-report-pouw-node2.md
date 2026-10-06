@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (06:20Z) [open] A 06:20Z poll: no word, so the 07:00Z window's READY is compute accounting's; main 68e614869: pearl_c_vllm FlashInfer cache keyed by build (window.sh fails SETUP unless setup.sh ran on that tree), hidden_zk bench, no gamma change; infra I4 note not for me; /workspace 67% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (06:00Z) [open] A 06:00Z poll: nothing new since 05:40Z; 07:00Z window compute accounting's unless told by 06:20Z; main c305471c5 unchanged; node-2 /workspace last 67% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (05:40Z) [open] A 05:40Z poll: node2-ops 04Z hourly 57.5%, 35 evictions by design, /workspace 67% (1,678 GiB; hold), steward logged the disk note; 07:00Z window still booked, compute accounting's absent word by 06:20Z; main c305471c5 unchanged; off node 2
 CHECKPOINT fbce5a2f4c (05:20Z) [open] A 05:20Z poll: only node2-ops' 04:57Z disk fold, /workspace 66% (hold); 07:00Z window still compute accounting's absent word by 06:20Z; main c305471c5 unchanged; panel art:d2b2eb906612; off node 2

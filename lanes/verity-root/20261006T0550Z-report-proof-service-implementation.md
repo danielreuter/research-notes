@@ -206,3 +206,7 @@ The notes' other questions for Daniel go in his morning report.
 - 4:05 AM PDT (11:05Z): standing ruling from the coordinator: closing a PR needs Daniel's direct approval, including any
   approval posted as top; top approves no closes. #1112 (closed 3:53 AM PDT on my word, content on main) goes to Daniel;
   my 10:35 PM PDT note that ci close #1280 is withdrawn (1791284713).
+- 7:10 AM PDT (14:10Z): final. Main `b722adaad` after seven checked landings (40 PRs); proofs, compute-accounting,
+  memory-accounting, network-accounting, circuits, lean and the lander sent 14:00Z finals, console never answered; one
+  strong reason (C1); 14 questions for Daniel. The morning report is
+  `/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/docs/morning-report-2026-10-06.md`.

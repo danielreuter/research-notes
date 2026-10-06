@@ -776,3 +776,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T00:52Z: #1225 (Lean move) landed by top as main 7b410fbf6 (spec DM, mirror, post_train done). Advanced refs/research/after-land 88f5cc533 → 7b410fbf6 so it isn't caught up twice. Freeze lifted. 1b8e (4ac5) tree-identical on 7b41; lands when it passes.
 - 2026-10-06T00:55Z: root: velocity over spend. If tips wait for a slot, or node 1's disk passes ~77% (74% now, circuits' capture for ~13 h), ask infra for migration pods instead of queueing on node 1.
 - 2026-10-06T01:05Z: ci tip 84008fde6 (ad13 + #1236 #1242 #1250 #1254 #1255) node2 r20261006-010330-a0a3; lands after ad13/1b8e.
+- 2026-10-06T01:41Z: ci tip b2544732c (ad13 + #1247 + 8400's five + #1244 #1253) node1 r20261006-013901-e4b8, alongside a0a3 (8400) as its fallback. Top wants #1247 first after ad13.
+- 2026-10-06T01:45Z: #1225's after-landing steps done: mirror at 7b410fbf6, post_train 537c running, spec DM sent by top; marker at 7b410fbf6. #1225 NOT closed: its head moved to 5a94385b7 (top's note commit, not in main); asked top.

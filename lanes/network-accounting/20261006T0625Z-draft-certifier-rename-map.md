@@ -156,3 +156,25 @@ handle and the lane name `network-accounting` stay.
 - Store tool ids, run ids, claim ids, branch names and note ids, which are cited and never renamed. None contains
   "warden" in a way that would need to change.
 - Old notes and handoffs.
+
+## 7. Amendments from lean's certification (L3, scratch `45487b511`, run `r20261006-065120-9ee5`)
+
+These are part of the map.
+
+1. **Locks: rename module keys only.** Declaration names in `reads` keys, guarantees and signatures stay old, and then
+   `audit.py --update --moved` runs. `--moved` compares records under their old names. The module key `Warden.Grid`
+   and the declaration `Warden.Grid` are the same string, so a text-wide rename over the locks is wrong.
+2. **Two `Warden`s.**
+   - `Warden.` before a name is #1268's program namespace, and becomes `NetworkCertifier.`.
+   - A bare `Warden` in `NetTiming` is the structure, and becomes `Certifier`.
+   - The backticked library name `Warden` in `Proofs/Warden/Code.lean:11` becomes `NetworkCertifier`.
+   - `warden_program` becomes `certifier_program` everywhere, docstrings and lakefile comments included
+     (`Proofs/Warden.lean:17`, `Code.lean:11`), not only whole-word code tokens.
+3. **Section 4 also renames both `lake-manifest.json` files:** the certifier package's own, and Proofs' entry for
+   it (name and path). Without that, Proofs fails with "dependency 'certifier_program' not in manifest". This overrides
+   the "lake manifests" exclusion for these two entries.
+4. **A stale path:** the docstring `protocols/network_warden/verity_network_warden/schedule.py` in
+   `Definitions/Warden/Schedule.lean:6` becomes `verity/protocols/accounting/communication/certifier/schedule.py`.
+5. **#1268's four `Code*` guarantees read `Warden.*`,** so `--moved` takes section 4's `[lean.moved.program]` list
+   as well as section 3's five `NetTiming` names: 48 in all, as lean ran it.
+6. **On main without #1268,** Proofs' lock needs no `--moved`, since its reads are module keys.

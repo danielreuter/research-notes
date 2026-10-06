@@ -80,6 +80,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 22:01Z Oct 6 (3:01 PM PDT), steward pass (cron on time)
+
+- The 21:44Z "pod holds a GPU at 0%" alert (GPUs 1 and 6) is the known pool pattern. Pool holders were created at
+  21:32Z for proofs' `85-rec-reprice.sh STEP=oprove` (`k4096t67`, `r20261006-213154-250d` and `-83f6`), which now lease
+  only around GPU calls (last leases 38 s and 13 s, rc 0). They sat unused about 10 min and then went. The alert is the
+  infra and dispatcher lanes', who own the pool, and it went to both. Not re-posted.
+- Node 1 (watch, no flags): 68.4% (1,585 GiB free); 0 admitted, all 8 idle (reported); pacer and dispatcher clean.
+- Node 2: 0 of 8 and no queue: fully idle (reported), 70%. No new hourly.
+
 ## State at 21:43Z Oct 6 (2:43 PM PDT), steward pass (cron on time)
 
 - Node 1 (watch, no flags): 68.7% (1,570 GiB free). GPU work again since 21:31Z: `provers` 2 admitted, 2 leases

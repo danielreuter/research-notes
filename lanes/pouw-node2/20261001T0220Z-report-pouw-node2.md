@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (09:20Z) [open] A 09:20Z poll: nothing for me (infra interviews only); node 2 quiet to 13:30Z for memory accounting; main 89fb2c28c unchanged; /workspace last 68% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (09:00Z) [open] A 09:00Z poll: node 2 back at 08:36Z; the outage was infra's planned reboot (cores 120-127 isolated), booked in slot-windows as quiet to 13:30Z for memory accounting's timed runs; agent, daemons, runner back; / 20%, /workspace 68% (hold); windows live in both fill/windows and slot-windows; main 89fb2c28c unchanged; still off node 2
 CHECKPOINT fbce5a2f4c (08:40Z) [open] A 08:40Z poll: node 2 unreachable since 08:32Z (ssh times out; node 1 fine), last good 08:17Z idle, the 07:00Z window had ended ~07:47Z; node2-ops told infra and retries each tick; I'm not probing (off node 2); main 89fb2c28c unchanged; panel art:d2b2eb906612
 CHECKPOINT fbce5a2f4c (08:20Z) [open] A 08:20Z poll: node-2 / back to 27% (182 GiB free), the swings were transient /tmp work, leak now hygiene only; main 89fb2c28c (#1149, #1266, #1275, #1264), nothing under pouw; /workspace last 68% (hold); panel art:d2b2eb906612; off node 2

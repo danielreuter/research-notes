@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (05:16Z) [open] 05:16Z: draft feedback relayed to Daniel; 01cd537d0 to check on vy-mig-check-18; e011 checking 031484e84
 CHECKPOINT none (05:00Z) [open] 05:00Z: 4020 failed on placement flake (infra deflaking), e011 checking 031484e84; D1 keyed on BLAKE3 leaf in joint note
 CHECKPOINT none (04:44Z) [open] 04:44Z: inbox empty; trains 031484e84/4020f22d7 checking, 090257a15 queued; served-request hidden_zk opening done
 CHECKPOINT none (04:28Z) [open] main c305471c5; lander checking tips (top 031484e84 e011, next 090257a15); overnight lanes running

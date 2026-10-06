@@ -23,8 +23,14 @@ rejected too?
 
 Yes, by padding the inner statement to a public cap. V*'s statements are a function of the inner table's shape, (m, k_log,
 claims), alone. A deployment fixes the cap: instances, claims, k_log and vus_per_block, all public items. Every inner
-statement is padded to the cap's instance count with filler instances (zero inputs, the class's own output on them), so V*
-over any session has the cap's statements. `rec_vstage --cap` refuses a session of another shape before anything is staged.
+statement is padded to the cap's instance count with filler instances, so V* over any session has the cap's statements.
+`rec_vstage --cap` refuses a session of another shape before anything is staged. A filler's input rows are zero and its
+output is the class lowering's own (`outs[real:] = got[real:]` in `stage`). Staging's satisfaction check covers it; unlike a
+real instance's output, it isn't compared with the reference evaluator's.
+
+The padding hides the outer proof's shape and cost, not R. The inner statement's public file, `pub-N.bin`, still shows R: its
+header's `shared_rows` (p1 has R + 1 rows, p0 2 where unpadded has 1) and its refs (every filler's p1 ref is row R, the real
+ones rows 0 to R − 1). Serve, `replay`, Lean and V*'s verifier values (`v`) all read that file.
 
 At K = 4096 the cap is `instances=2048,claims=8,k_log=24,vus_per_block=1` (m = 35). An inner statement of 1,024 real
 instances padded to 2,048 has V*'s statements identical to rec-step3's over an unpadded 2,048: the same templates, instance
@@ -46,6 +52,23 @@ prover's cores 11–45% busy before each prove (L1 100%). Lean verify is the ses
 rec-step3 reports it. The padded inner (ZK off, against the proxy) proves in 0.86 s; rec-step3's took 0.977 s. Today's
 `--zk` on the padded statement takes 4.90 s prove and 7.66 s serve verify.
 
+## What the cap costs a statement below it (R = 1,024 unpadded, at its own m = 34)
+
+V* over the unpadded 1,024-instance session has 7 levels (each RecOpen template's H one smaller) and an algebra of 4 parts,
+11 statements. Every verifier accepts all 11: serve 4 of 4 sessions each, upstream `replay --zk`, Lean.
+
+| R = 1,024 | statements | prove | session | serve verify | bytes | Lean verify |
+|---|---|---|---|---|---|---|
+| V* at the cap (m = 35), padded | 10 | 7.894 s | 14.389 s | 20.009 s | 19,680,040 | 389.4 s |
+| V* at its own m = 34 | 11 | 10.214 s | 30.471 s | 50.602 s | 21,610,780 | 789.7 s |
+| levels at m = 34 | 7 | 4.670 s | 7.377 s | 8.110 s | 13,663,116 | 570.3 s |
+| algebra at m = 34 | 4 | 5.543 s | 23.094 s | 42.492 s | 7,947,664 | 219.4 s |
+
+The inner (ZK off, against the proxy): padded 0.860 s prove, 856,466 bytes a rep, peak 20.65 GB; unpadded 0.523 s, 820,402
+bytes, 12.98 GB. So at R = 1,024 the cap costs the inner prover (0.34 s, 7.7 GB), not V*: the outer proof under the cap is
+one statement and 1,930,740 bytes smaller. Node 1 was busier for the unpadded run (load 71–309, prover cores 31–100% busy
+before each prove), so its session, serve and Lean times aren't like for like; the counts and bytes are. 12 GPU leases, 353 s.
+
 ## Forgeries (provers with FC_ZK_SELF_CHECK=skip; serve, replay --zk and Lean agree on every session)
 
 - top → L6, top-salt → L0, comb → alg-p0, message → alg-p0, sum → L0, L6 and alg-p2: exactly rec-step3's statements.
@@ -61,16 +84,22 @@ rec-step3 reports it. The padded inner (ZK off, against the proxy) proves in 0.8
 - `r20261006-072405-f1ba`, the padded chain (run record art:9a29e3c3cfa1b4d8a8cab7c2e4d73638789c48bae8ce093098526647c0242a35):
   inner, staging with the five forgeries, outer proves, Lean.
 - `r20261006-073154-8c34`, the filler forgery (run record art:8da350a8ffde73da3a28ed3886a0f33f638ede7b7a81c8000038d4a3a7217cad).
+- `r20261006-084418-1684`, the unpadded 1,024-instance chain at m = 34 (run record
+  art:375c5efdd17fdd31a375b1c44e0e0f322906a9a7e2461caa12adaf8500e67b33).
 - rec-step3's reference: oprove art:1157c1c5e86c21f802bf2dae5018e9389910aa8a41d015e3f9661268355701b2, L1 rerun
   art:de6a699580e6c1b1c31b23750ec84cfc0927438f77fc5bdc40fe0201527fde1b, and lean
   art:bb95919c70f13489c9605a85153d6843e531692a08cc90264f1d587c4fd3c518. The same aggregation reproduces its totals.
 
 ## Open
 
-- What the cap costs a statement below it: a 1,024-instance statement's own outer proof at m = 34 (6 levels, smaller
-  algebra) against the cap's m = 35. Not yet measured.
+- Hiding R: needs a layout for the fillers' rows whose public file (table sizes, refs) is the same for every R, with V*'s
+  verifier values computed from it.
+- Nothing on the verifier's side checks the cap; only `rec_vstage --cap` (the firewall's side) does. A verifier holding the
+  cap would compare each outer statement's template, instance count and SHA-512 with `rec_shape.outer(cap)`'s (digests
+  rebuilt) before serve or Lean.
 - Wired (template-instance) statements aren't padded; `stage(pad=...)` refuses them.
-- The verifier side compares the statements it is sent with `rec_shape.outer(cap)` by template and instance count, not by
-  rebuilt circuit digests.
+- The cap is opt-in (`--cap`/`REC_CAP`, `--real`/`FLOCK_REAL`). `rec_shape.check` doesn't read the inner instance count, so
+  an unpadded 1,025–2,047 passes it. Only one R is measured at the cap. Small-R timing variation (fillers share one committed
+  row per port) belongs to P2, the firewall's stop bound.
 - `85-rec-reprice.sh STEP=inner` with `WARM=0 RUNS=1` looks for `inner/s0`, but `rec_live --sessions 1` writes `inner/`.
   The filler job worked around this with `INNER=`. The fix goes to zk-gateway's next round, since #1270 edits that file.

@@ -3,7 +3,7 @@ id: network-accounting/network-accounting/20261006T0230Z-draft-warden-proof-serv
 campaign: network-accounting
 lane: network-accounting
 kind: draft
-status: open
+status: open (revised 02:55Z for Daniel's 7:48 PM PDT zero-knowledge ruling)
 repo: verity@c305471c5 (main, 6 Oct 02:00Z), with #1268 (the warden program split) where named
 origin: network-accounting (bc-ecea50f6), for Daniel's proof-service ask via top (5 Oct, 7:17 PM PDT, thread 1791253199.410869); beside note:network-accounting/network-accounting/20261005T2320Z-draft-consolidation
 ---
@@ -65,14 +65,28 @@ These stay the warden's, because they are the protocol itself rather than infras
   an accepted run, the charge:
   - egress: log2 #Σ_sync bits per window (7 at 16 × 8);
   - ingress: the K charge's share by span.
-- **Proof form.** The check reads the egress frames' content, since `expectedRow` packs them in canonical order.
-  - If the auditor may see egress content (it already left the boundary), the check runs in the clear, and the warden
-    uses only the service's commit, record and verify.
-  - If not, the statement "the committed rows are `expectedRow` of the committed frames" is small (counts plus
-    hashes), so it needs direct ZK, not recursion.
-  - The expected counts would still reveal each session's output length and anchor bucket to the auditor.
-  - Recommendation: in the clear first. Move to ZK when served-zk's commitment opens the served frames, so that the
-    frames' commitment is the same one.
+- **Proof form: zero knowledge over commitments, with no clear mode** (Daniel, 5 Oct, 7:48 PM PDT).
+  - Hidden: the egress frames, each session's anchor and output length, the rows and their counts, and the declared
+    clock syncs.
+  - The statement over commitments: each window's committed rows are `expectedRow` of the committed frames, anchors and
+    syncs; each sync is in Σ_sync, with one per spatial unit per window; and every status is complete.
+  - It runs over the frames' leaf digests and the per-bucket counts, never the frame bytes. A full window is 2.3 GiB
+    at r = 1,024, which no proof should read.
+  - Its size grows with the real frames in a window, up to T·r, so a busy link needs recursion and a quiet one direct
+    ZK (unmeasured).
+  - The frames' leaves should be the served commitment's (compute-accounting's served-zk), so the warden and PoUW
+    open one commitment.
+
+### What the warden makes public, and why
+
+Anything not listed here stays hidden.
+
+| public item | why it must be public |
+|---|---|
+| The verdict per link-window: accepted, or rejected | It is the protocol's output. The K charge and the egress bound hold on accepted runs only, so whoever charges them must know which windows were accepted. The violation's kind stays hidden: the policy treats every kind alike (record and reject) |
+| Whether each record arrived by its deadline | It adds nothing beyond the verdict: a missing record is a `no-verdict`, so a rejected window. It is listed because the record must keep no finer arrival time (R1): an arrival time inside the window is an egress timing channel |
+| The parameters: the boundary links' ids and directions, the window count, (T, r, B, τ_b, Q), r_in and τ_in, and Σ_sync | The bound is a function of them: log2 #Σ_sync bits per egress window, and T·log2(r_in + 1) per ingress link-window. The auditor can't check a charge whose parameters are hidden. They are the deployment's structure, fixed before the run and independent of the secret |
+| The charge: egress bits per window, and the ingress K share by span | It is the protocol's result, computed from the public parameters and the public verdicts alone |
 
 ## Requirements the service doesn't meet yet
 
@@ -114,6 +128,6 @@ These stay the warden's, because they are the protocol itself rather than infras
 
 ## Migration order (recommendation)
 
-The warden goes after served-zk's first call and after PoUS. Its migration is the cheapest of the three: records go to
-the service's record and the check runs in the clear (no ZK). It is worth doing only once R1 is settled, because the
+The warden goes after served-zk's first call, and reuses its commitment for the frames' leaves. Before that, two steps
+need no proving at all: the records go to the service's record, and R1 is settled there. R1 matters first, because the
 record is where the warden's untimed-status rule has to hold for the service as well.

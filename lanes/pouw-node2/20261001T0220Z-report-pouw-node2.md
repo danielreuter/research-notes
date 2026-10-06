@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (05:20Z) [open] A 05:20Z poll: only node2-ops' 04:57Z disk fold, /workspace 66% (hold); 07:00Z window still compute accounting's absent word by 06:20Z; main c305471c5 unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (05:00Z) [open] A 05:00Z poll: node2-ops: GPU 2 idle-in-lease resolved itself; PoUS timed hosttrace on GPU 4 to 05:16Z; 07:00Z window (compute-accounting's) still not mine absent word by 06:20Z; main c305471c5 unchanged; node-2 /workspace last 66% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (04:40Z) [open] A 04:40Z poll: new node-2 window 07:00Z 90 min (compute-accounting's served Pearl-C decode, all 8 GPUs, infra-booked), not mine unless compute accounting says so by 06:20Z; /workspace 66% (-192 GiB since 00:19Z, unattributed bursts, ~80% by 19Z; node2-ops told infra); 03Z 64.0% busy; main c305471c5 unchanged; off node 2
 CHECKPOINT fbce5a2f4c (04:20Z) [open] A 04:20Z poll: node2-ops' 03:56Z disk fold, /workspace 64% (1,793 GiB, usual rate; hold); infra interviews nothing for node 2; main c305471c5 unchanged; panel art:d2b2eb906612; off node 2

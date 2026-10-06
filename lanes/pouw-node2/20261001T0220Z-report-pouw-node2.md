@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (00:40Z) [open] A 00:40Z poll: node2-ops 23Z hourly 14.0%; the 23Z disk jump was transient, /workspace back to 62% (1,907 GiB free; hold); infra round 29: FlashInfer JIT cache flips builds, warm in an untimed lease before any timed served window; node-1 idle alert not mine; main 88f5cc533 unchanged; off node 2
 CHECKPOINT fbce5a2f4c (00:20Z) [open] A 00:20Z poll: node-2 /workspace 63% (1,836 GiB free) after a one-off unattributed 79 GiB jump at 23:54Z, flat since, node2-ops watching (hold stays); infra round 29 not for node 2; main 88f5cc533 unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (00:00Z) [open] A 00:00Z poll: nothing new since 23:40Z; main 88f5cc533 unchanged; node-2 /workspace last 62% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (23:40Z) [open] A 23:40Z poll: node2-ops 22Z hourly 11.0% busy, memory accounting's PoUS pod.sh on GPU 5 from 23:12Z, /workspace 62% (hold), no windows; node2-ops corrects infra's draft: cluster agent already live on node 2 since Oct 1 (grants every gpu-lease request); main 88f5cc533 unchanged; panel art:d2b2eb906612; off node 2

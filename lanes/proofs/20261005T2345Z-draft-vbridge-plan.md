@@ -118,6 +118,36 @@ The decode map (G) needs no review either. rec-thm's composition binds the decod
   - The session can carry each round's framed bytes as retained bytes (`Round.bytes := some b`). R2 then holds by
     construction, and every other check is the verifier's own.
 
+## rec-thm's statement, checked (rec-thm `05298f673`, 00:20Z)
+
+rec-thm states `VBridge` as a `def … : Prop` in `Proofs/Flock/Recursive/Flock.lean`: for every history `(R, ω, t)`,
+strategy `τ` and outcome `o`, if `LiveAcceptsZKR` holds, V*'s layer has no wrong unit, and the layer agrees with the
+registrant at `o`'s drawn units (`RegAgree`), then `I.accepts (x R ω) ((wmsg layer).zip coins)`. It is deterministic
+and one-directional, as recommended. An abstract `Inner` is fine: G proves it at `I :=` C-Flock's verifier of record on
+the decoded session, with retained bytes. As stated, it is unprovable for V*, for three reasons:
+
+1. **One circuit.** `ZkOuter` fixes one circuit `c`, one session. V* is one statement per level plus the algebra parts
+   (`rec_outer`: "one C-Flock statement per level"; `rec_vstage`: the algebra "holds when every part does"). A C-Flock
+   `Circuit` has one `unit` net, and M0 proves one template per statement. No single part's acceptance implies the
+   inner verifier accepts: level 0's openings say nothing about the algebra. Fix: a family `zs R ω t : (j : Fin S) →
+   ZkOuter … (c j) …` over one registrant record, with `VBridge`'s premises at every `j`, its conclusion read from all
+   the layers, and the outer bound the sum over `j`.
+2. **`RegAgree` only at drawn units.** `zk_session_regValsR` bounds a disagreeing registered read only at a drawn unit,
+   so `VBridge` gets `RegAgree` only there. Counterexample: an undrawn `RecOpen` instance whose layer computes correctly
+   (no wrong unit) but reads an expected-node row (`rec-L<l>`) other than the verifier's, the node its forged opening
+   climbs to. The outcome accepts, the premises hold, and the inner verifier rejects that query. Fix: premise `RegAgree`
+   at every unit, and in the outer theorem count a unit with a disagreeing registered read as wrong. One sampling step
+   (`miss 1`) then covers both. Each drawn unit is caught by the bound it already has: `soundR` for a wrong
+   computation, `regValsR` for a disagreeing read.
+3. **No public inputs.** `ZkOuter` is the `setupH` path (`HmRow.parse`, `HmRow.loadPublic`), and `buildStmt` refuses
+   `--public-inputs` there. V*'s level statements carry `coef` in `public-inputs.bin`, which `Stmt.setupHidden` checks
+   (`HmOut`/`HmIn`, `HmIn.checkOwn`). Nothing in the premises ties the layer's `coef` wires to the verifier's `coef`,
+   and an arbitrary `coef` lets the running sums pass with no algebra checked. This is the #1179 dependency of
+   "Dependencies and risks": either `ZkOuter` widens to hidden-output statements with a fact like `RegAgree` for public
+   inputs, or V* registers `coef` as a verifier-registered value, at the cost priced there.
+
+None of the three changes A to F. G waits on rec-thm's fix.
+
 ## The one decision
 
 **VBridge proves one direction: V* accepts ⇒ the verifier of record accepts.** "Exactly when" in the other direction

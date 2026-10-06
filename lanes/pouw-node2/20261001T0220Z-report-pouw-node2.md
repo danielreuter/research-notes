@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (04:20Z) [open] A 04:20Z poll: node2-ops' 03:56Z disk fold, /workspace 64% (1,793 GiB, usual rate; hold); infra interviews nothing for node 2; main c305471c5 unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (04:00Z) [open] A 04:00Z poll: only infra's 03:27Z idle-GPU alert (node 1), not mine; main c305471c5 unchanged; node-2 /workspace last 64% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (03:40Z) [open] A 03:40Z poll: node2-ops 02Z 18.3%, 03Z 61.7% with compute-accounting's preemptible Pearl-C noise sweep (r20261006-025331-a2d3, GPUs 0-2,4-5, to 13:58Z); 39 GiB drop not PoUS, unattributed; / 37%, /workspace 64% (hold); main c305471c5 unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (03:20Z) [open] A 03:20Z poll: node-2 /workspace 64% (1,809 GiB free, -39 GiB 02:23-02:56Z) during PoUS's timed lease on GPU 4 (r20261006-025304-16fa, to 03:23Z), likely its encoded space; node2-ops attributes the earlier 50 GiB to check caches and hourly backups' new 3.5 GiB loose tar (~84 GiB/day, unpruned); hold stays; main c305471c5 unchanged; off node 2

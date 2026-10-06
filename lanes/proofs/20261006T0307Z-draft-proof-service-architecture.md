@@ -76,6 +76,10 @@ ruling goes further in three places.
    against its own copy of the program. Under the ruling the auditor holds only the public check Program and the public
    items. So a registration carries the public items and salted roots, and nothing else.
 
+   This supersedes the 2026-10-01 (3:32 PM PDT) ruling's "shapes such as batch size and sequence length may stay public
+   for now" (`.agents/skills/friction/SKILL.md`). The skill's list of rulings needs a line for 7:48 PM, so that nobody
+   reads the old one as current. Proofs adds it in its first code PR after tonight.
+
    What the auditor used to check against its own copies moves into a **window statement**: a small Program, proved once
    per window. Its public outputs are the public aggregates, such as PoUW's unit count N and its credited work, and it
    shows that the committed layout is well formed.
@@ -226,7 +230,10 @@ well-formedness in PoUS's setup statement and PoUW's epoch statement, and PoUW's
 
 ## 3. What each protocol states
 
-These are the four things, restated from the users' notes under the ruling.
+These are the four things, restated from the users' notes under the ruling. A protocol's check can be any Program: under
+the 2026-10-04 (8:42 AM PDT) ruling, soundness is one theorem over everything the compiled Lean verifier accepts, so a new
+check needs `circuit-check` (AGENTS.md) and no change to the verifier. The verifier refuses a form its proof doesn't
+cover, which limits completeness and never soundness.
 
 **PoUW (Pearl-C).**
 - What is committed:
@@ -453,8 +460,9 @@ Each step names its owner and what it needs. Step 1 lands with step 0's code, an
        `receipt`, then `flock-verify draw` from the verifier's own randomness.
      - The opening check goes into the audit record (`verity/one-stage/audit/v0`) beside the Lean verdict.
      - The commit takes GPU digests (`hm96_rows.cu`) salted on the host, as `rec_live` does, once the kernel is measured.
-   - Roots and counts are public in this prototype, which is fine on test prompts. Hidden layout (step 8) comes before any
-     real traffic.
+   - Roots and counts are public in this prototype, which is fine on test prompts. That is a development shortcut, which
+     the 2026-10-01 (3:32 PM PDT) ruling allows for research velocity and never as the protocol. Hidden layout (step 8)
+     comes before any real traffic.
    - Done means: one served request whose commitment the proof opens, with the registration, receipt, draw and Lean
      verdict in one audit record, and the controls rejecting.
 1. **The service's first code (proofs).** It is created with step 0's code and not before (AGENTS.md). It holds:
@@ -493,7 +501,8 @@ Each step names its owner and what it needs. Step 1 lands with step 0's code, an
 
    The cost is a few hidden paths per drawn PoUW tile, at about 14–26 ms of `--zk` proving per opening (measured at depths
    9 to 22: `hidden-reads-pricing` and #772). At K′ of 28k–55k that is about 0.3–1.2 CPU-hours a window (*estimate*),
-   small beside the units themselves.
+   small beside the units themselves. The 2026-10-01 (4:31 PM PDT) ruling accepts the hidden read's cost unless it proves
+   a bottleneck.
 9. **Recursion as a service mode (proofs).** This takes `rec_live`, the gate (#1270) and V* climbing to the salted tops
    (rec-step3), and adds the size rule. The direct/recursive crossover gets measured here (PoUW R12).
 10. **PoUW's profiles only from the service (compute-accounting).** The served replay becomes a labelled diagnostic, then

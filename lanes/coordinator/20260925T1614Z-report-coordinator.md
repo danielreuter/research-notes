@@ -773,3 +773,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T23:59Z: top: #1225 red-team granted at fc6d04815, lean's statement-reviewer label pending, landing check ETA ~01:15Z. #884 ready (22:35Z). 7d59 needs rebuilding on the move once it lands.
 - 2026-10-06T00:01Z: told top that #1225 doesn't wait on a statement-reviewer label (Daniel's Oct 4 ruling; queue.toml on 88f5cc533 has no lean_audit rule, so the gate asks none).
 - 2026-10-06T00:28Z: post-move tip 1b8e56301 (move fc6d + #884 #1031 #1099 #1221 #1216 #1240 #1234 #1235; replaces 7d59) node1 r20261006-002421-4ac5, started ahead; lands once the move is on main and the tip is tree-identical.
+- 2026-10-06T00:52Z: #1225 (Lean move) landed by top as main 7b410fbf6 (spec DM, mirror, post_train done). Advanced refs/research/after-land 88f5cc533 → 7b410fbf6 so it isn't caught up twice. Freeze lifted. 1b8e (4ac5) tree-identical on 7b41; lands when it passes.
+- 2026-10-06T00:55Z: root: velocity over spend. If tips wait for a slot, or node 1's disk passes ~77% (74% now, circuits' capture for ~13 h), ask infra for migration pods instead of queueing on node 1.

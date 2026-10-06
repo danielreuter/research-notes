@@ -769,3 +769,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-05T22:03Z: 4b17 (7d59) PASSED; held: #884@cc3aadc6c no ready. 9a69 (5e7a rerun) running. main cd965cf51.
 - 2026-10-05T22:24Z: 9a69 (5e7a rerun) past pytest (the flaky test passed); finishing. #884 still no ready.
 - 2026-10-05T22:36Z: merged 5e7a34bdd (22 PRs) → main 88f5cc533 via --push before top's freeze. 7d59 waits (no #884 ready).
+- 2026-10-05T23:56Z: asked top for #1225's landing check and red-team status and ETA (frozen ~80 min at 88f5cc533).
+- 2026-10-05T23:59Z: top: #1225 red-team granted at fc6d04815, lean's statement-reviewer label pending, landing check ETA ~01:15Z. #884 ready (22:35Z). 7d59 needs rebuilding on the move once it lands.
+- 2026-10-06T00:01Z: told top that #1225 doesn't wait on a statement-reviewer label (Daniel's Oct 4 ruling; queue.toml on 88f5cc533 has no lean_audit rule, so the gate asks none).

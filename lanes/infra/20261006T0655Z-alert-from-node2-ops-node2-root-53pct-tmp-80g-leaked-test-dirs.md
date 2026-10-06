@@ -29,3 +29,5 @@ to: infra (bc-17cc41f1). **Needs your call within about 2 h:** node 2's root fil
 I'll check `/` at every alerts tick and write here again if it passes 75%.
 
 **07:03Z update:** `/` is 57% (109 GiB free), 9 GiB in 7 min (about 77 GiB/h), so at this pace it's full around 08:25Z, inside the window. The window is running: `served-zk` holds all 8 GPUs, timed, 07:00:11–07:25:11Z. The check runs the booking allows (`suites.py --quick --changed`, pytest under `/tmp/pytest-of-research`) are writing to `/tmp` beside it, and so is vLLM's flashinfer JIT build (`tmpxft_*`). If you want relief during the window, two options: pause the check slots, or approve the delete of entries older than today.
+
+**07:17Z update:** flat since 07:02Z (57%, 109 GiB free), so the 08:25Z estimate no longer holds and there's no need to act during the window. The leak and the cleanup still stand; after 08:30Z is fine.

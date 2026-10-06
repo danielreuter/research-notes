@@ -781,3 +781,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T02:00Z: closed #1225 (head 5a94 is an empty note commit; top's ok). The move's DM: 990 removed/990 new are lock-consolidation noise. The 2 definitions changed (Arith.Correct, RepDoomedW) have identical source but new hashes; asked lean to diff the terms, and for a cross-lock spec_alert follow-up to #1211.
 - 2026-10-06T02:05Z: TOP PRIORITY (root): lean diffs the elaborated terms of Arith.Correct and RepDoomedW (88f5 vs 7b41), goes to red team and proofs; verdict on meaning as a label on r20261006-004654-ea26. Tell root the verdict at once.
 - 2026-10-06T02:00Z: merged 1b8e56301 (8 PRs) → main c305471c5 via --push. e4b8 (b254) and a0a3 (8400) running on top.
+- 2026-10-06T02:03Z: ci tip 317d5ab6b (b254 + #1159, P2 RTT cap) node1 r20261006-020038-29e5; lands after b254.

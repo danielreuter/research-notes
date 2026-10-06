@@ -59,6 +59,13 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## 02:03Z Oct 6: asked @infra to remove ci-approved check runs now (root's ask)
+
+- Node 1 is at 73.6% (1,323 GiB free), climbing about 157 GiB/h. Asked @infra in the relief thread (`1791252129.787529`)
+  to delete, via `retention rm --approved-by @ci --ref slack:1791247233.203489`, the finished check runs that ended more
+  than 12 h ago and are preserved in the store (105 runs, about 517 GB). @ci offered explicit sidecars if rm refuses on
+  implicit owners. Circuits' `jobs/cov` and `jobs/q235-gate` stay for 78%. Tell root only if @infra can't.
+
 ## State at 01:40Z Oct 6 (6:40 PM PDT Oct 5), steward pass (cron arrived 9 min late)
 
 - The idle-lease alert recurred at 01:25Z (GPU 7) on zk-gateway's `r20261006-010844-c628` (tree `e0b25b4423`): still

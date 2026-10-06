@@ -839,3 +839,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T12:12Z: tip 22 598628fa9 (5a0f + #1299) node1, in parallel; 5a0f (27fa) is its fallback. #1317 waits for 14:00Z.
 - 2026-10-06T12:41Z: ruled for proofs tonight: train members need the owner's hand-posted ready plus the grants, not a quick tier (the train's full check covers it). Asked infra for a third pod.
 - 2026-10-06T12:43Z: tip 23 cce39f3ce (5986 + #1342) node1 in parallel; 5986 (a2e5, 28 min in) is its fallback.
+- 2026-10-06T12:48Z: top: no hand-posted ready without a tier (no recorded ruling). Withdrew my 12:41Z answer to proofs. Yes to slot priority for #1312's tier 60c3.

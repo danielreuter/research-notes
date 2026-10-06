@@ -106,7 +106,8 @@ sender does, from its own replica of the proxy's prover.
 
 Run `r20261006-035423-2cd5` was preempted (SIGTERM at 04:45:59Z, 51 min of GPU) after its `cover-3-2` phase, before
 the envelope control started. Record `art:cc136bcf`. The control was rerun first in `r20261006-050809-0b8d` (same
-inputs, GPU 3), followed by a second `cover-3-2` phase on the now-quiet node. Windows are 60 s.
+inputs, GPU 3). That run was evicted too, at 05:28:09Z after 17 min of GPU (`stopped: evicted`), so its second
+`cover-3-2` phase never ran. Windows are 60 s.
 
 | phase (run) | strategy | windows | accepted egress / ingress | MI raw / null / corrected | decoded | SER | decisions |
 |---|---|---|---|---|---|---|---|
@@ -130,6 +131,6 @@ inputs, GPU 3), followed by a second `cover-3-2` phase on the now-quiet node. Wi
   symbol was 1 (no hold), and the model's own burst exceeded the declared δ = 7. Honest traffic gets such rejections
   under online rules too.
 - No accepted window had a wire other than the Program's shaping.
-- GPU: 0.85 h (preempted run) plus at most 0.95 h (`050809-0b8d`, `--max-min 55`): at most 1.8 GPU-h.
-- The second `cover-3-2` phase of `r20261006-050809-0b8d` was still running when this was written. Its numbers are in
-  that run's `out/cover-3-2/summary.json` (`covert`).
+- GPU: 0.85 h plus 0.29 h, 1.14 GPU-h for these two runs (both evicted).
+- A third live run, `r20261006-060323-7b56`, is queued for `cover-3-2` and then `envelope`. It waits for the GPUs,
+  which are booked from 07:00Z to 08:30Z.

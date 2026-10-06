@@ -88,3 +88,10 @@ draw. At each draw `E` is constant, so the same proof goes through with `prob_an
 
 Size: about step A's. It is one refinement proof of about 40 lines, copied from `execRefinesZK_tables`, plus a few lines
 for each of the other three. It is not larger than A.
+
+### Checkpoints
+
+* Step A (7:25 PM PDT, 5 Oct): `cursor/flock-e2e-inputs-95d4` at `cb937c063`, audit `r20261006-013404-2ff9` PASS
+  (`--no-replay --no-runs`); `EndToEnd` restated in place, "wrong" = `wrongRegZ` against the public file; changed record,
+  needs a statement reviewer. Gap 3 is not cheap (per-circuit `RowsCert`, constant-1 column only up to a collision); it
+  stays open. Steps C (hidden outputs, registered reads) and D (zero-knowledge half) are written and type-check locally.

@@ -3,7 +3,7 @@ id: proofs/20261006T0122Z-finding-vbridge-gf
 campaign: proofs
 lane: proofs
 kind: finding
-status: in-progress
+status: final
 repo: verity
 origin: bc-2babccd5-7012-5fdb-b7b2-2d24012bfa79 (vbridge-gf, for the proofs coordinator)
 ---

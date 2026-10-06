@@ -863,3 +863,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T15:39Z: tip 36 be9827545 (35's #1363 gate fix + proofs' granted set + #1301 #1288) node1 slot a r20261006-153551-c679 --agreement; asked infra to swap the pod shards 25bd→be98. Cancelled e3e8. Land 36 with 35's gate.
 - 2026-10-06T15:41Z: swapped be98's check (3 min in) for tip 38 4d30cca29 (+ #1344 #1362) node1 slot a r20261006-153823-fa34 --agreement; pod shards to 4d30.
 - 2026-10-06T15:45Z: sent top the lander's old->new list for the repo-wide doc sweep (5 items).
+- 2026-10-06T15:46Z: tip 38 4d30 pod shards: 1/3 r20261006-154133-adf4 (-20), 2/3 r20261006-154138-cb21 (-21, agreement sent), 3/3 r20261006-154133-9963 (-19). Combine those; node 1 full check fa34. (c679 was cancelled earlier.)

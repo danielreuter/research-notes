@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:53Z) [open] 21:53Z: inbox empty; main 327ea5b1b (tip 74); tips 75-81 queued; #1412 awaits infra fast-forward; P2 v4 rerun running on node 2
 CHECKPOINT none (21:37Z) [open] 21:37Z: inbox empty; tips 74-80 queued on node 1; P2 v4 rerun 21:44Z; Daniel reworking repo structure with architecture
 CHECKPOINT none (21:22Z) [open] 21:22Z: inbox empty; main 57a04f569 (tip 73 landed, lifts confirmed); tips 74-78 queued on node 1; P2 v4 rerun 21:44Z
 CHECKPOINT none (21:06Z) [open] 21:06Z: inbox empty; tip 73 checking, 74-76 queued; P2 v4 in draft #1413, rerun 21:44Z; #1380 close to ask Daniel

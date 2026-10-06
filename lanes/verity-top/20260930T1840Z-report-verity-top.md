@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (13:30Z) [open] 13:30Z: inbox empty; quiet-window gap explained (guard fix in node_ops.py after 14:00Z); tips 21-24 pending; awaiting 14:00Z finals
 CHECKPOINT none (13:15Z) [open] 13:15Z main 544e5f7b4; tips 21-24 queued; M4 confirmation cells pending; quiet-window guard leak (5/6 runs) with infra
 CHECKPOINT none (13:00Z) [open] 13:00Z main 544e5f7b4; tips 21-24 queued on node 1; M4 tail 1.7e-5 (IRQ on challenger core), infra moving it, rerun by 13:55Z
 CHECKPOINT none (12:44Z) [open] 12:45Z main 544e5f7b4; tips 21/22/23(+#1342) queued on node 1; #1312 ready route pending

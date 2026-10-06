@@ -59,6 +59,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 10:12Z Oct 6 (3:12 AM PDT), steward pass (cron on time)
+
+- Node 1 (watch, no flags): 65.3% (1,739 GiB free), flat since 09:45Z. Compute-accounting's 220 GB of passes are still
+  in `jobs/pouw-mvp-e2e/passes/`, awaiting their CPU phase. `provers` 6 admitted; all 8 GPUs taken (6 leases, 2 fenced
+  for Kueue). Pacer and dispatcher clean.
+- Node 2: 1 of 8 (a fill job on GPU 1); a second fill job (bc-15ada664's `pous-vllm-e2e-series`) is starting on GPU 7.
+  6 idle (reported). `/workspace` 67%.
+- Hourly snapshot `art:d9568d02…` (about 10:01Z; utilization-summary updated).
+
 ## 09:58Z Oct 6: node 1's disk jump, 61.4% to 64.7% (09:30–09:45Z), attributed
 
 - Compute-accounting's `arms.sh` GPU phase (`r20261006-091845-6504`, bc-1beaff8e) wrote 220 GB to

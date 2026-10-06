@@ -110,3 +110,6 @@ for each of the other three. It is not larger than A.
   `EndToEndHidden_refSetup` (every accepted draw gives the hidden-output `y₀`). Audits re-run in order, A first.
 * Step A restacked (12:02 AM PDT, 6 Oct): `cursor/flock-e2e-inputs-95d4` at `3cd3645c6` (merge `49199e518`, binder
   `6deff7960`, record), audit `r20261006-061450-3b7f` PASS (6873 declarations, 1749 guarantees); B's audit is running.
+* Step B restacked (12:46 AM PDT, 6 Oct): `cursor/flock-e2e-drawn-95d4` at `3eb247de0` (binder `1a693331f`, merges
+  `cb9c4e50f` and `a817ddc7a`, record), audit `r20261006-070215-60cc` PASS (1750 guarantees); C's audit
+  `r20261006-074511-78e2` is running.

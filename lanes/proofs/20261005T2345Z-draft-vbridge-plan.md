@@ -196,3 +196,7 @@ witness construction.
 - 02:58Z (7:58 PM PDT): C2's audit `r20261006-021256-fec1` PASS (1750 guarantees, no replay); its record is committed at
   `2434949b9`, and `internal/proofs/vbridge-open-pr.md` is filled in. Both pieces are done to their PR files. Next: C2's
   `acc_out` once B2's `residual_forms` statement exists; D once #1179 and #1192 land; F and G after rec-thm.
+- 03:33Z (8:33 PM PDT): C2's headline `FlockVBridge.sound_recOpen` (`VBridge/RecOpen.lean`, `RecOpen_v3._steps` at
+  rec-step3 `273017068`, both outputs, composing `sound_climbRow` with B2's `sound_residualForms`) is on
+  `cursor/vbridge-recopen-95d4` at `8e729fbe7`, with B2 merged in at `203ddd6ce`. Its hypotheses are `Carries` over
+  `MerkleScheme.rowBytes`: the byte layout is done here, not left to D. Audit run `r20261006-033234-afc7` (`--no-replay`).

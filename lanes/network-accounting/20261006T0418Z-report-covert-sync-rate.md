@@ -104,4 +104,32 @@ The live sender (`covert.LiveSender`, in the shim) can only delay what the model
 event until `anchor + g_w − 1`, so a window's frontier is `max(g_w, the model's own)`. It draws `g_w` as the replay's
 sender does, from its own replica of the proxy's prover.
 
-Results: pending.
+Run `r20261006-035423-2cd5` was preempted (SIGTERM at 04:45:59Z, 51 min of GPU) after its `cover-3-2` phase, before
+the envelope control started. Record `art:cc136bcf`. The control was rerun first in `r20261006-050809-0b8d` (same
+inputs, GPU 3), followed by a second `cover-3-2` phase on the now-quiet node. Windows are 60 s.
+
+| phase (run) | strategy | windows | accepted egress / ingress | MI raw / null / corrected | decoded | SER | decisions |
+|---|---|---|---|---|---|---|---|
+| `cover-3-2` (`035423-2cd5`) | covert | 20 | 7/20 / 8/20 | 1.170 / 0.963 / 0.206 | 0.206 | 0.81 | 16 |
+| `cover-3-2` (`035423-2cd5`) | honest (random symbols) | 24 | 9/24 / 8/24 | 1.202 / 0.920 / 0.282 | 0.282 | 1.00 | 19 |
+| `envelope` (`050809-0b8d`) | covert | 4 | 4/4 / 4/4 | 0 / 0 / 0 | 0 | 1.00 | 3 |
+| `envelope` (`050809-0b8d`) | honest | 10 | 9/10 / 9/10 | 0 / 0 / 0 | 0 | 0.75 | 8 |
+
+- **No measurable live rate.** The covert sender's corrected MI (0.21) is below the honest control's (0.28, against a
+  message it never encoded). At about 16 decisions, both are small-sample bias. Under `envelope` everything is 0.
+- **Why it is low.**
+  - The live sender can only delay, so a symbol below the model's own frontier is masked. The honest frontier here
+    is 7–11 buckets, so most symbols in `[1, δ]` are invisible: SER 0.81.
+  - The `cover-3-2` phase ran while the node's load was 150–250. Most rejections, for both honest and covert, are
+    `status:monitor-unavailable`: monitor ticks stalled past the 25 ms slack (p99.9 325–440 ms, 46 and 55 ticks over
+    slack). The rest are `delivery-refused`.
+  - On the quiet node (envelope phase), ticks stayed within slack (max 15 ms).
+- **The sender's replica was exact.** In every live covert configuration, the declarations the proxy made equal the
+  ones the sender predicted.
+- **One covert `mismatch` (egress), and it is not the sender's doing.** In window 2 of b451 under `cover-3-2`, the
+  symbol was 1 (no hold), and the model's own burst exceeded the declared δ = 7. Honest traffic gets such rejections
+  under online rules too.
+- No accepted window had a wire other than the Program's shaping.
+- GPU: 0.85 h (preempted run) plus at most 0.95 h (`050809-0b8d`, `--max-min 55`): at most 1.8 GPU-h.
+- The second `cover-3-2` phase of `r20261006-050809-0b8d` was still running when this was written. Its numbers are in
+  that run's `out/cover-3-2/summary.json` (`covert`).

@@ -80,6 +80,12 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 23:31Z Oct 6 (4:31 PM PDT), steward pass (cron on time)
+
+- Node 1 (watch, no flags): 67.0% (1,655 GiB free); 0 admitted, all 8 idle (reported); pacer and dispatcher clean.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 69%.
+- Hourly snapshot `art:b0df0ace…` (about 23:15Z; utilization-summary updated).
+
 ## State at 23:01Z Oct 6 (4:01 PM PDT), steward pass (cron on time)
 
 - Unchanged. Node 1 (watch, no flags): 68.9% (1,561 GiB free); 0 admitted, all 8 idle (reported); pacer and dispatcher

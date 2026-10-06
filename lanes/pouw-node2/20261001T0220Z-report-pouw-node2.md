@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (01:40Z) [open] A 01:40Z poll: node2-ops 00Z hourly 10.4%; infra's post-move redeploy 7b410fbf6a on node 2 at 00:56Z (custody tree, vy-node-sweep timer, env), fill runner untouched; not a 'back' post, so still off node 2; /workspace 63% (hold); node-1 alert not mine; main 7b410fbf6 unchanged; panel art:d2b2eb906612
 CHECKPOINT fbce5a2f4c (01:20Z) [open] A 01:20Z poll: nothing new since 01:00Z; main 7b410fbf6 unchanged; node-2 /workspace last 62% (hold); panel art:d2b2eb906612, v1 gamma pending compute accounting's yes; off node 2
 CHECKPOINT fbce5a2f4c (01:01Z) [open] A 01:00Z poll: Lean move landed (main 7b410fbf6): all Lean under verity/Security, one record verity/Security/lean-audit.json, no declaration renamed or statement changed; panel's Lean citations all resolve, no panel change; node-2 /workspace 62% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (00:40Z) [open] A 00:40Z poll: node2-ops 23Z hourly 14.0%; the 23Z disk jump was transient, /workspace back to 62% (1,907 GiB free; hold); infra round 29: FlashInfer JIT cache flips builds, warm in an untimed lease before any timed served window; node-1 idle alert not mine; main 88f5cc533 unchanged; off node 2

@@ -178,3 +178,10 @@ witness construction.
   that means import paths.
 - **F is Python today** (`rec_algebra.verifier_rows`, `rec_outer.coefficients`). The outer verifier eventually has to
   compute it in Lean, with F as its definition. That is a verifier change in another lane; VBridge only defines F.
+
+## Checkpoints
+
+- 01:28Z (6:28 PM PDT): C1 `FlockVBridge.sound_climbFrom` builds locally (`VBridge/Climb.lean`, any scheme whose node is
+  `SHA-512(l ‖ r)`, so it covers rec-step3's plain SHA-512 tree as well as `hm96Sha512`), pushed on
+  `cursor/vbridge-climb-95d4` at `780c2f708`; audit run `r20261006-012634-3f72` on vy-nebius-1 (`--no-replay`). rec-step3's
+  `RecOpen_v3` (`d23edf42d`) keeps C1's loop as it is.

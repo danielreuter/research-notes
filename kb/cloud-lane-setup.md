@@ -62,7 +62,8 @@ fi
   them to a pod**. Pods get only what `research run` gives them.
 - **To see which variables are set, list names only:** `compgen -e`, or `compgen -e | rg NAME`. Never use `env`, `printenv`,
   `set`, or `env | cut -d= -f1`. Multi-line values such as `NEBIUS_SA_PRIVATE_KEY` put key lines on lines of their own, which
-  `cut` passes through. That happened at least three times on 30 Sep (two worker terminals, and accounting-merge's session log).
+  `cut` passes through. That happened at least five times by 6 Oct. Once #1327 is in `main`, the repo's `.cursor/hooks.json`
+  refuses such a command before it runs (`tools/agent-guard/shell_hook.py`). The refusal is the hook working; use `compgen -e`.
 
 ## 2. Notes: how you read and write them
 

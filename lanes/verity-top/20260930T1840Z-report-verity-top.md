@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (08:40Z) [open] 08:41Z: main 89fb2c28c frozen; rename move on main ~11:45Z (lock update + full check), first post-move train ~14:00Z; firewall #1270 round 5; LMS lowering OOM fix by 11:00Z
 CHECKPOINT none (08:25Z) [open] 08:25Z: main 89fb2c28c (1ad0 landed 08:12Z), frozen for rename move being regenerated; vy-mig-check-20 up for quick tiers; node 2 reboot 08:30Z
 CHECKPOINT none (08:09Z) [open] 08:09Z: 1ad0 still checking; LMS resolved via toy binding; firewall 3rd gap fixed (#1270/#1303 to red team); asked infra for check capacity before post-rename restack
 CHECKPOINT none (07:54Z) [open] 07:54Z: 1ad0 checking (last pre-rename landing, move generated after it lands); GPU-cost timed (-h2 +23.6%, +zk stmt +36.7%); node 2 cleared by compute-acct for 08:30Z reboot

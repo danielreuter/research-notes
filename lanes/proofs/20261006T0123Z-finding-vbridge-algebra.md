@@ -48,3 +48,8 @@ Plan: `note:proofs/20261005T2345Z-draft-vbridge-plan`, piece E. Python restated:
   verifier's state carrying V*'s `s`, contexts and no leftover lists. Ligerito audit `-035518-fcfe` cancelled (stale
   head), relaunched as `r20261006-041008-2002`. PR files drafted under the store's `internal/proofs/`
   (`vbridge-algebra-<piece>-pr.md`), audit printouts pending.
+- 05:08Z (10:08 PM PDT): audits PASS and records committed (each the run's `lean-audit.json` unchanged, merged down):
+  sim `48998a034` (`-035315-89aa`, 1749 guarantees), build `af17cb171` (no pin; E1's record), eval `c6d76f158`
+  (`-035339-16cd`, 1750), zerocheck `a1d1b469c` (`-035403-b1df`, 1753), lincheck `df3fc0378` (`-035428-b999`, 1757),
+  ringswitch `44e61ada2` (`-035453-d26f`, 1762). Ligerito `r20261006-041008-2002` still running. PR files filled for
+  all but ligerito.

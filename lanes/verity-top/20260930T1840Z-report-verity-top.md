@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:28Z) [open] main c305471c5; lander checking tips (top 031484e84 e011, next 090257a15); overnight lanes running
 CHECKPOINT none (04:12Z) [open] main c305471c5; lander checking all tips (top 031484e84 e011); #1270 NO-GRANT inner proxy; #1264 granted; seed_A D1 covers C and C4
 CHECKPOINT none (03:56Z) [open] main c305471c5; 4020 checking; top tip 031484e84 awaiting lander (silent since 02:27Z); #1264 granted; joint note agreed
 CHECKPOINT none (03:39Z) [open] main c305471c5; 4020 checking; 72d5 then a75f2168e (7 tips incl #1242 fix) queued; gamma finding to Daniel

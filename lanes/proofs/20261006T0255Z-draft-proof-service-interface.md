@@ -10,7 +10,7 @@ origin: bc-bb283e71-f122-57b3-b894-fccb8cd2ada1 (proof-service, for the proofs c
 
 # The proof service: its interface (draft)
 
-For Daniel, written 5 Oct between 7:55 and 10:45 PM PDT, in answer to your 7:17 PM PDT directive: the proof layer is the one
+For Daniel, written 5 Oct from 7:55 PM PDT, in answer to your 7:17 PM PDT directive: the proof layer is the one
 service that PoUW, PoUS and the network warden call, and none of them keeps commitment, randomness, draw, transport,
 verifier, gateway or audit-record code of its own.
 
@@ -25,10 +25,10 @@ is built under these names; section 6 says what is.
 
 - **A protocol hands the service one `Spec` and gets back one `Outcome`.** The `Spec` is the protocol's four things as
   data: what is committed, the selection rule, the check, and the reading of the outcome. Everything else is the service.
-- **The service is nine calls across four parties.** The prover gateway (developer-trusted) commits, registers and
-  proves. The GPU workers (trusted by neither) only answer the gateway. The verifier gateway (auditor-trusted) issues live
-  coins, draws, runs timed sessions and keeps the record. The batch verifier (auditor-trusted, Lean) verifies and writes the
-  outcome.
+- **The service is nine calls and a record, across four parties.** The prover gateway (developer-trusted) commits,
+  registers and proves. The GPU workers (trusted by neither) only answer the gateway. The verifier gateway
+  (auditor-trusted) receives registrations, issues live coins, draws, runs timed sessions and keeps the record. The batch
+  verifier (auditor-trusted, Lean) verifies and writes the outcome.
 - **The service picks how each check is established.** It runs a native check when the protocol lets the auditor see the
   values ("clear mode"), direct ZK when the statement is small, and recursion when it is large.
 - **A correction to proofs' design.** Binding does not show possession. "Hash each PoUS answer inside the deadline and
@@ -36,10 +36,11 @@ is built under these names; section 6 says what is.
   and possession becomes a new named claim (section 3).
 - **Proofs takes both of compute-accounting's asks as service calls.** The two-stage driver goes on `select`, and
   registered row/v2 goes on `commit_registered` (section 4).
-- **Guarantees.** Direct ZK's soundness and zero knowledge, hm96's hiding and the one-stage law are proved on main.
-  Recursion's `RecursiveSound` and `RecursiveZK` (#1261) and C-Flock's `EndToEnd` (#1257) are in flight, and recursion
-  counts as end to end only once `VBridge` (#1258 and its plan) is proved. The nonce-bound commitment, the epoch coins, the
-  sequential draw and the gateway's send check have no theorem yet (section 5).
+- **Guarantees.** On main: direct ZK's soundness, its honest-verifier zero knowledge, hm96's hiding and the one-stage
+  law. In flight: recursion's `RecursiveSound` and `RecursiveZK` (#1261) and C-Flock's `EndToEnd` (#1257). Recursion counts
+  as end to end only once `VBridge` (#1258 and its plan) is proved. No theorem yet: zero knowledge against a malicious
+  auditor at C-Flock's `--zk`, the nonce-bound commitment, the epoch coins, the sequential draw and the gateway's send
+  check (section 5).
 
 ## 1. What a protocol states: the `Spec`
 
@@ -270,7 +271,8 @@ What isn't built:
 | `select`: one-stage law | verifier gateway | sampled proofs' law: `subset_miss`, `stratified_escape`, `work_escape_le`, and `drawOS_*_escape_le` for the running draw under A3 | main |
 | `select`: two-stage | verifier gateway | `twoStage_count`, `two_stage_b_tight`, `effEscape_bernoulli_prod` | main, coverage unchecked |
 | `select`: sequential | verifier gateway | — (PoUS's `P2SlackFamilyUncond` assumes uniform indices) | none yet |
-| `prove` + `verify`: direct ZK | prover gateway, batch verifier | soundness: the `zk_session_*` family (`zk_session_soundJ_custody`, `zk_session_soundR`, `zk_session_soundHJR_custody`); zero knowledge: `zk_session_view`, `session_shvzk_le`, `gk_simulate_hm96` | main |
+| `prove` + `verify`: direct ZK, soundness | prover gateway, batch verifier | the `zk_session_*` family (`zk_session_soundJ_custody`, `zk_session_soundR`, `zk_session_soundHJR_custody`) | main |
+| `prove`: direct ZK, zero knowledge | prover gateway | honest-verifier at each coin vector: `zk_session_view`, `zk_session_view_all`, `session_shvzk_le`; against a malicious auditor, `gk_simulate_hm96` instantiated at C-Flock's `--zk` | main; the instance none yet |
 | the gateway's send check | prover gateway | the rule in #1270's PROTOCOL §10; `gateway_no_free_choice` proposed | none yet |
 | `prove` + `verify`: recursive | prover gateway, batch verifier | `RecursiveSound`, `RecursiveZK` over `VBridge` | #1261; `VBridge` #1258 and plan |
 | `prove`: clear | batch verifier | binding, and the Program's own meaning | main |
@@ -282,10 +284,11 @@ What the table means for a protocol:
 - **Recursion's soundness.** `RecursiveSound` bounds acceptance of a false hidden statement by the outer session's error,
   plus each round's binding term, plus the inner error. That last error is `2^-205` for C-Flock's interactive table at
   22 ≤ m ≤ 33 (`flock_inner_sound_fast100`). It counts as end to end only once `VBridge` is proved. That proof is
-  3,450–6,080 Lean lines in the vbridge plan, with pieces A, B1 and B2 done and E under way.
-- **Recursion's zero knowledge.** `RecursiveZK` is within `εo + nh·2^-193` of a simulator. It holds against a malicious
-  auditor only given the outer session's malicious-auditor zero knowledge (`hOuter`), which is not yet instantiated at
-  C-Flock's `--zk`.
+  3,450–6,080 Lean lines in the vbridge plan (`note:proofs/20261005T2345Z-draft-vbridge-plan`). Pieces A (#1258), B1 and
+  B2 are proved on branches, and E is under way.
+- **Zero knowledge.** `RecursiveZK` is within `εo + nh·2^-193` of a simulator. It holds against a malicious auditor only
+  given the outer session's malicious-auditor zero knowledge (`hOuter`), the same gap as direct ZK's: `gk_simulate_hm96`
+  is not yet instantiated at C-Flock's `--zk`.
 - **C-Flock's `EndToEnd`.** It is the count curve:
   `Pr[accept ∧ ≥ K₀ wrong] ≤ C(n − K₀, kd)/C(n, kd) + ksAvgStrictZ + δ_link`, for the subset law and public outputs. The
   drawn-unit form, hidden outputs and registered reads are its steps B to D.

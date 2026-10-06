@@ -59,6 +59,16 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 01:40Z Oct 6 (6:40 PM PDT Oct 5), steward pass (cron arrived 9 min late)
+
+- The idle-lease alert recurred at 01:25Z (GPU 7) on zk-gateway's `r20261006-010844-c628` (tree `e0b25b4423`): still
+  `gpu-lease … --preemptible -- bash 85-rec-reprice.sh STEP=oprove` around the whole step, so proofs' fix isn't in that
+  launch. Its stdout has two flock panics. Told proofs once in the thread (`1791250870.620509`), as they asked.
+- Node 1 (watch, no flags): 71.4% (1,434 GiB free), `research/src` 73 trees; the pacer and dispatcher are clean. Node 2:
+  1 of 8 (a fill-runner job), and no queue.
+- Tick 72's hourly ran through the gzip fix and stored
+  `art:c078194b5b6eb21ffd6cd3f6ee62581a427bb513bb7ef3c8b1e2505ed573fad5` (about 01:10Z).
+
 ## State at 01:07Z Oct 6 (6:07 PM PDT Oct 5), steward pass (cron arrived 6 min late)
 
 - Node 1 (watch, no flags): 70.5% (1,480 GiB free) after proofs' 159 GiB went; `research/src` 63 trees. 0 of 8 GPUs and

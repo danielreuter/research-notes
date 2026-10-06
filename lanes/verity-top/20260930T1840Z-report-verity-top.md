@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (11:44Z) [open] 11:45Z main c3be1f9b6; tip 21 next check; M3 done (#1344 lean-approved); node 1 slots saturated
 CHECKPOINT none (11:29Z) [open] 11:30Z main c3be1f9b6; tips 19/20/fallback queued; #1306 #1329 #1336 #1327 ready; covert live hour: no measurable rate
 CHECKPOINT none (11:15Z) [open] 11:16Z main c3be1f9b6; tips 19/20 + fallback 2f99 queued on node 1; #1312 tier now running; #1342 tier running
 CHECKPOINT none (11:04Z) [open] 11:05Z main c3be1f9b6; tip 19 checking; #1342 first in next train; 11:00Z leads checkpoints in

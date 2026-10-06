@@ -72,6 +72,22 @@ when `/tmp/steward-pass.last` is over 40 min old.
    - Root, 16:42Z: if @infra hasn't acked by 17:15Z, reply once in the thread copying @top: notes haven't reached GitHub
      since 16:06Z, and list the unpushed sync commits on the detached HEAD. Still hands off its git state. One-shot timer
      `nebius-infra-notes-detached-1715` (`sub_fdd5426a…`) fires at about 17:15Z.
+   - 17:16Z: no ack, still detached (HEAD `c4bfdeefd`, 8 commits above origin/main plus `main`'s `12203a957`). Replied
+     once in the thread copying @top (`1791306973.522099`). Next: one line to root when @infra acks or it's on `main`.
+
+## State at 17:14Z Oct 6 (10:14 AM PDT), steward pass (cron on time)
+
+- Node 1 (watch, no flags): 64.8% (1,765 GiB free). No GPU work since about 11:53Z, all 8 idle (reported). Pacer and
+  dispatcher clean. Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 68%. No new hourly.
+- The notes checkout is still detached (HEAD `c4bfdeefd`), and @infra hasn't replied; the 17:15Z timer sends the follow-up.
+- The 16:44Z entry below was lost when something rewrote this file at 16:49:30Z; re-added.
+
+## State at 16:44Z Oct 6 (9:44 AM PDT), steward pass (cron on time)
+
+- Node 1 (watch, no flags): 63.0% (1,857 GiB free). No GPU work since about 11:53Z, all 8 idle (reported). Pacer and
+  dispatcher clean. Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 68%.
+- The loop's 16:28Z hourly failed (`ssh n2` exit 255, transient; n2 answers now). Reran by hand:
+  `art:7b88bd2f…` (utilization-summary updated).
 
 ## State at 16:13Z Oct 6 (9:13 AM PDT), steward pass (cron on time)
 

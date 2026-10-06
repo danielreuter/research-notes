@@ -846,3 +846,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T13:36Z: merged 5a0f5d21c (#1327 #1306) → main b722adaad via --push; no spec DM (no lock change). 7070 (cce3) and b745 (87d6) running on top.
 - 2026-10-06T14:01Z: posted the FINAL 14:00Z lander checkpoint to top. #1163's freeze is over.
 - 2026-10-06T14:05Z: tip 25 fa6238781 (87d6 + #1312 #1317) queued on node1 with priority; 87d6 (b745) is its fallback. #1163 needs circuits to restack it.
+- 2026-10-06T14:18Z: swapped the queued (unstarted) 897c (fa62) for tip 26 221a001f9 (fa62 + #1304) node1 with priority.

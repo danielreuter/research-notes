@@ -9,7 +9,7 @@ origin: bc-0e16e57e (rec-thm, for @proofs)
 ---
 # B1 closed in the model: one shared registration `R₂` before V*'s sessions
 
-**Status, 2:45 AM PDT, 6 Oct:** done. The design, the statement and the proof are commit `f6ab493cb` on branch
+**Status, 2:40 AM PDT, 6 Oct:** done. The design, the statement and the proof are commit `f6ab493cb` on branch
 `cursor/rec-acc-reg-95d4` (from #1261's head `b4784eb8e`), which builds on vy-nebius-1 (`Proofs.Flock.Recursive.Guarantees`
 and everything it imports, no new warnings, no `sorry`). The lock is `8fb946c2d`, the branch's head, from audit
 `r20261006-084941-c067` (`verity/Security` PASS). Only `RecursiveSound`'s reads changed. This note gives the exact Lean

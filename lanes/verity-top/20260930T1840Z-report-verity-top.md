@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:43Z) [open] trains ad13b11c2 then b2544732c (+#1247,#1244,#1253) with lander; y0 J>=2 flaw fix with proofs; skip audit with architecture
 CHECKPOINT none (01:27Z) [open] main 7b410fbf6 open; trains ad13/84008 with lander; red team reviewing #1247; awaiting Daniel on console/VBridge/memo
 CHECKPOINT none (01:12Z) [open] main 7b410fbf6 (move landed); trains ad13b11c2 then 84008fde6; C-Flock E2E #1257, VBridge #1258 started; VBridge scope Q to Daniel
 CHECKPOINT none (00:56Z) [open] Lean move LANDED main 7b410fbf6; post-move train ad13b11c2 next, second tip waits on #1247; lanes restacking

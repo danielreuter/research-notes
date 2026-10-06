@@ -178,7 +178,8 @@ Notes on the table:
 - **Its templates:** `Pc8RowB{K,sm120}`, `Pc8RowA{K,sm120}`, `Pc8TileHidden{K,TM,TN,sm120}`, and under the cap
   `Pc8RowACap` through `Pc8CapTally`.
 - **Partition and units:** `pc8.query(shape)` (`Q_template_instances`), with `pc8.units` and `unit_cut`.
-- **Public input regions:** `pc8.DERIVATIONS` valued by the verifier's `TileAnchors.public_inputs`.
+- **Public input regions:** `pc8.DERIVATIONS` valued by the verifier's `TileAnchors.public_inputs` today; under the
+  7:48 PM PDT ruling they move into gates (R9, and "PoUW's public items" in (d)).
 - **Acceptance:** a drawn tile is accepted when every unit's proof accepts, its rows' ok words are ok, and under the
   cap its tally's verdict word is ok.
 - **What the Program still lacks** before it can be the whole check: R1, filler zero, the kept width, and voluntary and
@@ -300,7 +301,10 @@ and lottery winners. They are proved and recorded like drawn ones, without enter
 
 **R9. Verifier-derived public input regions.** The service's `verify` takes the protocol's regions file (C-Flock
 `verity/flock-public-inputs/v1`, from `TileAnchors.public_inputs`) computed by the verifier. It refuses a
-prover-supplied one, as `hidden_zk`'s honest-chosen control does today.
+prover-supplied one, as `hidden_zk`'s honest-chosen control does today. Under the 7:48 PM PDT ruling the regions
+can't stay per-unit public inputs, because a unit's coordinates are hidden (see "PoUW's public items" in (d)). What
+the verifier derives becomes the epoch seed and the drawn indices, and the anchors are derived in gates from those and
+the committed layout. Today's `hidden_zk` (verifier-computed regions per unit) is the prototype, not the target.
 
 **R10. Context binding.** The session record must bind PoUW's identifier v1 (scheme, salt, workload), so a proof
 answers to one epoch. With live coins there is no `pub.sha`-seeded Fiat-Shamir. The binding is the record's.
@@ -419,11 +423,36 @@ from its symbols.
      for the ZK layer.
    - **Recommendation:** live coins for the salt too. Delete the beacon and BLS code unless a third-party-checkable
      mining mode is wanted.
-4. **What PoUW publishes on purpose besides the verdict.**
-   - **What it is:** W's per-call shapes (m is the batch size per step) and the records (real rows, excluded and
-     voluntary row indices). They reveal traffic and which rows fail the per-row rules.
-   - **Recommendation:** publish shapes and counts, which the work table needs, and commit row indices through the
-     service, proving their rules in gates. Name the traffic side channel as the network warden's.
+4. **What PoUW publishes on purpose besides the verdict.** Revised after your 7:48 PM PDT ruling: in every protocol
+   the circuit and the data are hidden, and only the minimum is public, each item with its reason.
+   - **This draft first said:** publish W's per-call shapes and the counts, which the work table reads. Shapes reveal
+     the model's architecture (n, k per matmul) and the batch size per step (m), so under the ruling they are hidden.
+   - **Recommendation:** PoUW's public list is the one in "PoUW's public items" below. Shapes, row indices and the
+     records are committed through the service. Their rules (the work table, excluded and voluntary rows) are proved in
+     gates, and the traffic side channel is named as the network warden's.
+
+### PoUW's public items (under the 7:48 PM PDT ruling)
+
+Everything not on this list is hidden: W, A, every output, the model's matmul graph and shapes, the batch per step, row
+indices, the records, the tile digests and the per-unit anchors.
+
+| item | why it must be public |
+|---|---|
+| The verdict per audit window | It is the protocol's output. |
+| Credited work for the window, as one number (equivalently N, the window's unit count, since every unit is one 64 × 64 × `row_k` tile) | Crediting work is PoUW's purpose, and the draw ranges over N units. The work sum over the hidden shapes is proved in gates, so no per-call shape is revealed. |
+| The check: the scheme id and its constants (tile 64 × 64, `row_k`, the FP8 or NVFP4 format, the noise rule), and `pc8`'s hidden tile check as a Program | The verifier has to know which check it is verifying. The Program is protocol structure, the same for every prover and every model. The model's own circuit is not part of it. |
+| The selection law: K or (ε, δ), the window, and the drawn unit indices in [0, N) | The draw is the verifier's, from its coins. A drawn index's map to (call, tile, coordinates) is proved in gates against the committed layout, so an index reveals nothing beyond N. |
+| The weights' registration: one salted root | It binds a window's work to a registered model and is hiding. A deployment that doesn't need linkability across windows can re-salt it per window. |
+| The integrity profile: δ, the law, and which levels were exhaustive | It's what the verifier established, and it reads only the items above. |
+
+What this costs, still to measure:
+- The work sum and the index-to-tile map become gates over the committed layout, a small statement per window.
+- E_A, E_B and the F bases stop being public input regions per unit, because a unit's coordinates are hidden. They are
+  derived in gates from the epoch seed and the hidden coordinates. That's option (b)'s cost in question 1, now paid
+  under either option for the anchors' positions.
+- Under question 1's option (a), E_A's seed is public (the epoch coins), but which rows of E_A a unit reads is not.
+
+Outside ZK, by name: aborts and timing (the warden's), and the served output itself, which the user receives.
 5. **The audit window and ε.**
    - **The problem:** K = 27,713 per window at ε = 0.1% puts millions of units a window into proving, whatever is
      served (R11).

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (06:00Z) [open] A 06:00Z poll: nothing new since 05:40Z; 07:00Z window compute accounting's unless told by 06:20Z; main c305471c5 unchanged; node-2 /workspace last 67% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (05:40Z) [open] A 05:40Z poll: node2-ops 04Z hourly 57.5%, 35 evictions by design, /workspace 67% (1,678 GiB; hold), steward logged the disk note; 07:00Z window still booked, compute accounting's absent word by 06:20Z; main c305471c5 unchanged; off node 2
 CHECKPOINT fbce5a2f4c (05:20Z) [open] A 05:20Z poll: only node2-ops' 04:57Z disk fold, /workspace 66% (hold); 07:00Z window still compute accounting's absent word by 06:20Z; main c305471c5 unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (05:00Z) [open] A 05:00Z poll: node2-ops: GPU 2 idle-in-lease resolved itself; PoUS timed hosttrace on GPU 4 to 05:16Z; 07:00Z window (compute-accounting's) still not mine absent word by 06:20Z; main c305471c5 unchanged; node-2 /workspace last 66% (hold); panel art:d2b2eb906612; off node 2

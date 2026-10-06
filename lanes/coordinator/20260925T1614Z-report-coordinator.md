@@ -784,3 +784,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T02:03Z: ci tip 317d5ab6b (b254 + #1159, P2 RTT cap) node1 r20261006-020038-29e5; lands after b254.
 - 2026-10-06T02:18Z: lean's verdict: Arith.Correct and RepDoomedW changed only in their ZMod 2 instance path (ArkLib cut dropped Field.ZMod from Defs' closure); defeq at instance transparency (r20261006-020436-9916). Label on ea26 and red-team/proofs sign-off asked. #1265 = cross-lock spec_alert.
 - 2026-10-06T02:30Z: a0a3 (8400) FAILED: #1242's tools/move test imports tools/lean/audit (read outside inputs). e4b8/29e5 carry it too. Asked ci for a tip without #1242.
+- 2026-10-06T02:33Z: cancelled e4b8/29e5 (carry #1242). ci tip 4020f22d7 (main + #1247 #1236 #1250 #1254 #1255 #1244 #1253 #1159; no #1242) node2 r20261006-023032-7f80 --agreement.

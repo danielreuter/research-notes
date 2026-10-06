@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:12Z) [open] main 7b410fbf6 (move landed); trains ad13b11c2 then 84008fde6; C-Flock E2E #1257, VBridge #1258 started; VBridge scope Q to Daniel
 CHECKPOINT none (00:56Z) [open] Lean move LANDED main 7b410fbf6; post-move train ad13b11c2 next, second tip waits on #1247; lanes restacking
 CHECKPOINT none (00:40Z) [open] Lean move 4/5 shards passed, pytest shard running long (infra checking); post-move tip 1b8e56301 ready
 CHECKPOINT none (00:24Z) [open] Lean move shards finishing on fc6d04815; post-move tip 1b8e56301 prebuilt; PoUW/PoUS/one-stage e2e pass on new layout

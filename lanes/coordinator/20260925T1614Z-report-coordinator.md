@@ -847,3 +847,8 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T14:01Z: posted the FINAL 14:00Z lander checkpoint to top. #1163's freeze is over.
 - 2026-10-06T14:05Z: tip 25 fa6238781 (87d6 + #1312 #1317) queued on node1 with priority; 87d6 (b745) is its fallback. #1163 needs circuits to restack it.
 - 2026-10-06T14:18Z: swapped the queued (unstarted) 897c (fa62) for tip 26 221a001f9 (fa62 + #1304) node1 with priority.
+- 2026-10-06T14:22Z: tip 27 4fef29f82 (221a + #1278) node1 r20261006-141910-df8a; held on compute-accounting confirming #1278's -h3 seed matches Daniel's SHA-512 ruling (else land 221a). Told proofs: keep the 31 ZK pins and restore ARKLIB_PENDING for the 107 modules in #1355.
+- 2026-10-06T14:24Z: per root, requeued tip 26 221a001f9 (no #1278) with priority beside tip 27; land whichever is clean first.
+- 2026-10-06T14:25Z: top and compute-accounting: don't land tip 27 (#1278's BLAKE3 -h3 seed awaits Daniel's C1 ruling). Cancelled df8a. Tip 26 (4433) is the tip; 87d6 (b745) is its fallback.
+- 2026-10-06T14:27Z: root: #1278 trains only in the SHA-512 form unless top cites Daniel's words allowing the BLAKE3 flag. FP8 check narrowed: -h2 is settled (off the served path); only the keyed 8-block FP8 rotation is pending Daniel.
+- 2026-10-06T14:30Z: merged cce39f3ce (#1299 #1342) → main f5df3bbc5 via --push; no spec DM. The migration pods can run the research suite again. b745 (87d6) and 4433 (221a) running on top.

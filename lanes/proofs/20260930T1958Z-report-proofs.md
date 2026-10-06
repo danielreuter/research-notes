@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (12:38Z) [open] 5:40 AM PDT: #1261/#1330 re-granted as renames, bodies posted; #1347 (V* registers coef/dirs/v) opened on rec-step3; #1273/#1274/#1283 restacked, re-grant running; #1323/#1339 restack and review running. Check pods are serial (1 slot each, ~2 h/tier); asked infra and the lander for a third pod or a train-only check (1791290299.280789).
 CHECKPOINT none (11:34Z) [open] 4:34 AM PDT: #1270 (9cced3479) and #1343 (b9d912d5a) restacked across the rename, bodies posted; review-zk-gateway re-labelling #1270 and reviewing #1343; zk-gateway writing PR 2 (rules 1-4 in Rust, due 13:15Z); ten quick tiers running on mig-19/-20.
 CHECKPOINT none (10:32Z) [open] 3:50 AM PDT: rename move on main; restacked and pushed #1325 #1326 #1331 #1320 #1307 #1313 #1081 (tiers on vy-mig-check-19/-20); rec-thm, flock-e2e and rec-step3 resumed for the conflicted stacks (locks --moved on node 1); zk-gateway, plain-leaves-fix, vbridge, firewall-contract and proof-service restack on return.
 CHECKPOINT none (10:02Z) [open] 3:02 AM PDT: opened flock-e2e A-D as #1332-#1335 and #1330/#1331 myself (workers lack the PR tool), all BODY-MATCH; #1315 body reposted. Waiting on red teams (#1330, #1331, flock-e2e), zk-gateway (#1270 rename, P2 PR 2), firewall-contract (#1323 B1-B4).

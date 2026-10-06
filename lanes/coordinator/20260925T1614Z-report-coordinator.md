@@ -841,3 +841,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T12:43Z: tip 23 cce39f3ce (5986 + #1342) node1 in parallel; 5986 (a2e5, 28 min in) is its fallback.
 - 2026-10-06T12:48Z: top: no hand-posted ready without a tier (no recorded ruling). Withdrew my 12:41Z answer to proofs. Yes to slot priority for #1312's tier 60c3.
 - 2026-10-06T12:56Z: tip 24 87d6bd500 (cce3 + #1341 #1310) node1 queued with priority; cce3 (7070) is its fallback.
+- 2026-10-06T13:18Z: granted node 1 slot priority to proofs' five granted tiers (#1261 #1273 #1330 #1274 #1283), relaunched with --priority behind the train checks; these five only.
+- 2026-10-06T13:19Z: per root, cancelled tip 22 (a2e5) to free a slot for quick tiers. Kept 27fa (tip 21), 7070 (tip 23, #1342) and b745 (tip 24).

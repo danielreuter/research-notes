@@ -80,6 +80,13 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 21:43Z Oct 6 (2:43 PM PDT), steward pass (cron on time)
+
+- Node 1 (watch, no flags): 68.7% (1,570 GiB free). GPU work again since 21:31Z: `provers` 2 admitted, 2 leases
+  (`adhoc:ubuntu`, GPUs 1 and 6), 6 idle (reported). Pacer and dispatcher clean.
+- Node 2: 0 of 8 and no queue: fully idle (reported), 70%.
+- Hourly snapshot `art:40630b07…` (about 21:30Z; utilization-summary updated).
+
 ## State at 21:14Z Oct 6 (2:14 PM PDT), steward pass (cron on time)
 
 - Node 1 (watch, no flags): 68.0% (1,604 GiB free), a slow climb from 64.1% at 19:14Z with no GPU work (check runs).

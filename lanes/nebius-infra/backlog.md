@@ -58,6 +58,23 @@ when `/tmp/steward-pass.last` is over 40 min old.
        condition 2: 20, condition 3: 18, recent: 38).
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
+2. **[@infra] The control pod's notes checkout is on a detached HEAD** (root, 16:09Z Oct 6; told @infra once,
+   `1791303016.287849`).
+   - `vy-control:/workspace/steward/research-notes`: a sync's rebase started at 16:05:41Z and never finished. HEAD is
+     `3acaf610e` (origin/main), with no rebase state left. Local `main` is `12203a957`, 1 ahead and 2 behind. Every sync
+     fails with "HEAD is detached".
+   - It's @infra's checkout: don't touch its git state. Each pass, read that post's replies and run
+     `git -C … branch --show-current`. **When @infra acks or it's back on `main`, send root one line.**
+   - 16:13Z: no reply yet. Syncs keep committing on the detached HEAD (`6cad6de70`, 16:10:19Z, on no branch); added
+     in-thread (`1791303214.257379`) that a plain checkout of `main` would orphan it.
+
+## State at 16:13Z Oct 6 (9:13 AM PDT), steward pass (cron on time)
+
+- Node 1 (watch, no flags): 63.0% (1,857 GiB free). Compute-accounting's passes are all gone
+  (`jobs/pouw-mvp-e2e/passes/` empty), so the 76% trigger for B2's passes is moot. Still no GPU work since about
+  11:53Z, all 8 idle (reported). Pacer and dispatcher clean.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 68%. No new hourly (next at loop tick 132).
+- The notes checkout on `vy-control` is still detached (open ask 2).
 
 ## State at 15:42Z Oct 6 (8:42 AM PDT), steward pass (cron on time)
 

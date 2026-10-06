@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (13:00Z) [open] 13:00Z main 544e5f7b4; tips 21-24 queued on node 1; M4 tail 1.7e-5 (IRQ on challenger core), infra moving it, rerun by 13:55Z
 CHECKPOINT none (12:44Z) [open] 12:45Z main 544e5f7b4; tips 21/22/23(+#1342) queued on node 1; #1312 ready route pending
 CHECKPOINT none (12:30Z) [open] 12:30Z main 544e5f7b4; tips 21/22 checking on node 1; research-suite tiers moved to node 1 until #1342; M1 follow-ups done (#1338 #1348 drafts on #1328 ruling)
 CHECKPOINT none (12:14Z) [open] 12:15Z main 544e5f7b4 (#1329 #1336 landed); tip 21 then 22 (+#1299) checking; #1312 rerun on node 1; #1317 held to 14:00Z

@@ -872,3 +872,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T16:30Z: d7c1 (06ac, #1261) FAILED lean-audit replay (UProg.ctorElimType declared twice, via Recursive/*). Tips 42+ carry #1261, so cc20 and the pod shards will fail. Asked proofs/lean for a fix and ci for a top tip without #1261 #1330. Landed 221a → cb50af5e8 (16:16Z).
 - 2026-10-06T16:31Z: per root, cancelled cc20 (98f9, carries #1261) and asked infra to cancel the 98f9 pod shards; waiting on ci's #1261-free tip.
 - 2026-10-06T16:33Z: infra fix 4: node 1 check slot e retired (now 4 check slots; extra check capacity from the 3 pods); node 2 timed leases block its slots (#1375, to train).
+- 2026-10-06T16:38Z: tip 50 8d0adf086 (37 PRs, no #1261/#1330, replaces 42-49) node1 r20261006-163513-6348 --agreement; asked infra for pod shards. Land with the tip's gate (#1363).
+- 2026-10-06T16:43Z: mirror fix 5, part 2: pass.sh's main forward uses --ignore-existing unless the edit step planned the pass (then in-scope pod paths not sent are excluded). test-edits 14/14; test-filters has 2 pre-existing registration-delete failures. Told top.

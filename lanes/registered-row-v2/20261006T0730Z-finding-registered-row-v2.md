@@ -20,8 +20,10 @@ Item P7 of `note:verity-root/20261006T0550Z-report-proof-service-implementation`
   The registered domain is `verity/one-stage/registered-domain/v1`, and the Lean verifier's reads file is
   `verity/registered-reads/v1`, which requires `words` and `word_bits`.
 - The Lean verifier accepts a registered port only if it is a v2 bit row, not segmented, of exactly `words * word_bits`
-  bits. The Proofs package's `checkPort_ok` and `check_ok` now conclude `reg.fits c.ports[p]! = true`, so the `ZkReg`
-  records change and are re-pinned (run r20261006-065646-05b7, node 2).
+  bits. The Proofs package's `checkPort_ok` and `check_ok` now conclude `reg.fits c.ports[p]! = true`. So the guarantee
+  `Flock.Registered.check_ok` and the definitions the `ZkReg` theorems read change, and their records in
+  `verity/Security/lean-audit.json` are re-pinned. Run r20261006-065646-05b7 on node 2 passed in 84 minutes, a cold
+  ArkLib build in the `build` slot's tree.
 - The in-tree Rust prover needed no change: it already proves v2 bit rows, with the length in the in-circuit digest's
   prefix, and it ignores the header's `registered`. End to end on node 2 (run r20261006-065529-46fc, fixture
   art:aa722185): Lean accepts the honest session and refuses four forged ones (fresh salts, the value committed afresh,

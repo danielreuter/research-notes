@@ -806,3 +806,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T06:13Z: a09f1bb9a (44f2 + #1149 #1275) node1 r20261006-061050-dbcd --agreement; 924a (44f2) on vy-mig-check-18.
 - 2026-10-06T06:15Z: swapped a09f's check for 4ea3d1364 (a09f + #1163) node1 r20261006-061311-c644 --agreement.
 - 2026-10-06T06:25Z: #1163 frozen until 14:00Z (top). Cancelled c644; a09f rerun node1 r20261006-062321-1ccc --agreement. Land a09f, or 44f2 (924a) if it isn't through.
+- 2026-10-06T06:29Z: swapped a09f's check for 935152515 (a09f + #1264; no #1163; labels verified) node1 r20261006-062705-1ad0 --agreement. 924a (44f2) is the fallback.
+- 2026-10-06T06:31Z: root: no more cancel-and-restart on node 1 tonight. 935152515 (1ad0) runs to the end; newer tips go only on a free slot or a second migration pod, in parallel.
+- 2026-10-06T06:33Z: rename move ~09:00Z: no landing after ~08:30Z; timer rename-cutoff-0830 fires at 08:22Z.

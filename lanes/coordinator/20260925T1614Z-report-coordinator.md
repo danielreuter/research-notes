@@ -852,3 +852,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T14:25Z: top and compute-accounting: don't land tip 27 (#1278's BLAKE3 -h3 seed awaits Daniel's C1 ruling). Cancelled df8a. Tip 26 (4433) is the tip; 87d6 (b745) is its fallback.
 - 2026-10-06T14:27Z: root: #1278 trains only in the SHA-512 form unless top cites Daniel's words allowing the BLAKE3 flag. FP8 check narrowed: -h2 is settled (off the served path); only the keyed 8-block FP8 rotation is pending Daniel.
 - 2026-10-06T14:30Z: merged cce39f3ce (#1299 #1342) → main f5df3bbc5 via --push; no spec DM. The migration pods can run the research suite again. b745 (87d6) and 4433 (221a) running on top.
+- 2026-10-06T15:06Z: tip 28 06acce571 (221a + #1261 RecursiveSound; expect a spec DM) queued node1 with priority; 221a (4433) is its fallback. #1261 must be undrafted before landing.

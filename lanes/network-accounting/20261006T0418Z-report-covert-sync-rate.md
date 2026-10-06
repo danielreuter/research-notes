@@ -121,9 +121,10 @@ inputs, GPU 3). That run was evicted too, at 05:28:09Z after 17 min of GPU (`sto
 - **Why it is low.**
   - The live sender can only delay, so a symbol below the model's own frontier is masked. The honest frontier here
     is 7–11 buckets, so most symbols in `[1, δ]` are invisible: SER 0.81.
-  - The `cover-3-2` phase ran while the node's load was 150–250. Most rejections, for both honest and covert, are
-    `status:monitor-unavailable`: monitor ticks stalled past the 25 ms slack (p99.9 325–440 ms, 46 and 55 ticks over
-    slack). The rest are `delivery-refused`.
+  - Most rejections, for both honest and covert, are `status:monitor-unavailable`: monitor ticks stalled past the
+    25 ms slack (p99.9 325–440 ms, 46 and 55 ticks over slack). The rest are `delivery-refused`. The node's load
+    (150–250) was first blamed for the stalls. The pooled section below finds the cause: the online prover's
+    `declare()`, run on the proxy's tick.
   - On the quiet node (envelope phase), ticks stayed within slack (max 15 ms).
 - **The sender's replica was exact.** In every live covert configuration, the declarations the proxy made equal the
   ones the sender predicted.
@@ -132,5 +133,64 @@ inputs, GPU 3). That run was evicted too, at 05:28:09Z after 17 min of GPU (`sto
   under online rules too.
 - No accepted window had a wire other than the Program's shaping.
 - GPU: 0.85 h plus 0.29 h, 1.14 GPU-h for these two runs (both evicted).
-- A third live run, `r20261006-060323-7b56`, is queued for `cover-3-2` and then `envelope`. It waits for the GPUs,
-  which are booked from 07:00Z to 08:30Z.
+
+## Deliverable 2, pooled: every live window
+
+All live runs are on vy-nebius-2 through the queue: preemptible, one RTX PRO 6000, `unsloth/Meta-Llama-3.1-8B-Instruct`,
+60 s windows.
+
+| run | what it added | GPU |
+|---|---|---|
+| `r20261006-035423-2cd5` (`art:cc136bcf`) | `cover-3-2`, 4–8 window configurations, loaded node; evicted after the phase | 51 min |
+| `r20261006-050809-0b8d` | `envelope`, 4–8 windows; evicted mid-phase | 17 min |
+| `r20261006-060323-7b56` | nothing: it waited out the 07:00–08:30Z timed window, then died in the node's restart before a lease | 0 |
+| `r20261006-084216-ea62` (`art:eb0717b5`) | nothing: evicted by a timed job before its first configuration | 1.5 min |
+| `r20261006-094309-7bf2` (`art:94ad30e3`) | nothing: evicted the same way | 5.5 min |
+| `r20261006-095426-a0f8` (`art:36409a35`) | `cover-3-2`, 3–5 windows, the full 45 min phase; its envelope phase was evicted | 47 min |
+| `r20261006-104423-6cae` (`art:b23ce3ac`) | `envelope`, 3–5 windows, 26 min, finished | 28 min |
+
+Total: 2.51 GPU-h. The node ran a series of short quiet timed jobs from 08:42Z. Each one that starts evicts every
+fill job, so the later runs used 3–5 window configurations, which complete within a slot. Short configurations sit
+nearer the start, where the replay's per-window rate is highest, so they favour the sender.
+
+Pooled with `covert.py` over the runs' `summary.json`:
+
+| policy | strategy | decisions | MI raw / null / corrected | decoded | SER | accepted egress | accepted ingress |
+|---|---|---|---|---|---|---|---|
+| `cover-3-2` | covert | 32 | 1.333 / 1.183 / **0.151** | 0.151 | 0.750 | 16/42 | 16/42 |
+| `cover-3-2` | honest (random symbols) | 35 | 0.903 / 0.727 / 0.176 | 0.176 | 0.971 | 17/46 | 15/46 |
+| `envelope` | covert | 12 | 0 / 0 / **0** | 0 | 1.000 | 16/17 | 16/17 |
+| `envelope` | honest | 17 | 0 / 0 / 0 | 0 | 0.882 | 21/23 | 21/23 |
+
+Rejection reasons, egress and ingress together:
+
+| policy | strategy | `monitor-unavailable` | `delivery-refused` | `mismatch` |
+|---|---|---|---|---|
+| `cover-3-2` | covert | 45 | 6 | 1 |
+| `cover-3-2` | honest | 46 | 14 | 0 |
+| `envelope` | covert | 0 | 2 | 0 |
+| `envelope` | honest | 0 | 4 | 0 |
+
+- **No measurable live rate.** Over 67 `cover-3-2` decisions, the covert sender's corrected MI (0.151) is below the
+  honest control's (0.176), which is scored against a message nobody encoded. Both are estimator bias at this
+  sample size (null about 0.7–1.2 bits). Under `envelope` everything is exactly 0.
+- The sender's replica matched the proxy's declarations in every live covert configuration (`declared_are_predicted`).
+  No accepted window had a wire other than the Program's shaping.
+- The one `mismatch` is the natural spike already described (b451 window 2, symbol 1).
+- **Most live rejections come from the online prover itself, not from the sender or the node's load.**
+  - `Shaper.tick()` (`warden/active.py`) calls `prover.declare()` inline at each window's first bucket.
+  - `declare()` summarises each past window: a binary search over δ for each of the 8 ρ, and every probe walks
+    all of that window's frames.
+  - Timed on the pod, over the 17 configurations the live runs selected (`r20261006-111646-920d`, `art:1d62db65`,
+    `out/declare-ms.txt`), it takes 158–434 ms per window after the first, against a 25 ms monitor slack.
+  - The evidence lines up:
+    - Ticks are clean between windows: p99 is 2–5 ms, and the over-slack ticks are about one per window per link.
+    - Window 0 has nothing to summarise. Of its 24 link-windows in `r20261006-095426-a0f8`, none failed on
+      `monitor-unavailable`; of the 64 later ones, 46 did.
+    - Under `envelope` there is no prover, and no tick went over the slack (max 16 ms).
+  - So live honest acceptance is 32/92 under `cover-3-2` and 42/46 under `envelope`, on the same node, hours apart.
+  - The injected-clock replay cannot see this: its clock does not advance while the proxy computes.
+- Until `declare()` is off the tick path (incremental, or computed before the boundary), a live online-sync link
+  cannot keep its windows accepted. So "every window accepted" holds only for window 0 of each live configuration,
+  and the live covert rate above is measured over mostly rejected windows. The replay's rates (Deliverable 1) remain
+  the measurement of what an accepted link carries.

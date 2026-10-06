@@ -199,3 +199,7 @@ The notes' other questions for Daniel go in his morning report.
   (`935152515`: #1243 in, #1268 out; no new check finishes before the 1:30 AM PDT cutoff). The move is generated on main
   after 1ad0 and the 2:00 AM PDT slot doesn't wait for #1268, which restacks onto the move like every other PR; lean's
   items 2, 3 and 5 apply at that restack (thread 1791265836.679829, 1791272397).
+- 6 Oct, 3:09 AM PDT (10:09Z): the rename move landed as main `a7134c413` (#1321, move commit `afc9d352d`, check
+  r20261006-084525-c8b5); every PR restacks with `restack.py --move-commit afc9d352d --script tools/move/rename.py
+  --onto origin/main`. 4:00 AM PDT (11:00Z): every lead but console reported; one strong reason so far, C1 (Pearl-C's
+  `-h3` wholly on SHA-512 costs 13.5x BLAKE3's overhead, floor about 4.4x; report due 7:00 AM PDT).

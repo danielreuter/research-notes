@@ -79,7 +79,7 @@ adds no content charge.
 - **Coins (D7).** These are the challenger's coin frames on the coin link, an ingress link.
   - Each coin frame opens against the coin root, which is committed before the run.
   - Their timing is charged on the ingress grid at (τ_in, r_coin); their content is exempt. The why is in
-    `verity/protocols/accounting/communication/warden/PROTOCOL.md`, "The coins (D7)".
+    `verity/protocols/accounting/communication/certifier/PROTOCOL.md`, "The coins (D7)".
   - A frame on the coin link that doesn't open against the coin root is unexplained.
 - **Status.** The status is one untimed symbol per link-window (W5), bound by the record. It isn't a frame. It enters the
   relation only as the acceptance hypothesis `StatusComplete`: every link of ∂X is complete in every audited window.

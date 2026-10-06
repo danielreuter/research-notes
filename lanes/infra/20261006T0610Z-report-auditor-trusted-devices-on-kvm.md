@@ -16,7 +16,8 @@ On Nebius today, nothing does. Nebius offers no confidential VMs. Its documentat
 Oct 2025, through 3.6, Jun 2026) and its region tables never mention SEV-SNP, TDX or GPU confidential computing
 [1][2][3]. A device in the developer's project is the developer's machine: root, disk, console, network interfaces. A
 device in the auditor's own project is safe from the developer, but only because Nebius is trusted as the host. The
-developer then can't check it, and it can't vouch for the uplink. Three things would make a device auditor-trusted:
+developer then can't check it, and it can't vouch for the uplink. Our own guests confirm it: on vy-nebius-2 (infra, 6 Oct
+06:12Z) the CPU flags carry neither `tdx_guest` nor `sev`/`sev_snp`, and there is no `/dev/tdx_guest` or `/dev/sev-guest`. Three things would make a device auditor-trusted:
 
 1. a confidential VM (CVM) launched from an image the auditor measures, whose signing key is generated inside and bound
    into the attestation report;

@@ -67,3 +67,24 @@ entries keep it out of `Specs`' build: `exempt`, `meaning` and `reads_exempt` fo
 * The records fast path was refused on vy-nebius-1: its lean-slots lists no `build` pool
   (`note:proofs/20261006T0025Z-friction-records-fast-path-no-build-pool`). Instead I ran a cold audit in a clone, which
   took 40 minutes and held the node's one `audit` slot.
+
+## Stacked steps (approved 5 Oct, after #1257)
+
+### Step B plan: the draw-tracking lemma (6:36 PM PDT, 5 Oct)
+
+The lemma, in a new `Composed/DrawnJ.lean`, for any event `E` on the draw:
+
+  execRefinesZK_tables_drawn hdec τ E :
+    prob (fun o => LiveAcceptsZK I o ∧ E o.2.1) (auditLive L Reg (liveOfZJ dg planZ N wr)) τ ≤
+      prob (fun o => o.1 = true ∧ E o.2) (audit L Reg (batchedSessionZC A Hs planZ)) (simZJ … hdec τ)
+
+Both audits' outcomes carry the draw, and `execRefinesZK_tables` is a sum over the law's draws of one inequality per
+draw. At each draw `E` is constant, so the same proof goes through with `prob_and_const`. On top of it:
+* `zk_flock_drawnC_reg`: `extraction_audit_drawn` at `analysisZCReg`, so
+  Pr[accepts ∧ some drawn unit in `wrongRegZ`] ≤ `ksAvgZC` + `linkBoundZC`;
+* `zk_session_soundJ_custody_drawn_reg`: the same at flock-verify's acceptance, with `ksAvgStrictZ` in place of
+  `ksAvgZC`. It needs no A3, because the bound has no miss term;
+* `Flock.Guarantees.EndToEndDrawn` and its proof, with δ_link in closed form under A2.
+
+Size: about step A's. It is one refinement proof of about 40 lines, copied from `execRefinesZK_tables`, plus a few lines
+for each of the other three. It is not larger than A.

@@ -14,3 +14,7 @@ Plan: `note:proofs/20261005T2345Z-draft-vbridge-plan`, pieces B1 and B2.
 
 - 01:20Z (6:20 PM PDT): B1 `FlockVBridge.sound_mul128` (#1090's Karatsuba, post-move imports) builds locally, pushed on
   `cursor/vbridge-gf-95d4` at `f5ff75fa2`; audit run `r20261006-012013-995c` on vy-nebius-1.
+- 01:43Z (6:43 PM PDT): B2 `FlockVBridge.sound_residualForms` (`residualForms` = `rec_residuals.residual_forms`;
+  new step `polyOf_recomb`, Karatsuba's recombination is linear in its leaves) builds locally, axioms propext,
+  Classical.choice, Quot.sound only; pushed on `cursor/vbridge-residuals-95d4` at `8a00edeea`; audit run
+  `r20261006-014233-86bc` on vy-nebius-1 (started before B1's record lands: the trees differ only in `lean-audit.json`).

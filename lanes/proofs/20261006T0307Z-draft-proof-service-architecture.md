@@ -648,3 +648,6 @@ leads and proofs.
 
 - 5 Oct, 8:22 PM PDT (03:22Z): drafted, with the coordinator's 8:15 PM PDT instructions applied: no clear mode, PoUS's
   restated note, public items as structure, and W's row schema as one service choice (section 2.1).
+- 5 Oct, 8:26 PM PDT (03:26Z): ready to send. Cited the rulings it rests on: 7:48 PM superseding 2026-10-01's "shapes may
+  stay public" (section 1), the one-theorem ruling (section 3), the development shortcut (step 0) and the hidden read's
+  accepted cost (step 8).

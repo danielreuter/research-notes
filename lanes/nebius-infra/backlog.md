@@ -59,6 +59,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 04:40Z Oct 6 (9:40 PM PDT Oct 5), steward pass (cron arrived 9 min late)
+
+- Node 1 (watch, no flags): 66.1% (1,701 GiB free), `research/src` 95 trees, `provers` 4 admitted (2 GPUs held); the
+  pacer and dispatcher are clean.
+- Node 2: 8 of 8 leased, 2 queued. Leases: circuits' `commit-sweep`, @top's own `bc-7f347b4b-p2decode`, the noise sweep
+  ×2, 2 `research` runs, `adhoc:ubuntu`, and a fill job.
+  - node2-ops told @infra (`20261006T0435Z-alert-from-node2-ops-node2-workspace-down-190-gib-overnight`) that node 2's
+    `/workspace` lost 192 GiB in 4 h, unattributed. It's at 67% now, not urgent, and node 2 retention is @infra's.
+
 ## State at 04:09Z Oct 6 (9:09 PM PDT Oct 5), steward pass (cron arrived 8 min late)
 
 - Node 1 (watch, no flags): 65.3% (1,742 GiB free), `research/src` 110 trees, `provers` 5 admitted (2 GPUs held); the

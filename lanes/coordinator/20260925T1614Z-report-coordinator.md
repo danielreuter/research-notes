@@ -856,3 +856,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T15:12Z: Daniel 15:03Z. Q14: train members may skip the quick tier; owners hand-label ready. Q10: #1312 needs a literal 16-bit width. Hold 221a (4433) and 06ac (d7c1), which carry #1312, until circuits picks fix-first or land-then-switch. Tip 24 87d6 (b745) can land.
 - 2026-10-06T15:14Z: per root, asked ci for 87d6 + #1304 #1317 #1261 (no #1312) to check alongside 221a and 06ac.
 - 2026-10-06T15:16Z: circuits: land #1312 as is, then switch the width; hold lifted. Skipped fallback 4410. Running b745 (87d6), 4433 (221a), d7c1 (06ac); 3552 queued.
+- 2026-10-06T15:18Z: tip 31 01199d9cf (3552 + #1357 #1300 #1345 #1337) queued node1 with priority, as the top of the stack.
+- 2026-10-06T15:20Z: swapped the unstarted d49d (0119) for tip 32 6ab4eb1fa (0119 + #1358 #1360) node1 with priority.
+- 2026-10-06T15:23Z: 6ab4/0119 stale (#1345 moved). Cancelled 6766; tip 34 25bde83ab (3552 + #1357 #1300 #1345@3025 #1337 #1358 #1360) node1 with priority.

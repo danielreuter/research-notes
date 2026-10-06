@@ -59,6 +59,16 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 09:42Z Oct 6 (2:42 AM PDT), steward pass (cron on time)
+
+- The 09:17Z idle-lease alert (GPU 7) was compute-accounting's `r20261006-090402-0325` (bc-1beaff8e,
+  `cursor/pouw-h3-sha512-e3fa`, `pearl_c_vllm/h3_window.sh`): a ship build and a 7 min CPU screen check inside its
+  `gpu-lease`. It exited 0 at 09:16Z. Told @compute-accounting once (`1791279930.620769`), FYI.
+- Node 1 (watch, no flags): 61.4% at 09:30Z, `research/src` 94 trees, `provers` 4 admitted; GPUs 0–2 and 4 leased
+  (memory-accounting's keeper on 1, 2 and 4; bc-1beaff8e on 0), 3 and 5–7 fenced for Kueue. Pacer and dispatcher clean.
+- Node 2: 3 of 8 (a session job on 0, a fill job on 6, a timed quiet job on 7), 5 idle (reported). `/workspace` 67%.
+- No new hourly snapshot; latest is still `art:80559fcc…`.
+
 ## State at 09:12Z Oct 6 (2:12 AM PDT), steward pass (cron on time)
 
 - Node 1 (watch, no flags): 61.3% at 09:00Z (`df` 62% now), `research/src` 116 trees, `provers` 6 admitted; all 8 GPUs

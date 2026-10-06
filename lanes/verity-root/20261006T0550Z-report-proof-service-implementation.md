@@ -209,3 +209,7 @@ The notes' other questions for Daniel go in his morning report.
 - 7:10 AM PDT (14:10Z): final. Main `b722adaad` after seven checked landings (40 PRs); every lead but console sent a
   14:00Z final (console never answered); one strong reason (C1); 14 questions for Daniel. The morning report is
   `/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/docs/morning-report-2026-10-06.md`.
+- 7:51 AM PDT (14:51Z): Daniel ruled on C1: SHA-512 everywhere for now, Pearl-C's `-h3` included, performance
+  requirements relaxed as needed; no hash flags or modular hashing in research mode; BLAKE3 code kept off the served
+  path (default `archive/`). Accounting leads asked for implications by 16:00Z (1791298351.637869); Pearl's FP8 scheme
+  goes back to him with compute-accounting's answer.

@@ -150,6 +150,9 @@ None of the three changes A to F. G waits on rec-thm's fix.
 
 ## The one decision
 
+**Ruled: one direction (Daniel, Oct 5 6:11 PM PDT, relayed by @top in 1791252706.494879).** VBridge proves "V* accepts ⇒
+the verifier of record accepts". Completeness, "exactly when", stays a test. Don't reopen it: the lanes proceed on this.
+
 **VBridge proves one direction: V* accepts ⇒ the verifier of record accepts.** "Exactly when" in the other direction
 (the verifier of record accepts ⇒ V* has a satisfying witness) would stay a test: honest V* proofs verify in `check`.
 I recommend this, for three reasons:
@@ -185,3 +188,8 @@ witness construction.
   `SHA-512(l ‖ r)`, so it covers rec-step3's plain SHA-512 tree as well as `hm96Sha512`), pushed on
   `cursor/vbridge-climb-95d4` at `780c2f708`; audit run `r20261006-012634-3f72` on vy-nebius-1 (`--no-replay`). rec-step3's
   `RecOpen_v3` (`d23edf42d`) keeps C1's loop as it is.
+- 02:15Z (7:15 PM PDT): C1's audit `r20261006-012634-3f72` PASS (1749 guarantees, no replay); its record is committed at
+  `50bf1c080`, and `internal/proofs/vbridge-climb-pr.md` is filled in. For the second piece I took C2's `out` half, not
+  the F stub, because vbridge-algebra's `Structure` already restates `run` with its coins. `FlockVBridge.sound_climbRow`
+  (`VBridge/Open.lean`, `RecOpen_v3._climb` from the row's SHA-512 leaf) is on `cursor/vbridge-open-95d4` at
+  `403a232c8`, with C1 merged in; audit run `r20261006-021256-fec1` (`--no-replay`). C2's `acc_out` waits on B2.

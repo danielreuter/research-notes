@@ -234,7 +234,8 @@ Failed or refused, kept for the record:
   binary's key stopped hashing `*.md` (b99343d94).
 - r20261006-004524-c5e5: an inner run that failed "run STEP=build first", because a PROTOCOL.md edit had changed the
   binary's key.
-- r20261006-004637-08c9: launched from a stale commit and refused by the queue.
+- r20261006-004637-08c9: launched from a stale commit and refused by the queue. It never ran, so the store has no attempt
+  for it.
 
 The outer statements were staged from the first inner run's last session. That inner data is kept on node 1 at
 `/workspace/jobs/zk-gateway/data/k4096/inner-node`, and the rerun is at `.../inner`.

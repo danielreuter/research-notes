@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:15Z) [open] 22:15Z: inbox empty; main 327ea5b1b; tips 75-82 queued; P2 v4 rerun relaunched 22:04Z after import fix; 22:30Z reports pending
 CHECKPOINT none (22:00Z) [open] 22:00Z: inbox empty; main 327ea5b1b; tips 75-82 queued (#1412 alone as 82); P2 v4 rerun in quiet window; 22:30Z reports pending
 CHECKPOINT none (21:53Z) [open] 21:53Z: inbox empty; main 327ea5b1b (tip 74); tips 75-81 queued; #1412 awaits infra fast-forward; P2 v4 rerun running on node 2
 CHECKPOINT none (21:37Z) [open] 21:37Z: inbox empty; tips 74-80 queued on node 1; P2 v4 rerun 21:44Z; Daniel reworking repo structure with architecture

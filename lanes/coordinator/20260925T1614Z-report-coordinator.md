@@ -796,3 +796,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T04:34Z: root: if no slot has freed by the next poll, ask infra for a migration pod for 090257a15 at once (velocity over spend).
 - 2026-10-06T04:39Z: per top, cancelled 498c, 417e, 8ff9; kept e011 (0314) and 7f80 (4020). Asked infra for a migration pod for 090257a15.
 - 2026-10-06T04:58Z: 7f80 (4020) FAILED one flaky test (test_placement s4 rtt: 9/10 loopback connects); not caused by any tip. e011 (0314) running past lean-suites; rerun if it hits the same flake.
+- 2026-10-06T05:05Z: 01cd537d0 (0902 + #1277) is the tip for the migration pod (0902 fallback); node 1 full with lane runs plus 2 waiting; re-asked infra.
+- 2026-10-06T05:06Z: node 2's slots d (r20261006-043130-b394, since 04:31Z) and e (r20261006-050306-685b) are held by lane runs; 01cd waits on infra's pod or the first free slot.

@@ -18,3 +18,7 @@ likely `NEBIUS_SA_PRIVATE_KEY`, went into its own transcript; nothing reached Sl
 the fifth time, even though `kb/cloud-lane-setup.md` says `compgen -e`, so a doc line isn't enough: the fix is a tool that
 lists names safely (`research env names`) or a VM where the PEM isn't a multi-line env value. Rotation asked of Daniel
 (card `4e298b1b`); proofs prompts now carry the `compgen -e` rule.
+
+A second path, Oct 6 ~09:30Z: one-hash listed processes with full command lines on its own VM (checking memory), and a
+local daemon's auth token was in one argv; it stayed in its tool output. #1327 doesn't cover `ps`. Proofs prompts now say:
+never `ps aux`, `ps -ef`, `ps -eo args` or `pgrep -a`; use `ps -eo pid,stat,etimes,comm`. Told infra (1791279717.543699).

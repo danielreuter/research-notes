@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (09:27Z) [open] 09:27Z: move #1321 check c8b5 past circuit-check, on Lean audit; landing at ~09:37Z if green; PoUS circuits halve cost (#1306); env-leak hook #1327
 CHECKPOINT none (09:11Z) [open] 09:11Z: move #1321 waiting on c8b5 (node 1 slot a) + ready tier 1298 (-19); c871 shards bd98/2464/d10e; Nebius key line leak (5th) -> rotation card for Daniel, infra building names-only fix
 CHECKPOINT none (08:56Z) [open] 08:56Z: move #1321 checking (c8b5, slot a reserved for trains), vllm grant in, ready tier pending; c871 as 3 shards; GLM row 1 ACCEPTED; node 2 back clean; node 1 inodes 50%
 CHECKPOINT none (08:40Z) [open] 08:41Z: main 89fb2c28c frozen; rename move on main ~11:45Z (lock update + full check), first post-move train ~14:00Z; firewall #1270 round 5; LMS lowering OOM fix by 11:00Z

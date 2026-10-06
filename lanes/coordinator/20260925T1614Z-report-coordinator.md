@@ -809,3 +809,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T06:29Z: swapped a09f's check for 935152515 (a09f + #1264; no #1163; labels verified) node1 r20261006-062705-1ad0 --agreement. 924a (44f2) is the fallback.
 - 2026-10-06T06:31Z: root: no more cancel-and-restart on node 1 tonight. 935152515 (1ad0) runs to the end; newer tips go only on a free slot or a second migration pod, in parallel.
 - 2026-10-06T06:33Z: rename move ~09:00Z: no landing after ~08:30Z; timer rename-cutoff-0830 fires at 08:22Z.
+- 2026-10-06T06:40Z: accepted top's overnight plan (06:30Z checkpoint). Next checkpoints 08:00Z, 11:00Z, 14:00Z final in thread 1791265836.662419.

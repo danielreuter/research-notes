@@ -204,11 +204,14 @@ These are identities, not trees. Each row says whether a verifier binds it.
 3. **The beacon prose** (A10's leftovers), apart from PoUS's docs: pushed as `cursor/one-hash-beacon-prose-95d4` at
    `b61737332`, on `main` at `68e614869`. Body: `one-hash-pr4.md`. It covers `verity.primitives.randomness`'s docstring and
    `TypeError`, vLLM's `commit/challenge.py`, its test, `check/replay/sample.py` and `protocol_options/sampled_proofs.py`.
-4. **Binding consumers**, stacked on 2: pushed as `cursor/one-hash-binding-tags-95d4` at `27d7a3af1`, on
+   2 and 3 are drafts [#1325](https://github.com/danielreuter/verity/pull/1325) and
+   [#1326](https://github.com/danielreuter/verity/pull/1326).
+4. **Binding consumers**, stacked on 2: pushed as `cursor/one-hash-binding-tags-95d4` at `00b6e793a`, on
    `cursor/one-hash-binding64-95d4`. Body: `one-hash-pr5.md`. It needs a red-team grant (`circuit.py`). It moves M0 to
-   `verity/flock-circuit/binding/v2`, one-stage to `served-domain/v1` and `registered-domain/v1`, and vLLM's `serving_rows`
-   to the same rule. `a0.py` gets a `--binding` flag for M0 trees pinned before the change, and the pinned roots in
-   `test_registered.py` move. The circuit text is unchanged.
+   `verity/flock-circuit/binding/v2`, one-stage to `served-domain/v1`, and vLLM's `serving_rows` to the same rule. `a0.py`
+   gets a `--binding` flag for M0 trees pinned before the change. The circuit text is unchanged. Its second commit drops
+   the registered domain (`registered-domain/v1` would have meant two things, since
+   [#1320](https://github.com/danielreuter/verity/pull/1320), registered row/v2, lands first with its own 32-byte `v1`).
 5. **Poseidon2 into `archive/direct/ligero/`** (A8): not done, because archive code isn't its only reader. Core reads it:
    `rowleaf.SCHEMA_ROW` is the Poseidon2 row leaf and `row_leaf`'s default, and `scheme.py`, `poseidon2_babybear.py`,
    `test_poseidon2.py` and `test_frame_v3.py` use it. So do `verity.claims` and its registry test, and the numerical bench's
@@ -218,9 +221,18 @@ These are identities, not trees. Each row says whether a verifier binds it.
 Left after round 4:
 - **PoUW's `beacon` setting** (`{"pouw": {"beacon": ...}}` in vLLM's `protocol_options/pouw*.py` and `interface.py`, vLLM's
   `README.md` and the PoUW tests). It is a configuration key, not prose, and belongs to compute-accounting with #1311 and D3.
-- **Recorded runs under the old tags.** A verifier at the binding-tags commit derives `served-domain/v1` and
-  `registered-domain/v1`. So rerunning `a2.py` needs serving files committed at that commit or later, and `a0.py`/`a3.py` with
-  an older M0 tree need `--binding verity/flock-ir-frame/binding/v1`.
+- **The registered domain, after #1320 lands.** A small PR moves it to `verity/one-stage/registered-domain/v2`: a 64-byte
+  `identity_digest_sha512` over #1320's fields (`program`, `value`, `schema`, `words`, `word_bits`, `leaves`; `word_bits`
+  always), regenerating #1320's pinned roots. It must say whether the live set 6 fixture (`art:aa722185`) still replays,
+  since the Lean verifier takes the domain bytes from the reads file.
+- **Recorded runs under the old tags.** A verifier at the binding-tags commit derives `served-domain/v1`. So rerunning
+  `a2.py` needs serving files committed at that commit or later, and `a0.py`/`a3.py` with an older M0 tree need
+  `--binding verity/flock-ir-frame/binding/v1`.
+- **Tag clashes with open proofs PRs** (checked at 09:25Z against #1270, #1284, #1318, #1319, #1323, #1324): none on
+  `served-domain` or `flock-circuit/binding`. #1319 and #1324 call `served_domain` and pin no value made with it; the flock
+  stack's `circuit.py` edits are `compose`'s `leaf_scheme`, and its "binding" is the Fiat–Shamir binding round. One text
+  conflict: #1326 (beacon prose) and #1319 both edit vLLM's `test_challenge.py` (#1319's two rewritten tests use `BEACON`,
+  which #1326 renames `AUDITOR_KEY`); whichever lands second takes `AUDITOR_KEY` in #1319's lines.
 
 Not tonight:
 - TurboSHAKE (A11; h0);

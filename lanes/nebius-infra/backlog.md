@@ -59,6 +59,14 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 07:15Z Oct 6 (12:15 AM PDT), steward pass (cron arrived 14 min late)
+
+- Node 1 (watch, no flags): 61.4% (1,936 GiB free), `research/src` 86 trees, `provers` 8 admitted (6 GPUs held); the
+  pacer and dispatcher are clean.
+- Node 2: 1 of 8 leased (served-zk on GPU 0); 7 idle (reported), and no queue. node2-ops told @infra that node 2's root
+  disk is 53% with 80 GB of leaked test dirs in `/tmp` (`20261006T0655Z-alert-from-node2-ops-…`); that's @infra's.
+- The latest hourly snapshot is `art:6bd762df407abe6bedb3e8ef24b47f44c0a4b3736239e2b66a0c9e6b9e5841f1` (about 07:05Z).
+
 ## 06:47Z Oct 6: node 2's queued jobs behind the timed window ran (root's ask)
 
 - All 8 queued at 06:13Z were granted 06:04–06:14Z: circuits' keeper ×4, research ×4, served-zk, @top's `p2decode`, and

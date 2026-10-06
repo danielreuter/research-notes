@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:05Z) [open] passive: lander's 59 checking, tip 70 next; pods 20/21 gone, RunPod CPU stock out, infra retrying
 CHECKPOINT none (18:48Z) [open] passive: lander's 59 checking, tip 66 next; #1163 blocks six PRs (circuits asked)
 CHECKPOINT none (18:29Z) [open] passive: lander's 59 checking, ci's tip 64 next; red-team grants on
 CHECKPOINT none (18:14Z) [open] passive: lander's 59 checking, ci's tip 63 next; red-team relabel running

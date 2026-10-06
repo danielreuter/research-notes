@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:35Z) [open] 20:35Z: inbox empty; tip 73 checking, 74 queued; #1383 at e695e0ee2 awaits red-team regrant then tip 75; carry patch-compare fix asked of infra
 CHECKPOINT none (20:19Z) [open] 20:20Z: inbox empty; tip 73 checking on node 2, tip 74 queued; pod 23 up (shard 3/3 only); #1383 waits on proofs fast-forward to e695e0ee2
 CHECKPOINT none (20:05Z) [open] 20:05Z: inbox empty; tip 73 checking on node 2; #1383 with ci at 5c54ab971; served-window SHA-512-only fixes stacked by compute-accounting
 CHECKPOINT none (19:48Z) [open] passive: tip 59 landing from n1 full check; tip 73 next; node 2 open for trains; R2 repair with Daniel

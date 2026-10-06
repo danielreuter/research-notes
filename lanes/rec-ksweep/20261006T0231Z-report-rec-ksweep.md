@@ -5,6 +5,7 @@ created: 2026-10-06T02:31Z
 status: open
 ---
 
+CHECKPOINT none (04:22Z) [open] 04:23Z: K=4096 and K=2048 complete incl. Lean (forgeries at 4096 rejected in exactly their statements, Lean agrees with Rust). Overhead 1.70x (4096), 1.71x (2048). oprove 8192 and vstage 16384 running.
 CHECKPOINT none (04:16Z) [open] 04:16Z: K=4096 and K=2048 points proved (V* 7.75 s / 7.94 s, today's --zk 5.08 / 5.10 s); proxy re-measured clean (0.87 / 0.76 s); Lean k4096 (with forgeries) and k2048 running; inner k8192 and k16384 passed (k16384: GPU 82 GB, zk 4.06 s); oprove k8192 and vstage k16384 launched.
 CHECKPOINT none (04:00Z) [open] 04:01Z: K=4096 reproduces: today's --zk 5.08 s (ref 5.34), V* levels 4.53 s (ref 4.75), inner prover compute 0.71 s (ref 0.71); the proxied inner's coin wait is inflated (1.6 s vs 0.22) by foreign load on shared cores 112-127, so the curve also gives the overhead with that wait removed. vstage k4096/k2048 done (V* identical in size at both: m 35, k_log 24); oprove k4096, oprove k2048, inner k8192 running. Pushed cursor/n1-lease-orphan-scope-2de2 (n1_lease never signalled an expired lease whose owner died but whose orphan child held the lock: GPU 6 held 17 min).
 CHECKPOINT none (03:18Z) [open] 03:19Z: builds done for all four K (16384: k_log 26, N=512, 2.2 GB circuit, 13:08 at 47 GB). inner k2048 got a GPU 03:18Z; inner k4096 next in FIFO. Pool is 2 GPUs (borrow window expired), so each step's leases interleave with other lanes.

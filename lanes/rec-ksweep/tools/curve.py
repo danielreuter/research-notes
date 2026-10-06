@@ -102,6 +102,13 @@ def point(runs: Path, spec: dict) -> dict:
     p["inner"] = inner
     p["inner"]["replay_proxy"] = (i.get("replay_proxy") or {}).get("verdict")
     p["inner"]["replay_zk"] = (i.get("replay_zk") or {}).get("verdict")
+    # proxy=R: the inner M0 against the rec proxy re-measured alone (INNER_LOOPBACK=0, its own data tag over the same staged
+    # statement); the first run's row, whose session V*'s statements were staged over, stays as proxy_first
+    if spec.get("proxy"):
+        pr, p["runs"]["proxy"] = load(runs, spec["proxy"], "inner")
+        inner["proxy_first"] = inner.pop("proxy", None)
+        inner["proxy"] = live_row(pr["proxy"], waits(runs, p["runs"]["proxy"], "inner/proxy"))
+        p["inner"]["replay_proxy_remeasure"] = (pr.get("replay_proxy") or {}).get("verdict")
     if inner.get("proxy"):
         p["inner_statement"]["m"] = inner["proxy"]["m"]
     v, p["runs"]["vstage"] = load(runs, spec["vstage"], "vstage")
@@ -195,8 +202,8 @@ def fmt(x, nd=3):
 def table(points: list[dict]) -> str:
     h = ["K", "N", "m", "inner M0 (proxy)", "of it, coin wait", "V* --zk total", "levels", "algebra (parts)", "today's --zk",
          "overhead", "overhead, inner wait removed", "V*/today", "V* bytes", "today bytes", "V* host/GPU peak", "Lean V* verify",
-         "Lean today --zk", "build", "inner", "vstage", "oprove", "lean"]
-    lines = ["| " + " | ".join(h) + " |", "|" + "---:|" * 17 + "---|" * 5]
+         "Lean today --zk", "build", "inner", "proxy", "vstage", "oprove", "lean"]
+    lines = ["| " + " | ".join(h) + " |", "|" + "---:|" * 17 + "---|" * 6]
     for p in points:
         t, vt = p["terms"], p["vstar_total"]
         lean_zk = (p.get("lean") or {}).get("zk", {}).get("verify_s")
@@ -210,7 +217,7 @@ def table(points: list[dict]) -> str:
             fmt(t["today_zk_proof_bytes"]),
             f"{fmt(p['peaks']['vstar_host_gb'], 2)} GB / {fmt(p['peaks']['vstar_gpu_mib'])} MiB",
             fmt((p.get("lean_total") or {}).get("verify_s"), 1) + " s", fmt(lean_zk, 1) + (" s" if lean_zk else ""),
-            *["+".join(p["runs"].get(s, [])) or "—" for s in ("build", "inner", "vstage", "oprove", "lean")]]) + " |")
+            *["+".join(p["runs"].get(s, [])) or "—" for s in ("build", "inner", "proxy", "vstage", "oprove", "lean")]]) + " |")
     return "\n".join(lines) + "\n"
 
 

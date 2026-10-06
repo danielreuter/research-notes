@@ -811,3 +811,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T06:33Z: rename move ~09:00Z: no landing after ~08:30Z; timer rename-cutoff-0830 fires at 08:22Z.
 - 2026-10-06T06:40Z: accepted top's overnight plan (06:30Z checkpoint). Next checkpoints 08:00Z, 11:00Z, 14:00Z final in thread 1791265836.662419.
 - 2026-10-06T07:00Z: 924a (44f2, vy-mig-check-18) FAILED on the pod's environment (nvcc without sm_120a, nebius slot tests, circuit-check pool crash). 1ad0 (9351) on node 1 is the real test. Told ci and infra.
+- 2026-10-06T07:42Z: top/ci: 1ad0 (935152515) is the last landing before the rename; land it when it passes even if after 08:30Z, post the main sha, then hold until the move is on main.

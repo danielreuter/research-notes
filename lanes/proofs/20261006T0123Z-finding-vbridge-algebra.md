@@ -27,3 +27,10 @@ Plan: `note:proofs/20261005T2345Z-draft-vbridge-plan`, piece E. Python restated:
   (`buildAll_spec`, 611), `eval` `e3898fe2b` (`residuals_eq_run`, 134). `r20261006-014745-c8b8` PASS on `5ac9230d9`
   (record unchanged: no pin). Audits `r20261006-024951-946b` (sim) and `r20261006-024951-26c0` (eval) running.
   Next: `Zerocheck` (V*'s residual zero ⇒ the two `check`s of `bindAndZerocheck`, its loop as `Refine.zStep`'s fold).
+- 03:25Z (8:25 PM PDT): three stages pushed, each stacked on the last. `zerocheck` `07eb94a35`
+  (`zerocheck_of_residuals`: V*'s zerocheck residual zero gives `bindAndZerocheck`'s `v_C` check and its round loop
+  as `Refine.zStep`'s fold ending at `fA·fB`, with `finalC := zc.vc`), `lincheck` `8ee0fd2d3`
+  (`lincheck_of_residuals`: the loop as `Refine.lStep`'s fold ending at `dot comb zPartial`; `folded_size` gives the
+  comb's 64 from `FlockLevel3.folded_eq`), `ringswitch` `5fbee7d2e` (`ringSwitch_of_residuals`: each claim's value
+  check on the decoded ring switches, and Ligerito's `T` = `Σ γ_k·β_k` over the verifier's bit transposes `tOf`).
+  Next: `Ligerito`, then audits of the new heads and the PR files.

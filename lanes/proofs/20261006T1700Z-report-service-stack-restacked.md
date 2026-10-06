@@ -8,7 +8,6 @@ repo: danielreuter/verity
 origin: bc-8416bc72 (proofs coordinator), for top's 11:30 AM PDT mark (the service on main)
 ---
 
-CHECKPOINT none (21:09Z) [open] 21:07Z: PoUW answered the units-to-inner nine (steps 2-4 theirs; public-input soundness gap, #1201 on #1049, ours). Recursion chain build step done (49ad), oprove step running (2e64), due 21:55Z. Tips 75 (#1383) and 76 (#1406) stacked by ci.
 # The service stack, restacked for one train
 
 The four PRs land in this order, each at the head below. Each is owner-ready (`ready true --by proofs`, on `pr:N@<full sha>`, both stores) and out of draft.

@@ -200,3 +200,6 @@ witness construction.
   rec-step3 `273017068`, both outputs, composing `sound_climbRow` with B2's `sound_residualForms`) is on
   `cursor/vbridge-recopen-95d4` at `8e729fbe7`, with B2 merged in at `203ddd6ce`. Its hypotheses are `Carries` over
   `MerkleScheme.rowBytes`: the byte layout is done here, not left to D. Audit run `r20261006-033234-afc7` (`--no-replay`).
+- 04:31Z (9:31 PM PDT): C2's audit `r20261006-033234-afc7` PASS (1753 guarantees, no replay); its record is committed at
+  `3d9977368`, and `internal/proofs/vbridge-recopen-pr.md` is filled in (base `cursor/vbridge-open-95d4`). C2 is done; A,
+  B1, B2, C1 and C2 are proved. Left: D (waits on #1179 and #1192), E (vbridge-algebra), F and G (rec-thm).

@@ -193,16 +193,34 @@ These are identities, not trees. Each row says whether a verifier binds it.
     to build as its own PR.
   - The consumers are a second PR, which needs the C-Flock grant because `circuit.py` changes, plus a vLLM commit.
 
-## Tonight's PRs (round 3)
+## Tonight's PRs (rounds 3 and 4)
 
-1. **Delete `hm96-sha256/row/v1`** (A5): pushed as `cursor/one-hash-hm96-sha256-row-95d4` at `9fe2aeec1`, on `main` at
-   `68e614869`. Body: `one-hash-pr2.md`.
-2. **Accept 64-byte bindings under frame-v3-sha512** (the Binding plan's core part): `merkle.py`, a test, a `vectors_sha512`
-   group and `PROTOCOL.md` §6. Existing vectors don't change.
-3. **The beacon prose** (A10's leftovers), apart from PoUS's docs.
-4. **Binding consumers**, stacked on 2: M0's `verity/flock-circuit/binding/v2`, one-stage `served-domain/v1` and
-   `registered-domain/v1`, vLLM `serving_rows`. Needs a grant, which proofs arranges.
-5. **Poseidon2 into `archive/direct/ligero/`** (A8), if only archive code reads it.
+1. **Delete `hm96-sha256/row/v1`** (A5): draft [#1313](https://github.com/danielreuter/verity/pull/1313),
+   `cursor/one-hash-hm96-sha256-row-95d4` at `9fe2aeec1`, on `main` at `68e614869`. Body: `one-hash-pr2.md`.
+2. **Accept 64-byte bindings under frame-v3-sha512** (the Binding plan's core part): pushed as
+   `cursor/one-hash-binding64-95d4` at `8b29df794`, on `main` at `68e614869`. Body: `one-hash-pr3.md`. It touches `merkle.py`,
+   adds the `binding64_trees` vector group (3 trees; every existing group byte-identical) and two tests, and rewrites
+   `PROTOCOL.md` §6's binding paragraph.
+3. **The beacon prose** (A10's leftovers), apart from PoUS's docs: pushed as `cursor/one-hash-beacon-prose-95d4` at
+   `b61737332`, on `main` at `68e614869`. Body: `one-hash-pr4.md`. It covers `verity.primitives.randomness`'s docstring and
+   `TypeError`, vLLM's `commit/challenge.py`, its test, `check/replay/sample.py` and `protocol_options/sampled_proofs.py`.
+4. **Binding consumers**, stacked on 2: pushed as `cursor/one-hash-binding-tags-95d4` at `27d7a3af1`, on
+   `cursor/one-hash-binding64-95d4`. Body: `one-hash-pr5.md`. It needs a red-team grant (`circuit.py`). It moves M0 to
+   `verity/flock-circuit/binding/v2`, one-stage to `served-domain/v1` and `registered-domain/v1`, and vLLM's `serving_rows`
+   to the same rule. `a0.py` gets a `--binding` flag for M0 trees pinned before the change, and the pinned roots in
+   `test_registered.py` move. The circuit text is unchanged.
+5. **Poseidon2 into `archive/direct/ligero/`** (A8): not done, because archive code isn't its only reader. Core reads it:
+   `rowleaf.SCHEMA_ROW` is the Poseidon2 row leaf and `row_leaf`'s default, and `scheme.py`, `poseidon2_babybear.py`,
+   `test_poseidon2.py` and `test_frame_v3.py` use it. So do `verity.claims` and its registry test, and the numerical bench's
+   `bench/` and `explore/` modules. The move waits for A1's default flip, after which a PR can move the leaf and its readers
+   together.
+
+Left after round 4:
+- **PoUW's `beacon` setting** (`{"pouw": {"beacon": ...}}` in vLLM's `protocol_options/pouw*.py` and `interface.py`, vLLM's
+  `README.md` and the PoUW tests). It is a configuration key, not prose, and belongs to compute-accounting with #1311 and D3.
+- **Recorded runs under the old tags.** A verifier at the binding-tags commit derives `served-domain/v1` and
+  `registered-domain/v1`. So rerunning `a2.py` needs serving files committed at that commit or later, and `a0.py`/`a3.py` with
+  an older M0 tree need `--binding verity/flock-ir-frame/binding/v1`.
 
 Not tonight:
 - TurboSHAKE (A11; h0);

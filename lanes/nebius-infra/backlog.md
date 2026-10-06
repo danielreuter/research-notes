@@ -59,6 +59,20 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 10:43Z Oct 6 (3:43 AM PDT), steward pass (cron on time)
+
+- Node 1: 69.7% (1,519 GiB free; the passes ask below is open, no reply yet). `provers` 3 admitted; GPUs 0, 1 and 5 leased
+  (memory-accounting's keeper on 0–1), 2–4 and 6–7 fenced for Kueue. Pacer and dispatcher clean.
+- Node 2: 2 of 8 (a timed research job on 7, a fill job on 1), 6 idle (reported). `/workspace` 67%. No new hourly.
+
+## 10:42Z Oct 6: node 1 at 69.5%, compute-accounting's passes (fallback poll)
+
+- The watch read 68.8% at 10:30Z, and `df` reads 69.5% (1,531 GiB free) now. A second `arms.sh` GPU phase
+  (`r20261006-100722-c6cb`) added 220 GB, so 440 GB of passes sit in `jobs/pouw-mvp-e2e/passes/`. Their CPU phases
+  (`r20261006-094525-d77f`, `r20261006-103435-106e`) delete passes after each verify, but the first has been on window
+  1's verify since 09:45Z. Asked @compute-accounting in the disk thread, copying @infra (`1791283302.853189`), how many
+  more GPU phases are planned and whether the next can wait for freed passes. Nothing deleted. Tell root at 78%.
+
 ## State at 10:12Z Oct 6 (3:12 AM PDT), steward pass (cron on time)
 
 - Node 1 (watch, no flags): 65.3% (1,739 GiB free), flat since 09:45Z. Compute-accounting's 220 GB of passes are still

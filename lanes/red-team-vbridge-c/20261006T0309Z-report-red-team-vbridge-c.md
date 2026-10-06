@@ -5,6 +5,7 @@ created: 2026-10-06T03:09Z
 status: open
 ---
 
+CHECKPOINT 5b96da663 (04:46Z) [open] pr1283: check5 merge clean (remerge-diff: imports only; JSON 3-way none); check4 records: only sound_recOpen + RecOpen reads {consStructure,consTerm,recOpen} new, 0 changed vs 2434949b9/7c5cb816e/17cfcdae8; replay audit r20261006-044346-2f12 running on vy-nebius-2
 CHECKPOINT 5b96da663 (04:42Z) [open] reopened for #1283 (sound_recOpen) review at 3d9977368: NOT final
 CHECKPOINT 5b96da663 (04:02Z) [final] GRANT #1273 @50bf1c080 and #1274 @2434949b9; replay audit r20261006-030819-703e (Lean clean; Warden runs item pre-existing); labels on remote; note:red-team-vbridge-c/20261006T0402Z-finding-vbridge-c-review
 CHECKPOINT 5b96da663 (03:46Z) [open] review done pending audit; replay audit r20261006-030819-703e still running at 38 min; finding drafted

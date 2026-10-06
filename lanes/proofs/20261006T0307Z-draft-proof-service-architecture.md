@@ -178,7 +178,11 @@ The calls are the interface note's (its section 2), with these changes:
 - **`timed` releases on a schedule.** The prover gateway sends each answer's commitment at a fixed offset in its round, so
   an arrival time carries no information (warden R1). That uses the honest prover's margin, never soundness, because
   PoUS's certificate already grants the adversary all of Δ + RTT. The exact times stay on the verifier gateway, and the
-  record keeps one on-time bit per round.
+  record keeps one on-time bit per round. **The schedule is required for zero knowledge**, not only against a malicious
+  verifier gateway: `RecursiveZK` quantifies over every behavior of the auditor, and the auditor's own gateway sees
+  exact arrival times whatever the record keeps. The deadline bit protects readers of the record; the fixed schedule,
+  enforced by the developer-trusted prover gateway (or a warden grid on that link), protects against the auditor. A
+  message that misses its slot is an abort symbol, charged under warden R5 (network-accounting).
 
 Who runs what, unchanged from the interface note:
 
@@ -196,7 +200,7 @@ Who runs what, unchanged from the interface note:
 | `prove`: a position read in gates | `MerkleRead_v1` is a circuit-checked Boolean Definition; in a session it inherits the `zk_session_*` soundness | Definition on main; the subtree read #1063 |
 | `prove`: the window statement | an ordinary Program, under the same session theorems | none yet: each protocol writes its own |
 | the public-items rule | no theorem. It is what `RecursiveZK`'s simulator needs, and the joint corollary (warden R5) is where it gets stated | none yet |
-| `timed`: scheduled release | the warden's constant-rate bound (`EncardDecodableLeConstantRate`) on the gateway link | main, for the warden's links; not instantiated |
+| `timed`: scheduled release, required for ZK against the auditor; a missed slot is an abort symbol charged under warden R5 | the warden's constant-rate bound (`EncardDecodableLeConstantRate`) on the gateway link | main, for the warden's links; not instantiated |
 
 ### 2.1 W's row schema: one service choice
 
@@ -327,15 +331,22 @@ Per deployment and per epoch (about 15 minutes):
 > - Cost: on the panel `-h3` is cheaper than `-h2` (1.340× against 1.464× at decode, 1.205× against 1.223× at prefill,
 >   GPU 1's real call). In the hidden audit, an estimated 0.1–0.2M ANDs per drawn A row, about 1% of that row's hm96
 >   read, keyed on the SHA-512 row digest the gadget already computes, with E_A private.
-> - Owed, Lean only: a row-seeded twin of the served line's theorem (`pearlCProtocolDevRev1K` at LoopCast8p72, cap
->   1/1000), a mechanical port of `RowSeedGamma.lean`; and the statement review of the deployed seed's conditions.
->   Pearl-C4 has the same seed_A shape and was not tested.
+> - Owed, Lean only: the row-seeded `K` twin of `pearlCHiddenSm120v1LoopCast8p72Rev1Cap1000_8192` (the served line,
+>   LoopCast8p72, cap 1/1000), a mechanical port of `RowSeedGamma.lean` that compute-accounting owns, and the statement
+>   review of (C1) and (C2), the deployed seed's conditions.
+> - Pearl-C4 has the same seed_A shape and was not tested, so it stays off served accounting until the attack has been
+>   run on it (compute-accounting).
 > - Under the ruling, the anchors' positions move into gates either way, because a unit's coordinates are hidden.
 
 Serving, per call:
 
-4. The GPU computes A's unsalted row digests (`digest`, row-seg/v1) and the call's `UnitRecord`. The prover gateway salts
-   them into the window's handle, asynchronously and off decode's critical path. Nothing leaves the developer's site.
+4. The GPU computes A's unsalted row digests (`digest`, row-seg/v1) and the call's `UnitRecord`. Under `-h3` each row's
+   digest is computed **before forming and seeds that row's E_A**, so there is one digest per A row: if the seed is keyed
+   on hm96's inner SHA-512 row digest (pouw-gamma's recommendation), the commitment and the seed read the same digest and
+   the GPU hashes each row once. That puts SHA-512 on decode's path ahead of forming, unlike `-h2`'s tree, which is off
+   it. The measured 1.340× is `-h3` with BLAKE3; the SHA-512-keyed seed is unmeasured, and compute-accounting times both
+   in the 12:00 AM PDT (07:00Z) window. The prover gateway salts the digests into the window's handle, asynchronously and
+   off decode's critical path. Nothing leaves the developer's site.
 
 Per audit window (decoupled from the epoch, question D6):
 
@@ -353,8 +364,11 @@ Per audit window (decoupled from the epoch, question D6):
 9. The batch verifier runs `verify` with Lean's `flock-verify`, then `outcome`. That gives the subset law's
    `IntegrityProfile` over N tiles at δ, the terms (`RecursiveSound`'s error and binding), and the proved N and credited
    work.
-10. PoUW applies `Theorem1` with δ_s from the profile. It takes γ from `pearlCHiddenSm120v1LoopCast8p72Rev1Cap1000_8192`, with
-    `TileProofSoundAll` discharged by `RecursiveSound` once `VBridge` is proved. The result is certified work
+10. PoUW applies `Theorem1` with δ_s from the profile. It takes γ from the **row-seeded `K` twin of
+    `pearlCHiddenSm120v1LoopCast8p72Rev1Cap1000_8192`, which is owed**: a port of `RowSeedGamma.lean`, by a
+    compute-accounting lane started tonight, plus the statement review of (C1) and (C2). The per-unit theorem as it
+    stands does not cover `-h3` and is not cited for it. `TileProofSoundAll` is discharged by `RecursiveSound` once
+    `VBridge` is proved. The result is certified work
     (1 − γ)(1 − ε_s)·W, and PoUW credits it.
 
 ### 4.2 PoUW, `ncp-v2`
@@ -424,7 +438,9 @@ The user role, per link-window:
 **PoUW** deletes about 7k lines of its own files, 4k of them benchmarks and kernels. With core's beacon and BLS code that
 is compute-accounting's 7.5k. By file:
 - `pouw/audit.py`'s commitments, openings, `Sampled`, `Verifier`, `Audit` and the beacon path (~190 of 360);
-- `serving.py`'s hash formats and manifest (~75);
+- `serving.py`'s hash formats and manifest (~75), the commitment side only: PoUW keeps the per-row seed derivation
+  (`-h3`'s `b3_seeds`, or its SHA-512 successor). compute-accounting also owes `pearl_c.row_seed` in the reference and
+  `-h3` in PoUW's PROTOCOL.md;
 - `pearl_c_work.py`'s `Beacon`, draw and replayed audit (~140);
 - `circuit/plan.py`'s laws, sampler and profile (~250);
 - `anchors.py`'s `Ledger`, `Receipt` and fresh source (~165);
@@ -554,8 +570,9 @@ leads and proofs.
 
 - **D1. Pearl-C's noise seed and γ (PoUW Q1).** γ does not hold under (a): a prover forms every row onto a few shared
   targets and does 2–4% of the work (section 4.1). Recommendation: per-row seeds, the `-h3` format (option (b) per row),
-  which keeps γ at 0.36949% with no new assumption and keeps the gateway out of decode's path. Owed: the served line's
-  row-seeded twin theorem in Lean, and the deployed seed's statement review.
+  which keeps γ at 0.36949% with no new assumption and keeps the gateway out of decode's path. compute-accounting agrees.
+  Owed: the row-seeded `K` twin of `pearlCHiddenSm120v1LoopCast8p72Rev1Cap1000_8192` (compute-accounting's port) and the
+  statement review of (C1) and (C2). Pearl-C4 stays off served accounting until the attack has been run on it.
 - **D2. Is W's size public (PoUS Q5)?** PoUS's B shows |W| to within a 2,054-byte block, hence the model's size. PoUW's
   weight-side proving, about one unit per weight row every epoch, shows it too. Recommendation: public for now, with that
   reason. Pad W to a bucket when a deployment needs its size hidden. Inside PoUS's certified family that needs no Lean
@@ -601,7 +618,7 @@ leads and proofs.
   root), which the corrected rule allows. The service enforces the lists, and Daniel checks each in the morning. Owners:
   each lead, to keep them current.
 - **L2. Per-call roots stay private (PoUW R2, restated).** The window root, registered before the draw, keeps C1.
-  Owner: compute-accounting.
+  **Agreed** by compute-accounting.
 - **L3. PoUW's per-unit work (R7) under the ruling.** Strata by credit class would show each class's count. Proofs'
   recommendation is a uniform `subset:K′` over the N equal tiles, with K′ = ⌈ln(1/δ) / −ln(1 − ε·W/(N·w_max))⌉:
   - A wrong set holding a share ε of credited work has at least ε·W/w_max tiles, so `subset_miss` and a one-line counting
@@ -609,17 +626,27 @@ leads and proofs.
   - The credited work W is claimed at registration and proved by the window statement, and N is public.
   - The cost is the factor N·w_max/W in proving.
 
-  Owner: compute-accounting to agree. The Lean step is proofs'.
-- **L4. Protocol-chosen units (PoUW R8) show their count.** Recommendation: fold the exclusion rules into the window
-  statement, or make the count a public item. Owner: compute-accounting.
-- **L5. `ncp-v2`'s shapes are in its template names (`NcpLinear_v1{M,K,N,PERM}`).** Recommendation: fixed-shape units
-  like `pc8`'s, or name the shapes as public items with a reason. Owner: compute-accounting.
-- **L6. The size rule reads public items only.** The warden pads to T·r, or charges log₂ of the number of size classes per
-  window if it wants classes. PoUW sizes sessions by the drawn count. Owners: network-accounting and proofs.
-- **L7. The gateway link's timing and egress (warden R1, PoUS's timed loop, PoUW R13).** Recommendation: a record of
-  deadline bits only, which is enough against an honest verifier gateway. Against a malicious one, the prover gateway's
-  messages go out on a schedule fixed by the public statement. C-Flock's message sizes already follow from the circuit,
-  and PoUS's answers go at a fixed offset. Owners: proofs and network-accounting.
+  **Agreed** by compute-accounting. If the factor of up to 2 ever matters, a work-weighted draw located in gates through a
+  committed prefix-sum tree removes it; not now. The Lean step is proofs'.
+- **L4. Protocol-chosen units (PoUW R8) show their count.** **Decided** (compute-accounting): the excluded and voluntary
+  rows' rules fold into the window statement, so their count stays hidden.
+- **L5. `ncp-v2`'s shapes are in its template names (`NcpLinear_v1{M,K,N,PERM}`).** **Decided** (compute-accounting):
+  `ncp-v2` is re-tiled into fixed-shape units like `pc8`'s. Its shapes don't become public items, and it stays off real
+  traffic until then.
+- **L6. The size rule reads public items only.** **Agreed** (network-accounting): the warden pads to T·r by default, with
+  no extra charge; size classes only as a named log₂(#classes) charge per window. PoUW sizes sessions by the drawn
+  count. A cheaper statement shape for step 12 to measure against: commit only the T counts per window. A left-packed
+  FIFO row t is frames [S_{t−1}, S_t) of the canonical sequence, so the rows' frames are ranges of the served
+  commitment's leaves, not a second copy, and the check is expectedRow's counts from per-session closed forms (eligible
+  = anchor + δ + ⌊λ/ρ⌋ is arithmetic in λ). That is O(T + sessions), padded to a public session cap, instead of O(T·r)
+  leaves. Owner: network-accounting, in step 12.
+- **L7. The gateway link's timing and egress (warden R1, PoUS's timed loop, PoUW R13).** **Agreed** (network-accounting),
+  with the weight changed: scheduled release is **required for zero knowledge**, not only against a malicious verifier
+  gateway, because `RecursiveZK` quantifies over every behavior of the auditor and the auditor's own gateway sees exact
+  arrival times whatever the record keeps. The deadline bit protects readers of the record; the fixed schedule, enforced
+  by the developer-trusted prover gateway (or a warden grid on that link), protects against the auditor. A message that
+  misses its slot is an abort symbol, charged under R5. C-Flock's message sizes already follow from the circuit, and
+  PoUS's answers go at a fixed offset. Owners: proofs and network-accounting.
 - **L8. PoUW's two-stage default (Q6) and registered row/v2 (Q7, R3).** Proofs takes both (steps 4 and 7).
 - **L9. A sequential timed mode, and who reads the outcome (PoUS Q2, Q4; warden R2).** The service grows a sequential timed
   mode on #1227, since the warden's timing work wants the same loop and clock. `StorageProfile` stays PoUS's reading of the
@@ -650,7 +677,14 @@ leads and proofs.
 
 ## 8. Asks of each lead
 
-**compute-accounting (PoUW):**
+**Agreement so far (8:45 PM PDT):** compute-accounting agrees, with four changes (thread 1791253199.410869,
+1791257722.929929): the owed row-seeded theorem (section 4.1 step 10, D1), one row digest before forming (step 4), the
+seed derivation kept (section 5), and Pearl-C4 off served accounting. network-accounting agrees, with two changes
+(1791257756.221339): L7's weight and L6's cheaper statement shape. All six are applied. memory-accounting: pending.
+
+**compute-accounting (PoUW):** answered. Asks 1–3: agree, with the changes applied. Ask 4: L4 and L5 decided (section 7).
+Ask 5: served-zk moves onto one-stage's registration, receipt and Lean draw after its 11:00 PM PDT (06:00Z) verdict, and
+`hm96_rows.cu`'s rate comes from the 12:00 AM PDT (07:00Z) window as R1's number.
 1. Agree to sections 3, 4.1, 4.2 and PoUW's part of section 5, or mark what's wrong.
 2. Agree L2 (private per-call roots) and L3 (uniform `subset:K′` scaled by N·w_max/W), or say why not.
 3. Agree section 2.1 (W by weight row, BF16 widened in gates), which moves `pc8`'s weight-side digests.
@@ -664,7 +698,8 @@ leads and proofs.
 3. Agree the fixed-offset release in the timed loop, and the proof deadline in `outcome`.
 4. Take step 5 (the timed mode on #1227) and step 11 (PoUS's proofs, starting with one traced squaring).
 
-**network-accounting (the warden):**
+**network-accounting (the warden):** answered. Asks 1–2: agree, with the changes applied (L6, L7). Asks 3–4: takes step
+2 once `register` exists, and co-owns L11.
 1. Agree L7 (deadline bits plus scheduled release) as R1's answer.
 2. Agree L6 (padding to T·r, or a named size-class charge).
 3. Take step 2, the records into the service's record, as the warden's first step.
@@ -679,3 +714,5 @@ leads and proofs.
   accepted cost (step 8).
 - 5 Oct, 8:32 PM PDT (03:32Z), proofs coordinator: public items restated in top's four kinds (section 1, `Public.kind`,
   L1), and γ filled in from pouw-gamma's finding (sections 1 and 4.1, D1; the interface's section 8).
+- 5 Oct, 8:45 PM PDT (03:45Z), proofs coordinator: compute-accounting's four changes and network-accounting's two
+  applied (sections 2, 4.1, 5, 7 and 8); memory-accounting's answer pending.

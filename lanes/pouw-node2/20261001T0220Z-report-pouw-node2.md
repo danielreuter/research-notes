@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (14:41Z) [open] A 14:40Z poll: no new notes; main f5df3bbc5 (#1299 node-2 device cores, #1342), nothing under pouw; /workspace last 67% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (14:20Z) [open] A 14:20Z poll: node2-ops 13Z hourly 10.3% busy, queue empty, daemons up, / 21%, /workspace 67% (hold); main b722adaad unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (14:00Z) [open] A 14:00Z poll: node2-ops posted its held 07Z-13Z hourly at 13:48Z, so no stall (07Z 76.7% from the Pearl-C window, then 0-18%, queue empty); daemons up, / 21%, /workspace 67% (hold); main b722adaad unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (13:41Z) [open] A 13:40Z poll: node2-ops silent since 11:47Z, missed its ~12:47Z disk fold, flagged to compute accounting (its VM may have stalled); quiet window ended 13:30Z; main b722adaad, nothing under pouw; /workspace last 67% (hold); panel art:d2b2eb906612; off node 2

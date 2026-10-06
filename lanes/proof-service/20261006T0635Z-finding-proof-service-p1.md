@@ -60,3 +60,20 @@ Import: `from verity.protocols.verification.sampled_proofs import service as S`.
 
 - 5 Oct, 11:35 PM PDT (06:35Z): the API is pushed, types and calls with bodies, at `4fae3887ccba5204adb00eea2c51796b43961d74`.
   Tests, the README and the Glossary come next.
+- 5 Oct, 11:50 PM PDT (06:50Z): landable at `d5efa0005b41cac7a82624136feb6c4fb6ce39e5` (base `origin/main` `68e614869`):
+  - the service, plus 21 tests (`tests/test_service.py`);
+  - the package README's "The proof service" (under "Not yet in Lean");
+  - the Glossary's "Proof service" and "Selection rule".
+
+  Suite results:
+
+  | Suite | Tests passed |
+  |---|---|
+  | sampled proofs | 90 |
+  | `verity/protocols` | 248 |
+  | `verity` (boundaries) | 16 |
+  | `repository` | 45 |
+
+  Five negative controls are each caught by the tests: the rule off, the budget off, the deadline off, a redraw, and a second outcome.
+
+  The PR body is in the coordinator's store, at `internal/proofs/proof-service-pr.md`. One more deviation is in there, number 9: the default draw is `derive` over fresh coins, not Lean's samplers on raw bytes, so C-Flock passes `flock-verify draw` as the `sampler`. The PR body also lists two things not done: holding the session count and size to the Spec, and the proof mode.

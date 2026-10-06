@@ -812,3 +812,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T06:40Z: accepted top's overnight plan (06:30Z checkpoint). Next checkpoints 08:00Z, 11:00Z, 14:00Z final in thread 1791265836.662419.
 - 2026-10-06T07:00Z: 924a (44f2, vy-mig-check-18) FAILED on the pod's environment (nvcc without sm_120a, nebius slot tests, circuit-check pool crash). 1ad0 (9351) on node 1 is the real test. Told ci and infra.
 - 2026-10-06T07:42Z: top/ci: 1ad0 (935152515) is the last landing before the rename; land it when it passes even if after 08:30Z, post the main sha, then hold until the move is on main.
+- 2026-10-06T08:13Z: merged 935152515 → main 89fb2c28c via --push (spec DM, mirror, post_train). FROZEN for the rename move until top says it's on main.
+- 2026-10-06T08:16Z: infra: node 2 down 08:30-08:45Z; node 1 has a fifth slot (e, cores 96-127); vy-mig-check-19/20 are for quick tiers and shards only.

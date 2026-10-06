@@ -189,6 +189,12 @@ Taken as following from these (Daniel can object):
      opens), built against proofs' draft interface where that doesn't slip its 11 PM verdict;
    - the warden says whether it is a user of the service, part of its deployment (RecursiveZK's egress premise), or
      both.
+3. **Every protocol is zero-knowledge, PoUS included** (7:48 PM PDT, 02:48Z on 6 Oct). The circuit and the data are
+   hidden; only the minimum is public, which may include structure specific to a protocol (PoUW's or PoUS's) that
+   must be revealed. This overrules memory-accounting's clear mode (PoUS with no proof while the auditor sees W):
+   PoUS's verifier never sees W or C*, so the public-encoder setup goes and the encoding is proved over committed data.
+   Each protocol lists what it makes public beyond the verdict, with a reason for each item, and anything not listed
+   stays hidden. Relayed in Slack 1791254937.753789.
 
 ## Status (captain: verity-top's layout agent, from 2:12 PM PDT)
 

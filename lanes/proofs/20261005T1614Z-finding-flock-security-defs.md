@@ -67,6 +67,15 @@ build on Mathlib alone, laid out like PoUW?
   - r20261006-090930-29c0 (`--update`, then verify): PASS, PASS, with the lock unchanged.
   - Open for the coordinator: confirm leaving them out (my recommendation), or pin them again with `ARKLIB_PENDING`
     restored for those modules.
+- **`main` merged a third time** (e56e53a66, c3be1f9b6: the rename move, #1271's `sound_mul128`, #1272's
+  `sound_residualForms`).
+  - `moves.json`: both sides appended a move record; `main`'s comes first, then this branch's.
+  - The lock, by the same rule, plus `main`'s two new bridge guarantees kept beside `sound_shaFrom`. They also read
+    `Proofs.Flock.Level3.GF128` (Mathlib and `Flock.Field` only), which joins `meaning` and `reads_exempt`. The Warden
+    groups `main` renamed are dropped. 865 guarantees.
+  - r20261006-110639-19a6 (`--update`, then verify): PASS, PASS. The update narrowed four reads groups by 88 definitions
+    and changed no guarantee record (eca3a5726). `Flock.F128`'s value changed only because fewer of `F128`'s constants
+    are read: it is exactly the digest of `F128 : Type` and `F128.mk`, and `Field.lean` is `main`'s.
 - **A test the split broke, fixed** (ab5ba08a6). `backends/flock/tests/test_lean_verifier.py::test_audit_layer_is_abstract`
   required the audit proofs to import only Mathlib, `Game` and each other. They now also import their
   `Definitions.Flock.{Game,Audit}` halves and Partitioning's statement. The test allows those and checks them in turn:
@@ -131,9 +140,10 @@ plan (steps 1–6 on the pre-move layout), which is dropped.
 
 - **Step 1.** #1241's base can now be `main`: the move landed as 7b410fbf6. `main` now holds #1247, so #1241 gets
   the `Game/Basic.lean` conflict, which resolves to #1241's side.
-- **Step 2's head** is 04c1a99f1 (`cursor/flock-specs-95d4`), and its PR body is the proofs store's
+- **Step 2's head** is eca3a5726 (`cursor/flock-specs-95d4`), and its PR body is the proofs store's
   `internal/proofs/flock-specs-pr.md`. All 31 test suites pass there (`--quick`, circuit-check alone).
-- **`FlockVBridge.sound_shaFrom`'s place**, and **the 31 ZK records left out**, as above.
+- **V*'s bridge's place** (`sound_shaFrom`, `sound_mul128`, `sound_residualForms`), and **the 31 ZK records left
+  out**, as above.
 - **Small VMs.** `tools/circuit_check/tests/test_circuit_check.py::test_parallel_jobs_give_the_serial_report` runs
   circuit-check in 3 forkserver workers of about 6.5 GB each. The OOM killer stops it on a 15 GB cloud VM and leaves
   the forkserver orphaned (I killed it by PID). `check`'s pod is unaffected.

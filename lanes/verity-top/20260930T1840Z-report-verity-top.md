@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:02Z) [open] 14:02Z: freeze over; all leads' finals in (strong reason only C1, sent to Daniel); main b722adaad; morning report 14:30Z
 CHECKPOINT none (13:47Z) [open] 13:47Z: tip 21 landed (main b722adaad); M4 met (NUMA balancing cause); commit-overhead sweep done; awaiting 14:00Z finals
 CHECKPOINT none (13:30Z) [open] 13:30Z: inbox empty; quiet-window gap explained (guard fix in node_ops.py after 14:00Z); tips 21-24 pending; awaiting 14:00Z finals
 CHECKPOINT none (13:15Z) [open] 13:15Z main 544e5f7b4; tips 21-24 queued; M4 confirmation cells pending; quiet-window guard leak (5/6 runs) with infra

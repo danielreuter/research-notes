@@ -59,6 +59,16 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## 00:40Z Oct 6: relief for 78% lined up (root's ask), awaiting owners
+
+- Asked @ci, @circuits and @proofs, with @infra copied (`1791247165.325479`), what each could free on request with a
+  retention record. On offer, to be confirmed:
+  - check's 105 finished run dirs older than 12 h (517 GB);
+  - circuits' `jobs/cov` (653 GB, partly) and `jobs/q235-gate` (111 GB, Oct 3, owner unconfirmed);
+  - proofs' `jobs/{proofs-flock-fp,e2e-integrate,proofs-zk-k32k,rec-reprice}` (181 GB);
+  - `hf` models no run named in 3 days: DeepSeek-V3-0324-NVFP4 (424 GB, fetcher unknown) plus about 108 GB of small ones.
+  - `research/scratch` (147 GB) is live, so it isn't on offer. Nothing is deleted.
+
 ## State at 00:35Z Oct 6 (5:35 PM PDT Oct 5), steward pass
 
 - **Node 1 jumped from 68.6% to 74.1% (00:15–00:30Z):** circuits' second GLM-4.7-Flash capture (`m1-capture`, run

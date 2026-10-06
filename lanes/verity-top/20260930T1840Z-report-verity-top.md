@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:54Z) [open] 15:53Z: tip 42 replaces stale 36-41 (proofs moved heads); head-freeze rule requested; old-ways sweep lists in; env-build fix is Daniel's
 CHECKPOINT none (15:37Z) [open] 15:37Z: tips stacked to 38 (incl. #1363 gate fix, proofs' granted set, #1344, #1362); tip 34 sharded on check pods; main f5df3bbc5
 CHECKPOINT none (15:22Z) [open] 15:22Z: Daniel ruled Q10/Q11/Q14, SHA-512 follow-ups, LMS n=64, closes; tips 24/26/28 checking, tip 34 next
 CHECKPOINT none (15:06Z) [open] 15:05Z: Daniel ruled SHA-512 everywhere (C1); 5 follow-up questions with him via architecture; tips 24-26, 28 queued on main f5df3bbc5

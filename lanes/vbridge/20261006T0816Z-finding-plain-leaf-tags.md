@@ -92,5 +92,9 @@ The tag set is draft PR #1318, under review by red-team-plain-leaves.
 Done since:
 - V*'s staging registers `coef`, `dirs` and `v`: note:vbridge/20261006T1100Z-finding-vstar-register-coef.
 - B1 to C2 (#1271, #1272, #1273, #1274, #1283) are restacked across the rename move onto new branches,
-  `cursor/vbridge-<piece>-renamed-5a30`. Each is a fast-forward of its old head. The tag set (#1318) waits for #1284's
-  restack.
+  `cursor/vbridge-<piece>-renamed-5a30`. Each is a fast-forward of its old head.
+- #1284 is restacked (`77acebf9d`, 10:41Z). The coef branch is restacked onto it, at `a106e15b8` on its own branch.
+- #1318's branch has two newer commits (`4596b8b4d`, `f74a2905a`, 09:22Z), which are not mine: `verify` refuses the
+  plain-leaf statement until a soundness headline covers it. I left the branch alone.
+  - The coef recipe restacks it cleanly: tree `bd53107a7`, equal to `77acebf9d` plus exactly its diff, renamed.
+  - Nothing is pushed. Pushing it needs its reviewer's go-ahead and a Lean audit of the merged `lean-audit.json`.

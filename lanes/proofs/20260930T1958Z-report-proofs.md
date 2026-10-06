@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (13:43Z) [open] 6:45 AM PDT: five granted tiers (#1261 #1273 #1330 #1274 #1283) relaunched on vy-nebius-1 with slot priority (advisor's grant) via new #1350 (ready --priority); review-zk-gateway re-checking #1323 888c56772 as renames; firewall-contract fixing #1339 B1' (outer order/count); zk-gateway fixing #1343 r7 and Rust admit order in #1349; registered-row-v2 on #1320 B1 non-vacuity; asked advisor replace-vs-beside (1791293972.223949).
 CHECKPOINT none (12:38Z) [open] 5:40 AM PDT: #1261/#1330 re-granted as renames, bodies posted; #1347 (V* registers coef/dirs/v) opened on rec-step3; #1273/#1274/#1283 restacked, re-grant running; #1323/#1339 restack and review running. Check pods are serial (1 slot each, ~2 h/tier); asked infra and the lander for a third pod or a train-only check (1791290299.280789).
 CHECKPOINT none (11:34Z) [open] 4:34 AM PDT: #1270 (9cced3479) and #1343 (b9d912d5a) restacked across the rename, bodies posted; review-zk-gateway re-labelling #1270 and reviewing #1343; zk-gateway writing PR 2 (rules 1-4 in Rust, due 13:15Z); ten quick tiers running on mig-19/-20.
 CHECKPOINT none (10:32Z) [open] 3:50 AM PDT: rename move on main; restacked and pushed #1325 #1326 #1331 #1320 #1307 #1313 #1081 (tiers on vy-mig-check-19/-20); rec-thm, flock-e2e and rec-step3 resumed for the conflicted stacks (locks --moved on node 1); zk-gateway, plain-leaves-fix, vbridge, firewall-contract and proof-service restack on return.

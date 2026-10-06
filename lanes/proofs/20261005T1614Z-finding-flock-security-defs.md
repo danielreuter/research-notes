@@ -67,6 +67,12 @@ build on Mathlib alone, laid out like PoUW?
   - r20261006-090930-29c0 (`--update`, then verify): PASS, PASS, with the lock unchanged.
   - Open for the coordinator: confirm leaving them out (my recommendation), or pin them again with `ARKLIB_PENDING`
     restored for those modules.
+  - **Decided: pin them** (@old-circuits-and-proofs, 6 Oct 7:20 AM PDT, Slack 1791296405.283989: a statement nothing
+    watches defeats the point of the lock, and #1320's restatement DM needs the pins). 2dd07f4ca copies the 31 records
+    from `main` and restores `ARKLIB_PENDING`. a0203e59b is r20261006-144352-fe7b's `--update`, which
+    r20261006-150456-1070 verified (PASS, PASS, lock unchanged). 22 records are `main`'s byte for byte, and 9 differ only
+    in `FlockSoundness.Game.prob` → `Verity.Game.prob` (#1241). `ARKLIB_PENDING` holds 106 modules, which is `main`'s 107
+    minus `LinkSound`, whose `LinkLayout` this branch moved. The lock has 896 guarantees, 73 of them C-Flock's.
 - **`main` merged a third time** (e56e53a66, c3be1f9b6: the rename move, #1271's `sound_mul128`, #1272's
   `sound_residualForms`).
   - `moves.json`: both sides appended a move record; `main`'s comes first, then this branch's.

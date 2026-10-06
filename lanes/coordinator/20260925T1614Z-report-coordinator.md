@@ -836,3 +836,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T11:15Z: fallback 2f998181c (main + #1329 #1336, no #1312) node1, in parallel with 8e6b (19f2) and a365 (9967).
 - 2026-10-06T11:32Z: tip 21 5a0f5d21c (2f99 + #1327 #1306) queued on node1 with priority, alongside 2f99 (80ab) as its fallback.
 - 2026-10-06T12:07Z: merged 2f998181c (#1329 #1336) → main 544e5f7b4 via --push; no spec change. Cancelled a365 (9967, sibling). 27fa (5a0f) running on top. #1312 still unready.
+- 2026-10-06T12:12Z: tip 22 598628fa9 (5a0f + #1299) node1, in parallel; 5a0f (27fa) is its fallback. #1317 waits for 14:00Z.

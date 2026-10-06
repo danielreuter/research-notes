@@ -195,3 +195,7 @@ The notes' other questions for Daniel go in his morning report.
 
 - 5 Oct, 10:50 PM PDT (05:50Z): written and sent to all leads.
 - 5 Oct, 11:20 PM PDT (06:20Z): the sequencing added, from the consolidation notes.
+- 6 Oct, 12:40 AM PDT (07:40Z): sequencing points 1 and 4 changed. The last landing before the rename is the 1ad0 train
+  (`935152515`: #1243 in, #1268 out; no new check finishes before the 1:30 AM PDT cutoff). The move is generated on main
+  after 1ad0 and the 2:00 AM PDT slot doesn't wait for #1268, which restacks onto the move like every other PR; lean's
+  items 2, 3 and 5 apply at that restack (thread 1791265836.679829, 1791272397).

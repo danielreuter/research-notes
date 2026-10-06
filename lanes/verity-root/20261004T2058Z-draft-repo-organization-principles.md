@@ -166,6 +166,30 @@ Taken as following from these (Daniel can object):
 - The memo's step 1 goes ahead now: the namespace guard (verity#1193), the audit's `srcDir` fix, `Main` renamed
   `FlockVerify`, the two ArkLib cuts, the warden's five definitions over `List`, and the per-module lock cache.
 
+## Daniel's direction on the proof service (5 Oct, 7:11 and 7:17 PM PDT; 02:11Z and 02:17Z on 6 Oct)
+
+1. **VBridge proves one direction** (7:11 PM): V* accepts ⇒ the verifier of record accepts. Completeness stays a test.
+   Relayed to proofs (Slack 1791252706), to be recorded in note:proofs/20261005T2345Z-draft-vbridge-plan.
+2. **The proof layer is the one service every accounting protocol uses** (7:17 PM). PoUW, PoUS and the warden are
+   users of it: each calls its methods, consumes its outcomes, and keeps no infrastructure of its own (no commitment
+   scheme, randomness, draw, transport, verifier, gateway or audit record). A protocol states only four things: what
+   is committed, which units need proofs (or the policy that selects them), the check each selected unit must pass
+   (a public Program or Definition), and what it does with the outcome. The service owns commit, live coins and the
+   record, selection (sampled proofs' draw), proving (direct ZK or recursion), verifying, and the integrity profile.
+   The architecture starts from proofs' design (agent store bc-7f347b4b,
+   `internal/recursive-zk-system-architecture.md`, "How a protocol calls the layer"), and @proofs,
+   @compute-accounting, @memory-accounting and @network-accounting work it out together (Slack 1791253199.410869):
+   - by 11:00 PM PDT (06:00Z): each accounting lead lists what its protocol owns that the service replaces, with
+     paths, and writes its protocol as a service user; @proofs drafts the interface (methods, types, which party runs
+     each, the guarantee each carries, what core already has against what's new);
+   - by 7:00 AM PDT (14:00Z): one joint note, `proof-service-architecture` (kind: draft, owned by @proofs, agreed by
+     the three accounting leads): the API, each protocol's call sequence, what each protocol deletes, the migration
+     order, the open questions with recommendations. It goes to Daniel in the morning and to Notion once he agrees;
+   - the first user is compute-accounting's served-zk lane tonight (one served request whose commitment the proof
+     opens), built against proofs' draft interface where that doesn't slip its 11 PM verdict;
+   - the warden says whether it is a user of the service, part of its deployment (RecursiveZK's egress premise), or
+     both.
+
 ## Status (captain: verity-top's layout agent, from 2:12 PM PDT)
 
 Daniel named this agent captain of the migration. This section is the tracker; the captain keeps it current, and anyone

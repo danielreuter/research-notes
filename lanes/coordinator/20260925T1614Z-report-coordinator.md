@@ -795,3 +795,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T04:15Z: next to check is 090257a15 (e1fa + #1252 #1267); e1fa is the fallback; acked to ci.
 - 2026-10-06T04:34Z: root: if no slot has freed by the next poll, ask infra for a migration pod for 090257a15 at once (velocity over spend).
 - 2026-10-06T04:39Z: per top, cancelled 498c, 417e, 8ff9; kept e011 (0314) and 7f80 (4020). Asked infra for a migration pod for 090257a15.
+- 2026-10-06T04:58Z: 7f80 (4020) FAILED one flaky test (test_placement s4 rtt: 9/10 loopback connects); not caused by any tip. e011 (0314) running past lean-suites; rerun if it hits the same flake.

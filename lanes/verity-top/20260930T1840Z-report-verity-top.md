@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (03:23Z) [open] main c305471c5; 4020 checking on n2, 72d5 (all 4 tips) asked on n1; #1275 trains-only slot; proof-service joint note drafting
 CHECKPOINT none (03:07Z) [open] main c305471c5; trains 4020/ae56/c309 queued, asked infra to free a slot for lander; proof-service interface draft up
 CHECKPOINT none (02:50Z) [open] main c305471c5; 4020f22d7 then ae5651a63 queued; K=4096 recursion e2e (#1270); proof-service notes in, interface 06Z
 CHECKPOINT none (02:33Z) [open] main c305471c5; train 4020f22d7 (no #1242) checking; overnight GPU lanes launched; Daniel decisions queued for morning

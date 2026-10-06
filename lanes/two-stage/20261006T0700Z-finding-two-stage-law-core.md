@@ -90,5 +90,7 @@ This is from reading `cursor/proof-service-95d4` at `d5efa0005`. I haven't edite
 - **The sampler's bytes.** `Stream._sample` derives a Key from 32 fresh bytes (`verity/proof-service/draw/v1`), so its
   draw is not Lean's `drawWith` on raw bytes. Passing `sampler=` lets the driver use `two_stage.draw_first`, but
   `Sampler(law, n)` returns units only, so the closure has nowhere to go.
+- **PoUW's first stage.** The architecture note's §4.1 draws `subset:K′` over N tiles, and the interface note's §4 draws
+  `work:K`. `two_stage` handles both. Only `work` carries a closure.
 - **The profile.** `_finish` uses `one_stage.audit.profile`. For a stage-2 "all" rule that is the right law over replay
   units. For a Bernoulli first stage with k, it would need `TwoStageLaw.profile`.

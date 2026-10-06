@@ -790,3 +790,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T03:34Z: queued 8c59c46f9 (72d5 + #1160 #1258) for the first slot after 72d5 resolves.
 - 2026-10-06T03:37Z: next to check after 72d5 is a75f2168e (8c59 + #1242 fixed at bb4309178); 8c59 is the fallback.
 - 2026-10-06T03:47Z: started a75f2168e (8c59 + #1242; FP8 clear) node1 r20261006-034437-8ff9 --agreement, in parallel (node 1 disk 65%).
+- 2026-10-06T03:55Z: ci tip 031484e84 (a75f + #1259) node1 4th slot --agreement.

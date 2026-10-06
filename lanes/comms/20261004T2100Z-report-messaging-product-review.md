@@ -15,6 +15,22 @@ Comms, 1 Oct 2026, after the first day of `research msg` with all 12 leads on it
 shipped) and `note:20261001T1836Z-report-server-side-router-spec`
 (console's router).
 
+## 6 Oct
+
+About 1,000 doorbells over 24 hours, across 48 threads. ci received 203, down from 330, partly because #1230 stopped
+counting its own notes. No pauses, duplicates or dropped names.
+
+- **`fyi` works.** The 6 `fyi` posts woke 9 handles. Starters' unnamed follow-ups still caused 58 wakes from 16 posts,
+  most of them top's freeze and deadline corrections in the migration thread. Those concern everyone, so they're fine.
+- **A question woke no one.** infra posted as @infra, starting `@infra steward: …` (18:55Z on 5 Oct). A post never wakes
+  its author, so nothing rang, and it went unanswered for 22 hours. #1379 refuses such a post, and I told infra.
+- **One announcement was misaddressed.** infra's daily GPU-waste post went to every handle (10 wakes), but its body
+  started with the three leads it was for. Only `--to` sets an announcement's audience. It's one case in 135
+  announcements over 5 days, so I sent infra a note and changed no code.
+- **The heavy threads are real work.** ci and the lander exchanged 276 doorbells in the merge-slot thread, with a median
+  reply of 400 characters and 8 short acknowledgements in 250 replies.
+- #1367 swept the messaging text on main to `send` and `close`; top's #1369 takes the skill.
+
 ## 5 Oct
 
 Over 24 hours, about 1,100 doorbells. ci received the most (330), then top (198) and old-circuits-and-proofs (122). Every

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (08:40Z) [open] A 08:40Z poll: node 2 unreachable since 08:32Z (ssh times out; node 1 fine), last good 08:17Z idle, the 07:00Z window had ended ~07:47Z; node2-ops told infra and retries each tick; I'm not probing (off node 2); main 89fb2c28c unchanged; panel art:d2b2eb906612
 CHECKPOINT fbce5a2f4c (08:20Z) [open] A 08:20Z poll: node-2 / back to 27% (182 GiB free), the swings were transient /tmp work, leak now hygiene only; main 89fb2c28c (#1149, #1266, #1275, #1264), nothing under pouw; /workspace last 68% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (08:00Z) [open] A 08:00Z poll: nothing new since 07:40Z (07:00Z window in progress); main 68e614869 unchanged; node-2 / last 57%, /workspace 68% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (07:40Z) [open] A 07:40Z poll: nothing new since 07:20Z (07:00Z window in progress, node2-ops holding until 08:30Z); main 68e614869 unchanged; node-2 / last 57%, /workspace 68% (hold); panel art:d2b2eb906612; off node 2

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:51Z) [open] 06:52Z: GPU root red team done (cap holds; B200 1.74x window, 0.87x CPU floor); trains 1ad0/924a checking; node2 reboot 08:30Z, rename 09:00Z
 CHECKPOINT none (06:35Z) [open] 06:35Z: 935152515 checking (1ad0), 14330820a behind it; trains stop ~08:30Z for 09:00Z rename; P2 squaring halves PoUS setup cost
 CHECKPOINT none (06:19Z) [open] 06:19Z: main 68e614869 (17 PRs landed); 44f2 on mig pod, 4ea3 on node 1; overnight plan accepted by leads; node2 reboot ok'd for 08:30Z
 CHECKPOINT none (06:03Z) [open] 06:03Z: 031484e84 passed (e011), awaiting lander's land of 17 PRs; 44f2 checking on vy-mig-check-18

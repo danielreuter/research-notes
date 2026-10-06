@@ -43,7 +43,7 @@ Plan: `note:proofs/20261005T2345Z-draft-vbridge-plan`, piece E. Python restated:
   Audits on vy-nebius-1: `r20261006-035315-89aa` (sim), `-035339-16cd` (eval), `-035403-b1df` (zerocheck),
   `-035428-b999` (lincheck), `-035453-d26f` (ringswitch), `-035518-fcfe` (ligerito). Next: commit their records,
   the PR files.
-- 04:13Z (9:13 PM PDT): `ligerito` `eb9924847` adds `finalProg_of`, `Refine.finalProg_ok`'s converse, and
+- 04:11Z (9:11 PM PDT): `ligerito` `eb9924847` adds `finalProg_of`, `Refine.finalProg_ok`'s converse, and
   `finalProg_of_finalOK`: on V*'s `FinalOK` the verifier's own final check (`finalProg`, verbatim) passes, with the
   verifier's state carrying V*'s `s`, contexts and no leftover lists. Ligerito audit `-035518-fcfe` cancelled (stale
   head), relaunched as `r20261006-041008-2002`. PR files drafted under the store's `internal/proofs/`

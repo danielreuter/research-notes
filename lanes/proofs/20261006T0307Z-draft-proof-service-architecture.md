@@ -338,8 +338,14 @@ Per deployment and per epoch (about 15 minutes):
 > - Owed, Lean only: the row-seeded `K` twin of `pearlCHiddenSm120v1LoopCast8p72Rev1Cap1000_8192` (the served line,
 >   LoopCast8p72, cap 1/1000), a mechanical port of `RowSeedGamma.lean` that compute-accounting owns, and the statement
 >   review of (C1) and (C2), the deployed seed's conditions.
-> - Pearl-C4 has the same seed_A shape and was not tested, so it stays off served accounting until the attack has been
->   run on it (compute-accounting).
+> - Pearl-C4 breaks under (a) too, and more easily (compute-accounting, 5 Oct 9:05 PM PDT, 1791259512.408459,
+>   evidence `art:afb63901…2583`): at k = n = 8,192 on the exact reference, all 256 rows (8 calls × 32) form bit for
+>   bit onto one shared A′ row and pass D-NF, D-SB and R1, and a whole 64 × 64 tile passes `check_opened` at 0.06% of
+>   the cap, for about 4% of W_ref. There is no piece search: the noise is one scale byte times fixed E2M1 codes, and
+>   that byte reads only ρ/(s + ρ). Per-row seeds stop it (the same rows land 5,254–6,322 of 8,192 codes off the
+>   target), so D1 covers both schemes. #1278 adds `pearl_c.row_seed`, pinned against the host-built `b3_seeds`, and
+>   documents `-h3`; still owed: `PearlC` taking `hashing="h3"`, the per-row cap in the work law, and a Pearl-C4 `-h3`
+>   label. Pearl-C4 stays off served accounting until that label exists.
 > - Under the ruling, the anchors' positions move into gates either way, because a unit's coordinates are hidden.
 
 Serving, per call:
@@ -588,7 +594,8 @@ leads and proofs.
   targets and does 2–4% of the work (section 4.1). Recommendation: per-row seeds, the `-h3` format (option (b) per row),
   which keeps γ at 0.36949% with no new assumption and keeps the gateway out of decode's path. compute-accounting agrees.
   Owed: the row-seeded `K` twin of `pearlCHiddenSm120v1LoopCast8p72Rev1Cap1000_8192` (compute-accounting's port) and the
-  statement review of (C1) and (C2). Pearl-C4 stays off served accounting until the attack has been run on it.
+  statement review of (C1) and (C2). Pearl-C4 breaks under (a) too and per-row seeds stop it, so this covers both
+  schemes (section 4.1); Pearl-C4 stays off served accounting until its `-h3` label exists (#1278 and its follow-ups).
 - **D2. Is W's size public (PoUS Q5)?** PoUS's B shows |W| to within a 2,054-byte block, hence the model's size. PoUW's
   weight-side proving, about one unit per weight row every epoch, shows it too. Recommendation: public for now, with that
   reason. Pad W to a bucket when a deployment needs its size hidden. Inside PoUS's certified family that needs no Lean
@@ -742,3 +749,5 @@ fixed-offset release and an hour's proof deadline agreed. Ask 4: takes step 5 an
   applied (sections 2, 4.1, 5, 7 and 8); memory-accounting's answer pending.
 - 5 Oct, 8:41 PM PDT (03:41Z), proofs coordinator: memory-accounting's four changes applied (sections 1, 3, 4.3, 5,
   7 and 8; the interface's `commit_fresh` signature). Agreed by all three leads.
+- 5 Oct, 9:14 PM PDT (04:14Z), proofs coordinator: compute-accounting's Pearl-C4 attack folded in (section 4.1, D1):
+  Pearl-C4 breaks under (a) as Pearl-C does, and D1's per-row seeds cover both.

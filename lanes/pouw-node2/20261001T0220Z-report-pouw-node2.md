@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4cd (22:40Z) [open] A 22:40Z poll: no new notes; main unchanged 327ea5b1b; PoUS window to 23:15Z not mine; off node 2 (no infra 'back'); /workspace last 70% (hold); v1 gamma + beacon wording await yes
 CHECKPOINT fbce5a2f4cd (22:20Z) [open] A 22:20Z poll: no new notes; main unchanged 327ea5b1b; PoUS window to 23:15Z not mine; off node 2 (no infra 'back'); /workspace last 70% (hold); v1 gamma + beacon wording await yes
 CHECKPOINT fbce5a2f4cd (22:00Z) [open] A 22:00Z poll: no notes naming me/node 2 (21:48Z sync = nebius pod GPU-idle alert); main 327ea5b1b (#1408,#1409) no pouw change; PoUS window 21:45Z-23:15Z running, not mine; off node 2; /workspace last 70% (hold); v1 gamma + beacon wording await yes
 CHECKPOINT fbce5a2f4cd (21:40Z) [open] A 21:40Z poll: no new notes; main unchanged 57a04f569; off node 2 (no infra 'back'); 21:45Z PoUS window not mine; /workspace last 70% (hold); v1 gamma + beacon wording await yes

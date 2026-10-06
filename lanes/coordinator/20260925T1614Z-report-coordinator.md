@@ -800,3 +800,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T05:06Z: node 2's slots d (r20261006-043130-b394, since 04:31Z) and e (r20261006-050306-685b) are held by lane runs; 01cd waits on infra's pod or the first free slot.
 - 2026-10-06T05:18Z: next to check is 44f2838c7 (01cd + #1266); 01cd is the fallback.
 - 2026-10-06T05:24Z: 44f2838c7 (top tip) on vy-mig-check-18 r20261006-052148-924a --agreement (machines.d copied from the control pod's notes). e011 (0314) still running on node 1.
+- 2026-10-06T05:33Z: a09f1bb9a (44f2 + #1149 #1275) queued for the first free slot; kept 924a (44f2) running.

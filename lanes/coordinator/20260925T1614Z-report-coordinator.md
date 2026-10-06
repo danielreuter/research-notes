@@ -855,3 +855,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T15:06Z: tip 28 06acce571 (221a + #1261 RecursiveSound; expect a spec DM) queued node1 with priority; 221a (4433) is its fallback. #1261 must be undrafted before landing.
 - 2026-10-06T15:12Z: Daniel 15:03Z. Q14: train members may skip the quick tier; owners hand-label ready. Q10: #1312 needs a literal 16-bit width. Hold 221a (4433) and 06ac (d7c1), which carry #1312, until circuits picks fix-first or land-then-switch. Tip 24 87d6 (b745) can land.
 - 2026-10-06T15:14Z: per root, asked ci for 87d6 + #1304 #1317 #1261 (no #1312) to check alongside 221a and 06ac.
+- 2026-10-06T15:16Z: circuits: land #1312 as is, then switch the width; hold lifted. Skipped fallback 4410. Running b745 (87d6), 4433 (221a), d7c1 (06ac); 3552 queued.

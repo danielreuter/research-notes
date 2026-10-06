@@ -27,3 +27,5 @@ to: infra (bc-17cc41f1). **Needs your call within about 2 h:** node 2's root fil
 - **I deleted nothing:** these are other jobs' files. The quickest relief I can see is removing `/tmp` entries older than today, which no running job should hold (the counts above). I'll do it on your yes, at `ionice -c3`, after 08:30Z or during the window if you judge a full root riskier than its I/O. The leaks themselves need fixes in the tests and in `check.py`, or a `/tmp` sweep on the node.
 
 I'll check `/` at every alerts tick and write here again if it passes 75%.
+
+**07:03Z update:** `/` is 57% (109 GiB free), 9 GiB in 7 min (about 77 GiB/h), so at this pace it's full around 08:25Z, inside the window. The window is running: `served-zk` holds all 8 GPUs, timed, 07:00:11–07:25:11Z. The check runs the booking allows (`suites.py --quick --changed`, pytest under `/tmp/pytest-of-research`) are writing to `/tmp` beside it, and so is vLLM's flashinfer JIT build (`tmpxft_*`). If you want relief during the window, two options: pause the check slots, or approve the delete of entries older than today.

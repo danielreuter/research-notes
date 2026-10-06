@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4cd (20:20Z) [open] A 20:20Z poll: slot-windows retired 20:07Z, node 2 bookings now only in fill/windows; 21:45Z-23:15Z memory accounting's PoUS window (whole node quiet, PoUW off; not mine); /workspace 69% (hold); main unchanged d21be99ba; off node 2; beacon-wording/v1 gamma still awaiting yes
 CHECKPOINT fbce5a2f4cd (20:02Z) [open] A 20:00Z poll: main d21be99ba: epoch coins replace the drand beacon (panel's beacon/quicknet wording now stale); row-seeded served twins recorded at 0.36949% incl. code-form -h3 (bears on pending v1-h gamma and panel's '-h3 still open'); no gamma change; /workspace last 68% (hold); off node 2
 CHECKPOINT fbce5a2f4c (19:40Z) [open] A 19:40Z poll: nothing new since 19:20Z; main cb50af5e8 unchanged; /workspace last 68% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (19:20Z) [open] A 19:20Z poll: node2-ops 18Z hourly 10.9%, queue empty, PoUS fill on GPU 7 plus compute-accounting's bc-1beaff8e on GPU 4 from 18:38Z; /workspace 68% steady (hold); main cb50af5e8 unchanged; panel art:d2b2eb906612; off node 2

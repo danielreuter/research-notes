@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:06Z) [open] 21:06Z: inbox empty; tip 73 checking, 74-76 queued; P2 v4 in draft #1413, rerun 21:44Z; #1380 close to ask Daniel
 CHECKPOINT none (20:51Z) [open] 20:51Z: inbox empty; tip 73 checking, 74 and 75 (#1383) queued, #1412 after; PoUW e2e interim pass; P2 v4 rerun launches 21:44Z
 CHECKPOINT none (20:35Z) [open] 20:35Z: inbox empty; tip 73 checking, 74 queued; #1383 at e695e0ee2 awaits red-team regrant then tip 75; carry patch-compare fix asked of infra
 CHECKPOINT none (20:19Z) [open] 20:20Z: inbox empty; tip 73 checking on node 2, tip 74 queued; pod 23 up (shard 3/3 only); #1383 waits on proofs fast-forward to e695e0ee2

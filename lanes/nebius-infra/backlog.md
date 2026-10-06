@@ -59,6 +59,17 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 05:43Z Oct 6 (10:43 PM PDT Oct 5), steward pass (cron arrived 12 min late)
+
+- Node 1 (watch, no flags): 62.1% (1,903 GiB free), `research/src` 87 trees, `provers` 4 admitted (2 GPUs held); the
+  pacer and dispatcher are clean.
+- **Node 2 is in a PoUS timed window:** 1 of 8 leased (the `timed` job `gl-415333`, run `r20261006-052744-7177`, on GPU
+  7, about 05:28Z).
+  - The scheduler evicted 5 fill jobs (including the noise sweep's) and keeps the rest free for clean timing. The fill
+    runner reports "timed True", with 3 fill jobs queued until the window ends.
+  - The 7 idle GPUs are by POUS's design, so there's nothing to route.
+- The latest hourly snapshot is `art:dfdefd19d058576dad226da138a32dad4fcc094a6a571787aef3329a34152250` (about 05:30Z).
+
 ## State at 05:11Z Oct 6 (10:11 PM PDT Oct 5), steward pass (cron arrived 11 min late)
 
 - Node 1 (watch, no flags): 64.8% (1,764 GiB free), `research/src` 98 trees, `provers` 4 admitted (3 GPUs held); the

@@ -102,3 +102,6 @@ for each of the other three. It is not larger than A.
 * Step C (10:11 PM PDT, 5 Oct): `cursor/flock-e2e-hidden-95d4` at `04d66d9eb`, audit `r20261006-035812-e255` PASS
   (`--no-replay --no-runs`); new guarantees `EndToEndHidden`, `EndToEndHiddenDrawn`, `EndToEndRegistered`,
   `EndToEndRegisteredDrawn` (gap 4, both events), need a statement reviewer. D rebased on it; D's audit is running.
+* Step D (11:06 PM PDT, 5 Oct): `cursor/flock-e2e-zk-95d4` at `3ed8750d9`, audit `r20261006-051118-f4b9` PASS
+  (`--no-replay --no-runs`); new guarantee `ZeroKnowledgeHidden` (`zk_session_viewHJ` restated on `EndToEndHidden`'s
+  plan), needs a statement reviewer. All four steps are pushed and audited.

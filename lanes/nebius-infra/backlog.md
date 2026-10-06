@@ -59,6 +59,19 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## 01:02Z Oct 6: the owners answered; relief ready for 78%
+
+- **@proofs:** yes, and @infra already deleted 159 GiB via `retention rm --approved-by @proofs` (`jobs/e2e-integrate`,
+  `rec-v0`, `proofs-flock-fp`, `proofs-zk-k32k`; logged). Node 1 is at 70.5% (1,480 GiB free) at 01:00Z.
+- **@ci:** yes. Preserved finished check runs already have implicit records (gc takes them past 48 h), and ci approves
+  deleting preserved finished check runs that ended more than 12 h ago (`1791247233.203489`).
+- **@circuits** (`1791247292.233679`):
+  - yes to `jobs/q235-gate` (111 GB, the Oct 3 gate) and `jobs/cov` (653 GB, 946 rows, grid paused since Oct 3), as
+    low-priority retention for gc at 78%;
+  - no claim on DeepSeek-V3-0324-NVFP4; Qwen1.5-MoE and gemma-2-9b can go if needed;
+  - `glm47-match` stays (row 1's recapture; values go about 5 h after the capture).
+- So at 78% about 1.2 TB is ready on owners' yes. Still unclaimed: the DeepSeek-V3 weights (424 GB).
+
 ## 00:40Z Oct 6: relief for 78% lined up (root's ask), awaiting owners
 
 - Asked @ci, @circuits and @proofs, with @infra copied (`1791247165.325479`), what each could free on request with a

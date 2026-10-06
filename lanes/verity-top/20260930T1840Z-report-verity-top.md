@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:46Z) [open] tip 50/51 (no #1261) checking; #1239/#1346 closes asked of Daniel
 CHECKPOINT none (16:26Z) [open] tip 26 landed cb50af5e8; #1261 replay failure blocks tips 42-48, ci building without it
 CHECKPOINT none (16:09Z) [open] tip 42 checking on pods 19-21 + node 1; tips 43-45 queued; #1369/#1370 final at 17:30Z
 CHECKPOINT none (15:54Z) [open] 15:53Z: tip 42 replaces stale 36-41 (proofs moved heads); head-freeze rule requested; old-ways sweep lists in; env-build fix is Daniel's

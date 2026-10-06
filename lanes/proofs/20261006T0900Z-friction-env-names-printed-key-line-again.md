@@ -3,7 +3,8 @@ id: proofs/20261006T0900Z-friction-env-names-printed-key-line-again
 campaign: proofs
 lane: proofs
 kind: friction
-status: open
+status: fixing
+fix: "PR #1327 (infra): .cursor/hooks.json beforeShellExecution guard refuses env/printenv/set/export -p and /proc/*/environ; covers agents started after it lands"
 severity: incident
 recurs: note:circuits-grid-models/20261001T1517Z-friction-env-names-printed-key-lines
 repo: verity

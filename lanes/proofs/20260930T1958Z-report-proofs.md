@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (09:21Z) [open] 2:30 AM PDT: #1327 is infra's fix for the env-names leak (friction note fixing); asked infra whether node 2's memory-accounting quiet window holds proofs' Lean audits; #1270 quick tier executing, #1261/#1324/#1325/#1326 waiting for a slot.
 CHECKPOINT d5efa0005 (08:23Z) [open] 08:23Z #1261 body fixed for red-team B1/B2 at b4784eb8e (BODY-MATCH); reviewer re-checking to grant; #1270 R4 and #1297 E7 re-grant running; tiers #1307/#1313/#1316 waiting on node-1 slots
 CHECKPOINT none (08:06Z) [open] 08:08Z: gap 3 fixed on #1270 (498f4cf64) and #1303 (lean, 1f6a738f9); R4 review running. Firewall split agreed with lean (program #1303, property firewall-contract). New PRs #1313 (one-hash A5), #1315 (outer shape), #1316 (two-stage law, vllm grant). #1271 and #1272 ready. Node 1 check slots saturated.
 CHECKPOINT d5efa0005 (07:12Z) [open] 12:13 AM PDT: #1270 NO-GRANT r2 on one finding (Open timing in stopped records); fixed at 78a2d42da, re-grant and tier running; lean fixing #1303's half. #1286 ready; #1287 held by the lease freeze until 14:00Z.

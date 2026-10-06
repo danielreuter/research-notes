@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (09:42Z) [open] 09:42Z: move #1321 c8b5 past circuit-check+lean-suites, tier 1298 on 29 suites; landing ~10:05Z; PoUS node-2 harness fix #1329 (20/20)
 CHECKPOINT none (09:27Z) [open] 09:27Z: move #1321 check c8b5 past circuit-check, on Lean audit; landing at ~09:37Z if green; PoUS circuits halve cost (#1306); env-leak hook #1327
 CHECKPOINT none (09:11Z) [open] 09:11Z: move #1321 waiting on c8b5 (node 1 slot a) + ready tier 1298 (-19); c871 shards bd98/2464/d10e; Nebius key line leak (5th) -> rotation card for Daniel, infra building names-only fix
 CHECKPOINT none (08:56Z) [open] 08:56Z: move #1321 checking (c8b5, slot a reserved for trains), vllm grant in, ready tier pending; c871 as 3 shards; GLM row 1 ACCEPTED; node 2 back clean; node 1 inodes 50%

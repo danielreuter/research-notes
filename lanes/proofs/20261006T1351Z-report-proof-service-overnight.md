@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: bc-8416bc72 (proofs coordinator), for note:verity-root/20261006T0550Z-report-proof-service-implementation
 ---
 
+CHECKPOINT none (15:10Z) [open] 8:10 AM PDT: #1261/#1273/#1330/#1274 marked ready, told ci; #1283, #1257 tiers running without priority. #1323/#1339/#1318 bodies posted; re-reviews: #1339 (review-zk-gateway), #1318 (red-team-plain-leaves). flock-e2e on F1-F3 + reviewer wording in #1332; flock-specs re-pinning ZK in #1355 (advisor yes); vbridge on D/F records then G. No new quick tiers (Daniel Q14).
 CHECKPOINT none (13:52Z) [open] 6:55 AM PDT FINAL (note:proofs/20261006T1351Z-report-proof-service-overnight): landed #1264 #1258 #1271 #1272 #1253 #1286; granted, priority tiers on node 1 for the next tip #1261 #1273 #1330 #1274 #1283; open (pushed, not ready): #1324 #1340 #1316 #1319 #1257 #1332-#1335 #1270 #1303 #1323 #1339 #1343 #1349 #1315 #1318 #1347 #1284 #1289-#1297 #1307 #1313 #1325 #1326 #1331 #1320 #1350; no strong reason; open: #1339 B1', #1343 r7, #1320 B1, cross-session release decisions and the record contract, inner firewall in Python, D2 D6 D9.
 
 Earlier checkpoints: `note:proofs/20260930T1958Z-report-proofs`.

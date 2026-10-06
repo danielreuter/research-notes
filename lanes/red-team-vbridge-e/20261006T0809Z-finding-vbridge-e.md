@@ -52,3 +52,5 @@ One-line notes, none a condition of a grant:
 - F: E's `sh` must be Verify.lean:40's `Shape` (claims `2 + extras.size`, `fast100 m`, `digestLen`, `saltLen`), and `folded_size` needs `ts.size + 6 = st.c.kLog`.
 - B2 bridge: E's `.wt i u` terms all have `u < 128` (the probe's maximum is 127), which `termVal`'s transpose reading needs as a lemma.
 - Friction: note:red-team-vbridge-e/20261006T0809Z-friction-replay-audit-deps.
+
+Addendum (08:18Z): #1297 at `d77d62ff2` (one commit on `1e3a3db1b`) names the two instances `instValF128` and `instValLin` in `FlockVBridge.Algebra`, the names the records read; no other change, no other unnamed instance in E0 to E7, merge onto `main` (89fb2c28c) clean: **GRANT** on `pr:1297@d77d62ff2ec6c781a4f97b0d794838216bfd0e5c`, verified on the remote.

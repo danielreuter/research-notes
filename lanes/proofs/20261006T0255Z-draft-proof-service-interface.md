@@ -25,12 +25,20 @@ is built under these names; section 6 says what is.
 
 - **A protocol hands the service one `Spec` and gets back one `Outcome`.** The `Spec` is the protocol's four things as
   data: what is committed, the selection rule, the check, and the reading of the outcome. Everything else is the service.
-- **The service is nine calls and a record, across four parties.** The prover gateway (developer-trusted) commits,
+- **Your 7:48 PM PDT ruling arrived while this was being written.** The ruling: the circuit and the data are hidden in
+  every protocol, and only the minimum is public, each item with its reason. There is no clear mode, for secret or
+  public data, and this note now has none. The architecture note
+  (`note:proofs/20261006T0307Z-draft-proof-service-architecture`, sections 1 and 2) applies the rest of the ruling, and
+  on three points supersedes this note:
+  - per-call roots stay private behind one registered window root;
+  - PoUW's per-unit work is a uniform draw over equal tiles, not strata by credit class;
+  - `prove` picks its mode and sizes from public items only.
+- **The service is a few calls and a record, across four parties.** The prover gateway (developer-trusted) commits,
   registers and proves. The GPU workers (trusted by neither) only answer the gateway. The verifier gateway
   (auditor-trusted) receives registrations, issues live coins, draws, runs timed sessions and keeps the record. The batch
   verifier (auditor-trusted, Lean) verifies and writes the outcome.
-- **The service picks how each check is established.** It runs a native check when the protocol lets the auditor see the
-  values ("clear mode"), direct ZK when the statement is small, and recursion when it is large.
+- **The service picks how each check is proved.** It uses direct ZK when the statement is small and recursion when it is
+  large.
 - **A correction to proofs' design.** Binding does not show possession. "Hash each PoUS answer inside the deadline and
   prove it later" is unsound, because the prover can precompute every block's commitment. `commit` gets a nonce-bound form,
   and possession becomes a new named claim (section 3).
@@ -58,7 +66,7 @@ class Value:                          # (1) what is committed
     fresh: bool = False               # nonce-bound, inside a deadline (section 3)
 
 Selection = (                         # (2) which units: the selection rule
-    All()                                             # warden; PoUS's clear-mode setup
+    All()                                             # warden; PoUS's exhaustive setup
   | Law(text, work=None, closure=None)                # "work:K" | "stratified:K" | "subset:K" | "bernoulli:N/D"
   | TwoStage(replay=Law(...), check=None | k)         # replay units by a law, interiors committed, then k (or all) of
                                                       # each drawn one's proof units
@@ -73,8 +81,6 @@ class Check:                          # (3) the check each selected unit passes
     regions: Callable[[Record], PublicInputs]   # computed on the auditor's side only (PoUW R9)
     public_outputs: tuple[str, ...] = ()        # ports the auditor reads, given to RecursiveZK's simulator (PoUW R4)
     deadline: Deadline | None = None            # delta, delta_late, cap, n, miss budget: a property of the record
-    hidden: bool = True               # False: the auditor may see the values (clear mode)
-
 @dataclass(frozen=True)
 class Outcome:                        # (4) what the protocol reads
     accepted: bool
@@ -103,7 +109,7 @@ commit_stream(value) -> Appender                  # .append(row) off a real-time
 commit_registered(program, value, rows) -> Registered   # hm96-sha512/row/v2 (section 4)
 commit_fresh(nonce, digest) -> CommitString       # x = SHA-512(prefix(nonce) || block), inside the deadline (section 3)
 register(spec, roots) -> Registration             # sent to the verifier gateway; the receipt comes back
-prove(draw, check) -> Sessions                    # clear | zk | recursive, chosen by size; gates every message
+prove(draw, check) -> Sessions                    # zk | recursive, chosen by size; gates every message
 
 # Verifier gateway: auditor-trusted. Live coins and the record. flock-audit (#1237), on the node for PoUS.
 receive(registration) -> Receipt                  # held to the auditor's own copies (one_stage R1-R7), then logged
@@ -113,7 +119,7 @@ timed(root, selection: Sequential, deadline, fresh) -> TimedRecord   # PoUS's lo
 record() -> Record                                # append-only; times only as "by the deadline or not"
 
 # Batch verifier: auditor-trusted Lean, offline.
-verify(record, sessions, check) -> Verdict        # flock-verify; a native check in clear mode
+verify(record, sessions, check) -> Verdict        # flock-verify
 outcome(record, verdicts) -> Outcome              # the audit record, and the profile or the exhaustive fact
 ```
 
@@ -127,8 +133,9 @@ salt `y`, computes `b = x ⊕ M·y` and `c = H(y)`, builds the frame-v3-sha512 t
 ready. Salts never reach a GPU. A GPU that sends a wrong `x` gains nothing: hm96's hiding holds for every `x`, and a wrong
 `x` opens to no row, so its proof fails. This is compute-accounting's split (R1). The gateway's share is about 1 µs a leaf,
 1.5–5 cores per GPU at decode (their estimate); `M·y` and `c` depend on the salt alone, so they are precomputed. Roots come
-per call (R2), and a window's registration carries one root over the calls' `(root, shape, record)` entries, since 15
-minutes of decode is millions of calls. `commit_stream` is the same over rows that arrive 10 times a second (warden R3).
+per call (R2). A window's registration carries one root over the calls' entries (each call's root, its shape and counts,
+and its committed record), since 15 minutes of decode is millions of calls. Under the 7:48 PM ruling the entries are
+committed, not public. `commit_stream` is the same over rows that arrive 10 times a second (warden R3).
 
 **`register` and `receive`.** This is one-stage's registration (`registration.record`, `check`, `receipt`), plus the
 protocol's context (R10) and the root over per-call roots. One change for the warden's R1: today's receipt stamps the
@@ -149,32 +156,34 @@ to keep pace with windows, not finish inside an epoch.
 **`select`.** The verifier gateway draws from its own randomness after the receipt, under the rule in the `Spec`:
 - `Law`: the one-stage laws as today (`draw.derive`, `check_draw`; Lean `Flock.Draw`). PoUW's per-unit work (R7) is met by
   strata keyed by template and credit class, the class read from the per-call records registered before the draw. The
-  README's rule already says a template whose units are credited differently is split, and Lean's `work_escape_le` takes
-  any strata.
+  README's rule already says a template whose units are credited differently is split. Lean's `work_escape_le` takes any
+  strata, and `prob_auditReg` covers strata that depend on the registration. What's new is code: `draw.derive` and
+  `Flock.Draw` derive strata from the program and query alone today. Under the 7:48 PM ruling, strata would reveal each
+  class's count. The architecture note (its L3) replaces them with a uniform draw over N equal tiles, scaled by the public
+  ratio N·w_max/W.
 - `TwoStage`: section 4.
 - `All`: no draw, and so no escape term.
 - `Sequential`: inside `timed`, below.
 - `extra`: protocol-chosen units such as PoUW's exclusion tiles (R8), proved and recorded like drawn ones but outside the
   escape bound.
 
-**`prove`.** The protocol says only whether the auditor may see the values (`Check.hidden`). The service picks the mode:
-- **Clear**: the gateway opens the values and salts, and the batch verifier runs the Program natively with the one
-  evaluator. The outcome is an exhaustive fact (PoUS R5, the warden's clear check).
+**`prove`.** The service picks the mode:
 - **Direct ZK**: one C-Flock `--zk` session over the committed values (`--registered`, `--public-inputs`), with the gate of
   #1270 between the GPU and the auditor.
 - **Recursive**: an inner session with zero knowledge off on the GPUs, through the gateway's salted-hash proxy (`rec_live`),
   then V*'s outer `--zk` session through the gate.
 
 The rule is by size. The gate's trusted work grows with the committed witness: for direct ZK that is the statement's
-witness, and for recursion it is V*'s, which depends only weakly on the inner statement. So the service proves directly
+witness, and for recursion it is V*'s, which grows only with the inner proof's openings and algebra. So the service proves directly
 when the drawn units' witness is below V*'s, and recursively above it. Drawn units of one template class go into sessions
 sized to the prover's block limit (PoUW R11, R12). Today V*'s eight statements are 2^28 to 2^32 words each, and the gated
 outer prove costs 46.8 s and about 176 CPU-seconds of gateway work a session (#1270). The crossover itself is unmeasured.
 PoUS's openings go direct, and PoUW's windows go recursive.
 
 **`timed`.** This is PoUS's audit as a verifier-gateway mode, on the node, built on #1227's Lean-owned loop with no Python
-hop in the round (PoUS R2, R4, R7). The verifier gateway draws k indices uniform with replacement from its coin tree, and
-reveals index j only once answer j − 1 is in or its hard deadline has passed. It checks each answer after stamping its
+hop in the round (PoUS R2, R4, R7). The verifier gateway draws k indices uniform with replacement from its own
+randomness, keeps them secret until each reveal (in hidden mode, from its coin tree, one Goldreich–Kahan opening a round),
+and reveals index j only once answer j − 1 is in or its hard deadline has passed. It checks each answer after stamping its
 receipt, or after the last round when the check doesn't fit the gap (the band's graded audit). The record keeps, per index,
 whether the answer was correct and in time, not when it arrived (warden R1). With `fresh=True` (hidden mode), each reveal
 carries a nonce and the gateway answers with `commit_fresh` inside the deadline. A direct-ZK proof after the session then
@@ -217,8 +226,8 @@ microsecond. Hiding still comes from the gateway's salt, and binding from collis
 
 What this shows about possession needs a **new named claim**. No standard-model property of SHA-512 says a digest was
 computed from bytes held at the time. In the random-oracle model, a commitment received by time t determines a hash query
-on the whole block, made after `nonce_j` was revealed. PoUS's Lean then restates its answer check against that query. Until
-the claim and the restatement land, PoUS runs in clear mode only.
+on the whole block, made after `nonce_j` was revealed. PoUS's Lean then restates its answer check against that query. PoUS's
+guarantee waits on this claim and that restatement.
 
 The rule, in general: a guarantee that rests on *when* a value was held needs a nonce-bound commitment. A guarantee about
 *what* was committed before a challenge needs only binding. PoUW's draw and the warden's records are of the second kind.
@@ -254,8 +263,8 @@ What isn't built:
 - **The Lean verifier**: `Flock/Registered.lean` reads row/v1 only. `Flock/HmRow.lean` already computes row/v2 leaves.
 - **The prover**: the Rust prover's `--registered` rows, and the in-circuit row digest, whose prefix carries the bit length.
 - **Recursion**: `rec_live.top_rows` and `RecOpen`'s reads (rec-step3), changed together.
-- **The lock**: the `ZkReg` theorems' statements read the row format. Their records change and need a named statement
-  reviewer.
+- **The lock**: the `ZkReg` theorems read the verifier's registered path (`Flock/Registered.lean`, `HmRow.lean`). If their
+  records change, they need a named statement reviewer.
 
 ## 5. What each call is guaranteed by
 
@@ -271,11 +280,11 @@ What isn't built:
 | `select`: one-stage law | verifier gateway | sampled proofs' law: `subset_miss`, `stratified_escape`, `work_escape_le`, and `drawOS_*_escape_le` for the running draw under A3 | main |
 | `select`: two-stage | verifier gateway | `twoStage_count`, `two_stage_b_tight`, `effEscape_bernoulli_prod` | main, coverage unchecked |
 | `select`: sequential | verifier gateway | — (PoUS's `P2SlackFamilyUncond` assumes uniform indices) | none yet |
+| `timed`: the deadline | verifier gateway | its clock and the audit's isolation, as named claims (PoUS R3, R8); #1227 measures the loop | none yet |
 | `prove` + `verify`: direct ZK, soundness | prover gateway, batch verifier | the `zk_session_*` family (`zk_session_soundJ_custody`, `zk_session_soundR`, `zk_session_soundHJR_custody`) | main |
 | `prove`: direct ZK, zero knowledge | prover gateway | honest-verifier at each coin vector: `zk_session_view`, `zk_session_view_all`, `session_shvzk_le`; against a malicious auditor, `gk_simulate_hm96` instantiated at C-Flock's `--zk` | main; the instance none yet |
 | the gateway's send check | prover gateway | the rule in #1270's PROTOCOL §10; `gateway_no_free_choice` proposed | none yet |
 | `prove` + `verify`: recursive | prover gateway, batch verifier | `RecursiveSound`, `RecursiveZK` over `VBridge` | #1261; `VBridge` #1258 and plan |
-| `prove`: clear | batch verifier | binding, and the Program's own meaning | main |
 | `outcome` | batch verifier | one-stage's audit (`audit_le`, `audit_count`, `audit_drawn`, `audits_seq`); C-Flock's `EndToEnd` | main; #1257 |
 | the record's custody | verifier gateway | `live-verifier` (`RecordCustodyZKJ`) | assumption; #1237 |
 
@@ -299,7 +308,7 @@ What the table means for a protocol:
 
 | piece | on main `c305471c5` | in flight | new for the service |
 |---|---|---|---|
-| registration, receipt, draw checks, audit record | `verity/protocols/verification/sampled_proofs/one_stage/` (`registration`, `draw`, `partition`, `audit`, `verdict`) | — | context binding; one root over per-call roots; strata by credit class; times as deadline bits |
+| registration, receipt, draw checks, audit record | `verity/protocols/verification/sampled_proofs/one_stage/` (`registration`, `draw`, `partition`, `audit`, `verdict`) | — | context binding; one root over per-call roots; public items only (the architecture note's section 2); times as deadline bits |
 | registered values | `one_stage/registered.py` (`Registered.commit`, row/v1) | #1270: tops as registered rows | row/v2 (section 4) |
 | two-stage law | `experimental/verity_experimental/sampled_proofs/law.py` (`TwoStageLaw`, `OwnRandomness`) | — | the driver, a general stage 1, the move into core |
 | commitment schemes | `verity/primitives/commitments/hm96/`, `merkle.py` (frame-v3-sha512), `rowleaf.py` (row/v2, row-seg/v1) | — | the split commit (digests in, salted leaves out); streams; the nonce prefix |
@@ -316,6 +325,9 @@ first user's code and not before. The gateways are C-Flock's (`backends/flock`),
 
 ## 7. The users' requirements
 
+PoUS's numbers here are from its first version (7:29 PM PDT). memory-accounting restated it for the ruling at
+8:07 PM PDT and renumbered it, and the architecture note uses the new numbers.
+
 | requirement | met by | status |
 |---|---|---|
 | PoUW R1: commit fast enough for ~109 MB of A rows per decode step | `commit` taking GPU digests, salted by the gateway, batched per pass | open: the GPU digest kernel and the gateway's rate, which served-zk measures |
@@ -324,18 +336,17 @@ first user's code and not before. The gateways are C-Flock's (`backends/flock`),
 | PoUW R4: public outputs | `Check.public_outputs`, in the outer statement's public file | open: `RecursiveZK`'s simulator must read them |
 | PoUW R5: epoch coins before work | `coins("epoch", after=receipt)` | new |
 | PoUW R6: interiors after the draw | `TwoStage` | proofs takes it (section 4) |
-| PoUW R7: per-unit work | strata by credit class, from the registered records | proofs' recommendation; code in `draw.derive` and `Flock.Draw` |
+| PoUW R7: per-unit work | under the ruling, a uniform `subset:K′` over N equal tiles, K′ scaled by N·w_max/W (architecture note L3) | proofs' recommendation; compute-accounting to agree |
 | PoUW R8: protocol-chosen units | `Selection.extra` | new |
 | PoUW R9: verifier-derived regions | `Check.regions`; prover-supplied refused | new in the service; C-Flock reads the file today |
 | PoUW R10: context binding | `Spec.context`, in the registration | new |
 | PoUW R11: verify latency; windows apart from the epoch | windows independent of epochs; sessions per template class | open: Lean verify time is the largest unknown |
 | PoUW R12: recursion or direct ZK | `prove` picks by size | open: the crossover is unmeasured |
 | PoUW R13: egress | a deployment premise | the warden's |
-| PoUS R1: possession inside the deadline | `commit_fresh` and a new claim | open (section 3); clear mode until then |
+| PoUS R1: possession inside the deadline | `commit_fresh` and a new claim | open (section 3); PoUS waits on it |
 | PoUS R2: sequential draw | `Sequential` in `timed` | new |
 | PoUS R3: the verifier gateway on the node | `timed` runs there | open: what makes it auditor-trusted there (question for Daniel) |
 | PoUS R4: loop latency | `timed` on #1227's Lean-owned loop | new |
-| PoUS R5: a check with no proof | clear mode | new |
 | PoUS R6: storage is not wrong units | `Exhaustive`; `StorageProfile` stays PoUS's | agreed |
 | PoUS R7: timed parameters | `Deadline`; the strict audit first | new |
 | PoUS R8: isolation as soundness | not the developer's gateway; the warden on auditor-trusted terms | open (question for Daniel) |
@@ -357,5 +368,8 @@ first user's code and not before. The gateways are C-Flock's (`backends/flock`),
 
 ## Checkpoint
 
-- 5 Oct, 10:16 PM PDT (05:16Z): deliverable 1 written, ahead of the 10:45 PM PDT deadline. Next: deliverable 2,
+- 5 Oct, 8:00 PM PDT (03:00Z): deliverable 1 written, ahead of the 10:45 PM PDT deadline. Next: deliverable 2,
   `proof-service-architecture`.
+- 5 Oct, 8:20 PM PDT (03:20Z): clear mode removed, per the coordinator's relay of the 7:48 PM ruling. The rest of the
+  ruling is applied in `note:proofs/20261006T0307Z-draft-proof-service-architecture`. A steward sync at 8:07 PM PDT had
+  put back an older copy of this note; this version restores the 8:00 PM text.

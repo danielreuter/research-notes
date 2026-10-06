@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (13:41Z) [open] A 13:40Z poll: node2-ops silent since 11:47Z, missed its ~12:47Z disk fold, flagged to compute accounting (its VM may have stalled); quiet window ended 13:30Z; main b722adaad, nothing under pouw; /workspace last 67% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (13:20Z) [open] A 13:20Z poll: nothing new since 13:00Z (node2-ops quiet since its 11:44Z fold); node 2 quiet to 13:30Z; main 544e5f7b4 unchanged; /workspace last 67% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (13:00Z) [open] A 13:00Z poll: nothing new since 12:40Z; node 2 quiet to 13:30Z; main 544e5f7b4 unchanged; /workspace last 67% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (12:41Z) [open] A 12:40Z poll: no new notes; found my poll's git log --since skipped out-of-order commits (missed node2-ops' harmless 11:44Z fold); switched to a date filter, audited accounting/INBOX since Oct 4, nothing else missed; main 544e5f7b4 unchanged; /workspace 67% flat (hold); node 2 quiet to 13:30Z; off node 2

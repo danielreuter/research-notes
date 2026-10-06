@@ -803,3 +803,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T05:33Z: a09f1bb9a (44f2 + #1149 #1275) queued for the first free slot; kept 924a (44f2) running.
 - 2026-10-06T05:52Z: top: Daniel's proof-service architecture tonight. A generated rename move (warden→network certifier etc.) gets its own train slot ~09:00Z; expect a freeze around it. Open PRs restack afterwards.
 - 2026-10-06T06:05Z: merged 031484e84 (17 PRs) → main 68e614869 via --push; all MERGED; six PRs retargeted. 924a (44f2) running; a09f queued.
+- 2026-10-06T06:13Z: a09f1bb9a (44f2 + #1149 #1275) node1 r20261006-061050-dbcd --agreement; 924a (44f2) on vy-mig-check-18.
+- 2026-10-06T06:15Z: swapped a09f's check for 4ea3d1364 (a09f + #1163) node1 r20261006-061311-c644 --agreement.

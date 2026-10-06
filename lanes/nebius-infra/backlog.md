@@ -59,6 +59,14 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 06:13Z Oct 6 (11:13 PM PDT Oct 5), steward pass (cron arrived 13 min late)
+
+- **Node 1 down to 57.2% (2,146 GiB free):** circuits' `free_values_after.sh` deleted the second GLM capture
+  (`r20261006-001155-ac92/capture/values`, 245,216,372 KiB) after its Match step, as designed and as circuits expected.
+  - `research/src` 91 trees, `provers` 5 admitted (3 GPUs held); the pacer and dispatcher are clean.
+- Node 2 is still in the PoUS timed window (1 lease, `timed` on GPU 7, since about 05:28Z), with 8 jobs queued behind
+  it. That's POUS's design.
+
 ## State at 05:43Z Oct 6 (10:43 PM PDT Oct 5), steward pass (cron arrived 12 min late)
 
 - Node 1 (watch, no flags): 62.1% (1,903 GiB free), `research/src` 87 trees, `provers` 4 admitted (2 GPUs held); the

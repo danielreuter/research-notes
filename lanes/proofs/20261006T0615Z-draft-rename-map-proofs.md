@@ -61,6 +61,9 @@ map to them.
 `rec_live.py`, `rec_vstage.py`, `rec_open.py`, `circuit.py`, `live/src/circuit.rs`, `tests/lean/InnerFold.lean` and its
 tests) → "firewall".
 
+**Claim ids stay.** `live-verifier` and `designated-verifier` (`verity.claims`, cited by PoUS's pinned fixtures) keep their
+names: "verifier" is still the word, and Daniel's draft cites `live-verifier` as a premise by that name.
+
 Prose "verifier gateway" and "batch verifier" appear on none of proofs' open PRs. New proofs code tonight (the service's
 first code, the firewall contract, the outer shape) is written in the new names from the start.
 

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:06Z) [open] 07:07Z: 924a failed on pod env (CUDA sm_120a), 1ad0 still checking; LMS toy binding by 10:30Z; #1257/#1285 after rename
 CHECKPOINT none (06:51Z) [open] 06:52Z: GPU root red team done (cap holds; B200 1.74x window, 0.87x CPU floor); trains 1ad0/924a checking; node2 reboot 08:30Z, rename 09:00Z
 CHECKPOINT none (06:35Z) [open] 06:35Z: 935152515 checking (1ad0), 14330820a behind it; trains stop ~08:30Z for 09:00Z rename; P2 squaring halves PoUS setup cost
 CHECKPOINT none (06:19Z) [open] 06:19Z: main 68e614869 (17 PRs landed); 44f2 on mig pod, 4ea3 on node 1; overnight plan accepted by leads; node2 reboot ok'd for 08:30Z

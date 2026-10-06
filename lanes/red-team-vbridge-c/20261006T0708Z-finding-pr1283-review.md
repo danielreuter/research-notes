@@ -92,7 +92,7 @@ and nothing else. Nothing blocks.
   of the ports from the committed u16 words.
 - The statement is at rec-step3 `273017068`, which has not landed; if `_steps`, `cons_structure` or `acc_ref` change,
   so does this.
-- The audit took 2 h 2 min on vy-nebius-2, against 48 min for the same audit on vy-nebius-1: node 2 has no Lean build
+- The audit took 2 h 9 min on vy-nebius-2, against 48 min for the same audit on vy-nebius-1: node 2 has no Lean build
   cache (`lean-cache: off on this machine`), so `security_proofs` built ArkLib and VCVio from source, beside about 500
   other processes.
 

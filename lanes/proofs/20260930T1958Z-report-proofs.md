@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (00:47Z) [open] 5:50 PM PDT: node-1 disk relief done (infra removed e2e-integrate, proofs-flock-fp, proofs-zk-k32k, rec-v0, 160 GiB; node 1 72%); rec-reprice kept for rec-step3. #1253 head f6640706b, run of record r20261006-000502-e0f3. Waiting on the move (~01:15Z) and six workers.
 CHECKPOINT e259af141 (00:10Z) [open] all lanes pushed first commits; consolidation note done (note:proofs/20261005T2352Z-draft-consolidation); #1253 opened; move ETA 01:15Z
 CHECKPOINT e259af141 (23:41Z) [open] move re-grant at c9b274c1a; #1245/#1246 opened (rec stack); vbridge lane launched; lanes running: flock-specs, flock-e2e, rec-thm, zk-gateway, one-stage-layout, consolidation, rec-step2
 CHECKPOINT e259af141 (23:17Z) [open] finished-state lanes launched (flock-specs, flock-e2e, one-stage-layout, consolidation) + recursive ZK prototype lanes (rec-thm, zk-gateway); rec-step2 running

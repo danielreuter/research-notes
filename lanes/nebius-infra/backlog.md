@@ -59,6 +59,20 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## 06:47Z Oct 6: node 2's queued jobs behind the timed window ran (root's ask)
+
+- All 8 queued at 06:13Z were granted 06:04–06:14Z: circuits' keeper ×4, research ×4, served-zk, @top's `p2decode`, and
+  the fill job. The noise sweep's evicted run `r20261006-052256-d3f8` was regranted at 05:48Z and ended `done` at 05:49Z.
+- The only unrun waiters withdrew themselves ("handle dropped", reason "node is quiet"): `p2decode` `gl-1013798` at
+  06:10Z, and `gl-1911871` and research `gl-2037206` (both submitted at 06:35Z) at 06:41Z. None was dropped by the
+  scheduler, so nobody was told.
+
+## State at 06:44Z Oct 6 (11:44 PM PDT Oct 5), steward pass (cron arrived 14 min late)
+
+- Node 1 (watch, no flags): 60.7% (1,972 GiB free), `research/src` 78 trees, `provers` 4 admitted (4 GPUs held); the
+  pacer and dispatcher are clean. The 06:17Z idle-lease alert is the already-reported pattern, so not re-posted.
+- Node 2: 0 of 8 leased and no queue; the timed window ended and its queued jobs are gone. Idle, reported.
+
 ## State at 06:13Z Oct 6 (11:13 PM PDT Oct 5), steward pass (cron arrived 13 min late)
 
 - **Node 1 down to 57.2% (2,146 GiB free):** circuits' `free_values_after.sh` deleted the second GLM capture

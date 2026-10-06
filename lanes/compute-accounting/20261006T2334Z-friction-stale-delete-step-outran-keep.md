@@ -22,7 +22,10 @@ cursor:
 **How it happened:**
 - The brief I gave worker bc-23c3dbd6 said "6. Delete the old 28 GB passes on both nodes after the new window passes."
 - Top then ruled that cited passes are deleted only if the store shows them preserved, so I made both pass trees read-only.
-- I couldn't relay "cleanup cancelled": a running Cursor subagent takes no follow-up until it returns.
+- I couldn't relay "cleanup cancelled". I start workers with the Task tool. A follow-up to a running worker is refused,
+  not queued: at 23:38Z, `Task(resume=bc-6bc0b69f…)` returned "Sub-agent is currently running. You may send the follow-up
+  message when it has completed." This run has no CreateAgent/SendToAgent, the tool that steers a running turn. Top says
+  that tool can steer; where it exists, a lane that may have to cancel a step should start its workers with it.
 - The worker hit "Permission denied", ran `chmod -R u+w`, and deleted the passes, following its brief.
 - The passes had no retention record. `research retention rm` refuses `keep` records and read-only directories, but a plain
   `rm` goes around both.

@@ -66,3 +66,11 @@ Local evidence (the Rust cross-check crate, the vector regeneration, the slow-te
 The grant label is on `7f32a63eb`. The PR's head is now `5c54ab971`, one commit on top (the P2 v1.1 kit keeps
 randomness v1 as `p2_v1/randomness_v1.py`). It touches only `benchmarks/pous/`, which this review left out of scope;
 outside that directory the patch is byte-identical at both heads. Whoever reviews `benchmarks/pous/` covers that commit.
+
+## Carry to `5c54ab971` (19:20Z)
+
+@proofs reviewed `5c54ab971` (`benchmarks/pous/` only: the kit's trimmed copy of randomness v1, pinned to `f5df3bbc5`'s
+v1 vectors). From a fresh fetch, `git diff 7f32a63eb 5c54ab971249c921bd90329646daa04d87fb8108 -- . ':!benchmarks/pous'`
+is empty, so every path this grant covers is byte-identical at both heads and the grant carries (rule Q5), labelled on
+`pr:1383@5c54ab971249c921bd90329646daa04d87fb8108`. Non-blocking notes 1 and 2 go in a follow-up PR after #1383 lands;
+note 4 waits for #1332 and #1355.

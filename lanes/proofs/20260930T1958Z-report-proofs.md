@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (04:17Z) [open] 9:18 PM PDT (04:18Z): red-team-vbridge-c granted #1273 and #1274; store bodies synced. Holding new node-1 Lean audits at infra's ask (vbridge-algebra's eight). Pearl-C4 attack folded into the joint note. rec-ksweep's K=4096/2048 points posted to top (7.75 s / 7.94 s outer). Waiting: #1264 quick tier, then undraft and post to ci.
 CHECKPOINT none (03:45Z) [open] 8:46 PM PDT: joint note agreed by all three leads (7 AM item done early); #1277 records the rulings; #1264 under red-team-proofs-1264
 CHECKPOINT none (03:38Z) [open] 8:38 PM PDT: interface + γ posted early (γ fails under (a); -h3 recommended); joint note agreed by compute-accounting and network-accounting with 6 changes applied, memory-accounting pending; #1264 under red-team-proofs-1264
 CHECKPOINT none (03:01Z) [open] 20:00 PDT: #1270 gateway (red-team-zk-gateway), #1271/#1272 VBridge B1/B2 (red-team-vbridge-b), defs-move GRANT posted, rec-ksweep, proof-service + pouw-gamma due 06:00Z, #1034 re-grant running

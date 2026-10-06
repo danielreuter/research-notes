@@ -86,6 +86,8 @@ def smax(rows: list[dict], key: str):
 def point(runs: Path, spec: dict) -> dict:
     K, N = int(spec["K"]), int(spec["N"])
     p: dict = {"K": K, "N": N, "runs": {}}
+    if spec.get("label"):
+        p["label"] = spec["label"]
     b, p["runs"]["build"] = load(runs, spec["build"], "build")
     st = (b.get("staged") or [{}])[0]
     stmt = {}
@@ -208,7 +210,7 @@ def table(points: list[dict]) -> str:
         t, vt = p["terms"], p["vstar_total"]
         lean_zk = (p.get("lean") or {}).get("zk", {}).get("verify_s")
         lines.append("| " + " | ".join([
-            fmt(p["K"]), fmt(p["N"]), fmt(p["inner_statement"].get("m")), fmt(t["inner_m0_proxy_prove_s"]) + " s",
+            p.get("label") or fmt(p["K"]), fmt(p["N"]), fmt(p["inner_statement"].get("m")), fmt(t["inner_m0_proxy_prove_s"]) + " s",
             fmt(t["inner_m0_proxy_coin_wait_s"]) + " s",
             fmt(t["vstar_zk_prove_s"]) + " s", fmt(t["vstar_levels_prove_s"]) + " s",
             fmt(t["vstar_algebra_prove_s"]) + f" s ({vt['algebra']['statements']})", fmt(t["today_zk_prove_s"]) + " s",
@@ -236,7 +238,7 @@ def main():
            "overhead_inner_compute": "the same with the inner's critical-path wait for the rec proxy's coins removed (median over "
            "the timed sessions of prove_total_s - wait_e2e_s): the Python proxy runs on the job's verifier cores, node 1's shared "
            "96-127, so its latency carries other jobs' load",
-           "gpu_held_s_total": round(sum(p["gpu_held_s"] for p in pts), 1), "points": pts}
+           "gpu_held_s_total": round(sum(p["gpu_held_s"] for p in pts if not p.get("label")), 1), "points": pts}
     a.out.write_text(json.dumps(doc, indent=1, sort_keys=False))
     md = table(pts)
     if a.table:

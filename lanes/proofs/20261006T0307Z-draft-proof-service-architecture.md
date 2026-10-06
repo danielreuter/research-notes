@@ -333,8 +333,11 @@ Per deployment and per epoch (about 15 minutes):
 >   decode's path. `ttOutRowSeed_of_ttOut` (on main) reduces the row-seeded TT_OUT to the granted per-unit one with no
 >   new named assumption; the error becomes (q + R)/2¹²⁸ over the R declared rows.
 > - Cost: on the panel `-h3` is cheaper than `-h2` (1.340× against 1.464× at decode, 1.205× against 1.223× at prefill,
->   GPU 1's real call). In the hidden audit, an estimated 0.1–0.2M ANDs per drawn A row, about 1% of that row's hm96
->   read, keyed on the SHA-512 row digest the gadget already computes, with E_A private.
+>   GPU 1's real call), with the seed keyed on `-h3`'s BLAKE3 row leaf (step 4). In the hidden audit each drawn A row
+>   pays one BLAKE3 row hash, about 5.7M ANDs at k = 8,192 (pouw-gamma's estimate), on top of its ≈14.9M hm96 read:
+>   about +38% per drawn A row, with E_A private. The gadget computes the leaf and the hm96 row from the same row words,
+>   so the seed binds the committed row. This is the code form `CodeSeedNoise` (C1-h3) and `ttOutRowSeed_code` describe
+>   (`-h3`'s `b3_seeds`), so nothing owed changes.
 > - Owed, Lean only: the row-seeded `K` twin of `pearlCHiddenSm120v1LoopCast8p72Rev1Cap1000_8192` (the served line,
 >   LoopCast8p72, cap 1/1000), a mechanical port of `RowSeedGamma.lean` that compute-accounting owns, and the statement
 >   review of (C1) and (C2), the deployed seed's conditions.
@@ -351,12 +354,14 @@ Per deployment and per epoch (about 15 minutes):
 Serving, per call:
 
 4. The GPU computes A's unsalted row digests (`digest`, row-seg/v1) and the call's `UnitRecord`. Under `-h3` each row's
-   digest is computed **before forming and seeds that row's E_A**, so there is one digest per A row: if the seed is keyed
-   on hm96's inner SHA-512 row digest (pouw-gamma's recommendation), the commitment and the seed read the same digest and
-   the GPU hashes each row once. That puts SHA-512 on decode's path ahead of forming, unlike `-h2`'s tree, which is off
-   it. The measured 1.340× is `-h3` with BLAKE3; the SHA-512-keyed seed is unmeasured, and compute-accounting times both
-   in the 12:00 AM PDT (07:00Z) window. The prover gateway salts the digests into the window's handle, asynchronously and
-   off decode's critical path. Nothing leaves the developer's site.
+   E_A is seeded from its **BLAKE3 row leaf, computed before forming** (1.340× at decode on the panel), and the
+   hm96-sha512 statement rows are committed **after the step**, batched once (+11%). The seed is not keyed on hm96's
+   inner SHA-512 row digest: served-zk measured SHA-512 rows on sm_120 (r20261006-040316-7f4f), and computing them in
+   the call path takes a decode step to 108.8 ms, 5.2× `-h2`'s 20.9 ms, because the chains are latency-bound and the
+   seed must exist before forming (compute-accounting, 9:41 PM PDT, 1791261692.167359). So each A row has two digests:
+   the BLAKE3 leaf in decode's path and the statement row after the step. Under `-h3` nothing reads `-h2`'s A root, so
+   `-h2` goes. The prover gateway salts the digests into the window's handle, asynchronously and off decode's critical
+   path. Nothing leaves the developer's site.
 
 Per audit window (decoupled from the epoch, question D6):
 
@@ -456,7 +461,7 @@ The user role, per link-window:
 is compute-accounting's 7.5k. By file:
 - `pouw/audit.py`'s commitments, openings, `Sampled`, `Verifier`, `Audit` and the beacon path (~190 of 360);
 - `serving.py`'s hash formats and manifest (~75), the commitment side only: PoUW keeps the per-row seed derivation
-  (`-h3`'s `b3_seeds`, or its SHA-512 successor). compute-accounting also owes `pearl_c.row_seed` in the reference and
+  (`-h3`'s `b3_seeds`, keyed on the BLAKE3 row leaf; section 4.1 step 4). compute-accounting also owes `pearl_c.row_seed` in the reference and
   `-h3` in PoUW's PROTOCOL.md;
 - `pearl_c_work.py`'s `Beacon`, draw and replayed audit (~140);
 - `circuit/plan.py`'s laws, sampler and profile (~250);
@@ -592,7 +597,9 @@ leads and proofs.
 
 - **D1. Pearl-C's noise seed and γ (PoUW Q1).** γ does not hold under (a): a prover forms every row onto a few shared
   targets and does 2–4% of the work (section 4.1). Recommendation: per-row seeds, the `-h3` format (option (b) per row),
-  which keeps γ at 0.36949% with no new assumption and keeps the gateway out of decode's path. compute-accounting agrees.
+  which keeps γ at 0.36949% with no new assumption and keeps the gateway out of decode's path. Each row's seed is keyed
+  on its BLAKE3 row leaf before forming, and the hm96-sha512 statement rows are committed after the step; a seed keyed
+  on the SHA-512 row digest would make every decode step 5.2× slower (section 4.1 step 4). compute-accounting agrees.
   Owed: the row-seeded `K` twin of `pearlCHiddenSm120v1LoopCast8p72Rev1Cap1000_8192` (compute-accounting's port) and the
   statement review of (C1) and (C2). Pearl-C4 breaks under (a) too and per-row seeds stop it, so this covers both
   schemes (section 4.1); Pearl-C4 stays off served accounting until its `-h3` label exists (#1278 and its follow-ups).
@@ -709,6 +716,9 @@ seed derivation kept (section 5), and Pearl-C4 off served accounting. network-ac
 (1791257816.713839): keep PoUS's acceptance rules as the difftest oracle (section 5), the on-time bits and drawn hiding
 leaves as public items (section 3), the offset from the rejection target (section 4.3 step 7), and `commit_fresh` over
 the whole block (step 8, D3; the interface's signature). All ten are applied. **All three leads agree.**
+**Revised (9:41 PM PDT, 1791261692.167359):** compute-accounting moved step 4's seed from the SHA-512 row digest to
+`-h3`'s BLAKE3 row leaf, after served-zk measured SHA-512 rows in the call path at 5.2× per decode step; the statement
+rows are committed after the step. Applied in sections 4.1 and 5 and D1.
 
 **compute-accounting (PoUW):** answered. Asks 1–3: agree, with the changes applied. Ask 4: L4 and L5 decided (section 7).
 Ask 5: served-zk moves onto one-stage's registration, receipt and Lean draw after its 11:00 PM PDT (06:00Z) verdict, and
@@ -751,3 +761,6 @@ fixed-offset release and an hour's proof deadline agreed. Ask 4: takes step 5 an
   7 and 8; the interface's `commit_fresh` signature). Agreed by all three leads.
 - 5 Oct, 9:14 PM PDT (04:14Z), proofs coordinator: compute-accounting's Pearl-C4 attack folded in (section 4.1, D1):
   Pearl-C4 breaks under (a) as Pearl-C does, and D1's per-row seeds cover both.
+- 5 Oct, 10:00 PM PDT (05:00Z), proofs coordinator: compute-accounting's revision of step 4 applied (sections 4.1, 5, 8
+  and D1): the seed is keyed on the BLAKE3 row leaf before forming, the hm96-sha512 statement rows are committed after
+  the step, and `-h2` goes.

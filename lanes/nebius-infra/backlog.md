@@ -59,6 +59,19 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 00:20Z Oct 6 (5:20 PM PDT Oct 5), steward pass (cron arrived 16 min late)
+
+- **The hourly util_collect at tick 66 (23:32Z) failed:** `ssh n2 'cat /workspace/pouw/infra/util/*.jsonl'` timed out at
+  300 s. That's 140 MB of node 2 sampler JSONL, growing about 25 MB a day, probably slow during a VM pause.
+  - Fixed in `/tmp/util_collect.py` (copy in `tools/`): node 2 is read through `ssh_gz` (`| gzip -1` on node 2, 600 s
+    timeout).
+  - A run by hand took 2 min 20 s and stored `art:cc609351e836511c83cb7f2a3fbae9350e6eb006013c76bcda712ba598fe2f0b`.
+- Node 1 (watch, no flags): 68.6% (1,574 GiB free), `research/src` 51 trees, `provers` 1 admitted (1 GPU briefly held at
+  00:15Z); the pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue.
+- Drift: node 1's `gpu-lease` now matches main (`0d477644`), so @infra deployed it. @infra hasn't answered on
+  `vy-custody`.
+- The cron passes are arriving later each time (4, 9, 13, 16 min) as this VM pauses; node 1's watch covers the gaps.
+
 ## State at 23:43Z Oct 5 (4:43 PM PDT), steward pass (cron arrived 13 min late)
 
 - **@proofs fixed the idle-lease cause** (`1791242426.676669`): `rec-step2` held a lease across a whole `85-rec-reprice`

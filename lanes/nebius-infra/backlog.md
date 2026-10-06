@@ -59,6 +59,13 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 04:09Z Oct 6 (9:09 PM PDT Oct 5), steward pass (cron arrived 8 min late)
+
+- Node 1 (watch, no flags): 65.3% (1,742 GiB free), `research/src` 110 trees, `provers` 5 admitted (2 GPUs held); the
+  pacer and dispatcher are clean. Another idle-lease alert at 03:27Z; proofs already told once, so not re-posted.
+- Node 2: 8 of 8 leased (the noise sweep on 5–7, 3 `research` runs, 1 `adhoc:ubuntu`, a fill-runner job), and no queue.
+- The latest hourly snapshot is `art:7bad833da704d9a87edb4e255783665fe00b4dfc76681e740eb88bf425424ba8` (about 03:55Z).
+
 ## State at 03:37Z Oct 6 (8:37 PM PDT Oct 5), steward pass (cron arrived 6 min late)
 
 - Node 1 (watch, no flags): 64.2% (1,794 GiB free), `research/src` 93 trees, `provers` 2 admitted (2 GPUs held); the

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:00Z) [open] 23:00Z: inbox empty; main 40438bd85; tips 78-82 checking; PoUW SHA-512-only rerun running; proofs restack plan due 01:00Z
 CHECKPOINT none (22:45Z) [open] 22:45Z: inbox empty; main 40438bd85 (tip 77, #1383 SHA-512 derive); 22:30Z report sent to Daniel; tips 78-82 checking; proofs restack plan due 01:00Z
 CHECKPOINT none (22:30Z) [open] 22:30Z: inbox empty; PoUS e2e goal met (reported to Daniel); PoUW e2e mostly met, rerun after SHA-512-only merge; tips 75-82 queued
 CHECKPOINT none (22:15Z) [open] 22:15Z: inbox empty; main 327ea5b1b; tips 75-82 queued; P2 v4 rerun relaunched 22:04Z after import fix; 22:30Z reports pending

@@ -59,6 +59,16 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 08:42Z Oct 6 (1:42 AM PDT), steward pass (cron arrived 12 min late)
+
+- Node 1 (watch, no flags): 60.1% (2,001 GiB free), `research/src` 102 trees, `provers` 4 admitted (2 GPUs held); the
+  pacer and dispatcher are clean.
+- Node 2: node2-ops alerted @infra that it was unreachable from 08:32Z. It was a planned reboot: at 08:30:12Z the research
+  user ran `grub-reboot vy-device-cores` and a delayed reboot, after adding a 08:30Z quiet line for memory-accounting to the
+  schedule. Up since 08:36Z, `vy-cluster-agent` active, `/workspace` 68%. Told @infra (`1791276204.019549`). Now 1 of 8
+  leased (research, GPU 7), 7 idle (reported), no queue.
+- Hourly snapshot `art:80559fcc…` (utilization-summary updated).
+
 ## State at 08:12Z Oct 6 (1:12 AM PDT), steward pass (cron arrived 12 min late)
 
 - Node 1 (watch, no flags): 62.5% (1,880 GiB free), `research/src` 104 trees, `provers` 5 admitted (3 GPUs held); the

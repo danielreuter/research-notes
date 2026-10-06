@@ -814,3 +814,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T07:42Z: top/ci: 1ad0 (935152515) is the last landing before the rename; land it when it passes even if after 08:30Z, post the main sha, then hold until the move is on main.
 - 2026-10-06T08:13Z: merged 935152515 → main 89fb2c28c via --push (spec DM, mirror, post_train). FROZEN for the rename move until top says it's on main.
 - 2026-10-06T08:16Z: infra: node 2 down 08:30-08:45Z; node 1 has a fifth slot (e, cores 96-127); vy-mig-check-19/20 are for quick tiers and shards only.
+- 2026-10-06T08:46Z: first post-rename tip c8710a449 (move 4f827ee8b + #1279 #1281 #1285 #1286 #1271 #1272 #1298 #1293 #1302) node1 r20261006-084358-029d --agreement, started ahead; lands once the move is on main if tree-identical.
+- 2026-10-06T08:48Z: cancelled 029d (c871): it was queued ahead of the move's check c8b5 on full node 1 (5 lane runs). c871 waits for leftover capacity or shards on vy-mig-check-20.

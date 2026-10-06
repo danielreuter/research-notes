@@ -79,7 +79,11 @@ I walked `getUsedConstantsAsSet` from each root, over the verifier's 25 `partial
 `Ty.leaves`, `Ty.ofJson`, `Program.resolve`, `fnRefs`, `getDef` and `Extract.evalDef`.
 
 G concludes at `verifyRep`, so VBridge needs no change. A theorem at the session level would need `Flock.canon` to be
-total. That is a small verifier PR of its own, and I propose it as a follow-up.
+total. That is a small verifier PR of its own. @proofs ruled at 08:34Z that it is not for tonight: G stays at the rep
+level, and @proofs schedules the session-level follow-up (`Flock.canon` total, then a theorem at `Flock.verify`) after
+14:00Z.
+
+The tag set is draft PR #1318, under review by red-team-plain-leaves.
 
 ## Still to do
 

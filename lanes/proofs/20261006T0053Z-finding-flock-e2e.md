@@ -116,3 +116,7 @@ for each of the other three. It is not larger than A.
 * Step C restacked (1:31 AM PDT, 6 Oct): `cursor/flock-e2e-hidden-95d4` at `573d4a50d` (binders and
   `EndToEndHidden_refSetup` `7ca89feb1`, its pin `18de5e020`, merges `007e18e14` and `28e6a652c`, record), audit
   `r20261006-074511-78e2` PASS (1755 guarantees); D's audit `r20261006-083030-61a1` is running.
+* Step D restacked (2:16 AM PDT, 6 Oct): `cursor/flock-e2e-zk-95d4` at `ecd2b0a4e` (binder `dc3423f58`, merges
+  `5675b15f0` and `306f3a385`, record), audit `r20261006-083030-61a1` PASS (1756 guarantees). The restack is done; the
+  four PR-body files carry the new heads, the reference-setup binder and, under Daniel's 2026-10-03 ruling, no reviewer
+  request. All re-audits ran on node 1, one at a time, before I saw the coordinator's undelivered note asking for node 2.

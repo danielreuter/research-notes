@@ -193,6 +193,6 @@ witness construction.
   the F stub, because vbridge-algebra's `Structure` already restates `run` with its coins. `FlockVBridge.sound_climbRow`
   (`VBridge/Open.lean`, `RecOpen_v3._climb` from the row's SHA-512 leaf) is on `cursor/vbridge-open-95d4` at
   `403a232c8`, with C1 merged in; audit run `r20261006-021256-fec1` (`--no-replay`). C2's `acc_out` waits on B2.
-- 03:00Z (8:00 PM PDT): C2's audit `r20261006-021256-fec1` PASS (1750 guarantees, no replay); its record is committed at
+- 02:58Z (7:58 PM PDT): C2's audit `r20261006-021256-fec1` PASS (1750 guarantees, no replay); its record is committed at
   `2434949b9`, and `internal/proofs/vbridge-open-pr.md` is filled in. Both pieces are done to their PR files. Next: C2's
   `acc_out` once B2's `residual_forms` statement exists; D once #1179 and #1192 land; F and G after rec-thm.

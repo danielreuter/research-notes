@@ -105,3 +105,6 @@ for each of the other three. It is not larger than A.
 * Step D (11:06 PM PDT, 5 Oct): `cursor/flock-e2e-zk-95d4` at `3ed8750d9`, audit `r20261006-051118-f4b9` PASS
   (`--no-replay --no-runs`); new guarantee `ZeroKnowledgeHidden` (`zk_session_viewHJ` restated on `EndToEndHidden`'s
   plan), needs a statement reviewer. All four steps are pushed and audited.
+* Restack (11:40 PM PDT, 5 Oct): #1257 moved to `a294e8f5e` (red team's finding 1: `y₀` is table 0's setup at some
+  draw `d₀`), and A–D inherited the vacuous binder. Each step merges the one below, takes the new binder, and C adds
+  `EndToEndHidden_refSetup` (every accepted draw gives the hidden-output `y₀`). Audits re-run in order, A first.

@@ -346,7 +346,7 @@ if W is committed as hiding rows of exactly one P2 payload (2,054 bytes) each, w
 assumes. PoUW then proves inference against the same root, reading tensors at hidden positions (`MerkleRead_v1`, or
 `one_stage/registered.py`'s hm96-sha512 rows at this row size). Other row sizes still work, as long as the setup opens
 every row a payload touches, at about R / 128 compressions per R-byte row. For example, rows of 64 KiB would cost about
-512 × 81,402 ≈ 4.2e7 ANDs per block, two thirds of the rest of the block's statement [C]. A second, PoUS-only root
+512 × 81,402 ≈ 4.2e7 ANDs per block, which takes the block's statement from 6.26e7 to about 1.03e8 [C]. A second, PoUS-only root
 would need its own proof of equality with PoUW's, about 1.6e12 ANDs per GB [E: 4.87e5 blocks × two openings of about
 1.63e6]. The row size is a joint decision with PoUW (Q6).
 

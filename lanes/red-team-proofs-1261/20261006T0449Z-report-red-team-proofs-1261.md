@@ -2,9 +2,10 @@
 lane: red-team-proofs-1261
 kind: report
 created: 2026-10-06T04:49Z
-status: open
+status: final
 ---
 
+CHECKPOINT b4784eb8e (08:11Z) [final] PR #1261 @ b4784eb8e: BLOCK on PR-body text (B1 rec-acc/rec-rows outside the model; B2 dirs public input); Lean clean; no label; note:red-team-proofs-1261/20261006T0810Z-finding-pr1261-review
 CHECKPOINT b4784eb8e (07:29Z) [open] waiting out node-2's booked 07:00-08:30Z served window; probe r20261006-052640-f0c4 at 4481/4604; verdict BLOCK on PR text stands
 CHECKPOINT 2fe3a6272 (06:49Z) [open] provisional verdict BLOCK on PR #1261's text, not its Lean: staged V* also reads rec-acc (prover-registered, shared by all sessions; rec-rows-L<level> with link_rows), which ZkOuter's history-fixed own/rd can't hold, and passes dirs as a 2nd public input; PR body names only coef. Fix = PR-body Limits text at same head. Probe r20261006-052640-f0c4 still building (node-2 quiet windows; 07:00-08:30Z booked)
 CHECKPOINT b4784eb8e (06:25Z) [open] probe run r20261006-052640-f0c4 at build 4452/4604, paused again by PoUS p2 timed cells on node 2; verdict drafted BLOCK on PR text

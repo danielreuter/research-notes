@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:45Z) [open] 23:45Z inbox empty; tips 82-84 checking; pass guard #1418 open; upload decision with Daniel
 CHECKPOINT none (23:30Z) [open] 23:30Z tip 80 landed (e2e chain, circuits v2); PoUW SHA-512 rerun passed; pass-upload decision with Daniel
 CHECKPOINT none (23:19Z) [open] 23:19Z inbox empty; ready labels in, prepare gap void on main; tips 80/82 checking on node 1
 CHECKPOINT none (23:00Z) [open] 23:00Z: inbox empty; main 40438bd85; tips 78-82 checking; PoUW SHA-512-only rerun running; proofs restack plan due 01:00Z

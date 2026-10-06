@@ -5,6 +5,7 @@ created: 2026-10-06T04:49Z
 status: open
 ---
 
+CHECKPOINT b4784eb8e (07:29Z) [open] waiting out node-2's booked 07:00-08:30Z served window; probe r20261006-052640-f0c4 at 4481/4604; verdict BLOCK on PR text stands
 CHECKPOINT 2fe3a6272 (06:49Z) [open] provisional verdict BLOCK on PR #1261's text, not its Lean: staged V* also reads rec-acc (prover-registered, shared by all sessions; rec-rows-L<level> with link_rows), which ZkOuter's history-fixed own/rd can't hold, and passes dirs as a 2nd public input; PR body names only coef. Fix = PR-body Limits text at same head. Probe r20261006-052640-f0c4 still building (node-2 quiet windows; 07:00-08:30Z booked)
 CHECKPOINT b4784eb8e (06:25Z) [open] probe run r20261006-052640-f0c4 at build 4452/4604, paused again by PoUS p2 timed cells on node 2; verdict drafted BLOCK on PR text
 CHECKPOINT b4784eb8e (05:57Z) [open] run r20261006-052640-f0c4 paused by node-2 timed windows (05:31-05:49Z, 05:49Z-); finding drafted: BLOCK on PR text (rec-acc/rec-rows outside ZkOuter; dirs a 2nd public input), Lean checks pass so far

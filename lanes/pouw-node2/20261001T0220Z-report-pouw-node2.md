@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (17:00Z) [open] A 17:00Z poll: nothing new since 16:40Z; main cb50af5e8 unchanged; /workspace last 68% (hold); panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (16:40Z) [open] A 16:40Z poll: node2-ops 15Z hourly 12.3%, queue empty, /workspace 68% (hold); infra's 24 h idle report: node 2 13.7 idle of 40.3 GPU-h, compute accounting's served_profile.sh (bc-113f8c4c) 2.6 idle of 7.7, just outside the top 3; main cb50af5e8 unchanged; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (16:20Z) [open] A 16:20Z poll: node2-ops found its alert reads blind ~12:00-16:00Z (wrong key), fixed; nothing missed but disk notices: /workspace 68% (1,603 GiB, -48 GiB in the hour to 15:46Z; hold); main cb50af5e8 (#1341, #1310, #1312, #1317, #1304), nothing under pouw; panel art:d2b2eb906612; off node 2
 CHECKPOINT fbce5a2f4c (16:00Z) [open] A 16:00Z poll: nothing new since 15:40Z; main f5df3bbc5 unchanged; /workspace last 68% (hold); panel art:d2b2eb906612; off node 2

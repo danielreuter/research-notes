@@ -834,3 +834,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T11:12Z: tip 20 996728280 (19f2 + #1329 #1336) node1 r20261006-111010-a365. 19f2 and 9967 can't land until #1312@260a2739a has ready; pinged circuits.
 - 2026-10-06T11:13Z: per root, asked ci for a fallback without #1312 (main + #1329 #1336 [+ #1342]) to check in parallel.
 - 2026-10-06T11:15Z: fallback 2f998181c (main + #1329 #1336, no #1312) node1, in parallel with 8e6b (19f2) and a365 (9967).
+- 2026-10-06T11:32Z: tip 21 5a0f5d21c (2f99 + #1327 #1306) queued on node1 with priority, alongside 2f99 (80ab) as its fallback.

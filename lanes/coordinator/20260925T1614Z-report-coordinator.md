@@ -787,3 +787,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T02:33Z: cancelled e4b8/29e5 (carry #1242). ci tip 4020f22d7 (main + #1247 #1236 #1250 #1254 #1255 #1244 #1253 #1159; no #1242) node2 r20261006-023032-7f80 --agreement.
 - 2026-10-06T03:05Z: ci tip c3099683f (4020 + #1256 #1248 [ae56] + #1251 #1262; FP8 clear) node1 r20261006-030350-498c --agreement; lands after 4020 (7f80).
 - 2026-10-06T03:14Z: ci tip 72d57537f (c309 + #1034, red-team and ready verified; FP8 clear) node1 r20261006-031159-417e --agreement.
+- 2026-10-06T03:34Z: queued 8c59c46f9 (72d5 + #1160 #1258) for the first slot after 72d5 resolves.
+- 2026-10-06T03:37Z: next to check after 72d5 is a75f2168e (8c59 + #1242 fixed at bb4309178); 8c59 is the fallback.

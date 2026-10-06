@@ -95,7 +95,7 @@ As built (`partition_v2.rows`): 128-byte rows, each a `BitRowLeaf(1024)` committ
 frame-v3-sha512 tree over `RangeIndexedDomain(R)`, port `advice`. R is padded to the statement's `advice.rows`.
 
 - A header row: magic, program_sha512(C), n, m, e (entries), rows used.
-- The Call table, 4 Calls per row: (root node index, entry index, member count, start_k).
+- The Call table, one row per Call: (root node index, entry index, member count, start_k), 8 bytes each.
 - A directory, one row per cut-table entry: (definition digest, kind, n_d, U_d, payload start, payload rows, items).
 - The payloads.
   - Flat: owner_d as u32s; then a class index per unit as u32s; then the class digests, 2 per row. A class is a distinct

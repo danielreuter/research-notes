@@ -3,7 +3,7 @@ id: proofs/20261006T0123Z-finding-vbridge-algebra
 campaign: proofs
 lane: proofs
 kind: finding
-status: in-progress
+status: done
 repo: verity
 origin: bc-6e8b6a34-9c5d-5cd2-aaa4-7238afa3674f (vbridge-algebra, for the proofs coordinator)
 ---
@@ -53,3 +53,8 @@ Plan: `note:proofs/20261005T2345Z-draft-vbridge-plan`, piece E. Python restated:
   (`-035339-16cd`, 1750), zerocheck `a1d1b469c` (`-035403-b1df`, 1753), lincheck `df3fc0378` (`-035428-b999`, 1757),
   ringswitch `44e61ada2` (`-035453-d26f`, 1762). Ligerito `r20261006-041008-2002` still running. PR files filled for
   all but ligerito.
+- 05:25Z (10:25 PM PDT): done. Ligerito audit `r20261006-041008-2002` PASS at `eb9924847` (1772 guarantees, 10 new),
+  record committed and ringswitch merged: ligerito `1e3a3db1b`, the stack's top. Repo tests (30) pass at `1e3a3db1b`.
+  All eight PR files filled (`internal/proofs/vbridge-algebra-<piece>-pr.md` in the store). Left for G: peel V*'s
+  `challenge`/`oodIntro`/`queryFold`/`levelsLoop` against the verifier's loop; the verifier's final-check state is V*'s
+  through `kv`, with cursors at the lists' ends; V*'s `ext` = `sch.ext`. F supplies the premises listed in E7's PR file.

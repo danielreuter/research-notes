@@ -3,7 +3,7 @@ id: 20261006T1055Z-report-strong-reason-h3-sha512
 campaign: pouw
 lane: compute-accounting
 kind: report
-status: in-progress
+status: final
 repo: verity
 origin: pouw-h3-sha512
 ---
@@ -63,8 +63,28 @@ r20261006-100722-c6cb; step timing r20261006-100049-5377; screen and smoke r2026
 Pearl's FP8 scheme is Pearl's definition, and its keyed BLAKE3 is fixed by Pearl's own vectors (`pearl_kw.json`).
 Moving it to SHA-512 would make it a different scheme than the one it names. The ask is to leave it as Pearl defines it.
 
-## Still pending from the lane
+## The row cap is not the reason (no retries)
 
-- verify_run on the arms' passes (B1's verify r20261006-094525-d77f running; B2's relaunching).
-- The row cap's failure rate (no retries) on served shapes.
-- The lane's branch head and PR.
+`served_debit --per-input 1 --fresh-draws 32`, no retries, on B1's retained decode passes: -h3 in r20261006-130453-0637,
+-h3s in r20261006-123912-90a0. Each trial is a work-weighted tile under a fresh salt drawn after the pass, replayed with
+the row cap and the tile cap as `verify_run` does.
+
+| input (k, n) | -h3 failures | -h3s failures | worst row's debit / its cap (-h3, -h3s) |
+| --- | --- | --- | --- |
+| (4096, 4096) | 0 / 32 | 0 / 32 | 0.351, 0.585 |
+| (4096, 6144) | 0 / 32 | 0 / 32 | 0.470, 0.588 |
+| (4096, 28672) | 0 / 32 | 0 / 32 | 0.593, 0.593 |
+| (14336, 4096) | 0 / 32 | 0 / 32 | 0.238, 0.238 |
+
+0 of 128 under each arm (each input below 0.128 at 95%, simultaneous over the four). The worst credited row is 1.7x
+under its cap on both arms; the worst tile is at 0.048 (-h3) and 0.044 (-h3s) of the tile's cap. So both seed arms
+meet "no retries" at served Llama shapes, and the choice between them is cost alone.
+
+## Still pending at 14:00Z
+
+- `verify_run` on the arms' retained passes: B1's (r20261006-094525-d77f) has accepted window 1 (-h2, prefill and decode,
+  control REJECT) and is on -h3 and -h3s; B2's is r20261006-112217-7acb. The screen and smoke already gate -h3s on the
+  GPU (r20261006-090402-0325: eager and graphed 24/24 ACCEPT, both controls REJECT).
+- The lane's PR (`cursor/pouw-h3-sha512-e3fa`, stacked on #1308).
+
+None of these can change the cost, which is the reason.

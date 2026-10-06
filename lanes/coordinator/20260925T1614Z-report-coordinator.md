@@ -775,3 +775,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T00:28Z: post-move tip 1b8e56301 (move fc6d + #884 #1031 #1099 #1221 #1216 #1240 #1234 #1235; replaces 7d59) node1 r20261006-002421-4ac5, started ahead; lands once the move is on main and the tip is tree-identical.
 - 2026-10-06T00:52Z: #1225 (Lean move) landed by top as main 7b410fbf6 (spec DM, mirror, post_train done). Advanced refs/research/after-land 88f5cc533 → 7b410fbf6 so it isn't caught up twice. Freeze lifted. 1b8e (4ac5) tree-identical on 7b41; lands when it passes.
 - 2026-10-06T00:55Z: root: velocity over spend. If tips wait for a slot, or node 1's disk passes ~77% (74% now, circuits' capture for ~13 h), ask infra for migration pods instead of queueing on node 1.
+- 2026-10-06T01:05Z: ci tip 84008fde6 (ad13 + #1236 #1242 #1250 #1254 #1255) node2 r20261006-010330-a0a3; lands after ad13/1b8e.

@@ -59,6 +59,13 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 01:07Z Oct 6 (6:07 PM PDT Oct 5), steward pass (cron arrived 6 min late)
+
+- Node 1 (watch, no flags): 70.5% (1,480 GiB free) after proofs' 159 GiB went; `research/src` 63 trees. 0 of 8 GPUs and
+  nothing in Kueue (idle, reported); the pacer and dispatcher are clean. Node 2: 1 of 8 (a fill-runner job), and no queue.
+- The loop's next hourly is tick 72 (about 01:10Z), the first with the gzip fix. The `TimeoutExpired` line still in the
+  log is tick 66's.
+
 ## 01:02Z Oct 6: the owners answered; relief ready for 78%
 
 - **@proofs:** yes, and @infra already deleted 159 GiB via `retention rm --approved-by @proofs` (`jobs/e2e-integrate`,

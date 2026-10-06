@@ -59,6 +59,27 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## 02:55Z Oct 6: node 2's two new leases checked against Daniel's rule (root's ask)
+
+- Both are compute-accounting's workers. Their branches end `-e3fa`, the compute-accounting coordinator
+  `bc-e90634dd-…-97abfd87e3fa`. Both serve @top's 02:12Z assignment (`1791252777.081129`; compute-accounting's plan
+  `1791252953.650169`).
+  - The question: can one served Pearl-C request's commitment (hm96-sha512 rows) be opened by the hidden_zk proof, and
+    what does serving in that format cost on sm120 by 14:00Z?
+  - `bc-7a8095f9` on GPU 5: served-zk, `r20261006-023348-3018` (`benchmarks/pouw/served_zk/serve.sh`).
+  - `bc-113f8c4c` on GPUs 0–3 and 6: `r20261006-023458-d2bb` (`pearl_c_vllm/noise_sweep.sh`, branch
+    `pouw-noise-sweep-e3fa`), untimed preemptible screens of that decode overhead until 13:58Z. They're widened under
+    @top's 02:23Z call for one bigger preemptible lane per lead.
+  - Approved. Nothing to tell root.
+
+## State at 02:45Z Oct 6 (7:45 PM PDT Oct 5), steward pass (cron arrived 13 min late)
+
+- Node 1 (watch, no flags): 62.4% (1,888 GiB free), `research/src` 84 trees, `provers` 1 admitted (1 GPU held); the pacer
+  and dispatcher are clean.
+- Node 2: 8 of 8 leased (agent `bc-113f8c4c` on 0–3 and 6, `bc-7a8095f9` on 5, a `research` run on 4, a fill-runner job on
+  7), and no queue.
+- The latest hourly snapshot is `art:36041b8e11cd9385e0d988b9ddba2d73c2f77bc37df76441f71d3a99336df8f5` (about 02:30Z).
+
 ## State at 02:12Z Oct 6 (7:12 PM PDT Oct 5), steward pass: check runs removed
 
 - **@infra removed the ci-approved check runs**, 02:11–02:12Z. `rm --approved-by @ci` first refused (implicit owner

@@ -22,3 +22,5 @@ lists names safely (`research env names`) or a VM where the PEM isn't a multi-li
 A second path, Oct 6 ~09:30Z: one-hash listed processes with full command lines on its own VM (checking memory), and a
 local daemon's auth token was in one argv; it stayed in its tool output. #1327 doesn't cover `ps`. Proofs prompts now say:
 never `ps aux`, `ps -ef`, `ps -eo args` or `pgrep -a`; use `ps -eo pid,stat,etimes,comm`. Told infra (1791279717.543699).
+Again at ~09:51Z, before that rule reached it: proof-service ran `ps -eo pid,etime,pcpu,rss,args`, and the exec-daemon's
+`--auth-token` was in its output; it went no further than the tool output. `735e85ddc` (#1327) now refuses that listing.

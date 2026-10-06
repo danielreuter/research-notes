@@ -59,6 +59,17 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 02:12Z Oct 6 (7:12 PM PDT Oct 5), steward pass: check runs removed
+
+- **@infra removed the ci-approved check runs**, 02:11–02:12Z. `rm --approved-by @ci` first refused (implicit owner
+  @runner), so @infra wrote `research keep … --owner @ci` sidecars on @ci's yes (`1791252322.579119`; scope: check.py
+  runs, ended more than 12 h ago, preserved). Then 422 deletions, all `@ci`, all under `research/runs`, about 611 GiB, all
+  logged.
+  - The four live check slots' run dirs are intact.
+- **Node 1 is now 64.4% (1,785 GiB free).** Circuits' `jobs/cov` and `jobs/q235-gate` are still held for 78%.
+  `node1-disk-watch-78e` comes off after an hour under 72% (about 03:12Z).
+- Node 2: 1 of 8 (a fill-runner job). The coordinator lane's new merge-queue conflict handoffs aren't mine.
+
 ## 02:03Z Oct 6: asked @infra to remove ci-approved check runs now (root's ask)
 
 - Node 1 is at 73.6% (1,323 GiB free), climbing about 157 GiB/h. Asked @infra in the relief thread (`1791252129.787529`)

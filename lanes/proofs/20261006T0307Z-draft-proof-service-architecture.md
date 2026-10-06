@@ -677,5 +677,5 @@ leads and proofs.
 - 5 Oct, 8:26 PM PDT (03:26Z): ready to send. Cited the rulings it rests on: 7:48 PM superseding 2026-10-01's "shapes may
   stay public" (section 1), the one-theorem ruling (section 3), the development shortcut (step 0) and the hidden read's
   accepted cost (step 8).
-- 5 Oct, 8:40 PM PDT (03:40Z), proofs coordinator: public items restated in top's four kinds (section 1, `Public.kind`,
+- 5 Oct, 8:32 PM PDT (03:32Z), proofs coordinator: public items restated in top's four kinds (section 1, `Public.kind`,
   L1), and γ filled in from pouw-gamma's finding (sections 1 and 4.1, D1; the interface's section 8).

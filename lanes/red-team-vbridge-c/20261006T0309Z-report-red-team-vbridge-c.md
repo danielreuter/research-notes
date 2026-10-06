@@ -5,6 +5,7 @@ created: 2026-10-06T03:09Z
 status: final
 ---
 
+CHECKPOINT d5efa0005 (12:37Z) [final] rename re-grant: GRANT #1273 @fd6af1d43, #1274 @ca685b7af, #1283 @91e8bdcb8 (restack reproduces from git objects; sources byte-identical; lock deltas equal; records unchanged); labels on remote; note:red-team-vbridge-c/20261006T1235Z-finding-vbridge-rename-regrant
 CHECKPOINT d5efa0005 (07:09Z) [final] GRANT #1283 @3d9977368; replay audit r20261006-044346-2f12 PASS both packages, records equal; recOpen == unit_circuit gate for gate; label on remote; note:red-team-vbridge-c/20261006T0708Z-finding-pr1283-review
 CHECKPOINT d5efa0005 (06:44Z) [open] pr1283: still waiting on replay audit r20261006-044346-2f12 (security built; security_proofs building ArkLib/VCVio from source on a loaded vy-nebius-2)
 CHECKPOINT 5b96da663 (06:01Z) [open] pr1283: all five checks done and clean; only the replay audit r20261006-044346-2f12 (vy-nebius-2, 77 min so far vs 48 on node 1) remains before the verdict

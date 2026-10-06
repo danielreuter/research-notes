@@ -360,13 +360,17 @@ PoUS's numbers here are from its first version (7:29 PM PDT). memory-accounting 
 | warden R4: coins as ingress | — | needs Daniel |
 | warden R5: aborts and timing composed with `RecursiveZK` | a joint corollary | open; proofs and network-accounting, not tonight |
 
-## 8. PoUW's noise seed and γ: placeholder
+## 8. PoUW's noise seed and γ
 
-> **[PLACEHOLDER — pouw-gamma's answer, filled in by the proofs coordinator.]** compute-accounting's question 1: does
-> Pearl-C's γ hold if E_A comes from the epoch coins and the matmul's index alone (option (a)), so that A is chosen after
-> the coins? If yes, the service's `coins("epoch")` is all PoUW needs, and no call waits on a commitment root. If no,
-> PoUW takes option (b): seed_A derived in gates from an unpublished digest of A, as `ncp-v2` does. Option (c), the
-> gateway inside decode's per-call path, is out either way.
+compute-accounting's question 1: does Pearl-C's γ hold if E_A comes from the epoch coins and the matmul's index alone
+(option (a)), so that A is chosen after the coins? **No** (`note:pouw-gamma/20261006T0318Z-finding-gamma-adaptive-a`).
+Knowing each row's noise first, the prover forms every row onto a few shared targets: at 8192³, 256 of 256 rows landed
+bit for bit on 16 shared A′ rows, every rule Pearl-C v1 applies passed, and its work fell to 2–4% of W_ref (γ ≈ 96–98%).
+PoUW takes option (b) per row, the `-h3` format: row i of call u seeds E_A from (coins, the GPU's own unsalted digest of
+row i, root_B, u·2³² + i). `coins("epoch")` still suffices, no call waits on a root, and γ stays 0.36949% with no new
+assumption (`ttOutRowSeed_of_ttOut`, on main). Owed: the served line's row-seeded twin theorem and the deployed seed's
+statement review. Option (c), the gateway inside decode's per-call path, is out. The architecture note's section 4.1
+has the details.
 
 ## Checkpoint
 

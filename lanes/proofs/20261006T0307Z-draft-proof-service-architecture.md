@@ -33,9 +33,12 @@ Read at `origin/main` `c305471c5`. Inputs, at the notes commits named:
   timed sessions and keeps the record. The batch verifier (auditor-trusted, Lean) verifies and writes the outcome.
 - **The 7:48 PM ruling becomes one rule the service enforces.** Everything the auditor can observe must be a function of the
   `Spec`'s public items. That covers the registration's fields, which proof mode the service picks, the number and size of
-  sessions, and each message's size and timing. Public items are protocol structure the verifier must know: scheme
-  constants, the check's Program, and the selection law and its parameters. Committed values never are. Four changes
-  follow:
+  sessions, and each message's size and timing. Public items are the minimum each protocol needs, each with its reason,
+  and come in four kinds (top, 8:15 PM PDT, after compute-accounting): protocol structure (scheme constants, the check's
+  Program, the selection law and its parameters); the protocol's outputs (the verdict, PoUW's credited work N, δ in its
+  profile); the verifier's own coins and draws (PoUW's drawn indices); and hiding commitments (W's salted root). Never
+  public: the developer's data, its circuit, or anything that reveals them, such as shapes, row indices, layouts and
+  unsalted digests. Daniel checks each protocol's list. Four changes follow:
   - The registration stops showing per-template populations, per-root leaf counts and per-call roots.
   - A drawn unit's position is read in gates, with `MerkleRead_v1` (on main) and the subtree read (#1063).
   - There is no clear mode.
@@ -97,9 +100,10 @@ statement is about 6.3e7 ANDs, 92% of them in the squarings. memory-accounting's
 - A sampled `subset:s` setup is 8 sessions (s = 2,759, ε = 1% at 2^-40) or 24 (s = 8,828, at 2^-128), whatever |W| is.
   It needs a restated certificate (`P2SlackFamilyFreeBlocks`) and a larger k.
 
-**pouw-gamma's progress.** Their 8:01 PM PDT checkpoint reports an attack on PoUW's option (a) on the reference at
-k = 1,024: 16 of 16 rows with distinct E_A formed exactly to 7 shared A′ rows. They are running k = 8,192 now. Their answer
-goes in the placeholder (section 4.1), not this note's.
+**γ (pouw-gamma, 8:18 PM PDT).** It does not hold with E_A from the coins and the matmul's index alone (option (a)): at
+8192³, 256 of 256 rows formed exactly onto 16 shared A′ rows, so the prover's work falls to 2–4%. Per-row seeds (`-h3`)
+keep γ at 0.36949% with no new assumption and no gateway on decode's path. Section 4.1 has the details and D1 the
+recommendation.
 
 ## 2. The API, refined
 
@@ -115,8 +119,9 @@ class Spec:
 
 @dataclass(frozen=True)
 class Public:
-    item: str                          # protocol structure the verifier must know, or the protocol's output; never a
-                                       # committed value: "N", "credited work", "B", "(T, r, B, tau_b)", "Sigma_sync"
+    item: str                          # "N", "credited work", "B", "(T, r, B, tau_b)", "Sigma_sync", "root_W"
+    kind: str                          # "structure" | "output" | "coins" (the verifier's coins and draws)
+                                       # | "commitment" (hiding: salted); never the data, the circuit, or what reveals them
     reason: str                        # why it must be public
     source: str                        # "parameter" (fixed before the run) | "window" (a public output of Check.window)
 
@@ -303,11 +308,29 @@ Per deployment and per epoch (about 15 minutes):
 2. The verifier gateway `receive`s the registration, logs a receipt, and answers `coins("epoch", after=receipt)`.
 3. The GPUs expand the coins into the epoch's salt and noise.
 
-> **[PLACEHOLDER: γ, pouw-gamma's answer, filled in by the proofs coordinator.]** Does Pearl-C's γ hold with E_A from the
-> epoch coins and the matmul's index alone (option (a))? If yes, step 3 is all PoUW needs, and no call waits on a root.
-> If no, `seed_A` is derived in gates from an unpublished digest of A (option (b), as in `ncp-v2`). Under the ruling,
-> the anchors' positions move into gates under either option, because a unit's coordinates are hidden. As of 8:01 PM PDT,
-> pouw-gamma reports option (a) attacked at k = 1,024 and is running k = 8,192.
+> **γ with A chosen after the epoch coins: it does not hold under option (a). Seed each row instead (`-h3`), and γ stays
+> 0.36949% at 8192³** (pouw-gamma, `note:pouw-gamma/20261006T0318Z-finding-gamma-adaptive-a`, 8:18 PM PDT).
+> - Under (a), E_A comes from the coins and the matmul's index alone, so the prover knows each row's noise before it
+>   chooses the row. It can choose each row of A so that the formed row A′ lands exactly on one of a few shared targets,
+>   then compute those few rows of C̃ once per weight per epoch and copy them. On the exact reference at 8192³ (sm_120),
+>   256 of 256 rows (8 calls × 32) formed bit for bit onto 16 shared A′ rows, 216 onto one. Every row passed the noise
+>   floor and `live_row`, the replayed debit stayed under the 1/1000 cap, and every tile was computed correctly, so
+>   neither the hidden audit nor the work law's draws sees anything. The prover's work falls to about 2–4% of W_ref: the
+>   best γ under (a) is about 96–98%, no bound at all.
+> - No new statement rescues (a). The game already lets the prover choose A after the salt; the γ theorems take TT_OUT
+>   at the semantics as a hypothesis, and under (a) that hypothesis is false (the attack is a counterexample).
+> - **The fix is a per-row form of option (b), already designed and proved:** row i of call u draws E_A from
+>   H_"pearl-c/v0/seed-A"(coins ‖ leaf_i ‖ root_B ‖ u·2³² + i), with leaf_i the GPU's own unsalted digest of the row
+>   (step 4's `digest`). The coins can stay public before serving, and neither the gateway nor a round trip sits on
+>   decode's path. `ttOutRowSeed_of_ttOut` (on main) reduces the row-seeded TT_OUT to the granted per-unit one with no
+>   new named assumption; the error becomes (q + R)/2¹²⁸ over the R declared rows.
+> - Cost: on the panel `-h3` is cheaper than `-h2` (1.340× against 1.464× at decode, 1.205× against 1.223× at prefill,
+>   GPU 1's real call). In the hidden audit, an estimated 0.1–0.2M ANDs per drawn A row, about 1% of that row's hm96
+>   read, keyed on the SHA-512 row digest the gadget already computes, with E_A private.
+> - Owed, Lean only: a row-seeded twin of the served line's theorem (`pearlCProtocolDevRev1K` at LoopCast8p72, cap
+>   1/1000), a mechanical port of `RowSeedGamma.lean`; and the statement review of the deployed seed's conditions.
+>   Pearl-C4 has the same seed_A shape and was not tested.
+> - Under the ruling, the anchors' positions move into gates either way, because a unit's coordinates are hidden.
 
 Serving, per call:
 
@@ -529,9 +552,10 @@ leads and proofs.
 
 ### Needing Daniel
 
-- **D1. Pearl-C's noise seed and γ (PoUW Q1).** This is the placeholder in section 4.1, for pouw-gamma's answer.
-  Recommendation: (a) if γ holds with A chosen after the epoch coins, otherwise (b), and never the gateway in decode's path.
-  pouw-gamma's early result points to (b).
+- **D1. Pearl-C's noise seed and γ (PoUW Q1).** γ does not hold under (a): a prover forms every row onto a few shared
+  targets and does 2–4% of the work (section 4.1). Recommendation: per-row seeds, the `-h3` format (option (b) per row),
+  which keeps γ at 0.36949% with no new assumption and keeps the gateway out of decode's path. Owed: the served line's
+  row-seeded twin theorem in Lean, and the deployed seed's statement review.
 - **D2. Is W's size public (PoUS Q5)?** PoUS's B shows |W| to within a 2,054-byte block, hence the model's size. PoUW's
   weight-side proving, about one unit per weight row every epoch, shows it too. Recommendation: public for now, with that
   reason. Pad W to a bucket when a deployment needs its size hidden. Inside PoUS's certified family that needs no Lean
@@ -572,8 +596,10 @@ leads and proofs.
 ### For the leads and proofs
 
 - **L1. The public-items lists.** All three now exist: PoUW's (`5e71daace`), the warden's (`40968ff4b`) and PoUS's
-  (`a5825f376`). Each item is protocol structure the verifier must know, or the protocol's output, and never a committed
-  value. The service enforces the lists. Owners: each lead, to keep them current.
+  (`a5825f376`). Each item is one of the four kinds (section 1) with its reason: structure, an output, the verifier's coins
+  and draws, or a hiding commitment. PoUW's list has values of the last three kinds (N, δ, the drawn indices, W's salted
+  root), which the corrected rule allows. The service enforces the lists, and Daniel checks each in the morning. Owners:
+  each lead, to keep them current.
 - **L2. Per-call roots stay private (PoUW R2, restated).** The window root, registered before the draw, keeps C1.
   Owner: compute-accounting.
 - **L3. PoUW's per-unit work (R7) under the ruling.** Strata by credit class would show each class's count. Proofs'

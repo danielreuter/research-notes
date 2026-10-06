@@ -821,3 +821,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T09:00Z: c871 shard path checked. vy-mig-check-19/20 have CUDA 13.0 (sm_120a OK). check.py's --combine and research merge's shard_set require every ci.toml part once, in one plan and config, so coverage is enforced. c871 changes nothing under backends/flock/ (agreement not required). Land on the combined run.
 - 2026-10-06T09:05Z: c871 shards (final ids): 1/3 r20261006-085822-bd98 and 2/3 r20261006-090200-2464 on vy-mig-check-20, 3/3 r20261006-085841-d10e on -19. Once all pass: check.py --record --combine bd98 2464 d10e at c8710a449, then land after the move.
 - 2026-10-06T09:19Z: ci tip 187d0017a (c871 + #1260) queued on node1 with priority (next train slot after the move's check).
+- 2026-10-06T09:47Z: aafb8c1e8 (187d + #1312) queued for a free slot; 7f39 (187d) running 27 min in node1 slot d, kept per root's rule.

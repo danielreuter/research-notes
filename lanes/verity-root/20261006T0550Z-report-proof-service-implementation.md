@@ -160,6 +160,38 @@ it at 7:00 AM PDT.
 - Today's rulings into `.agents/skills/friction/SKILL.md`: the decisions table and the names.
 - The morning report for Daniel at 7:30 AM PDT (14:30Z): what landed, every strong-reason report, what's open, and spend.
 
+## Sequencing
+
+This section comes from the seven consolidation notes (`note:<lead>/2026100{5,6}T…-draft-consolidation`, all but console's;
+ci's arrived at 11:15 PM PDT), checked against the items above so that no two lanes move the same files at once. It was
+posted at 11:20 PM PDT (thread 1791265836.679829).
+
+1. Before the rename slot, the train adds #1268 (the warden's program package) and #1243 (one `machines.d` reader). The
+   rename applies section 4 of `note:network-accounting/20261006T0625Z-draft-certifier-rename-map`.
+2. Until 7:00 AM PDT, shared machinery changes only to unblock a train: `tools/lean/`, `tools/move/`, `tools/check/`,
+   circuit-check's binding schema (#1163, circuits' registry loader), and the GPU nodes' lease and agent.
+3. Lock reductions (#1170, #1192/#1201, #1156, Pouw's lock items) restack after the rename. A pure move sends Daniel no
+   DM, but a pin removal does.
+4. The warden's tree changes in this order: #1268, the rename, N1 and N2, then network-accounting's refactors after
+   14:00Z.
+5. X1 is `verity/partition/v2` beside v1. v1, its vectors and #1179's per-form cases don't change. L1 checks v2.
+6. S1 binds core's `verity/primitives/commitments/gates/sha512.py`. PoUW's copy (`pouw/circuit/hashes.py`) is in P6's
+   inventory to retire.
+7. C1, #1278, #1288 and #1282 go before compute-accounting's single scheme registry and the sm120 kernel move.
+8. P1's Glossary lines are written after the rename, in the new names.
+9. The joint note's §5 deletions have owners now. PoUS's `protocol.Verifier` and `TimedVerifier` loops go to
+   memory-accounting under M1. The warden's published commitment goes to network-accounting under N1.
+10. v2 overrides these consolidation items:
+    - compute-accounting's h3 deletion;
+    - network-accounting's published `commitment.commit`;
+    - memory-accounting's #1 and #2.
+
+    The SHA-256 in NCP and Pearl's FP8 scheme goes into P6's inventory. Keeping it is a strong reason only if it is part
+    of those external schemes' definitions.
+
+The notes' other questions for Daniel go in his morning report.
+
 ## Checkpoint
 
 - 5 Oct, 10:50 PM PDT (05:50Z): written and sent to all leads.
+- 5 Oct, 11:20 PM PDT (06:20Z): the sequencing added, from the consolidation notes.

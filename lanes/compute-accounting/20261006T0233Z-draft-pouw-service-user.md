@@ -433,17 +433,17 @@ from its symbols.
 
 ### PoUW's public items (under the 7:48 PM PDT ruling)
 
-Everything not on this list is hidden: W, A, every output, the model's matmul graph and shapes, the batch per step, row
+The kinds are top's four (thread 1791253199.410869, 03:15Z): protocol structure, the protocol's outputs, the verifier's coins and draws, hiding commitments. Everything not on this list is hidden: W, A, every output, the model's matmul graph and shapes, the batch per step, row
 indices, the records, the tile digests and the per-unit anchors.
 
-| item | why it must be public |
-|---|---|
-| The verdict per audit window | It is the protocol's output. |
-| Credited work for the window, as one number (equivalently N, the window's unit count, since every unit is one 64 × 64 × `row_k` tile) | Crediting work is PoUW's purpose, and the draw ranges over N units. The work sum over the hidden shapes is proved in gates, so no per-call shape is revealed. |
-| The check: the scheme id and its constants (tile 64 × 64, `row_k`, the FP8 or NVFP4 format, the noise rule), and `pc8`'s hidden tile check as a Program | The verifier has to know which check it is verifying. The Program is protocol structure, the same for every prover and every model. The model's own circuit is not part of it. |
-| The selection law: K or (ε, δ), the window, and the drawn unit indices in [0, N) | The draw is the verifier's, from its coins. A drawn index's map to (call, tile, coordinates) is proved in gates against the committed layout, so an index reveals nothing beyond N. |
-| The weights' registration: one salted root | It binds a window's work to a registered model and is hiding. A deployment that doesn't need linkability across windows can re-salt it per window. |
-| The integrity profile: δ, the law, and which levels were exhaustive | It's what the verifier established, and it reads only the items above. |
+| item | kind | why it must be public |
+|---|---|---|
+| The verdict per audit window | output | It is the protocol's output. |
+| Credited work for the window, as one number (equivalently N, the window's unit count, since every unit is one 64 × 64 × `row_k` tile) | output | Crediting work is PoUW's purpose, and the draw ranges over N units. The work sum over the hidden shapes is proved in gates, so no per-call shape is revealed. |
+| The check: the scheme id and its constants (tile 64 × 64, `row_k`, the FP8 or NVFP4 format, the noise rule), and `pc8`'s hidden tile check as a Program | structure | The verifier has to know which check it is verifying. The Program is protocol structure, the same for every prover and every model. The model's own circuit is not part of it. |
+| The selection law: K or (ε, δ), the window, and the drawn unit indices in [0, N) | structure (the law); the verifier's coins (the indices) | The draw is the verifier's, from its coins. A drawn index's map to (call, tile, coordinates) is proved in gates against the committed layout, so an index reveals nothing beyond N. |
+| The weights' registration: one salted root | hiding commitment | It binds a window's work to a registered model and is hiding. A deployment that doesn't need linkability across windows can re-salt it per window. |
+| The integrity profile: δ, the law, and which levels were exhaustive | output | It's what the verifier established, and it reads only the items above. |
 
 What this costs, still to measure:
 - The work sum and the index-to-tile map become gates over the committed layout, a small statement per window.

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:50Z) [open] 14:50Z: node 1 check queue saturated; lanes moving tiers to node 2/check pods; infra fixing wait-counts-as-timeout; AGENTS.md reviewer rule being reconciled with 4 Oct ruling
 CHECKPOINT none (14:35Z) [open] 14:35Z: tip 23 landed (main f5df3bbc5, #1342 in); tips 24-26 next; #1278 held for C1; proofs' queue priority fixed
 CHECKPOINT none (14:18Z) [open] 14:18Z: morning report sent to Daniel; tips 22-27 queued on main b722adaad; awaiting Daniel's Q11/Q14/C1/key calls
 CHECKPOINT none (14:02Z) [open] 14:02Z: freeze over; all leads' finals in (strong reason only C1, sent to Daniel); main b722adaad; morning report 14:30Z

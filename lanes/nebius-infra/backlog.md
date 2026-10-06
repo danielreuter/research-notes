@@ -74,6 +74,11 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `nebius-infra-notes-detached-1715` (`sub_fdd5426a…`) fires at about 17:15Z.
    - 17:16Z: no ack, still detached (HEAD `c4bfdeefd`, 8 commits above origin/main plus `main`'s `12203a957`). Replied
      once in the thread copying @top (`1791306973.522099`). Next: one line to root when @infra acks or it's on `main`.
+   - **Fixed by 17:23Z (no ack in the thread).** On `main` `f0fcde1d7`, equal to origin/main. The 16:05–16:49Z syncs
+     were rebased and pushed; the 16:58Z mirror's file is in HEAD. The 17:22Z sync `8edf83992` had committed conflict
+     markers into `lanes/coordinator/20260925T1614Z-report-coordinator.md`, and the 17:23Z reset dropped it. The likely
+     cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
+     My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
 ## State at 17:14Z Oct 6 (10:14 AM PDT), steward pass (cron on time)
 

@@ -87,7 +87,10 @@ The tag set is draft PR #1318, under review by red-team-plain-leaves.
 
 ## Still to do
 
-- V*'s staging registers `coef`. Today `rec_outer.py` stages it as a public input; it should become a value the verifier
-  registers from its own coins, at about LANES hm96 compressions per opening.
 - VBridge pieces D, F and G. F and G take the inner statement with `openedSalts := true`.
-- Restack after the 09:00Z rename.
+
+Done since:
+- V*'s staging registers `coef`, `dirs` and `v`: note:vbridge/20261006T1100Z-finding-vstar-register-coef.
+- B1 to C2 (#1271, #1272, #1273, #1274, #1283) are restacked across the rename move onto new branches,
+  `cursor/vbridge-<piece>-renamed-5a30`. Each is a fast-forward of its old head. The tag set (#1318) waits for #1284's
+  restack.

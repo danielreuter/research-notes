@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (10:32Z) [open] 3:50 AM PDT: rename move on main; restacked and pushed #1325 #1326 #1331 #1320 #1307 #1313 #1081 (tiers on vy-mig-check-19/-20); rec-thm, flock-e2e and rec-step3 resumed for the conflicted stacks (locks --moved on node 1); zk-gateway, plain-leaves-fix, vbridge, firewall-contract and proof-service restack on return.
 CHECKPOINT none (10:02Z) [open] 3:02 AM PDT: opened flock-e2e A-D as #1332-#1335 and #1330/#1331 myself (workers lack the PR tool), all BODY-MATCH; #1315 body reposted. Waiting on red teams (#1330, #1331, flock-e2e), zk-gateway (#1270 rename, P2 PR 2), firewall-contract (#1323 B1-B4).
 CHECKPOINT none (09:30Z) [open] 2:40 AM PDT: flock-e2e restacked steps A–D onto #1257 (audits pass, --no-replay); opening four drafts; red-team-flock-e2e reviewing (replay waits on node clearance). P2 PR 1 (firewall rules 1–2) ready; rename-only commit going onto #1270 first; asked the owner whether the Python relay may sit under D8 (a).
 CHECKPOINT none (09:21Z) [open] 2:30 AM PDT: #1327 is infra's fix for the env-names leak (friction note fixing); asked infra whether node 2's memory-accounting quiet window holds proofs' Lean audits; #1270 quick tier executing, #1261/#1324/#1325/#1326 waiting for a slot.

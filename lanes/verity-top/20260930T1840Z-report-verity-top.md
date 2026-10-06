@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (08:56Z) [open] 08:56Z: move #1321 checking (c8b5, slot a reserved for trains), vllm grant in, ready tier pending; c871 as 3 shards; GLM row 1 ACCEPTED; node 2 back clean; node 1 inodes 50%
 CHECKPOINT none (08:40Z) [open] 08:41Z: main 89fb2c28c frozen; rename move on main ~11:45Z (lock update + full check), first post-move train ~14:00Z; firewall #1270 round 5; LMS lowering OOM fix by 11:00Z
 CHECKPOINT none (08:25Z) [open] 08:25Z: main 89fb2c28c (1ad0 landed 08:12Z), frozen for rename move being regenerated; vy-mig-check-20 up for quick tiers; node 2 reboot 08:30Z
 CHECKPOINT none (08:09Z) [open] 08:09Z: 1ad0 still checking; LMS resolved via toy binding; firewall 3rd gap fixed (#1270/#1303 to red team); asked infra for check capacity before post-rename restack

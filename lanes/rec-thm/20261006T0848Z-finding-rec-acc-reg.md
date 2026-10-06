@@ -9,10 +9,11 @@ origin: bc-0e16e57e (rec-thm, for @proofs)
 ---
 # B1 closed in the model: one shared registration `R₂` before V*'s sessions
 
-**Status, 1:55 AM PDT, 6 Oct:** the design, the statement and the proof are done: commit `f6ab493cb` on branch
+**Status, 2:45 AM PDT, 6 Oct:** done. The design, the statement and the proof are commit `f6ab493cb` on branch
 `cursor/rec-acc-reg-95d4` (from #1261's head `b4784eb8e`), which builds on vy-nebius-1 (`Proofs.Flock.Recursive.Guarantees`
-and everything it imports, no new warnings, no `sorry`). The lock (`audit.py --update`) is running. This note gives the
-exact Lean signatures first, for the vbridge lane (piece G), and then what I found.
+and everything it imports, no new warnings, no `sorry`). The lock is `8fb946c2d`, the branch's head, from audit
+`r20261006-084941-c067` (`verity/Security` PASS). Only `RecursiveSound`'s reads changed. This note gives the exact Lean
+signatures first, for the vbridge lane (piece G), and then what I found.
 
 ## The signatures
 
@@ -108,8 +109,7 @@ of one root; each binds to the registrant's own opening, of which there is one.
 
 **What stays the job of the instance (and of `VBridge`).** `zs` is total, as before. That the real V*'s `own` reads
 only `R₂`'s roots (not its rows), and that every level's `rd` is `R₂`'s same `rec-acc` rows, are properties of the
-concrete `zs`, on which `VBridge` (piece G) is stated. `dirs` (B2) is not in this change: it remains a public input that
-`rd` must record as verifier-registered, like `coef`.
+concrete `zs`, on which `VBridge` (piece G) is stated. `dirs` (B2) is not in this change. It is the vbridge lane's
+(`cursor/vstar-register-coef-95d4`): a public input that `rd` must record as verifier-registered, like `coef`.
 
-`RecursiveZK` is untouched. Its lock record may change on the value hash only, as in #1261 (the shared `_proof_N` for
-`Nat.AtLeastTwo 2` is renumbered when `RecursiveSound` is restated).
+`RecursiveZK` is untouched, and so are its lock records, value hash included.

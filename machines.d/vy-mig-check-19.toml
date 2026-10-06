@@ -1,6 +1,0 @@
-# machine vy-mig-check-19: written by `research pods register`; one file per machine (research.pods.registry)
-provider = "runpod"
-pod_id = "3zzgx2so4faaig"
-project = "verity"
-registered_by = "cursor"
-registered_at = "2026-10-06T08:32Z"

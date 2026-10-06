@@ -59,6 +59,18 @@ when `/tmp/steward-pass.last` is over 40 min old.
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
 
+## State at 03:16Z Oct 6 (8:16 PM PDT Oct 5), steward pass (cron arrived 15 min late)
+
+- Node 1 (watch, no flags): 63.7% (1,821 GiB free), `research/src` 94 trees, `provers` 2 admitted (2 GPUs held); the
+  pacer and dispatcher are clean.
+- Node 2: 8 of 8 leased (compute-accounting's noise sweep `bc-113f8c4c` on 0–2, 5 and 6; 2 `research` runs on 3–4; a
+  fill-runner job on 7), and no queue. The served-zk lease (`bc-7a8095f9`) finished.
+
+## 03:12Z Oct 6: disk watch lifted
+
+- An hour under 72% since the check-run removal (63.4%, 1,835 GiB free), so `node1-disk-watch-78e` is off. Circuits'
+  `jobs/cov` and `jobs/q235-gate` are still held for 78%. The 30-min passes and node 1's watch carry on.
+
 ## 02:55Z Oct 6: node 2's two new leases checked against Daniel's rule (root's ask)
 
 - Both are compute-accounting's workers. Their branches end `-e3fa`, the compute-accounting coordinator

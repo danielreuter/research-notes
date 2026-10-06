@@ -786,3 +786,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T02:30Z: a0a3 (8400) FAILED: #1242's tools/move test imports tools/lean/audit (read outside inputs). e4b8/29e5 carry it too. Asked ci for a tip without #1242.
 - 2026-10-06T02:33Z: cancelled e4b8/29e5 (carry #1242). ci tip 4020f22d7 (main + #1247 #1236 #1250 #1254 #1255 #1244 #1253 #1159; no #1242) node2 r20261006-023032-7f80 --agreement.
 - 2026-10-06T03:05Z: ci tip c3099683f (4020 + #1256 #1248 [ae56] + #1251 #1262; FP8 clear) node1 r20261006-030350-498c --agreement; lands after 4020 (7f80).
+- 2026-10-06T03:14Z: ci tip 72d57537f (c309 + #1034, red-team and ready verified; FP8 clear) node1 r20261006-031159-417e --agreement.

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (08:06Z) [open] 08:08Z: gap 3 fixed on #1270 (498f4cf64) and #1303 (lean, 1f6a738f9); R4 review running. Firewall split agreed with lean (program #1303, property firewall-contract). New PRs #1313 (one-hash A5), #1315 (outer shape), #1316 (two-stage law, vllm grant). #1271 and #1272 ready. Node 1 check slots saturated.
 CHECKPOINT d5efa0005 (07:12Z) [open] 12:13 AM PDT: #1270 NO-GRANT r2 on one finding (Open timing in stopped records); fixed at 78a2d42da, re-grant and tier running; lean fixing #1303's half. #1286 ready; #1287 held by the lease freeze until 14:00Z.
 CHECKPOINT d5efa0005 (06:52Z) [open] 11:52 PM PDT: #1257 ready (granted, tier passed) and undrafted, after #1264 in ci's train. #1307 (P6 multiproof SHA-only) open, tier queued. #1270 body posted; its re-review (with lean's #1303) and P2's release rules running. Rename correction posted; lean's L2 split accepted.
 CHECKPOINT 97c1750ef (06:25Z) [open] 11:30 PM PDT: accepted Daniel's proof-service plan; 7 lanes on P1-P4, P6-P8; rename map note:proofs/20261006T0615Z-draft-rename-map-proofs; #1264 ready and out of draft

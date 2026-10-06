@@ -67,6 +67,11 @@ when `/tmp/steward-pass.last` is over 40 min old.
      `git -C … branch --show-current`. **When @infra acks or it's back on `main`, send root one line.**
    - 16:13Z: no reply yet. Syncs keep committing on the detached HEAD (`6cad6de70`, 16:10:19Z, on no branch); added
      in-thread (`1791303214.257379`) that a plain checkout of `main` would orphan it.
+   - 16:41Z: still detached, no reply. The detached HEAD is now `220251cf7` (sync commits through 16:40Z, plus a
+     16:26Z cloud mirror commit).
+   - Root, 16:42Z: if @infra hasn't acked by 17:15Z, reply once in the thread copying @top: notes haven't reached GitHub
+     since 16:06Z, and list the unpushed sync commits on the detached HEAD. Still hands off its git state. One-shot timer
+     `nebius-infra-notes-detached-1715` (`sub_fdd5426a…`) fires at about 17:15Z.
 
 ## State at 16:13Z Oct 6 (9:13 AM PDT), steward pass (cron on time)
 

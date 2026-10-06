@@ -860,3 +860,6 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T15:20Z: swapped the unstarted d49d (0119) for tip 32 6ab4eb1fa (0119 + #1358 #1360) node1 with priority.
 - 2026-10-06T15:23Z: 6ab4/0119 stale (#1345 moved). Cancelled 6766; tip 34 25bde83ab (3552 + #1357 #1300 #1345@3025 #1337 #1358 #1360) node1 with priority.
 - 2026-10-06T15:26Z: top's goals with Daniel (15:25Z): velocity first, no red tape (train without ready marks, carry grants, delete flakes). Use every full-check host in parallel (node 1 plus the check pods now that #1342 is in). Marks at 16:30Z and 22:30Z; timer top-goals-1630.
+- 2026-10-06T15:39Z: tip 36 be9827545 (35's #1363 gate fix + proofs' granted set + #1301 #1288) node1 slot a r20261006-153551-c679 --agreement; asked infra to swap the pod shards 25bd→be98. Cancelled e3e8. Land 36 with 35's gate.
+- 2026-10-06T15:41Z: swapped be98's check (3 min in) for tip 38 4d30cca29 (+ #1344 #1362) node1 slot a r20261006-153823-fa34 --agreement; pod shards to 4d30.
+- 2026-10-06T15:45Z: sent top the lander's old->new list for the repo-wide doc sweep (5 items).

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:50Z) [open] main c305471c5; 4020f22d7 then ae5651a63 queued; K=4096 recursion e2e (#1270); proof-service notes in, interface 06Z
 CHECKPOINT none (02:33Z) [open] main c305471c5; train 4020f22d7 (no #1242) checking; overnight GPU lanes launched; Daniel decisions queued for morning
 CHECKPOINT none (02:18Z) [open] main c305471c5; b2544732c checking; move defs verified defeq (#1265 alert fix); #1264 y0 fix; overnight leads' 06Z/14Z plans in
 CHECKPOINT none (02:00Z) [open] main c305471c5 (train 1b8e landed); b2544732c checking, 317d5ab6b (+#1159) next; #1264 y0 fix building

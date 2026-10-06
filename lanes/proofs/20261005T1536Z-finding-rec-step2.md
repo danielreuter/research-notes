@@ -117,3 +117,6 @@ What's left for step 2: a red-team grant and a `check --record` with lean-agreem
 (a verifier-side `coinSpec` with more rounds a rep, Rust `coin_spec_of` and Lean `Zk.coinSpec`, would let one statement carry
 the 125 regions, but it changes the Lean verifier, which this step does not; without it, a grouping that shares fewer row
 ports between parts: the three parts carry 145 regions against the whole's 125).
+
+Step 3 (plain SHA-512 leaves climbing to salted tops, the `top` and `top-salt` forgeries, the GPU decoder and `rec_vstar`
+fail-open fixes): note:proofs/20261006T0420Z-finding-rec-step3.

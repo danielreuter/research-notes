@@ -375,5 +375,5 @@ PoUS's numbers here are from its first version (7:29 PM PDT). memory-accounting 
 - 5 Oct, 8:17 PM PDT (03:17Z): clear mode removed, per the coordinator's relay of the 7:48 PM ruling. The rest of the
   ruling is applied in `note:proofs/20261006T0307Z-draft-proof-service-architecture`. A steward sync at 8:07 PM PDT had
   put back an older copy of this note; this version restores the 8:00 PM text.
-- 5 Oct, 8:30 PM PDT (03:30Z): `receive` restated (salted roots and public items only, the auditor's copies moved into
+- 5 Oct, 8:27 PM PDT (03:27Z): `receive` restated (salted roots and public items only, the auditor's copies moved into
   the window statement), the fourth point on which the architecture note supersedes this one.

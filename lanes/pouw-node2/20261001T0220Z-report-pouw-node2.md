@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (23:41Z) [open] A 23:40Z poll: main e7b5caa89: circuits sweep + PROTOCOL cites sm120 gamma by its Guarantees names (8192/16384, sampled twins); no Lean/gamma change; no new notes; no windows booked; off node 2; /workspace 70% (hold); panel edits await yes
 CHECKPOINT fbce5a2f4 (23:20Z) [open] A 23:20Z poll: PoUS window released early (before 23:05Z), no windows booked; node 2 0 of 8 busy, no queue; /workspace 70% (1,493 GiB free, hold); main unchanged 40438bd85; off node 2 (no infra 'back'); panel edits (v1 gamma, beacon, prf/sha-512, -h3) await yes
 CHECKPOINT fbce5a2f4 (23:01Z) [open] A 23:00Z poll: main 40438bd85 (#1383): PoUW draw's derive now core's SHA-512 (A4 prf/sha-512), vectors repinned; panel's 'audit: prf/sha-256' (sm120, fp4 lines) now stale, prf/sha-256 not in verity.claims; no gamma change; no new notes; off node 2; /workspace last 70% (hold)
 CHECKPOINT fbce5a2f4cd (22:40Z) [open] A 22:40Z poll: no new notes; main unchanged 327ea5b1b; PoUS window to 23:15Z not mine; off node 2 (no infra 'back'); /workspace last 70% (hold); v1 gamma + beacon wording await yes

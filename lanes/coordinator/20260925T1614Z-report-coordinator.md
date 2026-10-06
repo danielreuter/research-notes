@@ -843,3 +843,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 2026-10-06T12:56Z: tip 24 87d6bd500 (cce3 + #1341 #1310) node1 queued with priority; cce3 (7070) is its fallback.
 - 2026-10-06T13:18Z: granted node 1 slot priority to proofs' five granted tiers (#1261 #1273 #1330 #1274 #1283), relaunched with --priority behind the train checks; these five only.
 - 2026-10-06T13:19Z: per root, cancelled tip 22 (a2e5) to free a slot for quick tiers. Kept 27fa (tip 21), 7070 (tip 23, #1342) and b745 (tip 24).
+- 2026-10-06T13:36Z: merged 5a0f5d21c (#1327 #1306) → main b722adaad via --push; no spec DM (no lock change). 7070 (cce3) and b745 (87d6) running on top.

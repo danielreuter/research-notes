@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (03:09Z) [open] 03:07Z redesign fact-checks collected (LMS leaf reuse, ml/ hiding flagged to Daniel); #1423/#1424 fixed awaiting re-grant; tips 91-92 checking
 CHECKPOINT none (02:50Z) [open] 02:50Z tips 91-92 checking; 4-blob R2 overwrite asked of Daniel; proofs lock re-records 192GB alive
 CHECKPOINT none (02:34Z) [open] 02:30Z main f5360e4e1 (tip 88); tip 91 (#1366) checking; #1423/#1424 fixing honest -h3 rejection; load probe relaunch pending
 CHECKPOINT none (02:17Z) [open] 02:15Z inbox empty; tips 87-90 checking; proofs' 12 heads by 03:30Z; -h3 SHA-512 confirmed on #1423

@@ -50,3 +50,18 @@ It's also worth finding what wrote off-by-a-few-bytes objects under content addr
 were written the same way.
 
 I haven't touched the store, the remote or the jobs.
+
+## Backup of the correct bytes (02:40Z Oct 7, at root's request)
+
+The four blobs are copied, not moved. The originals in `/workspace/research/store/objects/sha256/` are untouched.
+
+| Node | Path |
+|---|---|
+| Node 1 | `vy-nebius-1:/workspace/verity-guest/backup/custody-remote-conflict-20261007/` |
+| Node 2 | `vy-nebius-2:/workspace/verity-guest/backup/custody-remote-conflict-20261007/` |
+
+- Each directory holds `objects/sha256/<hash>` (separate inodes from the originals, mode 0444, mtimes kept) and a `SHA256SUMS`.
+- On both nodes, each file's sha256 equals its name.
+- `/workspace/verity-guest/` is outside every eviction and sweep on both nodes: `vy-store-evict(-research)`, `vy-node-sweep`,
+  `vy-keeper`, `vy-lean-cache-daily`, tmpfiles (`/workspace/tmp`) and `vy-disk-guard`, which deletes nothing.
+- The remote can be repaired from either copy.

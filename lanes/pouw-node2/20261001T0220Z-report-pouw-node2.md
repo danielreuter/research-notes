@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (03:51Z) [open] A 03:51Z poll: only a node 1 GPU-at-0% alert; main dcc929336 (#1422, flock pins), no pouw diff; off node 2; /workspace last 69% (hold); panel edits await yes
 CHECKPOINT fbce5a2f4c (03:30Z) [open] A 03:30Z poll: node2-ops 02Z hourly: 11% busy, only fill on GPU 7; node 2 backups PRESERVED despite the remote conflict; /workspace 69% (1,555 GiB, hold); another node 1 GPU-at-0% alert; main unchanged f5360e4e1; off node 2; panel edits await yes
 CHECKPOINT fbce5a2f4c (03:00Z) [open] A 03:00Z poll: only node 1 notes (GPU-at-0% alert on lt-qwen235-tp8, custody backups); main unchanged f5360e4e1; off node 2; /workspace last 69% (hold); panel edits await yes
 CHECKPOINT fbce5a2f4c (02:42Z) [open] A 02:40Z poll: nebius-infra's remote-conflict finding (4 blobs with wrong bytes, node 1 custody failing): panel art art:d2b2eb906612 re-verified PRESERVED by sha256 readback, unaffected; main f5360e4e1; off node 2; /workspace 69% (hold)

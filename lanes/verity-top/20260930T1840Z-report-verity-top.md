@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:15Z) [open] move e83a due ~19:35Z, then tips 121, 122; lean delivered #1499 randomness, #1500 core_world
 CHECKPOINT none (19:00Z) [open] move e83a due ~19:35Z, then T1 tip 121, then T2 tip 122; core-as-Lean drafts #1482-#1498 up
 CHECKPOINT none (18:45Z) [open] move pr:1450@9354f2471 checking with all grants in (lands ~19:35Z), tip 121 next; properties layout settled: one security_properties package (#1494)
 CHECKPOINT none (18:30Z) [open] move pr:1450@9354f2471 checking (e83a, 8e53), T1 tip 121 beside it; red-team regrant pending; T2 after #1464 regrant

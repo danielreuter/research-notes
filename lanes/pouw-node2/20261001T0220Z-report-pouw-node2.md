@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (06:44Z) [open] A 06:44Z poll: no new notes; main unchanged 4bd12249c; off node 2 (no infra 'back'); /workspace last 70% (hold); panel edit awaits yes
 CHECKPOINT fbce5a2f4c (06:23Z) [open] A 06:23Z poll: node2-ops 05Z hourly: 10.8% GPU busy, CPU 0-127 at 33.8% (ca-preserve likely); /workspace 70% (1,515 GiB, hold); node 1 alerts only; main unchanged 4bd12249c; off node 2; panel edit awaits yes
 CHECKPOINT fbce5a2f4c (06:03Z) [open] A 06:03Z poll: only a node 1 GPU-at-0% alert; main unchanged 4bd12249c; off node 2; /workspace last 69% (hold); panel edit (6 archived -h rows, v1-h3 SHA-512, v1 gamma, beacon, prf) awaits yes
 CHECKPOINT fbce5a2f4c (05:42Z) [open] A 05:41Z poll: main 4bd12249c (#1423, #1424): one hash SHA-512 (Daniel); BLAKE3 -h1/-h2/-h3 archived, -h3 now SHA-512, only pearl-c-sm120-v1-h3 registered. Panel: 6 of 18 rows name unregistered schemes, v1-h3 cites cr/blake3; raised to compute accounting, no edit without yes. No Lean/gamma change; off node 2; /workspace 69% (hold)

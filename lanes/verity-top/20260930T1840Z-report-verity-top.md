@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:28Z) [open] main 4bd12249c; tips 100/101 checking, 99 relabels due 06:30Z, 102 (#1448) awaits friction line; overnight refactor map corrections in
 CHECKPOINT none (06:16Z) [open] main 4bd12249c; tip 97 checking, 98/99 queued; #1268 ready for a tip; overnight refactor run by architecture
 CHECKPOINT none (05:54Z) [open] 05:54Z main 4bd12249c (tip 93); tips 97-99 checking/queued (99 = fixed rec train); overnight refactor run by architecture per Daniel
 CHECKPOINT none (05:28Z) [open] 05:27Z tip 93 + 97 checking; rec train failed in 95, proofs fixing; load-time done (~5 min fastsafetensors); warm copy to node 1 running; Nebius renewal pending Daniel

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (00:20Z) [open] A 00:20Z poll: node2-ops 23Z hourly: 11% busy, only fill on GPU 7; /workspace 69% (1,578 GiB free, +85 GiB, hold); no windows booked; main unchanged e7b5caa89; off node 2; panel edits await yes
 CHECKPOINT fbce5a2f4 (00:00Z) [open] A 00:00Z poll: no new notes; main unchanged e7b5caa89; no windows booked; off node 2 (no infra 'back'); /workspace last 70% (hold); panel edits await yes
 CHECKPOINT fbce5a2f4 (23:41Z) [open] A 23:40Z poll: main e7b5caa89: circuits sweep + PROTOCOL cites sm120 gamma by its Guarantees names (8192/16384, sampled twins); no Lean/gamma change; no new notes; no windows booked; off node 2; /workspace 70% (hold); panel edits await yes
 CHECKPOINT fbce5a2f4 (23:20Z) [open] A 23:20Z poll: PoUS window released early (before 23:05Z), no windows booked; node 2 0 of 8 busy, no queue; /workspace 70% (1,493 GiB free, hold); main unchanged 40438bd85; off node 2 (no infra 'back'); panel edits (v1 gamma, beacon, prf/sha-512, -h3) await yes

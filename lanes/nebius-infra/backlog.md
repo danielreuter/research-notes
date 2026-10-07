@@ -132,6 +132,12 @@ are restored; the down-probe is closed.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 20:01Z Oct 7 (1:01 PM PDT), steward pass
+
+- Node 1 (watch, no flags): 70.8% (1,467 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported).
+- Node 2: fully idle now (load 0.04, 0 of 8 GPUs; reported); sampler writing; `vy-cluster-agent` stopped; 74%. The next
+  hourly is loop tick 234.
+
 ## State at 19:31Z Oct 7 (12:31 PM PDT), steward pass
 
 - Node 1: `disk-72` at 19:15Z (72.0%), 71.8% by 19:30Z (1,415 GiB free). `research/src` eviction is live, so no nudge.

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:07Z) [open] move pr:1450@1da3f2842 checking on both nodes (verdict ~19:15Z), grants in; T1'' 119 beside it; CPU machine validating
 CHECKPOINT none (17:48Z) [open] move clean so far, lands on pass; T1' without #1464 + nebius clock-test fix planned; core-as-Lean lanes on #1482 interface
 CHECKPOINT none (17:32Z) [open] move+T1/T2 checking on node 1; core-as-Lean effort launched by architecture; Nebius key rotation asked of Daniel
 CHECKPOINT none (17:15Z) [open] one GPU node per Daniel: node 2 stops after move (01:00Z latest), CPU ramp via infra; move+T1/T2 checking on node 1

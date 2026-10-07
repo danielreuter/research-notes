@@ -102,6 +102,14 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 14:36Z Oct 7 (7:36 AM PDT), steward pass (cron arrived 6 min late)
+
+- Both nodes up; deadlines 15:00Z (node 2's fill runner stops at 14:55Z). Node 1 (watch, no flags): 70.0% (1,505 GiB
+  free); all 8 idle (reported); pacer and dispatcher clean. Node 2: memory accounting's fill job on 1 GPU (restarted
+  14:36Z), 7 idle (reported), 74%.
+- Hourly snapshot `art:79b0a41d…` (about 14:10Z; utilization-summary updated). Likely the last: the loop's next hourly
+  (tick 216) falls after the stop.
+
 ## State at 14:06Z Oct 7 (7:06 AM PDT), steward pass (cron arrived 6 min late)
 
 - Both nodes up; deadlines 15:00Z. Node 1 (watch, no flags): 70.2% (1,498 GiB free); all 8 idle (reported); pacer and

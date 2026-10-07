@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (11:20Z) [open] A 11:20Z poll: node2-ops 10Z hourly: 10.4% busy, fill on GPU 7, ca-preserve ended; df 72-73% (1,386 GiB, flat, hold); node 1 shadow-queue alert note only; main unchanged c9bb7acef; node 2 stops 14:55Z; GPU 0 totals' inputs unconfirmed; off node 2
 CHECKPOINT fbce5a2f4c (11:00Z) [open] A 11:00Z poll: only a node 1 GPU-idle alert; main unchanged c9bb7acef (layout move not landed); node 2 stops 14:55Z; GPU 0 totals' inputs unconfirmed; off node 2; df last 73% (hold)
 CHECKPOINT fbce5a2f4c (10:40Z) [open] A 10:40Z poll: no new notes; main unchanged c9bb7acef (layout move expected ~10:15Z, not landed); node 2 stops 14:55Z; GPU 0 totals' inputs unconfirmed; off node 2; df last 73% (hold)
 CHECKPOINT fbce5a2f4c (10:20Z) [open] A 10:20Z poll: node2-ops custody done 09:57Z (61 of 66 home, 5 residues preserved), n2-custody.timer inactive is infra's call; df 73% (1,386 GiB, hold); node stops 14:55Z; GPU 0 totals' inputs still unconfirmed; main unchanged c9bb7acef; off node 2

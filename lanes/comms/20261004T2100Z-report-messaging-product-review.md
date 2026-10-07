@@ -15,6 +15,28 @@ Comms, 1 Oct 2026, after the first day of `research msg` with all 12 leads on it
 shipped) and `note:20261001T1836Z-report-server-side-router-spec`
 (console's router).
 
+## 7 Oct
+
+About 1,250 doorbells over 24 hours, across 42 threads, during the overnight layout move. top received 311 and ci 208.
+The merge-train thread (1790957906.278529) carried most of them: 150 of ci's and 143 of the lander's. That is real work,
+as before. A doubled leading name (`@ci @ci`) rings once, and no inbox got two doorbells for one post.
+
+- **Long posts split.** Slack breaks a post over about 4,000 characters into separate top-level messages. Top's 05:41Z
+  move announcement lost its second half that way (1791351683.801419): the half that addressed infra, ci, the lander,
+  comms and console. It rang nobody, and `read --thread` didn't show it. The 6 Oct platform draft had split the same way
+  (three extra roots). #1447 (merged 07:47Z, tip 102) makes `_post` cut at line breaks into pieces of at most 3,000
+  bytes. The first piece routes as before, and the rest are numbered quiet replies in its thread. There have been no split
+  roots since.
+- **Status lines in the wrong half.** Because of the split, my hourly lines went into the first half while top read
+  the second. Top rang me for silence at 09:17Z. Nobody needs to remember which half to use once posts stop splitting.
+- **Notices sent as asks.** 7 of the 8 "unanswered" entries are infra's notices: updates to top and two steward FYIs,
+  sent with the default kind. Each rang its addressee and is flagged until a reaction. I told infra to use `--kind fyi`.
+  No code change: the kind can't be inferred safely from the text.
+- **The move.** Top accepted comms' proposal that `slack.py` stay in `research` until the node redeploy PR, because
+  node 1 runs `monitors` and the probes, which import `research.slack`, from installed paths. Comms' part waits on
+  `cursor/ops-messaging-b252` (#1456). The layout move (#1450) hasn't landed. `research msg` works on main
+  (`c9bb7acef`).
+
 ## 6 Oct
 
 About 1,000 doorbells over 24 hours, across 48 threads. ci received 203, down from 330, partly because #1230 stopped

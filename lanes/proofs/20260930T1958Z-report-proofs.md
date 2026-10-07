@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (09:35Z) [open] 09:35Z: #1179 (df19026a8), #1192 (10d07b282), #1201 (a6687ea09) merged with c9bb7acef, clean without the lock driver; move head ~09:45Z, red-team-canon ready
 CHECKPOINT none (09:02Z) [open] 09:05Z: move head 3531bd8eb withdrawn (base 4bd12249c); regenerated head ~09:45Z; asked top for a PR head (grants need pr:N@SHA); red-team-canon rehearsing
 CHECKPOINT none (08:40Z) [open] 08:40Z: merge-main on c9bb7acef done: 14 PRs clean (verified), 6 need owners + 3 blocked + 3 skipped for Daniel's list; red-team-canon ready for the move head
 CHECKPOINT none (08:04Z) [open] 08:05Z: main frozen at c9bb7acef; 3 merge-main workers on proofs' conflicting PRs (due 09:45Z); red-team-canon preparing the move-head grant review (head ~09:05Z)

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (09:00Z) [open] A 09:00Z poll: no new notes; main unchanged c9bb7acef (drain); off node 2; /workspace last 70-71% (hold); panel edit awaits yes
 CHECKPOINT fbce5a2f4c (08:48Z) [open] A 08:47Z poll: no new notes; main unchanged c9bb7acef (layout-move drain from 08:30Z); off node 2; /workspace last 70-71% (hold); panel edit awaits yes
 CHECKPOINT fbce5a2f4c (08:27Z) [open] A 08:26Z poll: infra notes a platform layout move (drain 08:30Z, move ~10:15Z): will recheck panel citations after it; node2-ops 07Z: 10.7% busy, fill on GPU 7; /workspace 70-71% (1,494 GiB, hold); main unchanged c9bb7acef; off node 2; panel edit awaits yes
 CHECKPOINT fbce5a2f4c (08:07Z) [open] A 08:06Z poll: no new notes; main c9bb7acef (#1434-#1447: research run's $OUT always uploaded, nebius base image, certifier Code.lean), no pouw change; off node 2; /workspace last 70-71% (hold); panel edit awaits yes

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (03:51Z) [open] A 03:51Z poll (correction to the line above: the merges were #1366 network certifier service and #1430 cluster submit node 1 lease rule, not #1422): main dcc929336, no pouw diff; off node 2; /workspace last 69% (hold)
 CHECKPOINT fbce5a2f4c (03:51Z) [open] A 03:51Z poll: only a node 1 GPU-at-0% alert; main dcc929336 (#1422, flock pins), no pouw diff; off node 2; /workspace last 69% (hold); panel edits await yes
 CHECKPOINT fbce5a2f4c (03:30Z) [open] A 03:30Z poll: node2-ops 02Z hourly: 11% busy, only fill on GPU 7; node 2 backups PRESERVED despite the remote conflict; /workspace 69% (1,555 GiB, hold); another node 1 GPU-at-0% alert; main unchanged f5360e4e1; off node 2; panel edits await yes
 CHECKPOINT fbce5a2f4c (03:00Z) [open] A 03:00Z poll: only node 1 notes (GPU-at-0% alert on lt-qwen235-tp8, custody backups); main unchanged f5360e4e1; off node 2; /workspace last 69% (hold); panel edits await yes

@@ -134,6 +134,20 @@ are restored; the down-probe is closed.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 16:36Z Oct 7 (9:36 AM PDT), steward pass: node 1 back, node 2 still down
+
+- Node 1 has been up since 16:21Z. New deadline: `1791990000 2026-10-14T15:00:00Z daniel-2026-10-07T1601Z`. Node 2 still
+  times out (the return watch keeps probing, and tells root once both answer or at 17:30Z).
+- The watch flagged `pacer-stale` and `dispatcher-stale`: the reboot dropped research's tmux sessions (last ticks 14:54Z and
+  14:55Z). The `vy-node1-dispatch` / `vy-commit-release` units exist in the deployed `units/` but aren't installed, and
+  `/etc/vy/env/` is missing.
+  - Restarted both in tmux at 16:33:07Z with `tools/start_n1_loops.sh`, the way they ran before. Both tick: the dispatcher
+    every minute, and the pacer with "waiting 2: cov-n051-2 cov-n050-2".
+  - Told @infra in their lane (`20261007T1636Z-note-from-nebius-infra-n1-loops-restarted`, notes `d9867ec3`): stop my tmux
+    sessions if they bring up the units.
+- Node 1: 70.0% (1,505 GiB free); Kueue queues 0/0; all 8 GPUs idle (reported). GPU 0's NVML 100% oddity is gone after the
+  reboot. The `vy-*` timers are all active.
+
 ## 15:39Z Oct 7: switched to nodes-down probes (root's rule)
 
 - Closed the 30-min pass, the fallback and the Oct 9 renew reminder. New: `nebius-infra-down-probe` every 2 h, plus a renew

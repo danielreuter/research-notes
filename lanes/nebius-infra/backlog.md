@@ -102,6 +102,11 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## 15:00Z Oct 7 (8:00 AM PDT): both nodes stopped at the deadline (fallback poll)
+
+- At 15:00:42Z ssh to n1 (81.85.2.165) and n2 (81.85.2.121) timed out. That's the planned 15:00Z stop, so no message to
+  root. The 15:12Z timer checks that neither is still up.
+
 ## State at 14:36Z Oct 7 (7:36 AM PDT), steward pass (cron arrived 6 min late)
 
 - Both nodes up; deadlines 15:00Z (node 2's fill runner stops at 14:55Z). Node 1 (watch, no flags): 70.0% (1,505 GiB

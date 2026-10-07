@@ -102,6 +102,17 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 07:39Z Oct 7 (12:39 AM PDT), steward pass (cron arrived 9 min late)
+
+- The 06:56Z "pod holds a GPU at 0%" alert is network-accounting's `r20261007-053837-fb89`
+  (`active_live_cells.sh`, GPU 4 leased 05:44–08:12Z, vLLM resident at 90 GB, 0% since about 07:00Z). It's running
+  CPU-side "honest: accepted" checks. New owner for the pattern: told @network-accounting once, FYI (`1791358774.102119`).
+- Node 1 (watch, no flags): 70.0% (1,505 GiB free); 7 idle (reported); GPUs 0 and 1 still show the NVML 100% oddity.
+  Pacer and dispatcher clean.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 71%.
+- Hourly snapshot `art:3eace3e3…` (about 07:20Z; utilization-summary updated, and its stale "all 8 GPUs allocated since
+  Oct 4" line corrected).
+
 ## State at 07:10Z Oct 7 (12:10 AM PDT), steward pass (cron arrived 9 min late)
 
 - Node 1 (watch, no flags): 70.5% (1,480 GiB free), up from 69.2% at 06:45Z. No writer over 10 MB/s in the probe since

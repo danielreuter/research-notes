@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT d5efa0005 (23:06Z) [open] 4:07 PM PDT: T2 landed as main 61f64824c with #1349@ddd21937a (the flock-live lock fix); trailing full check r20261007-225625-b551 on node 1. Answered the guarantee DM's 4 changed definitions: none changes meaning (#1318's openedSalts is wire format only; Refine.Frame's source is unchanged).
 CHECKPOINT d5efa0005 (22:56Z) [open] 4:00 PM PDT: red-team grant on pr:1349@ddd21937a read back; T2 can land on it. Draft PRs opened: #1517 core_sampled_proofs (one-stage audit in Lean), #1518 core_vstar (V* byte for byte, 34/34), #1519 circuit-check nested roots, #1520 VBridge over VStar. red-team-canon reviewing lean's #1499.
 CHECKPOINT d5efa0005 (22:46Z) [open] 3:47 PM PDT: T2's flock-live race fixed on #1349 at ddd21937a (unlock both flock locks on drop, as Python does; deterministic regression test; logs art:3548454133952806b4fabc6cb1d800b8ba3386fc21515ede4ff854a4a39aaa1e). red-team grant on pr:1349@ddd21937a pending; ci rebuilds T2 on bcc5adfc9 with it.
 CHECKPOINT none (20:34Z) [open] 1:31 PM PDT: both move grants in at #1450@8543eecca (claims-inputs fix); core-composition done as draft #1506 (onsite/remote in Lean, 0 mismatches, 22 guarantees), resumed to fold into the shared security_properties

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (09:21Z) [open] A 09:20Z poll: node2-ops' final report: node 2 stops itself at 14:55Z; final backups under way (fp8-gpucheck die1-7 among 13 large units). GPU 0 totals must then come from the backup: asked compute accounting to confirm die0 + pouw-node2-scratch are covered, or OK to run totals off-node. Still off node 2; /workspace 71% (hold); main unchanged c9bb7acef
 CHECKPOINT fbce5a2f4c (09:00Z) [open] A 09:00Z poll: no new notes; main unchanged c9bb7acef (drain); off node 2; /workspace last 70-71% (hold); panel edit awaits yes
 CHECKPOINT fbce5a2f4c (08:48Z) [open] A 08:47Z poll: no new notes; main unchanged c9bb7acef (layout-move drain from 08:30Z); off node 2; /workspace last 70-71% (hold); panel edit awaits yes
 CHECKPOINT fbce5a2f4c (08:27Z) [open] A 08:26Z poll: infra notes a platform layout move (drain 08:30Z, move ~10:15Z): will recheck panel citations after it; node2-ops 07Z: 10.7% busy, fill on GPU 7; /workspace 70-71% (1,494 GiB, hold); main unchanged c9bb7acef; off node 2; panel edit awaits yes

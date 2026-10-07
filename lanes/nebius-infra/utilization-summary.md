@@ -501,11 +501,13 @@ filler.
   - `art:40630b0708982efe7ac90d3761bdfca948cda55705e64847c97f1dfbf133ff3e` (about 21:30Z Oct 6)
   - `art:b0df0ace503328aff610ea21be583be83732e4c9bcd10e451512044091aefd40` (about 23:15Z Oct 6)
   - `art:528cdaca22954bf0055dacbf994b0c3612d5b01ce8d05dcbae34ef9b2a6d66bf` (about 00:55Z Oct 7)
-  - `art:d80061e4dba92eea1628668bd553a457f6499ed18b721ee6bf5729870aba9871` (about 02:25Z Oct 7, the latest)
-- **Running totals, Sep 30 05:16Z to about 02:25Z Oct 7** (from `art:d80061e4…`):
-  - Node 1: 1,321 GPU-h observed, 293 held or busy, 153 busy, 1,029 idle. Held or busy barely moved from about 11:53Z
-    Oct 6 to 02:31Z Oct 7 (two brief proofs leases at 21:31Z). At 02:31Z an 8-GPU Qwen-235B TP8 config run started.
-  - Node 2: 1,313 GPU-h observed, 452 held or busy, 257 busy, 861 idle.
+  - `art:d80061e4dba92eea1628668bd553a457f6499ed18b721ee6bf5729870aba9871` (about 02:25Z Oct 7)
+  - `art:fdaadf9a1a79f0c18b5bd625e2183874e6b5f2aa799c13bad0dcc61b0248b439` (about 04:00Z Oct 7, the latest)
+- **Running totals, Sep 30 05:16Z to about 04:00Z Oct 7** (from `art:fdaadf9a…`):
+  - Node 1: 1,333 GPU-h observed, 303 held or busy, 154 busy, 1,031 idle. Held or busy barely moved from about 11:53Z
+    Oct 6 to 02:31Z Oct 7. The 10 GPU-h since then are circuits' 8-GPU Qwen-235B load-time runs (02:31–about 04:05Z), held
+    mostly through load; only about 0.8 GPU-h of that was busy.
+  - Node 2: 1,325 GPU-h observed, 453 held or busy, 259 busy, 872 idle.
   - Since about 00:00Z Oct 4 both servers have had all 8 GPUs allocated (node 1: 8 provers in Kueue; node 2: 8 jobs from
     its cluster agent, with an empty queue). Brief 0% readings are jobs between phases.
 - **Working files in this folder:** `backlog.md` (the CPU map and fills), and `tools/` (`channel_sync.py`, `util_collect.py`,

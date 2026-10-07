@@ -132,6 +132,13 @@ are restored; the down-probe is closed.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 19:01Z Oct 7 (12:01 PM PDT), steward pass
+
+- Node 1 (watch, no flags): 71.8% (1,413 GiB free), under 72% (`research/src` eviction is live anyway). Pacer and
+  dispatcher tick; Kueue 0/0; all 8 idle (reported).
+- Node 2: the sampler is writing (19:00:34Z); `vy-cluster-agent` stopped (check work, load about 130); 0 of 8 GPUs
+  (reported); 74%. The next hourly is loop tick 234.
+
 ## 18:36Z Oct 7: node 2's GPU sampler restarted (root's ask)
 
 - The sampler last sampled at 14:55Z and didn't come back after node 2's 16:42Z restart. Before, it ran in tmux

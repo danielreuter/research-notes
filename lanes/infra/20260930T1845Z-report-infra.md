@@ -260,5 +260,5 @@ holders (Prometheus: 67 `gpu-pool` pods, 25.5 idle, halved); node 2 kinds from `
 
 Node 1 23.5 idle of 44.1 held (Oct 5: 2.8 of 5.8); node 2 13.7 of 40.3, about 6.6 of 32 without timed windows (Oct 5: 3.7 of 20.7).
 
-### Daily top 3 GPU wasters, 7 Oct (24 h to 16:00Z): not posted
+## Daily top 3 GPU wasters, Oct 7 (24 h to 16:00Z): not posted
 Both nodes stopped at 15:00Z, and the inputs live only on them (node 1's held-idle-hourly.jsonl and Prometheus, node 2's lease-usage.jsonl), so there is nothing to rank from. Little was held: the day was the move's drain and admissions closed at 13:00Z (node 1's GPUs sat unheld, which isn't waste by this measure; node 2's held GPU was fill's on GPU 7). When the nodes are back, the same method over this window can be run from their files if anyone wants it.

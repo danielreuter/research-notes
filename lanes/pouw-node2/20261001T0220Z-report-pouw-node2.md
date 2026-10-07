@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (09:40Z) [open] A 09:40Z poll: node2-ops final backup: 9 of 13 large units preserved (die5 running, die6/die7/gpu7-fp4 gc to go); custody 3 of 65 pushed, not all home by 11:50Z; no answer yet on GPU 0 totals' inputs; main unchanged c9bb7acef; off node 2
 CHECKPOINT fbce5a2f4c (09:21Z) [open] A 09:20Z poll: node2-ops' final report: node 2 stops itself at 14:55Z; final backups under way (fp8-gpucheck die1-7 among 13 large units). GPU 0 totals must then come from the backup: asked compute accounting to confirm die0 + pouw-node2-scratch are covered, or OK to run totals off-node. Still off node 2; /workspace 71% (hold); main unchanged c9bb7acef
 CHECKPOINT fbce5a2f4c (09:00Z) [open] A 09:00Z poll: no new notes; main unchanged c9bb7acef (drain); off node 2; /workspace last 70-71% (hold); panel edit awaits yes
 CHECKPOINT fbce5a2f4c (08:48Z) [open] A 08:47Z poll: no new notes; main unchanged c9bb7acef (layout-move drain from 08:30Z); off node 2; /workspace last 70-71% (hold); panel edit awaits yes

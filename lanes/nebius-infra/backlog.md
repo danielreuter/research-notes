@@ -102,6 +102,17 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 06:42Z Oct 7 (11:42 PM PDT Oct 6), steward pass (cron arrived 12 min late)
+
+- Node 1 (watch, no flags): 69.2% (1,544 GiB free). 1 GPU leased (4, `r20261007-053837-fb89`, vLLM, 100%), 7 idle
+  (reported). Pacer and dispatcher clean.
+- Oddity on GPUs 0 and 1, both fenced idle:
+  - Since about 06:10Z `nvidia-smi` shows `utilization.gpu` at 100% with 0 MiB used, no compute apps, about 91 W (idle
+    GPUs draw 78–82 W) and no Xid in dmesg.
+  - DCGM engine-active (what the alerts read) had them at 0% at 06:01Z.
+  - Likely an NVML counter quirk with no effect on scheduling. Watch it; raise only if it persists or affects a lease.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 71%. The next hourly is loop tick 186.
+
 ## State at 06:10Z Oct 7 (11:10 PM PDT Oct 6), steward pass (cron arrived 10 min late)
 
 - New alert type, 06:01Z "GPU idle while work is waiting" (7 firing on node 1): from about 05:45Z circuits' 8-GPU Qwen

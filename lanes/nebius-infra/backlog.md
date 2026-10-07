@@ -102,6 +102,12 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 05:12Z Oct 7 (10:12 PM PDT Oct 6), steward pass (cron arrived 3 min late)
+
+- Node 1 (watch, no flags): 66.8% (1,667 GiB free). Circuits' load-time runs have ended again (8 held at 05:00Z, 0 now):
+  0 admitted, all 8 idle (reported). Pacer and dispatcher clean.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 70%. The next hourly is loop tick 180.
+
 ## State at 04:39Z Oct 7 (9:39 PM PDT Oct 6), steward pass (cron on time)
 
 - Node 1 (watch, no flags): 66.3% (1,691 GiB free). Another circuits load-time variant, `lt-qwen235-tp8-fst-4`, has held

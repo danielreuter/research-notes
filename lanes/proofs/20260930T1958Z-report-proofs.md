@@ -5,6 +5,8 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (05:50Z) [open] 05:50Z tip 95 S2/R7 fixed on the rec heads (tests only: #1383 renamed replaying tests to @f5df3bbc, the rec tests kept the bare name); 12 new heads ready, art:f06c611125b8; #1081/#1246 red-team relabel with red-team-rec-stack, due 06:30Z
+CHECKPOINT none (05:00Z) [open] 10:02 PM PDT: pubin T1 at 3a73e7b9e, fast build PASS (zk_session_sound_canonicalP new), final audit with replay running; rec tip not on main yet; fail-closed on S1 post-tip
 CHECKPOINT none (04:37Z) [open] 9:50 PM PDT: #1179 granted at 6385e543b (red-team-1179), #1192/#1201/#1170 granted (red-team-canon); fail-closed lands S1 on the rec tip (due 12:30Z); pubin T1 at 12aaaa5f1 building; #1170 no re-pins, docs PR stacked on it; specs-sort to @lean (holds)
 CHECKPOINT none (03:30Z) [open] 8:32 PM PDT: rec tip ready; 12 heads granted and ready=true --by proofs on both stores, locks unchanged at 192 GB; sent ci (#1429 after the tip, vbridge restacks after it); specs-sort draft running for lean, due 05:45Z
 CHECKPOINT none (03:01Z) [open] 03:05Z: #1318's verity/Security lock re-record (r20261007-020414-3a47, 192 GB) passed its Proofs audit (58,918 declarations, three allowed axioms) and is on verity/Security; #1323's (r20261007-020430-2af4) still building. ci's 12-head message due 03:30Z.

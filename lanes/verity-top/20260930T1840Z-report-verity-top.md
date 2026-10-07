@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (13:15Z) [open] move deferred; awaiting 45fe failure list; nodes stop 15:00Z
 CHECKPOINT none (13:00Z) [open] 13:00Z admissions closed; move deferred; awaiting 45fe list
 CHECKPOINT none (12:45Z) [open] move deferred; #1450 at b54bc777a; 45fe list ~12:55Z
 CHECKPOINT none (12:30Z) [open] move deferred; #1450 at 33a6ab5a0; 45fe list ~12:55Z

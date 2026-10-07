@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:46Z) [open] nodes stopped; move 14296f4bb fully granted, waits for one check
 CHECKPOINT none (15:30Z) [open] nodes stopped; move waits at 14296f4bb
 CHECKPOINT none (15:15Z) [open] nodes stopped; move waits at 14296f4bb
 CHECKPOINT none (15:00Z) [open] 15:00Z nodes stop; move ready at 14296f4bb

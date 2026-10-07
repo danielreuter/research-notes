@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (12:15Z) [open] move deferred; awaiting 45fe failure list ~12:55Z
 CHECKPOINT none (12:00Z) [open] move deferred; 45fe full failure list ~12:55Z; Nebius renewal pending Daniel
 CHECKPOINT none (11:52Z) [open] move NO-GO 11:45Z, deferred to node return; 45fe runs for full failure list
 CHECKPOINT none (11:18Z) [open] move check failed (stale Lean test paths + PoUS NetworkCertifier import); fixes going onto #1450, restart by ~11:30Z

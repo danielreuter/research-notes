@@ -136,6 +136,14 @@ starts node 2 again.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 23:01Z Oct 7 (4:01 PM PDT), steward pass (node 1 only)
+
+- Node 1 (watch, no flags): 70.9% (1,457 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported).
+- `util_collect.py` (`tools/`): with node 2 stopped, the whole hourly would fail on the node 2 read. Now its ssh has
+  `ConnectTimeout=20`/`BatchMode`, and an unreachable node 2 is recorded as `{"unavailable": …}` while node 1's
+  totals are still collected. A test without `--put` read node 1 at 1,459 / 323 / 167 / 1,136. The loop's tick 246
+  stores the real one.
+
 ## State at 22:30Z Oct 7 (3:30 PM PDT), steward pass (node 1 only)
 
 - Node 1 (watch, no flags): 71.0% (1,457 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported). Node 2 is

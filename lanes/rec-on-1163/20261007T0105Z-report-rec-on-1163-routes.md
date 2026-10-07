@@ -3,7 +3,7 @@ id: rec-on-1163/20261007T0105Z-report-rec-on-1163-routes
 campaign: proofs
 lane: rec-on-1163
 kind: report
-status: open
+status: closed
 repo: danielreuter/verity
 origin: bc-6a7b97b2 (worker for @proofs, launched by bc-7f347b4b)
 ---
@@ -11,8 +11,9 @@ origin: bc-6a7b97b2 (worker for @proofs, launched by bc-7f347b4b)
 # Rec stack routes 1 and 2: main merged into the rec heads, then into all 13 stack heads
 
 Both routes are pushed: every head is a fast-forward merge, and each remote was confirmed at its expected sha just before
-the push. Route 2's heads (main `e7b5caa89cc2`) were all pushed by 23:39Z. Two lock re-records are still running (named
-under "Locks"), so this note is `open` until they finish.
+the push. Route 2's heads (main `e7b5caa89cc2`) were all pushed by 23:39Z. Every lock is unchanged, including
+`verity/Security` and its `Proofs` package at #1318 and #1323 (re-recorded with kernel replay at 03:02Z, under
+"Locks"), so no lock commit was needed.
 
 Main moved after the route 2 pushes, to `e255a4efb`. That is the tip-84 train landing, and its tree is identical to tip
 84's `a42083c10`. It touches no `.lean` file, lock or `tools/circuit_check` path, and all 13 new heads merge with it with
@@ -112,13 +113,23 @@ The same holds for the new main `e255a4efb`, which has the same tree.
   - #1318: `r20261006-234656-36f6` (PASS, 5566 declarations, 7 guarantees; 5498 replayed, 68 skipped).
   - #1323: `r20261006-234706-01e3` (PASS, 6176 declarations, 14 guarantees; 6107 replayed, 69 skipped).
   - #1339: its Lean and locks equal #1323's.
-- **`verity/Security` and `verity/Security/Proofs` at #1318 and #1323:** still running.
-  - The first runs were OOM-killed at `--mem-gb 40` during replay, after about 65 minutes.
-  - Relaunched at 128 GB with kernel replay: #1318 `r20261007-010113-fa89`, #1323 `r20261007-010131-ad21`.
-  - If either changes what a lock records, the re-recorded lock goes in as its own commit after the merge on that branch
-    (#1339 too, if #1323's changes). That has not happened yet.
-  - At #1323 the merge changes only the Flock package's Lean (the Firewall modules and `lakefile.toml`), so I expect
-    Security to be unchanged there. At #1318 the PR itself edits `verity/Security/lean-audit.json`, so that run decides.
+- **`verity/Security` (which covers `Proofs`) at #1318 and #1323:** unchanged; nothing to commit on #1318, #1323 or
+  #1339. Each ran `python3 tools/lean/audit.py --build --update --owner @proofs --no-runs verity/Security` with kernel
+  replay, at `--mem-gb 192`. Both PASS: `Proofs` has 58918 declarations in 929 modules (58322 replayed, 310 skipped),
+  and `verity/Security` has 6958 declarations and 1705 guarantees (6879 replayed, 79 skipped).
+  - #1318, `r20261007-020414-3a47` (`art:3c71a100ce4229ad18387994a58c79aa112c21a3601445af5602304b5ca01ef1`): the
+    written lock is equal to the head's as JSON, so no guarantee, read or other record changed. Its bytes differ only in
+    where the top-level `"four_names"` sits: the merge driver had moved it to the end. The audit logged
+    "rewritten under today's names and layout, saying what it said". `check` compares parsed records, so I did not
+    commit the layout-only rewrite; the train's merge driver would reproduce that key order anyway.
+  - #1323, `r20261007-020430-2af4` (`art:bdaeed234d16cc998434dca3aaeaa8119969eb631069e79eb60a536e4d7a9445`): the
+    written lock is byte-identical to the head's, which is main's. #1339's `verity/Security` and Flock Lean equal
+    #1323's.
+  - Two earlier rounds died of memory and recorded nothing. Both named `verity/Security` and `verity/Security/Proofs`,
+    which `audit.py` audits concurrently, so `Proofs` was audited twice at once.
+    - At 40 GB: `r20261006-234656-36f6`, `r20261006-234706-01e3`.
+    - At 128 GB: `r20261007-010113-fa89` (`art:d6449d40…`), `r20261007-010131-ad21` (`art:01d8c498…`).
+  - The single-package runs peaked at about 170 GB, during `Proofs`' replay.
 
 ### Suites (check c), at the final heads, on vy-nebius-1
 

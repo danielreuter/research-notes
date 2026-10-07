@@ -102,6 +102,14 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 09:38Z Oct 7 (2:38 AM PDT), steward pass (cron arrived 7 min late)
+
+- Node 1 (watch, no flags): 69.7% (1,521 GiB free). GPU 1's lease (`r20261007-081852-f066`) has ended: the holder pid is
+  gone and its usage record is written. Only `/run/gpu-lease/1.owner` remains, until 09:54Z. All 8 idle (reported); GPU 0
+  still shows the NVML 100% oddity. Pacer and dispatcher clean. Loop tick 193's channel sync was fine.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported). `/workspace` at 72% (node 2's disk is @infra's and node2-ops').
+  The next hourly is loop tick 198.
+
 ## State at 09:10Z Oct 7 (2:10 AM PDT), steward pass (cron arrived 7 min late)
 
 - Node 1 (watch, no flags): 69.7% (1,519 GiB free). GPU 1 is leased (`r20261007-081852-f066`, 100%); 7 idle (reported).

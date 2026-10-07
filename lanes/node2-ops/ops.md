@@ -69,6 +69,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-07 12:03Z alerts: the 12:02Z `/workspace` notice, 73% with 1,364 GiB free (22 GiB down in the hour). Still under 75% (about 1,250 GiB free); at this pace it gets there in about 5 h, after the node stops itself at 14:55Z. Watermark 12:02:13Z.
 - 2026-10-07 11:15Z hourly (10Z): GPU busy 10.4% (0.83 of 8.00 GPU-h), below the 80% bar: the GPU queue is still empty (`queued 0`, free-idle 7.0); only bc-15ada664's fill job on GPU 7. CPU 0–127 23.5%: repository `check` runs (three source trees through the hour) and memory accounting's `pous serve`. Backup `r20261007-111539-1609`; `r20261007-101450-811c` PRESERVED. `df` 73%. Daemons up; `ca-preserve` (compute accounting's tmux since 04:27Z) has ended. `status.md` fresh (11:14Z). No new infra notes for node 2.
 - 2026-10-07 11:02Z alerts: the 11:01Z `/workspace` notice, 72% with 1,386 GiB free, flat since 10:00Z. Watermark 11:01:22Z.
 - 2026-10-07 10:15Z hourly (09Z): GPU busy 11.0% (0.88 of 8.00 GPU-h), below the 80% bar: the GPU queue is still empty (`queued 0`, free-idle 7.0); only bc-15ada664's fill job on GPU 7 (its `pous serve` now running). CPU 0–127 11.9% (my large-unit packing to 09:43Z, then a repository `check` with its Lean audit, running since about 10:03Z). Backup `r20261007-101450-811c`; `r20261007-090106-71c9` PRESERVED. `df` 73%. Daemons up, `status.md` fresh (10:13Z). No new infra notes for node 2.

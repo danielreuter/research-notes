@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:30Z) [open] 01:30Z inbox empty; #1366 and #1425 progressing; tips 85-89 queued; agent-compute survey collecting
 CHECKPOINT none (01:15Z) [open] 01:15Z inbox empty; tips 85/87/88/89 queued; proofs' 12-PR tip after 01:30Z
 CHECKPOINT none (01:00Z) [open] 01:00Z proofs' 12 heads granted, tip after 01:30Z checks; tips 85/87/88/89 queued
 CHECKPOINT none (00:46Z) [open] 00:45Z tip 84 landed (service train, #1412); tips 85/87/88 queued; 9 layout decisions with Daniel

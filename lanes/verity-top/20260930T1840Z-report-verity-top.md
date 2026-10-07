@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:00Z) [open] 01:00Z proofs' 12 heads granted, tip after 01:30Z checks; tips 85/87/88/89 queued
 CHECKPOINT none (00:46Z) [open] 00:45Z tip 84 landed (service train, #1412); tips 85/87/88 queued; 9 layout decisions with Daniel
 CHECKPOINT none (00:30Z) [open] 00:30Z inbox empty; layout feedback summary sent to Daniel (8 decisions); tips 82-87 checking
 CHECKPOINT none (00:15Z) [open] 00:15Z inbox empty; layout feedback collecting for 01:30Z; proofs' 12-PR tip awaits final heads

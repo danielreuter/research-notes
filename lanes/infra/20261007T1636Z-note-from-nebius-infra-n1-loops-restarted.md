@@ -27,3 +27,9 @@ yet.)
 
 I didn't start anything else. Other tmux-run services may still be down, such as circuits' controller and the alert pull.
 The `vy-*` systemd timers are all active.
+
+**Added 18:36Z: node 2's GPU sampler.** It didn't come back after node 2's 16:42Z restart. Its last sample was at 14:55Z, so
+the utilization record has a hole from 14:55 to 18:36Z. At root's request I restarted it at 18:35:51Z in tmux
+`pouw-infra-util` as research, using `units/pouw-infra-util.service`'s command and env. It's writing
+`/workspace/pouw/infra/util/2026-10-07.jsonl` again. If you install that user unit, stop my tmux session first. I left
+node 2's POUS scheduler (`vy-cluster-agent`, stopped at 16:52Z) alone, since node 2 is on check work.

@@ -102,6 +102,17 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 06:10Z Oct 7 (11:10 PM PDT Oct 6), steward pass (cron arrived 10 min late)
+
+- New alert type, 06:01Z "GPU idle while work is waiting" (7 firing on node 1): from about 05:45Z circuits' 8-GPU Qwen
+  load-time job waited in `deployments-gpu` while GPU 4 held a 1-GPU `provers` lease (`r20261007-053837-fb89`,
+  `adhoc:ubuntu`, 100% busy). The other 7 sat idle; it's gang scheduling, and nothing is waiting now. The alert goes to the
+  infra and dispatcher lanes (dispatcher refills, root checks at 30 min). Not mine; not posted.
+- The 05:41Z "pod holds a GPU at 0%" alert is `lt-qwen235-tp8-fstr-6`, the pattern already told to @circuits.
+- Node 1 (watch, no flags): 69.7% (1,522 GiB free); 1 GPU leased, 7 idle (reported). Pacer and dispatcher clean.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 70%.
+- Hourly snapshot `art:2d603fcc…` (about 06:00Z; utilization-summary updated).
+
 ## State at 05:40Z Oct 7 (10:40 PM PDT Oct 6), steward pass (cron arrived 9 min late)
 
 - Node 1 (watch, no flags): 69.3% (1,542 GiB free), up from 66.2% at 05:15Z. The writer was an `rsync --server` into

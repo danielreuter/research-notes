@@ -102,6 +102,11 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## 15:12Z Oct 7: deadline check, both nodes down as planned
+
+- `nebius-infra-deadline-check-1512`: at 15:12:27Z ssh to n1 and n2 both timed out, the planned stop. No message to
+  root. The timer was one-shot and is done.
+
 ## State at 15:06Z Oct 7 (8:06 AM PDT), steward pass
 
 - Both nodes still stopped (ssh timeouts), as planned. Nothing new in the inbox; no word yet from @top on where checks

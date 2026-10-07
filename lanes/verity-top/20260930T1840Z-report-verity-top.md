@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:15Z) [open] move + T1 landed (main bcc5adfc9); T2 waits on flaky-test deletion and recheck; CPU consolidating on Nebius
 CHECKPOINT none (22:00Z) [open] waiting on lander's hand landing of the move; Nebius quotas with Daniel
 CHECKPOINT none (21:50Z) [open] move hand-landing in progress (lander), Nebius quotas with Daniel, 17 closes done
 CHECKPOINT none (21:15Z) [open] 21:15Z: move/T1/T2 checks running at 8543eecca; core-Lean drafts #1509 #1510 up; Linear setup complete

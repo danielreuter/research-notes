@@ -102,6 +102,13 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 03:37Z Oct 7 (8:37 PM PDT Oct 6), steward pass (cron on time)
+
+- Node 1 (watch, no flags): 66.0% (1,708 GiB free). Circuits' `lt-qwen235-tp8-2` ended. `lt-qwen235-tp8-3` started
+  about 03:15Z on all 8 GPUs and is now doing GPU work (4 of 8 at 15–54%). The 03:14Z "pod holds a GPU at 0%" alert is
+  the `-2` run's tail, already told to @circuits; not re-posted. Pacer and dispatcher clean.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 70%. The next hourly is loop tick 174.
+
 ## State at 03:06Z Oct 7 (8:06 PM PDT Oct 6), steward pass (cron on time)
 
 - Open ask 3 (custody): **no answer from @infra by this pass**; told root. The three `n1-custody-*` jobs re-ran at about

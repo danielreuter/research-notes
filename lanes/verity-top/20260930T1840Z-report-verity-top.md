@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:30Z) [open] move pr:1450@9354f2471 checking (e83a, 8e53), T1 tip 121 beside it; red-team regrant pending; T2 after #1464 regrant
 CHECKPOINT none (18:15Z) [open] move pr:1450@1da3f2842 checking (verdict ~19:15Z); core-as-Lean ports under way (#1482 interface, #1486 harness, #1487 evaluator, #1488 NCI)
 CHECKPOINT none (18:07Z) [open] move pr:1450@1da3f2842 checking on both nodes (verdict ~19:15Z), grants in; T1'' 119 beside it; CPU machine validating
 CHECKPOINT none (17:48Z) [open] move clean so far, lands on pass; T1' without #1464 + nebius clock-test fix planned; core-as-Lean lanes on #1482 interface

@@ -19,7 +19,8 @@ own retention files, below).
 **Correction to the 10:10Z note.** The two 3 Oct `mvp-e2e/passes` are preserved, not waiting on an upload question. Each has a
 `.retention.json` inside it, written by compute accounting on 3 Oct at 21:09Z: `art:3fb47adc…` for `r20261003-210254-47a3` and
 `art:500bb5d0…` for `r20261003-210257-7e05`. I had looked only for a retention file beside each directory. A `--mode head`
-check of both artifacts is running from my VM. All three passes are therefore preserved.
+check of both artifacts did not finish from my VM (40 min for `head`; 4 min each for `recorded`), so their preservation rests on
+compute accounting's retention files, not on a check of mine.
 
 **Custody.** Nothing on node 2 is waiting to go home: `n2_custody.sh --dry-run` lists 0. In all, 70 ended runs were pushed today
 (66 in final backup 1, 4 in final backup 2). Nine of them were held or had files written late: 5 in the morning and 4 cancelled

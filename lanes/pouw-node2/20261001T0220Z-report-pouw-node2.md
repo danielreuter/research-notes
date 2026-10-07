@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (14:20Z) [open] A 14:20Z poll: node2-ops 13Z: 0% busy (drain), last backup r20261007-141537-9d6e PRESERVED; df 73% (1,355 GiB); node 2 stops 14:55Z; main unchanged c9bb7acef; GPU 0 totals off-node and panel edit await yes
 CHECKPOINT fbce5a2f4c (14:01Z) [open] A 14:00Z poll: node2-ops final: backup 2 r20261007-133046-6fdc PRESERVED, its MANIFEST lists pouw-node2-scratch/gpu0-totals; fp8-gpucheck dies are standalone large-unit backups; custody 0 left; node stops 14:55Z. GPU 0 totals can run off-node from the store on CA's yes; main unchanged c9bb7acef
 CHECKPOINT fbce5a2f4c (13:40Z) [open] A 13:40Z poll: no new notes; main unchanged c9bb7acef; node 2 draining, stops 15:00Z, final backup 2 from 13:30Z; GPU 0 totals' inputs unconfirmed; off node 2
 CHECKPOINT fbce5a2f4c (13:20Z) [open] A 13:20Z poll: node 2 draining (admits nothing past 13:00Z, stop 15:00Z), 0% busy in 13Z; final backup 2 at 13:30Z; df 73% (1,359 GiB); main unchanged c9bb7acef; GPU 0 totals' inputs unconfirmed (backup check can wait past the stop); off node 2

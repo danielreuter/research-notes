@@ -578,3 +578,4 @@ Triage:
 
 - 2026-10-07 08:07Z round skipped: platform layout move night (drain 08:30Z, move ~10:15Z); next round 12:00Z goes to console + old-circuits-and-proofs.
 - 2026-10-07 12:00Z round skipped again: the layout move hasn't landed (main still c9bb7acef at 12:00Z; due ~10:15Z), every lane is waiting to restack and top's 11:05Z ask has them grepping restacked lines for computed paths; old-circuits-and-proofs runs the move. Next round 16:00Z: console + old-circuits-and-proofs.
+- Round 37 (7 Oct 16:00Z): @console and @old-circuits-and-proofs (announce ts 1791388859.269309), after rounds at 08:00Z and 12:00Z were skipped for the move. Nodes stopped 15:00Z; questions framed on the last day incl. move night. Context given: Kueue shadow result (#1460), lock-out waiting for Daniel (#1466), the 2 h admission drain before a stop.

@@ -58,6 +58,19 @@ when `/tmp/steward-pass.last` is over 40 min old.
        condition 2: 20, condition 3: 18, recent: 38).
      - Confirmed in the thread (`1791153079.691869`). From now on the disk-72 flag needs no nudge for `src/`; the pin now tracks
        main's `2babac20` and needs a bump with the next eviction change.
+3. **[@infra] Node 1 custody fails on wrong remote bytes: three run records have no custody** (root, 02:34Z Oct 7: re-raise
+   once and ask for an owner and ETA; one line back with the answer, or if none by the next pass).
+   - Raised as a note in @infra's lane: `lanes/infra/20261007T0245Z-ask-from-nebius-infra-custody-remote-conflict`
+     (notes `d0d67778`). It's a note, not Slack, because a post as @infra never wakes @infra (comms, in thread
+     `1791226524.628149`), which is why the Oct 5 ask went unanswered.
+   - Affected: `r20261006-064928-8715` (`art:0d6c8bb2106a…`), `r20261006-151615-1abd` (`art:1608c2bab13a…`) and
+     `r20261006-172104-f72e` (`art:0d4598bf0580…`). Four blobs on the remote are a few bytes off; the local ones hash
+     correctly (mtime 19:09:41 Oct 6). Only node 1 holds the correct bytes.
+   - Next pass: look for @infra's reply (lanes `infra` and `nebius-infra`, and the custody jobs' state), then send root one
+     line with the answer or "no answer".
+   - 02:40Z (root's ask): the four blobs are copied and verified (sha256 = name) to
+     `/workspace/verity-guest/backup/custody-remote-conflict-20261007/` on node 1 and node 2. That's outside every sweep;
+     mode 0444; separate inodes; originals and remote untouched. The paths are in the note (notes `a7f53cef`).
 2. **[@infra] The control pod's notes checkout is on a detached HEAD** (root, 16:09Z Oct 6; told @infra once,
    `1791303016.287849`).
    - `vy-control:/workspace/steward/research-notes`: a sync's rebase started at 16:05:41Z and never finished. HEAD is

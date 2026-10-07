@@ -132,6 +132,14 @@ are restored; the down-probe is closed.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## 18:36Z Oct 7: node 2's GPU sampler restarted (root's ask)
+
+- The sampler last sampled at 14:55Z and didn't come back after node 2's 16:42Z restart. Before, it ran in tmux
+  `pouw-infra-util`; the user unit in `units/` isn't installed. Nothing said it was deliberately off.
+- Restarted at 18:35:51Z with `tools/start_n2_sampler.sh`, in tmux `pouw-infra-util` as research with the unit's command
+  and env. It writes `util/2026-10-07.jsonl` again (first sample 18:36:14Z). The hole in node 2's record runs 14:55–18:36Z.
+- Left `vy-cluster-agent` alone (node 2 is on check work). Added to my note in @infra's lane (notes `1febfafe`).
+
 ## State at 18:31Z Oct 7 (11:31 AM PDT), steward pass
 
 - Node 1 (watch, no flags): 71.5% (1,433 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported).

@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (18:40Z) [open] A 18:40Z poll: nebius-infra: node 2 up since 16:42Z, on check work (cluster agent stopped, GPU sampler restarted 18:35Z); no 'back' for me, so still off node 2; main unchanged c9bb7acef; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (18:20Z) [open] A 18:20Z poll: no new notes; main unchanged c9bb7acef; node 2 not reported back; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (18:00Z) [open] A 18:00Z poll: no new notes; main unchanged c9bb7acef; node 2 not reported back; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (17:40Z) [open] A 17:40Z poll: no new notes; main unchanged c9bb7acef; node 2 not reported back; awaiting CA on poll, GPU 0 totals, panel edit

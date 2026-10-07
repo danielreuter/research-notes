@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (05:54Z) [open] 05:54Z main 4bd12249c (tip 93); tips 97-99 checking/queued (99 = fixed rec train); overnight refactor run by architecture per Daniel
 CHECKPOINT none (05:28Z) [open] 05:27Z tip 93 + 97 checking; rec train failed in 95, proofs fixing; load-time done (~5 min fastsafetensors); warm copy to node 1 running; Nebius renewal pending Daniel
 CHECKPOINT none (05:12Z) [open] 05:12Z tips 93-96 checking; load-time warm fastsafetensors rerun ending; Nebius renewal pending Daniel
 CHECKPOINT none (04:57Z) [open] 04:57Z tips 93-96 checking; fastsafetensors 306s cold; #1445 replay reuse up; Nebius renewal pending Daniel

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (05:28Z) [open] 05:27Z tip 93 + 97 checking; rec train failed in 95, proofs fixing; load-time done (~5 min fastsafetensors); warm copy to node 1 running; Nebius renewal pending Daniel
 CHECKPOINT none (05:12Z) [open] 05:12Z tips 93-96 checking; load-time warm fastsafetensors rerun ending; Nebius renewal pending Daniel
 CHECKPOINT none (04:57Z) [open] 04:57Z tips 93-96 checking; fastsafetensors 306s cold; #1445 replay reuse up; Nebius renewal pending Daniel
 CHECKPOINT none (04:41Z) [open] 04:41Z tips 93-96 checking; #1442 ArkLib cache, #1443 parallel preserved opened; Nebius renewal pending Daniel

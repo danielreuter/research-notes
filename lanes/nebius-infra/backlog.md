@@ -102,6 +102,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 07:10Z Oct 7 (12:10 AM PDT), steward pass (cron arrived 9 min late)
+
+- Node 1 (watch, no flags): 70.5% (1,480 GiB free), up from 69.2% at 06:45Z. No writer over 10 MB/s in the probe since
+  06:40Z, so it's spread across small writers (check runs). `research/src` eviction is live, so `disk-72` needs no
+  nudge; tell root at 78%.
+- Node 1 GPUs: GPU 4's vLLM lease (`r20261007-053837-fb89`) holds 90 GB at 0% now; 7 idle (reported). GPUs 0 and 1
+  still read 100% at 0 MiB and about 92 W (the NVML oddity). Pacer and dispatcher clean.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 71%. The next hourly is loop tick 186.
+
 ## State at 06:42Z Oct 7 (11:42 PM PDT Oct 6), steward pass (cron arrived 12 min late)
 
 - Node 1 (watch, no flags): 69.2% (1,544 GiB free). 1 GPU leased (4, `r20261007-053837-fb89`, vLLM, 100%), 7 idle

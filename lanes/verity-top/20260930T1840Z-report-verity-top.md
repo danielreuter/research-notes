@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:00Z) [open] #1450 14296f4bb fixes all of 45fe's list; move waits for nodes
 CHECKPOINT none (13:45Z) [open] #1450 at 14296f4bb, one circuit-check test left; node outputs saved
 CHECKPOINT none (13:31Z) [open] 45fe list in; fixes folding on #1450 (5c6cd6f7f); circuit-check 2 left
 CHECKPOINT none (13:15Z) [open] move deferred; awaiting 45fe failure list; nodes stop 15:00Z

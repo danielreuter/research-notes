@@ -102,6 +102,16 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 14:06Z Oct 7 (7:06 AM PDT), steward pass (cron arrived 6 min late)
+
+- Both nodes up; deadlines 15:00Z. Node 1 (watch, no flags): 70.2% (1,498 GiB free); all 8 idle (reported); pacer and
+  dispatcher clean.
+- Node 2: memory accounting's fill job `pous-vllm-e2e-series` started on 1 GPU at 14:06Z; 7 idle (reported); 73%.
+- New for @infra from node2-ops (`lanes/infra/20261007T1350Z-report-from-node2-ops-node2-final-result`): final backup 2
+  `r20261007-133046-6fdc` is preserved (854 units, 21.8 GB); 0 runs waiting to go home; the cluster agent drains since
+  12:41Z. Nothing for the steward.
+- Loop tick 210 (the hourly) is in progress.
+
 ## State at 13:36Z Oct 7 (6:36 AM PDT), steward pass (cron arrived 6 min late)
 
 - Both nodes up; deadlines 15:00Z. Node 1 (watch, no flags): 70.2% (1,498 GiB free); all 8 idle (reported); pacer and

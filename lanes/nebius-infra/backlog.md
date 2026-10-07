@@ -49,9 +49,18 @@ While both nodes are down:
 
   Also re-create the fallback (every 2,700 s) if the VM keeps pausing.
 
+**Nodes back (root, 16:04Z Oct 7):** Daniel renewed Nebius and @infra is bringing both nodes back. Full passes and the fallback
+are restored; the down-probe is closed.
+
 **Subscriptions (root, 16:34Z Oct 4: they expire 7 days after creation; renew any expiring within 2 days).**
-- Since 15:39Z Oct 7: `nebius-infra-down-probe` (every 7,200 s, `sub_c2937371…`), expires 2026-10-14T15:38Z.
-- One-shot reminder `nebius-infra-renew-probe-oct12` (`sub_cdfccf86…`) fires about 2026-10-12T15:00Z to renew it.
+- Since 16:04Z Oct 7: `nebius-infra-steward-pass-v3` (cron `*/30`, `sub_aef847fd…`) and
+  `nebius-infra-steward-fallback-v2` (every 2,700 s, `sub_ce8c6750…`), both expiring about 2026-10-14T16:04Z.
+- `nebius-infra-nodes-return-watch-v2` (every 300 s; replaced `-watch` at 16:11Z) stays silent while the nodes time out.
+  It tells root once when both answer (with the new deadline) and then closes itself, and once if they're still down at
+  17:30Z (marker `/tmp/nodes-return-1730.reported`).
+- One-shot reminder `nebius-infra-renew-probe-oct12` (`sub_cdfccf86…`) fires about 2026-10-12T15:00Z. Its prompt renews any
+  steward timer expiring within 2 days, so it covers these.
+- `nebius-infra-down-probe` (`sub_c2937371…`) was open 15:39–16:04Z Oct 7; closed.
 - Closed at 15:39Z Oct 7: `nebius-infra-steward-pass-v2`, `nebius-infra-steward-fallback` and the Oct 9 renew reminder
   `nebius-infra-renew-subscriptions-oct9`.
 - To renew: unsubscribe, then re-subscribe with the same args under a **new name** (`-v2`, `-v3`). Re-subscribing a

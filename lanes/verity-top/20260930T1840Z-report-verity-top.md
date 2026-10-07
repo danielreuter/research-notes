@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:57Z) [open] 04:57Z tips 93-96 checking; fastsafetensors 306s cold; #1445 replay reuse up; Nebius renewal pending Daniel
 CHECKPOINT none (04:41Z) [open] 04:41Z tips 93-96 checking; #1442 ArkLib cache, #1443 parallel preserved opened; Nebius renewal pending Daniel
 CHECKPOINT none (04:26Z) [open] 04:25Z tips 93-96 checking; load-time table sent, fastsafetensors ~04:50Z; specs sort reviewed by lean; Nebius renewal pending Daniel
 CHECKPOINT none (04:10Z) [open] 04:10Z tips 93-96 checking/queued; redesign review sent to Daniel (Nebius renewal before 13:00Z); PoUS node-only outputs stored; load-time job 3 ended 04:08Z, confirming

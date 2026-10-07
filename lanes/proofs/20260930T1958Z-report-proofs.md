@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (09:02Z) [open] 09:05Z: move head 3531bd8eb withdrawn (base 4bd12249c); regenerated head ~09:45Z; asked top for a PR head (grants need pr:N@SHA); red-team-canon rehearsing
 CHECKPOINT none (08:40Z) [open] 08:40Z: merge-main on c9bb7acef done: 14 PRs clean (verified), 6 need owners + 3 blocked + 3 skipped for Daniel's list; red-team-canon ready for the move head
 CHECKPOINT none (08:04Z) [open] 08:05Z: main frozen at c9bb7acef; 3 merge-main workers on proofs' conflicting PRs (due 09:45Z); red-team-canon preparing the move-head grant review (head ~09:05Z)
 CHECKPOINT none (07:31Z) [open] 07:31Z: top kept 82871c533 (verifier gates) on lean's map branch; ci adds the test only; status 3 posted; next the 08:30Z drain and the 26-PR merge-main worker

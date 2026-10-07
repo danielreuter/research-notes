@@ -80,6 +80,17 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 02:33Z Oct 7 (7:33 PM PDT Oct 6), steward pass (cron on time)
+
+- Node 1 (watch, no flags): 67.1% (1,649 GiB free). At 02:31Z SkyPilot started `lt-qwen235-tp8-2-ce1b86e4`, admitted
+  via `deployments-gpu`: all 8 GPUs, budget line `nebius-config-run`, priority `circuits-gpu`. Still loading (0 MiB).
+  Pacer and dispatcher clean.
+- Node 1 custody: Kubernetes jobs `n1-custody-r20261006-{064928-8715,151615-1abd,172104-f72e}` failed at about 02:25Z with
+  "NO custody on the remote… absent", and `n1-store-push-research` preserved 6 of 9. It's the same record-less-attempt
+  failure as the `vy-custody` exit 1 I raised with @infra (unanswered), now run as Kubernetes jobs. Not re-posted.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 70%.
+- Hourly snapshot `art:d80061e4…` (about 02:25Z; utilization-summary updated).
+
 ## State at 02:01Z Oct 7 (7:01 PM PDT Oct 6), steward pass (cron on time)
 
 - Unchanged. Node 1 (watch, no flags): 66.8% (1,663 GiB free); 0 admitted, all 8 idle (reported); pacer and dispatcher

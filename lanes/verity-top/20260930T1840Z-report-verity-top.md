@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:18Z) [open] 20:17Z: #1450 at 8543eecca, move and T1 tip 123 checks restarting, T2 tip 124; Linear setup done, comms verifying key and wakeups
 CHECKPOINT none (19:45Z) [open] move e83a still checking (630 GiB on n1); Linear trial setup answers relayed; CPU machines registered, infra cost report pending
 CHECKPOINT none (19:30Z) [open] move e83a due ~19:35Z; infra asked to register vy-nebius-cpu-1 in machines.toml
 CHECKPOINT none (19:15Z) [open] move e83a due ~19:35Z, then tips 121, 122; lean delivered #1499 randomness, #1500 core_world

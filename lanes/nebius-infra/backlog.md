@@ -102,6 +102,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 13:36Z Oct 7 (6:36 AM PDT), steward pass (cron arrived 6 min late)
+
+- Both nodes up; deadlines 15:00Z. Node 1 (watch, no flags): 70.2% (1,498 GiB free); all 8 idle (reported); pacer and
+  dispatcher clean.
+- Node 2: 0 running, all 8 idle (reported), 73%. The fill runner shows `free GPUs 8/8 … queued 1 (gpu 1)`: memory
+  accounting's next fill job for GPU 7 has waited about 30 min (new id each try). Likely `max-min` holding back jobs that
+  can't finish before the 14:55Z stop. Theirs; not posted.
+- The next hourly is loop tick 210.
+
 ## State at 13:06Z Oct 7 (6:06 AM PDT), steward pass (cron arrived 6 min late)
 
 - Unchanged. Both nodes up; deadlines 15:00Z. Node 1 (watch, no flags): 70.2% (1,495 GiB free); all 8 idle (reported);

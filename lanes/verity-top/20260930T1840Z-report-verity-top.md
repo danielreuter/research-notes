@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:00Z) [open] 21:00Z: move/T1/T2 checks running at 8543eecca; Linear setup complete (OAuth app), structure question with Daniel
 CHECKPOINT none (20:45Z) [open] 20:45Z: move/T1/T2 checks running at 8543eecca with both grants; Linear app fresh-VM check running; PoUS errata asked of Daniel
 CHECKPOINT none (20:30Z) [open] 20:30Z: move and T1/T2 checks running at 8543eecca, red-team re-grant outstanding; Linear OAuth switch in #1505
 CHECKPOINT none (20:18Z) [open] 20:17Z: #1450 at 8543eecca, move and T1 tip 123 checks restarting, T2 tip 124; Linear setup done, comms verifying key and wakeups

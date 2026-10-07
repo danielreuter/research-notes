@@ -506,12 +506,13 @@ filler.
   - `art:2d603fcc0ccf985257173aca63ce7eb845b8e595e6f40f9d96b24b10cc8beda7` (about 06:00Z Oct 7)
   - `art:3eace3e328963c27d84504569fd26979a9a3da3b19089bce9397511ff8a5eb48` (about 07:20Z Oct 7)
   - `art:c3315559b6e7551db73091708defc9a8fbbcad39a3a9c5d0d30cf83aa3812736` (about 09:05Z Oct 7)
-  - `art:ba3e45f7cd5a1bef502ab80df32e939f624bbe883b9f2eb21944fca9e1595cad` (about 10:45Z Oct 7, the latest)
-- **Running totals, Sep 30 05:16Z to about 10:45Z Oct 7** (from `art:ba3e45f7…`):
-  - Node 1: 1,388 GPU-h observed, 322 held or busy, 166 busy, 1,066 idle. Held or busy barely moved from about 11:53Z
+  - `art:ba3e45f7cd5a1bef502ab80df32e939f624bbe883b9f2eb21944fca9e1595cad` (about 10:45Z Oct 7)
+  - `art:e2ff41f78645fdb6aedd17a80e0bcdec5e89a21263b2335073989cbe09974494` (about 12:20Z Oct 7, the latest)
+- **Running totals, Sep 30 05:16Z to about 12:20Z Oct 7** (from `art:e2ff41f7…`):
+  - Node 1: 1,400 GPU-h observed, 323 held or busy, 168 busy, 1,077 idle. Held or busy barely moved from about 11:53Z
     Oct 6 to 02:31Z Oct 7. Since then it's mostly circuits' 8-GPU Qwen-235B load-time variants (02:31Z on), held mostly
     through load and little of it busy, plus network-accounting's 1-GPU `active_live_cells` lease on GPU 4 from 05:44Z.
-  - Node 2: 1,379 GPU-h observed, 460 held or busy, 264 busy, 919 idle.
+  - Node 2: 1,391 GPU-h observed, 461 held or busy, 265 busy, 930 idle.
   - From about 00:00Z Oct 4 into Oct 5 both servers had all 8 GPUs allocated (node 1: 8 provers in Kueue; node 2: 8 jobs
     from its cluster agent). Since about midday Oct 6 both have run mostly idle: node 1 with 0–1 GPU in use apart from
     circuits' load-time runs, node 2 with 1 fill job.

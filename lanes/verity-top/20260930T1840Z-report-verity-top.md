@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:45Z) [open] move 14296f4bb: vllm grant in, red-team pending; nodes stop 15:00Z
 CHECKPOINT none (14:30Z) [open] quiet; nodes stop 15:00Z; move ready at 14296f4bb
 CHECKPOINT none (14:15Z) [open] overnight over; move ready at 14296f4bb for one check when nodes return
 CHECKPOINT none (14:00Z) [open] #1450 14296f4bb fixes all of 45fe's list; move waits for nodes

@@ -102,6 +102,22 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 08:39Z Oct 7 (1:39 AM PDT), steward pass (cron arrived 8 min late)
+
+- New on node 1's Kueue at 08:28:25Z: seven `shadow-*` ClusterQueues (backfill, checks, circuits, deployments-cpu,
+  deployments-gpu, lean, provers).
+  - They sit in their own cohort `vy-shadow` with the label `vy.dev/shadow=true`, and select only namespace `vy-shadow`
+    (created at the same time). Quotas mirror the real queues; for example, shadow-provers has 2 GPUs with borrowing up
+    to 6.
+  - The five workloads are bare Workload objects (no owner, no pods), so it's an admission simulation with no real GPU
+    use and no borrowing from the real queues.
+  - They aren't in infra/nebius's `kueue.yaml`, so `drift_check` doesn't cover them. Probably @infra's or the kueue-fold
+    lane's; harmless, so not posted. The watch's `kueue` field now lists them too.
+- Node 1 (watch, no flags): 69.8% (1,517 GiB free). GPU 1 is leased (`r20261007-081852-f066`, `adhoc:ubuntu`, 100%,
+  373 W); 7 idle (reported). GPU 0 still reads 100% at 0 MiB and about 92 W (the NVML oddity). Pacer and dispatcher
+  clean.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 71%. The next hourly is loop tick 192.
+
 ## State at 08:12Z Oct 7 (1:12 AM PDT), steward pass (cron arrived 12 min late)
 
 - Node 1 (watch, no flags): 69.9% (1,511 GiB free). Network-accounting's GPU 4 lease has ended: 0 admitted, all 8 idle

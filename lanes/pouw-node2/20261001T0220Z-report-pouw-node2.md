@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (07:46Z) [open] A 07:45Z poll: no new notes; main 341d09054 (#1432 check.py PART runs one part), no pouw diff; off node 2; /workspace last 70-71% (hold); panel edit awaits yes
 CHECKPOINT fbce5a2f4c (07:25Z) [open] A 07:24Z poll: node2-ops 06Z hourly: 11% busy, only fill on GPU 7; /workspace 70-71% (1,501 GiB, -11 GiB/h, 75% ~a day off; hold); main e6624c3a5 (#1438 Sha512RowSeg_v1 gate for -h3's row digest, #1440 certifier LMS over SHA-512), no pouw diff; off node 2; panel edit awaits yes
 CHECKPOINT fbce5a2f4c (07:05Z) [open] A 07:04Z poll: no new notes (node2-ops' 06Z hourly not yet in); main unchanged 4bd12249c; off node 2; /workspace last 70% (hold); panel edit awaits yes
 CHECKPOINT fbce5a2f4c (06:44Z) [open] A 06:44Z poll: no new notes; main unchanged 4bd12249c; off node 2 (no infra 'back'); /workspace last 70% (hold); panel edit awaits yes

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (02:44Z) [open] 02:45Z: vbridge #1391/#1419/#1428 granted by red-team-vbridge-c (note:red-team-vbridge-c/20261007T0226Z-finding-pr1391-1419-1428-review), ready on both stores and undrafted; they land after the rec tip, with one lock re-record of the stack then. #1318/#1323 lock re-records at 192 GB alive 40 min in; ci's 12-head message due 03:30Z.
 CHECKPOINT none (02:25Z) [open] 02:25Z: rec route 2 heads final except #1318/#1323/#1339; their verity/Security lock re-records relaunched at 192 GB (r20261007-020414-3a47, r20261007-020430-2af4) after OOM at 128 GB; ci ETA 03:30Z. vbridge #1391/#1419 bodies posted, #1428 header cap opened, red-team-vbridge-c reviewing (03:30Z). Step 1 #1429 ready; row-seg digest in gates (step 3's third read) due 05:00Z.
 CHECKPOINT 757350548 (01:01Z) [open] 01:01Z: all 12 grants are in at route 2's heads: red-team-rec-stack x6 (note:red-team-rec-stack/20261007T0042Z-finding-rec-stack-route2), review-zk-gateway x6 by hand (note:review-zk-gateway/20261007T0056Z-finding-review-zk-gateway-r13). Ready marks and ci's tip wait only for route 2's checks (about 01:30Z).
 CHECKPOINT 5ee8d5d9c (00:45Z) [open] 00:42Z: route 2 grants. Six heads whose own patch changed (#1081 #1245 #1246 #1284 #1318 #1347) are being relabelled by red-team-rec-stack, due 01:30Z. #1412's carry is judged against main, so stacked PRs don't carry (told the lander): review-zk-gateway relabels its six at 01:30Z unless #1412 is fixed. S1 (#1179) lands alone when ready.

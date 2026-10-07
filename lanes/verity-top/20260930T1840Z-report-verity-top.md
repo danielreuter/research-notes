@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:30Z) [open] T2 landing by hand from a9d2 (Daniel 22:25Z skip-check ruling); ci defining post-T2 landing rule
 CHECKPOINT none (22:15Z) [open] move + T1 landed (main bcc5adfc9); T2 waits on flaky-test deletion and recheck; CPU consolidating on Nebius
 CHECKPOINT none (22:00Z) [open] waiting on lander's hand landing of the move; Nebius quotas with Daniel
 CHECKPOINT none (21:50Z) [open] move hand-landing in progress (lander), Nebius quotas with Daniel, 17 closes done

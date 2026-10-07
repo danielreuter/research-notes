@@ -132,6 +132,18 @@ are restored; the down-probe is closed.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 17:01Z Oct 7 (10:01 AM PDT), steward pass
+
+- Node 1 (watch, no flags): 70.0% (1,506 GiB free). Pacer and dispatcher tick (tmux `commit-release`, `node1-dispatch`);
+  Kueue 0/0; all 8 idle (reported).
+- Node 2 has been up since 16:42Z.
+  - `vy-cluster-agent` is enabled and started at boot, but exited cleanly at 16:52:44Z. The fill runner's status has been
+    frozen at 14:55Z, and the `pouw-infra-*` units aren't installed.
+  - Since then node 2 has run research `check`-style processes (src `14296f4b…`, load about 70) and a `lake build`.
+  - That looks deliberate: off POUS scheduling and in use for checks. Not posted. 0 of 8 GPUs; 74%.
+- Hourly `art:686a1c7f…` (16:50Z). Node 1's totals came out about 5 GPU-h below the 14:10Z snapshot (sampler history lost
+  in the stop). utilization-summary keeps `art:79b0a41d…` as the pre-stop record.
+
 ## 16:45Z Oct 7: both nodes back (told root)
 
 - Node 1 has been up since about 16:21Z and node 2 since about 16:42Z. Both deadlines read

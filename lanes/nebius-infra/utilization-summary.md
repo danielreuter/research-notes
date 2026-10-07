@@ -508,8 +508,13 @@ filler.
   - `art:c3315559b6e7551db73091708defc9a8fbbcad39a3a9c5d0d30cf83aa3812736` (about 09:05Z Oct 7)
   - `art:ba3e45f7cd5a1bef502ab80df32e939f624bbe883b9f2eb21944fca9e1595cad` (about 10:45Z Oct 7)
   - `art:e2ff41f78645fdb6aedd17a80e0bcdec5e89a21263b2335073989cbe09974494` (about 12:20Z Oct 7)
-  - `art:79b0a41dc55b050a6f24f615a9c944baa1a5adfe85fb14be49ed9005e5c8c30c` (about 14:10Z Oct 7, the latest; likely the
-    last before both nodes stop at their 15:00Z deadline)
+  - `art:79b0a41dc55b050a6f24f615a9c944baa1a5adfe85fb14be49ed9005e5c8c30c` (about 14:10Z Oct 7; the last before both
+    nodes stopped at their 15:00Z deadline, and the best pre-stop record)
+  - `art:686a1c7f6ff30be35a8ab1ac61388b39600317b7d0a4be183f618f8e8958602c` (about 16:50Z Oct 7, after both came back with
+    a new deadline of 2026-10-14T15:00Z). It reads node 1 at 1,410 / 323 / 167 / 1,087 and node 2 at 1,412 / 462 / 266 /
+    951 (observed / held or busy / busy / idle). Node 1's totals are about 5 GPU-h *below* the 14:10Z snapshot, so some of
+    its sampler history before the stop is missing. Running totals below stay on `art:79b0a41d…` until a later snapshot
+    passes them.
 - **Running totals, Sep 30 05:16Z to about 14:10Z Oct 7** (from `art:79b0a41d…`):
   - Node 1: 1,415 GPU-h observed, 325 held or busy, 169 busy, 1,090 idle. Held or busy barely moved from about 11:53Z
     Oct 6 to 02:31Z Oct 7. Since then it's mostly circuits' 8-GPU Qwen-235B load-time variants (02:31Z on), held mostly

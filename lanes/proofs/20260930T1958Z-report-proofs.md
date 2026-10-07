@@ -5,6 +5,8 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT d5efa0005 (22:56Z) [open] 4:00 PM PDT: red-team grant on pr:1349@ddd21937a read back; T2 can land on it. Draft PRs opened: #1517 core_sampled_proofs (one-stage audit in Lean), #1518 core_vstar (V* byte for byte, 34/34), #1519 circuit-check nested roots, #1520 VBridge over VStar. red-team-canon reviewing lean's #1499.
+CHECKPOINT d5efa0005 (22:46Z) [open] 3:47 PM PDT: T2's flock-live race fixed on #1349 at ddd21937a (unlock both flock locks on drop, as Python does; deterministic regression test; logs art:3548454133952806b4fabc6cb1d800b8ba3386fc21515ede4ff854a4a39aaa1e). red-team grant on pr:1349@ddd21937a pending; ci rebuilds T2 on bcc5adfc9 with it.
 CHECKPOINT none (20:34Z) [open] 1:31 PM PDT: both move grants in at #1450@8543eecca (claims-inputs fix); core-composition done as draft #1506 (onsite/remote in Lean, 0 mismatches, 22 guarantees), resumed to fold into the shared security_properties
 CHECKPOINT none (19:05Z) [open] 12:01 PM PDT: #1482 at 8f5b5b971 answers compute-accounting's 4 interface questions (Answer/Integrity.ofJson, DecidableEq, layers, one-stage names); T2 tip 122 ready after T1 121; #1499 core_randomness goes to the one-stage worker's brief; node 1 idle at 73%
 CHECKPOINT none (18:34Z) [open] 11:34 AM PDT: red-team re-granted #1450@9354f2471 and #1464@da47f0c14. The move lands from e83a, then T1'' 121. #1492@1ace5852f joins T2 after T1. Four core-Lean workers are porting the one-stage audit, V*, the firewall and the composition on #1482.

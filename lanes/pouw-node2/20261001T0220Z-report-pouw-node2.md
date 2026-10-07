@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (12:40Z) [open] A 12:40Z poll: no new notes; main unchanged c9bb7acef (layout move pending); node 2 stops 14:55Z; GPU 0 totals' inputs unconfirmed; off node 2; df last 73% (hold)
 CHECKPOINT fbce5a2f4c (12:20Z) [open] A 12:20Z poll: layout move still not landed (infra: main c9bb7acef, due ~10:15Z); my PR branches all merged, nothing to restack; node2-ops 11Z: 11% busy, df 73% (1,364 GiB, hold); node 2 stops 14:55Z; GPU 0 totals' inputs unconfirmed; off node 2
 CHECKPOINT fbce5a2f4c (12:00Z) [open] A 12:00Z poll: no new notes; main unchanged c9bb7acef; node 2 stops 14:55Z; GPU 0 totals' inputs unconfirmed; off node 2; df last 73% (hold)
 CHECKPOINT fbce5a2f4c (11:40Z) [open] A 11:40Z poll: no new notes; main unchanged c9bb7acef (layout move not landed); node 2 stops 14:55Z; GPU 0 totals' inputs unconfirmed; off node 2; df last 73% (hold)

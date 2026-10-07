@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (03:30Z) [open] 8:32 PM PDT: rec tip ready; 12 heads granted and ready=true --by proofs on both stores, locks unchanged at 192 GB; sent ci (#1429 after the tip, vbridge restacks after it); specs-sort draft running for lean, due 05:45Z
 CHECKPOINT none (03:01Z) [open] 03:05Z: #1318's verity/Security lock re-record (r20261007-020414-3a47, 192 GB) passed its Proofs audit (58,918 declarations, three allowed axioms) and is on verity/Security; #1323's (r20261007-020430-2af4) still building. ci's 12-head message due 03:30Z.
 CHECKPOINT none (02:44Z) [open] 02:45Z: vbridge #1391/#1419/#1428 granted by red-team-vbridge-c (note:red-team-vbridge-c/20261007T0226Z-finding-pr1391-1419-1428-review), ready on both stores and undrafted; they land after the rec tip, with one lock re-record of the stack then. #1318/#1323 lock re-records at 192 GB alive 40 min in; ci's 12-head message due 03:30Z.
 CHECKPOINT none (02:25Z) [open] 02:25Z: rec route 2 heads final except #1318/#1323/#1339; their verity/Security lock re-records relaunched at 192 GB (r20261007-020414-3a47, r20261007-020430-2af4) after OOM at 128 GB; ci ETA 03:30Z. vbridge #1391/#1419 bodies posted, #1428 header cap opened, red-team-vbridge-c reviewing (03:30Z). Step 1 #1429 ready; row-seg digest in gates (step 3's third read) due 05:00Z.

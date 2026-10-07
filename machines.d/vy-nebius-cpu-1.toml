@@ -1,0 +1,9 @@
+# machine vy-nebius-cpu-1: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "ssh"
+host = "81.85.4.185"
+user = "research"
+rate_usd_per_hour = 6.34
+project = "verity"
+root = "/workspace/research"
+registered_by = "cursor"
+registered_at = "2026-10-07T17:16Z"

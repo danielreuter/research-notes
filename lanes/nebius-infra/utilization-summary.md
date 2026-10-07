@@ -520,7 +520,10 @@ filler.
     and busy are still about 2 GPU-h below `art:79b0a41d…` (the lost sampler history). Node 2: 1,412 / 462 / 266 / 951,
     the same as at 16:50Z: its GPU sampler (`pouw-infra-util`) hasn't run since the restart, so its totals are frozen at
     the 14:55Z stop.
-  - `art:ff4da84192994556e63a5f871f24b6115d7809d0f2bf74d33b5e2516fd34ab92` (about 21:45Z Oct 7, the latest). Node 1:
+  - `art:f97c3981b3027bb2d131ec971a0ad5e380da6232d08ce3f2d6ca6a1602a5af90` (about 23:15Z Oct 7, the latest). Node 1:
+    1,461 / 323 / 167 / 1,138. Node 2 is `unavailable`: @infra stopped it at 22:20Z (planned, disk kept), so its sampler
+    history waits on the node's restart.
+  - `art:ff4da84192994556e63a5f871f24b6115d7809d0f2bf74d33b5e2516fd34ab92` (about 21:45Z Oct 7). Node 1:
     1,449 / 323 / 167 / 1,126; node 2: 1,437 / 462 / 266 / 976 (observed / held or busy / busy / idle). Neither node has
     had GPU work since the restart.
   - `art:1b53303089a6036b95082f847c281f7e8965a7d9d01650c1fe00b91e6c24272d` (about 20:05Z Oct 7).

@@ -136,6 +136,12 @@ starts node 2 again.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 23:30Z Oct 7 (4:30 PM PDT), steward pass (node 1 only)
+
+- Node 1 (watch, no flags): 71.2% (1,444 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported).
+- Hourly `art:f97c3981…` (about 23:15Z), the first with the `util_collect` fix: node 1 at 1,461 / 323 / 167 / 1,138,
+  node 2 recorded as `unavailable`. utilization-summary updated.
+
 ## State at 23:01Z Oct 7 (4:01 PM PDT), steward pass (node 1 only)
 
 - Node 1 (watch, no flags): 70.9% (1,457 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported).

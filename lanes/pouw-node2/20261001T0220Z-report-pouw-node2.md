@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (17:40Z) [open] A 17:40Z poll: no new notes; main unchanged c9bb7acef; node 2 not reported back; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (17:20Z) [open] A 17:20Z poll: no new notes; main unchanged c9bb7acef; node 2 not reported back; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (17:00Z) [open] A 17:00Z poll: no new notes; main unchanged c9bb7acef; node 2 not reported back; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (16:40Z) [open] A 16:40Z poll: node 1 back 16:21Z, new deadline 14 Oct 15:00Z; node 2 not answering ssh at 16:32Z; I stay off node 2 until infra posts back; main unchanged c9bb7acef; awaiting CA on poll, GPU 0 totals, panel edit

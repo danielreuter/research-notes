@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (20:34Z) [open] 1:31 PM PDT: both move grants in at #1450@8543eecca (claims-inputs fix); core-composition done as draft #1506 (onsite/remote in Lean, 0 mismatches, 22 guarantees), resumed to fold into the shared security_properties
 CHECKPOINT none (19:05Z) [open] 12:01 PM PDT: #1482 at 8f5b5b971 answers compute-accounting's 4 interface questions (Answer/Integrity.ofJson, DecidableEq, layers, one-stage names); T2 tip 122 ready after T1 121; #1499 core_randomness goes to the one-stage worker's brief; node 1 idle at 73%
 CHECKPOINT none (18:34Z) [open] 11:34 AM PDT: red-team re-granted #1450@9354f2471 and #1464@da47f0c14. The move lands from e83a, then T1'' 121. #1492@1ace5852f joins T2 after T1. Four core-Lean workers are porting the one-stage audit, V*, the firewall and the composition on #1482.
 CHECKPOINT none (11:34Z) [open] 11:35Z: move folded head pr:1450@35b40e8a2 holds red-team + vllm-coordinator (read back); top's GO due 11:40Z; T2's 13 granted pins with ci; node 1 disk 71%.

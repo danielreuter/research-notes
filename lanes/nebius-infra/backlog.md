@@ -52,6 +52,10 @@ While both nodes are down:
 **Nodes back (root, 16:04Z Oct 7):** Daniel renewed Nebius and @infra is bringing both nodes back. Full passes and the fallback
 are restored; the down-probe is closed.
 
+**Node 2 stopped (root, 22:22Z Oct 7):** @infra stopped node 2 at 22:20Z, as planned after the move; its disk is kept so it
+can restart. Don't flag it as down and don't restart it. Steward node 1 only (skip node 2's checks in passes) until @infra
+starts node 2 again.
+
 **Subscriptions (root, 16:34Z Oct 4: they expire 7 days after creation; renew any expiring within 2 days).**
 - Since 16:04Z Oct 7: `nebius-infra-steward-pass-v3` (cron `*/30`, `sub_aef847fd…`) and
   `nebius-infra-steward-fallback-v2` (every 2,700 s, `sub_ce8c6750…`), both expiring about 2026-10-14T16:04Z.
@@ -131,6 +135,8 @@ are restored; the down-probe is closed.
      markers into `lanes/coordinator/20260925T1614Z-report-coordinator.md`, and the 17:23Z reset dropped it. The likely
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
+
+## 22:22Z Oct 7: node 2 stopped by @infra (planned, disk kept); steward node 1 only until it restarts
 
 ## State at 22:01Z Oct 7 (3:01 PM PDT), steward pass
 

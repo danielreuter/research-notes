@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (06:29Z) [open] 06:30Z: #1170 restacked onto tip 99 as #1449 (lock-only; records run r20261007-060436-651c building; red-team-canon reviewing, due 07:15Z); #1448 answered; lean's map not up yet
 CHECKPOINT none (05:50Z) [open] 05:50Z tip 95 S2/R7 fixed on the rec heads (tests only: #1383 renamed replaying tests to @f5df3bbc, the rec tests kept the bare name); 12 new heads ready, art:f06c611125b8; #1081/#1246 red-team relabel with red-team-rec-stack, due 06:30Z
 CHECKPOINT none (05:00Z) [open] 10:02 PM PDT: pubin T1 at 3a73e7b9e, fast build PASS (zk_session_sound_canonicalP new), final audit with replay running; rec tip not on main yet; fail-closed on S1 post-tip
 CHECKPOINT none (04:37Z) [open] 9:50 PM PDT: #1179 granted at 6385e543b (red-team-1179), #1192/#1201/#1170 granted (red-team-canon); fail-closed lands S1 on the rec tip (due 12:30Z); pubin T1 at 12aaaa5f1 building; #1170 no re-pins, docs PR stacked on it; specs-sort to @lean (holds)

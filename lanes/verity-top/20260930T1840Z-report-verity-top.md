@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:15Z) [open] one GPU node per Daniel: node 2 stops after move (01:00Z latest), CPU ramp via infra; move+T1/T2 checking on node 1
 CHECKPOINT none (17:00Z) [open] move check + T1/T2 running on node 1, hedge on node 2; node-2 cluster agent stopped by infra (#1476)
 CHECKPOINT none (16:45Z) [open] move check 7e87 + T1/T2 running on node 1 since 16:38Z
 CHECKPOINT none (16:32Z) [open] nodes coming back; move + T1(116)/T2(117) armed

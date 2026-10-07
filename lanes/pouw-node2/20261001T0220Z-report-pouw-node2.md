@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (23:01Z) [open] A 23:00Z poll: main 61f64824c: #1464 lifts six more PoUW gamma guarantees to Pouw.Guarantees names (Lean additions only, no deleted lines, no gamma change), PROTOCOL cites them; panel unaffected; no new notes; off node 2
 CHECKPOINT fbce5a2f4c (22:40Z) [open] A 22:40Z poll: no new notes; main unchanged bcc5adfc9; off node 2; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (22:21Z) [open] A 22:20Z poll: layout move landed (main bcc5adfc9): pouw at verity/experimental/protocols/pouw, Lean at root Security/; panel's cited paths and identifiers resolve as before, panel unaffected; off node 2; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (22:00Z) [open] A 22:00Z poll: no new notes; main unchanged c9bb7acef (move #1450 still landing); off node 2; awaiting CA on poll, GPU 0 totals, panel edit

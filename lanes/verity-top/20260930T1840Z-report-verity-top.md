@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:45Z) [open] move e83a still checking (630 GiB on n1); Linear trial setup answers relayed; CPU machines registered, infra cost report pending
 CHECKPOINT none (19:30Z) [open] move e83a due ~19:35Z; infra asked to register vy-nebius-cpu-1 in machines.toml
 CHECKPOINT none (19:15Z) [open] move e83a due ~19:35Z, then tips 121, 122; lean delivered #1499 randomness, #1500 core_world
 CHECKPOINT none (19:00Z) [open] move e83a due ~19:35Z, then T1 tip 121, then T2 tip 122; core-as-Lean drafts #1482-#1498 up

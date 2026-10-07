@@ -60,6 +60,13 @@ when `/tmp/steward-pass.last` is over 40 min old.
        main's `2babac20` and needs a bump with the next eviction change.
 3. **[@infra] Node 1 custody fails on wrong remote bytes: three run records have no custody** (root, 02:34Z Oct 7: re-raise
    once and ask for an owner and ETA; one line back with the answer, or if none by the next pass).
+   - **Owned (root, 03:07Z Oct 7): stop chasing.**
+     - @top assigned the four-blob fix to @infra at 02:39Z.
+     - The correct bytes are on R2 as `art:c45665d664ab`; the current remote bytes are preserved as `art:edc564e31219`.
+     - The overwrite waits on Daniel's yes, then takes about 30 min. @infra posts status in thread `1791313800.954249`.
+     - Until then, custody failures on `r20261006-064928-8715`, `-151615-1abd` and `-172104-f72e` are expected: don't
+       report them. Keep the `/workspace/verity-guest/backup/custody-remote-conflict-20261007/` copies until @infra says
+       the remote is fixed.
    - Raised as a note in @infra's lane: `lanes/infra/20261007T0245Z-ask-from-nebius-infra-custody-remote-conflict`
      (notes `d0d67778`). It's a note, not Slack, because a post as @infra never wakes @infra (comms, in thread
      `1791226524.628149`), which is why the Oct 5 ask went unanswered.
@@ -71,6 +78,8 @@ when `/tmp/steward-pass.last` is over 40 min old.
    - 02:40Z (root's ask): the four blobs are copied and verified (sha256 = name) to
      `/workspace/verity-guest/backup/custody-remote-conflict-20261007/` on node 1 and node 2. That's outside every sweep;
      mode 0444; separate inodes; originals and remote untouched. The paths are in the note (notes `a7f53cef`).
+   - 03:06Z: no answer from @infra (nothing new in their lane, and the custody jobs failed again at about 02:56Z). Told
+     root.
 2. **[@infra] The control pod's notes checkout is on a detached HEAD** (root, 16:09Z Oct 6; told @infra once,
    `1791303016.287849`).
    - `vy-control:/workspace/steward/research-notes`: a sync's rebase started at 16:05:41Z and never finished. HEAD is
@@ -92,6 +101,17 @@ when `/tmp/steward-pass.last` is over 40 min old.
      markers into `lanes/coordinator/20260925T1614Z-report-coordinator.md`, and the 17:23Z reset dropped it. The likely
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
+
+## State at 03:06Z Oct 7 (8:06 PM PDT Oct 6), steward pass (cron on time)
+
+- Open ask 3 (custody): **no answer from @infra by this pass**; told root. The three `n1-custody-*` jobs re-ran at about
+  02:56Z and failed again. The four original blobs are still in the local store; the backups are on both nodes.
+- The 02:44Z "pod holds a GPU at 0%" alert (5 firing) is circuits' `lt-qwen235-tp8-2` (`r20261007-023244-2ff8`, campaign
+  `circuits-load-time`, all 8 GPUs). The weights are resident (84 GB per GPU) after a 136 s cold read of the 239 GB model;
+  since then 8 vLLM workers have run at about 175% CPU for 30 min with the GPUs at 0% and empty stdout. Told @circuits
+  once, FYI (`1791342397.253959`).
+- Node 1 (watch, no flags): 66.2% (1,699 GiB free); pacer and dispatcher clean. Node 2: 1 of 8 (a fill job on 7), 7 idle
+  (reported), 69%. No new hourly.
 
 ## State at 02:33Z Oct 7 (7:33 PM PDT Oct 6), steward pass (cron on time)
 

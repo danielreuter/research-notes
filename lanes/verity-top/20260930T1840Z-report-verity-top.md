@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:15Z) [open] move check running on pr:1450@1e69ef795; post-move train ready (105 #1467 #1442 #1445 #1465 #1464)
 CHECKPOINT none (10:00Z) [open] move check running on pr:1450@1e69ef795, both grants in; post-move train staged
 CHECKPOINT none (09:45Z) [open] move head pr:1450@1e69ef795 posted, check running; vllm granted; restack train staged
 CHECKPOINT none (09:30Z) [open] move head due ~09:40Z on #1450; post-move train staged by ci incl. circuits' boundary fix

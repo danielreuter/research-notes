@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:15Z) [open] Nebius renewal approved; infra restoring nodes; move + T1/T2 queued
 CHECKPOINT none (16:00Z) [open] nodes stopped; move fully granted at 14296f4bb
 CHECKPOINT none (15:46Z) [open] nodes stopped; move 14296f4bb fully granted, waits for one check
 CHECKPOINT none (15:30Z) [open] nodes stopped; move waits at 14296f4bb

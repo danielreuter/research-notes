@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (04:54Z) [open] A 04:54Z poll: no new notes; main unchanged dcc929336; off node 2 (no infra 'back'); /workspace last 69-70% (hold); panel edits await yes
 CHECKPOINT fbce5a2f4c (04:33Z) [open] A 04:32Z poll: node2-ops 03Z hourly: 11% busy, only fill on GPU 7; /workspace 69-70% (1,543 GiB, hold); infra interview log only; main unchanged dcc929336; off node 2; panel edits await yes
 CHECKPOINT fbce5a2f4c (04:12Z) [open] A 04:12Z poll: only infra's interview log (nothing naming node 2); main unchanged dcc929336; off node 2; /workspace last 69% (hold); panel edits await yes
 CHECKPOINT fbce5a2f4c (03:51Z) [open] A 03:51Z poll (correction to the line above: the merges were #1366 network certifier service and #1430 cluster submit node 1 lease rule, not #1422): main dcc929336, no pouw diff; off node 2; /workspace last 69% (hold)

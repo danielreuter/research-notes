@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (07:05Z) [open] A 07:04Z poll: no new notes (node2-ops' 06Z hourly not yet in); main unchanged 4bd12249c; off node 2; /workspace last 70% (hold); panel edit awaits yes
 CHECKPOINT fbce5a2f4c (06:44Z) [open] A 06:44Z poll: no new notes; main unchanged 4bd12249c; off node 2 (no infra 'back'); /workspace last 70% (hold); panel edit awaits yes
 CHECKPOINT fbce5a2f4c (06:23Z) [open] A 06:23Z poll: node2-ops 05Z hourly: 10.8% GPU busy, CPU 0-127 at 33.8% (ca-preserve likely); /workspace 70% (1,515 GiB, hold); node 1 alerts only; main unchanged 4bd12249c; off node 2; panel edit awaits yes
 CHECKPOINT fbce5a2f4c (06:03Z) [open] A 06:03Z poll: only a node 1 GPU-at-0% alert; main unchanged 4bd12249c; off node 2; /workspace last 69% (hold); panel edit (6 archived -h rows, v1-h3 SHA-512, v1 gamma, beacon, prf) awaits yes

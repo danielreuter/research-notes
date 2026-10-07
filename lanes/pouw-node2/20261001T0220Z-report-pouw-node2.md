@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (15:00Z) [open] A 15:00Z poll: node2-ops amended: the two 3 Oct mvp-e2e passes' preserved checks didn't finish (head 40 min timeout), so their preservation rests on CA's retention files only; node 2 at its 14:55Z stop; main unchanged c9bb7acef; GPU 0 totals off-node and panel edit await yes
 CHECKPOINT fbce5a2f4c (14:40Z) [open] A 14:40Z poll: no new notes; main unchanged c9bb7acef; node 2 stops 14:55Z (last backup preserved); GPU 0 totals off-node and panel edit await yes
 CHECKPOINT fbce5a2f4c (14:20Z) [open] A 14:20Z poll: node2-ops 13Z: 0% busy (drain), last backup r20261007-141537-9d6e PRESERVED; df 73% (1,355 GiB); node 2 stops 14:55Z; main unchanged c9bb7acef; GPU 0 totals off-node and panel edit await yes
 CHECKPOINT fbce5a2f4c (14:01Z) [open] A 14:00Z poll: node2-ops final: backup 2 r20261007-133046-6fdc PRESERVED, its MANIFEST lists pouw-node2-scratch/gpu0-totals; fp8-gpucheck dies are standalone large-unit backups; custody 0 left; node stops 14:55Z. GPU 0 totals can run off-node from the store on CA's yes; main unchanged c9bb7acef

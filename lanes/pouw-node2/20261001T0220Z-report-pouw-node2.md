@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (01:20Z) [open] A 01:20Z poll: node2-ops 00Z hourly: 11% busy, only fill on GPU 7, no windows booked; /workspace 69% (1,574 GiB, steady, hold); main unchanged e255a4efb; off node 2; panel edits await yes
 CHECKPOINT fbce5a2f4 (01:00Z) [open] A 01:00Z poll (correction to the line above: the merges were #1316, #1324, #1340, #1319, #1412, #1416, #1417, not #1415): main e255a4efb, no pouw/Lean diff; no new notes; off node 2; /workspace last 69% (hold)
 CHECKPOINT fbce5a2f4 (01:00Z) [open] A 01:00Z poll: no new notes; main e255a4efb (#1415 FP8 serving-step graph bench helper, no pouw/Lean change); off node 2; /workspace last 69% (hold); panel edits await yes
 CHECKPOINT fbce5a2f4 (00:40Z) [open] A 00:40Z poll: top's 'Verity repository' proposal wants leads' breakages by 01:30Z; infra's draft retires fill/windows+gpu-lease to Kueue; offered compute accounting input for the panel/timed windows; main unchanged e7b5caa89; off node 2; /workspace 69% (hold)

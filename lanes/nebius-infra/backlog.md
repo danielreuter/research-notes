@@ -25,14 +25,37 @@ runs. (Also in the infra report `20260930T1845Z-report-infra`: every job names i
 `/workspace/verity-guest/steward-watch.jsonl` (flags disk-72, disk-78, pacer-stale, dispatcher-stale; a copy is in
 `tools/vy-steward-watch`). It keeps running when this VM is suspended. After a gap, read it from the last pass on. My passes
 are the cron timer `nebius-infra-steward-pass-v2` plus `nebius-infra-steward-fallback` (every 45 min), which runs a full pass
-when `/tmp/steward-pass.last` is over 40 min old.
+when `/tmp/steward-pass.last` is over 40 min old. **Both closed at 15:39Z Oct 7 (nodes down; see below).**
+
+**Nodes down (root, 15:38Z Oct 7):** no check host until Daniel renews Nebius, and no other placement decision is coming.
+While both nodes are down:
+- Keep the notes and store sync (tmux `steward-loop`).
+- Passes are one ssh probe per node every 2 h (`nebius-infra-down-probe`).
+- End a turn with output to root only if a node answers again or the inbox has something actionable. No backlog lines for
+  quiet passes.
+- If a node answers: tell root once, then resume full passes as a new cron `*/30` named `nebius-infra-steward-pass-v3`,
+  with the old pass prompt:
+  > Steward pass (nebius-infra, bc-fd19a2fe). 0) date -u +%Y-%m-%dT%H:%M:%SZ > /tmp/steward-pass.last (the fallback timer
+  > reads it). 1) Run /tmp/inbox.sh and act on anything addressed to the steward; keep chatter low. 2) tail
+  > /tmp/steward-loop.log; restart the tmux session steward-loop with /tmp/steward_loop.sh if it died. 3) ssh n1 'tail -n 4
+  > /workspace/verity-guest/steward-watch.jsonl' (node 1's read-only watch, every 15 min, which runs even when this VM is
+  > suspended). If there's a gap since the last pass, read every line since then. Act on flags: disk-72 -> nudge @infra in
+  > the disk thread 1790807092.688879 unless research/src eviction is live; disk-78 -> tell root; pacer-stale /
+  > dispatcher-stale -> restart per backlog.md. 4) Check both servers (kubectl workloads and clusterqueues, nvidia-smi on
+  > n1/n2, node 2's cluster agent state). Report idle GPUs, but don't offer them as backfill: @top routes owner-approved
+  > work, which must name its research question (standing ruling in backlog.md). 5) Update
+  > /cursor/stores/bc-36415049-30db-4fff-a34b-81f0afc0124d/internal/lanes/nebius-infra/utilization-summary.md and
+  > backlog.md with the latest numbers and art ids from the loop's hourly util_collect. Only message root if blocked.
+
+  Also re-create the fallback (every 2,700 s) if the VM keeps pausing.
 
 **Subscriptions (root, 16:34Z Oct 4: they expire 7 days after creation; renew any expiring within 2 days).**
-- `nebius-infra-steward-pass-v2` (cron `*/30`, `sub_bbdccb40…`) and `nebius-infra-steward-fallback` (every 2,700 s,
-  `sub_35ad9975…`): both expire 2026-10-11T14:33Z.
-- A one-shot reminder, `nebius-infra-renew-subscriptions-oct9`, fires about 2026-10-09T14:00Z to renew them.
-- To renew: unsubscribe, then re-subscribe with the same args under a **new name** (`-v3`). Re-subscribing a just-closed name
-  returns `created: false` and leaves no timer (seen 14:33Z Oct 4). Confirm with `list_subscriptions`.
+- Since 15:39Z Oct 7: `nebius-infra-down-probe` (every 7,200 s, `sub_c2937371…`), expires 2026-10-14T15:38Z.
+- One-shot reminder `nebius-infra-renew-probe-oct12` (`sub_cdfccf86…`) fires about 2026-10-12T15:00Z to renew it.
+- Closed at 15:39Z Oct 7: `nebius-infra-steward-pass-v2`, `nebius-infra-steward-fallback` and the Oct 9 renew reminder
+  `nebius-infra-renew-subscriptions-oct9`.
+- To renew: unsubscribe, then re-subscribe with the same args under a **new name** (`-v2`, `-v3`). Re-subscribing a
+  just-closed name returns `created: false` and leaves no timer (seen 14:33Z Oct 4). Confirm with `list_subscriptions`.
 
 ## Open asks
 
@@ -101,6 +124,17 @@ when `/tmp/steward-pass.last` is over 40 min old.
      markers into `lanes/coordinator/20260925T1614Z-report-coordinator.md`, and the 17:23Z reset dropped it. The likely
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
+
+## 15:39Z Oct 7: switched to nodes-down probes (root's rule)
+
+- Closed the 30-min pass, the fallback and the Oct 9 renew reminder. New: `nebius-infra-down-probe` every 2 h, plus a renew
+  reminder for Oct 12. The steward loop (notes and store sync) stays up; its hourly `util_collect` will fail on ssh while
+  the nodes are down, which is harmless. Quiet probes leave no backlog line.
+
+## State at 15:37Z Oct 7 (8:37 AM PDT), steward pass
+
+- Both nodes still stopped; inbox empty; loop running (channel sync only). Waiting on root and @top for where checks run
+  next.
 
 ## 15:12Z Oct 7: deadline check, both nodes down as planned
 

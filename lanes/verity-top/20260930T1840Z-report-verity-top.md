@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:15Z) [open] main 61f64824c; tip 126 (network four + #1514) landing by hand; trailing check b551
 CHECKPOINT none (23:02Z) [open] move, T1, T2 on main (61f64824c); trailing check b551; close batch asked of Daniel
 CHECKPOINT none (22:50Z) [open] T2 lands by hand once red-team grants #1349@ddd21937a; #1514 landing rule, #1516 merge --fast
 CHECKPOINT none (22:30Z) [open] T2 landing by hand from a9d2 (Daniel 22:25Z skip-check ruling); ci defining post-T2 landing rule

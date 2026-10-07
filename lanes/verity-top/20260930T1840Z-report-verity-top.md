@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (11:00Z) [open] move check finishing ~11:05Z; A/A2/108 checking, B (109) prep 11:40Z
 CHECKPOINT none (10:45Z) [open] move check running; trains A (106) and A2 (107) checking, B (108) at ~11:40Z
 CHECKPOINT none (10:30Z) [open] move check running (~11:05Z); trains A/B planned, last landing check by 11:45Z
 CHECKPOINT none (10:15Z) [open] move check running on pr:1450@1e69ef795; post-move train ready (105 #1467 #1442 #1445 #1465 #1464)

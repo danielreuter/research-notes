@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (08:45Z) [open] main c9bb7acef frozen; move check 09:00Z; lanes' merge-main passes done or due 10:00Z
 CHECKPOINT none (08:28Z) [open] main c9bb7acef frozen; move check 09:00Z; lagged-prover live check failed (fd-table growth), #1359 draft
 CHECKPOINT none (08:13Z) [open] main c9bb7acef frozen; move generation in progress, check 09:00Z; lanes merging main into PR stacks
 CHECKPOINT none (07:58Z) [open] main c9bb7acef frozen (drain chain landed 07:48Z); move generated on it, check 09:00Z; #1457 sole gate fix

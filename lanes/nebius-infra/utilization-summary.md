@@ -515,7 +515,13 @@ filler.
     951 (observed / held or busy / busy / idle). Node 1's totals are about 5 GPU-h *below* the 14:10Z snapshot, so some of
     its sampler history before the stop is missing. Running totals below stay on `art:79b0a41d…` until a later snapshot
     passes them.
-- **Running totals, Sep 30 05:16Z to about 14:10Z Oct 7** (from `art:79b0a41d…`):
+  - `art:1e85ba289fdcd210f55e60b95f391b8705824fd8fc0695fa5cf61581b2d35c9a` (about 18:15Z Oct 7, the latest). Node 1:
+    1,421 observed, 323 held or busy, 167 busy, 1,098 idle. Observed has passed the pre-stop snapshot, but held or busy
+    and busy are still about 2 GPU-h below `art:79b0a41d…` (the lost sampler history). Node 2: 1,412 / 462 / 266 / 951,
+    the same as at 16:50Z: its GPU sampler (`pouw-infra-util`) hasn't run since the restart, so its totals are frozen at
+    the 14:55Z stop.
+- **Running totals, Sep 30 05:16Z to about 14:10Z Oct 7** (from `art:79b0a41d…`, the pre-stop record; later snapshots
+  undercount node 1's held and busy hours by about 2 GPU-h and don't advance node 2):
   - Node 1: 1,415 GPU-h observed, 325 held or busy, 169 busy, 1,090 idle. Held or busy barely moved from about 11:53Z
     Oct 6 to 02:31Z Oct 7. Since then it's mostly circuits' 8-GPU Qwen-235B load-time variants (02:31Z on), held mostly
     through load and little of it busy, plus network-accounting's 1-GPU `active_live_cells` lease on GPU 4 from 05:44Z.

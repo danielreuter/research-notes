@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (10:40Z) [open] A 10:40Z poll: no new notes; main unchanged c9bb7acef (layout move expected ~10:15Z, not landed); node 2 stops 14:55Z; GPU 0 totals' inputs unconfirmed; off node 2; df last 73% (hold)
 CHECKPOINT fbce5a2f4c (10:20Z) [open] A 10:20Z poll: node2-ops custody done 09:57Z (61 of 66 home, 5 residues preserved), n2-custody.timer inactive is infra's call; df 73% (1,386 GiB, hold); node stops 14:55Z; GPU 0 totals' inputs still unconfirmed; main unchanged c9bb7acef; off node 2
 CHECKPOINT fbce5a2f4c (10:00Z) [open] A 10:00Z poll: node2-ops: all 13 large units preserved by 09:43Z (incl. fp8-gpucheck die1-7), custody 22 runs left; df 72%; no answer yet on GPU 0 totals' inputs (die0, pouw-node2-scratch); main unchanged c9bb7acef; off node 2
 CHECKPOINT fbce5a2f4c (09:40Z) [open] A 09:40Z poll: node2-ops final backup: 9 of 13 large units preserved (die5 running, die6/die7/gpu7-fp4 gc to go); custody 3 of 65 pushed, not all home by 11:50Z; no answer yet on GPU 0 totals' inputs; main unchanged c9bb7acef; off node 2

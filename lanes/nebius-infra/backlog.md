@@ -102,6 +102,14 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 09:10Z Oct 7 (2:10 AM PDT), steward pass (cron arrived 7 min late)
+
+- Node 1 (watch, no flags): 69.7% (1,519 GiB free). GPU 1 is leased (`r20261007-081852-f066`, 100%); 7 idle (reported).
+  GPU 0 still shows the NVML 100% oddity. Shadow queues unchanged. Pacer and dispatcher clean.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 71%.
+- Loop tick 192: channel sync timed out (exit 124, the 480 s wrapper did its job), then the hourly ran and stored
+  `art:c3315559…` (utilization-summary updated). `/tmp/rn` is clean on `main`, even with origin, with no rebase left.
+
 ## State at 08:39Z Oct 7 (1:39 AM PDT), steward pass (cron arrived 8 min late)
 
 - New on node 1's Kueue at 08:28:25Z: seven `shadow-*` ClusterQueues (backfill, checks, circuits, deployments-cpu,

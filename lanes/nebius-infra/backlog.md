@@ -55,9 +55,7 @@ are restored; the down-probe is closed.
 **Subscriptions (root, 16:34Z Oct 4: they expire 7 days after creation; renew any expiring within 2 days).**
 - Since 16:04Z Oct 7: `nebius-infra-steward-pass-v3` (cron `*/30`, `sub_aef847fd…`) and
   `nebius-infra-steward-fallback-v2` (every 2,700 s, `sub_ce8c6750…`), both expiring about 2026-10-14T16:04Z.
-- `nebius-infra-nodes-return-watch-v2` (every 300 s; replaced `-watch` at 16:11Z) stays silent while the nodes time out.
-  It tells root once when both answer (with the new deadline) and then closes itself, and once if they're still down at
-  17:30Z (marker `/tmp/nodes-return-1730.reported`).
+- `nebius-infra-nodes-return-watch-v2` closed at 16:45Z Oct 7: both nodes answered.
 - One-shot reminder `nebius-infra-renew-probe-oct12` (`sub_cdfccf86…`) fires about 2026-10-12T15:00Z. Its prompt renews any
   steward timer expiring within 2 days, so it covers these.
 - `nebius-infra-down-probe` (`sub_c2937371…`) was open 15:39–16:04Z Oct 7; closed.
@@ -133,6 +131,11 @@ are restored; the down-probe is closed.
      markers into `lanes/coordinator/20260925T1614Z-report-coordinator.md`, and the 17:23Z reset dropped it. The likely
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
+
+## 16:45Z Oct 7: both nodes back (told root)
+
+- Node 1 has been up since about 16:21Z and node 2 since about 16:42Z. Both deadlines read
+  `1791990000 2026-10-14T15:00:00Z daniel-2026-10-07T1601Z`. Return watch `-v2` is closed; the 30-min passes continue.
 
 ## State at 16:36Z Oct 7 (9:36 AM PDT), steward pass: node 1 back, node 2 still down
 

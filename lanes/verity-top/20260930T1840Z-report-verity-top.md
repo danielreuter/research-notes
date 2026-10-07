@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:13Z) [open] main e6624c3a5 (tip 97); 98/100/102 checking for 08:30Z drain; move fixups (flock gates fail-open) with architecture
 CHECKPOINT none (06:58Z) [open] main 4bd12249c; drain chain A (98-102) checking; 103-106/#1449/#1442/#1445 wait for first post-move train ~10:15Z
 CHECKPOINT none (06:47Z) [open] main 4bd12249c; drain pick A (98-102) vs B (99+#1449) with architecture; tips to 105 built
 CHECKPOINT none (06:28Z) [open] main 4bd12249c; tips 100/101 checking, 99 relabels due 06:30Z, 102 (#1448) awaits friction line; overnight refactor map corrections in

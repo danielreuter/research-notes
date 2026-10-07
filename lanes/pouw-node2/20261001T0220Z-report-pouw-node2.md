@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (16:00Z) [open] A 16:00Z poll: no new notes; main unchanged c9bb7acef (layout move pending); node 2 stopped; awaiting CA on keep/end poll, GPU 0 totals off-node, panel edit
 CHECKPOINT fbce5a2f4c (15:40Z) [open] A 15:40Z poll: no new notes; main unchanged c9bb7acef (layout move pending); node 2 stopped; awaiting CA on keep/end poll, GPU 0 totals off-node, panel edit
 CHECKPOINT fbce5a2f4c (15:20Z) [open] A 15:20Z poll: node 2 stopped 14:55Z, node2-ops lane ended 15:02Z; main unchanged c9bb7acef; my node-2 duties are over except GPU 0 totals off-node; asked compute accounting whether to keep this poll for the panel or end it
 CHECKPOINT fbce5a2f4c (15:00Z) [open] A 15:00Z poll: node2-ops amended: the two 3 Oct mvp-e2e passes' preserved checks didn't finish (head 40 min timeout), so their preservation rests on CA's retention files only; node 2 at its 14:55Z stop; main unchanged c9bb7acef; GPU 0 totals off-node and panel edit await yes

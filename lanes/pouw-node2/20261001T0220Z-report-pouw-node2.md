@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (20:40Z) [open] A 20:40Z poll: no new notes; main unchanged c9bb7acef (move #1450 still landing); off node 2; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (20:20Z) [open] A 20:20Z poll: infra: the layout move is mid-landing (#1450 at 9354f2471, checks on both nodes), not on main yet (c9bb7acef); will recheck panel citations when it lands; off node 2; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (20:00Z) [open] A 20:00Z poll: no new notes; main unchanged c9bb7acef; node 2 on check work, no 'back' for me; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (19:40Z) [open] A 19:40Z poll: no new notes; main unchanged c9bb7acef; node 2 on check work, no 'back' for me; awaiting CA on poll, GPU 0 totals, panel edit

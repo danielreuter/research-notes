@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (08:40Z) [open] 08:40Z: merge-main on c9bb7acef done: 14 PRs clean (verified), 6 need owners + 3 blocked + 3 skipped for Daniel's list; red-team-canon ready for the move head
 CHECKPOINT none (08:04Z) [open] 08:05Z: main frozen at c9bb7acef; 3 merge-main workers on proofs' conflicting PRs (due 09:45Z); red-team-canon preparing the move-head grant review (head ~09:05Z)
 CHECKPOINT none (07:31Z) [open] 07:31Z: top kept 82871c533 (verifier gates) on lean's map branch; ci adds the test only; status 3 posted; next the 08:30Z drain and the 26-PR merge-main worker
 CHECKPOINT none (07:21Z) [open] 07:22Z: pushed 82871c533 onto lean's map branch cursor/security-move-map-741b: C-Flock's Lean verifier named in its red-team grant, lean-agreement merge_requires and agreement cache key so the move's split to verity/core/service/flock/ keeps it gated (verified by running layout.py); no row changes against the sort

@@ -102,6 +102,20 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 11:07Z Oct 7 (4:07 AM PDT), steward pass (cron arrived 7 min late)
+
+- The 10:44Z "GPU idle while work is waiting" alert (8 firing) is a false positive from the shadow queues.
+  - The rule sums `vy_queue_pending` over every queue, and `vy-exporter` exports the `shadow-*` queues too. The only
+    non-zero value in the past hour was `shadow-lean` (1); real queues 0, `vy_ready_jobs` 0.
+  - Asked @infra to exclude `shadow-*` in a note in their lane
+    (`lanes/infra/20261007T1115Z-ask-from-nebius-infra-shadow-queues-trip-idle-alert`, notes `81aac616`). Root's
+    30-minute check of that alert finds nothing to do.
+  - Also: the dispatcher's `gpu_util_10m` of 12.5% is GPU 0's NVML 100% oddity (1 of 8), not work.
+- Node 1 (watch, no flags): 71.5% (1,429 GiB free), still under 72% (`research/src` eviction is live anyway). 0
+  admitted, all 8 idle (reported). Both nodes up; deadlines 15:00Z.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 73%.
+- Hourly snapshot `art:ba3e45f7…` (about 10:45Z; utilization-summary updated).
+
 ## State at 10:37Z Oct 7 (3:37 AM PDT), steward pass (cron arrived 7 min late)
 
 - Both nodes up; both deadlines still 15:00Z. Node 1 (watch, no flags): 69.9% (1,509 GiB free); 0 admitted, all 8 idle

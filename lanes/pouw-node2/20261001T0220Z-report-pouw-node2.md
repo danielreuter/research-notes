@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (13:20Z) [open] A 13:20Z poll: node 2 draining (admits nothing past 13:00Z, stop 15:00Z), 0% busy in 13Z; final backup 2 at 13:30Z; df 73% (1,359 GiB); main unchanged c9bb7acef; GPU 0 totals' inputs unconfirmed (backup check can wait past the stop); off node 2
 CHECKPOINT fbce5a2f4c (13:00Z) [open] A 13:00Z poll: no new notes; main unchanged c9bb7acef (layout move pending); node 2 stops 14:55Z; GPU 0 totals' inputs unconfirmed; off node 2; df last 73% (hold)
 CHECKPOINT fbce5a2f4c (12:40Z) [open] A 12:40Z poll: no new notes; main unchanged c9bb7acef (layout move pending); node 2 stops 14:55Z; GPU 0 totals' inputs unconfirmed; off node 2; df last 73% (hold)
 CHECKPOINT fbce5a2f4c (12:20Z) [open] A 12:20Z poll: layout move still not landed (infra: main c9bb7acef, due ~10:15Z); my PR branches all merged, nothing to restack; node2-ops 11Z: 11% busy, df 73% (1,364 GiB, hold); node 2 stops 14:55Z; GPU 0 totals' inputs unconfirmed; off node 2

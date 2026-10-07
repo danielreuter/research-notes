@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:46Z) [open] 23:46Z: main 61f64824c; tip 126 landing by hand, trailing check b551 on node 1; PoUS restacks merging T2
 CHECKPOINT none (23:30Z) [open] main 61f64824c; tip 126 landing by hand; cpu-1 full-check guard with infra
 CHECKPOINT none (23:15Z) [open] main 61f64824c; tip 126 (network four + #1514) landing by hand; trailing check b551
 CHECKPOINT none (23:02Z) [open] move, T1, T2 on main (61f64824c); trailing check b551; close batch asked of Daniel

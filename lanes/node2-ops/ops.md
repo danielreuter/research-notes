@@ -69,6 +69,7 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-07 15:02Z **lane ended.** Past 15:00Z: hourly and alerts timers unsubscribed (the two final-backup timers had already fired). No alerts or inbox notes after the 14:03Z disk notice.
 - 2026-10-07 14:41Z the 3 Oct passes' `research data preserved` checks did not finish from my VM (`head` timed out at 40 min, `recorded` at 4 min, each); their preservation rests on compute accounting's retention files (`art:3fb47adc…`, `art:500bb5d0…`). Infra report amended.
 - 2026-10-07 14:20Z alerts: the 14:03Z `/workspace` notice, 73% with 1,355 GiB free (4 GiB down in the hour). Watermark 14:03:39Z.
 - 2026-10-07 14:20Z hourly (13Z): GPU busy 0% (8.00 GPU-h free-idle), and 0% so far in 14Z. Cause: the planned drain (nothing admitted past 13:00Z); memory accounting's GPU 7 series still retries. CPU 0–127 0.2%. Since 30 Sep 06:05Z: 388.65 busy of 1,406.80 GPU-h (27.6%). Backup `r20261007-141537-9d6e` PRESERVED (854 units, 21.8 GB, none skipped), the node's last. `df` 73%. Daemons up, `status.md` fresh (14:14Z). No new infra notes for node 2.

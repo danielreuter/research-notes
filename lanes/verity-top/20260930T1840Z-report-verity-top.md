@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (12:45Z) [open] move deferred; #1450 at b54bc777a; 45fe list ~12:55Z
 CHECKPOINT none (12:30Z) [open] move deferred; #1450 at 33a6ab5a0; 45fe list ~12:55Z
 CHECKPOINT none (12:15Z) [open] move deferred; awaiting 45fe failure list ~12:55Z
 CHECKPOINT none (12:00Z) [open] move deferred; 45fe full failure list ~12:55Z; Nebius renewal pending Daniel

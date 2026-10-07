@@ -89,8 +89,8 @@ vectors and listed like the `@[extern]` exceptions, until it's ported. Also say 
 **(e) "Conflicts are resolved by commits on the PR" and "a stack lands as one queued group", with grants pinned to heads.**
 - Proofs' rec stack is a tree, not a chain: rec-step3 has three children (#1315, #1318, #1347), and #1270 has two chains
   (#1343 → #1349, and #1303 → #1323 → #1339).
-- Tonight's restack (main merged into 13 heads) voided every grant. ci's 00:01Z trial on tip 87 found two siblings
-  (#1315 and #1347) conflicting in `rec_vstage.py`.
+- Tonight's restack (main merged into 13 heads) left every new head without its grant. ci's 00:01Z trial on tip 87
+  found two siblings (#1315 and #1347) conflicting in `rec_vstage.py`.
 - Change: grants carry when the PR's own patch is unchanged (#1412), as ci says. Define a stack as a tree queued as one
   group, or serialize siblings by rule.
 

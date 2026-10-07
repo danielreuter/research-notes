@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:10Z) [open] 04:10Z tips 93-96 checking/queued; redesign review sent to Daniel (Nebius renewal before 13:00Z); PoUS node-only outputs stored; load-time job 3 ended 04:08Z, confirming
 CHECKPOINT none (03:55Z) [open] 03:55Z main dcc929336 (tip 92); tips 93-95 checking; redesign review due 04:00Z; S1 #1179 re-review 05:30Z
 CHECKPOINT none (03:39Z) [open] 03:39Z tips 91-94 queued (91 checking); load-time 744/739 s, rest ~05:00Z; #1425 granted, waits on 94
 CHECKPOINT none (03:23Z) [open] 03:23Z proofs' 12-PR rec tip handed to ci (locks unchanged); #1423/#1424 re-granted; tips 91-92 checking

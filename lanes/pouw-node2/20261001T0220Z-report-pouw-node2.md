@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (02:42Z) [open] A 02:40Z poll: nebius-infra's remote-conflict finding (4 blobs with wrong bytes, node 1 custody failing): panel art art:d2b2eb906612 re-verified PRESERVED by sha256 readback, unaffected; main f5360e4e1; off node 2; /workspace 69% (hold)
 CHECKPOINT fbce5a2f4 (02:20Z) [open] A 02:20Z poll: node2-ops 01Z hourly: 10.6% busy, only fill on GPU 7, no windows booked; /workspace 69% (1,553 GiB, hold); main unchanged 4cc44c614; off node 2; panel edits await yes
 CHECKPOINT fbce5a2f4 (02:00Z) [open] A 02:00Z poll: main 4cc44c614 (#1420): window.sh keeps retained passes under a 'research keep' record (fails KEEP without one), zk_window -h2 passes to gc; no Lean/gamma change; no new notes; off node 2; /workspace last 69% (hold)
 CHECKPOINT fbce5a2f4 (01:40Z) [open] A 01:40Z poll: no new notes; main unchanged e255a4efb; no windows booked; off node 2 (no infra 'back'); /workspace last 69% (hold); panel edits await yes

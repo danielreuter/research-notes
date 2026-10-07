@@ -51,8 +51,9 @@ ran, 11.1% busy. Infra's steward already reports the idle GPUs, so I stopped rel
    row, and launch them itself.
 4. **A custody path needs a liveness check.** `n2_custody.sh` sends home the runs that can't keep custody themselves (local-only
    runs on node 2's store). Its stopgap loop ended at 16:00Z on 4 Oct, and `n2-custody.timer` is inactive, so nothing has pushed since.
-   At 09:00Z on 7 Oct its dry run listed 65 ended runs held only on node 2: 39 PoUS, 18 compiled-commit-overhead, 2 network
-   accounting, 1 circuits TP8 and 5 without a campaign (one of them 7.6 GiB). Nothing alerted. The hourly report should carry the
+   At 09:00Z on 7 Oct its dry run listed 65 ended runs held only on node 2 (66 by the time the rounds ran): 39 PoUS,
+   18 compiled-commit-overhead, 2 network accounting, 1 circuits TP8 and 6 without a campaign (one of them 7.6 GiB).
+   Nothing alerted. The hourly report should carry the
    dry run's count and the age of the last push.
 5. **Hold during timed windows, and make that a check inside the script.** `hourly.sh` refuses to run during a timed lease or a booked
    window. A guard file that may disappear (`slot-windows`, deleted 6 Oct) has to be optional without letting the guard fail open.
@@ -65,9 +66,9 @@ ran, 11.1% busy. Infra's steward already reports the idle GPUs, so I stopped rel
 
 ## Left for the owner (infra, bc-17cc41f1)
 
-- **Custody:** the final backup runs `n2_custody.sh` rounds by hand on node 2 (tmux `n2c-final`, log
-  `/workspace/pouw/infra/lane/node2-ops-custody-final.log`) until nothing is left or 11:50Z, before node 1's 12:10Z hold. Whatever
-  remains after that, and the inactive `n2-custody.timer`, are infra's.
+- **Custody:** caught up by hand, 09:06–09:57Z (`n2_custody.sh` rounds; log `/workspace/pouw/infra/lane/node2-ops-custody-final.log`).
+  Of 66 ended runs, 61 are on R2 with their run records. The other 5 were held, and their residues are preserved as `evidence/v1`
+  (ids in `ops.md`, 10:10Z). `n2-custody.timer` is still inactive, so runs ending from now on wait again: infra's call.
 - **`mvp-e2e/passes` (compute accounting's):** the 6 Oct pass is preserved (`art:1da97484…`), and its retention file says to keep
   it read-only "until Daniel answers the upload question". The two 3 Oct passes (74 GB and 73 GB) have no retention file and no
   backup. I left them out, since uploading them is that same open question.

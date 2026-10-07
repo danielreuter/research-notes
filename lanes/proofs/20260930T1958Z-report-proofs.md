@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (11:34Z) [open] 11:35Z: move folded head pr:1450@35b40e8a2 holds red-team + vllm-coordinator (read back); top's GO due 11:40Z; T2's 13 granted pins with ci; node 1 disk 71%.
 CHECKPOINT none (11:21Z) [open] 11:20Z: all 13 B regrants read back (12 fixed rec heads + #1449@164bfcbd4); T2 pins handed to ci (1791371959). Move now 0b1cc468d: red-team-canon regranting it. frame-v3-read asked about #1468's F32 output fit.
 CHECKPOINT none (10:30Z) [open] records runs in flight for the last train: #1449 r20261007-100435-cc65, S1 #1179 r20261007-102604-f060 (both node 1, onto 105's restack f1a12b824); heads + red-team regrants due by 11:40Z
 CHECKPOINT none (10:02Z) [open] move pr:1450@1e69ef795 red-team granted (red-team-canon, remote 09:49Z); move check r20261007-094908-0685/-094910-8f1c running; #1449 being restacked onto ci's R105 f1a12b824 with records regenerated (records-1449); S1 phase B after 105 lands

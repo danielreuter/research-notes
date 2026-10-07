@@ -102,6 +102,15 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 05:40Z Oct 7 (10:40 PM PDT Oct 6), steward pass (cron arrived 9 min late)
+
+- Node 1 (watch, no flags): 69.3% (1,542 GiB free), up from 66.2% at 05:15Z. The writer was an `rsync --server` into
+  `/workspace/hf/hub/models--unsloth--Meta-Llama-3.1-70B/` (132 GB, 05:23–05:33Z, from an agent session as user 1001).
+  It's complete with no temp files left, and the disk is flat now. Under 72%, so no post.
+- Circuits' load-time variants continue (`lt-qwen235-tp8-fstr-6` terminating; `deployments-gpu` 1 pending; `provers` 1
+  admitted). The GPUs show 35 GB each from the terminating pod. Pacer and dispatcher clean.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 70%. The next hourly is loop tick 180.
+
 ## State at 05:12Z Oct 7 (10:12 PM PDT Oct 6), steward pass (cron arrived 3 min late)
 
 - Node 1 (watch, no flags): 66.8% (1,667 GiB free). Circuits' load-time runs have ended again (8 held at 05:00Z, 0 now):

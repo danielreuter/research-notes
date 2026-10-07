@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:58Z) [open] main c9bb7acef frozen (drain chain landed 07:48Z); move generated on it, check 09:00Z; #1457 sole gate fix
 CHECKPOINT none (07:43Z) [open] main 341d09054; 100 then 101+102 for drain; move: #1457 gate fix + fail-open skip fix assigned
 CHECKPOINT none (07:30Z) [open] main 341d09054 (tips 97, 98); 100 then 101+102 before 08:30Z drain; move fixups assigned
 CHECKPOINT none (07:13Z) [open] main e6624c3a5 (tip 97); 98/100/102 checking for 08:30Z drain; move fixups (flock gates fail-open) with architecture

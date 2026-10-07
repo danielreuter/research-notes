@@ -102,6 +102,25 @@ when `/tmp/steward-pass.last` is over 40 min old.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 10:08Z Oct 7 (3:08 AM PDT), steward pass (cron arrived 7 min late)
+
+- **Both nodes stop at 15:00Z today.** `/etc/research/deadline` on n1 and n2 reads
+  `1791385200 2026-10-07T15:00:00Z daniel-2026-09-30T1454Z`, and `vy-deadline-check` (timer every minute) stops the node
+  when it's reached. Node 2's ops record says "runs until 14:55Z (node self-stop)".
+  - After that, ssh to n1 and n2 will fail. Passes should then report "nodes stopped at the deadline", not an outage.
+  - **Root, 10:09Z: no extension is known. Treat failed ssh after 15:00Z as the planned stop. Tell root once if either
+    node is still up after 15:10Z, or if either stops before 14:55Z.** Every pass before 14:55Z: if ssh to n1 or n2 fails
+    (retry once), tell root. One-shot timer `nebius-infra-deadline-check-1512` fires about 15:12Z for the still-up check.
+    Root is checking with @top on where checks run afterwards.
+  - The custody-fix bytes are on R2 (`art:c45665d664ab`), so the `/workspace/verity-guest/backup/` copies aren't the
+    only copy.
+- New for @infra from node2-ops (`lanes/infra/20261007T1010Z-alert-from-node2-ops-n2-custody-timer-inactive`): node 2's
+  `n2-custody.timer` has been inactive since 4 Oct. node2-ops pushed 66 held runs by hand (61 on R2, 5 preserved as
+  `evidence/v1`). The decision is @infra's; not mine.
+- Node 1 (watch, no flags): 70.1% (1,500 GiB free); 0 admitted, all 8 idle (reported); GPU 0 still shows the NVML 100%
+  oddity. Pacer and dispatcher clean.
+- Node 2: 1 of 8 (a fill job on 7), 7 idle (reported), 73%. The next hourly is loop tick 198.
+
 ## State at 09:38Z Oct 7 (2:38 AM PDT), steward pass (cron arrived 7 min late)
 
 - Node 1 (watch, no flags): 69.7% (1,521 GiB free). GPU 1's lease (`r20261007-081852-f066`) has ended: the holder pid is

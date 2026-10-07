@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (09:45Z) [open] move head pr:1450@1e69ef795 posted, check running; vllm granted; restack train staged
 CHECKPOINT none (09:30Z) [open] move head due ~09:40Z on #1450; post-move train staged by ci incl. circuits' boundary fix
 CHECKPOINT none (09:15Z) [open] move regenerating on c9bb7acef as #1450 head ~09:40Z; check ~09:50Z, land ~11:10Z; restack train after
 CHECKPOINT none (09:00Z) [open] main c9bb7acef frozen; move regenerating on main (first head had wrong base), new head ~09:45Z, land ~11:10Z

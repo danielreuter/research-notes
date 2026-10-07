@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:50Z) [open] move hand-landing in progress (lander), Nebius quotas with Daniel, 17 closes done
 CHECKPOINT none (21:15Z) [open] 21:15Z: move/T1/T2 checks running at 8543eecca; core-Lean drafts #1509 #1510 up; Linear setup complete
 CHECKPOINT none (21:00Z) [open] 21:00Z: move/T1/T2 checks running at 8543eecca; Linear setup complete (OAuth app), structure question with Daniel
 CHECKPOINT none (20:45Z) [open] 20:45Z: move/T1/T2 checks running at 8543eecca with both grants; Linear app fresh-VM check running; PoUS errata asked of Daniel

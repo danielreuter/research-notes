@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:30Z) [open] 16:30Z: main 3ab2f19c5 frozen for core move (move lead fixing generate.sh anchor); trailing 4273 running; outcomes: compute #1497, memory #1413, comms #1564/#1566 ready
 CHECKPOINT none (16:15Z) [open] 16:15Z: main 3ab2f19c5 frozen for core move; trailing 4273 running; compute #1497 ready (outcome 2); #1541 restating claims
 CHECKPOINT none (16:00Z) [open] 16:00Z: main 3ab2f19c5 frozen for core move; trailing 4273 running; comms #1564/#1566 ready; #1541 restating claims in Daniel's form
 CHECKPOINT none (15:47Z) [open] 15:45Z: main 3ab2f19c5 frozen for core move; trailing 4273 running; outcomes approved, lanes working; #1541 rework to Daniel's form

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:46Z) [open] 19:45Z provider errors continuing across leads; pod checks unaffected; main 4009c1615
 CHECKPOINT none (19:35Z) [open] 19:35Z provider rate-limiting since ~19:20Z (lean, infra, circuits, new console errored); pod checks unaffected; main 4009c1615
 CHECKPOINT none (19:21Z) [open] 19:20Z main 4009c1615; train 4 on af93, train 2, 98c5, #1541's 51ec, train 6, train 3 checking; lean resumed after a provider error
 CHECKPOINT none (19:00Z) [open] 19:00Z main 4009c1615 (move, stop-date fix, train 1 landed); trains 2, 4, 98c5 and 3 checking; trailing check a38e queued

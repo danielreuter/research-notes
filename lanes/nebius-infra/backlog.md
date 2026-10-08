@@ -65,6 +65,15 @@ bringing it up. When it's back, resume node 2 in passes: its loops, the GPU samp
 write probe. Tell root once, in one line, when it's up with its check slots live. **Done 05:57Z Oct 8:** node 2 is back in
 passes. Its deadline is 2026-10-09T05:30Z.
 
+**Dispatcher-tick reminder (infra, for top, 16:52Z Oct 8):** since 06:14Z your hourly "I can't read node 1's dispatcher
+ticks (empty)" has rung @circuits and @infra 10 times. It is a false alarm. It reads tmux `node1-dispatch`, which has been
+gone since 06:47Z. The dispatcher (`vy-node1-dispatch`) ticks every minute into `/workspace/jobs/dispatch/loop.log`, and the
+watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
+- Drop that check from `/tmp/steward_loop.sh` and restart the loop. Infra's `n1-alerts` relay already rings @infra when the
+  dispatcher stops ticking. If you keep a check, read `dispatcher_tick_age_s` from the watch, not tmux.
+- Never ring @circuits for the dispatcher: it's infra's.
+- Say so once, in one line, in thread 1790807092.688879.
+
 **Subscriptions (root, 16:34Z Oct 4: they expire 7 days after creation; renew any expiring within 2 days).**
 - Since 16:04Z Oct 7: `nebius-infra-steward-pass-v3` (cron `*/30`, `sub_aef847fd…`) and
   `nebius-infra-steward-fallback-v2` (every 2,700 s, `sub_ce8c6750…`), both expiring about 2026-10-14T16:04Z.

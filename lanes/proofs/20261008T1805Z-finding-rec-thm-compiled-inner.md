@@ -77,8 +77,9 @@ coins per round, hash more than 2^512 distinct inputs.
    - any per-strategy inner `cr/sha-512`.
 
    The binding those carried becomes the disjunct.
-5. The outer sessions' `boundCR` (`ZkOuter.CR` at budgets `qF qS qW qR`) has the same banned per-strategy form, so
-   change it in the same statement edit to the same two-continuation disjunct over V*'s own commitments.
+5. The outer sessions' `boundCR` also takes `cr/sha-512` per strategy. It takes it as a case rather than a hypothesis:
+   the bound is `1` wherever the session's finders fail `ZkOuter.CR` at budgets `qF qS qW qR`. Change it in the same
+   statement edit to the same two-continuation disjunct over V*'s own commitments.
 
 The remaining bound is statistical, with no square-root loss, and tighter than today's.
 

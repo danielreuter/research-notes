@@ -145,6 +145,17 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 15:42Z Oct 8 (8:42 AM PDT), steward pass
+
+- Node 1: 71.9% by `df` (1,410 GiB free; watch lines through 15:30Z have no flags); inodes at 62% (8.00M free); units
+  active; real queues 0/0; all 8 idle (reported).
+  - The monitor alert `20261008T1507Z-alert-units-n1-1d787287` (`vy-custody.service` failed, owner infra) is the
+    expected custody failure, which waits on the four-blob overwrite (open ask 3). No action.
+- Node 2: 74.5% (1,278 GiB free). It was flat at 74.1% until 15:30Z, then rose 23 GiB by 15:40Z (load 70 → 31). The
+  76% watch is on it. Sampler and probe active; 0 of 8 GPUs (reported).
+- The hourly collect hasn't finished: tick 324 (15:38Z) is still running, and the latest stored snapshot is still
+  `art:50f29a90…` (about 14:30Z).
+
 ## State at 15:07Z Oct 8 (8:07 AM PDT), steward pass
 
 - Node 1: 71.7% by `df` (1,420 GiB free; the 15:00Z watch line read 71.5% with no flags); units active; real queues 0/0;

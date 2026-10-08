@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (12:30Z) [open] 12:30Z: no change; waiting on fba5, 82e1, 9fd4, 95f6, 336e; architecture's 12:45Z summary next
 CHECKPOINT none (12:26Z) [open] 12:26Z: main 89f078617; trailing 336e ~13:30Z; fba5 (#1494/#1495, then #1501/#1527 ff) ~12:50Z; #1462 on 82e1 + 9fd4; tip 172 trailing 95f6; #1541 ~13:25Z
 CHECKPOINT none (12:00Z) [open] 12:00Z: main 89f078617 (152, #1544, #1540 landed 11:55Z); trailing 336e; fba5 for #1494/#1495 ~12:50Z; #1462 fixing double registration; node 2 renewal ask in 12:45Z summary
 CHECKPOINT none (11:48Z) [open] 11:48Z: all 5 slots busy (d1d1, 336e, fba5 #1494/#1495, 27b2, f456); 195c passed; #1553 leftover-kill gap swept by hand; console-2 dropped 11:48Z

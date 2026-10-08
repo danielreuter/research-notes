@@ -145,6 +145,18 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 14:36Z Oct 8 (7:36 AM PDT), steward pass
+
+- Node 1: 71.3% by `df` (1,441 GiB free); units active; real queues 0/0; all 8 idle (reported). The `shadow-*`
+  ClusterQueues were recreated at 14:35:19Z (gone since the Oct 7 restart); shadow-checks and shadow-lean have 1 admitted
+  each.
+  - They're harmless, but they can trip "GPU idle while work is waiting" again. That was recorded in @infra's lane on
+    Oct 7 (`20261007T1115Z-…`); a fix would be an ask through root.
+- Node 2: 74.1% (1,302 GiB free; the 76% watch is on it); light check work; sampler and probe active; 0 of 8 GPUs
+  (reported).
+- Hourly `art:50f29a90…` (about 14:30Z): node 1 at 1,583 / 323 / 167 / 1,260, node 2 at 1,512 / 462 / 266 / 1,051
+  (utilization-summary updated).
+
 ## State at 14:15Z Oct 8 (7:15 AM PDT), steward pass
 
 - Unchanged. Node 1 (watch, no flags): 71.6% by `df` (1,428 GiB free); units active; Kueue 0/0; all 8 idle (reported).

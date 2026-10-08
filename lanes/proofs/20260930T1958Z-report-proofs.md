@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (09:32Z) [open] 09:31Z: #1397 red-team grant in (red-team-1397, 09:20:58Z, read back remote; posted to ci). Main = tip 156 b31374e88. Next: draft triage reply by 11:30Z; #1544's next head carry check; 413f/853c.
 CHECKPOINT none (09:25Z) [open] 09:35Z: #1397 red-team readback grant under way (red-team-1397; desk check: no C-Flock path against tip 156 or the train prefix; tip 148 no longer waits on it, root lands da220f9b1a14 by hand). Node 1 scratch trees flock-y0-95d4, y0-repair-95d4, rt1264-91e7 approved for removal --approved-by @proofs (nothing unique). Draft triage reply due 11:30Z.
 CHECKPOINT none (09:02Z) [open] #1544 grant carries to dd7a8b971 (queue.carry True); watching for lean's 156+vbridge head; 413f and 853c running
 CHECKPOINT none (08:38Z) [open] #1544 red-team grant in (red-team-vbridge-c, 08:36Z); vbridge tip 155 check 413f and tip 152 check 853c running on node 1

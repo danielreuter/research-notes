@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:00Z) [open] 18:00Z: core move 686e in circuit-check; node 2 slot a idle since 17:33Z, root to place train 3/6 there; #1524 Lean conformance; lean G question to proofs
 CHECKPOINT none (17:56Z) [open] 17:56Z: core move 339446a0e: 686e past all Lean and pytest steps, circuit-check running; trains queued; lean profile done (80% CircuitFold.folded), #1568 ready; stop-date fix lands after move
 CHECKPOINT none (17:33Z) [open] 17:33Z: core move 339446a0e checking (686e n1, 5e90 n2); trains 1/2/4 checking, 3 queued, 6 (#1413) built; #1524 Lean conformance, #1497 waits; #1541 restack with network
 CHECKPOINT none (17:15Z) [open] 17:15Z: core move 339446a0e checking (686e n1, 5e90 n2); trains 1/2/4 checking, 3 queued; owners restacking #1524/#1413/#1497/#1541; steward reminder to infra

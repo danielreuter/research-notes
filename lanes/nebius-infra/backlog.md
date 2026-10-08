@@ -166,6 +166,13 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 19:46Z Oct 8 (12:46 PM PDT), steward pass
+
+- Node 1: 72.8% (1,366 GiB free; `disk-72`, eviction live, `-v3` watch armed); inodes 63%; units active; real queues 0/0;
+  all 8 idle (reported).
+- Node 2: 66.5% (1,678 GiB free); sampler and probe active; 0 of 8 GPUs (reported).
+- Hourly `art:308b89cc…` (about 19:15Z): node 1 at 1,621 / 323 / 167 / 1,298, node 2 at 1,550 / 462 / 266 / 1,088.
+
 ## State at 19:08Z Oct 8 (12:08 PM PDT), steward pass
 
 - Node 1: 73.5% (1,329 GiB free), flat at 73.4-73.8% since 18:34Z. Inodes are at 67% (6.97M free), with 6 live

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (09:20Z) [open] 09:19Z: tip 148 rebuilt on 156 by root (da220f9b1a14), queued both nodes; 988b circuit-check left; 413f/853c/0a53 running; cpu-1 restart 09:30Z
 CHECKPOINT none (09:06Z) [open] 09:06Z: cpu-1 locked out by #1555 MemoryHigh, restart at 09:30Z if no rescue, tip 148 to a 09:35Z slot; vbridge then #1544; ci triaging 83 drafts
 CHECKPOINT none (08:50Z) [open] 08:50Z: tip 156 lands on 988b + guards; tip 157 (#1544) d82d next on n2; tip 158 (#1489) after; circuits' cpu-1 runs cancelled for 9db7
 CHECKPOINT none (08:35Z) [open] 08:34Z: #1544 red-team due 09:15Z; 395f (tip 156) takes 988b's slot when it frees

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:32Z) [open] 06:32Z: tip 147 (#1538 fixed) replaces 9b71; memory's 3 PRs ready/granted; proofs runs mid-flight; cpu-1 OOM kills with infra
 CHECKPOINT none (06:18Z) [open] 06:18Z: 5 full-check slots (node 2 back); tips 138/146 checking, 145 suites; #1120/#1121 closed; owners' ready posts due 10:00Z
 CHECKPOINT none (05:49Z) [open] 05:49Z: waiting on 741a (tip 138), 6df8 (tip 146), 59c2 (tip 145); node 2 restart in progress; quota E281836601 pending
 CHECKPOINT none (05:43Z) [open] 05:43Z: tip 146 (7 PRs incl #1538) full check 6df8 queued first on n1; 741a running; tip 145 suites 59c2; node 2 restarting per Daniel 05:29Z; quota E281836601 pending at Nebius

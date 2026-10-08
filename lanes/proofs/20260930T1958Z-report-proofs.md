@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (04:31Z) [open] 9:30 PM PDT: pr:1548@20d21dcea granted by red-team-1219 (same patch as #1219, lock cross-check passes); read-back posted to ci, so tip 138 (#1548 + #1540) has both grants. #1543 awaits the lander's full check. Node 1 72%, GPUs idle.
 CHECKPOINT none (04:03Z) [open] #1540 granted (red-team-canon); #1219 review running (red-team-1219) for ci's tip 138; #1543 in the lander's full check
 CHECKPOINT none (03:50Z) [open] #1530 landed (main 2d7ca7138); red-team reviews of #1540 (red-team-canon) and #1219 (red-team-1219) running for ci's tip 138; #1543 in the lander's full check
 CHECKPOINT none (03:00Z) [open] #1498 landed (main 216e96112); #1543 rebuilt by the lander on it, full check running; #1530 with core-vstar

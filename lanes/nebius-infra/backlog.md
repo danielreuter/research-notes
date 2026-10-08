@@ -154,6 +154,22 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+- 17:14Z Oct 8: the disk watch closed. Node 1 read 71.9% (1,413 GiB free), below 72.0% (`/tmp/disk76-n1.below72`), and
+  node 2 was reported at 76.0%, so `nebius-infra-disk76-watch-v2` is unsubscribed. The 30-minute passes still read both
+  disks.
+
+## State at 17:08Z Oct 8 (10:08 AM PDT), steward pass
+
+- Node 2 reached 76.0% at 17:08Z (1,204 GiB free, up from 75.4% at 17:00Z), so it's reported to root once
+  (`/tmp/disk76-n2.reported`). It read 75.6% (1,224 GiB) at 17:13Z.
+  - It climbed 64-84 GiB in the 38-43 min since 16:30Z (74.3%), about 90-133 GiB/h, which projects 78% at about
+    17:55-18:35Z.
+  - Three check runs are live (`r20261008-163651-5e90`, `-165434-eced`, `-170024-ce10`); `du` and `find` timed out, so
+    there's no breakdown. Sampler and probe active; 0 of 8 GPUs (reported).
+- Node 1: 71.8% (1,413 GiB free; 72.0% at the 17:00Z watch line, `disk-72` still flagged; eviction is live). Inodes are
+  back to 61% (8.14M free). Units active; real queues 0/0; all 8 idle (reported).
+- Hourly `art:50d5469f…` (about 16:50Z): node 1 at 1,602 / 323 / 167 / 1,279, node 2 at 1,531 / 462 / 266 / 1,069.
+
 ## State at 16:34Z Oct 8 (9:34 AM PDT), steward pass
 
 - Node 1: 72.8% (1,364 GiB free); `disk-72` stands, and eviction is live, so there's no nudge. Inodes are at 64% (7.42M

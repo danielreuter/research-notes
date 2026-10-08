@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:33Z) [open] 17:33Z: core move 339446a0e checking (686e n1, 5e90 n2); trains 1/2/4 checking, 3 queued, 6 (#1413) built; #1524 Lean conformance, #1497 waits; #1541 restack with network
 CHECKPOINT none (17:15Z) [open] 17:15Z: core move 339446a0e checking (686e n1, 5e90 n2); trains 1/2/4 checking, 3 queued; owners restacking #1524/#1413/#1497/#1541; steward reminder to infra
 CHECKPOINT none (17:09Z) [open] 17:08Z: core move 339446a0e checking (686e n1, 5e90 n2, ETA ~17:40Z); trains 1/2/4 checking, 3 queued; #1541 ready in Daniel's form, restacking; owners restacking #1524/#1413/#1497
 CHECKPOINT none (16:45Z) [open] 16:45Z: core move 339446a0e in full checks 686e (node 1) and 5e90 (node 2); trailing 4273 passed; main 3ab2f19c5 frozen; outcomes landing as ready PRs

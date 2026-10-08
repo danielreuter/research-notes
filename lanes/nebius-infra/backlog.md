@@ -145,6 +145,13 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 07:42Z Oct 8 (12:42 AM PDT), steward pass
+
+- Node 1 (watch, no flags at 07:30Z): 71.5% (1,431 GiB free); the `vy-node1-dispatch`, `vy-commit-release` and
+  `vy-n1-pool` units are active; Kueue 0/0; all 8 idle (reported).
+- Node 2: light check work (load about 4); `vy-cluster-agent` inactive (left alone); sampler and write probe active; 0 of 8
+  GPUs (reported); 73.9% (1,309 GiB free); the 76% watch follows it. The next hourly is loop tick 282.
+
 ## State at 07:06Z Oct 8 (12:06 AM PDT), steward pass
 
 - **Node 1's loops are systemd units now.** About 06:47Z, @infra installed and started `vy-node1-dispatch`,

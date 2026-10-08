@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:15Z) [open] 14:15Z: main 645ae265d; tip 173 (#1501 #1527 #1541) full check 805f on node 1 a; Daniel with architecture on the unfinished directory layout (second move proposed)
 CHECKPOINT none (14:00Z) [open] 14:00Z: #1495 (with #1494) and #1462 landed 13:57Z, main 645ae265d, trailing 4bc9; #1501/#1527/#1541 next; ci and network await Daniel on resume
 CHECKPOINT none (13:54Z) [open] 13:52Z: 336e passed, no revert; fba5/82e1/9fd4/95f6 in flight; ci and network cut off by 13:31Z provider outage, awaiting Daniel on resume; lean OK'd #1541's assumption
 CHECKPOINT none (13:15Z) [open] 13:15Z: no change; waiting on fba5, 336e (~13:30Z), 95f6, 82e1, 9fd4; #1541 ~13:25Z

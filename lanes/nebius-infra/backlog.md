@@ -166,6 +166,20 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 23:05Z Oct 8 (4:05 PM PDT), steward pass
+
+- Node 1: 73.9% (1,309 GiB free; 72.5% → 74.4% from 22:30Z to 23:00Z; the `-v3` watch is armed). Inodes 66% (7.01M
+  free). Units active; real queues 0/0; all 8 idle (reported).
+  - The new growth is two live Lean audits' scratch, which sits under `research/cache/verity-check/` rather than
+    `scratch/`. `lean-audit-scratch-3915200-…` (480k inodes, 33 GiB) and `-3931516-…` (479k, 32 GiB) belong to
+    `lean_audit.py` processes that have run 35 min under live check runs.
+  - Excluding those, the baseline is still about 12.6M inodes, matching 21:41Z.
+  - The 22:37Z and 22:58Z inode alerts are the same pattern; not re-reported.
+  - Check cache, persistent: `circuit-check` 762k inodes / 36 GiB, `lean-records` 686k / 51 GiB, `lean-deps` 678k /
+    40 GiB, `lean-dev` 660k / 46 GiB.
+- Node 2: 67.5% (1,632 GiB free); sampler and probe active; 0 of 8 GPUs (reported).
+- Hourly `art:58b07bdc…` (about 22:45Z): node 1 at 1,648 / 323 / 167 / 1,325, node 2 at 1,577 / 462 / 266 / 1,116.
+
 ## State at 22:35Z Oct 8 (3:35 PM PDT), steward pass
 
 - Node 1: 72.9% (1,361 GiB free; `disk-72`, eviction live, `-v3` watch armed); inodes 63%; units active; real queues

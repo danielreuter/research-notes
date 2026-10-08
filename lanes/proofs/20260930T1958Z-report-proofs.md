@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (03:00Z) [open] #1498 landed (main 216e96112); #1543 rebuilt by the lander on it, full check running; #1530 with core-vstar
 CHECKPOINT none (02:36Z) [open] core ports train (#1486 #1487 #1526 #1529 #1517) landed as main d5f393978; composition port #1543 handed off, lander's full check r20261008-023356-1638 on the merged tree; #1530 with core-vstar; properties after #1494
 CHECKPOINT none (00:31Z) [open] 00:30Z: trailing full check of main 61f64824c (r20261007-225625-b551, node 1) passed in 5417 s, so T2 stays; #1349's flock fix held. core-firewall splitting port from properties (lander: ports land without properties until #1494); #1482 at ff5e42188 (main merged); red-team-canon re-reviewing #1499@f858c3cee.
 CHECKPOINT none (23:57Z) [open] 23:52Z: core-firewall reported; draft #1521 opened; circuit-check --all's unbounded memory (cpu-1 hangs) sent to ci/infra; #1486's two harness fixes asked of circuits; #1519 superseded by main's faa33d0a1; firewall and vstar resumed to rebase onto main + #1482 with targeted checks.

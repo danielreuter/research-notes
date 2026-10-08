@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (09:25Z) [open] 09:35Z: #1397 red-team readback grant under way (red-team-1397; desk check: no C-Flock path against tip 156 or the train prefix; tip 148 no longer waits on it, root lands da220f9b1a14 by hand). Node 1 scratch trees flock-y0-95d4, y0-repair-95d4, rt1264-91e7 approved for removal --approved-by @proofs (nothing unique). Draft triage reply due 11:30Z.
 CHECKPOINT none (09:02Z) [open] #1544 grant carries to dd7a8b971 (queue.carry True); watching for lean's 156+vbridge head; 413f and 853c running
 CHECKPOINT none (08:38Z) [open] #1544 red-team grant in (red-team-vbridge-c, 08:36Z); vbridge tip 155 check 413f and tip 152 check 853c running on node 1
 CHECKPOINT d5efa0005 (08:17Z) [open] vbridge stack ready; PR bodies posted; tip 155 (on main 9bc787321, #1548 in) full check 413f running on node 1; desk check predicts no lock re-record; tip 152 (#1315+#1429) queued as 853c

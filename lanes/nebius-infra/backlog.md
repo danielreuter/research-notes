@@ -145,6 +145,14 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 13:45Z Oct 8 (6:45 AM PDT), steward pass (cron arrived 6 min late)
+
+- Node 1 (watch, no flags at 13:30Z): 71.2% (1,447 GiB free); units active; Kueue 0/0; all 8 idle (reported).
+- Node 2: idle now (load 0.0); 74.0% (1,306 GiB free; the 76% watch is on it); sampler and probe active; 0 of 8 GPUs
+  (reported).
+- Hourly `art:7aae7292…` (about 13:20Z): node 1 at 1,574 / 323 / 167 / 1,251, node 2 at 1,503 / 462 / 266 / 1,041
+  (utilization-summary updated).
+
 ## State at 13:05Z Oct 8 (6:05 AM PDT), steward pass
 
 - Unchanged. Node 1: `disk-72` (72.1% at 13:00Z), `df` 72.3% (1,388 GiB free); units active; Kueue 0/0; all 8 idle

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (07:00Z) [open] 07:00Z: vbridge stack lock re-record r20261008-055539-db9c PASS; Security lock committed (bd93b2ccc), H3' pending; #1315/#1429 runs at 28 suites passed, last one running.
 CHECKPOINT none (06:30Z) [open] 06:30Z: red-team granted 1428@7d6f82b50 and 1391@2ade21342 (RecOpen.check_ok delisted); 1419 waits for H3' after re-record db9c. #1429 run: all 6 circuit-check targets and 7 suites pass so far; #1315 run: 6 suites pass so far.
 CHECKPOINT none (06:18Z) [open] 06:15Z close-out: #1315 granted, run 6079 midway; #1429 run f15f midway; vbridge stack #1428/#1391/#1419 restacked (7d6f82b50/3f26ba878/7d0adc625), RecOpen.check_ok delisted per #1170, lock re-record db9c ETA 07:30Z, red-team regrant running, ready ~08:30Z; #1120/#1121 closed by ci as superseded.
 CHECKPOINT none (05:58Z) [open] 10:56 PM PDT: close-out of #1428 #1391 #1419 #1315 #1429 under way. #1315 restacked (7c0f42499, run 6079, red-team-1219 regranting); #1429 restacked (2c2b52fcf, run f15f with circuit-check); vbridge restacking #1428<-#1391<-#1419 as one stack and one tip (ci agreed), one lock re-record at #1419's head. Ready posts by 10:00Z.

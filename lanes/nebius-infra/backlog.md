@@ -145,6 +145,17 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 07:06Z Oct 8 (12:06 AM PDT), steward pass
+
+- **Node 1's loops are systemd units now.** About 06:47Z, @infra installed and started `vy-node1-dispatch`,
+  `vy-commit-release` and `vy-n1-pool`, and stopped my tmux sessions (research has no tmux server now). The pool
+  re-fenced all 8 idle GPUs at 06:47:52Z.
+  - Dispatcher and pacer tick (07:05Z); the pacer's cap is 134 GB at 73%.
+  - `tools/start_n1_loops.sh` is retired. Restart these with `systemctl` if they ever stop, not tmux.
+- Node 1: 72.1% at 07:00Z (`disk-72`), `df` 72.6% (1,377 GiB free); Kueue 0/0; all 8 idle (reported).
+- Node 2: light check work (load about 6); `vy-cluster-agent` inactive (left alone); sampler (my tmux) and write probe
+  active; 0 of 8 GPUs (reported); 74.2% (1,296 GiB free). The 76% watch follows node 2 only now.
+
 ## 06:50Z Oct 8: the 76% watch drops node 1 (71.8%, below 72%); node 2 at 73.9% and easing, still watched
 
 ## State at 06:47Z Oct 8 (11:47 PM PDT Oct 7), steward pass

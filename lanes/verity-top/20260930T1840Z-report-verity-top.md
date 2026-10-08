@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:00Z) [open] 19:00Z main 4009c1615 (move, stop-date fix, train 1 landed); trains 2, 4, 98c5 and 3 checking; trailing check a38e queued
 CHECKPOINT none (18:45Z) [open] 18:45Z move on main 5e0b0e135; stop-date fix and trains landing in order; checking node 2 slot duplicate
 CHECKPOINT none (18:41Z) [open] 18:41Z core move landed on main 5e0b0e135 (686e passed); stop-date fix then trains 1, 2, 4, 98c5 queued; rec-thm claims question with Daniel
 CHECKPOINT none (18:00Z) [open] 18:00Z: core move 686e in circuit-check; node 2 slot a idle since 17:33Z, root to place train 3/6 there; #1524 Lean conformance; lean G question to proofs

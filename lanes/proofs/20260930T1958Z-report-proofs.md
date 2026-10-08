@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (09:45Z) [open] 09:50Z: #1544's red-team grant carries to 93cad7144 (verifier lock blob unchanged; carry True vs tip 152 on main). Tip 152 on main (89a0c967d) checking as 3021 on cpu-1; tip 164 (#1544) next on node 2.
 CHECKPOINT none (09:38Z) [open] 09:45Z: draft triage answered to ci: keep 14 (#1179 #1192 #1201 #1224 E0-E7 #1320 #1474), close 18 with branches kept. Pending: #1544 carry check on lean's re-record; tip 152 rerun on main (ci).
 CHECKPOINT none (09:37Z) [open] 09:40Z: vbridge (#1428 #1391 #1419) landed on main 2dcaa4d61. Tip 152 (#1315+#1429) to be rebuilt on main by ci (clean merge, grants on unchanged heads). Next: #1544 carry check on lean's re-record; draft triage reply by 11:30Z.
 CHECKPOINT none (09:32Z) [open] 09:31Z: #1397 red-team grant in (red-team-1397, 09:20:58Z, read back remote; posted to ci). Main = tip 156 b31374e88. Next: draft triage reply by 11:30Z; #1544's next head carry check; 413f/853c.

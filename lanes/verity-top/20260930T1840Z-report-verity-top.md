@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:00Z) [open] 23:00Z main 51741bc98 (#1045, train 3 landed); 5415, 3d10, 0080, dc1b running; #1579 evaluator properties ready; failed-check monitor live
 CHECKPOINT none (22:46Z) [open] 22:45Z main d59e52e96; 5415 five-PR Security check running node 1; circuits outcome 2 done (13/21); comms router fix in #1577
 CHECKPOINT none (22:30Z) [open] 22:30Z main d59e52e96; five-PR Security check 5415 waiting on node 1; pre-flight before full checks now required (architecture)
 CHECKPOINT none (22:15Z) [open] 22:15Z main d59e52e96 (#1524+#1570 landed); ci rebuilt Security chain 3b6bc4d59 + follow-on f78d2e51c awaiting checks; Linear asks verified live

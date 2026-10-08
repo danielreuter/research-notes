@@ -15,6 +15,29 @@ Comms, 1 Oct 2026, after the first day of `research msg` with all 12 leads on it
 shipped) and `note:20261001T1836Z-report-server-side-router-spec`
 (console's router).
 
+## 8 Oct
+
+About 1,200 doorbells over 24 hours. ci (pr-captain's inbox) received 262, top 256 and old-circuits-and-proofs 211. There
+were no pauses, duplicate doorbells or dropped names, and no stale footers.
+
+- **The lander-only rule cut the merge thread.** The merge thread (1790957906.278529) carried 887 of the 1,205
+  doorbells. Daniel's 14:27Z rule says only the lander lands, restacks and reruns, and lanes go back to research. In the
+  14 hours before it, the thread got about 540 posts from 11 handles. In the two hours after, it got 12, nearly all
+  from top and the lander. That's his rule, not a messaging change. I'll check tomorrow whether it holds over a full day.
+- **The monitor flagged `fyi` posts as unanswered.** Two of the 9 "unanswered" entries were infra's notices to ci, sent
+  with `--kind fyi` as I advised on 7 Oct. Their footer is `_fyi_` alone, written by a client older than the change that
+  makes `fyi` imply `--quiet`. `cmd_traffic` counted them as asks.
+  - `cursor/traffic-fyi-not-asks-b252` (`de1a8f0d1`, from main `3ab2f19c5`) leaves an `fyi` out of the unanswered list.
+    Live, the list drops from 9 to 7. The research suite passes (1,929 passed, 3 skipped).
+  - Routing is unchanged. The shared vectors pin that a reply tagged `_fyi_` alone still rings its thread's starter, and
+    the server router follows those vectors too.
+  - The PR waits until #1564 or #1566 lands, because of the two-open-PR cap.
+- **The steward's reminder repeats with no answer.** "I can't read node 1's dispatcher ticks" rang circuits every hour
+  since 06:14Z, 10 times, in circuits' 1 Oct disk thread, with no 👀 or reply. I asked circuits whether `node1-dispatch`
+  is still theirs and infra whether a 👀 stops the reminder (1791477462.106739).
+- **The other seven unanswered posts are OOM alerts** from vy-monitors to the owners of the killed runs. The owners
+  don't pick them up, and those alerts don't repeat, so they cost one wake each.
+
 ## 7 Oct
 
 About 1,250 doorbells over 24 hours, across 42 threads, during the overnight layout move. top received 311 and ci 208.

@@ -166,6 +166,19 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 21:41Z Oct 8 (2:41 PM PDT), steward pass
+
+- Node 1: 72.7% (1,370 GiB free; `disk-72`, eviction live, `-v3` watch armed); units active; real queues 0/0; all 8 idle
+  (reported).
+- Node 1 inodes are back to 62% (12.62M used, 7.95M free), with 1 scratch dir left. This revises the 21:07Z projection
+  down.
+  - The lasting baseline is about 12.6M now, against 12.30-12.42M at 15:07-17:42Z: roughly +0.2-0.3M in 4-6 h (50-80k/h),
+    not 0.4-0.5M/h. The 21:07Z figure over-counted `find -cmin`, which counts changed files, not new ones.
+  - At that rate the 80% HARD line (16.46M) is about 3.8M away, days off; only heavy overlap of check runs reaches it.
+  - `src/` is at 93 trees and still rising slowly; eviction lags but is small in inodes.
+- Node 2: 67.2% (1,646 GiB free); sampler and probe active; 0 of 8 GPUs (reported).
+- Hourly `art:48d3b88f…` (about 21:35Z): node 1 at 1,639 / 323 / 167 / 1,316, node 2 at 1,568 / 462 / 266 / 1,107.
+
 ## State at 21:07Z Oct 8 (2:07 PM PDT), steward pass
 
 - Node 1: 74.3% (1,289 GiB free; climbing 72.5% → 74.3% since 20:00Z; the `-v3` watch is armed). Inodes are at 69%

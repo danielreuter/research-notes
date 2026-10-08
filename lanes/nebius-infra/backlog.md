@@ -136,6 +136,11 @@ starts node 2 again.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 00:02Z Oct 8 (5:02 PM PDT Oct 7), steward pass (node 1 only)
+
+- Unchanged. Node 1 (watch, no flags): 71.0% (1,454 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle
+  (reported). Node 2 is still stopped by @infra (planned). The next hourly is loop tick 252.
+
 ## State at 23:30Z Oct 7 (4:30 PM PDT), steward pass (node 1 only)
 
 - Node 1 (watch, no flags): 71.2% (1,444 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported).

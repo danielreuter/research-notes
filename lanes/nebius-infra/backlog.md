@@ -62,8 +62,8 @@ can restart. Don't flag it as down and don't restart it. Steward node 1 only (sk
 starts node 2 again.
 **Node 2 restarting (root, 05:42Z Oct 8):** Daniel approved restarting node 2 for check capacity at 05:29Z, and @infra is
 bringing it up. When it's back, resume node 2 in passes: its loops, the GPU sampler (`tools/start_n2_sampler.sh`) and the
-write probe. Tell root once, in one line, when it's up with its check slots live. Timer `nebius-infra-n2-return-watch`
-(every 300 s) does that, then closes.
+write probe. Tell root once, in one line, when it's up with its check slots live. **Done 05:57Z Oct 8:** node 2 is back in
+passes. Its deadline is 2026-10-09T05:30Z.
 
 **Subscriptions (root, 16:34Z Oct 4: they expire 7 days after creation; renew any expiring within 2 days).**
 - Since 16:04Z Oct 7: `nebius-infra-steward-pass-v3` (cron `*/30`, `sub_aef847fd…`) and
@@ -144,6 +144,11 @@ write probe. Tell root once, in one line, when it's up with its check slots live
      markers into `lanes/coordinator/20260925T1614Z-report-coordinator.md`, and the 17:23Z reset dropped it. The likely
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
+
+## 05:57Z Oct 8: node 2's check slots live (told root); return watch closed
+
+- Check run `r20261008-055539-9b71` holds `check-a` (`.who` 05:57Z). Node 2 is back in passes. Its POUS scheduler is left
+  alone, and the sampler and probe are running.
 
 ## 05:50Z Oct 8: node 2 back (up since about 05:43Z); sampler and write probe restarted; waiting for check slots
 

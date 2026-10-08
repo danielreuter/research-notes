@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (18:25Z) [open] 18:22Z: #1569 (outcome 1) open as draft; worker restacking it onto the move head. #1179's net diff being reapplied as one commit on 339446a0e (cursor/fail-closed-core-95d4). RecursiveSound compiled-inner question with Daniel via top (note:proofs/20261008T1805Z-finding-rec-thm-compiled-inner).
 CHECKPOINT none (15:34Z) [open] 15:40Z: Daniel approved proofs' two outcomes (the break tied to the run's own hash inputs). Workers launched: advice-extraction (outcome 1) and fail-closed-current (outcome 2: #1179 current with main and ready). VBridge E moved to lean.
 CHECKPOINT none (14:35Z) [open] 14:40Z: per Daniel's 14:16Z change, posted 2 outcomes (AdviceBinding goes to the extraction form; #1179's flock_verify_sound on main) and closed 13 PRs to meet the 2-PR cap (branches kept). Waiting on Daniel's pass and lean's form.
 CHECKPOINT none (13:31Z) [open] 13:30Z: 336e (the final check of main 89f078617, with agreement) passed, so tonight's proofs landings stand (tips 148 and 152, #1544). Nothing pending; the kept-PR restacks (#1224 first) are next.

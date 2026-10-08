@@ -145,6 +145,16 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 15:07Z Oct 8 (8:07 AM PDT), steward pass
+
+- Node 1: 71.7% by `df` (1,420 GiB free; the 15:00Z watch line read 71.5% with no flags); units active; real queues 0/0;
+  all 8 idle (reported).
+  - The monitor alert `20261008T1502Z-alert-disk-n1-0ccc8b26` (warn, owner infra, also filed in node1-dispatcher) is
+    about inodes, not space: 165,021 an hour against a 100,000 threshold. `df -i` shows 61% used and 8.15M free, which is
+    about 49 hours at that rate. The monitor routed it to its owners; it isn't addressed to the steward.
+- Node 2: 74.1% (1,301 GiB free, flat since 14:20Z); sampler and probe active; 0 of 8 GPUs (reported).
+- No new hourly snapshot since `art:50f29a90…` (about 14:30Z).
+
 ## State at 14:36Z Oct 8 (7:36 AM PDT), steward pass
 
 - Node 1: 71.3% by `df` (1,441 GiB free); units active; real queues 0/0; all 8 idle (reported). The `shadow-*`

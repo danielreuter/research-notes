@@ -21,6 +21,11 @@ research question. There is no filler, and GPUs may idle when approved work runs
 as backfill; it reports them idle and lets @top route approved work. Preemptible leases remain the way approved backfill
 runs. (Also in the infra report `20260930T1845Z-report-infra`: every job names its research question.)
 
+**Standing ruling (root, 02:10Z Oct 8, Daniel's Oct 1 ruling):** lane notes are records only. An ask to @infra goes through
+root, and the research coordinator posts it on Slack. A note in `lanes/infra/` doesn't count as asking (nor does Slack as
+@infra, which never wakes @infra). My Oct 7 notes there (custody, shadow queues, loops restarted, disk 73%) stand as
+records.
+
 **Fallback (14:33Z Oct 4):** node 1's `vy-steward-watch.timer` writes a read-only state line every 15 min to
 `/workspace/verity-guest/steward-watch.jsonl` (flags disk-72, disk-78, pacer-stale, dispatcher-stale; a copy is in
 `tools/vy-steward-watch`). It keeps running when this VM is suspended. After a gap, read it from the last pass on. My passes
@@ -135,6 +140,22 @@ starts node 2 again.
      markers into `lanes/coordinator/20260925T1614Z-report-coordinator.md`, and the 17:23Z reset dropped it. The likely
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
+
+## 02:16Z Oct 8: root raised node 1's disk with @infra as urgent; tell root at 76% if still climbing
+
+- Root took the disk ask to @infra through the research coordinator (see the standing ruling above).
+- One-shot-until-done timer `nebius-infra-n1-disk76-watch` (every 600 s, `sub_1516fe8f…`): it tells root once at 76% or
+  more if still climbing, then closes; it closes quietly below 72%.
+
+## State at 02:15Z Oct 8 (7:15 PM PDT Oct 7), steward pass (node 1 only)
+
+- Node 1: 73.4% (1,337 GiB free), about 3 points/h; 78% around 03:45Z at this rate. The growth isn't in `research/src`
+  (steady at about 72 trees), so I sent @infra a heads-up note
+  (`lanes/infra/20261008T0215Z-note-from-nebius-infra-n1-disk-73`).
+  - The newest runs are small (1–3 GB). `research/cache/pyshim` has new dirs every few minutes, and `research/cache`,
+    `tmp` and `research/lanes` time out under `du`. The write probe is down.
+  - Tell root at 78%.
+- Pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported). Node 2 is still stopped (planned).
 
 ## State at 01:52Z Oct 8 (6:52 PM PDT Oct 7), steward pass (node 1 only)
 

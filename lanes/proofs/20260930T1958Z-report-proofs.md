@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (09:02Z) [open] #1544 grant carries to dd7a8b971 (queue.carry True); watching for lean's 156+vbridge head; 413f and 853c running
 CHECKPOINT none (08:38Z) [open] #1544 red-team grant in (red-team-vbridge-c, 08:36Z); vbridge tip 155 check 413f and tip 152 check 853c running on node 1
 CHECKPOINT d5efa0005 (08:17Z) [open] vbridge stack ready; PR bodies posted; tip 155 (on main 9bc787321, #1548 in) full check 413f running on node 1; desk check predicts no lock re-record; tip 152 (#1315+#1429) queued as 853c
 CHECKPOINT none (07:35Z) [open] 07:35Z: ready posted for 1315@7c0f42499 (run r20261008-055012-6079, 29/29, red-team granted) and 1429@2c2b52fcf (run r20261008-055012-f15f, 29/29 + circuit-check 6/6). vbridge stack: Security re-record committed (bd93b2ccc), waiting for H3' and #1419's grant.

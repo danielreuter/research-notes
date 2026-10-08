@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (21:35Z) [open] 21:35Z: outcome 1 done, #1569 ready at ebfe2d217 (Lean check r20261008-204028-d481 and suites r20261008-204134-43d7 pass); AdviceBinding deleted, RegisteredMeets is fits ∨ a membership-bounded collision. Outcome 2 (#1574) awaiting its worker's reruns.
 CHECKPOINT none (18:25Z) [open] 18:22Z: #1569 (outcome 1) open as draft; worker restacking it onto the move head. #1179's net diff being reapplied as one commit on 339446a0e (cursor/fail-closed-core-95d4). RecursiveSound compiled-inner question with Daniel via top (note:proofs/20261008T1805Z-finding-rec-thm-compiled-inner).
 CHECKPOINT none (15:34Z) [open] 15:40Z: Daniel approved proofs' two outcomes (the break tied to the run's own hash inputs). Workers launched: advice-extraction (outcome 1) and fail-closed-current (outcome 2: #1179 current with main and ready). VBridge E moved to lean.
 CHECKPOINT none (14:35Z) [open] 14:40Z: per Daniel's 14:16Z change, posted 2 outcomes (AdviceBinding goes to the extraction form; #1179's flock_verify_sound on main) and closed 13 PRs to meet the 2-PR cap (branches kept). Waiting on Daniel's pass and lean's form.

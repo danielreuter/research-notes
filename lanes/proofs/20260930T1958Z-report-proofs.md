@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (11:23Z) [open] 11:25Z: verity-flock flake (InnerRepCheck_v2 double registration, #1347's test) is mine for after tonight; 27b2's pytest already passed.
 CHECKPOINT none (11:00Z) [open] 11:00Z: tip 148 landed (incl. #1397). Tip 152 (#1315+#1429) and #1544 land on 27b2's pass. Nothing owed.
 CHECKPOINT none (10:35Z) [open] 10:35Z: #1540's red-team grant carries to cef4c523d (fixture outside the rule); lander's readback ask withdrawn, nothing posted.
 CHECKPOINT none (10:00Z) [open] 10:00Z: tip 165 (152 + #1544 + 148) checking on node 2 (27b2); nothing owed by proofs. After #1544 lands, my kept drafts re-record their locks after merging main.

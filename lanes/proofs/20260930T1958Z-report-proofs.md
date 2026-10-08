@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (14:35Z) [open] 14:40Z: per Daniel's 14:16Z change, posted 2 outcomes (AdviceBinding goes to the extraction form; #1179's flock_verify_sound on main) and closed 13 PRs to meet the 2-PR cap (branches kept). Waiting on Daniel's pass and lean's form.
 CHECKPOINT none (13:31Z) [open] 13:30Z: 336e (the final check of main 89f078617, with agreement) passed, so tonight's proofs landings stand (tips 148 and 152, #1544). Nothing pending; the kept-PR restacks (#1224 first) are next.
 CHECKPOINT none (12:02Z) [open] 12:05Z: every proofs PR on tonight's line has landed (#1315 #1429 #1428 #1391 #1419 #1544-grant #1397-grant). The verity-flock failure was #1462's; circuits fixed it in 088977e39, verified. Nothing owed tonight.
 CHECKPOINT none (11:23Z) [open] 11:25Z: verity-flock flake (InnerRepCheck_v2 double registration, #1347's test) is mine for after tonight; 27b2's pytest already passed.

@@ -145,6 +145,23 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## 06:11Z Oct 8: node 2's disk is ours to watch too (root); 76% watch covers both nodes
+
+- Root: node 2 is at 75% and now takes full checks, so it's ours to watch. The same terms as node 1: tell root once, with
+  %, free GiB, climb rate and the projected time to 78%, if it reaches 76% and is still climbing.
+- `nebius-infra-disk76-watch-v2` (every 600 s) watches n1 and n2 with a per-node history (`/tmp/disk76-<node>.hist`).
+  It reports once per node, and a node below 72% is done. It closes when both are done. The old node-1-only watch closed
+  at 03:40Z (below 72%).
+
+## State at 06:10Z Oct 8 (11:10 PM PDT Oct 7), steward pass
+
+- Node 1 (watch, no flags): 71.3% at 06:00Z (`df` 72.0%, 1,405 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8
+  idle (reported).
+- Node 2: up 26 min, heavy check work (load about 360; 12 lock `.who` files taken since 05:40Z). `vy-cluster-agent` is
+  inactive again (stopped by someone; left alone). Sampler (06:09:33Z) and write probe active. 0 of 8 GPUs (reported).
+  `/workspace` at 75% (node 2's disk is @infra's).
+- The next hourly is loop tick 276; node 2 is reachable again, so it reads both.
+
 ## 05:57Z Oct 8: node 2's check slots live (told root); return watch closed
 
 - Check run `r20261008-055539-9b71` holds `check-a` (`.who` 05:57Z). Node 2 is back in passes. Its POUS scheduler is left

@@ -145,6 +145,15 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## 06:50Z Oct 8: the 76% watch drops node 1 (71.8%, below 72%); node 2 at 73.9% and easing, still watched
+
+## State at 06:47Z Oct 8 (11:47 PM PDT Oct 7), steward pass
+
+- Node 1: 71.8% at 06:45Z (`disk-72` at 06:30Z, 72.8%); pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported).
+- Node 2: check work (load about 45); `vy-cluster-agent` inactive (left alone); sampler and write probe active; 0 of 8 GPUs
+  (reported); 74.2% (1,297 GiB free). The two-node 76% watch is running.
+- Hourly `art:7899aa85…` (about 06:30Z), with both nodes again (utilization-summary updated).
+
 ## 06:11Z Oct 8: node 2's disk is ours to watch too (root); 76% watch covers both nodes
 
 - Root: node 2 is at 75% and now takes full checks, so it's ours to watch. The same terms as node 1: tell root once, with

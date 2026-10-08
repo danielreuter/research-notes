@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:56Z) [open] 01:56Z main 34e9514a0 (tip 131, tip 135 #1509, #1539); trailing checks c2bf and 86ac on node 1; awaiting Daniel on watchdog credentials and Linear cutover timing
 CHECKPOINT none (01:42Z) [open] 01:42Z: main 88d50358d (#1522, #1536, #1537 landed); tip 131 on b297, #1538 full check fa93; two watchdog credentials asked of Daniel
 CHECKPOINT none (01:21Z) [open] 01:21Z: main e9fd369f4 (#1499 relanded with pin, #1523); tip 131 landing on b297; PoUW lock reduction #1536 ready; Linear recheck passed
 CHECKPOINT none (00:51Z) [open] 00:51Z: main 190441d26 (#1482 by hand); infra owns machine health end to end per Daniel; owners and ETAs due 01:00Z

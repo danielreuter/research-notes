@@ -166,6 +166,20 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 23:39Z Oct 8 (4:39 PM PDT), steward pass
+
+- Node 1: 73.7% (1,318 GiB free; `disk-72`, eviction live, `-v3` watch armed); inodes 65% (13.28M used). Units active;
+  real queues 0/0; all 8 idle (reported).
+  - The two 22:3xZ Lean audits finished and their scratch is gone. A new one, `lean-audit-scratch-1022154-…` (473k
+    inodes, 30 GiB), is live. 4 check runs are live.
+  - Lasting growth in the check cache since 23:05Z: `lean-deps` went from 678k / 40 GiB to 847k / 50 GiB, and
+    `lean-builds` from 15 to 25 GiB. Excluding live scratch, the baseline is about 12.8M (12.6M at 21:41Z), about
+    100k inodes/h and about 20 GiB/h of disk while checks run.
+  - Not reported, since the 76% watch covers disk and the inode line is days off. If `lean-deps` keeps adding 10 GiB/h,
+    it's the item to raise.
+- Node 2: 67.2% (1,645 GiB free); sampler and probe active; 0 of 8 GPUs (reported).
+- No hourly snapshot since `art:58b07bdc…` (about 22:45Z).
+
 ## State at 23:05Z Oct 8 (4:05 PM PDT), steward pass
 
 - Node 1: 73.9% (1,309 GiB free; 72.5% → 74.4% from 22:30Z to 23:00Z; the `-v3` watch is armed). Inodes 66% (7.01M

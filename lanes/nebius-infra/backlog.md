@@ -78,6 +78,12 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
 - Since 16:04Z Oct 7: `nebius-infra-steward-pass-v3` (cron `*/30`, `sub_aef847fd…`) and
   `nebius-infra-steward-fallback-v2` (every 2,700 s, `sub_ce8c6750…`), both expiring about 2026-10-14T16:04Z.
 - `nebius-infra-nodes-return-watch-v2` closed at 16:45Z Oct 7: both nodes answered.
+- Since 17:16Z Oct 8: `nebius-infra-n2-disk78-watch` (every 600 s, `sub_449998d5…`; root, 17:16Z Oct 8).
+  - It reads node 2's disk into `/tmp/disk78-n2.hist` and tells root once at 78%, with free GiB and the climb rate
+    (`/tmp/disk78-n2.reported`).
+  - It closes itself at its first fire after 05:30Z Oct 9, when node 2's slots end, or earlier if node 2 drops below
+    72% (`/tmp/disk78-n2.done`). Every other turn ends with no output.
+- `nebius-infra-disk76-watch-v2` closed at 17:14Z Oct 8 (node 2 reported, node 1 below 72%).
 - One-shot reminder `nebius-infra-renew-probe-oct12` (`sub_cdfccf86…`) fires about 2026-10-12T15:00Z. Its prompt renews any
   steward timer expiring within 2 days, so it covers these.
 - `nebius-infra-down-probe` (`sub_c2937371…`) was open 15:39–16:04Z Oct 7; closed.

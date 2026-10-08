@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:51Z) [open] 00:51Z: main 190441d26 (#1482 by hand); infra owns machine health end to end per Daniel; owners and ETAs due 01:00Z
 CHECKPOINT none (00:34Z) [open] 00:34Z: main 24aa9a9a4 (tip 127 by hand); T2 trailing check b551 passed; 287a running; node 1 mirror current
 CHECKPOINT none (00:17Z) [open] 00:17Z: main 61f64824c; tip 127 (126 + #1514) ready for hand landing; #1519 on Daniel's close batch
 CHECKPOINT none (00:00Z) [open] 00:00Z: main 61f64824c; tip 126 landing by hand; cpu-1 hang cause found (circuit-check jobs by cores), infra sizing by memory

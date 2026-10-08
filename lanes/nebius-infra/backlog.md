@@ -145,6 +145,16 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 08:37Z Oct 8 (1:37 AM PDT), steward pass
+
+- New @infra monitors fired at 08:11–08:16Z (owner `infra`; not the steward's). On node 1: root free 56 GB < 60 GB, 26
+  finished runs over 1 h old without custody, held-idle panel stale (no reading for 1,152 min) and
+  `vy-lean-cache-daily.service` failed. On node 2: fill status stale since 14:55Z Oct 7, expected with the fill runner
+  off. No action.
+- Node 1: `disk-72` at 08:30Z (72.3%), `df` 72.4% (1,385 GiB free); units active; Kueue 0/0; all 8 idle (reported).
+- Node 2: 75.1% (1,248 GiB free), easing up 0.2–0.4 points per 10 min (the 76% watch is on it). Check work (load about
+  84); sampler and probe active; 0 of 8 GPUs (reported).
+
 ## State at 08:18Z Oct 8 (1:18 AM PDT), steward pass
 
 - Node 1 (watch, no flags): 71.9% (1,412 GiB free); dispatcher, pacer and pool units active; Kueue 0/0; all 8 idle

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT d5efa0005 (08:17Z) [open] vbridge stack ready; PR bodies posted; tip 155 (on main 9bc787321, #1548 in) full check 413f running on node 1; desk check predicts no lock re-record; tip 152 (#1315+#1429) queued as 853c
 CHECKPOINT none (07:35Z) [open] 07:35Z: ready posted for 1315@7c0f42499 (run r20261008-055012-6079, 29/29, red-team granted) and 1429@2c2b52fcf (run r20261008-055012-f15f, 29/29 + circuit-check 6/6). vbridge stack: Security re-record committed (bd93b2ccc), waiting for H3' and #1419's grant.
 CHECKPOINT none (07:00Z) [open] 07:00Z: vbridge stack lock re-record r20261008-055539-db9c PASS; Security lock committed (bd93b2ccc), H3' pending; #1315/#1429 runs at 28 suites passed, last one running.
 CHECKPOINT none (06:30Z) [open] 06:30Z: red-team granted 1428@7d6f82b50 and 1391@2ade21342 (RecOpen.check_ok delisted); 1419 waits for H3' after re-record db9c. #1429 run: all 6 circuit-check targets and 7 suites pass so far; #1315 run: 6 suites pass so far.

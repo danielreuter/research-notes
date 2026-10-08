@@ -145,6 +145,17 @@ write probe. Tell root once, in one line, when it's up with its check slots live
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## 05:50Z Oct 8: node 2 back (up since about 05:43Z); sampler and write probe restarted; waiting for check slots
+
+- Deadline `1791523800 2026-10-09T05:30:00Z daniel-2026-10-08T0529Z-via-top`.
+- GPU sampler restarted at 05:48:00Z (tmux `pouw-infra-util`, `tools/start_n2_sampler.sh`); writing again.
+- Write probe: `systemctl start vy-write-probe@vy-nebius-2` at about 05:49Z, the template unit it ran as. It isn't enabled,
+  so it didn't survive the reboot; status written 05:49:51Z. (Node 1's `vy-write-probe@vy-nebius-1` is running again,
+  restarted by someone else.)
+- `vy-cluster-agent` is active (left alone). Check slots: lock files `/workspace/research/locks/check-{a,b,d,e,f,…}`. All
+  their `.who` files predate the reboot, so no check has taken a slot yet. `nebius-infra-n2-return-watch` keeps watching
+  and tells root once they're live.
+
 ## State at 05:41Z Oct 8 (10:41 PM PDT Oct 7), steward pass (node 1 only)
 
 - Unchanged. Node 1 (watch, no flags): 71.0% (1,458 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle

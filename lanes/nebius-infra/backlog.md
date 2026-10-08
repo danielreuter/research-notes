@@ -141,6 +141,13 @@ starts node 2 again.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 02:44Z Oct 8 (7:44 PM PDT Oct 7), steward pass (node 1 only)
+
+- Node 1: the disk swings rather than climbs. Watch 73.5% (02:00Z), 72.9% (02:15Z), 72.3% (02:30Z); `df` 72.7% at 02:32Z
+  and 73.4% at 02:44Z (1,333 GiB free). `disk-72` flagged; root has the @infra ask; the 76% watch runs every 10 min.
+- Pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported). Node 2 is still stopped (planned).
+- Hourly `art:7435a0cf…` (about 02:25Z): node 1 at 1,485 / 323 / 167 / 1,162 (utilization-summary updated).
+
 ## 02:16Z Oct 8: root raised node 1's disk with @infra as urgent; tell root at 76% if still climbing
 
 - Root took the disk ask to @infra through the research coordinator (see the standing ruling above).

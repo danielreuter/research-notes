@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:47Z) [open] 15:45Z: main 3ab2f19c5 frozen for core move; trailing 4273 running; outcomes approved, lanes working; #1541 rework to Daniel's form
 CHECKPOINT none (15:30Z) [open] 15:30Z: 805f passed; #1501/#1527 awaiting the lander's merge, main 645ae265d; R2 blobs fixed by infra, custody caught up
 CHECKPOINT none (15:15Z) [open] 15:15Z: rulings that wait on Daniel deleted except money, keys, claims (#1233 retired); outcomes deadline now; main 645ae265d, #1501/#1527 not yet landed
 CHECKPOINT none (15:00Z) [open] 15:00Z: outcomes collected for Daniel's pass; evaluator properties (89) proved on branch; comms #1563/#1564 ready, #1564 live check passed; #1501/#1527 landing

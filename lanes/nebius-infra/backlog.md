@@ -136,6 +136,12 @@ starts node 2 again.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 01:11Z Oct 8 (6:11 PM PDT Oct 7), steward pass (node 1 only)
+
+- Node 1 (watch, no flags): 71.4% (1,437 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported). Node 2
+  is still stopped (planned).
+- Hourly `art:edf8f586…` (about 00:55Z): node 1 at 1,474 / 323 / 167 / 1,152 (utilization-summary updated).
+
 ## State at 00:37Z Oct 8 (5:37 PM PDT Oct 7), steward pass (node 1 only)
 
 - Unchanged. Node 1 (watch, no flags): 71.5% (1,430 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle

@@ -141,6 +141,13 @@ starts node 2 again.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 03:40Z Oct 8 (8:40 PM PDT Oct 7), steward pass (node 1 only)
+
+- Node 1 fell below 72%: watch 71.8% at 03:30Z, `df` 71.6% at 03:40Z (1,424 GiB free). Closed
+  `nebius-infra-n1-disk76-watch` per its rule; it never reached 76% (peak 73.6% at 03:15Z).
+- Pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported). Node 2 is still stopped (planned).
+- Hourly `art:29f4fa68…` (about 03:25Z): node 1 at 1,494 / 323 / 167 / 1,172 (utilization-summary updated).
+
 ## State at 03:10Z Oct 8 (8:10 PM PDT Oct 7), steward pass (node 1 only)
 
 - Node 1: still swinging, 72.4–73.5% since 01:45Z; `df` 73.3% at 03:10Z (1,337 GiB free). `disk-72` flagged; root has the

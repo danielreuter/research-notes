@@ -145,6 +145,21 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 16:17Z Oct 8 (9:17 AM PDT), steward pass
+
+- Node 1: 72.4% by `df` (1,383 GiB free). The 16:15Z watch line raised `disk-72`; no nudge, because eviction is live
+  (`vy-store-evict` and `vy-store-evict-research` run hourly, and `src/` holds about 60 trees). I removed
+  `/tmp/disk76-n1.below72`, so the 76% watch covers node 1 again. Units active; real queues 0/0; all 8 idle (reported).
+- Node 1 inodes: the page `20261008T1544Z-alert-disk-n1-f450b6b1` (owner infra) projects 472,550 inodes/h, reaching the
+  80% HARD line in 8.2 h. `df -i` shows 63% used (7.74M free).
+  - Most of the last hour's new inodes are the scratch trees of the live check runs. `r20261008-155808-7b45` and
+    `r20261008-160402-6c53` hold about 350k each, and `r20261008-160741-b280` (suites.py) is filling.
+  - Scratch is cleaned when a run ends: 9 runs today since 14:00Z, but only these 3 scratch dirs remain. So most of
+    the rate is transient while checks overlap. The lasting part is about 4 new `src/` trees an hour at 18k inodes each,
+    which eviction trims.
+- Node 2: 74.7% (1,268 GiB free; 74.1% → 74.7% since 15:30Z); sampler and probe active; 0 of 8 GPUs (reported).
+- Hourly `art:0316b73e…` (about 15:40Z): node 1 at 1,593 / 323 / 167 / 1,270, node 2 at 1,522 / 462 / 266 / 1,060.
+
 ## State at 15:42Z Oct 8 (8:42 AM PDT), steward pass
 
 - Node 1: 71.9% by `df` (1,410 GiB free; watch lines through 15:30Z have no flags); inodes at 62% (8.00M free); units

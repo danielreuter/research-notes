@@ -520,7 +520,9 @@ filler.
     and busy are still about 2 GPU-h below `art:79b0a41d…` (the lost sampler history). Node 2: 1,412 / 462 / 266 / 951,
     the same as at 16:50Z: its GPU sampler (`pouw-infra-util`) hasn't run since the restart, so its totals are frozen at
     the 14:55Z stop.
-  - `art:50f29a90072b1eadfa47719609d33b43c81a5374e2400367d361180b50d68b5c` (about 14:30Z Oct 8, the latest). Node 1:
+  - `art:0316b73e9c40cc6cf2db8bdb1d8fa27c20de2ce949dfbd54590531036f9b3960` (about 15:40Z Oct 8, the latest). Node 1:
+    1,593 / 323 / 167 / 1,270; node 2: 1,522 / 462 / 266 / 1,060 (no GPU work on either since the 14:30Z snapshot).
+  - `art:50f29a90072b1eadfa47719609d33b43c81a5374e2400367d361180b50d68b5c` (about 14:30Z Oct 8). Node 1:
     1,583 / 323 / 167 / 1,260; node 2: 1,512 / 462 / 266 / 1,051.
   - `art:7aae7292cc089e39954b3d5039270f48b9be1a1dc781c88a18a78b1ab5283c67` (about 13:20Z Oct 8). Node 1:
     1,574 / 323 / 167 / 1,251; node 2: 1,503 / 462 / 266 / 1,041.

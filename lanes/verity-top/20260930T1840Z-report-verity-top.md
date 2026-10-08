@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (03:47Z) [open] 03:48Z: infra's $500/day plan and forecast relayed; quota ask (vCPUs 600, IPv4 5) and node 2 restart wait on Daniel; cpu-1 full-check slot open; #1530 landed
 CHECKPOINT none (03:27Z) [open] 03:27Z main 216e96112; tip 137 on ee46, #1538 7eb8, #1543 8392; #1530 waits on red-team grant; infra pruning node 1 runs (disk deadline 03:45Z)
 CHECKPOINT none (03:11Z) [open] 03:11Z main 216e96112; CPU budget $500/day pushed (d41ae4166), home-cluster draft pushed (674bc52af); #1538 7eb8, #1543 8392, tip 137 28fb running; infra disk deadline 03:45Z, forecast 04:00Z
 CHECKPOINT none (02:56Z) [open] 02:56Z main 216e96112 (tip 136 #1498); #1437 #1468 ready; #1538 and #1543 full checks next; infra freeing node 1 disk before 03:45Z; awaiting Daniel on watchdog credentials and Linear timing

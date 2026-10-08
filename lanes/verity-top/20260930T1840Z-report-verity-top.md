@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:48Z) [open] 21:48Z main 2546d8362; train 3 a3aa, 0fcc (#1497+#1541), 9f12 (#1569+#1573+#1574), 3d10 #1561, de99 #1045, 77f0 #1524+#1570 in flight
 CHECKPOINT none (21:30Z) [open] 21:30Z no change: main 2546d8362; 77f0, 0fcc, 800a, 3d10, de99 in flight
 CHECKPOINT none (21:15Z) [open] 21:15Z no change: main 2546d8362; checks 77f0, 0fcc, 800a, 3d10, de99 in flight; node 1 inodes 69%
 CHECKPOINT none (21:00Z) [open] 21:00Z no change: main 2546d8362; checks 77f0, 0fcc, 800a, 3d10, de99 in flight; console-2 dropped 20:56Z

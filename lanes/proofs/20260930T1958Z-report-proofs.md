@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (04:03Z) [open] #1540 granted (red-team-canon); #1219 review running (red-team-1219) for ci's tip 138; #1543 in the lander's full check
 CHECKPOINT none (03:50Z) [open] #1530 landed (main 2d7ca7138); red-team reviews of #1540 (red-team-canon) and #1219 (red-team-1219) running for ci's tip 138; #1543 in the lander's full check
 CHECKPOINT none (03:00Z) [open] #1498 landed (main 216e96112); #1543 rebuilt by the lander on it, full check running; #1530 with core-vstar
 CHECKPOINT none (02:36Z) [open] core ports train (#1486 #1487 #1526 #1529 #1517) landed as main d5f393978; composition port #1543 handed off, lander's full check r20261008-023356-1638 on the merged tree; #1530 with core-vstar; properties after #1494

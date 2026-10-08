@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:46Z) [open] 04:46Z: node 1 queue 7eb8 (#1538), 741a (tip 138), 173d (tip 143); cpu-1 on main's trailing check; quota, node 2, #1525 wait on Daniel
 CHECKPOINT none (04:30Z) [open] 04:30Z: main 93b5e95a9 (#1425); full check of main settles C-Flock; tip 138 = #1548 + #1540 granted; spec DM fail-open fix with ci
 CHECKPOINT none (04:14Z) [open] 04:14Z: main 75be8940d (#1546, #1547 landed); #1219 in review; quota, node 2, #1525 ruling wait on Daniel
 CHECKPOINT none (03:58Z) [open] 03:59Z: #1540 granted, #1219 in review; cpu-1 slot open; main 61c10a07d; quota and node 2 wait on Daniel

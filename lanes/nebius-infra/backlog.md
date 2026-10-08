@@ -136,6 +136,17 @@ starts node 2 again.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 01:52Z Oct 8 (6:52 PM PDT Oct 7), steward pass (node 1 only)
+
+- Node 1: `disk-72` at 01:45Z (72.7%); 73.1% at 01:55Z (1,349 GiB free). `research/src` eviction is live, so no nudge;
+  tell root at 78%.
+  - Likely check runs, now all on node 1 while node 2 is stopped. `research/runs` is 239 GB (102 GB at 11:12Z Oct 7),
+    `research/scratch` 149 GB, with new check scratch dirs every 10 min. Full `du`/`find` time out (more than 200 s), so
+    no more heavy scans.
+  - **Node 1's write probe isn't running**: `writes.jsonl` was last written 11:49Z Oct 7 and `status.json` 14:54Z. It
+    didn't come back after the 16:21Z reboot. It runs as root and isn't mine; mention it, don't restart it.
+- Pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported). Node 2 is still stopped (planned).
+
 ## State at 01:11Z Oct 8 (6:11 PM PDT Oct 7), steward pass (node 1 only)
 
 - Node 1 (watch, no flags): 71.4% (1,437 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle (reported). Node 2

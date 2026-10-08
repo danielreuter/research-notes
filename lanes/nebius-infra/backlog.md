@@ -60,6 +60,10 @@ are restored; the down-probe is closed.
 **Node 2 stopped (root, 22:22Z Oct 7):** @infra stopped node 2 at 22:20Z, as planned after the move; its disk is kept so it
 can restart. Don't flag it as down and don't restart it. Steward node 1 only (skip node 2's checks in passes) until @infra
 starts node 2 again.
+**Node 2 restarting (root, 05:42Z Oct 8):** Daniel approved restarting node 2 for check capacity at 05:29Z, and @infra is
+bringing it up. When it's back, resume node 2 in passes: its loops, the GPU sampler (`tools/start_n2_sampler.sh`) and the
+write probe. Tell root once, in one line, when it's up with its check slots live. Timer `nebius-infra-n2-return-watch`
+(every 300 s) does that, then closes.
 
 **Subscriptions (root, 16:34Z Oct 4: they expire 7 days after creation; renew any expiring within 2 days).**
 - Since 16:04Z Oct 7: `nebius-infra-steward-pass-v3` (cron `*/30`, `sub_aef847fd…`) and
@@ -140,6 +144,11 @@ starts node 2 again.
      markers into `lanes/coordinator/20260925T1614Z-report-coordinator.md`, and the 17:23Z reset dropped it. The likely
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
+
+## State at 05:41Z Oct 8 (10:41 PM PDT Oct 7), steward pass (node 1 only)
+
+- Unchanged. Node 1 (watch, no flags): 71.0% (1,458 GiB free); pacer and dispatcher tick; Kueue 0/0; all 8 idle
+  (reported). Node 2 is still stopped (planned). The next hourly is loop tick 276.
 
 ## State at 05:14Z Oct 8 (10:14 PM PDT Oct 7), steward pass (node 1 only)
 

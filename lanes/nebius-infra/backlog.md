@@ -162,6 +162,15 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 18:17Z Oct 8 (11:17 AM PDT), steward pass
+
+- Node 1: 72.2% (1,392 GiB free; `disk-72` at 18:15Z, eviction live, no nudge); inodes 62% (7.88M free); units active;
+  real queues 0/0; all 8 idle (reported).
+  - The inode alerts recurred: a HARD page at 17:48Z (578,685/h, 80% in 7.1 h) and a warning at 17:58Z (262,318/h). It's
+    the same pattern explained at 16:17Z, check-run scratch freed when runs end (2 live now); not re-reported.
+- Node 2: 66.3% (1,690 GiB free; dropped from 76.0% at 17:08Z); sampler and probe active; 0 of 8 GPUs (reported).
+- Hourly `art:6047dc82…` (about 18:00Z): node 1 at 1,611 / 323 / 167 / 1,288, node 2 at 1,540 / 462 / 266 / 1,079.
+
 - 17:44Z Oct 8 (root): both 17:43Z items (the shadow-queue GPU-idle false positive and the stale held-idle panel) have
   gone to @infra through RC. @infra's fix for the shadow-queue alert is
   [#1460](https://github.com/danielreuter/verity/pull/1460), which lands with train 3. Don't re-report either unless

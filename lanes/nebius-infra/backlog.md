@@ -84,6 +84,8 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
   - It closes itself at its first fire after 05:30Z Oct 9, when node 2's slots end, or earlier if node 2 drops below
     72% (`/tmp/disk78-n2.done`). Every other turn ends with no output.
 - `nebius-infra-disk76-watch-v2` closed at 17:14Z Oct 8 (node 2 reported, node 1 below 72%).
+- `nebius-infra-n2-disk78-watch` closed at 17:51Z Oct 8. Node 2 read 67.6% (1,628 GiB free), down from 72.9% at 17:40Z,
+  so it was below 72% (`/tmp/disk78-n2.done`); 78% was never reached.
 - One-shot reminder `nebius-infra-renew-probe-oct12` (`sub_cdfccf86…`) fires about 2026-10-12T15:00Z. Its prompt renews any
   steward timer expiring within 2 days, so it covers these.
 - `nebius-infra-down-probe` (`sub_c2937371…`) was open 15:39–16:04Z Oct 7; closed.
@@ -159,6 +161,24 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      markers into `lanes/coordinator/20260925T1614Z-report-coordinator.md`, and the 17:23Z reset dropped it. The likely
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
+
+- 17:44Z Oct 8 (root): both 17:43Z items (the shadow-queue GPU-idle false positive and the stale held-idle panel) have
+  gone to @infra through RC. @infra's fix for the shadow-queue alert is
+  [#1460](https://github.com/danielreuter/verity/pull/1460), which lands with train 3. Don't re-report either unless
+  something new shows up.
+
+## State at 17:43Z Oct 8 (10:43 AM PDT), steward pass
+
+- Node 1: 71.8% (1,414 GiB free; no flags since 17:15Z); inodes 60%; units active; real queues 0/0; all 8 idle
+  (reported).
+  - `20261008T1715Z-alert-gpu-idle-while-work-is-waiting-4f02baf9` (8 GPUs, "3 workloads wait") is the shadow-queue
+    false positive predicted at 14:36Z: `shadow-checks` has 2 admitted and 3 pending in `vy-shadow`, and the real queues
+    are empty. No action; a fix would be an ask through root.
+  - `20261008T1711Z-alert-held-idle-stale-6223799b`: `/workspace/usage/held-idle-hourly.jsonl` was last written at 16:05Z
+    (newest hour 15:00Z). `verity-console` itself runs every 5 min and publishes 48 of 48 panels, so the stale input is
+    its upstream writer, which I didn't find (it isn't `vy-usage`). Owner infra.
+- Node 2: 72.3% (1,391 GiB free, down from 76.0% at 17:08Z); sampler and probe active; 0 of 8 GPUs (reported).
+- No hourly snapshot since `art:50d5469f…` (about 16:50Z).
 
 - 17:14Z Oct 8: the disk watch closed. Node 1 read 71.9% (1,413 GiB free), below 72.0% (`/tmp/disk76-n1.below72`), and
   node 2 was reported at 76.0%, so `nebius-infra-disk76-watch-v2` is unsubscribed. The 30-minute passes still read both

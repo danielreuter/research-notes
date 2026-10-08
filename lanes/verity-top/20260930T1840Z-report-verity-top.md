@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (11:48Z) [open] 11:48Z: all 5 slots busy (d1d1, 336e, fba5 #1494/#1495, 27b2, f456); 195c passed; #1553 leftover-kill gap swept by hand; console-2 dropped 11:48Z
 CHECKPOINT none (11:30Z) [open] 11:30Z: main bf1dce100 (148, #1489, tip 162 landed); triage done; waiting on 27b2, d1d1/9592, 195c, #1462 flock rerun, trailing 7426 or tip 169
 CHECKPOINT none (11:15Z) [open] 11:15Z: a697 lean-fast pass, full audit 9592 running for #1540; ea20 ended, result pending; waiting on 27b2, 195c, d1d1, ce6f, 551a
 CHECKPOINT none (11:01Z) [open] 11:00Z: tip 148 landed 0caabe8ed; 39c1 cancelled; waiting on ea20, ce6f, 551a, 27b2, 195c, d1d1

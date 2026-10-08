@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (13:15Z) [open] 13:15Z: no change; waiting on fba5, 336e (~13:30Z), 95f6, 82e1, 9fd4; #1541 ~13:25Z
 CHECKPOINT none (13:06Z) [open] 13:06Z: morning close-out sent to Daniel (docs/morning-report-2026-10-08.md); waiting on fba5, 336e, 95f6, 82e1, 9fd4; console-2 dropped 13:06Z
 CHECKPOINT none (12:45Z) [open] 12:45Z: no landings since 11:55Z; fba5 ~12:50Z; asked circuits where #1559's 461f runs (reported vy-cpu-2); architecture's summary due now
 CHECKPOINT none (12:30Z) [open] 12:30Z: no change; waiting on fba5, 82e1, 9fd4, 95f6, 336e; architecture's 12:45Z summary next

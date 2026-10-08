@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:00Z) [open] 15:00Z: outcomes collected for Daniel's pass; evaluator properties (89) proved on branch; comms #1563/#1564 ready, #1564 live check passed; #1501/#1527 landing
 CHECKPOINT none (14:45Z) [open] 14:45Z: leads' outcomes in for Daniel's pass; #1231 grants retired (after move); FP8 served rotation decided by compute; #1501/#1527 landing, 805f trailing
 CHECKPOINT none (14:42Z) [open] 14:42Z: Daniel's 14:16Z changes in force (outcomes, two-PR cap, lander-only landing, freeze for core move); #1501/#1527 landing, 805f trailing; #1541 held for rework
 CHECKPOINT none (14:15Z) [open] 14:15Z: main 645ae265d; tip 173 (#1501 #1527 #1541) full check 805f on node 1 a; Daniel with architecture on the unfinished directory layout (second move proposed)

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:40Z) [open] 02:40Z main d5f393978 (core ports train); trailing checks waiting on node 1 slots; infra freeing node 1 disk before 03:45Z; awaiting Daniel on watchdog credentials and Linear timing
 CHECKPOINT none (02:25Z) [open] 02:25Z main 86ce66dff; node 1 OOM cause fixed (d5fd8a03e), disk to be freed before 03:45Z; five-PR core ports landing handed to the lander; awaiting Daniel on watchdog credentials and Linear timing
 CHECKPOINT none (02:13Z) [open] 02:13Z main f268d72ba; node 1 memory OOM kills (no revert, reruns serialized) and disk 73.4% (infra to free before 03:45Z); awaiting Daniel on watchdog credentials and Linear timing
 CHECKPOINT none (01:56Z) [open] 01:56Z main 34e9514a0 (tip 131, tip 135 #1509, #1539); trailing checks c2bf and 86ac on node 1; awaiting Daniel on watchdog credentials and Linear cutover timing

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:15Z) [open] 16:15Z: main 3ab2f19c5 frozen for core move; trailing 4273 running; compute #1497 ready (outcome 2); #1541 restating claims
 CHECKPOINT none (16:00Z) [open] 16:00Z: main 3ab2f19c5 frozen for core move; trailing 4273 running; comms #1564/#1566 ready; #1541 restating claims in Daniel's form
 CHECKPOINT none (15:47Z) [open] 15:45Z: main 3ab2f19c5 frozen for core move; trailing 4273 running; outcomes approved, lanes working; #1541 rework to Daniel's form
 CHECKPOINT none (15:30Z) [open] 15:30Z: 805f passed; #1501/#1527 awaiting the lander's merge, main 645ae265d; R2 blobs fixed by infra, custody caught up

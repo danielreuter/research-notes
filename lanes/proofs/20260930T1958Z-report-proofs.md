@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (12:02Z) [open] 12:05Z: every proofs PR on tonight's line has landed (#1315 #1429 #1428 #1391 #1419 #1544-grant #1397-grant). The verity-flock failure was #1462's; circuits fixed it in 088977e39, verified. Nothing owed tonight.
 CHECKPOINT none (11:23Z) [open] 11:25Z: verity-flock flake (InnerRepCheck_v2 double registration, #1347's test) is mine for after tonight; 27b2's pytest already passed.
 CHECKPOINT none (11:00Z) [open] 11:00Z: tip 148 landed (incl. #1397). Tip 152 (#1315+#1429) and #1544 land on 27b2's pass. Nothing owed.
 CHECKPOINT none (10:35Z) [open] 10:35Z: #1540's red-team grant carries to cef4c523d (fixture outside the rule); lander's readback ask withdrawn, nothing posted.

@@ -145,6 +145,13 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 10:43Z Oct 8 (3:43 AM PDT), steward pass
+
+- Node 1 (watch, no flags): 71.6% (1,425 GiB free); units active; Kueue 0/0; all 8 idle (reported). The `vy-custody`
+  failed alert repeated at 10:24Z and 10:34Z (@infra's, the owned custody fix).
+- Node 2: 74.1% (1,297 GiB free; the 76% watch is on it); check work (load about 64); sampler and probe active; 0 of 8 GPUs
+  (reported). The next hourly is loop tick 300.
+
 ## State at 10:07Z Oct 8 (3:07 AM PDT), steward pass
 
 - Node 1: `disk-72` (73.1% at 10:00Z), `df` 71.5% (1,430 GiB free); units active; Kueue 0/0; all 8 idle (reported). The

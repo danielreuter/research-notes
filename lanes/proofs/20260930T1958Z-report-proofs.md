@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (10:35Z) [open] 10:35Z: #1540's red-team grant carries to cef4c523d (fixture outside the rule); lander's readback ask withdrawn, nothing posted.
 CHECKPOINT none (10:00Z) [open] 10:00Z: tip 165 (152 + #1544 + 148) checking on node 2 (27b2); nothing owed by proofs. After #1544 lands, my kept drafts re-record their locks after merging main.
 CHECKPOINT none (09:53Z) [open] 09:55Z: node 1 scratch trees removed by infra (59 GiB); e2e-tip-feaa (flock-e2e-tip's .lake-only trees) approved too. Tip 152 + #1544 check f456 (cpu-1) / 82c9 (node 2).
 CHECKPOINT none (09:45Z) [open] 09:50Z: #1544's red-team grant carries to 93cad7144 (verifier lock blob unchanged; carry True vs tip 152 on main). Tip 152 on main (89a0c967d) checking as 3021 on cpu-1; tip 164 (#1544) next on node 2.

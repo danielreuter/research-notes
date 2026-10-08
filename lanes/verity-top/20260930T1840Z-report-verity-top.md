@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:24Z) [open] 07:23Z: tip 151 touched suites 433c on node 2; tip 148 takes cpu-1 at 07:30Z; 988b, 0ed0, 7c06 running
 CHECKPOINT none (07:12Z) [open] 07:12Z: main 93b5e95a9; checks: 988b tip 147, 0ed0 #1548, tip 148 (9db7/1dfa), 7c06 tip 139, 8148 tip 150 suites; #1540 ready
 CHECKPOINT none (06:52Z) [open] 06:52Z: full checks running: 988b tip 147, 7c06 tip 139, 0ed0 #1548, 9db7 tip 148 (memory's 4 PRs); #1553 cpu-1 fix ready
 CHECKPOINT none (06:37Z) [open] 06:37Z: #1425 stands (741a fail was #1540's vectors); #1548 alone in 0ed0; tip 147 replaces 9b71; cpu-1 OOM cause cleared by infra

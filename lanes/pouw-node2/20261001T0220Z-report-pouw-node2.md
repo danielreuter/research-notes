@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (01:12Z) [open] A 01:12Z poll: main e9fd369f4 (core_randomness relanded, pods register syncs), no pouw diff; no new notes; off node 2; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (00:49Z) [open] A 00:49Z poll: main 190441d26 (#1482 core_protocol Lean interface), no pouw diff; no new notes; off node 2; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (00:26Z) [open] A 00:25Z poll: main 24aa9a9a4: Daniel's land-on-targeted-check rule (AGENTS.md), Lean ports of LMS/NCI/network checks; no pouw diff; no notes for me; off node 2; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (00:02Z) [open] A 00:02Z poll: no new notes; main unchanged 61f64824c; off node 2; awaiting CA on poll, GPU 0 totals, panel edit

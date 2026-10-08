@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (03:11Z) [open] 03:11Z main 216e96112; CPU budget $500/day pushed (d41ae4166), home-cluster draft pushed (674bc52af); #1538 7eb8, #1543 8392, tip 137 28fb running; infra disk deadline 03:45Z, forecast 04:00Z
 CHECKPOINT none (02:56Z) [open] 02:56Z main 216e96112 (tip 136 #1498); #1437 #1468 ready; #1538 and #1543 full checks next; infra freeing node 1 disk before 03:45Z; awaiting Daniel on watchdog credentials and Linear timing
 CHECKPOINT none (02:40Z) [open] 02:40Z main d5f393978 (core ports train); trailing checks waiting on node 1 slots; infra freeing node 1 disk before 03:45Z; awaiting Daniel on watchdog credentials and Linear timing
 CHECKPOINT none (02:25Z) [open] 02:25Z main 86ce66dff; node 1 OOM cause fixed (d5fd8a03e), disk to be freed before 03:45Z; five-PR core ports landing handed to the lander; awaiting Daniel on watchdog credentials and Linear timing

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:30Z) [open] 04:30Z: main 93b5e95a9 (#1425); full check of main settles C-Flock; tip 138 = #1548 + #1540 granted; spec DM fail-open fix with ci
 CHECKPOINT none (04:14Z) [open] 04:14Z: main 75be8940d (#1546, #1547 landed); #1219 in review; quota, node 2, #1525 ruling wait on Daniel
 CHECKPOINT none (03:58Z) [open] 03:59Z: #1540 granted, #1219 in review; cpu-1 slot open; main 61c10a07d; quota and node 2 wait on Daniel
 CHECKPOINT none (03:47Z) [open] 03:48Z: infra's $500/day plan and forecast relayed; quota ask (vCPUs 600, IPv4 5) and node 2 restart wait on Daniel; cpu-1 full-check slot open; #1530 landed

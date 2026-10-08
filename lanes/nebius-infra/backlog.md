@@ -166,6 +166,22 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 21:07Z Oct 8 (2:07 PM PDT), steward pass
+
+- Node 1: 74.3% (1,289 GiB free; climbing 72.5% → 74.3% since 20:00Z; the `-v3` watch is armed). Inodes are at 69%
+  (6.43M free; 63% at 20:16Z). Units active; real queues 0/0; all 8 idle (reported).
+- Correction to the 16:17Z read that the inode growth is transient: part of it lasts.
+  - Live check scratch (4 runs, about 1.19M inodes) is transient. But `research/src` holds 91 trees, up from 61 at
+    16:15Z, a net +6 to +7 an hour at 18-34k inodes each.
+  - `vy-store-evict` deletes only 4-11 trees an hour and logs "target reached: False" against its 2,500 GB mark.
+  - `research/cache/verity-check` holds 3.16M inodes, and `research/cache` gained 339k in the last 50 min.
+  - Lasting growth is roughly 0.4-0.5M inodes/h. Excluding scratch, node 1 is about 3.5M inodes below the 80% HARD line
+    (no new check starts): about 7-9 h with no overlap, sooner when checks overlap.
+  - The 20:22Z and 20:33Z inode alerts fired again. Told root as a possible ask for @infra (src-tree eviction pace and
+    the check cache's retention).
+- Node 2: 67.0% (1,656 GiB free); sampler and probe active; 0 of 8 GPUs (reported).
+- No hourly snapshot since `art:90bc9d7c…` (about 20:25Z).
+
 ## State at 20:33Z Oct 8 (1:33 PM PDT), steward pass
 
 - Node 1: 73.3% (1,342 GiB free; `disk-72`, eviction live, `-v3` watch armed); inodes 65%; units active; real queues

@@ -145,6 +145,16 @@ passes. Its deadline is 2026-10-09T05:30Z.
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 16:34Z Oct 8 (9:34 AM PDT), steward pass
+
+- Node 1: 72.8% (1,364 GiB free); `disk-72` stands, and eviction is live, so there's no nudge. Inodes are at 64% (7.42M
+  free, +327k since 16:17Z).
+  - All of that growth is a fourth live check run's scratch: `r20261008-162906-9987` holds 324k. All 4 live runs' scratch
+    totals about 1.06M inodes, freed when they end.
+  - Units active; real queues 0/0; all 8 idle (reported).
+- Node 2: 74.4% (1,283 GiB free); sampler and probe active; 0 of 8 GPUs (reported).
+- No hourly snapshot since `art:0316b73e…` (about 15:40Z).
+
 ## State at 16:17Z Oct 8 (9:17 AM PDT), steward pass
 
 - Node 1: 72.4% by `df` (1,383 GiB free). The 16:15Z watch line raised `disk-72`; no nudge, because eviction is live

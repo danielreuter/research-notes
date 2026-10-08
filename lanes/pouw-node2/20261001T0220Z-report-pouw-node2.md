@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4c (01:52Z) [open] A 01:52Z poll: no new notes; main 36f6a56c5 (monitors relay tags, circuit-check memory cap, core Lean Decisive/Unambiguous, restacks), no pouw paths changed; γ and pins unchanged; off node 2; timer lapses 02:24Z unless told to keep it
 CHECKPOINT fbce5a2f4c (01:37Z) [open] A 01:35Z poll: main 5058c8b13: PoUW lock unpins 648 of 807 guarantee records (theorems stay); pending v1 γ GammaSm120v1LoopCast8p72Rev1Cap1000_8192 and fp4 γ still pinned; row-seed: pearlCHidden…RowSeed(Code)Cap1000_8192 and pearlCSampledSm120v1RowSeed_8192 kept, no Gamma RowSeed Cap record; panel edit would cite pinned names only; no new notes; off node 2
 CHECKPOINT fbce5a2f4c (01:12Z) [open] A 01:12Z poll: main e9fd369f4 (core_randomness relanded, pods register syncs), no pouw diff; no new notes; off node 2; awaiting CA on poll, GPU 0 totals, panel edit
 CHECKPOINT fbce5a2f4c (00:49Z) [open] A 00:49Z poll: main 190441d26 (#1482 core_protocol Lean interface), no pouw diff; no new notes; off node 2; awaiting CA on poll, GPU 0 totals, panel edit

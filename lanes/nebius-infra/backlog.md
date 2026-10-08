@@ -84,6 +84,10 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
   - It closes itself at its first fire after 05:30Z Oct 9, when node 2's slots end, or earlier if node 2 drops below
     72% (`/tmp/disk78-n2.done`). Every other turn ends with no output.
 - `nebius-infra-disk76-watch-v2` closed at 17:14Z Oct 8 (node 2 reported, node 1 below 72%).
+- Since 18:35Z Oct 8: `nebius-infra-n1-disk76-watch-v3` (every 600 s, `sub_c38d3af0…`). It was re-armed because node 1
+  climbed from 72.2% to 73.6% in 17 min.
+  - It tells root once at 76% if still climbing (`/tmp/disk76-n1.reported`) and once at 78% (`/tmp/disk78-n1.reported`).
+  - It closes below 72% (`/tmp/disk76-n1.below72`). Every other turn ends with no output.
 - `nebius-infra-n2-disk78-watch` closed at 17:51Z Oct 8. Node 2 read 67.6% (1,628 GiB free), down from 72.9% at 17:40Z,
   so it was below 72% (`/tmp/disk78-n2.done`); 78% was never reached.
 - One-shot reminder `nebius-infra-renew-probe-oct12` (`sub_cdfccf86…`) fires about 2026-10-12T15:00Z. Its prompt renews any
@@ -161,6 +165,16 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      markers into `lanes/coordinator/20260925T1614Z-report-coordinator.md`, and the 17:23Z reset dropped it. The likely
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
+
+## State at 18:35Z Oct 8 (11:35 AM PDT), steward pass
+
+- Node 1: 73.6% (1,325 GiB free), up 68 GiB in 17 min. Inodes are at 66% (7.06M free), up 823k.
+  - Five check runs are live: `r20261008-182234-9652` (338k inodes, 21 GiB), `-182651-dfb7` (336k, 20 GiB), `-182651-74f4`,
+    `-182852-a551` and `-170750-5bfb`. `research/cache/verity-check` gained 164k inodes, and that cache persists.
+  - `disk-72` is flagged, but eviction is live, so no nudge. The 10-minute node 1 watch is re-armed (`-v3`). Units active;
+    real queues 0/0; all 8 idle (reported).
+- Node 2: 66.4% (1,686 GiB free); sampler and probe active; 0 of 8 GPUs (reported).
+- No hourly snapshot since `art:6047dc82…` (about 18:00Z).
 
 ## State at 18:17Z Oct 8 (11:17 AM PDT), steward pass
 

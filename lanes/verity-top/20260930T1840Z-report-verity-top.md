@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:08Z) [open] 20:08Z main e249310f3 (train 6 + #1568 landed); trains 2 and 3 failed and are being fixed (#1561, #1466); #1574 replaces #1179
 CHECKPOINT none (19:46Z) [open] 19:45Z provider errors continuing across leads; pod checks unaffected; main 4009c1615
 CHECKPOINT none (19:35Z) [open] 19:35Z provider rate-limiting since ~19:20Z (lean, infra, circuits, new console errored); pod checks unaffected; main 4009c1615
 CHECKPOINT none (19:21Z) [open] 19:20Z main 4009c1615; train 4 on af93, train 2, 98c5, #1541's 51ec, train 6, train 3 checking; lean resumed after a provider error

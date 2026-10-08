@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (06:18Z) [open] 06:15Z close-out: #1315 granted, run 6079 midway; #1429 run f15f midway; vbridge stack #1428/#1391/#1419 restacked (7d6f82b50/3f26ba878/7d0adc625), RecOpen.check_ok delisted per #1170, lock re-record db9c ETA 07:30Z, red-team regrant running, ready ~08:30Z; #1120/#1121 closed by ci as superseded.
 CHECKPOINT none (05:58Z) [open] 10:56 PM PDT: close-out of #1428 #1391 #1419 #1315 #1429 under way. #1315 restacked (7c0f42499, run 6079, red-team-1219 regranting); #1429 restacked (2c2b52fcf, run f15f with circuit-check); vbridge restacking #1428<-#1391<-#1419 as one stack and one tip (ci agreed), one lock re-record at #1419's head. Ready posts by 10:00Z.
 CHECKPOINT none (05:02Z) [open] 10:00 PM PDT: ports train's trailing check 9c1d and #1543's 8392 passed; #1543 now rides tip 144 (0af656e1a, + #1549 #1550 #1545), full check r20261008-045956-f3ae on node 1. Node 1 72%, GPUs idle.
 CHECKPOINT none (04:31Z) [open] 9:30 PM PDT: pr:1548@20d21dcea granted by red-team-1219 (same patch as #1219, lock cross-check passes); read-back posted to ci, so tip 138 (#1548 + #1540) has both grants. #1543 awaits the lander's full check. Node 1 72%, GPUs idle.

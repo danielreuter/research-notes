@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:10Z) [open] 23:10Z: #1662 retrains unpinned, RecursiveAudit pinned after gap 4 (09:00Z); #1627+#1666 (5ca03b16de6a) and #1650 (607349e42dbe) in full check; 8090 run 322a verdict ~23:25Z; infra review due 23:45Z (architecture compiles); n1 healthy
 CHECKPOINT none (22:15Z) [open] 22:15Z: RecursiveAudit (i) caveats routed (architecture 22:12Z: train 675fbb64026a lands as statement+plumbing, fixes in 07:30Z closing build); 8090 run 322a verdict ~23:25Z; n1 healthy
 CHECKPOINT none (22:02Z) [open] 22:02Z: n1 back to 64% disk, holds lifted except inode launch gate; gap 2 done (#1670); 8090 run 322a verdict ~23:25Z; #1585 agreement check on cpu-1
 CHECKPOINT none (21:54Z) [open] 21:54Z: main 7541513c8 (#1579+#1619); #1585 agreement check on cpu-1; 8090 run of record 322a on n1 since 21:19Z; n1 cov/q235-gate deletion approved, 82% hold until then

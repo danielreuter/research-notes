@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (12:23Z) [open] 12:23Z: main 96468aa22 (#1622 landed); #1636 d92b and #1636+#1630 5ede checking; #1579 re-record blocks 7b1b; #1637 race fix train 79f0; #1634 ready after #1631
 CHECKPOINT none (12:00Z) [open] 12:00Z: main 9e8fa30b8; #1622 and ef48 landing behind cpu-1 suites; 7b1b and #1633 checking on n2; n1 disk 78%, inodes 64%
 CHECKPOINT none (11:45Z) [open] 11:45Z: main 9e8fa30b8; #1622 passed, landing after cpu-1 suites; ef48 lands on sequential lean-audit rerun e31d; lean_audit race fix with Lever E worker; 7b1b and #1633 checking on n2
 CHECKPOINT none (11:30Z) [open] 11:30Z: main 9e8fa30b8; ef48 and #1622 checking, 7b1b queued; rec-stage 8090 run in progress, Lean verdict ~13:00-13:45Z

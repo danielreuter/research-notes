@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (20:21Z) [open] 20:21Z: VBridge's VFull was false at V*'s real circuits (padding); top took lean's VBridgeRead restatement (proofs read it: right, non-vacuous via vFullRead_of/vDecodesRead_of); gap 8 ruled (a2), the whole circuit fixed by checks
 CHECKPOINT none (20:15Z) [open] 20:15Z: rate lemma in as #1666 (ready, quick tier 66ee); ReadsCover hit the stop rule (no honest V* session registers the description), route call posted to top, bc-cb1cfff8 drafting route 1 (registered inner statement)
 CHECKPOINT none (20:09Z) [open] 20:06Z: top ruled gap 8 = (b): check 1 fixes exactly the fields the VBridge reads (unit by name, part index, ports/ranges/bindings if read); relayed to rec-lean at its return
 CHECKPOINT none (20:05Z) [open] 20:05Z: gap 3a in as draft #1665 (stacked on #1662); gap 8 route call (whole circuit vs unit by name) posted to top/lean; rec-lean resumed on the sessions restructure, 3b disjunct, custody law.pop and the 01:30Z joint build

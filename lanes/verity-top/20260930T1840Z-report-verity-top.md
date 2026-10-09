@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:00Z) [open] 01:00Z: #1582 in full check 8dbf (node 2); #1578's 25ea has a cpu-1 verity-ops flake, lander's call; #1581 b21e waits; inbox empty
 CHECKPOINT none (00:45Z) [open] 00:45Z: main 95292860f, trailing 9be3; 44b3 train, #1578 (25ea), #1581 (b21e), #1582 queued; proofs re-sweep running; inbox empty
 CHECKPOINT none (00:39Z) [open] 00:39Z: Security chain landed (95292860f), summary sent to Daniel; trailing 9be3; next 44b3 train, #1578, #1581, then #1582; inbox empty
 CHECKPOINT none (00:15Z) [open] 00:15Z: Security chain passed 5415, lands on verity-flock 1612; premises sweep reported; #1581 at 74e3270a4 retrains after #1578; inbox empty

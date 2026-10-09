@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (13:00Z) [open] 13:00Z: main bff9c5864; d05a (#1579 #1619) checking; #1633 rerun 44e1; #1636/#1630 checking; #1631 #1609 #1634 #1629 ready to stack; G compose builds, Ligerito 13:45Z, gap list 14:30Z
 CHECKPOINT none (12:48Z) [open] 12:47Z: main bff9c5864 (7-PR batch landed); 7b1b passed, waits on #1579 re-record; #1633 passed, rerunning differing suites; #1636/#1630 checking; n1 guard raised to 82% until 15:00Z
 CHECKPOINT none (12:30Z) [open] 12:30Z: main 96468aa22; #1636/#1630 checking; #1579 re-record pending; ef48 audit rerun e31d; #1637 train 79f0; compile-lemma gaps due now
 CHECKPOINT none (12:23Z) [open] 12:23Z: main 96468aa22 (#1622 landed); #1636 d92b and #1636+#1630 5ede checking; #1579 re-record blocks 7b1b; #1637 race fix train 79f0; #1634 ready after #1631

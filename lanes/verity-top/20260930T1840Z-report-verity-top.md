@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:48Z) [open] 06:47Z: batch 1b4d checking; lean fanned G into six pieces; circuits staging F32MulFtz_v3 at full class by 13:45Z; ten-minute plan levers under way
 CHECKPOINT none (06:19Z) [open] 06:19Z: dd21 landed (c6c268f72); 11-PR batch in full check 1b4d; gather OOM fix #1611; Daniel's priority: recursive private-circuit run by 15:00Z
 CHECKPOINT none (06:00Z) [open] 06:00Z: full check <10 min goal with infra; pytest cuts retargeted by time; landing order #1607, recursion pair, rest; all land by 15:00Z
 CHECKPOINT none (05:45Z) [open] 05:45Z: ee02 passed 59 min vs 114 (reuse), reported; sampled proofs replay 313/313; #1607 lands first, trains behind it

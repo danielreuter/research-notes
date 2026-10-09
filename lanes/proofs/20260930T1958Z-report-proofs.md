@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (06:15Z) [open] 06:15Z: Daniel's 11:02 PM brief (top 1791526236.152239): one priority, the recursive private-circuit system; by 14:30Z the run, the theorem, the gap list. New workers: ZK-server coin commitment + salts (cursor/zk-coin-commit-95d4), route P rebased + priced under V* (cursor/routep-main-95d4). rec-v0/rec-lean/rec-thm get the new requirements on return.
 CHECKPOINT none (06:08Z) [open] 06:06Z: watch. Waiting on @lean for G's interface; @circuits owes the real class by ~11:00Z for the private-circuit run. Node 1 76%, GPUs idle.
 CHECKPOINT none (06:04Z) [open] 06:04Z: #1596 (R7) ready (suites 31/31, audit PASS, labelled, merge-thread post). #1593 and #1596 both ready; six workers on recursion/private circuits/sp switch; waiting on @lean for G's interface.
 CHECKPOINT none (06:01Z) [open] 06:01Z: Daniel's priority is recursive ZK with private circuits. Fork-form RecursiveSound (rec-thm bc-0e16e57e, G interface proposed to lean), the private-circuit recursive run (rec-v0 bc-ab22ea8f), the recursive CircuitPrivate guarantee on a branch (rec-lean bc-4523e674); sampled-proofs switch second

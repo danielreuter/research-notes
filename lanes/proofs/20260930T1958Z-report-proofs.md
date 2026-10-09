@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (12:31Z) [open] 12:32Z the recursive run's verifier commit 19c97b659 is in check on node 2 (44d5): lean-build and lean-agreement passed; node 1 twin cancelled; node 1 disk 79%
 CHECKPOINT none (12:18Z) [open] 12:18Z #1630 (rec_residuals MAX_SLOTS 160 + whole-algebra parts) ready at f2f0e3682 at top's ask, to train right behind #1636
 CHECKPOINT none (12:13Z) [open] 12:15Z #1634 (Properties.SampledProofs + registration fullmatch) ready at 5a8f31f2a, suites 525c 33/33, after #1631's train; #1636 MAX_SLOTS 160 approved by architecture, proofs agrees
 CHECKPOINT none (12:08Z) [open] 12:10Z #1638 (lean-proofs skill: --records takes its own build slot, so don't wrap it; probe from a root of a scratch commit) opened for rec-thm; G composition probe cancelled, re-run after 14:30Z

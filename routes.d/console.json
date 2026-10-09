@@ -5,8 +5,8 @@
   "channel": "C0C5RCXL66N",
   "inbox_ts": "1790877425.232249",
   "opened": "2026-10-03T17:50Z",
-  "closed": null,
-  "forward_to": null,
+  "closed": "2026-10-09T01:11Z",
+  "forward_to": "top",
   "remit": "The live console and docs site: panels, formats, frontends, and what agents publish to them.",
   "succeeds": "bc-ddee017b-705a-5429-a92e-fed2ba6ea491"
 }

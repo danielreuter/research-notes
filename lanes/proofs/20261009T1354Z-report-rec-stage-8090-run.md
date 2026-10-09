@@ -8,6 +8,7 @@ repo: verity
 origin: [agent:bc-b5fd2fd3-5213-5a73-ad38-09e77b43f4c4]
 ---
 
+CHECKPOINT none (14:35Z) [open] 14:35Z: #1626 (zk-coin) ready at a38fdb621 and handed to the lander for a train with --agreement; its own check fd14 cancelled (no slot in 5 h, main moved past it)
 CHECKPOINT none (14:26Z) [open] 14:26Z: 14:30Z report posted to top (1791555948.849019): run 2922, verifier 7d76c0875 = 77d9136ca (a8a5: lean-agreement passed, rest running), merged tree 1d2f7442f (19ca: lean-agreement passed 14:25Z, rest running); 5a/5b progress due 14:50Z
 CHECKPOINT none (14:03Z) [open] 14:03Z: verifier check 19ca (1d2f7442f, merged tree) passed lean-agreement; suites/audit running. 14:30Z post ready to send once the verifier line is in.
 CHECKPOINT none (13:56Z) [open] 14:00Z: rec-stage done (8090 overhead: 1,124x end to end, 173x prove, 10.7x proof, 40x Lean). Worker reports copied to notes (20261009T1354Z-report-*). 14:30Z post drafted; waiting on checks 19ca/a8a5 for the verifier line.

@@ -8,6 +8,7 @@ repo: verity
 origin: [agent:bc-b5fd2fd3-5213-5a73-ad38-09e77b43f4c4]
 ---
 
+CHECKPOINT none (16:00Z) [open] 16:00Z: quiet; n1 75%; replay (rec-v0) due 16:45Z; 5a/5b workers due ~16:30Z
 CHECKPOINT none (15:51Z) [open] 15:52Z: top gates #1626/#1635 on a replay of every recorded recursion run through the landing tree's Lean; rec-v0 on it at cursor/rec-replay-landing-95d4 22588c068, table by 16:45Z
 CHECKPOINT none (15:33Z) [open] 15:33Z: merged verifier tree 1d2f7442f passed check in full (19ca), so both the run's verifier (a8a5) and the re-verify tree pass with lean-agreement; worker reports due 16:30Z
 CHECKPOINT none (15:09Z) [open] 15:10Z: the run's verifier tree 77d9136ca passed check in full with lean-agreement (a8a5); #1636+#1630 landed; disk records written on n1; next 5a/5b builds go to vy-cpu-2

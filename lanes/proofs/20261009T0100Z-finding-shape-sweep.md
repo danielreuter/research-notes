@@ -5,7 +5,7 @@ lane: proofs
 kind: finding
 status: active
 repo: danielreuter/verity
-origin: bc-8416bc72 (proofs), top's asks on Daniel's 5:11 PM PDT property shape (1791504819.201559) and 5:59 PM PDT conjecture ruling (1791507775.763779); sweep by bc-96f8c980; tables art:cb189f04, art:8d1b7e92 (with sort), art:d5a93839 (conjectures)
+origin: bc-8416bc72 (proofs), top's asks on Daniel's 5:11 PM PDT property shape (1791504819.201559) and 5:59 PM PDT conjecture ruling (1791507775.763779); sweep by bc-96f8c980; tables art:cb189f04, art:8d1b7e92 (with sort), art:b860d971 (v3, levelsServed corrected), art:d5a93839 (conjectures)
 ---
 
 # Shape sweep: every listed guarantee against "one shape for every property" (#1581, 74e3270a4)
@@ -13,6 +13,10 @@ origin: bc-8416bc72 (proofs), top's asks on Daniel's 5:11 PM PDT property shape 
 Tree: `origin/main` at `95292860f`, read in a detached, read-only worktree (`/tmp/wt-shape`, removed at the end). Nothing
 was built and no repository file changed. Paths are from the repository root, and a citation `F:n` is file `F`, line `n`.
 The table is `art:cb189f04` (the evidence store, kind `lean-shape-sweep/v1`), and `art:8d1b7e92` adds the `sort` column: one row per guarantee, tab-separated, the header first, and no other line.
+
+**Erratum (Oct 8, 7:50 PM PDT):** `Properties.Pouw.Window.levelsServed` was FIT and is RESTATE: besides its two evaluations
+of `levels`, it carries `304 ≤ 2 ^ 9`, a constant that no function's output decides (Daniel caught the missed conjunct).
+`art:b860d971` (`shape-sweep-v3.tsv`) is `art:8d1b7e92` with that one row changed; use it from now on.
 
 I started at `30b63d200`, which was `origin/main` when the sweep began. `main` then moved 85 commits and landed #1569,
 #1574 and 29 new properties, so I moved the worktree to `95292860f` and swept that. Under `Security/`:

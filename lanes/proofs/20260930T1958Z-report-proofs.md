@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (01:04Z) [open] 01:05Z: Daniel's 5:59 PM PDT conjecture ruling (#1583). Sorting every conjecture behind the shape sweep into device model, math, mixed (split), finite or empirical, each with its test, as a sort column on the TSV plus a conjectures table, for ci's frozen list and compute-accounting's restatements.
 CHECKPOINT none (01:00Z) [open] 01:00Z: shape sweep reported, note:proofs/20261009T0100Z-finding-shape-sweep with table art:cb189f04. 347 guarantees: 65 fit (27 + 38 restated, all in Properties), 5 completeness, 168 lemmas, 109 frozen (conjecture 72, no-function 18, hash 10, obligation 5, falsified 2, scope 2). Posted to top, ci and the lanes with properties; 13 questions for top.
 CHECKPOINT none (00:30Z) [open] 00:30Z: #1569 and #1574 merged (main 95292860f via f78d2e51c): outcomes 1 and 2 done. Re-sweep against Daniel's 5:11 PM PDT property shape running (one verdict per guarantee, frozen-list seed for ci). Read lean's algebra-pin records (b976db612): no statement change, parse refuses more. Node 1 idle, disk 75%.
 CHECKPOINT none (00:05Z) [open] #1569 and #1574 are in Security-chain check 5415 and land tonight on a pass. RecursiveSound's fork form is approved; the statement list is note:proofs/20261008T2338Z-finding-recursive-sound-statement-list, and the premises sweep is running (report before any edit). Tomorrow, on the lander's advice: CircuitFold.folded speed first, then the fork edit, then the sweep's fixes as one outcome.

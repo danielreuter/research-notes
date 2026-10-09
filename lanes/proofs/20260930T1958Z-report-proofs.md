@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (06:47Z) [open] 06:50Z: circuits' class: F32MulFtz_v3 as UniversalUnit_v1{8090,64,32} (max) or {7206,64,32}; staging the real class is the run's long pole, so a staging worker (cursor/rec-private-stage-95d4) measures today's path and builds a fast one if needed. G's statement fixed (vbridge_compiled); lean: not all of G by 15:00Z, VBridge the named premise. Replay's 7-run line in #1609.
 CHECKPOINT none (06:15Z) [open] 06:15Z: Daniel's 11:02 PM brief (top 1791526236.152239): one priority, the recursive private-circuit system; by 14:30Z the run, the theorem, the gap list. New workers: ZK-server coin commitment + salts (cursor/zk-coin-commit-95d4), route P rebased + priced under V* (cursor/routep-main-95d4). rec-v0/rec-lean/rec-thm get the new requirements on return.
 CHECKPOINT none (06:08Z) [open] 06:06Z: watch. Waiting on @lean for G's interface; @circuits owes the real class by ~11:00Z for the private-circuit run. Node 1 76%, GPUs idle.
 CHECKPOINT none (06:04Z) [open] 06:04Z: #1596 (R7) ready (suites 31/31, audit PASS, labelled, merge-thread post). #1593 and #1596 both ready; six workers on recursion/private circuits/sp switch; waiting on @lean for G's interface.

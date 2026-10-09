@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (11:45Z) [open] 11:45Z: main 9e8fa30b8; #1622 passed, landing after cpu-1 suites; ef48 lands on sequential lean-audit rerun e31d; lean_audit race fix with Lever E worker; 7b1b and #1633 checking on n2
 CHECKPOINT none (11:30Z) [open] 11:30Z: main 9e8fa30b8; ef48 and #1622 checking, 7b1b queued; rec-stage 8090 run in progress, Lean verdict ~13:00-13:45Z
 CHECKPOINT none (11:20Z) [open] 11:20Z: main 9e8fa30b8 (#1613 #1616); ef48 and #1622 checking, 7b1b queued, #1633 train 070c prepped; n1 disk 77%, guard releases pre-approved for recursion runs to 15:00Z
 CHECKPOINT none (11:06Z) [open] 11:06Z: 329e cancelled; 7b1b (#1579 #1619 #1631 #1609) and ef48 checks running; #1633 PoUW switch train requested; rec-stage verdict ~13:00-13:45Z

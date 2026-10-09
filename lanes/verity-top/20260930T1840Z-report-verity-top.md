@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:04Z) [open] 16:04Z inbox empty; awaiting proofs replay 16:45Z, gap lemmas ~16:30Z, trains 248f/#1626/#1639/#1635
 CHECKPOINT none (16:00Z) [open] 16:00Z: #1626 and 248f passed, landing after catch-up reruns; replay gate for #1626/#1635 due 16:45Z; ci owns verdict-reuse fix; n1 75.4%
 CHECKPOINT none (15:37Z) [open] 15:37Z: both run-verifier checks (a8a5, 19ca) passed in full; 248f (#1579/#1619/#1585) passed, landing; sampled proofs audit rerun c00a; #1606 restating AcceptMeans
 CHECKPOINT none (15:17Z) [open] 15:17Z: morning report sent; #1636+#1630 landed; judging verifier check a8a5 passed in full; #1626/#1635 left for VoR on main; n1 75.5%

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (03:35Z) [open] main b22a84e3d (#1582 reuse + docs); 979b trailing, 74f3/3aa0/0a81 running; #1595 prepped after #1591
 CHECKPOINT none (03:15Z) [open] 03:15Z: main 61bcbc3d1; #1582 next; docs train #1583+#1592 (1c17) and shape check #1589 (d9d18412cf18) queued; 74f3 and 3aa0 running; #1588 lock re-record, #1579 re-merge pending
 CHECKPOINT none (03:00Z) [open] 03:00Z: main 61bcbc3d1; 8dbf (#1582) ended, awaiting lander; 74f3 (#1585+#1586+#1587) and 3aa0 (#1591) running; docs-only train #1583+#1592 next; shape check #1589 per-package
 CHECKPOINT none (02:45Z) [open] 02:45Z: main 61bcbc3d1; checks 8dbf (#1582), 74f3 (#1585+#1586+#1587), 3aa0 (#1591) running; H1T conditions stay frozen (not computable), NCI counterexample in progress

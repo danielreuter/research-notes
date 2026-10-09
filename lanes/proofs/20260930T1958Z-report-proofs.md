@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (20:34Z) [open] 20:35Z: 4(d) stays A: RecursiveAudit (i) at the 8090 class is 2^-194.1, 66 bits past 2^-128; the --zk table bound is Lean-proved only at m 25..27, so bc-b16cf4f6 is on bound_le for m 25..35
 CHECKPOINT none (20:21Z) [open] 20:21Z: VBridge's VFull was false at V*'s real circuits (padding); top took lean's VBridgeRead restatement (proofs read it: right, non-vacuous via vFullRead_of/vDecodesRead_of); gap 8 ruled (a2), the whole circuit fixed by checks
 CHECKPOINT none (20:15Z) [open] 20:15Z: rate lemma in as #1666 (ready, quick tier 66ee); ReadsCover hit the stop rule (no honest V* session registers the description), route call posted to top, bc-cb1cfff8 drafting route 1 (registered inner statement)
 CHECKPOINT none (20:09Z) [open] 20:06Z: top ruled gap 8 = (b): check 1 fixes exactly the fields the VBridge reads (unit by name, part index, ports/ranges/bindings if read); relayed to rec-lean at its return

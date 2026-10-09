@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT d1fc8653c (22:53Z) [open] 22:55Z: per top, #1662 lands without RecursiveAudit pinned (re-pinned at the closing build); bc-c7a4c235 unpins and re-records; told top L.nonempty is Law's field (gap 4 route) and no ZK statement passes shape on main; lean's G round 6: route (a), checkFull into #1676
 CHECKPOINT 83060e027 (22:45Z) [open] 22:45Z: opened #1676 (model's checkRegistered = executable's, moved into Flock.Registered) and #1677 (all prover randomness from the OS, within thresholds); #1664 body updated; gap 2's refused-table residual to be proved (~45 lines) by 01:15Z
 CHECKPOINT 54a18f2df (22:34Z) [open] 22:30Z: #1662 held — the train's full check (a0dc) refuses RecursiveAudit's shape (L.nonempty: check gap, #1656; (ii): no acceptance + _hOuter, real). RecursiveAudit lands once with the 07:30Z closing build; asked top for (ii)'s shape call (per-conjunct entries vs ZK as own guarantee)
 CHECKPOINT 23f22719e (22:22Z) [open] 22:20Z: typed row hash (HmRowComputes on typed template statements) proved by bc-c7a4c235 as row_bc_setupH_typed, no row hypothesis, no new refusal; PR #1674 on #1662; tie's T3 done; joint build takes it at 01:30Z

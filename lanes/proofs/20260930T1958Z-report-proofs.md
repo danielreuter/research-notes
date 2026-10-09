@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (00:30Z) [open] 00:30Z: #1569 and #1574 merged (main 95292860f via f78d2e51c): outcomes 1 and 2 done. Re-sweep against Daniel's 5:11 PM PDT property shape running (one verdict per guarantee, frozen-list seed for ci). Read lean's algebra-pin records (b976db612): no statement change, parse refuses more. Node 1 idle, disk 75%.
 CHECKPOINT none (00:05Z) [open] #1569 and #1574 are in Security-chain check 5415 and land tonight on a pass. RecursiveSound's fork form is approved; the statement list is note:proofs/20261008T2338Z-finding-recursive-sound-statement-list, and the premises sweep is running (report before any edit). Tomorrow, on the lander's advice: CircuitFold.folded speed first, then the fork edit, then the sweep's fixes as one outcome.
 CHECKPOINT none (22:00Z) [open] Both approved outcomes are ready PRs: #1569 (AdviceBinding removed; RegisteredMeets run-tied, ebfe2d217) and #1574 (flock_verify_sound, fail closed, cb51eb3b2; Security replay r20261008-204242-3766). The lander carries them. Waiting on Daniel via top on RecursiveSound's two-continuation disjunct.
 CHECKPOINT none (21:35Z) [open] 21:35Z: outcome 1 done, #1569 ready at ebfe2d217 (Lean check r20261008-204028-d481 and suites r20261008-204134-43d7 pass); AdviceBinding deleted, RegisteredMeets is fits ∨ a membership-bounded collision. Outcome 2 (#1574) awaiting its worker's reruns.

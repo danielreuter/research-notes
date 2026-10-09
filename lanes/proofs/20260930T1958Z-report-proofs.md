@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (22:11Z) [open] 22:12Z: RecursiveAudit (i)'s last event doesn't depend on the registered private circuit (bc-66706a46); fix = SessionFaulty + an open tie, route call to top. Hash-gap restate of RecursiveZK/ZeroKnowledgeHidden/flock_verify_sound -> #1673 (draft on #1663).
 CHECKPOINT none (22:01Z) [open] 22:02Z: gap 2 J-lift done (#1670 1786eaca7: ZK at every coin vector, Admits dropped). rec-guard: hTags proved on the hidden-output branch (cursor/rec-guarded-95d4 91553a505); found RecursiveAudit vacuous twice (VerifiesV's ScopeZ -> ScopeZR, rec-lean; main's model checkRegistered stricter than the executable -> rec-guard PR off main).
 CHECKPOINT none (21:43Z) [open] 21:42Z: hM1 call (a): the refused --zk table carries only contra's two regions (M1 stays at InRange's 1,024; guarantee records change, Daniel's DM). bc-b16cf4f6 on it, due 01:30Z, on #1672; the region refusal already exists (checkInRange).
 CHECKPOINT none (21:37Z) [open] 21:37Z: infra deleted restage-40b4 (59 GiB); -prog and rec-private/8090 held until the 6692 restage's run of record. #1669/#1672 quick tiers running on node 2.

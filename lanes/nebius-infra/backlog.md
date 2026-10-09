@@ -166,6 +166,15 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 05:40Z Oct 9 (10:40 PM PDT Oct 8), steward pass
+
+- Node 1: 75.5% (1,232 GiB free; 74.6-75.8% since 04:40Z; `-v3` watch armed); inodes 68%; units active; real queues
+  0/0; all 8 idle (reported).
+  - `20261009T0520Z-alert-units-n1-1d787287` is the expected `vy-custody.service` failure; not re-reported.
+- Node 2: 69.1% (1,553 GiB free); still up past 05:30Z Oct 9 as ruled (its deadline is 05:30Z Oct 10); sampler and probe
+  active; 0 of 8 GPUs (reported).
+- Hourly `art:6ab7f9f5…` (about 05:20Z): node 1 at 1,701 / 323 / 167 / 1,379, node 2 at 1,630 / 462 / 266 / 1,169.
+
 ## State at 05:07Z Oct 9 (10:07 PM PDT Oct 8), steward pass
 
 - Node 1: 75.3% (1,237 GiB free; 74.0-75.5% since 04:10Z, peaking at 75.5% at 04:40Z; `-v3` watch armed); inodes 67%;

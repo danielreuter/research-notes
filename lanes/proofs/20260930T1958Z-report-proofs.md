@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (13:22Z) [open] 13:25Z: 8090 run r20261009-110905-2922 done (Lean accepted all 8 outer statements, refused 3 cheaters; judging tree = 77d9136ca, its check a8a5/da83 running). Told top 13:45Z holds and named the compile lemma. Row-seg/v2 scope: compute-accounting staffs a worker, proofs reviews.
 CHECKPOINT none (13:11Z) [open] 13:12Z the verifier-commit check 44d5 failed only on a boundary test (rec_inner.py's cheater imports one_stage.registered); fixed on rec-verifier 77d9136ca, re-queued as a8a5 (node 2) / da83 (node 1) with --keep-going
 CHECKPOINT none (12:52Z) [open] 12:52Z main bff9c5864 merged into #1631 (7608856bd, README conflict), #1609 (f414701be), #1634 (1f188e58f); ready labels moved; stack order 1631, 1609, 1634
 CHECKPOINT none (12:31Z) [open] 12:32Z the recursive run's verifier commit 19c97b659 is in check on node 2 (44d5): lean-build and lean-agreement passed; node 1 twin cancelled; node 1 disk 79%

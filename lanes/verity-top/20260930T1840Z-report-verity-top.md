@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:50Z) [open] 20:50Z #1664 check failed lean-suites (proofs looking); n1 held for inodes to 22:50Z; G lanes all in
 CHECKPOINT none (20:35Z) [open] 20:35Z 4(d) bound 2^-194.1 at 8090 (A); trains feec + c4da with lander; n1 held
 CHECKPOINT none (20:25Z) [open] 20:25Z n1 held (inodes); re-records to cpu-1/n2; trains feec + c4da with lander; VBridgeRead reviewed
 CHECKPOINT none (20:14Z) [open] 20:14Z replacement train feec (1579+1619) with lander; 1585/1606 re-recording; gap 8 ruled; VFull restatement pending architecture

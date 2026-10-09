@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (19:22Z) [open] executable statement in RecursiveAudit (3e29b755e): shape refusals 8 → 4, RecursiveAudit recorded; rec-lean wiring 3a + gap 8 (00:30Z); rec-v0 same-shape Python test (21:30Z)
 CHECKPOINT none (19:18Z) [open] 3b blocked on V*'s session construction (ReadsCover/ReadsOfReg; route call with top); bc-0bfaef0d on gap 2's self-check abort (22:30Z)
 CHECKPOINT none (19:09Z) [open] ruling: _hr (gap 4(d)) becomes a verifier refusal (rate > ρ refused; acceptance ⇒ rate ≤ ρ in Lean); bc-cb1cfff8 on it off main, 23:00Z
 CHECKPOINT none (19:04Z) [open] gap 3a proved (zk_reads_open, rec-reads-open-41ef db99813b6, audit 5fa8); bc-0bfaef0d on 3b (21:30Z); _hr route (check vs fixed V* statements) with top

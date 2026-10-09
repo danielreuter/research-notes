@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (09:30Z) [open] 09:30Z notes.md restructured (150 KB to 21 KB); slots blocker closed (#1630); shared rows due 13:00Z; 329e at 506 GiB, due 10:25Z
 CHECKPOINT none (09:15Z) [open] 09:15Z batch landed as main 7c606733f (13 PRs), trailing check 3cf2; #1604 fix on 3836; cross-node twins deployed; #1579 blocked on stale pins; notes restructure drafting
 CHECKPOINT none (09:05Z) [open] 09:05Z batch cf1b warm on node 2 slot a; #1604 test_slot fix c21a8c91c lands after it; RecursiveSound fork form #1627, two premises for 14:30Z; 329e steady, due 10:25Z
 CHECKPOINT none (08:30Z) [open] 08:30Z: U4 agreement clean; #1622 ready; #1623 suites on node 2; batch warm cf1b; d294 cap raised on cpu-1; staging 329e at 359G

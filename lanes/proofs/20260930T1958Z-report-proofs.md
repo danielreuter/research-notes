@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (00:05Z) [open] #1569 and #1574 are in Security-chain check 5415 and land tonight on a pass. RecursiveSound's fork form is approved; the statement list is note:proofs/20261008T2338Z-finding-recursive-sound-statement-list, and the premises sweep is running (report before any edit). Tomorrow, on the lander's advice: CircuitFold.folded speed first, then the fork edit, then the sweep's fixes as one outcome.
 CHECKPOINT none (22:00Z) [open] Both approved outcomes are ready PRs: #1569 (AdviceBinding removed; RegisteredMeets run-tied, ebfe2d217) and #1574 (flock_verify_sound, fail closed, cb51eb3b2; Security replay r20261008-204242-3766). The lander carries them. Waiting on Daniel via top on RecursiveSound's two-continuation disjunct.
 CHECKPOINT none (21:35Z) [open] 21:35Z: outcome 1 done, #1569 ready at ebfe2d217 (Lean check r20261008-204028-d481 and suites r20261008-204134-43d7 pass); AdviceBinding deleted, RegisteredMeets is fits ∨ a membership-bounded collision. Outcome 2 (#1574) awaiting its worker's reruns.
 CHECKPOINT none (18:25Z) [open] 18:22Z: #1569 (outcome 1) open as draft; worker restacking it onto the move head. #1179's net diff being reapplied as one commit on 339446a0e (cursor/fail-closed-core-95d4). RecursiveSound compiled-inner question with Daniel via top (note:proofs/20261008T1805Z-finding-rec-thm-compiled-inner).

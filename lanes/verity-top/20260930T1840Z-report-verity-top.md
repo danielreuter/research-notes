@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (09:05Z) [open] 09:05Z batch cf1b warm on node 2 slot a; #1604 test_slot fix c21a8c91c lands after it; RecursiveSound fork form #1627, two premises for 14:30Z; 329e steady, due 10:25Z
 CHECKPOINT none (08:30Z) [open] 08:30Z: U4 agreement clean; #1622 ready; #1623 suites on node 2; batch warm cf1b; d294 cap raised on cpu-1; staging 329e at 359G
 CHECKPOINT none (08:15Z) [open] 08:15Z: recursion blockers (shared-row form, plain-leaf inner, residual cap) with proofs/architecture; batch warm cf1b; ten-minute ~14 min with A/B/D, lever C next
 CHECKPOINT none (08:10Z) [open] 08:09Z: #1614 landed (main 5cac371ae); batch warm cf1b on node 2; #1606 statement approved; U4 agreed for VFull; staging 329e on track 10:25Z

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (05:32Z) [open] 05:31Z: #1593 (compiled Inner) ready at 7b9389070: audit r20261009-040848-9290 + 5/5 suites r20261009-050059-b5cd; #1596 (R7) 30/31 suites passed, verity-circuit-check left (r20261009-043140-9166)
 CHECKPOINT none (05:03Z) [open] 05:01Z: #1593 full Lean audit PASS (r20261009-040848-9290); its 5 touched suites running r20261009-050059-b5cd; #1596 suites r20261009-043140-9166 running
 CHECKPOINT none (04:32Z) [open] 04:32Z: #1596 sampled_proofs Lean audit PASS; its suites relaunched under $OUT (r20261009-043140-9166) after the read guard flagged in-tree logs; #1593 Lean audit r20261009-040848-9290 building Security cold
 CHECKPOINT none (04:11Z) [open] 04:12Z: R7 port reviewed, draft #1596 (cursor/sp-r7-95d4 @4fd90a9e6); #1593 compiled Inner builds (fast path r20261009-035045-331b PASS at 7b9389070); full checks r20261009-040848-9290 (#1593 Lean audit) and r20261009-040922-18b4 (#1596 audit+suites) on node 1's check pool

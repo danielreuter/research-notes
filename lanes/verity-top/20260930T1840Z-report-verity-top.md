@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (05:40Z) [open] 05:40Z: #1582 record crash fix #1607 ready to land first; trains prepped behind it (#1597+#1599, #1604, #1590, #1593); 74f3 and dd21 passed, waiting for lander; ee02 outcome asked of infra
 CHECKPOINT none (05:16Z) [open] main 56e4e65e8; PoUS verdicts meet parity bar (#1597+#1599 to ci); checks ee02, dd21, 74f3, 761f (#1601), 6d4d, c89b; #1604 ready; docs refactor done, Daniel on ZK/C-Flock pages
 CHECKPOINT none (05:05Z) [open] main 56e4e65e8; checks ee02, dd21, 74f3, 6d4d, c89b; trains #1601, #1590 prepping; #1604 twins gap; #1593 audit passed; #1579 after dd21
 CHECKPOINT none (04:45Z) [open] main 56e4e65e8; checks ee02 trailing (node 2), dd21, 74f3, 6d4d (#1602+#1603), c89b; #1601 train asked; PoUS rerun waits on both-verdicts fix

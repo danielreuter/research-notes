@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (12:13Z) [open] 12:15Z #1634 (Properties.SampledProofs + registration fullmatch) ready at 5a8f31f2a, suites 525c 33/33, after #1631's train; #1636 MAX_SLOTS 160 approved by architecture, proofs agrees
 CHECKPOINT none (12:08Z) [open] 12:10Z #1638 (lean-proofs skill: --records takes its own build slot, so don't wrap it; probe from a root of a scratch commit) opened for rec-thm; G composition probe cancelled, re-run after 14:30Z
 CHECKPOINT none (12:01Z) [open] 12:05Z rec-thm: RecursiveSound at the compiled inner rests on two named sorry lemmas (flock_inner_sound_compiled ~550-900 lines; zk_sessions_recursive_fork_inner ~300-400), merged into rec-lean's gap-list branch; G composition probe 5c69 queued
 CHECKPOINT none (11:56Z) [open] 12:00Z verifier commit 19c97b659's check queued twice with priority (ed71 node 1, 44d5 node 2); node 1's check slots held by network-accounting since 08:05Z; node 1 disk 78%

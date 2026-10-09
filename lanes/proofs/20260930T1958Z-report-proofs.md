@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (11:09Z) [open] 11:10Z AcceptMeans (Properties.SampledProofs) opened as draft #1634 on sp-switch; 042f's one failure was a stale lock digest fixed at bd1eec3bc; worker resumed for the registration.py fullmatch fix and a head suites run; superseded run 4093 cancelled for node 1's 8090 fold
 CHECKPOINT none (10:54Z) [open] 11:00Z #1609 (replay through the switch: 340/340 Lean = Python = recorded) ready, stacked on #1631 for one train. Real class UniversalUnit_v1{8090,64,32} with F32MulFtz_v3 staged in 53 min by a fast path (note:proofs/20261009T1050Z-finding-rec-stage-real-class); rec-stage takes it through the recursion by 13:45Z.
 CHECKPOINT none (10:47Z) [open] 10:55Z rec-v0: private circuit through the recursion ran at 16,16,8 and 1024,1024,512 (r20261009-081632-94d3); Lean refuses every honest V* statement for its form only (shared rows), controls refused earlier (note:proofs/20261009T1040Z-finding-rec-private-run). Resumed with the shared-rows widening, five cheaters and ZK-server tests for the run of record by 13:45Z.
 CHECKPOINT none (10:33Z) [open] 10:35Z #1631 (sampled proofs' Lean switch) ready at 1c9d7e041: every changed suite passed, r20261009-093334-87c5 (45/45); labelled ready, posted on the merge thread.

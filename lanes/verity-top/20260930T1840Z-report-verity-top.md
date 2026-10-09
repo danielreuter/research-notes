@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:11Z) [open] 00:11Z: #1561 landed (30b63d200); 5415 passed, Security chain lands on verity-flock run 1612; 44b3, #1578, #1581 trains in order; GitHub transfer doc sent to Daniel; inbox empty
 CHECKPOINT none (23:30Z) [open] 23:30Z: #1575 landed (9c8323458); #1561 lands after vllm rerun 0b07; 5415 + dc1b running; 77a3 (#1571/#1576/#1577/#1580) waits on node 1; inbox empty
 CHECKPOINT none (23:21Z) [open] 23:21Z: 5415 (five Security PRs) on node 1; train 444c6c71 (#1571/#1576/#1577/#1580) for cpu-1 after 0080; #1578 next train; inbox empty
 CHECKPOINT none (23:00Z) [open] 23:00Z main 51741bc98 (#1045, train 3 landed); 5415, 3d10, 0080, dc1b running; #1579 evaluator properties ready; failed-check monitor live

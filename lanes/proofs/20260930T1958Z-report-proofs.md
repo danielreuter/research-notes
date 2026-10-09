@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (17:36Z) [open] top's acceptance tests for the UniversalUnit_v1 lowering and class-fixed regions queued for bc-66706a46 / rec-lean; due times posted (3a 21:00Z, regions 21:30Z, 3b 00:00Z, 8 00:30Z, 2 06:30Z, 4 09:00Z; proofs' share 10:30Z Oct 10)
 CHECKPOINT none (17:19Z) [open] 17:20Z: decision 3's class in Lean (UniversalClass.lean), finding (b) closed; HClass.ofStmt is the public-statement singleton; lowering of UniversalUnit_v1 next
 CHECKPOINT none (17:15Z) [open] 17:16Z: wired cheater refused at setup: links on main+harness (af54, 12/12); #1651 opened (test-only, ready)
 CHECKPOINT none (17:11Z) [open] 17:12Z: gap 7 proved (_hS from U2 + DrawFileZK, VStarU2.lean, 4512); rec-thm on 4(b)/(c) salted-hiding reductions

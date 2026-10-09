@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (16:58Z) [open] 16:58Z: top: replay 53f3 passes, #1626/#1635 land on their checks; wired-cheater harness PR + replay follow-up with rec-v0
 CHECKPOINT none (16:38Z) [open] 16:40Z: landing-tree replay r20261009-160906-53f3: no verdict changed; 2f10 12-claim alg parts accepted at 160 slots; wired cheater not replayable (harness never landed), top to decide
 CHECKPOINT none (16:30Z) [open] 16:31Z: top yes to the executable-statement property; rec-lean takes it first in its next turn (inputs land by 18:00Z)
 CHECKPOINT none (16:26Z) [open] 16:26Z: 5b proved with no sorry (47da724ec, ae90); 5a+5b merge building on vy-cpu-2 with full audit, due 18:00Z

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (20:05Z) [open] 20:05Z: gap 3a in as draft #1665 (stacked on #1662); gap 8 route call (whole circuit vs unit by name) posted to top/lean; rec-lean resumed on the sessions restructure, 3b disjunct, custody law.pop and the 01:30Z joint build
 CHECKPOINT none (19:57Z) [open] 19:55Z: top's 4(d)/staging/hash-gap rulings acted on; restage (bc-446e4805), hash-gap restate (bc-04b58d2c, 23:00Z), HmRowComputes (bc-c7a4c235, 22:30Z/05:00Z), 4(d) number (bc-b16cf4f6, 21:30Z) launched; #1664 META opened for --agreement train; joint build 01:30Z/07:00Z
 CHECKPOINT none (19:45Z) [open] 19:45Z: rate check (A vs B), lowering (staging order) and 4(b,c) back; route calls + hash-derived-key claim to top; #1663 (OS salts, Hides discharged for hm96 registrations) stacked on #1662; workers resumed on rate lemma + ReadsCover, faulty/stmt, gap 2
 CHECKPOINT none (19:36Z) [open] 19:37Z: top's 3b/(ii)/custody/same-shape rulings logged; #1662 (RecursiveAudit's executable statement + first record, 3e29b755e + main) ready, quick tier r20261009-193524-c44c; custody nv already checked by U2 (rec-lean restores law.pop); proposed same-shape as a refusal

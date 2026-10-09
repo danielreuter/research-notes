@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:14Z) [open] 20:14Z replacement train feec (1579+1619) with lander; 1585/1606 re-recording; gap 8 ruled; VFull restatement pending architecture
 CHECKPOINT none (20:00Z) [open] 19:59Z main dc8fe04c8; #1662 exec statement ready; lean combined build 07:00Z; 248f restacking; vy-cpu-2 recreated
 CHECKPOINT none (19:06Z) [open] 19:06Z gap 3a proved; 4(d) ruled check route; node 2 evict timers + 3rd pool pod routed to infra
 CHECKPOINT none (18:51Z) [open] 18:51Z main 8d105f250 (#1644+#1645); 01ef passed; 248f/1620/proofs stack running; inbox empty

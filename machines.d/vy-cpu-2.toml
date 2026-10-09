@@ -1,6 +1,6 @@
 # machine vy-cpu-2: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "50cf98e49k6vop"
+pod_id = "5t44geyj6g9p01"
 project = "verity"
 registered_by = "cursor"
-registered_at = "2026-10-07T18:35Z"
+registered_at = "2026-10-09T19:33Z"

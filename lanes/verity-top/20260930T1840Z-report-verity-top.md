@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:10Z) [open] main b22a84e3d; checks dd21 (#1588+#1598+#1589), 74f3, 9ef4 (#1600), c89b (#1594); #1591+#1595 rebuild; PoUS v4 run: TimedAudit clean, #1597 pod crash being fixed
 CHECKPOINT none (03:46Z) [open] main b22a84e3d; 979b trailing; trains 74f3, 3aa0/24d0 (#1591+#1595), #1588+#1589 958d6e018 prepped; PoUS #1597/#1599 await fresh v4 GPU run
 CHECKPOINT none (03:35Z) [open] main b22a84e3d (#1582 reuse + docs); 979b trailing, 74f3/3aa0/0a81 running; #1595 prepped after #1591
 CHECKPOINT none (03:15Z) [open] 03:15Z: main 61bcbc3d1; #1582 next; docs train #1583+#1592 (1c17) and shape check #1589 (d9d18412cf18) queued; 74f3 and 3aa0 running; #1588 lock re-record, #1579 re-merge pending

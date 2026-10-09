@@ -3,12 +3,12 @@ id: proofs/20261009T1354Z-report-rec-stage-8090-run
 campaign: private-circuit
 lane: proofs
 kind: report
-status: done
+status: open
 repo: verity
 origin: [agent:bc-b5fd2fd3-5213-5a73-ad38-09e77b43f4c4]
 ---
 
-
+CHECKPOINT none (13:56Z) [open] 14:00Z: rec-stage done (8090 overhead: 1,124x end to end, 173x prove, 10.7x proof, 40x Lean). Worker reports copied to notes (20261009T1354Z-report-*). 14:30Z post drafted; waiting on checks 19ca/a8a5 for the verifier line.
 # The real private circuit's class through the recursion to the Lean verifier
 
 Worker for @proofs (bc-8416bc72), 9 Oct 2026, written 13:25Z. Branch `cursor/rec-private-stage-95d4`, tip 88afdfe84, pushed, no PR.

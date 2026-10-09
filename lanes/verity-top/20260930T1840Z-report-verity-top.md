@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:37Z) [open] 17:37Z verifier of record on main (6cea9a973: #1626+#1635+#1630); told Daniel; proofs' share ETA 10:30Z 10 Oct
 CHECKPOINT none (17:24Z) [open] 17:24Z gaps 5a/5b/7 proved, decision 3 in Lean; #1626 rerun 2e01 last gate for VoR; #1651 wired-cheater harness ready
 CHECKPOINT none (17:07Z) [open] 17:06Z #1635 landed (main 1d9cfaff1); #1626 rerun 2e01 last gate for verifier of record; merged 5a+5b build 18:00Z
 CHECKPOINT none (16:50Z) [open] 16:50Z replay passed (no verdict changed; wired-cheater row architecture's call); reuse slices #1642/#1644/#1648; #1620 ready

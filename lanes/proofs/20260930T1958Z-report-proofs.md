@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (08:43Z) [open] 08:43Z rec_private_summary fails closed (#1624, on rec-private-0419): a form refusal reads 'Lean refused: form not covered'; lean_of_record accepts only when Lean accepted every part in the recursive session; rec-v0 merges it before 329e is recorded. Staging 329e at 408 GiB.
 CHECKPOINT none (08:30Z) [open] 08:30Z: shared-row --zk route posted (widen ProvedScope to EndToEndRegistered's hypotheses + flock_verify_sound case; bc-cb1cfff8, ETA 13:00Z); MAX_SLOTS -> 160 decided (bc-ceb8d3a2, ETA 10:30Z); V* sessions need --draw subset:N (D12).
 CHECKPOINT none (08:14Z) [open] 08:13Z: answered lean's U4 ask (round commitments only via registered rec-c<i> / rec-top-L<level>; no V* statement has a draw, so k = size; U4 must accept no-draw). Staging 329e RSS 309 GB at 61 min.
 CHECKPOINT none (08:03Z) [open] 08:02Z: route P rebased on main (cursor/routep-main-95d4) and priced under V*: 2.39x C-Flock --zk rows at 2^27 cells; ~2,900 Lean lines on the gap list. Full-class staging at 260 GB / 50 min. The lander's batch check 9206 failed circuit-check after its own OOM.

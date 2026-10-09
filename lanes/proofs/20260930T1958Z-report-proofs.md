@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (11:46Z) [open] 11:45Z shared rows done (fail-closed b1b604bd7; #1635 draft; resumed to merge main and record its check); the run's verifier commit is now cursor/rec-verifier-95d4 19c97b659 (aedc3aff4 + main's --record fix), check r20261009-114133-ed71 with lean-agreement
 CHECKPOINT none (11:23Z) [open] 11:25Z top's report asks (cheaters on 8090 if they fit by 15:00Z; name the Lean verifier commit and its check with lean-agreement) recorded for rec-stage/rec-v0's next resume; check --record --agreement of the combined verifier commit rec-private-0419 aedc3aff4 queued as r20261009-111905-b0fd
 CHECKPOINT none (11:09Z) [open] 11:10Z AcceptMeans (Properties.SampledProofs) opened as draft #1634 on sp-switch; 042f's one failure was a stale lock digest fixed at bd1eec3bc; worker resumed for the registration.py fullmatch fix and a head suites run; superseded run 4093 cancelled for node 1's 8090 fold
 CHECKPOINT none (10:54Z) [open] 11:00Z #1609 (replay through the switch: 340/340 Lean = Python = recorded) ready, stacked on #1631 for one train. Real class UniversalUnit_v1{8090,64,32} with F32MulFtz_v3 staged in 53 min by a fast path (note:proofs/20261009T1050Z-finding-rec-stage-real-class); rec-stage takes it through the recursion by 13:45Z.

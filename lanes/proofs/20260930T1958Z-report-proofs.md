@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (08:03Z) [open] 08:02Z: route P rebased on main (cursor/routep-main-95d4) and priced under V*: 2.39x C-Flock --zk rows at 2^27 cells; ~2,900 Lean lines on the gap list. Full-class staging at 260 GB / 50 min. The lander's batch check 9206 failed circuit-check after its own OOM.
 CHECKPOINT none (07:30Z) [open] 07:31Z: full-class plain-leaves staging r20261009-071233-329e running (107 GB at 18 min, done ~10:25Z). Eight workers on the run, theorem, gap list and the sampled-proofs switch.
 CHECKPOINT none (07:12Z) [open] 07:10Z: circuits resubmitted the full-class staging (F32MulFtz_v3, {8090,64,32}) with plain leaves, which the recursion's inner statement needs; proofs owns it to ~10:25Z. Node 1 at 80% inodes, 79% bytes; infra told.
 CHECKPOINT none (06:47Z) [open] 06:50Z: circuits' class: F32MulFtz_v3 as UniversalUnit_v1{8090,64,32} (max) or {7206,64,32}; staging the real class is the run's long pole, so a staging worker (cursor/rec-private-stage-95d4) measures today's path and builds a fast one if needed. G's statement fixed (vbridge_compiled); lean: not all of G by 15:00Z, VBridge the named premise. Replay's 7-run line in #1609.

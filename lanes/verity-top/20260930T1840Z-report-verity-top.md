@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (13:30Z) [open] 13:30Z: real-class recursion run 2922 rc 0, LEAN-OF-RECORD accepted (Daniel told); main 8c1caab3a (#1633); G gap list in, ~2,150-3,700 lines; PoUW scope proof ETA 03:00Z
 CHECKPOINT none (13:15Z) [open] 13:15Z: main bff9c5864; d05a, c830, #1633 rerun, #1636/#1630 and #1637 trains with lander; G top theorem vbridge_of_vstar builds, blocker is concrete V* family; gap list 14:30Z
 CHECKPOINT none (13:00Z) [open] 13:00Z: main bff9c5864; d05a (#1579 #1619) checking; #1633 rerun 44e1; #1636/#1630 checking; #1631 #1609 #1634 #1629 ready to stack; G compose builds, Ligerito 13:45Z, gap list 14:30Z
 CHECKPOINT none (12:48Z) [open] 12:47Z: main bff9c5864 (7-PR batch landed); 7b1b passed, waits on #1579 re-record; #1633 passed, rerunning differing suites; #1636/#1630 checking; n1 guard raised to 82% until 15:00Z

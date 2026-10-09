@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:52Z) [open] 10:52Z 329e staging late, ETA ~13:00Z (maybe 14:00Z); node 1 disk guard released, freeing toward 75% by 12:30Z; trains ef4880a5bbb0 and 3d8b45d0ff2c (#1579+#1619+#1631) in full check
 CHECKPOINT none (10:15Z) [open] 10:15Z main d8b79946f; trains: #1579 5f1a084fc31b and #1622 39a7784f3645 prepped, #1621+#1619 e54b, #1613+#1616 0648/e0aa; 329e past memory peak, due 10:25Z; node 1 disk 77.8% rising
 CHECKPOINT none (10:00Z) [open] 10:00Z main d8b79946f (#1604 fix, #1612+#1615 landed); rec-lean reduction layer audited, Properties statement due 13:30Z; lever F added to ten-minute plan
 CHECKPOINT none (09:45Z) [open] 09:45Z train 2026 failed on stale base (bad verdict pack, fixed on main), re-prep on 7c606733f; 329e at 556 GiB, due 10:25Z; #1585 re-record ~10:05Z

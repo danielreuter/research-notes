@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (04:32Z) [open] 04:32Z: #1596 sampled_proofs Lean audit PASS; its suites relaunched under $OUT (r20261009-043140-9166) after the read guard flagged in-tree logs; #1593 Lean audit r20261009-040848-9290 building Security cold
 CHECKPOINT none (04:11Z) [open] 04:12Z: R7 port reviewed, draft #1596 (cursor/sp-r7-95d4 @4fd90a9e6); #1593 compiled Inner builds (fast path r20261009-035045-331b PASS at 7b9389070); full checks r20261009-040848-9290 (#1593 Lean audit) and r20261009-040922-18b4 (#1596 audit+suites) on node 1's check pool
 CHECKPOINT none (02:41Z) [open] 02:40Z: compiled Inner draft #1593 (flockInnerCL + flockInnerCL_accepts, fast path r20261009-023316-1d25 on node 1); R7 port (bc-4a61b081) and one-stage replay (bc-f7695e76) dispatched for Daniel's switching bar; store survey 44 runs (art:4afc2e08), no Bernoulli, v2 in 1 run
 CHECKPOINT none (02:01Z) [open] 02:15Z: device/math sort reported (art:8d1b7e92, art:d5a93839) and top's four answers taken: proofs reviews compute-accounting's W1 cost model and noise semantics. Posted sampled proofs' Lean status for the Lean-verifier decision: v1 one-stage can switch by 13:00Z; v2 (R7, ~300 lines) and two-stage can't yet.

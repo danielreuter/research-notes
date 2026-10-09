@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (17:19Z) [open] 17:20Z: decision 3's class in Lean (UniversalClass.lean), finding (b) closed; HClass.ofStmt is the public-statement singleton; lowering of UniversalUnit_v1 next
 CHECKPOINT none (17:15Z) [open] 17:16Z: wired cheater refused at setup: links on main+harness (af54, 12/12); #1651 opened (test-only, ready)
 CHECKPOINT none (17:11Z) [open] 17:12Z: gap 7 proved (_hS from U2 + DrawFileZK, VStarU2.lean, 4512); rec-thm on 4(b)/(c) salted-hiding reductions
 CHECKPOINT none (16:58Z) [open] 16:58Z: top: replay 53f3 passes, #1626/#1635 land on their checks; wired-cheater harness PR + replay follow-up with rec-v0

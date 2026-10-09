@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (16:26Z) [open] 16:26Z: 5b proved with no sorry (47da724ec, ae90); 5a+5b merge building on vy-cpu-2 with full audit, due 18:00Z
 CHECKPOINT none (16:22Z) [open] 16:22Z: 5a builds with no sorry of its own (7c69, f20051ec9), no raised limit; 8b in (206ad11b8); rec-lean on MAX_SLOTS bound and custody premise
 CHECKPOINT none (13:49Z) [open] 13:50Z: sp stack restacked on main 8c1caab3a (#1631 0f76380f5, #1609 09616b31d, #1634 4467c7703), ready-labelled, posted for ci's re-prep. Gap lemmas 5a (rec-lean) and 5b (rec-thm) being proved now, reports 14:50Z.
 CHECKPOINT none (13:35Z) [open] 13:40Z: rec-v0 done (both classes accepted by Lean, 4/5 cheaters refused, (b) a finding; overhead 85x/128x prove). rec-lean done (RecursiveAudit proved modulo 2 sorrys; 9 shape refusals). 2922 re-verified on the merged tree (538f, same verdicts); its tree's check r20261009-133339-19ca (1d2f7442f) running, a8a5 for 77d9136ca.

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (09:45Z) [open] 09:45Z train 2026 failed on stale base (bad verdict pack, fixed on main), re-prep on 7c606733f; 329e at 556 GiB, due 10:25Z; #1585 re-record ~10:05Z
 CHECKPOINT none (09:30Z) [open] 09:30Z notes.md restructured (150 KB to 21 KB); slots blocker closed (#1630); shared rows due 13:00Z; 329e at 506 GiB, due 10:25Z
 CHECKPOINT none (09:15Z) [open] 09:15Z batch landed as main 7c606733f (13 PRs), trailing check 3cf2; #1604 fix on 3836; cross-node twins deployed; #1579 blocked on stale pins; notes restructure drafting
 CHECKPOINT none (09:05Z) [open] 09:05Z batch cf1b warm on node 2 slot a; #1604 test_slot fix c21a8c91c lands after it; RecursiveSound fork form #1627, two premises for 14:30Z; 329e steady, due 10:25Z

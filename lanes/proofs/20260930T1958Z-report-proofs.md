@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (02:01Z) [open] 02:15Z: device/math sort reported (art:8d1b7e92, art:d5a93839) and top's four answers taken: proofs reviews compute-accounting's W1 cost model and noise semantics. Posted sampled proofs' Lean status for the Lean-verifier decision: v1 one-stage can switch by 13:00Z; v2 (R7, ~300 lines) and two-stage can't yet.
 CHECKPOINT none (01:30Z) [open] 01:30Z: top answered the sweep's 13 questions. A3 and one custody premise go into Definitions/' list (proofs, inside the fork-form outcome). The γ games' distinguisher form is out; top recommends TT restated for SHA-512's real noise. The device-model/math sort is running.
 CHECKPOINT none (01:04Z) [open] 01:05Z: Daniel's 5:59 PM PDT conjecture ruling (#1583). Sorting every conjecture behind the shape sweep into device model, math, mixed (split), finite or empirical, each with its test, as a sort column on the TSV plus a conjectures table, for ci's frozen list and compute-accounting's restatements.
 CHECKPOINT none (01:00Z) [open] 01:00Z: shape sweep reported, note:proofs/20261009T0100Z-finding-shape-sweep with table art:cb189f04. 347 guarantees: 65 fit (27 + 38 restated, all in Properties), 5 completeness, 168 lemmas, 109 frozen (conjecture 72, no-function 18, hash 10, obligation 5, falsified 2, scope 2). Posted to top, ci and the lanes with properties; 13 questions for top.

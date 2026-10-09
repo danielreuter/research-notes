@@ -166,6 +166,14 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+- 02:14Z Oct 9 (root, 02:13Z): RC says nothing needs node 2 past 05:30Z Oct 9. Nothing stops it then.
+  - Its `/etc/research/deadline` is `1791610200 2026-10-10T05:30:00Z daniel-2026-10-08T1416Z-via-top`, extended a day
+    on Oct 8. `vy-deadline.timer`, enabled and active every minute, self-stops it through `vy-nebius-stop` at that
+    time, 05:30Z Oct 10. No `shutdown` is scheduled.
+  - Asked root who owns a 05:30Z Oct 9 stop; I won't stop it or edit the deadline myself.
+  - Root, 02:14Z: the 05:30Z Oct 10 deadline is Daniel's approved extension. Leave the timer, and RC knows node 2 runs
+    until then. Steward both nodes until it stops, then record one line and watch node 1 only.
+
 ## State at 02:07Z Oct 9 (7:07 PM PDT Oct 8), steward pass
 
 - Node 1: 74.0% (1,302 GiB free; `-v3` watch armed); inodes 64%; units active; real queues 0/0; all 8 idle (reported).

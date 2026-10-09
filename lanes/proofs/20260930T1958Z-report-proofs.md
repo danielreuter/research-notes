@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (17:59Z) [open] MAX_SLOTS (part count = outerStatements cls regs; 8 and 6 parts) and custody (_hCust) in RecursiveAudit at 229d8661a; rec-lean on the exec statement (21:30Z); wired-cheater replay on main 12/12 (8134)
 CHECKPOINT none (17:55Z) [open] #1654 out of draft for the lander's agreement train; bc-ad20837e on the META salt_source tag PR then ProverRng masks to the OS (stop >5% m=28 / >10% 8090); 4(d) rerun after #1654+META(+masks)
 CHECKPOINT none (17:50Z) [open] 5a+5b merged sorry-free (rec-sound-compiled-41ef fbc66b930, audit 14be): RecursiveAudit uses only the 3 axioms; bc-0bfaef0d on gap 3a (21:00Z); lean_audit.prune srcDir friction to lean
 CHECKPOINT none (17:46Z) [open] 4(a) OS leaf salts done: draft #1654 (no measurable cost; M0 selftest all pass); check pending a slot; META salt_source text needs a verifier tag-set PR. #1626 on main 0b533f684; rec-v0 rerunning af54 on main+harness (19:00Z)

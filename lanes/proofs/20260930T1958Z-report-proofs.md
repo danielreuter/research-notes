@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (16:30Z) [open] 16:31Z: top yes to the executable-statement property; rec-lean takes it first in its next turn (inputs land by 18:00Z)
 CHECKPOINT none (16:26Z) [open] 16:26Z: 5b proved with no sorry (47da724ec, ae90); 5a+5b merge building on vy-cpu-2 with full audit, due 18:00Z
 CHECKPOINT none (16:22Z) [open] 16:22Z: 5a builds with no sorry of its own (7c69, f20051ec9), no raised limit; 8b in (206ad11b8); rec-lean on MAX_SLOTS bound and custody premise
 CHECKPOINT none (13:49Z) [open] 13:50Z: sp stack restacked on main 8c1caab3a (#1631 0f76380f5, #1609 09616b31d, #1634 4467c7703), ready-labelled, posted for ci's re-prep. Gap lemmas 5a (rec-lean) and 5b (rec-thm) being proved now, reports 14:50Z.

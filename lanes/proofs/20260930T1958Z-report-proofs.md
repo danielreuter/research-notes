@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (17:11Z) [open] 17:12Z: gap 7 proved (_hS from U2 + DrawFileZK, VStarU2.lean, 4512); rec-thm on 4(b)/(c) salted-hiding reductions
 CHECKPOINT none (16:58Z) [open] 16:58Z: top: replay 53f3 passes, #1626/#1635 land on their checks; wired-cheater harness PR + replay follow-up with rec-v0
 CHECKPOINT none (16:38Z) [open] 16:40Z: landing-tree replay r20261009-160906-53f3: no verdict changed; 2f10 12-claim alg parts accepted at 160 slots; wired cheater not replayable (harness never landed), top to decide
 CHECKPOINT none (16:30Z) [open] 16:31Z: top yes to the executable-statement property; rec-lean takes it first in its next turn (inputs land by 18:00Z)

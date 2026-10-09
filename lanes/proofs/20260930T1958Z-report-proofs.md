@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (12:01Z) [open] 12:05Z rec-thm: RecursiveSound at the compiled inner rests on two named sorry lemmas (flock_inner_sound_compiled ~550-900 lines; zk_sessions_recursive_fork_inner ~300-400), merged into rec-lean's gap-list branch; G composition probe 5c69 queued
 CHECKPOINT none (11:56Z) [open] 12:00Z verifier commit 19c97b659's check queued twice with priority (ed71 node 1, 44d5 node 2); node 1's check slots held by network-accounting since 08:05Z; node 1 disk 78%
 CHECKPOINT none (11:46Z) [open] 11:45Z shared rows done (fail-closed b1b604bd7; #1635 draft; resumed to merge main and record its check); the run's verifier commit is now cursor/rec-verifier-95d4 19c97b659 (aedc3aff4 + main's --record fix), check r20261009-114133-ed71 with lean-agreement
 CHECKPOINT none (11:23Z) [open] 11:25Z top's report asks (cheaters on 8090 if they fit by 15:00Z; name the Lean verifier commit and its check with lean-agreement) recorded for rec-stage/rec-v0's next resume; check --record --agreement of the combined verifier commit rec-private-0419 aedc3aff4 queued as r20261009-111905-b0fd

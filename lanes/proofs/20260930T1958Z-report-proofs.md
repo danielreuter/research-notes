@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (13:11Z) [open] 13:12Z the verifier-commit check 44d5 failed only on a boundary test (rec_inner.py's cheater imports one_stage.registered); fixed on rec-verifier 77d9136ca, re-queued as a8a5 (node 2) / da83 (node 1) with --keep-going
 CHECKPOINT none (12:52Z) [open] 12:52Z main bff9c5864 merged into #1631 (7608856bd, README conflict), #1609 (f414701be), #1634 (1f188e58f); ready labels moved; stack order 1631, 1609, 1634
 CHECKPOINT none (12:31Z) [open] 12:32Z the recursive run's verifier commit 19c97b659 is in check on node 2 (44d5): lean-build and lean-agreement passed; node 1 twin cancelled; node 1 disk 79%
 CHECKPOINT none (12:18Z) [open] 12:18Z #1630 (rec_residuals MAX_SLOTS 160 + whole-algebra parts) ready at f2f0e3682 at top's ask, to train right behind #1636

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:02Z) [open] 22:02Z: n1 back to 64% disk, holds lifted except inode launch gate; gap 2 done (#1670); 8090 run 322a verdict ~23:25Z; #1585 agreement check on cpu-1
 CHECKPOINT none (21:54Z) [open] 21:54Z: main 7541513c8 (#1579+#1619); #1585 agreement check on cpu-1; 8090 run of record 322a on n1 since 21:19Z; n1 cov/q235-gate deletion approved, 82% hold until then
 CHECKPOINT none (20:50Z) [open] 20:50Z #1664 check failed lean-suites (proofs looking); n1 held for inodes to 22:50Z; G lanes all in
 CHECKPOINT none (20:35Z) [open] 20:35Z 4(d) bound 2^-194.1 at 8090 (A); trains feec + c4da with lander; n1 held

@@ -8,6 +8,7 @@ repo: verity
 origin: [agent:bc-b5fd2fd3-5213-5a73-ad38-09e77b43f4c4]
 ---
 
+CHECKPOINT none (15:09Z) [open] 15:10Z: the run's verifier tree 77d9136ca passed check in full with lean-agreement (a8a5); #1636+#1630 landed; disk records written on n1; next 5a/5b builds go to vy-cpu-2
 CHECKPOINT none (14:58Z) [open] 14:58Z: 15:00Z status lines posted (1791557906.782429, 1791557907.401489); 5b: rec-thm's route builds with one sorry (5dcc), bc-0bfaef0d's smaller route fixing build errors; 5a: rec-lean's ForkInner sorry-free, rebuild pending; disk: ~116 GiB cleared for infra
 CHECKPOINT none (14:44Z) [open] 14:44Z: #1635 (zk-shared-rows) labelled ready at 41ada9c94 and out of draft for ci's train after #1636+#1630 and #1626 (ETA 17:30Z); #1626 is in train 51fd08b93
 CHECKPOINT none (14:35Z) [open] 14:35Z: #1626 (zk-coin) ready at a38fdb621 and handed to the lander for a train with --agreement; its own check fd14 cancelled (no slot in 5 h, main moved past it)

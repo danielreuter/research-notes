@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (06:08Z) [open] 06:06Z: watch. Waiting on @lean for G's interface; @circuits owes the real class by ~11:00Z for the private-circuit run. Node 1 76%, GPUs idle.
 CHECKPOINT none (06:04Z) [open] 06:04Z: #1596 (R7) ready (suites 31/31, audit PASS, labelled, merge-thread post). #1593 and #1596 both ready; six workers on recursion/private circuits/sp switch; waiting on @lean for G's interface.
 CHECKPOINT none (06:01Z) [open] 06:01Z: Daniel's priority is recursive ZK with private circuits. Fork-form RecursiveSound (rec-thm bc-0e16e57e, G interface proposed to lean), the private-circuit recursive run (rec-v0 bc-ab22ea8f), the recursive CircuitPrivate guarantee on a branch (rec-lean bc-4523e674); sampled-proofs switch second
 CHECKPOINT none (05:43Z) [open] 05:45Z: one-stage replay 34 runs, 313 cases, 313 same verdict, 231 negative controls (r20261009-052854-d926, art:6cd8a12a; draft #1609); switch (matches_public, session_registered, integrity_profile + one-line switch) dispatched to bc-4a61b081; #1596 on its last suite

@@ -8,6 +8,7 @@ repo: verity
 origin: [agent:bc-b5fd2fd3-5213-5a73-ad38-09e77b43f4c4]
 ---
 
+CHECKPOINT none (14:03Z) [open] 14:03Z: verifier check 19ca (1d2f7442f, merged tree) passed lean-agreement; suites/audit running. 14:30Z post ready to send once the verifier line is in.
 CHECKPOINT none (13:56Z) [open] 14:00Z: rec-stage done (8090 overhead: 1,124x end to end, 173x prove, 10.7x proof, 40x Lean). Worker reports copied to notes (20261009T1354Z-report-*). 14:30Z post drafted; waiting on checks 19ca/a8a5 for the verifier line.
 # The real private circuit's class through the recursion to the Lean verifier
 

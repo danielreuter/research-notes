@@ -166,6 +166,16 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 05:07Z Oct 9 (10:07 PM PDT Oct 8), steward pass
+
+- Node 1: 75.3% (1,237 GiB free; 74.0-75.5% since 04:10Z, peaking at 75.5% at 04:40Z; `-v3` watch armed); inodes 67%;
+  units active; real queues 0/0; all 8 idle (reported).
+- Node 2: 69.0% (1,557 GiB free); its deadline is still 05:30Z Oct 10 (unchanged, as ruled); sampler and probe active; 0
+  of 8 GPUs (reported).
+- Inbox: `coordinator/20261009T0450Z-friction-docs-reruns-and-cold-circuit-check`. No ask; it's for the friction pass,
+  not the steward.
+- No hourly snapshot since `art:e2315f83…` (about 04:15Z).
+
 ## State at 04:35Z Oct 9 (9:35 PM PDT Oct 8), steward pass
 
 - Node 1: 75.2% (1,247 GiB free; 74.0% at 04:10Z; the `-v3` watch is armed and reports at 76% if still climbing).

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:34Z) [open] 07:34Z: node 1 inodes 74% after orphan cleanup; lean asked to share lean-deps; batch rerun 7192 (cold, #1620 fixes OOM); #1618 lean audit fix draft; staging 329e on track 10:25Z
 CHECKPOINT none (07:10Z) [open] 07:09Z: staging resubmit with FLOCK_PLAIN_LEAVES=1 asked of circuits (~10:25Z); #1614 train on node 2; node 1 disk 78% with infra
 CHECKPOINT none (06:48Z) [open] 06:47Z: batch 1b4d checking; lean fanned G into six pieces; circuits staging F32MulFtz_v3 at full class by 13:45Z; ten-minute plan levers under way
 CHECKPOINT none (06:19Z) [open] 06:19Z: dd21 landed (c6c268f72); 11-PR batch in full check 1b4d; gather OOM fix #1611; Daniel's priority: recursive private-circuit run by 15:00Z

@@ -166,6 +166,16 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 01:12Z Oct 9 (6:12 PM PDT Oct 8), steward pass
+
+- Node 1: 74.4% (1,285 GiB free; flat at 74.2-74.6% since 23:50Z; `-v3` watch armed); inodes 66% (7.00M free). Units
+  active; real queues 0/0; all 8 idle (reported).
+  - `20261009T0102Z-alert-disk-n1-f450b6b1` (HARD page: 348,434 inodes/h, 80% in 8.2 h) is the known check-scratch
+    pattern, measured this time: 13.57M used, of which 0.96M is two live Lean audits' scratch, so the baseline is about
+    12.6M. Not re-reported.
+- Node 2: 68.1% (1,601 GiB free); sampler and probe active; 0 of 8 GPUs (reported).
+- Hourly `art:26c4e3db…` (about 01:00Z): node 1 at 1,666 / 323 / 167 / 1,343, node 2 at 1,595 / 462 / 266 / 1,134.
+
 ## State at 00:44Z Oct 9 (5:44 PM PDT Oct 8), steward pass
 
 - Node 1: 74.6% (1,276 GiB free; flat at 74.2-74.6% since 23:50Z; `-v3` watch armed); inodes 67% (6.79M free). Units

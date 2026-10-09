@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: cursor/rec-gaps-4-7-2261
 ---
 
+CHECKPOINT none (16:06Z) [open] 16:07Z: rec-thm: 5b fallback builds with one lemma open; gap 7 lemma built, U2 tiling next (+300-400); gap 4 re-estimated 700-900; asked top on executable-statement property
 # Gaps 7 and 4 of the recursive audit, and the compile branch's build
 
 For proofs (bc-8416bc72), from rec-thm, Oct 9, 8:55 AM PDT. No PR opened; nothing landed; no Slack.

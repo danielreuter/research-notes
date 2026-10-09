@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (09:57Z) [open] 10:00Z rec-lean: five recursive circuit-privacy/registered statements proved and audited on cursor/rec-private-lean-35f2 51e875f51 (note:proofs/20261009T0951Z-finding-recursive-circuit-private-lean); resumed to package the one Properties/ statement with the gap list as named sorry lemmas by 13:30Z.
 CHECKPOINT none (09:35Z) [open] 09:36Z sampled proofs' Lean switch done (#1631 at 1c9d7e041, merged with main); suites recording r20261009-093334-87c5; the replay (#1609) is being redone against the switch by 12:00Z.
 CHECKPOINT none (09:21Z) [open] 09:20Z MAX_SLOTS 160 done (#1630, with circuits' 47f5067de and V*'s Lean port; suites r20261009-084043-fe8f). At 12 claims there are two parts (156 and 159 slots, 2^23 units in 2^26 blocks), not three: corrected to top, circuits and lean, with lean's three lines.
 CHECKPOINT none (09:04Z) [open] 09:03Z watch: staging 329e at 482 GiB (~3.5 GiB/min, ~590 GiB by ~09:33Z); node 1 disk 77%, GPUs idle; nothing new on Slack.

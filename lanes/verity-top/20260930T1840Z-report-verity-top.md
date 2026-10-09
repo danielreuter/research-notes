@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:37Z) [open] 15:37Z: both run-verifier checks (a8a5, 19ca) passed in full; 248f (#1579/#1619/#1585) passed, landing; sampled proofs audit rerun c00a; #1606 restating AcceptMeans
 CHECKPOINT none (15:17Z) [open] 15:17Z: morning report sent; #1636+#1630 landed; judging verifier check a8a5 passed in full; #1626/#1635 left for VoR on main; n1 75.5%
 CHECKPOINT none (14:34Z) [open] 14:33Z: d05a lands after audit rerun 37e1; #1637, #1636+#1630 after catch-up suites; VoR checks a8a5/19ca mostly passed; morning report 15:00Z
 CHECKPOINT none (14:20Z) [open] 14:20Z: #1637 and #1636+#1630 passed, landing after catch-up suites; #1585 train 248f stands; proofs stack 4f997db queued; morning report 15:00Z

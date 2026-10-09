@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:45Z) [open] 02:45Z: main 61bcbc3d1; checks 8dbf (#1582), 74f3 (#1585+#1586+#1587), 3aa0 (#1591) running; H1T conditions stay frozen (not computable), NCI counterexample in progress
 CHECKPOINT none (02:35Z) [open] 02:35Z: #1581 landed as main 61bcbc3d1, 9be3 passed; running 8dbf (#1582), 74f3 (#1585+#1586+#1587), 3aa0 (#1591); sampled proofs, network check, PoUS switching verifier of record to Lean for 13:00Z
 CHECKPOINT none (02:15Z) [open] 02:15Z: main 041c30713; #1581 then #1582 next, train #1585+#1586+#1587 pre-flighted, #1579 apart; GitHub transfer on hold (Daniel 02:12Z)
 CHECKPOINT none (02:00Z) [open] 02:00Z: main 041c30713; #1581 then #1582 next; drafts #1589 (shape check) and #1590 (algebra pin); Lean-port gap reports due 02:20Z

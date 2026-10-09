@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:07Z) [open] 17:06Z #1635 landed (main 1d9cfaff1); #1626 rerun 2e01 last gate for verifier of record; merged 5a+5b build 18:00Z
 CHECKPOINT none (16:50Z) [open] 16:50Z replay passed (no verdict changed; wired-cheater row architecture's call); reuse slices #1642/#1644/#1648; #1620 ready
 CHECKPOINT none (16:38Z) [open] 16:38Z 5a+5b proved on separate branches (merged build 18:00Z); #1642/#1644 reuse fix in flight; replay 16:45Z
 CHECKPOINT none (16:20Z) [open] 16:20Z #1639 landed (main e091532ea); #1642 reuse part 1 in full check; Daniel's 4 decisions assigned; awaiting replay 16:45Z

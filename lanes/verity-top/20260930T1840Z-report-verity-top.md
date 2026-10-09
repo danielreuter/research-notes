@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:22Z) [open] 18:22Z n1 guard reverted; 248f rerun 8bce queued behind main's 01ef; #1606 re-record 81ac on vy-cpu-2; RunPod pods in infra ticks
 CHECKPOINT none (18:08Z) [open] 18:07Z told Daniel RecursiveAudit sorry-free on branch + docs correction; vy-cpu-2 freed, #1606 re-record 81ac running; #1658 audit prune fix ready
 CHECKPOINT none (17:58Z) [open] 17:58Z RecursiveAudit sorry-free after 5a+5b merge (Security base fails x2 pending); vy-cpu-2 ENOSPC routed to infra; #1606 re-record requeued on cpu-1
 CHECKPOINT none (17:37Z) [open] 17:37Z verifier of record on main (6cea9a973: #1626+#1635+#1630); told Daniel; proofs' share ETA 10:30Z 10 Oct

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (08:55Z) [open] 08:56Z fork-form RecursiveSound proved and audited (#1627, on #1593; audit r20261009-073740-c409, suites r20261009-073740-a779). The real-system instance needs a compile lemma in fork form at flockInnerCL; rec-thm states it as a named gap by 12:30Z.
 CHECKPOINT none (08:49Z) [open] 08:50Z zk-coin back: #1626 (coins must open the challenger's commitment; holds_coins strengthened, holds_coins_binding new). Salts kept OS-random; derived salts would need a PRF premise, asked of Daniel via top. check --record held for his answer.
 CHECKPOINT none (08:43Z) [open] 08:43Z rec_private_summary fails closed (#1624, on rec-private-0419): a form refusal reads 'Lean refused: form not covered'; lean_of_record accepts only when Lean accepted every part in the recursive session; rec-v0 merges it before 329e is recorded. Staging 329e at 408 GiB.
 CHECKPOINT none (08:30Z) [open] 08:30Z: shared-row --zk route posted (widen ProvedScope to EndToEndRegistered's hypotheses + flock_verify_sound case; bc-cb1cfff8, ETA 13:00Z); MAX_SLOTS -> 160 decided (bc-ceb8d3a2, ETA 10:30Z); V* sessions need --draw subset:N (D12).

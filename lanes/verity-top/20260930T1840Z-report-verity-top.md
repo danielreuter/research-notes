@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:51Z) [open] 18:51Z main 8d105f250 (#1644+#1645); 01ef passed; 248f/1620/proofs stack running; inbox empty
 CHECKPOINT none (18:37Z) [open] 18:37Z quiet; #1648/#1652 fixed, rerun pending; PoUW scope now row-seg on #1646, ETA 03:00Z
 CHECKPOINT none (18:22Z) [open] 18:22Z n1 guard reverted; 248f rerun 8bce queued behind main's 01ef; #1606 re-record 81ac on vy-cpu-2; RunPod pods in infra ticks
 CHECKPOINT none (18:08Z) [open] 18:07Z told Daniel RecursiveAudit sorry-free on branch + docs correction; vy-cpu-2 freed, #1606 re-record 81ac running; #1658 audit prune fix ready

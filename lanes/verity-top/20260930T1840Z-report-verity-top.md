@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:30Z) [open] main 56e4e65e8; checks dd21, 74f3, c89b, 979b queued on node 1; trains #1602+#1603, #1591+#1595 rebuild; PoUS rerun waits on both-verdicts fix
 CHECKPOINT none (04:17Z) [open] main 56e4e65e8 (#1600 landed); checks dd21, 74f3, c89b (#1594), 979b trailing; #1591+#1595 rebuild; #1593/#1596 audits; PoUS rerun waits on both-verdicts fix
 CHECKPOINT none (04:10Z) [open] main b22a84e3d; checks dd21 (#1588+#1598+#1589), 74f3, 9ef4 (#1600), c89b (#1594); #1591+#1595 rebuild; PoUS v4 run: TimedAudit clean, #1597 pod crash being fixed
 CHECKPOINT none (03:46Z) [open] main b22a84e3d; 979b trailing; trains 74f3, 3aa0/24d0 (#1591+#1595), #1588+#1589 958d6e018 prepped; PoUS #1597/#1599 await fresh v4 GPU run

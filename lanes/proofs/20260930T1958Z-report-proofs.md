@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (10:47Z) [open] 10:55Z rec-v0: private circuit through the recursion ran at 16,16,8 and 1024,1024,512 (r20261009-081632-94d3); Lean refuses every honest V* statement for its form only (shared rows), controls refused earlier (note:proofs/20261009T1040Z-finding-rec-private-run). Resumed with the shared-rows widening, five cheaters and ZK-server tests for the run of record by 13:45Z.
 CHECKPOINT none (10:33Z) [open] 10:35Z #1631 (sampled proofs' Lean switch) ready at 1c9d7e041: every changed suite passed, r20261009-093334-87c5 (45/45); labelled ready, posted on the merge thread.
 CHECKPOINT none (09:57Z) [open] 10:00Z rec-lean: five recursive circuit-privacy/registered statements proved and audited on cursor/rec-private-lean-35f2 51e875f51 (note:proofs/20261009T0951Z-finding-recursive-circuit-private-lean); resumed to package the one Properties/ statement with the gap list as named sorry lemmas by 13:30Z.
 CHECKPOINT none (09:35Z) [open] 09:36Z sampled proofs' Lean switch done (#1631 at 1c9d7e041, merged with main); suites recording r20261009-093334-87c5; the replay (#1609) is being redone against the switch by 12:00Z.

@@ -166,6 +166,13 @@ watch's `dispatcher_tick_age_s` reads it (28 s at 16:49Z). In your next pass:
      cause is that the 16:05Z rebase conflicted on that file and was quit. Posted as FYI (`1791307940.694999`); told root.
      My 17:31Z check ran one `git fetch origin main` there (it only moves the tracking ref).
 
+## State at 02:41Z Oct 9 (7:41 PM PDT Oct 8), steward pass
+
+- Node 1: 74.5% (1,281 GiB free; `-v3` watch armed); inodes 66%; units active; real queues 0/0; all 8 idle (reported).
+- Node 2: 67.9% (1,608 GiB free; runs until its 05:30Z Oct 10 self-stop); sampler and probe active; 0 of 8 GPUs
+  (reported).
+- No hourly snapshot since `art:e5d0fe4c…` (about 02:05Z).
+
 - 02:14Z Oct 9 (root, 02:13Z): RC says nothing needs node 2 past 05:30Z Oct 9. Nothing stops it then.
   - Its `/etc/research/deadline` is `1791610200 2026-10-10T05:30:00Z daniel-2026-10-08T1416Z-via-top`, extended a day
     on Oct 8. `vy-deadline.timer`, enabled and active every minute, self-stops it through `vy-nebius-stop` at that

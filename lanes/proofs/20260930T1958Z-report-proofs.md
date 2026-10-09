@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (17:46Z) [open] 4(a) OS leaf salts done: draft #1654 (no measurable cost; M0 selftest all pass); check pending a slot; META salt_source text needs a verifier tag-set PR. #1626 on main 0b533f684; rec-v0 rerunning af54 on main+harness (19:00Z)
 CHECKPOINT none (17:36Z) [open] top's acceptance tests for the UniversalUnit_v1 lowering and class-fixed regions queued for bc-66706a46 / rec-lean; due times posted (3a 21:00Z, regions 21:30Z, 3b 00:00Z, 8 00:30Z, 2 06:30Z, 4 09:00Z; proofs' share 10:30Z Oct 10)
 CHECKPOINT none (17:19Z) [open] 17:20Z: decision 3's class in Lean (UniversalClass.lean), finding (b) closed; HClass.ofStmt is the public-statement singleton; lowering of UniversalUnit_v1 next
 CHECKPOINT none (17:15Z) [open] 17:16Z: wired cheater refused at setup: links on main+harness (af54, 12/12); #1651 opened (test-only, ready)

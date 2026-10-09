@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (21:02Z) [open] 21:02Z: #1664's train (bf66) failed on 11 stale digest pins from its META leaf_scheme change; bc-ad20837e's test-only fix 7e50565a7 pushed, restage unaffected, lander asked to retrain. Top's risk calls relayed to rec-lean and rec-guard; redundant quick tiers af51/66ee cancelled; node 1 closed to new runs.
 CHECKPOINT none (20:36Z) [open] 20:43Z: #1662 ready (quick tier passed) but held on #1627 (its 6 commits are inside #1662); #1627 undrafted and queued; lander asked to train #1627+#1662, then #1666 and #1663
 CHECKPOINT none (20:34Z) [open] 20:35Z: 4(d) stays A: RecursiveAudit (i) at the 8090 class is 2^-194.1, 66 bits past 2^-128; the --zk table bound is Lean-proved only at m 25..27, so bc-b16cf4f6 is on bound_le for m 25..35
 CHECKPOINT none (20:21Z) [open] 20:21Z: VBridge's VFull was false at V*'s real circuits (padding); top took lean's VBridgeRead restatement (proofs read it: right, non-vacuous via vFullRead_of/vDecodesRead_of); gap 8 ruled (a2), the whole circuit fixed by checks

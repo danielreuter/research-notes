@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (05:43Z) [open] 05:45Z: one-stage replay 34 runs, 313 cases, 313 same verdict, 231 negative controls (r20261009-052854-d926, art:6cd8a12a; draft #1609); switch (matches_public, session_registered, integrity_profile + one-line switch) dispatched to bc-4a61b081; #1596 on its last suite
 CHECKPOINT none (05:32Z) [open] 05:31Z: #1593 (compiled Inner) ready at 7b9389070: audit r20261009-040848-9290 + 5/5 suites r20261009-050059-b5cd; #1596 (R7) 30/31 suites passed, verity-circuit-check left (r20261009-043140-9166)
 CHECKPOINT none (05:03Z) [open] 05:01Z: #1593 full Lean audit PASS (r20261009-040848-9290); its 5 touched suites running r20261009-050059-b5cd; #1596 suites r20261009-043140-9166 running
 CHECKPOINT none (04:32Z) [open] 04:32Z: #1596 sampled_proofs Lean audit PASS; its suites relaunched under $OUT (r20261009-043140-9166) after the read guard flagged in-tree logs; #1593 Lean audit r20261009-040848-9290 building Security cold

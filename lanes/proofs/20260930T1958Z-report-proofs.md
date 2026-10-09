@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT 23f22719e (22:22Z) [open] 22:20Z: typed row hash (HmRowComputes on typed template statements) proved by bc-c7a4c235 as row_bc_setupH_typed, no row hypothesis, no new refusal; PR #1674 on #1662; tie's T3 done; joint build takes it at 01:30Z
 CHECKPOINT none (22:16Z) [open] 22:17Z: top ruled faulty form (1) (every opening, SHA-512 collision caveat in the docstrings and records) and asked for a non-vacuity witness in the 07:30Z build: the model's predicates on recorded honest V* sessions, and Faulty on the cheaters; rec-guard sizes it by 23:30Z. Residual list goes to top with the 01:30Z build.
 CHECKPOINT none (22:11Z) [open] 22:12Z: RecursiveAudit (i)'s last event doesn't depend on the registered private circuit (bc-66706a46); fix = SessionFaulty + an open tie, route call to top. Hash-gap restate of RecursiveZK/ZeroKnowledgeHidden/flock_verify_sound -> #1673 (draft on #1663).
 CHECKPOINT none (22:01Z) [open] 22:02Z: gap 2 J-lift done (#1670 1786eaca7: ZK at every coin vector, Admits dropped). rec-guard: hTags proved on the hidden-output branch (cursor/rec-guarded-95d4 91553a505); found RecursiveAudit vacuous twice (VerifiesV's ScopeZ -> ScopeZR, rec-lean; main's model checkRegistered stricter than the executable -> rec-guard PR off main).

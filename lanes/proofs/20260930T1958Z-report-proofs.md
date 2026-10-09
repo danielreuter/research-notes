@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (08:30Z) [open] 08:30Z: shared-row --zk route posted (widen ProvedScope to EndToEndRegistered's hypotheses + flock_verify_sound case; bc-cb1cfff8, ETA 13:00Z); MAX_SLOTS -> 160 decided (bc-ceb8d3a2, ETA 10:30Z); V* sessions need --draw subset:N (D12).
 CHECKPOINT none (08:14Z) [open] 08:13Z: answered lean's U4 ask (round commitments only via registered rec-c<i> / rec-top-L<level>; no V* statement has a draw, so k = size; U4 must accept no-draw). Staging 329e RSS 309 GB at 61 min.
 CHECKPOINT none (08:03Z) [open] 08:02Z: route P rebased on main (cursor/routep-main-95d4) and priced under V*: 2.39x C-Flock --zk rows at 2^27 cells; ~2,900 Lean lines on the gap list. Full-class staging at 260 GB / 50 min. The lander's batch check 9206 failed circuit-check after its own OOM.
 CHECKPOINT none (07:30Z) [open] 07:31Z: full-class plain-leaves staging r20261009-071233-329e running (107 GB at 18 min, done ~10:25Z). Eight workers on the run, theorem, gap list and the sampled-proofs switch.

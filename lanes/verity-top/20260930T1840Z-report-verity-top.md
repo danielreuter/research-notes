@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:00Z) [open] 02:00Z: main 041c30713; #1581 then #1582 next; drafts #1589 (shape check) and #1590 (algebra pin); Lean-port gap reports due 02:20Z
 CHECKPOINT none (01:45Z) [open] 01:45Z: main 041c30713; #1581 (e04e) then #1582 (8dbf) next; protocol lanes post Lean-port gaps by 02:20Z for Daniel's verifier-switch decision via architecture
 CHECKPOINT none (01:30Z) [open] 01:30Z: #1578 + #1584 landed as main 041c30713; next #1581 (e04e), then #1582 (8dbf); #1585, #1586, #1587 ready for trains
 CHECKPOINT none (01:17Z) [open] 01:17Z: four-PR train landed as main 4ed16dcd5; #1578 lands on 25ea + verity-ops rerun 4b78 on node 2; #1581 suites e04e, #1582 check 8dbf, trailing 9be3 running; #1584 cpu-1 keeper-test fix, #1585, #1587 ready

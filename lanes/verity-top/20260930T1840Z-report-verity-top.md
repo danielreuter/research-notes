@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:15Z) [open] 21:15Z: closing train f4be + combined 9fee checking on node 1; F1 re-prove running (witness ~3:40 PM PT); #1710 22f4 queued on node 2; F4 region counts due 2:45 PM PT
 CHECKPOINT none (21:00Z) [open] 21:00Z: f4be/9fee checking on node 1 (early warning passed); F5 rulings made (#1733+#1734 together, Menu.Staged tested); fix 2 re-prepped (160d); #1710 queued (22f4)
 CHECKPOINT none (20:37Z) [open] 20:37Z: f4be (#1716) and 9fee (#1716+#1728) checking on node 1; F5 plan accepted, menu clash ruled; #1710 relaunch placed on node 2 slot b after 08f1; #1731 up
 CHECKPOINT none (20:18Z) [open] 20:17Z: idle accounting lanes restarted (compute: Gamma PR, H1T falsification, FP8 rotation; network: #1605 + NetTiming; memory: next PoUS gap); watching #1716 relaunch on 7c369db60

@@ -5,6 +5,9 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (06:26Z) [open] 06:27Z: eight completions handled; lean: audit fixed (9ce854109), finder after cut, wiring (i) go, R4 after finder; top answered F2's four; #1674 ready; #1692 (cache.py py3.10) opened; rec-lean told not to re-pin RecursiveAudit
+CHECKPOINT none (05:59Z) [open] 05:59Z: #1690 (Build.row) opened and ready; #1663 size cap fixed at d57084d21 (#1673 at 42c52a6ba); F1 gate run passed (Lean 6/6, art:14b7f9a8); PublicAudit typechecks, moving onto rec-joint; rec-guard's cheater side moved to F1's run
+CHECKPOINT none (04:32Z) [open] H2 ruled by lean (one game per registration); gap 8 (5)/(6) to refuse, check 9 to hv; proofs' VM has the stale multi-line secret too (told infra/top); #1687 core lines reviewed: yes
 CHECKPOINT none (04:23Z) [open] #1627/#1662/#1663/#1673 re-recorded on main 1593a685d (Security PASS, 0 failures each); bodies updated; posted ready to the lander; #1674 being merged forward
 CHECKPOINT none (04:15Z) [open] keys restatement opened as #1686 (fe1ffff61; records run c344 passes, lock unchanged); quick tier r20261010-041445-5513 running
 CHECKPOINT none (04:08Z) [open] K1 does not fire (ν=20: ~10–16 ns/slot/rep on 32 pod threads, E; 150 ns line); F4 closed at candidate 3, w=1; kernel art:1f10f57c

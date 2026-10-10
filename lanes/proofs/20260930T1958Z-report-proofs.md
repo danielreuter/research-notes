@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (16:06Z) [open] 9:08 AM PT: closing PR #1716 final at 73c32bfcf (main cca22e18e), ready, quick tier 158c; train list posted to lander/ci (#1717 first). Head sent to R4 and the witness branch; R4 keeps ReadsUnsegmented as an open obligation.
 CHECKPOINT none (15:07Z) [open] 8:07 AM PDT: closing PR #1716 open (draft) at 64a7df445 (3d records c632 pass 24 packages; job 4's row-ports speedup merged); rec-lean's step 3e merges main cca22e18e (one import line with #1703's Sampled) and rebuilds Security/Proofs, then the train list. #1715 (F2 slot padding) ready, prepped by ci as 0af23fe0bef6. Witness Lean at 9e67449bb awaits the final closing head.
 CHECKPOINT none (14:07Z) [open] 7:07 AM PDT: closing branch at afc7acb11 (records 837d, 238) needs main 17c084c54 (lock refuses over v2Rows), rec-lean step 3d running; then the closing PR and train list. #1710 reviewed: six encodings sound and hiding, item 5 corrected (note:proofs/20261010T1345Z-finding-c3-sparse-review); top said yes to its Lean after the train behind #1709; F4's V* table needs no repricing. F2 stating slot padding in SlotBinding, stacked on #1703. Witness Lean and R4 running.
 CHECKPOINT none (13:37Z) [open] 6:37 AM PDT: rec-stage-2's OS-masks test fix (82184ea1e) joins the closing PR; top approved re-recording rec-coins' level 3 with F1's re-prove after the train; witness Lean (job 2) running; F4 reviewing #1710's sparse-phase encodings for circuits, due 14:30Z; R4 wip at 01a8a95e1; closing branch waits on rec-lean's 3c.

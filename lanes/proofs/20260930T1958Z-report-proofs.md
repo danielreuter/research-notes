@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (17:46Z) [open] 10:50 AM PT: R4 done (5836d2522, records b5ff/9b2f pass; PublicAudit, RecursiveRanRegistered, RecursiveSound restated at hidden outputs); opened #1728 stacked on #1716, landing after the train.
 CHECKPOINT none (16:53Z) [open] 9:55 AM PT: #1716 quick tier found a case clash (VBridge/PartS.lean vs Parts.lean); renamed to PartsCover.lean at 651d37cde (no record moves); new quick tier cd5a on node 1; lander asked to relaunch the train at the new head.
 CHECKPOINT none (16:44Z) [open] 9:43 AM PT: witness PR #1724 opened (draft, stacked on #1716, bfb7331f1, records and gate test pass); its f1-gate fixture and rec-coins both need infra's public export before a node check passes.
 CHECKPOINT none (16:35Z) [open] 9:35 AM PT: train check cb20 failed lean-suites: rec-coins fixture art:84471c45 preserved privately but never exported to verity-public; asked infra to export (this VM gets 403), then the lander reruns on 0f0bbda3b.

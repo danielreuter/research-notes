@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (05:36Z) [open] 05:36Z: inbox empty; n1 inodes 63.1% rising; merged verifier head due 06:15Z; key still with Daniel
 CHECKPOINT none (05:21Z) [open] 05:21Z: inbox empty; gap 8 refusals in, merged verifier head ~06:15Z; #1689 train prepped; key still with Daniel
 CHECKPOINT none (05:06Z) [open] 05:06Z: inbox empty; key deactivation and guard start line with Daniel; F6 first table in (#1691)
 CHECKPOINT none (04:51Z) [open] 04:51Z Nebius key live; infra told to deactivate old key; guard boot fix #1689 pending verify; trains #1686/#1687 prepped

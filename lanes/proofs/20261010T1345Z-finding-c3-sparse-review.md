@@ -10,10 +10,6 @@ origin: F4 design agent (bc-74de88e1), review of #1710 (RecSparse_v1 at 1835d3cf
 
 # #1710 RecSparse_v1: the six encodings against F4 candidate 3 (note:proofs/20261010T0250Z-draft-f4-bitsumcheck)
 
----
-cursor:
-  subagentId: "bc-74de88e1-6efc-5200-b806-a460bd37d5d7"
----
 
 # Candidate 3's sparse phase as built (PR #1710, `RecSparse_v1`): review against the F4 note
 

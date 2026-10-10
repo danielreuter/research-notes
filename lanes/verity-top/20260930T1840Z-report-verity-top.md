@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (13:32Z) [open] 13:30Z: inbox empty; #1710 sparse phase up, encodings review by 14:30Z; #1678 re-recorded at 68d76fd23 awaiting mark; closing build step 3c
 CHECKPOINT none (13:15Z) [open] 13:15Z: inbox empty; main 53a67e0551d6 (#1697+#1706 pinned menu); #1709 ready at 92f7a82ef; #1678 re-record running; closing build step 3c
 CHECKPOINT none (13:00Z) [open] 13:00Z: inbox empty; Lean VoR status: sampled proofs + network on main, PoUS verdict pair landed, PoUW scope pending; closing build step 3c; trains checking
 CHECKPOINT none (12:45Z) [open] 12:45Z: inbox empty; closing build step 3b 08008c68a passed (Security 220), step 3c merging main; all five trains launched; vy-cpu-1 lease to 20:03Z

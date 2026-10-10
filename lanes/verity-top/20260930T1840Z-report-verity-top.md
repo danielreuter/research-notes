@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (09:39Z) [open] 09:39Z: inbox empty; cap corrected to 2^29 (C-Flock range), GEMM two-input-group widening with compute-accounting (PR by 16:00Z, gates every audit); candidate 3 bucket rows due 10:30Z; main 25ccf46f19ca
 CHECKPOINT none (09:01Z) [open] 09:01Z: inbox empty; #1699 + #1689 on main (23224afc47fc), infra to confirm env build + guard on a fresh VM; closing-branch check on node 2
 CHECKPOINT none (08:46Z) [open] 08:46Z: inbox empty; waiting on closing-branch full check on node 2 and proofs' six-head train list
 CHECKPOINT none (08:42Z) [open] 08:42Z: inbox empty; F2 session bound final (unsplit dp4 at B=16, 2^32 cap, pending validation prove); closing branch full check r20261010-082109-92f8 on node 2; proofs to post six-head train

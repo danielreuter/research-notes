@@ -55,6 +55,9 @@ tables) are in the evidence store as `art:dc659142f1e5fc6ad5866fc36e2123997ae411
   - V*: +8.9–9.9e8 rows per session (K2's count, C), against option 4 at F3's packed figures: 9.1–12.8e9 for the GEMM
     step (9.2–14.4×) and 1.2–1.7e9 for SiLU·mul (1.25–2.0×). Option 5 overtakes option 4 above 2^15.6–2^16.5 nonzeros
     per session, or 2^18.8–2^19.7 for SiLU·mul. No bound on F6's menu is that small (§5.4, 10 Oct).
+  - With F2's 16 slots per session at F6's dp4 buckets and top's 2^29 cap: 6.8e8–2.55e9 V* rows per session, not
+    growing with Z. The template is the registered unit (2^18–2^19 entries for GEMM steps and attention), and one
+    sumcheck per rep covers all 16 slots, against one opening of the bucket's stacked table (§5.4, "10 Oct, 10:00Z").
 - **Kill criterion.** K1: the degree-d product kernel runs near the naive kernel's 2–3.4 ns per multiplication, which
   puts the slot sumcheck above 150 ns per slot per rep at ν = 20. Test it with a single-file micro-kernel over
   `opcount.py`'s matrix, without a pod. Run since: it does not fire (278 ns per slot per rep on one local thread, 75 on
@@ -569,6 +572,70 @@ At F6's dp4 bounds (B = 16):
   - `python k2.py lower 3` with main's `verity` tree on `PYTHONPATH`;
   - `K2_F3=… K2_F6=… python k2.py table`.
 
+#### 10 Oct, 10:00Z: V* per session with F2's slots, at F6's dp4 buckets and the session cap
+
+"Slot" in this subsection is F2's: a unit of a session with an independently hidden type, 16 per session (1 in a tail
+session). A nonzero position of a template is an "entry" (§1's "slot"). The script, the table at circuits' 53 bucket rows
+and its inputs: art:4e9ff89a15c106ef9b17097d794d8625adafa564200ce8bb34fe88929078dad2.
+
+- **Answer.** V*'s rows per session don't grow with Z.
+  - The template is a type's registered unit, not its subcircuit. A subcircuit is instances of its unit, which is §1.1's
+    `A = I ⊗ A₀`. The instances are the public layout factor `U` of H3, which V* evaluates in closed form, so they add no
+    round and no opened bit.
+  - Registered units are 2^18–2^19 entries: the GEMM step, attention, RoPE, SiLU·mul and token select (from F6's
+    `unit-costs.json`). RMSNorm's are 2^23–2^25.
+  - At top's cap (2^29 per slot, 2^28 for OLMoE), candidate 3's V* is 6.8e8–2.55e9 rows per session over circuits' 53
+    bucket rows (C to m = 33, E past). That is 254× to 1.3e6× below circuits' option-4 packed figure.
+  - So the 06:55Z table, which took the template to be the whole Z-nonzero subcircuit (m 31–38 at F6's bounds), was
+    high. With the unit as the template, the registered buckets sit at m = 23–25.
+- **The session's sparse phase is one sumcheck per rep, not one per slot.**
+  - In `M̂_hid(x, y) = Σ_s U_s(x_hi, y_hi) · Σ_k Φ(R̂_{τ_s}(·, k))`, Φ is the same for every slot: one α, and the
+    template coordinates `x_lo`, `y_lo` are common. Only the table row `τ_s` and the public `U_s` differ.
+  - With `Q(s, p, k) = R(τ_s, p, k)`, H3 becomes one sumcheck of `Ũ(s)·Φ(Q̂(s, ·, k))` over `ν + log₂S` variables. Its
+    rounds have degree d over the entries and d + 1 over s. It ends in P' values `u_p = Q̂(r_s, p, r_k)`.
+  - Then `Σ_p eq(ζ_p, p) u_p = Σ_t w_t v_t`, with `w_t = Σ_{s: τ_s = t} eq(r_s, s)` computed from the hidden τ_s
+    (S·T selects), and the prover's `v_t = R̂(t, ζ_p, r_k)`.
+  - A random `ρ_t` batches the v_t into one claim `R̂(ρ_t, ζ_p, r_k)` on the bucket's stacked registration (its T
+    templates as one table, one public root, so no root_τ read).
+  - Added error per rep: `log₂S·(d+1)/|F|` for the extra rounds and `log₂T/|F|` for ρ_t.
+- **Why it isn't 16× one slot's sparse phase plus one opening.**
+  - The sparse phase is cheaper than that. 16 slots cost four more rounds: 6.835e8 against 6.817e8 for one slot at the
+    GEMM step, where 16 sparse phases plus one opening would be 8.5e8.
+  - The one opening is of the stacked table, at m + ⌈log₂T⌉, because the slots' types differ. Each doubling of T costs
+    0.06–0.2e9 rows. Unstacked, every slot would open its own type's table: 16 openings, 1.1e10 rows at the GEMM step.
+- **Formula** (`vstar_c3.rows`, rows = ANDs of V*'s circuit as C-Flock proves it; packing doesn't apply, since nothing
+  reads a template as data):
+
+  `V* = Open(m) + 2,439·A(m) + 2,187·reps·[146 + ν·d + log₂S·(d+1) + d + 1 + 2P' + S + 4(log₂(S·I) + 1) + 3T]
+  + 142,282·reps·(ν + log₂S + 10 + [T > 1]) + S·T·(128 + log₂T)`
+
+  with `m = max(22, ν + log₂P' + ⌈log₂T⌉)`; the `S` and `4(…)` terms count only for S > 1, the `3T` and selects
+  only for T > 1.
+  - `Open` is K2's registered opening (C to m = 33, E past). It is 97–99% of the total.
+  - `A` is `rec_algebra.structure(Shape(m, 6, 2))`'s products.
+  - The bracket is the sparse phase's multiplications per rep. The next term is the firewall commitments, one hm96 leaf
+    per new message. The last is the selects.
+- **Shapes per bucket.**
+  - A bucket's shape is the largest over its types. T is its distinct lowerings.
+  - A type without a registered lowering is its own template, at 2^25–2^29 entries. It sets the shape in 25 of the 53
+    rows: TokenSelect in the tails, plus Bf16MulScalarTensor, BiasAdd, the MoE expert GEMMs and router, the FP8 block
+    GEMMs, Gemm_v2 and qwen's RMSNorm. There V* is 1.65–2.55e9.
+  - Where only registered units at 2^18–2^19 set the shape, it is 6.8–8.8e8 (25 rows). RMSNorm's registered 2^25 gives
+    1.9e9 (3 rows).
+  - The cap leaves registered types alone (fewer instances). It splits an unregistered type into pieces of at most the
+    cap, which moves only the two OLMoE 2^29.0 rows (2.69e9 to 2.55e9).
+- **Against circuits' D.**
+  - No row's V* reaches 2^32 rows (at most 2^31.2).
+  - Under circuits' rule `D = 2^(⌈log₂(rows + 1)⌉ + 2)`, 25 rows land at D = 2^32 and 28 above it.
+  - The inner table's own openings (1.0–2.2e9 rows, paid by every option and not in circuits' option-4 figure) put all
+    53 above D = 2^32. Two rows pass 2^32 rows: qwen3-4b's top bucket and its FP8 variant's, at 4.5e9.
+- **The prover's sparse term.** It is S × 2^ν entries per rep, not S × Z:
+  - 2^22 at the 2^18 units, which is about 0.1 s for two reps at K1's rates;
+  - 2^29 at RMSNorm's registered unit;
+  - 2^33 where an unregistered 2^29 type pads every slot.
+  - Registering lowerings for the unregistered types is the lever for both V* and the prover. All GEMM-coordinate
+    lowerings already share one unit (120,833 + 133,627 nonzeros, 9,473 rows).
+
 ## 6. What would kill it, and the cheapest experiment
 
 - **K1, specific to this candidate: the product kernel.**
@@ -651,6 +718,38 @@ ns per slot per rep, best of 5 reps (ν = 24: of 2), uniform / wide-Morton:
   (uniform columns are the worst case, §5.1). Untried speedups: VPCLMULQDQ, chunked eq tables for the constant product,
   and records from a later round.
 
+### 10 Oct, 10:00Z: on the pod, at ν = 20 and 28
+
+- **The run.** r20261010-093619-c3ee on vy-nebius-2 (Xeon 6776P), `taskset -c 48-79`, 32 OpenMP threads, CPU only.
+  - The run record is art:10599a37d2ecf39f67b5b432241ce858d3647732796059dc47ae7b115747bba5, with the kernel, the
+    dumper (now one plane at a time, byte-identical output) and `out/k1-pod-out.txt`.
+  - The node's other jobs were unpinned Lean builds (load 11–38), so these figures are under contention.
+  - Every rep's round checks and final check passed (M).
+- **Results (M), ns per entry per rep, best of 5 at ν = 20 and of 3 at ν = 28 (mean in brackets):**
+
+  | template | ν = 20, ℓ 15, d 31 | ν = 28, ℓ 23, d 47 |
+  |---|---|---|
+  | uniform columns, row order | 18.2 (20.4) | 32.9 (33.0) |
+  | wide columns, Morton order | 12.2 (15.6) | 19.3 (21.3) |
+  | multiplications per entry, uniform / Morton | 132 / 64 | 272 / 114 |
+  | peak RSS | 0.10 GiB | 37.0 GiB |
+
+  - One rep at ν = 28 takes 8.8 s (uniform) or 5.2 s (Morton). The k1 process takes 294 s or 98 s, which includes the
+    load, zeroing the 35 GiB of records, the untimed initial claim, and four reps with the warm-up. Dumping the ν = 28
+    tables took 648 s at 19.2 GiB.
+- **Reading.**
+  - The kernel runs at the multiplier's throughput: 0.12–0.20 ns per multiplication aggregate, against mulbench's 0.133.
+    ν = 28 costs more per entry only because the degree grows.
+  - The E estimate above (10–16 ns at ν = 20) held for Morton order; uniform columns are 14% above it.
+  - Per session the prover term is `slots × 2^ν × reps × rate`, with ν the template's (§5.4, "10 Oct, 10:00Z"):
+    - 0.10–0.15 s at the GEMM step's 2^18 (16 slots, ℓ = 14, at ν = 20's rates);
+    - 20–35 s at RMSNorm's registered 2^25;
+    - 5.4–9.4 min at an unregistered 2^29 type.
+- **Memory per entry.**
+  - The committed table is P' bits per entry: 8 B at ℓ = 23 and 4 B at ℓ = 14, or 64 B and 32 B encoded at rate 1/8.
+    It is paid once per registered template.
+  - The prover's working set is about 3P + P'/8 bytes per entry: 148 B measured at ℓ = 23, and about 94 B at ℓ = 14.
+
 ## View against the other two candidates
 
 - **Spark-style memory checking** (`note:proofs/20261010T0250Z-draft-f4-spark`). It is dominated:
@@ -684,5 +783,8 @@ with numpy:
 - `k2/k2.py lower` then `k2/k2.py table`: K2, V*'s rows for one registered opening against option 4 at F3's packed
   figures and F6's bounds (§5.4, 10 Oct). The `k2/` directory is
   `art:5d4b3d5f4a0c0a8ae74f549091ec87adbb3a59437e35a9af57eb0eb4d55acf5a`.
+- `python3 vstar_c3.py`, `python3 buckets.py BUCKET_DIR F6_DIR TYPES_DIR`: V* per session with F2's slots, and the table
+  at circuits' 53 bucket rows (§5.4, "10 Oct, 10:00Z"), stdlib only:
+  `art:4e9ff89a15c106ef9b17097d794d8625adafa564200ce8bb34fe88929078dad2`.
 
 Lean citations: `git show origin/main:Security/Proofs/Flock/…` at `dc67b1542`.

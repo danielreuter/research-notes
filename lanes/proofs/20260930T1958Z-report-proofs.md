@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (11:11Z) [open] 11:10Z: #1701 marked ready at 45db11dca (quick tier r20261010-104732-5cbe passed); lander told. F2 confirmed to take slots per menu entry (no global B); no change. Waiting on rec-lean step 3 for the closing train's list, which the lander now runs end to end. Node 1 disk 42%, GPUs idle.
 CHECKPOINT none (10:35Z) [open] 3:36 AM PDT: #1703 (F2, all 8 statements proved, with Menu.InRange) ready at 1892a5e38. PublicAudit listed at 352a6d7c3 (220 guarantees, one restatable frozen entry). rec-lean is merging the closing branch (step 3). B (cut-form proof) is with Daniel as a proofs-owned front.
 CHECKPOINT none (10:10Z) [open] 3:08 AM PDT: candidate 3's V* per session posted (6.8e8-2.55e9 rows, independent of Z; art:4e9ff89a), with K1 at nu=28 (19-33 ns per entry per rep). top now takes the cut-form proof (B) as the GEMM path; compute-accounting sizes it by 5 AM. PublicAudit is being listed (restatable) for the closing train.
 CHECKPOINT none (09:43Z) [open] 2:40 AM PDT: #1703 (F2: 7 of 8 statements proved) is ready at 75b6735b5. #1673 is final at fbac21611; the closing branch waits on rec-lean's step 3. F4 is costing candidate 3's V* per session for circuits (due 3:20 AM) and measuring K1 at nu=28 on node 2. The session bound is now 2^29 (2^28 OLMoE).

@@ -682,6 +682,7 @@ with numpy:
 - `python3 costs.py`: §5.1's prover, proof and verifier columns and the per-rep error.
 - `python3 extra.py`: unique-decoding queries per rate, the `L₀`-weighted term, memory, and V* rows against option 4.
 - `k2/k2.py lower` then `k2/k2.py table`: K2, V*'s rows for one registered opening against option 4 at F3's packed
-  figures and F6's bounds (§5.4, 10 Oct). It is in the handover's `k2/`; its art id is pending.
+  figures and F6's bounds (§5.4, 10 Oct). The `k2/` directory is
+  `art:5d4b3d5f4a0c0a8ae74f549091ec87adbb3a59437e35a9af57eb0eb4d55acf5a`.
 
 Lean citations: `git show origin/main:Security/Proofs/Flock/…` at `dc67b1542`.

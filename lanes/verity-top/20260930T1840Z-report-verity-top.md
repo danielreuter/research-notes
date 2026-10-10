@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:07Z) [open] 04:07Z F3 first numbers in; F1 blocked on R4; #1676/#1677 trains with lander; key check escalated to lean
 CHECKPOINT none (03:52Z) [open] 03:52Z #1677 train 2c6152c20cf2 with lander; key check still with lean/hv; main dc67b1542
 CHECKPOINT none (03:37Z) [open] 03:37Z all fronts acknowledged; #1677 ready; key check with lean (hv); main dc67b1542
 CHECKPOINT none (03:22Z) [open] 03:22Z leaked key narrowed to SSH or Nebius API key, name-only check pending; main dc67b1542

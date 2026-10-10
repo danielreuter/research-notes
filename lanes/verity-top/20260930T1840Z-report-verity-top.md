@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:27Z) [open] 00:27Z: 8090 run of record 322a passed (sent to Daniel); #1650 #1664 #1585 landed, main 1f19e36614de; switching-unit sizing ~220x cheaper sent to Daniel
 CHECKPOINT none (23:54Z) [open] 23:54Z: #1662+#1663 land as one merge (fallback 02:00Z); #1671 final 4a55525ed; #1646 prepped 9cd80f8d6b2f (agreement); 8090 run 322a still running
 CHECKPOINT none (23:30Z) [open] 23:30Z: #1662 unpinned head acd24a293 up (Security PASS ab05); infra review 9/11 in, compile 23:45Z; 8090 verdict pending
 CHECKPOINT none (23:15Z) [open] 23:15Z: main 57bb9244059c (#1620+#1652); n1 running #1664, 5ca0, 6073 queued; docs sidebar restructure pushed (89e9138); 8090 verdict ~23:25Z; infra review due 23:45Z

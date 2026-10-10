@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (07:49Z) [open] 07:50Z: closing head 91c524f75 (Security + verifier pass; Proofs only gap 8's sorry). Wiring (i), PublicAudit on (B), and (ii) at hidingGap running off it. F4 at packed V* costs: candidate 3 holds (9.2-14.4x at 2^20; art:5d4b3d5f). F2 round 2 in; Room per draw. Finder passes at lean's fix.
 CHECKPOINT none (07:03Z) [open] 07:07Z: F1 vacuity -> (c) per lean+top (restage inner at the Definition, 85 lean step with --program, in rec-stage-2's PR); train re-prep on main 160c19 asked; n1 Lean-build freeze relayed to workers
 CHECKPOINT none (06:34Z) [open] 06:33Z: watch tick; #1692 ready (quick tier 1c74); eight workers running toward the 07:30Z cut
 CHECKPOINT none (06:26Z) [open] 06:27Z: eight completions handled; lean: audit fixed (9ce854109), finder after cut, wiring (i) go, R4 after finder; top answered F2's four; #1674 ready; #1692 (cache.py py3.10) opened; rec-lean told not to re-pin RecursiveAudit

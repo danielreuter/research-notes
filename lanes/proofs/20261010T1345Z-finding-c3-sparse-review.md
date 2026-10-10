@@ -8,9 +8,6 @@ repo: danielreuter/verity
 origin: F4 design agent (bc-74de88e1), review of #1710 (RecSparse_v1 at 1835d3cf9) for the proofs coordinator bc-8416bc72
 ---
 
-# #1710 RecSparse_v1: the six encodings against F4 candidate 3 (note:proofs/20261010T0250Z-draft-f4-bitsumcheck)
-
-
 # Candidate 3's sparse phase as built (PR #1710, `RecSparse_v1`): review against the F4 note
 
 10 Oct, 13:45Z. Reviewed [PR #1710](https://github.com/danielreuter/verity/pull/1710) at its head 1835d3cf9: the PR body, `verity/ml/flock/python/verity_flock/rec_sparse.py` and `verity/ml/flock/tests/test_rec_sparse.py`. The design under review is the note `note:proofs/20261010T0250Z-draft-f4-bitsumcheck`, candidate 3 with w = 1. Its "10 Oct, 10:00Z" subsection of §5.4 holds the joint sumcheck across F2-slots and the stacked templates.

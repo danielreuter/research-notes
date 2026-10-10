@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:42Z) [open] main fa1030bd5 (#1709, #1678+#1714: PoUS Lean verifier of record); closing check cb20 failed on unexported rec-coins fixture, infra exporting, relaunch on 0f0bbda3b next
 CHECKPOINT none (16:15Z) [open] main a38a9d0e5 (#1713+#1715); closing #1716 full check 0f0b running since 16:05Z, lands via trailer; #1717, #1711 on checks; #1712 with Daniel
 CHECKPOINT none (16:00Z) [open] main cca22e18e; #1717 checking on node 2 (unblocks check publishing); closing #1716 step 3e; #1712 with Daniel; machines below thresholds
 CHECKPOINT none (15:45Z) [open] main cca22e18e; #1717 (circuit-check cache fix, unblocks check publishing) ready, checking on node 2; closing #1716 step 3e; #1712 with Daniel

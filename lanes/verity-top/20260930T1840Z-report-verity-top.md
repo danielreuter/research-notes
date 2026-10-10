@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (11:15Z) [open] 11:15Z: inbox empty; #1706 pinned menu ready; #1701 ready at 45db11dca; lander takes re-preps; closing train list waits on rec-lean step 3
 CHECKPOINT none (11:00Z) [open] 11:00Z: inbox empty; outer proof 3-23 h public on dp4t + per-bucket slots (ruled, sent to Daniel); main a860a718452e (#1705, #1696); #1701 checking a7dbbd3822fc
 CHECKPOINT none (10:45Z) [open] 10:45Z: inbox empty; closing head 08235861a with collision finder, whole-tree audit running; train 62a063ca1fc5 replaces d7e946defc3f; outer-proof composed rows due 11:40Z
 CHECKPOINT none (10:30Z) [open] 10:30Z: inbox empty; Decision 6 (cut-form GEMM proof) with Daniel; uncut GEMM accepted end to end on main as stopgap; outer proof 58-100 prover-h/audit, per-workload at 12:00Z; PublicAudit listed (Security 220) for closing branch

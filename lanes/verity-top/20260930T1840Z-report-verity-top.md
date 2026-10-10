@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (03:10Z) [open] 03:10Z key-rotation decision sent to Daniel, infra staging; F6 taken (table 07:00Z); main dc67b1542
 CHECKPOINT none (02:52Z) [open] 02:51Z node 2 back to 65% and open; main 1593a685d; re-records due ~04:00Z
 CHECKPOINT none (02:37Z) [open] 02:36Z circuits ok'd node 2 jobs/hf+cov deletion; Security lock re-records due ~04:00Z; gap 8 refusals due 05:30Z
 CHECKPOINT none (02:21Z) [open] 02:21Z fronts announced; d404 faulty unit caught; node 2 closed to launches pending circuits' yes on jobs/hf+cov

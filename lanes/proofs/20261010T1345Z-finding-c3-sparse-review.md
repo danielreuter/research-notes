@@ -138,3 +138,10 @@ At ν = 18, ℓ = 14, S = 16, T = 4, per rep:
   - R₂ gains `claim`, and the hidden circuit's registration gains τ and the stacked table.
   - No new named assumption: the shared reads of h, `claim` and τ use the registered-read binding (cr/sha-512) that the discharge already uses for `rec-acc`.
   - M1 (holoInner's model and its executable verifier) has to exist before the bridge can target it.
+
+## (c) T against proofs_rows (13:55Z)
+
+1. My 10:00Z table counted the distinct templates over all of a bucket's unit types (F6's per-bucket list for the body, `padding.json` for the tails), never the templates a session drew, so its T is already the bound, and I withdraw the T flag in (a)'s "For top". `proofs_rows` applies the same rule: it imports my `buckets.template` and `vstar_c3` (art:4e9ff89a) and runs them over each menu entry's `unit_types`.
+2. I compared against the pinned menu (#1706's art:2b16d554, `proofs-rows/buckets.json` at each entry's chosen B). 31 of my 53 rows have a menu entry with the same unit types, and those agree exactly on T, ν, ℓ, instances, `vstar_rows` and `vstar_rows_if_T_types` at my B (16, or 1 in a tail). At the menu's B, up to 1,024 slots, V* is at most 1.0% higher, from the extra slot rounds and the S term. dp4t buckets the other 22 differently, splitting off rare types and cap pieces; on 19 of them the menu's V* is 6–13% lower, because each entry holds fewer templates, and on two it is the same.
+3. The largest difference is mistral-7b's 2^31.8 body row, +160% in the menu. Its cap-pieces entry also holds `RMSNormFusedCuda_v2{N=4096}`, whose registered unit is 2^25, so that entry's template is (25, 20) with T = 2, where my row had the attention unit (18, 14) with T = 1. My table put RMSNorm in mistral's 2^30.3 row instead. A type moved between buckets; this is not a difference in how T is counted.
+4. No reprice. The menu's 90 entries span 6.83e8–2.35e9 V* rows (2.55e9 with T = types), against my 6.82e8–2.55e9, with T from 1 to 3. None reaches 2^32 rows, and 43 sit above D = 2^32 by circuits' rule.

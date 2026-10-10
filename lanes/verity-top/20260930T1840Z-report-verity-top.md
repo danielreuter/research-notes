@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:50Z) [open] 01:50Z: main 1593a685d918 (#1671 landed); K=2 only in staging, fork term stays 2^-168.5; re-pin blocked by #1656 event form until rule fix; #1606 train b9adbfa4e355
 CHECKPOINT none (01:34Z) [open] 01:34Z: #1606 ready for agreement train (be95621fe); #1684 node-side launch hold incl. older checkouts; #1656 records all passed; joint build 01:30Z
 CHECKPOINT none (01:19Z) [open] 01:19Z: packing + gap 4 unit soundness built (K=2, fork 2^-183.5); same_shape -> prover-side check; Notion sync live; main 26d36b7a3
 CHECKPOINT none (01:03Z) [open] 01:03Z: main 26d36b7a3 (#1669+#1672 landed); #1671 rerun on main; V* full draw due ~05:00Z, (ii) build 06:00Z; faulty-unit verdicts ~02:15Z

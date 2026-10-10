@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:06Z) [open] 02:05Z Daniel reset to sampled proofs (F1-F7) recorded; rollout due 03:30Z; inbox empty
 CHECKPOINT none (01:50Z) [open] 01:50Z: main 1593a685d918 (#1671 landed); K=2 only in staging, fork term stays 2^-168.5; re-pin blocked by #1656 event form until rule fix; #1606 train b9adbfa4e355
 CHECKPOINT none (01:34Z) [open] 01:34Z: #1606 ready for agreement train (be95621fe); #1684 node-side launch hold incl. older checkouts; #1656 records all passed; joint build 01:30Z
 CHECKPOINT none (01:19Z) [open] 01:19Z: packing + gap 4 unit soundness built (K=2, fork 2^-183.5); same_shape -> prover-side check; Notion sync live; main 26d36b7a3

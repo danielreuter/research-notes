@@ -5,6 +5,9 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (04:23Z) [open] #1627/#1662/#1663/#1673 re-recorded on main 1593a685d (Security PASS, 0 failures each); bodies updated; posted ready to the lander; #1674 being merged forward
+CHECKPOINT none (04:15Z) [open] keys restatement opened as #1686 (fe1ffff61; records run c344 passes, lock unchanged); quick tier r20261010-041445-5513 running
+CHECKPOINT none (04:08Z) [open] K1 does not fire (ν=20: ~10–16 ns/slot/rep on 32 pod threads, E; 150 ns line); F4 closed at candidate 3, w=1; kernel art:1f10f57c
 CHECKPOINT none (03:54Z) [open] rec-guard back: route (a) locked/built (92e0e1adb, in ae2718c2b); witness suite 9/9; honest V* sessions fail Typable (R4), so R4 is on F1's gate; rec-guard resumed on fixture re-record + R4 sizing
 CHECKPOINT none (03:48Z) [open] top confirmed F4 at candidate 3, w=1; types per shape hidden (padded to the menu's public bound); H2 asked of lean before F1's public-unit skeleton fixes the game cut; K1 and F2 running
 CHECKPOINT none (03:43Z) [open] F4 decided: candidate 3 (bit-committed sumcheck) at w=1, all three drafts agree; notes synced, scripts art:dc659142, art:a86e936b; K1 micro-kernel running locally; F2 still building

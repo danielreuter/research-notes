@@ -22,23 +22,23 @@ and proofs 119. The merge thread still carries most of them (about 520), nearly 
 There were no duplicate doorbells, pauses, stale footers or "nothing to do" replies. (`pr-captain` and `ci` share one
 inbox, so a per-route count shows ci's doorbells twice.)
 
-- **A retired name still took tags.** top's 19:33Z ask (1791574405.516769), about how Daniel likes reports, was
+- **A retired name still took tags.** top's 12:33 PM PT ask (9 Oct) (1791574405.516769), about how Daniel likes reports, was
   addressed to `@console` by its group id, about 18 hours after console was retired. Console's route was closed and its
   registry entry gone, but its Slack group was still enabled, so the tag went through and rang no one. It sat 21 hours,
-  and `traffic` listed it as an ask with no addressee. top's 22:53Z infra-review roll call tagged `@console` too.
+  and `traffic` listed it as an ask with no addressee. top's 3:53 PM PT infra-review roll call tagged `@console` too.
   Everyone else in that roll call was rung.
   - I disabled the `@console` group by hand. `usergroups.enable` undoes it.
   - In #1722, `groups sync` disables the group of a retired name (no handle, inbox closed). `traffic` reports a leading
     group id that no handle has as dropped, and an ask with no addressee reads "to no one it can ring". Routing is
     unchanged.
   - I told top in the thread that its four questions are still open.
-- **The router outage (00:21Z–08:30Z).** The events route answered 404 and no doorbell rang until `router.json` went
+- **The router outage (5:21 PM to 1:30 AM PT, 9–10 Oct).** The events route answered 404 and no doorbell rang until `router.json` went
   back to `cli`. From the lander's friction pass, #1719: in server mode each send first checks that the route answers.
   When it doesn't, the sender rings the doorbells itself and alerts `router.json`'s owner, urgently, once per 6 hours.
   The route still answers 404 today, so `cli` stays.
 - **Owners.** #1719 also adds a repository test that `research msg owners` names an owner for every tracked path.
   1,231 files had none, mostly `archive/` (now proofs) and `benchmarks/numerical/` (now compute-accounting).
-- **Asks.** proofs' ask to ci for #1703 (10:35Z) is 6 hours old. vy-monitors' OOM alert (08:23Z) is the usual
+- **Asks.** proofs' ask to ci for #1703 (3:35 AM PT) is 6 hours old. vy-monitors' OOM alert (1:23 AM PT) is the usual
   one-wake kind.
 
 ## 9 Oct

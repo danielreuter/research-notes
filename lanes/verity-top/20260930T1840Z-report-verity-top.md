@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (01:19Z) [open] 01:19Z: packing + gap 4 unit soundness built (K=2, fork 2^-183.5); same_shape -> prover-side check; Notion sync live; main 26d36b7a3
 CHECKPOINT none (01:03Z) [open] 01:03Z: main 26d36b7a3 (#1669+#1672 landed); #1671 rerun on main; V* full draw due ~05:00Z, (ii) build 06:00Z; faulty-unit verdicts ~02:15Z
 CHECKPOINT none (00:47Z) [open] 00:47Z: main fa977df9f (#1646 landed); #1663 ready for #1662+#1663+#1666 merge; nodes renewed 72h by Daniel; infra review fixes assigned
 CHECKPOINT none (00:32Z) [open] 00:32Z: all leads moving; #1662+#1666 c9aa, #1646 7dc6, #1661 3885 checks running; #1606 re-record cd9a in audit

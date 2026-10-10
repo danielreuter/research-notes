@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:45Z) [open] 10:45Z: inbox empty; closing head 08235861a with collision finder, whole-tree audit running; train 62a063ca1fc5 replaces d7e946defc3f; outer-proof composed rows due 11:40Z
 CHECKPOINT none (10:30Z) [open] 10:30Z: inbox empty; Decision 6 (cut-form GEMM proof) with Daniel; uncut GEMM accepted end to end on main as stopgap; outer proof 58-100 prover-h/audit, per-workload at 12:00Z; PublicAudit listed (Security 220) for closing branch
 CHECKPOINT none (10:15Z) [open] 10:15Z: inbox empty; every verifier check seen refusing at closing head; candidate 3 V* scales with template (6.8e8-2.55e9 rows/session, multi-block); cut-form GEMM proof sizing due 11:30Z, decision 12:00Z
 CHECKPOINT none (10:00Z) [open] 10:00Z: inbox empty; PublicAudit to be listed in closing train with a restatable entry (Security 220); #1701/#1703/#1705/#1696 trains prepped; lean's open lane due ~10:00Z

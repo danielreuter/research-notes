@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (04:51Z) [open] 04:51Z Nebius key live; infra told to deactivate old key; guard boot fix #1689 pending verify; trains #1686/#1687 prepped
 CHECKPOINT none (04:36Z) [open] 04:36Z Nebius key fingerprint check pending (lean); #1677+#1676 train 790f on node 2; 5 Security-only PRs + #1687 ready
 CHECKPOINT none (04:22Z) [open] 04:22Z Nebius SA key rotation steps sent to Daniel; fingerprint check pending (lean); F4 closed at candidate 3; #1686 draft
 CHECKPOINT none (04:07Z) [open] 04:07Z F3 first numbers in; F1 blocked on R4; #1676/#1677 trains with lander; key check escalated to lean

@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (00:47Z) [open] 00:47Z: main fa977df9f (#1646 landed); #1663 ready for #1662+#1663+#1666 merge; nodes renewed 72h by Daniel; infra review fixes assigned
 CHECKPOINT none (00:32Z) [open] 00:32Z: all leads moving; #1662+#1666 c9aa, #1646 7dc6, #1661 3885 checks running; #1606 re-record cd9a in audit
 CHECKPOINT none (00:27Z) [open] 00:27Z: 8090 run of record 322a passed (sent to Daniel); #1650 #1664 #1585 landed, main 1f19e36614de; switching-unit sizing ~220x cheaper sent to Daniel
 CHECKPOINT none (23:54Z) [open] 23:54Z: #1662+#1663 land as one merge (fallback 02:00Z); #1671 final 4a55525ed; #1646 prepped 9cd80f8d6b2f (agreement); 8090 run 322a still running

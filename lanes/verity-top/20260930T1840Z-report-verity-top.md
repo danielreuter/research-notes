@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (06:49Z) [open] 06:49Z: inbox empty; n1 Lean hold (65.5%, slowing); vy-cpu-1 swept to 66%; 07:30Z heads in; key still with Daniel
 CHECKPOINT none (06:35Z) [open] 06:35Z: inbox empty; n1 closed to new Lean builds (inodes 64.9%); 07:30Z heads in; key still with Daniel
 CHECKPOINT none (06:20Z) [open] 06:20Z: inbox empty; 07:30Z build heads in (Lean 9ce854109, verifier 8d5ae18be); F6 done; key still with Daniel
 CHECKPOINT none (06:05Z) [open] 06:05Z: inbox empty; F6 done (#1691 ready); six trains prepped on dc67b1542; merged verifier head due 06:15Z; key still with Daniel

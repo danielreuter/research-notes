@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (08:46Z) [open] 08:46Z: inbox empty; waiting on closing-branch full check on node 2 and proofs' six-head train list
 CHECKPOINT none (08:42Z) [open] 08:42Z: inbox empty; F2 session bound final (unsplit dp4 at B=16, 2^32 cap, pending validation prove); closing branch full check r20261010-082109-92f8 on node 2; proofs to post six-head train
 CHECKPOINT none (08:17Z) [open] 08:16Z: inbox empty; closing tree sorry-free at 39743d067, landing plan open; trains A/B running; n1 inodes 64.1%; key still with Daniel
 CHECKPOINT none (08:02Z) [open] 08:02Z: inbox empty; compute accounting nudged on F6 prover column; closing head waits on wiring (i); trains A and B running; key still with Daniel

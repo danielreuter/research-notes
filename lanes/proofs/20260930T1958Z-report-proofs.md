@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (08:49Z) [open] 01:50 PT: lander takes the closing train (stack, #1673, closing PR, one --agreement check). The stack is merged with main d1f4d97de (4c02a21b4/dbd0c82c0/ac88eab3a/765bde2d5); #1673 is next. rec-lean's closing branch has hF (da051be93) and main merged, full check r20261010-082109-92f8 running on n2, then merges the stack, #1673 and rec-thm's (ii) at hidingGap (edce48cae; Security 219 passes, no statement change). Session bound final: dp4 buckets at B=16, node cap 2^32 (top 1791621286).
 CHECKPOINT none (08:03Z) [open] 08:10Z: stack #1627/#1662/#1663/#1674 being merged onto main d1f4d97de and re-recorded (ci's conflict on ZkReg.Defs reads). Lean ruled (5): hF (Tags.find?) replaces hT, in rec-lean's wiring. Pointed compute-accounting at GEMM hill and 322a prover runs for F6's prover column.
 CHECKPOINT none (07:49Z) [open] 07:50Z: closing head 91c524f75 (Security + verifier pass; Proofs only gap 8's sorry). Wiring (i), PublicAudit on (B), and (ii) at hidingGap running off it. F4 at packed V* costs: candidate 3 holds (9.2-14.4x at 2^20; art:5d4b3d5f). F2 round 2 in; Room per draw. Finder passes at lean's fix.
 CHECKPOINT none (07:03Z) [open] 07:07Z: F1 vacuity -> (c) per lean+top (restage inner at the Definition, 85 lean step with --program, in rec-stage-2's PR); train re-prep on main 160c19 asked; n1 Lean-build freeze relayed to workers

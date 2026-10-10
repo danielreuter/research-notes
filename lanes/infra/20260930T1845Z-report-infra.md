@@ -268,3 +268,6 @@ Idle GPU-hours over the 24 h to 16:00Z: about 0.1 held on both nodes together. N
 
 ## Daily top 3 GPU wasters, Oct 9 (posted 9:01 AM PDT, ts 1791561674.899619): none to name
 Idle GPU-hours over the 24 h to 16:00Z: 0.10 idle of 0.28 held, all on node 2 (node 1's `held-idle-hourly.jsonl`): research's `vy-pous-quiet` leases 0.06 of 0.22, compute accounting's `pearl_c_vllm/window.sh` checks 0.04 of 0.06 (node 2's `lease-usage.jsonl`). Node 1 held nothing: Prometheus has no `pod` series for the window and its `lease-usage.jsonl` no leases ending in it. Both nodes' GPUs sat unheld while checks and trains ran on CPU.
+
+## Daily top 3 GPU wasters, Oct 10 (posted 9:01 AM PDT, ts 1791648109.007689): none to name
+Idle GPU-hours over the 24 h to 16:00Z: 1.51 idle of 1.56 held (of 384 on both nodes; node 1's `held-idle-hourly.jsonl`). Node 1 1.46: Prometheus attributes it to nine Kueue `gpu-pool-*` pods (0.04–0.28 GPU-h each); the hourly file splits it as `adhoc:ubuntu` 0.95 (9 Oct 17–19Z, 10 Oct 04Z) and `lease pool, not leased` 0.51. Node 2 0.05: research's `vy-pous-quiet` leases (07–08Z); its `lease-usage.jsonl` has no lease ending in the window. GPUs otherwise unheld while checks and trains ran on CPU.

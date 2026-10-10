@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (21:01Z) [open] 2:05 PM PT: early warning for #1716@4e460cc93 passed (21b2, daa4); closing f4be + combined 9fee on node 1. Running: F1 re-prove (rec-stage-2, node 1, from b795ecbde), #1709 Lean (rec-guard), #1710 Lean (rec-lean, ~1,085 lines in scope), F4 claims per shape for lean's Menu (due 2:45 PM PT). Answered top: claims = 2 + 2·regions; Menu.Staged no soundness premise.
 CHECKPOINT none (17:46Z) [open] 10:50 AM PT: R4 done (5836d2522, records b5ff/9b2f pass; PublicAudit, RecursiveRanRegistered, RecursiveSound restated at hidden outputs); opened #1728 stacked on #1716, landing after the train.
 CHECKPOINT none (16:53Z) [open] 9:55 AM PT: #1716 quick tier found a case clash (VBridge/PartS.lean vs Parts.lean); renamed to PartsCover.lean at 651d37cde (no record moves); new quick tier cd5a on node 1; lander asked to relaunch the train at the new head.
 CHECKPOINT none (16:44Z) [open] 9:43 AM PT: witness PR #1724 opened (draft, stacked on #1716, bfb7331f1, records and gate test pass); its f1-gate fixture and rec-coins both need infra's public export before a node check passes.

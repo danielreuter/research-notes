@@ -5,6 +5,8 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (03:54Z) [open] rec-guard back: route (a) locked/built (92e0e1adb, in ae2718c2b); witness suite 9/9; honest V* sessions fail Typable (R4), so R4 is on F1's gate; rec-guard resumed on fixture re-record + R4 sizing
+CHECKPOINT none (03:48Z) [open] top confirmed F4 at candidate 3, w=1; types per shape hidden (padded to the menu's public bound); H2 asked of lean before F1's public-unit skeleton fixes the game cut; K1 and F2 running
 CHECKPOINT none (03:43Z) [open] F4 decided: candidate 3 (bit-committed sumcheck) at w=1, all three drafts agree; notes synced, scripts art:dc659142, art:a86e936b; K1 micro-kernel running locally; F2 still building
 CHECKPOINT none (03:37Z) [open] 03:50Z: Daniel's reset staffed: F1 gate staging (85-rec-reprice K=4096 N=2, node 1), public-unit RecursiveAudit skeleton (bc-66706a46, after the Build.row fix PR), keys (bc-c7a4c235), F2 statements (bc-3b30a3fc), F4 x3 (Spark draft in; recommends bit-committed sumcheck). Lean's G rulings 1-4 made (all yes). (ii) at Firewall.run proved (6ccd6c758); (B) phase 2 running; gap 8 needs (5)/(6) refusals. #1677 ready; #1627/#1662/#1663/#1673 re-recording on main.
 CHECKPOINT none (01:55Z) [open] 02:02Z: gap 8 blocked (loads_of_verifies false: check 1 not in model, no session-statement tie, bindings unpinned, Vs free); call asked of top and lean, hv refusals needed by 05:30Z. Top: _hreg is the subject (shape rule gets a subject category); K stays 2^-168.5; (a') go, measurement first; fold on hold. Combined (a')+(B)+per-registration-key plan due 03:00Z (bc-ad20837e).

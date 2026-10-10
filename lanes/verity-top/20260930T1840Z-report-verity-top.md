@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:00Z) [open] 11:00 AM PT: closing train checking on node 1; R4 fixed in draft #1728 (after closing train); infra on source-tree loss
 CHECKPOINT none (17:45Z) [open] 10:45 AM PT: closing train checking on node 1; infra assessing node-1 source-tree loss (7 runs, uncited so far); main d59e267ac
 CHECKPOINT none (17:30Z) [open] 10:30 AM PT: closing train 975d53737c3a checking on node 1; #1710 prepped ba681d57a795 (agreement); main d59e267ac
 CHECKPOINT none (17:20Z) [open] 10:20 AM PT: closing train 975d53737c3a checking on node 1; #1710 ready d4ce10b6e; ci preps #1723/#1721/#1727 on d59e267ac

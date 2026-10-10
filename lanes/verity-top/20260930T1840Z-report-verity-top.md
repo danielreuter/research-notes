@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:45Z) [open] 11:45 AM PT: main 7c369db60 (#1720 landed); closing train af2d running on node 1, lands ~2-2:30 PM PT; node 1 slots reserved for fixture-pinned checks; fix 2 train cf47639f6e74 prepped
 CHECKPOINT none (18:30Z) [open] 11:30 AM PT: closing train af2d checking on node 1; claim layout agreed (circuits+proofs); main 0ad041ef3
 CHECKPOINT none (18:15Z) [open] 11:15 AM PT: main 0ad041ef3 (#1717, #1719 landed); closing train af2d checking on node 1; circuits on RecSparse netlist, claim opening, then end-to-end V* session
 CHECKPOINT none (18:00Z) [open] 11:00 AM PT: closing train checking on node 1; R4 fixed in draft #1728 (after closing train); infra on source-tree loss

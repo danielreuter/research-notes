@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (10:15Z) [open] 10:15Z: inbox empty; every verifier check seen refusing at closing head; candidate 3 V* scales with template (6.8e8-2.55e9 rows/session, multi-block); cut-form GEMM proof sizing due 11:30Z, decision 12:00Z
 CHECKPOINT none (10:00Z) [open] 10:00Z: inbox empty; PublicAudit to be listed in closing train with a restatable entry (Security 220); #1701/#1703/#1705/#1696 trains prepped; lean's open lane due ~10:00Z
 CHECKPOINT none (09:54Z) [open] 09:54Z: inbox empty; guard confirmed on fresh VMs (Nebius secret still set); GEMM acceptance: uncut probe (A) reports 12:00Z, cut-form proof (B) comes to architecture first; candidate 3 fit at 2^29 due 10:30Z
 CHECKPOINT none (09:39Z) [open] 09:39Z: inbox empty; cap corrected to 2^29 (C-Flock range), GEMM two-input-group widening with compute-accounting (PR by 16:00Z, gates every audit); candidate 3 bucket rows due 10:30Z; main 25ccf46f19ca

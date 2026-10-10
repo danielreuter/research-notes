@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:46Z) [open] main cca22e18e (#1704+#1703, F2 proved); #1678+#1714 ready for one check; closing branch re-merging main; Daniel updated 14:45Z
 CHECKPOINT none (14:30Z) [open] main 17c084c54; #1678 + #1714 (flaky-test fix) to train together; closing branch re-merging main
 CHECKPOINT none (14:15Z) [open] main 17c084c54; #1678 full check running; closing branch re-merging main; #1710 re-records after review changes
 CHECKPOINT none (14:02Z) [open] main 17c084c54; #1678 ready at c38d88ec6, full check running; F4 V* needs no repricing; closing branch re-merging main

@@ -56,7 +56,8 @@ tables) are in the evidence store as `art:dc659142f1e5fc6ad5866fc36e2123997ae411
     about 2^15–2^16 nonzeros per session.
 - **Kill criterion.** K1: the degree-d product kernel runs near the naive kernel's 2–3.4 ns per multiplication, which
   puts the slot sumcheck above 150 ns per slot per rep at ν = 20. Test it with a single-file micro-kernel over
-  `opcount.py`'s matrix, without a pod.
+  `opcount.py`'s matrix, without a pod. Run since: it does not fire (278 ns per slot per rep on one local thread, 75 on
+  four, M; about 10–16 on the pod's 32, E; "K1 result").
 - **Recommendation.** Candidate 3. Spark is dominated on Lean, prover, proof size and rounds (it has 291–627 live coin
   rounds per rep against 24–32). The lookup candidate collapses to Spark in characteristic 2. Fall back to Spark only
   if K1 fires.
@@ -448,7 +449,7 @@ across the pair's block. The count omits the constant's scaling (≤ +10%).
     degree-3 sumcheck kernel ran at 31–58 ns per term (M), about 2–3.4 ns per multiplication in this model.
   - At that efficiency the slot sumcheck is 0.33–1.1 µs per slot for two reps at ν = 20, which is worse than Spark.
   - **Kill line:** above 150 ns per slot per rep at ν = 20, or two reps at ν = 24 at or above Spark's 4.1 s.
-  - **Cheapest experiment** (local, one file, no pod; proposed, not run, per the brief): a Rust or C kernel of the
+  - **Cheapest experiment** (local, one file, no pod; run since, see "K1 result"): a Rust or C kernel of the
     per-pair coefficient-form product (c varying affine factors times a constant product), on upstream's GF(2^128)
     multiplier, over `opcount.py`'s uniform template at ν = 20, at 1 and 32 threads. Then compare ns per slot with the
     C column of §5.1. A 2× margin either way is decisive.
@@ -462,6 +463,63 @@ across the pair's block. The count omits the constant's scaling (≤ +10%).
   - **Experiment:** the D1 sorry-skeleton (§4), half a day.
 - **Not a killer: unique decoding.** It is needed by every option-5 candidate (Spark's draft reaches the same conclusion
   for `E` and `com_s`), and costs queries only.
+
+## K1 result
+
+Run on the proofs coordinator's VM, no pod. The kernel, its driver and its output are
+`art:1f10f57cfc19a1f2248f0c931a56d3d5a377c6fa2e1e132446e85c98aa8fabcd`.
+
+- **Verdict: K1 does not fire.** At ν = 20 (ℓ = 15, d = 31, uniform columns) the slot sumcheck takes 278 ns per slot per
+  rep on one thread here and 75 on four (M), and about 10–16 ns on the pod's 32 threads (E), against the 150 ns line.
+  One thread here is above the line and two are at it (147, M); the line prices the deployed prover. At ν = 24 two reps
+  take about 0.29–0.77 s on the pod (E; up to 2.0 s in the pessimistic case below), against Spark's 4.1 s.
+- **The kernel** (`k1.c`, C, gcc 13.3 `-O3 -march=native`, OpenMP):
+  - Multiplier: PCLMULQDQ on 128-bit registers, mod `x^128 + x^7 + x^2 + x + 1`. Karatsuba takes 3 carry-less
+    multiplies and the reduction 2, and `a·p + b·q` shares one reduction. Not upstream's multiplier. VPCLMULQDQ (4
+    multiplies per instruction) is available here and unused.
+  - Per pair: the factors whose values differ across the pair are multiplied out in coefficient form; the rest go into
+    one constant, which is folded into the first varying factor. Pairs whose value factor is 0 on both sides (padding)
+    are skipped.
+  - Rounds 1–4 run from the bit planes. After s rounds, a factor's value is `cst_j + β_s[the block's 2^s bits]`, with
+    one table shared by every eq factor, so binding costs nothing there. Round 4 writes the factor records (62 MiB at
+    ν = 20, 1.2 GiB at ν = 24), and every later round binds and evaluates in one pass.
+  - Each round's `g(0) + g(1)` is checked against the claim, and Φ of the final record against `g_ν(r_ν)`; all 68 timed
+    reps pass. The multiplier agrees with a bitwise reference.
+
+ns per slot per rep, best of 5 reps (ν = 24: of 2), uniform / wide-Morton:
+
+| ν (ℓ, d) | multiplications per slot, kernel (M) vs `opcount.py` (C) | 1 thread (M) | 4 threads (M) | pod, 32 threads (E) |
+|---|---|---|---|---|
+| 16 (11, 23) | 81 / 44 vs 98 / 50 | 186 / 132 | 50 / 36 | 6.5–10.7 / 4.6–7.6 |
+| 20 (15, 31) | 132 / 64 vs 163 / 74 | 278 / 183 | 75 / 49 | 9.7–16.0 / 6.4–10.5 |
+| 24 (19, 39) | 196 / 87 vs 245 / 102 | 397 / 250 | 124 / 70 | 13.9–22.8 / 8.8–14.4 |
+
+- **Rates here (M).**
+  - The raw multiply is 1.51 ns per thread (8 independent chains; 4.64 ns latency).
+  - The kernel runs at 2.0–3.0 ns per multiplication per thread, 51–75% of that throughput.
+  - Four threads are 3.2–3.8× faster than one. The kernel is compute-bound: its 264 B of memory traffic per slot per
+    rep (C) would need only 1.8 GB/s at the kill line.
+- **The CPUs.**
+  - This VM: `lscpu` names it "Intel(R) Xeon(R) Processor" under KVM. It is family 6, model 207 (5th-generation Xeon
+    Scalable, Emerald Rapids), with 4 vCPUs, one thread per core, 2 MiB L2 per core and 320 MiB L3.
+  - Other work held the VM's load at 1.1–1.8 during the runs, so 4-thread reps vary by up to 2×; the best is taken.
+  - The note's M rates came from a different machine: vy-nebius-2's Xeon 6776P (Xeon 6, Granite Rapids, one core
+    generation later), at 32 threads, with upstream b684b12's multiplier (rec-holo §4.1). That multiplier runs at 4.0 ns
+    on one thread there, against this kernel's 1.51 here.
+- **The pod estimate (E).**
+  - It is the 1-thread time here, divided by upstream's multiplier's 32-thread speedup on the pod: 4.0 / 0.23 to
+    4.0 / 0.14 = 17–29× (C from M). It takes a pod thread to be as fast as a thread here.
+  - If a pod thread were instead as much slower as upstream's multiply is slower than this one (2.64×), ν = 20 would be
+    26–42 ns: still 3.5–6× under the line.
+- **Against §5.1 (C).** The slot sumcheck for two reps comes to 0.6–1.4 ms, 13–34 ms and 0.29–0.77 s at ν 16, 20 and
+  24 (E). That is at or under §5.1's 0.9–2.9 ms, 22–79 ms and 0.48–1.89 s, so §5.1 stands as a conservative price.
+  - The kernel does 80–89% of `opcount.py`'s multiplications. It counts a factor as varying only when its values differ
+    across the pair, and it skips padding pairs.
+  - On this VM's 4 threads, two reps at ν = 24 take 4.16 s (C from M). That compares 4 vCPUs with Spark's 32-thread
+    price.
+- **Not measured.** The pod itself (no pod run), upstream's multiplier and field representation, and real templates
+  (uniform columns are the worst case, §5.1). Untried speedups: VPCLMULQDQ, chunked eq tables for the constant product,
+  and records from a later round.
 
 ## View against the other two candidates
 

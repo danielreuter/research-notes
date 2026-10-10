@@ -52,8 +52,9 @@ tables) are in the evidence store as `art:dc659142f1e5fc6ad5866fc36e2123997ae411
     below Spark's measured-rate cost (0.26–0.31 s), and +34–107% of B_rep's 88 ms or +1–3.5% of the `--zk` prover's
     2.68 s.
   - Inner proof: +23 KiB plus one registered opening.
-  - V*: +1.0–1.7e9 rows per session, against option 4's 2.4–3.4e10 (14–33×, C/E). Option 5 overtakes option 4 above
-    about 2^15–2^16 nonzeros per session.
+  - V*: +8.9–9.9e8 rows per session (K2's count, C), against option 4 at F3's packed figures: 9.1–12.8e9 for the GEMM
+    step (9.2–14.4×) and 1.2–1.7e9 for SiLU·mul (1.25–2.0×). Option 5 overtakes option 4 above 2^15.6–2^16.5 nonzeros
+    per session, or 2^18.8–2^19.7 for SiLU·mul. No bound on F6's menu is that small (§5.4, 10 Oct).
 - **Kill criterion.** K1: the degree-d product kernel runs near the naive kernel's 2–3.4 ns per multiplication, which
   puts the slot sumcheck above 150 ns per slot per rep at ν = 20. Test it with a single-file micro-kernel over
   `opcount.py`'s matrix, without a pod. Run since: it does not fire (278 ns per slot per rep on one local thread, 75 on
@@ -419,7 +420,8 @@ across the pair's block. The count omits the constant's scaling (≤ +10%).
 - **In V* (B), rows per session (E/C):**
   - registered opening's hashing: about 1.0–1.7e9 (E). Level 0's 251 queries plus the later levels' queries doubled
     make about 0.6–1.0× the hashed queries of the inner table's two reps, priced at rec-holo §5's 1.7e9 rows per session
-    for those.
+    for those. Counted since (K2, §5.4, 10 Oct): 5.9e8–1.9e9 at m 22–33, 8.7–9.7e8 at 2^20, 0.70–0.79× the inner
+    table's two reps (C).
   - algebra: 1,722 × 2,187 ANDs (Karatsuba 3^7) = 3.8e6 (C);
   - firewall commitments to about 70 more inner messages: 1e7 (C, at 142,282 rows per hm96 leaf);
   - root_τ read: about 1e6 (E).
@@ -432,6 +434,9 @@ across the pair's block. The count omits the constant's scaling (≤ +10%).
 
 ### 5.4 Against option 4 (F3: V* reads the template as data)
 
+Superseded by "10 Oct, 06:55Z" below, which prices option 4 at F3's packed figures and option 5 with K2's count. Kept as
+the 03:30Z draft had it:
+
 | nonzeros per session | 2^16 | 2^20 | 2^24 |
 |---|---|---|---|
 | option 4, 23K ANDs per nonzero (the RoPE fold alone, reset), 1.0–1.4 rows per AND (C) | 1.5–2.1e9 | 2.4–3.4e10 | 3.9–5.4e11 |
@@ -441,6 +446,128 @@ across the pair's block. The count omits the constant's scaling (≤ +10%).
 - **Where option 5 starts winning.** Break-even is about 2^15–2^16 nonzeros per session (C/E). Option 4's in-circuit
   row reads (1.6M ANDs per hm96 row, reset) only lower it.
 - **Small shapes.** A shape menu that is mostly below 2^16 nonzeros would favour option 4 there.
+
+#### 10 Oct, 06:55Z: at F3's packed figures and F6's menu, with K2's count
+
+- **Answer.** At circuits' 2^20 nonzeros per piece, candidate 3 still beats V* reading the template (C).
+  - The GEMM step: 9.2–14.4×. GEMM-like units, MoE expert and FP8 block GEMMs included, are 99.6–99.96% of F6's draws.
+  - Across F3's five unit types: 1.25–14.8×. The low end is SiLU·mul, the cheapest at 1,184 ANDs a nonzero, at
+    1.25–2.0×.
+  - **No flip anywhere on F6's dp4 menu.** Every bound there is 2^24.3–2^31.8, where it wins by 15× or more for every
+    type and by 110× or more for the GEMM step.
+  - **Where it flips.** Only for pieces cut smaller: below 2^18.8–2^19.7 nonzeros for SiLU·mul, and below
+    2^15.6–2^16.5 for the other four types.
+- **Inputs.**
+  - **Option 4 (F3's packed V\* cost).** Per nonzero and session, two reps, packed by the 64-column word, with
+    registration's whole-row reads included (art:b56410cabae792600c86d960160b0c8da7a3ca408b867357103ce4719e07dd47,
+    branch `cursor/f3-nonzero-cost-f253` 76e405893), at 1.0–1.4 rows per AND as before:
+
+    | type | SiLU·mul | F32Mul | RoPE | GEMM step | RMSNorm |
+    |---|---|---|---|---|---|
+    | packed ANDs per nonzero | 1,184 | 6,320 | 6,573 | 8,710 | 8,952 |
+
+    F3 prices each type at its own slot size. Its formula grows with the slot size (about +6% for the GEMM step at
+    ℓ = 16), so at larger Z option 4 is, if anything, priced low.
+  - **F6's menu.** dp4 at B = 16 slots per session ([#1691](https://github.com/danielreuter/verity/pull/1691), run
+    r20261010-052139-6ad3, art:467e89da005c52017c5ecc49faec63c0ea47ad7c36d55d7d3b5e97d27668ee7f): 25 distinct bounds
+    over 8 workloads.
+    - A bound is per unit, so a session reads (option 4) or opens (option 5) one template of up to Z nonzeros, which
+      is how F3 prices it.
+    - F6's Z also counts C = I's rows, up to 4% over A's and B's nonzeros (F3's units: 0.8–3.9%); that is ignored here.
+  - **Shapes.** ν = ⌈log₂ Z⌉, and ℓ from ν − 7 to ν − 4: 16–128 nonzeros a template row, where F3's units have
+    25.5–128.6. The registered table's m = ν + log₂ P' is then ν + 5 or ν + 6. At 2^16 that is m = 21, padded to
+    fast100's smallest, 22.
+- **K2 (C): V\*'s rows for one registered opening.** `k2.py` builds the opening's statements the way `VStar.statements`
+  builds an inner table's: one `RecOpen{LANES, H}` per Ligerito level of fast100(m). It uses §1.4's schedule:
+  - Level 0 is the registered word at rate 1/8, 251 queries, cap 2^7.
+  - The later levels are fast100's, with their queries doubled.
+  - There is one opening per session.
+
+  Each unit's rows are main's `rec_outer.lowering(LANES, H).layout.useful`. That is what `vstar stage` reports as
+  `unit_rows`, and `test_vstar_difftest.py` pins it to the Lean builder. All 38 units it needs (LANES 16, 32 and 64; H
+  1–16) were lowered locally in about 10 minutes, at `dc67b1542` (unchanged under `verity/ml` and the vstar package
+  through 160c19680). So no Lean evaluation and no `research run`.
+
+| table m | levels, `RecOpen{LANES, H}` × instances | one registered opening | the inner table's two reps at the same m |
+|---|---|---|---|
+| 22 | {64,5}×251, {16,1}×212, {16,1}×106 | 5.85e8 | 8.29e8 |
+| 23 | {64,6}×251, {16,2}×212, {16,0→1}×142 | 6.68e8 | 9.23e8 |
+| 24 | {64,7}×251, {16,3}×212, {16,1}×142 | 7.33e8 | 1.04e9 |
+| 25 | {64,8}×251, {16,4}×212, {16,2}×142, {16,1}×106 | 8.69e8 | 1.21e9 |
+| 26 | {64,9}×251, {16,5}×212, {16,3}×142, {16,2}×106 | 9.71e8 | 1.34e9 |
+| 27 | {64,10}×251, {16,6}×212, {16,4}×142, {16,3}×106 | 1.07e9 | 1.47e9 |
+| 28 | {16,13}×251, {16,9}×212, {16,7}×142, {16,6}×106, {16,4}×86 | 1.27e9 | 1.63e9 |
+| 29 | {32,13}×251, then as m = 28 | 1.34e9 | 1.74e9 |
+| 30 | {64,13}×251, then as m = 28 | 1.46e9 | 1.94e9 |
+| 31 | {64,14}×251, {16,10}×212, {16,8}×142, {16,7}×106, {16,5}×86, {16,3}×72 | 1.63e9 | 2.15e9 |
+| 32 | {64,15}×251, …, {16,4}×72 | 1.75e9 | 2.31e9 |
+| 33 | {64,16}×251, …, {16,5}×72 | 1.88e9 | 2.46e9 |
+| 34–38 (E) | level 0's H is 17–21, past `RecOpen`'s 16; 7–8 levels | 2.06e9–2.67e9 | 2.68e9–3.40e9 |
+
+  - **Against the inner table.** The opening is 0.70–0.79× of the inner table's two reps at the same m. The old
+    estimate, 1.0–1.7e9 (E), brackets m = 27–31; at 2^20 it was high (against 8.7–9.7e8).
+  - **Rows grow linearly in H.** Each level of H adds 141,312–143,360 rows (two compressions and a swap) at every LANES,
+    so rows past H = 16 extend linearly (E). A registration that keeps as its tops its tree's nodes 16 levels above the
+    leaves caps H at 16, and costs less: that is 2^(d₀ − 16) nodes, 256 KiB per type at m = 38.
+  - **Checks.**
+    - `RecOpen{64,8}` is 2,174,977 rows, which is rec-v0's "2.18M".
+    - `RecOpen{64,16}` is 3,350,529, against 3,335,169 staged at m = 35 in rec-reprice (r20261005-065619-2e26, an
+      earlier RecOpen).
+    - The inner table at m = 35 sums to 2.84e9, inside rec-v0's 2.7–3.2e9.
+    - fast100 and the inner statements are asserted equal to main's for m = 22–35.
+  - **m = 23's level 2.** Its 142 doubled queries cover all 128 of its leaves (H = 0), which `RecOpen` refuses. It is
+    priced at H = 1, an upper bound.
+- **The rest of option 5 (C/E), under 2% at 2^20 together.**
+  - The sparse phase's algebra: `costs.py`'s formula, 1,202–4,178 multiplications at ν 16–32, × 2,187 ANDs, 2.6–9.1e6.
+  - The opening's own Ligerito algebra, at most one rep's: `rec_algebra.structure(Shape(m, 6, 2))` has 1,070–1,368
+    products, at most 3.4e6 rows at rec-reprice's 2,439 rows a product.
+  - The firewall commitments: 1.0e7.
+  - The root_τ read: 1e6 (E).
+  - **If the registered word keeps §1.2's salted hm96 leaves** (main's `RecOpen` hashes a plain SHA-512 leaf, the inner
+    table's, whose tops the firewall salts): +5.4–7.6e7 rows (E, 251 `Hm96Sha512Leaf_v1`). The GEMM step at 2^20 is
+    then 8.6–13.6×, and SiLU·mul 1.17–1.85×.
+
+V\* rows per session (option 4 C; option 5 C up to m = 33, E past):
+
+| nonzeros per session | 2^16 | 2^18 | 2^20 | 2^22 | 2^24 |
+|---|---|---|---|---|---|
+| table m | 21→22 | 23 | 25–26 | 27–28 | 30 |
+| option 4, 1,184–8,952 ANDs a nonzero × 1.0–1.4 rows | 7.8e7–8.2e8 | 3.1e8–3.3e9 | 1.2e9–1.3e10 | 5.0e9–5.3e10 | 2.0e10–2.1e11 |
+| option 5, K2's opening + the rest | 6.0e8 | 6.9e8 | 8.9e8–9.9e8 | 1.1e9–1.3e9 | 1.5e9 |
+| ratio, GEMM step (8,710) | 0.9–1.3× | 3.3–4.7× | **9.2–14.4×** | 28–47× | 99–138× |
+| ratio, SiLU·mul (1,184) | 0.13–0.18× | 0.45–0.63× | **1.25–1.96×** | 3.8–6.4× | 13–19× |
+| ratio, F3's five types | 0.13–1.4× | 0.45–4.8× | 1.25–14.8× | 3.8–48× | 13–142× |
+
+At F6's dp4 bounds (B = 16):
+
+| F6's bounds | what fills them | table m | option 4 | option 5 | ratio, GEMM step | ratio, F3's five types |
+|---|---|---|---|---|---|---|
+| 16 bounds, 2^24.3–2^27.8 | the GEMM buckets: GEMMs, MoE expert and FP8 block GEMMs, with RoPE and RMSNorm-Triton in the smallest | 31–34 | 2.5e10–3.0e12 | 1.65–2.08e9 | 110–1,387× | 15–1,425× |
+| 9 bounds, 2^28.0–2^31.8 | each workload's top one or two buckets: attention, SiLU·mul, RMSNorm, 1–21 drawn per audit | 35–38 (E) | 3.2e11–4.7e13 | 2.21–2.69e9 | (no GEMM there) | 145–17,600× |
+
+- **Break-even, per type (C).** Option 5 wins above these nonzeros per session:
+
+  | type | SiLU·mul | F32Mul | RoPE | GEMM step | RMSNorm |
+  |---|---|---|---|---|---|
+  | break-even | 2^18.8–2^19.7 | 2^16.1–2^16.5 | 2^16.0–2^16.5 | 2^15.6–2^16.1 | 2^15.6–2^16.0 |
+
+  With salted registered leaves: GEMM step 2^15.7–2^16.2, SiLU·mul 2^18.9–2^19.8.
+- **What the 2^20 bound costs option 5.** Option 5's V\* rows per template nonzero fall as pieces grow:
+  - 846–943 at 2^20, and 88 at 2^24;
+  - 9–79 at F6's GEMM bounds, and 42–52 at the 2^25.0–2^25.3 bounds that hold most draws.
+
+  Option 4's are 1,184–12,533 at every size. So under candidate 3, cutting the 2^25 GEMMs into 2^20 pieces multiplies
+  V\*'s rows per audit by about 16–22× against F6's unsplit buckets, while under option 4 the piece size is neutral for
+  V\*. With candidate 3, the per-piece bound is better set by the inner prover and session than by V\*. The prover's
+  memory, for example, is 0.25 GiB at 2^20 and 5 GiB at 2^24 after round 1 (§5.1).
+- **Not covered.**
+  - Sessions that mix types. One template per session is how F3 prices it and how §1.5 opens it; with t types in a
+    session, both options pay about t times, and the ratio holds.
+  - Types F3 didn't price: attention, the FP8 block GEMM, the MoE expert GEMM.
+  - The inner table's own rows, which are the same in both options.
+- **Reproduce.** The script, the 38 units' rows and the outputs are in the F4 handover's `k2/`:
+  - `python k2.py lower 3` with main's `verity` tree on `PYTHONPATH`;
+  - `K2_F3=… K2_F6=… python k2.py table`.
 
 ## 6. What would kill it, and the cheapest experiment
 
@@ -457,6 +584,9 @@ across the pair's block. The count omits the constant's scaling (≤ +10%).
   registered opening in V* costs as much as option 4 (§5.4).
   - **Experiment:** count V*'s rows for one registered opening at the menu's shapes with `VStar.statements`' existing
     Ligerito-verifier builder, against `23K × nnz`. It is a row count, not a run.
+  - **Run since: K2 does not fire** (§5.4, 10 Oct). F6's dp4 bounds are all 2^24.3 or more. At circuits' 2^20 pieces,
+    option 5 wins on every F3 type, SiLU·mul by the least (1.25–2.0×). It would fire only for pieces below
+    2^15.6–2^16.5 nonzeros (the other four types) or 2^18.8–2^19.7 (SiLU·mul).
 - **K3, Lean: D1's signature change.** If the hybrid forces `RepDoomed` and the four phase lemmas' signatures to change,
   candidate 3's specific part roughly doubles (+300 lines). It would still be below Spark, whose S3 (an oracle in the
   middle of a rep) has the same problem and more.
@@ -551,5 +681,7 @@ with numpy:
 - `python3 opcount_rows.py 11 15`: the fixed-width-row variant.
 - `python3 costs.py`: §5.1's prover, proof and verifier columns and the per-rep error.
 - `python3 extra.py`: unique-decoding queries per rate, the `L₀`-weighted term, memory, and V* rows against option 4.
+- `k2/k2.py lower` then `k2/k2.py table`: K2, V*'s rows for one registered opening against option 4 at F3's packed
+  figures and F6's bounds (§5.4, 10 Oct). It is in the handover's `k2/`; its art id is pending.
 
 Lean citations: `git show origin/main:Security/Proofs/Flock/…` at `dc67b1542`.

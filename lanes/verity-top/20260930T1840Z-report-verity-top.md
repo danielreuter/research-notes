@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (16:00Z) [open] main cca22e18e; #1717 checking on node 2 (unblocks check publishing); closing #1716 step 3e; #1712 with Daniel; machines below thresholds
 CHECKPOINT none (15:45Z) [open] main cca22e18e; #1717 (circuit-check cache fix, unblocks check publishing) ready, checking on node 2; closing #1716 step 3e; #1712 with Daniel
 CHECKPOINT none (15:30Z) [open] main cca22e18e; check publishing blocked on #1712 (Daniel) or circuits' cache fix; closing #1716 step 3e; trains #1713, #1715, #1714+#1711, #1678 queued
 CHECKPOINT none (15:20Z) [open] main cca22e18e; #1712 (Daniel's steward agent) blocks check publishing, asked Daniel; circuits fixes cache root cause after #1710; closing #1716 step 3e

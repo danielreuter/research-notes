@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (08:17Z) [open] 08:16Z: inbox empty; closing tree sorry-free at 39743d067, landing plan open; trains A/B running; n1 inodes 64.1%; key still with Daniel
 CHECKPOINT none (08:02Z) [open] 08:02Z: inbox empty; compute accounting nudged on F6 prover column; closing head waits on wiring (i); trains A and B running; key still with Daniel
 CHECKPOINT none (07:47Z) [open] 07:47Z: inbox empty; closing head 91c524f75 waits on wiring (i); trains A and B running on n1; key still with Daniel
 CHECKPOINT none (07:32Z) [open] 07:32Z: inbox empty; 07:30Z closing build on 9ce854109 + 8d5ae18be; F2 round 2 statements done; session bound waits on F6's prover column; key still with Daniel

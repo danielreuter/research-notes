@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:15Z) [open] main 17c084c54; #1678 full check running; closing branch re-merging main; #1710 re-records after review changes
 CHECKPOINT none (14:02Z) [open] main 17c084c54; #1678 ready at c38d88ec6, full check running; F4 V* needs no repricing; closing branch re-merging main
 CHECKPOINT none (13:56Z) [open] main 17c084c54; #1678 full check at c38d88ec6 pending ready mark; closing branch re-merging main for Security lock; trains #1704+#1703, #1698+#1707, #1709 running
 CHECKPOINT none (13:32Z) [open] 13:30Z: inbox empty; #1710 sparse phase up, encodings review by 14:30Z; #1678 re-recorded at 68d76fd23 awaiting mark; closing build step 3c

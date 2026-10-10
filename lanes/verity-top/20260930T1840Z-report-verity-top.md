@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (17:20Z) [open] 10:20 AM PT: closing train 975d53737c3a checking on node 1; #1710 ready d4ce10b6e; ci preps #1723/#1721/#1727 on d59e267ac
 CHECKPOINT none (17:10Z) [open] 10:10 AM PT: closing train checking as 975d53737c3a on node 1; #1722 landed (main d59e267ac); Daniel asked for export token and Glossary-vs-preferences call
 CHECKPOINT none (16:42Z) [open] main fa1030bd5 (#1709, #1678+#1714: PoUS Lean verifier of record); closing check cb20 failed on unexported rec-coins fixture, infra exporting, relaunch on 0f0bbda3b next
 CHECKPOINT none (16:15Z) [open] main a38a9d0e5 (#1713+#1715); closing #1716 full check 0f0b running since 16:05Z, lands via trailer; #1717, #1711 on checks; #1712 with Daniel

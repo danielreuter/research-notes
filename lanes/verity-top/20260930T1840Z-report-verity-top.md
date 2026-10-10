@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (15:30Z) [open] main cca22e18e; check publishing blocked on #1712 (Daniel) or circuits' cache fix; closing #1716 step 3e; trains #1713, #1715, #1714+#1711, #1678 queued
 CHECKPOINT none (15:20Z) [open] main cca22e18e; #1712 (Daniel's steward agent) blocks check publishing, asked Daniel; circuits fixes cache root cause after #1710; closing #1716 step 3e
 CHECKPOINT none (14:46Z) [open] main cca22e18e (#1704+#1703, F2 proved); #1678+#1714 ready for one check; closing branch re-merging main; Daniel updated 14:45Z
 CHECKPOINT none (14:30Z) [open] main 17c084c54; #1678 + #1714 (flaky-test fix) to train together; closing branch re-merging main

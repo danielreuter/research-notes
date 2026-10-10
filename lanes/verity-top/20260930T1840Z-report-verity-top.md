@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:37Z) [open] 20:37Z: f4be (#1716) and 9fee (#1716+#1728) checking on node 1; F5 plan accepted, menu clash ruled; #1710 relaunch placed on node 2 slot b after 08f1; #1731 up
 CHECKPOINT none (20:18Z) [open] 20:17Z: idle accounting lanes restarted (compute: Gamma PR, H1T falsification, FP8 rotation; network: #1605 + NetTiming; memory: next PoUS gap); watching #1716 relaunch on 7c369db60
 CHECKPOINT none (20:02Z) [open] 1:00 PM PT: closing train e826 failed on #1716's own stale tests, fixed at 4e460cc93; relaunch pending with lander; fixtures to node 2 and vy-cpu-1; ETA 3:30-4 PM PT
 CHECKPOINT none (19:45Z) [open] 12:45 PM PT: closing train e826 8 steps passed incl agreement; #1716+#1728 check a7fc queued on node 1

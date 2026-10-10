@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (02:21Z) [open] 02:21Z fronts announced; d404 faulty unit caught; node 2 closed to launches pending circuits' yes on jobs/hf+cov
 CHECKPOINT none (02:06Z) [open] 02:05Z Daniel reset to sampled proofs (F1-F7) recorded; rollout due 03:30Z; inbox empty
 CHECKPOINT none (01:50Z) [open] 01:50Z: main 1593a685d918 (#1671 landed); K=2 only in staging, fork term stays 2^-168.5; re-pin blocked by #1656 event form until rule fix; #1606 train b9adbfa4e355
 CHECKPOINT none (01:34Z) [open] 01:34Z: #1606 ready for agreement train (be95621fe); #1684 node-side launch hold incl. older checkouts; #1656 records all passed; joint build 01:30Z

@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (23:53Z) [open] 23:58Z: #1662+#1663 land as one merge once #1663 is re-recorded (bc-c7a4c235); fallback is the #1662 shape fix by 02:00Z. Gap 2 proved (rec-outer-zk-abort-2261). Top called (a) for the V* law (rec-guard; size due 00:30Z), G at the plain leaf (go), and decision 5 after the closing build. #1664's META check 996c passed. Node 1 at 62% disk and 59% inodes.
 CHECKPOINT none (23:22Z) [open] 23:20Z: #1662 retrains tonight unpinned (architecture 23:01Z), with RecursiveAudit pinned after gap 4 at 09:00Z on #1650's per-conjunct entry. New PRs #1679/#1680 (hM1 discharged) and #1681 (ReadsCover route 1). #1673 covers six ZK guarantees at the gap. #1671's statement is approved. The decision 5 and SHA-512 sizes are in; the combined post to top goes at 23:30Z. Node 1 is at 61% disk and 58% inodes; 322a and 996c are running.
 CHECKPOINT d1fc8653c (22:53Z) [open] 22:55Z: per top, #1662 lands without RecursiveAudit pinned (re-pinned at the closing build); bc-c7a4c235 unpins and re-records; told top L.nonempty is Law's field (gap 4 route) and no ZK statement passes shape on main; lean's G round 6: route (a), checkFull into #1676
 CHECKPOINT 83060e027 (22:45Z) [open] 22:45Z: opened #1676 (model's checkRegistered = executable's, moved into Flock.Registered) and #1677 (all prover randomness from the OS, within thresholds); #1664 body updated; gap 2's refused-table residual to be proved (~45 lines) by 01:15Z

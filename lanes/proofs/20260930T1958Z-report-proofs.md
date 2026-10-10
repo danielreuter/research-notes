@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (16:35Z) [open] 9:35 AM PT: train check cb20 failed lean-suites: rec-coins fixture art:84471c45 preserved privately but never exported to verity-public; asked infra to export (this VM gets 403), then the lander reruns on 0f0bbda3b.
 CHECKPOINT none (16:06Z) [open] 9:08 AM PT: closing PR #1716 final at 73c32bfcf (main cca22e18e), ready, quick tier 158c; train list posted to lander/ci (#1717 first). Head sent to R4 and the witness branch; R4 keeps ReadsUnsegmented as an open obligation.
 CHECKPOINT none (15:07Z) [open] 8:07 AM PDT: closing PR #1716 open (draft) at 64a7df445 (3d records c632 pass 24 packages; job 4's row-ports speedup merged); rec-lean's step 3e merges main cca22e18e (one import line with #1703's Sampled) and rebuilds Security/Proofs, then the train list. #1715 (F2 slot padding) ready, prepped by ci as 0af23fe0bef6. Witness Lean at 9e67449bb awaits the final closing head.
 CHECKPOINT none (14:07Z) [open] 7:07 AM PDT: closing branch at afc7acb11 (records 837d, 238) needs main 17c084c54 (lock refuses over v2Rows), rec-lean step 3d running; then the closing PR and train list. #1710 reviewed: six encodings sound and hiding, item 5 corrected (note:proofs/20261010T1345Z-finding-c3-sparse-review); top said yes to its Lean after the train behind #1709; F4's V* table needs no repricing. F2 stating slot padding in SlotBinding, stacked on #1703. Witness Lean and R4 running.

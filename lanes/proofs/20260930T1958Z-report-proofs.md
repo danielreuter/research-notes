@@ -5,6 +5,7 @@ created: 2026-09-30T19:58Z
 status: open
 ---
 
+CHECKPOINT none (03:37Z) [open] 03:50Z: Daniel's reset staffed: F1 gate staging (85-rec-reprice K=4096 N=2, node 1), public-unit RecursiveAudit skeleton (bc-66706a46, after the Build.row fix PR), keys (bc-c7a4c235), F2 statements (bc-3b30a3fc), F4 x3 (Spark draft in; recommends bit-committed sumcheck). Lean's G rulings 1-4 made (all yes). (ii) at Firewall.run proved (6ccd6c758); (B) phase 2 running; gap 8 needs (5)/(6) refusals. #1677 ready; #1627/#1662/#1663/#1673 re-recording on main.
 CHECKPOINT none (01:55Z) [open] 02:02Z: gap 8 blocked (loads_of_verifies false: check 1 not in model, no session-statement tie, bindings unpinned, Vs free); call asked of top and lean, hv refusals needed by 05:30Z. Top: _hreg is the subject (shape rule gets a subject category); K stays 2^-168.5; (a') go, measurement first; fold on hold. Combined (a')+(B)+per-registration-key plan due 03:00Z (bc-ad20837e).
 CHECKPOINT none (01:30Z) [open] 01:32Z: packing + uuTypeW soundness landed (bc-66706a46, e7f4 clean; K=2); top asks whether K=2 is read from acceptance, answer with (a') size at 01:45Z. Per-registration key answered (2^-247.4 averaged). Node 1 63%, idle.
 CHECKPOINT none (01:06Z) [open] 01:06Z: top called same_shape (1), a prover-side shape check before registration; rec-thm writes the decidable Lean function in (ii)'s PR, bc-b5fd2fd3 the rec_vstage refusal and pinning test (cursor/rec-shape-check-95d4). #1677 checking (6cac, n2). Node 1 63% disk, GPUs idle.

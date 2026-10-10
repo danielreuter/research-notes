@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:02Z) [open] 1:00 PM PT: closing train e826 failed on #1716's own stale tests, fixed at 4e460cc93; relaunch pending with lander; fixtures to node 2 and vy-cpu-1; ETA 3:30-4 PM PT
 CHECKPOINT none (19:45Z) [open] 12:45 PM PT: closing train e826 8 steps passed incl agreement; #1716+#1728 check a7fc queued on node 1
 CHECKPOINT none (19:30Z) [open] 12:30 PM PT: closing train e826 running on node 1 (ETA ~1:30 PM PT); #1728 combined check queued for next node 1 slot
 CHECKPOINT none (19:17Z) [open] 12:15 PM PT: closing train e826 7 steps passed (ETA ~1:30 PM PT); #1728 ready, combined check with #1716 asked for next node 1 slot; RecSparse netlist PR ~1:30 PM PT

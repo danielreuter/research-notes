@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (07:47Z) [open] 07:47Z: inbox empty; closing head 91c524f75 waits on wiring (i); trains A and B running on n1; key still with Daniel
 CHECKPOINT none (07:32Z) [open] 07:32Z: inbox empty; 07:30Z closing build on 9ce854109 + 8d5ae18be; F2 round 2 statements done; session bound waits on F6's prover column; key still with Daniel
 CHECKPOINT none (07:18Z) [open] 07:18Z: inbox empty; main d1f4d97de (#1677+#1676); proofs stack re-records Security; n1 hold lifted; 07:30Z build next; key still with Daniel
 CHECKPOINT none (07:03Z) [open] 07:03Z: inbox empty; main 160c19680 (#1666); PublicAudit proved, gate restage chosen; 07:30Z build on 9ce854109 + 8d5ae18be; key still with Daniel
